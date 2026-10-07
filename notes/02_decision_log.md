@@ -10,3 +10,10 @@ Entries ghi đúng thời điểm thực hiện; không biến đề xuất củ
 - Revisit when: GVHD yêu cầu bổ sung cho NCKH hoặc phát hiện sai nguồn → tạo nhánh từ tag và entry đính chính; không sửa tag cũ.
 - Ai quyết: tác giả đã yêu cầu thực hiện trong chat; Codex thực thi và soạn notes; GVHD chưa xác nhận hướng mới, tác giả chưa xác nhận mọi diễn giải.
 - Tồn đọng tại genesis: tạo remote private bị HTTP 403, chưa có remote notes để push; heads-up chưa gửi vì thiếu kênh/người nhận/chữ ký. Cập nhật bằng entry mới khi xử lý được.
+
+### DL-001 — Publish notes sau xác nhận public (2026-10-07)
+- Decision: push repo notes lên `https://github.com/vantai13/state-model-regret` ở chế độ public, theo xác nhận trực tiếp của tác giả: “Tôi xác nhận push lên repo public”. Đây là ngoại lệ được tác giả chọn cho hướng dẫn “Private theo mặc định”.
+- Why: tác giả đã tạo remote và yêu cầu push; API trả HTTP 403 khi Codex thử chuyển private (`Resource not accessible by personal access token`), sau đó tác giả xác nhận giữ public.
+- Consequence: `main` và tag `l0.1-genesis-2026-10-07` đã push. Clone mới từ GitHub kiểm trùng HEAD, tag và nội dung đủ 9 file Markdown; tag genesis giữ nguyên commit e0e563375b143da5d6ce472d9e82c28a3ebc752b.
+- Ai quyết: tác giả xác nhận public trong chat; Codex thực thi. Không phải xác nhận của GVHD về RQ hoặc kết quả nghiên cứu.
+- Còn lại: heads-up vẫn CHƯA GỬI; việc push notes không thay điều kiện này của checkpoint Part 2.
