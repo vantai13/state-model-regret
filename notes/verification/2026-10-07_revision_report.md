@@ -81,3 +81,9 @@ Understanding PASS (tác giả xác nhận nội dung); Scientific validity PASS
 ## 8. Next action
 
 Send the already-prepared GVHD heads-up. Không bắt đầu L0.2. Chỉ nội dung hiện hành được biên tập; tags/lịch sử bất biến không bị rewrite.
+
+## Kết quả kiểm cuối
+
+19/19 hàng inventory; 22/22 source digests khớp; 77 đường dẫn nội bộ mở được; 9/9 con trỏ history tại tag mở được. Số liệu F7 khớp lần tính gốc; phản ví dụ Γ và exposure n02 kiểm đạt. Bản hiện hành không còn các tên công cụ đã yêu cầu bỏ hoặc đường dẫn tuyệt đối tới laptop. Log: `revision_validation.json`.
+
+Snapshot evidence: `l0.1-evidence-v0-2026-10-07` / `2cf14e69f15efc931e54f2e6a945fa0aab6ca995`; genesis và mọi archive tag giữ nguyên.
