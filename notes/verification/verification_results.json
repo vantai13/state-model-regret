@@ -1,0 +1,387 @@
+{
+  "date": "2026-10-07",
+  "timezone": "Asia/Saigon",
+  "kind": "archive audit and recalculation; no new simulation",
+  "target": "e669f5c8053a81d6de192de9f9d0d6304ee67802",
+  "branches": [
+    {
+      "ref": "origin/confirm-v0",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/explore-width-v0",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/frontier-v0",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/go-switch-v1",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/go-test-v0",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/main",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/map-scan-v0",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/rollout-v2-v4",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/rollout-v5",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/rollout-v6",
+      "in_primary": true,
+      "in_auxiliary": true
+    },
+    {
+      "ref": "origin/wip-local-2026-10-07",
+      "in_primary": false,
+      "in_auxiliary": true
+    }
+  ],
+  "sources": [
+    {
+      "ref": "archive-switch-or-stay-2026-10-02:experiments/results/f07/f07_outcome.json",
+      "bytes": 128514,
+      "sha256": "606bba9052e980278865dfd2622c746c1c2c52e47b84cd677dea1a5f466bbc99"
+    },
+    {
+      "ref": "archive-switch-or-stay-2026-10-02:results/gocheck/reproduction_contrasts.csv",
+      "bytes": 1197,
+      "sha256": "81281961a1ae2e1425ada091314e89f86c58491959e6897c7dc5a16a5fa18580"
+    },
+    {
+      "ref": "archive-switch-or-stay-2026-10-02-wip-local-2026-10-07:experiments/results/n02_H0.5_rho0.80_run.json",
+      "bytes": 1888,
+      "sha256": "58bf8163c19632c2b3fe495c438beeb4b088595b58ccf89ac86346f051ef9b29"
+    },
+    {
+      "ref": "archive-switch-or-stay-2026-10-02-wip-local-2026-10-07:experiments/results/n02_H0.5_rho0.70_run.json",
+      "bytes": 1888,
+      "sha256": "9ada30c34f6aee19bb5ca21b67ab98f9bb14b5abb6a4683f061e72e70f7fa8c8"
+    }
+  ],
+  "f7": {
+    "AA": {
+      "headroom": {
+        "n": 90,
+        "mean": 5.660375308442494,
+        "ci95_half": 0.17676377139632957,
+        "lower": 5.483611537046165,
+        "upper": 5.837139079838823
+      },
+      "static": {
+        "n": 90,
+        "mean": 1.2512379165516125,
+        "ci95_half": 0.05448053620228269,
+        "lower": 1.1967573803493299,
+        "upper": 1.3057184527538952
+      },
+      "center": {
+        "n": 90,
+        "mean": 0.1632567313874265,
+        "ci95_half": 0.04883425061125543,
+        "lower": 0.11442248077617106,
+        "upper": 0.21209098199868193
+      },
+      "pure": {
+        "n": 90,
+        "mean": 0.06276434757584673,
+        "ci95_half": 0.02262768022712906,
+        "lower": 0.04013666734871767,
+        "upper": 0.08539202780297579
+      },
+      "safety": {
+        "n": 90,
+        "mean": 0.8165914224175355,
+        "ci95_half": 0.06602638566331516,
+        "lower": 0.7505650367542203,
+        "upper": 0.8826178080808507
+      },
+      "information": {
+        "n": 90,
+        "mean": 3.366524890510073,
+        "ci95_half": 0.09793575935259693,
+        "lower": 3.268589131157476,
+        "upper": 3.4644606498626698
+      },
+      "gap": {
+        "n": 90,
+        "mean": 0.22602107896327325,
+        "ci95_half": 0.05089439701280013,
+        "lower": 0.17512668195047312,
+        "upper": 0.27691547597607336
+      },
+      "information_share_percent": 59.47529460615226,
+      "pure_share_percent": 1.1088372087665852,
+      "absolute_contrast": {
+        "n": 90,
+        "mean": -7.873978921036726,
+        "ci95_half": 0.050894397012800116,
+        "lower": -7.924873318049526,
+        "upper": -7.823084524023926
+      },
+      "relative_contrast": {
+        "n": 90,
+        "mean": -0.3400164518809762,
+        "ci95_half": 0.04450807458405944,
+        "lower": -0.3845245264650356,
+        "upper": -0.29550837729691676
+      },
+      "decomposition_residual_max": 8.881784197001252e-16,
+      "practical_verdict": "not meaningful"
+    },
+    "BB": {
+      "headroom": {
+        "n": 90,
+        "mean": 6.172167056941439,
+        "ci95_half": 0.16250475591051833,
+        "lower": 6.009662301030921,
+        "upper": 6.3346718128519575
+      },
+      "static": {
+        "n": 90,
+        "mean": 0.5403966474056935,
+        "ci95_half": 0.036890965529048136,
+        "lower": 0.5035056818766454,
+        "upper": 0.5772876129347416
+      },
+      "center": {
+        "n": 90,
+        "mean": 0.04800564609583838,
+        "ci95_half": 0.023625236645521193,
+        "lower": 0.024380409450317185,
+        "upper": 0.07163088274135956
+      },
+      "pure": {
+        "n": 90,
+        "mean": 0.005969003257034316,
+        "ci95_half": 0.018748128010633733,
+        "lower": -0.012779124753599417,
+        "upper": 0.02471713126766805
+      },
+      "safety": {
+        "n": 90,
+        "mean": 0.36371494976016233,
+        "ci95_half": 0.07426275279497464,
+        "lower": 0.2894521969651877,
+        "upper": 0.43797770255513696
+      },
+      "information": {
+        "n": 90,
+        "mean": 5.21408081042271,
+        "ci95_half": 0.09588418969845919,
+        "lower": 5.118196620724251,
+        "upper": 5.30996500012117
+      },
+      "gap": {
+        "n": 90,
+        "mean": 0.053974649352872696,
+        "ci95_half": 0.027743162420301136,
+        "lower": 0.02623148693257156,
+        "upper": 0.08171781177317383
+      },
+      "information_share_percent": 84.47731181479882,
+      "pure_share_percent": 0.09670838786389235,
+      "absolute_contrast": {
+        "n": 90,
+        "mean": -8.046025350647128,
+        "ci95_half": 0.02774316242030114,
+        "lower": -8.073768513067428,
+        "upper": -8.018282188226827
+      },
+      "relative_contrast": {
+        "n": 90,
+        "mean": -0.5632420563412712,
+        "ci95_half": 0.026581485312087576,
+        "lower": -0.5898235416533588,
+        "upper": -0.5366605710291836
+      },
+      "decomposition_residual_max": 1.7763568394002505e-15,
+      "practical_verdict": "not meaningful"
+    },
+    "AB": {
+      "headroom": {
+        "n": 90,
+        "mean": 6.028945793930054,
+        "ci95_half": 0.1475135005718466,
+        "lower": 5.881432293358208,
+        "upper": 6.176459294501901
+      },
+      "static": {
+        "n": 90,
+        "mean": 1.0198739511931083,
+        "ci95_half": 0.04465836417159963,
+        "lower": 0.9752155870215087,
+        "upper": 1.064532315364708
+      },
+      "center": {
+        "n": 90,
+        "mean": 0.24401463606245924,
+        "ci95_half": 0.04734910917363488,
+        "lower": 0.19666552688882435,
+        "upper": 0.2913637452360941
+      },
+      "pure": {
+        "n": 90,
+        "mean": 0.09114056660585666,
+        "ci95_half": 0.027572944721799646,
+        "lower": 0.06356762188405701,
+        "upper": 0.11871351132765631
+      },
+      "safety": {
+        "n": 90,
+        "mean": 0.844626100108055,
+        "ci95_half": 0.08137411561953276,
+        "lower": 0.7632519844885222,
+        "upper": 0.9260002157275877
+      },
+      "information": {
+        "n": 90,
+        "mean": 3.8292905399605752,
+        "ci95_half": 0.09259136467291174,
+        "lower": 3.7366991752876633,
+        "upper": 3.921881904633487
+      },
+      "gap": {
+        "n": 90,
+        "mean": 0.3351552026683159,
+        "ci95_half": 0.05216259574185523,
+        "lower": 0.28299260692646067,
+        "upper": 0.3873177984101711
+      },
+      "information_share_percent": 63.51509319947621,
+      "pure_share_percent": 1.51171647118833,
+      "absolute_contrast": {
+        "n": 90,
+        "mean": -7.764844797331683,
+        "ci95_half": 0.05216259574185524,
+        "lower": -7.817007393073538,
+        "upper": -7.712682201589828
+      },
+      "relative_contrast": {
+        "n": 90,
+        "mean": -0.26773937672468956,
+        "ci95_half": 0.049006963393281325,
+        "lower": -0.31674634011797087,
+        "upper": -0.21873241333140825
+      },
+      "decomposition_residual_max": 1.3322676295501878e-15,
+      "practical_verdict": "not meaningful"
+    }
+  },
+  "remote_primary_tag_verified": true,
+  "remote_auxiliary_tag_verified": true,
+  "f7_validity": true,
+  "f7_tests": {
+    "M1": [
+      0.082322940737942,
+      0.0015977761879700401
+    ],
+    "M2": [
+      -0.07627248738132403,
+      0.0019903503166628558
+    ],
+    "V": [
+      -0.26773937672468956,
+      0.049006963393281325
+    ],
+    "D_AB": [
+      0.008619816756935765,
+      0.02422905056147843
+    ],
+    "D_AA": [
+      -0.16952109541606988,
+      0.07838304776209344
+    ],
+    "floor_sum": 0.07209226659004689,
+    "passed": {
+      "M1": true,
+      "M2": true,
+      "V": false,
+      "D": false
+    }
+  },
+  "gocheck_posthoc": {
+    "alpha": "0.002",
+    "cooldown_s": "0",
+    "contrast": "SC_FIX_minus_SC_SYM",
+    "mean_ms": "2.985597896617483",
+    "lo95_ms": "2.4957053418518744",
+    "hi95_ms": "3.475490451383092",
+    "role": "posthoc_information_vs_policy"
+  },
+  "n02_seeds_verified": [
+    9101,
+    9102,
+    9103,
+    9104,
+    9105,
+    9106,
+    9107,
+    9108,
+    9109,
+    9110
+  ],
+  "n02_scope": "PSA, POS_probeB, G_all, H=0.5; no action-induced load feedback",
+  "counterexamples": [
+    {
+      "error": 3,
+      "gaps": [
+        4,
+        1,
+        1,
+        -2
+      ],
+      "costs": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "gamma": 2
+    },
+    {
+      "error": 1.5,
+      "gaps": [
+        1.0,
+        -0.5,
+        -0.5,
+        -2
+      ],
+      "costs": [
+        20,
+        18,
+        18,
+        18
+      ],
+      "gamma": -2
+    }
+  ],
+  "limitations": [
+    "Literature primary papers not independently re-read.",
+    "Original full review is represented by a digest and public reading note.",
+    "Local bundles and raw data are not downloaded or independently recovered by this script."
+  ]
+}
