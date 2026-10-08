@@ -2,72 +2,101 @@
 
 Tác giả: **Doan Van Tai** · Ngày: **08/10/2026**.
 
-> **Nguồn gốc.** Tích hợp nội dung File 3 tác giả cung cấp ngày 08/10/2026. Bảng sinh bằng [script](../../experiments/lessons/l0_6_timescale.py), bất biến kiểm bằng [7 test](../../tests/test_timescale.py): **7 passed**, đã chạy và đối chiếu ba mức 0,35 / 0,6 / 1,0 s ngày 08/10/2026. AoI được đối chiếu với JSON/PROVENANCE từ immutable archive; không tái tính raw. Chưa có record tác giả tự tính tay hoặc trả lời kín sách trong L0.6; phần tính minh họa dưới đây không thay bài làm đó.
+> **Nguồn gốc.** Cập nhật theo phương án A tác giả cung cấp: giữ cả neo (a), (b), tuổi thông tin thành trục quét thay neo testbed (DL-008). Bảng sinh bằng [script](../../experiments/lessons/l0_6_timescale.py), kiểm bằng [10 test](../../tests/test_timescale.py). Bài tác giả tự tính tay và tự đọc nguồn còn chờ ở [L0.6](../lessons/L0.6_scope.md); đối chiếu kỹ thuật không thay các bài đó.
 
 ## Câu hỏi
+Queue có còn "nhớ" trạng thái đủ lâu so với tuổi thông tin cộng độ trễ thực thi action không? Đây là sàng lọc thứ tự độ lớn cho K9, chưa phải định lý về gain của repair backlog hoặc toàn bộ State repair.
 
-Queue có còn “nhớ” backlog đủ lâu so với tuổi thông tin cộng độ trễ thực thi action không? Đây là kiểm thứ tự độ lớn cho rủi ro timescale K9, không phải chứng minh State repair có giá trị.
+## Công thức (fluid, một bottleneck) và đơn vị
+$t_{\text{pkt}}=8L_{\text{pkt}}/R_{\text{link}}$ (s); $\mu_{\text{pkt}}=1/t_{\text{pkt}}$ (packet/s); $T_{\text{drain}}=q_0/\big((1-\rho)\mu_{\text{pkt}}\big)$ (s), chỉ dùng khi $\rho<1$. $L_{\text{pkt}}=1500$ byte.
 
-## Công thức fluid và đơn vị
-
-Với một bottleneck, packet cùng kích thước và offered traffic không đổi:
-
-$$
-t_{\text{pkt}}=\frac{8L_{\text{pkt}}}{R_{\text{link}}},\qquad
-\mu_{\text{pkt}}=\frac{1}{t_{\text{pkt}}},\qquad
-T_{\text{drain}}=\frac{q_0}{(1-\rho)\mu_{\text{pkt}}}\quad(0\le\rho<1).
-$$
-
-| Ký hiệu | Định nghĩa | Đơn vị / nguồn |
-|---|---|---|
-| $L_{\text{pkt}}$ | Kích thước packet, dùng 1500 byte trong bảng | byte; lựa chọn minh họa |
-| $R_{\text{link}}$ | Tốc độ link | bit/s; bốn mức minh họa, Mb/Gb dùng lũy thừa 10 |
-| $t_{\text{pkt}}$ | Thời gian truyền một packet | s; byte nhân 8 đúng một lần |
-| $\mu_{\text{pkt}}$ | Tốc độ phục vụ packet | packet/s |
-| $q_0$ | Backlog ban đầu | packet; 100/1000 là giá trị khảo sát |
-| $\rho$ | Offered load / service rate trước quyết định | Không thứ nguyên; 0,5/0,8 là giá trị khảo sát |
-| $T_{\text{drain}}$ | Thời gian xả backlog bằng capacity còn dư theo fluid | s; không phải thời gian mất nhớ đã đo của queue ngẫu nhiên |
-| $\tau_{\text{eff}}$ | Tuổi hiệu dụng của thông tin tại lúc quyết định | s; observation tức thời dùng AoI, rate trung bình cửa sổ xấp xỉ AoI + $W/2$ |
-| $d_{\text{act}}$ | Từ quyết định tới lúc action có hiệu lực trên data plane | s; cần đo cho use case ở Phase 8 |
-| $h$ | Horizon vật lý chung, $h=H\Delta t$ theo contract D2 | s; giá trị khóa ở L1.8 |
-
-Capacity còn dư $(1-\rho)\mu_{\text{pkt}}$ dùng để xả backlog. Khi $\rho\ge1$, queue có backlog không tự xả theo fluid; script trả `inf`. Khi $q_0=0$ và $\rho<1$, drain bằng 0. Chỉ dùng các tỉ số có mẫu số dương, hữu hạn; không suy diễn domain ratios từ `inf` hoặc drain bằng 0.
+$q_0$ tính bằng packet; $R_{\text{link}}$ bằng bit/s (Mb/Gb theo lũy thừa 10); $\rho$ là offered load/service rate, không thứ nguyên. Miền dùng: $q_0\ge0$, $0\le\rho<1$, link và kích thước packet dương. $\tau_{\text{eff}}$ là tuổi hiệu dụng khi quyết định; $d_{\text{act}}$ từ quyết định tới action có hiệu lực trên data plane; $h=H\Delta t$ là horizon vật lý chung. Cả ba tính bằng giây; D8 dùng slot nên cần quy đổi ở L1.8.
 
 ## ρ nào cho câu hỏi nào
+- **Kiểm timescale (note này):** $\rho$ **trước** quyết định, vì Switch chưa xảy ra trong lúc thông tin đang cũ dần. Dùng tải sau Switch cho giai đoạn trước action có thể làm drain dài hơn ở queue nhận thêm traffic; queue giảm tải có hướng khác. Phải chỉ rõ queue/giai đoạn.
+- **Chọn $H$ (L1.8):** $\rho$ **sau** Switch, như $T_{\text{drain}}=q_0/(\mu-\lambda_B-\delta\lambda)$ của Final Review §5.3.
 
-- **Kiểm timescale:** dùng $\rho$ **trước** quyết định, vì trong lúc observation cũ dần và action chưa tới mạng, Switch chưa thay đổi tải. Dùng tải sau Switch để tính giai đoạn này có thể làm queue trông nhớ lâu hơn.
-- **Chọn $H$ ở L1.8:** xét động học **sau** Switch, ví dụ $q_0/(\mu-\lambda_B-\delta\lambda)$ khi mẫu số dương; đây là câu hỏi khác. Đối chiếu Final Review §5.3.
+## Từ chu kỳ đo tới tuổi thông tin
+Giả định phase quyết định phân bố đều trong chu kỳ đo $P$, độ trễ truyền/xử lý $L$ cố định, không mất mẫu hoặc đảo thứ tự; giá trị đo trung bình trên cửa sổ $W$ ($W=0$ với mẫu tức thời). Quy ước tuổi hiệu dụng theo tâm cửa sổ:
 
-## Ba vùng và quy ước phân loại
+$$\tau_{\text{eff}}\approx \frac{P}{2}+L+\frac{W}{2}\quad(\text{xấu nhất}\approx P+L+W/2)$$
 
-Đặt $z=T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$. Script dùng factor = 3; đây là quy ước đọc thứ tự độ lớn, không phải ngưỡng khoa học hoặc SLA.
+Đây là tuổi **trung bình** theo giả định trên; biểu thức “xấu nhất” là xấp xỉ trong cùng mô hình, không phải cận latency thực tế khi có jitter/mất mẫu. Chu kỳ polling và latency đo đạc trong paper không tự bằng $\tau_{\text{eff}}$.
 
-| Vùng | Quy tắc trong script | Ý nghĩa trong xấp xỉ fluid |
+Ví dụ: SNMP poll 60 s, rate lấy từ hiệu counter ($W=60$ s), $L\approx0$ → $\tau_{\text{eff}}\approx60$ s (hàm `effective_age_s`, có test).
+
+## Chế độ telemetry và độ trễ action theo literature
+| Chế độ | Ví dụ | Thang thời gian | Nguồn | Loại nguồn |
+|---|---|---|---|---|
+| Cỡ ms | Planck: port mirroring | Đo flow/link rate 0,280–7 ms ở 1 Gb/s, 0,275–4 ms ở 10 Gb/s; tùy buffering | [Rasley et al., SIGCOMM 2014](https://users.cs.utah.edu/~brent/docs/planck.sigcomm14.pdf), abstract/§5.5 | Primary cho thí nghiệm Planck; chưa có record tác giả tự đọc |
+| Dưới 1 s | Đọc counter OpenFlow; OpenSample; Mahout polling | 75–200 ms; 100 ms; 190 ms | Planck §2.2–2.3, Table 1 | Trích lại so sánh prior trong paper; 190 ms là polling, không phải end-host detection của Mahout |
+| Vài giây | MicroTE; Hedera; streaming telemetry | Control loop MicroTE 1 s (Planck §8); Hedera polling/estimate/schedule 5 s (§5.4); streaming cỡ giây là mô tả vendor | [Hedera, NSDI 2010](https://raghavan.usc.edu/papers/hedera-nsdi10.pdf); Planck; Kentik | Hedera primary; MicroTE trích lại; streaming thứ cấp, chưa là đo AoI |
+| Vài chục giây trở lên | SNMP polling | Chu kỳ 30 s – 5 phút theo mô tả vendor, không phải AoI đo | [Kentik](https://www.kentik.com/kentipedia/snmp-vs-streaming-telemetry/) | Thứ cấp được cung cấp; chỉ động cơ chọn lưới, cần nguồn measurement tốt hơn |
+| $d_{\text{act}}$ | Planck ARP/OpenFlow; switch phần cứng | Response ARP 2,5–3,5 ms / OpenFlow 4–9 ms; gap confirmation/data plane 250/400 ms ở hai switch | Planck §7.2/Fig. 16; [Kuźniar et al. 2018](https://dejankostic.com/documents/publications/switches-elsevier18-author-copy.pdf), §4.1/Table 2 | Primary; định nghĩa khoảng thời gian khác nhau, không cộng máy móc |
+
+**Phạm vi nguồn:** Hedera 5 s do giới hạn đọc register của OpenFlow NetFPGA trong triển khai đó, không phải yêu cầu cố hữu của thuật toán. Planck response đo từ gửi notification tới collector thấy packet có MAC mới, không phải toàn bộ tuổi measurement + decision + actuation. Kuźniar báo chênh lệch confirmation/data plane, không phải end-to-end delay use case hay cận trên phổ quát. Đối chiếu kỹ thuật ngày 08/10; chưa ghi tác giả đã tự đọc.
+
+[Đặc tả gNMI §3.5.1.5.2](https://github.com/openconfig/reference/blob/master/rpc/gnmi/gnmi-specification.md) cho phép yêu cầu `sample_interval`, tùy target hỗ trợ; không ấn định chu kỳ cỡ giây cho mọi gNMI. Các khoảng vendor trong bảng chỉ là mô tả thứ cấp, không là ràng buộc protocol hay số đo use case.
+
+Testbed dt4n cũ (mean AoI theo từng ô 0,33–0,37 s, inventory EV-10) **không dùng làm neo**: đó là một prototype dựng trên Ditto, không đại diện cho telemetry nói chung hoặc đủ để chốt chế độ use case.
+
+**Quan sát được gì:** contract D8 giả định quan sát được **backlog**. Planck chứng minh ước lượng flow/link **rate** từ mirroring, chưa chứng minh đo backlog. INT có thể mang queue metadata ([GÉANT D6.7 §3](https://resources.geant.org/wp-content/uploads/2022/02/D6.7-Network_Technology_Evolution_Update.pdf)); khả năng đó chưa cho tuổi backlog tới controller. Counter byte/packet lấy hiệu cho rate, không tự cho backlog; metric thực có tùy thiết bị/schema. Mô hình observation theo chế độ là OPEN (contract §9). Quét tuổi với schema backlog cố định trước; nếu đổi sang rate-only phải tách scenario/version, giữ observation/estimator giống nhau giữa các ô cùng $S$ và không gán hiệu ứng đổi schema cho riêng tuổi.
+
+## Bảng $T_{\text{drain}}$
+| Link | $t_{\text{pkt}}$ | $q_0$ | $T_{\text{drain}}$, $\rho=0{,}5$ | $T_{\text{drain}}$, $\rho=0{,}8$ |
+|---|---:|---:|---:|---:|
+| 10 Mb/s | 1,2 ms | 100 | 0,24 s | 0,6 s |
+| 10 Mb/s | 1,2 ms | 1000 | 2,4 s | 6 s |
+| 100 Mb/s | 0,12 ms | 100 | 24 ms | 60 ms |
+| 100 Mb/s | 0,12 ms | 1000 | 0,24 s | 0,6 s |
+| 1 Gb/s | 12 µs | 100 | 2,4 ms | 6 ms |
+| 1 Gb/s | 12 µs | 1000 | 24 ms | 60 ms |
+| 10 Gb/s | 1,2 µs | 100 | 0,24 ms | 0,6 ms |
+| 10 Gb/s | 1,2 µs | 1000 | 2,4 ms | 6 ms |
+
+## Vùng theo chế độ telemetry
+Cột là tổng $\tau_{\text{eff}}+d_{\text{act}}$ **minh họa** trải bốn chế độ. 5 ms không phải một số đo end-to-end backlog/control loop của Planck; chu kỳ polling 0,1–1 s của neo (b) cần đổi qua $P,L,W$ và cộng delay, không tự bằng cột 0,2/1 s. Vùng xếp theo $T_{\text{drain}}$ nhỏ hơn của hai mức $\rho$ (thận trọng khi tìm vùng còn liên quan; không loại mọi mức tải); ngưỡng "gấp 3 lần" là quy ước thứ tự độ lớn, không phải ngưỡng khoa học.
+
+| Link, $q_0$ | 5 ms | 0,2 s | 1 s | 5 s | 30 s |
+|---|---|---|---|---|---|
+| 10 Mb/s, 100 | ① | ② | ③ | ③ | ③ |
+| 10 Mb/s, 1000 | ① | ① | ② | ② | ③ |
+| 100 Mb/s, 100 | ① | ③ | ③ | ③ | ③ |
+| 100 Mb/s, 1000 | ① | ② | ③ | ③ | ③ |
+| 1 Gb/s, 100 | ② | ③ | ③ | ③ | ③ |
+| 1 Gb/s, 1000 | ① | ③ | ③ | ③ | ③ |
+| 10 Gb/s, 100 | ③ | ③ | ③ | ③ | ③ |
+| 10 Gb/s, 1000 | ② | ③ | ③ | ③ | ③ |
+
+| Vùng | Điều kiện | Ý nghĩa |
 |---|---|---|
-| ① còn nhớ | $z\ge3$ | Backlog có thể còn liên quan khi action có hiệu lực; chưa chứng minh repair có gain |
-| ② cùng cỡ | $1/3<z<3$ | Timing có thể quyết định; cần kiểm RQ3 |
-| ③ đã quên | $z\le1/3$ | Backlog ban đầu xả nhanh hơn nhiều so với độ trễ; không phải miền ưu tiên cho repair backlog |
+| ① | $z\ge3$ | Thông tin backlog có thể có giá trị |
+| ② | $1/3<z<3$ | Có thể có giá trị; timing quyết định, RQ3 thành then chốt |
+| ③ | $z\le1/3$ | Backlog ban đầu xả nhanh trong fluid; chưa chứng minh stochastic gain bằng 0. Mode chậm là hypothesis riêng |
 
-`zone` dùng dung sai số học tương đối $10^{-12}$ khi tỉ số nằm sát biên, tránh đổi vùng chỉ do biểu diễn float. Đổi factor thành 2 hoặc 5 có thể đổi một số nhãn vùng; các drain time không đổi.
+Đặt $z=T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$. `zone` dùng dung sai tương đối $10^{-12}$ tại biên để tránh đổi nhãn do float. Điểm sát biên 3 hoặc 1/3 không là kết luận chắc; đổi factor có thể đổi vùng.
 
-## Bảng với tổng tuổi và độ trễ 0,6 s
+## Kết luận và domain
+Giá trị có thể có của thông tin backlog phụ thuộc **tỉ số** $T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$, không phụ thuộc riêng tốc độ link. **Trong lưới đã khai báo**, link 1–10 Gb/s chỉ có vùng ①–② ở cột 5 ms; ở 1/5 s chỉ 10 Mb/s, 1000 packet còn vùng ②; ở 30 s mọi dòng là ③. Không suy điều kiện cần cho mọi backlog, tải hay link.
 
-Vùng xếp theo drain **nhỏ hơn** trong hai mức $\rho$, nên thận trọng về khả năng backlog còn sống. Hai cột drain vẫn báo riêng; nhãn chung không có nghĩa hai mức tải luôn cùng vùng.
+**Domain của contract:** $\tau_{\text{eff}}+d_{\text{act}}$ là trục quét qua bốn chế độ trên; kết quả báo theo tỉ số. Hai neo cụ thể:
 
-| Link | $t_{\text{pkt}}$ | $q_0$ | $T_{\text{drain}}$, $\rho=0{,}5$ | $T_{\text{drain}}$, $\rho=0{,}8$ | Vùng |
-|---|---:|---:|---:|---:|---|
-| 10 Mb/s | 1,2 ms | 100 | 0,24 s | 0,6 s | ② cùng cỡ |
-| 10 Mb/s | 1,2 ms | 1000 | 2,4 s | 6 s | ① còn nhớ |
-| 100 Mb/s | 0,12 ms | 100 | 24 ms | 60 ms | ③ đã quên |
-| 100 Mb/s | 0,12 ms | 1000 | 0,24 s | 0,6 s | ② cùng cỡ |
-| 1 Gb/s | 12 µs | 100 | 2,4 ms | 6 ms | ③ đã quên |
-| 1 Gb/s | 12 µs | 1000 | 24 ms | 60 ms | ③ đã quên |
-| 10 Gb/s | 1,2 µs | 100 | 0,24 ms | 0,6 ms | ③ đã quên |
-| 10 Gb/s | 1,2 µs | 1000 | 2,4 ms | 6 ms | ③ đã quên |
+- **(a)** đo cỡ ms + link datacenter 1–10 Gb/s (cột 5 ms): 1 Gb/s ở vùng ①–②; 10 Gb/s ở vùng ② khi backlog hàng nghìn packet, vùng ③ khi backlog nhỏ.
+- **(b)** polling 0,1–1 s + link edge 10–100 Mb/s (cột 0,2 s và 1 s): dùng các tổng minh họa 0,2/1 s để kiểm; ở 0,2 s phần lớn ở ①–②, trừ 100 Mb/s, 100 packet; ở 1 s chỉ 10 Mb/s, 1000 packet ở ②. Chu kỳ không đồng nhất với tổng delay.
 
-Mỗi lần tốc độ link tăng 10 lần, drain giảm 10 lần nếu giữ các tham số khác. Trong lưới này, từ 1 Gb/s trở lên đều là vùng ③; kết luận gắn với backlog, tải và độ trễ đã khai báo, không phải mọi link nhanh.
+## Hệ quả
+1. **Scope:** báo kết quả theo $T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$ và $h/T_{\text{drain}}$; trục chế độ telemetry; hai neo (a), (b).
+2. **Phần state đáng sửa:** backlog ở các điểm ③ không là ứng viên ưu tiên theo fluid. Mode bền lâu có thể còn hữu ích, cần kiểm riêng; telemetry không đo mode chưa cho feasible refresh mode. Dùng ô chẩn đoán $S_0^{\tau=0}$ (contract D22). Ở chế độ cỡ ms, backlog có thể quan trọng.
+3. **Model repair:** xét $h$ so với động học **sau** Switch; tuổi telemetry không tự quyết định toàn bộ gain của model. Baseline state/observation vẫn ảnh hưởng các contrast có điều kiện.
+4. **$\Delta t$, $H$, lưới $\tau$ (L1.8):** lưới $\tau$ phủ bốn chế độ; chọn $\Delta t$, $H$ sao cho mỗi neo có điểm ở vùng ① hoặc ②.
+5. **Observation:** metric/schema và pipeline thực quyết định quan sát được backlog hay chỉ rate, không chỉ tên chế độ (D8, §9).
 
-## Tuổi thông tin: số liệu và nguồn
+## Giới hạn: note này KHÔNG chứng minh
+Xấp xỉ fluid một bottleneck; không có ngẫu nhiên, không có drop, không có TCP. Các chế độ là thang thời gian điển hình trong literature, không phải số đo của use case; số liệu SNMP và streaming đến từ nguồn thứ cấp. Không đo timing thật (Phase 8). Không chứng minh gain dương ở ① hoặc gain bằng 0 ở ③; drain fluid không là mixing time của queue stochastic. Mode persistence cũng chưa được mô hình trong note. Chỉ dùng tỉ số với mẫu số dương/hữu hạn; $\rho\ge1$ trả `inf`, $q_0=0$ drain bằng 0, không suy domain từ các tỉ số không hợp lệ.
+
+## Provenance testbed giữ để đối chiếu lịch sử
+
+AoI dưới đây là một điểm dữ liệu của prototype, **không dùng làm neo** hay đo backlog telemetry. Bảng T00 trước phương án A được lưu tại [commit ce9991d](https://github.com/vantai13/state-model-regret/blob/ce9991df8e1068d76e59416a49842763ccf7afe1/notes/theory/T00_timescale_sanity.md); không đổi archive hoặc mất checksum.
 
 Nguồn immutable tại commit `e669f5c8053a81d6de192de9f9d0d6304ee67802`, tag `archive-switch-or-stay-2026-10-02` của repo cũ:
 
@@ -89,75 +118,17 @@ Nguồn immutable tại commit `e669f5c8053a81d6de192de9f9d0d6304ee67802`, tag `
 | prod_rho0.925 | 28776 | 0,329887 | 0,546181 |
 | prod_rho0.960 | 28776 | 0,347054 | 0,558846 |
 
-AoI trong nguồn tính từ cuối cửa sổ đọc counter tới khi HTTP GET trả về. Rate được trung bình trên cửa sổ $W\approx0{,}5$ s; tuổi hiệu dụng theo quy ước PROVENANCE xấp xỉ AoI + $W/2$, khoảng **0,58–0,62 s**. Với mẫu backlog tức thời, không cộng $W/2$; **0,35 s** chỉ là kịch bản đại diện dựa trên bậc AoI testbed, chưa là số đo backlog telemetry riêng.
-
-[White paper INT của Parniewicz và cộng sự, 25/02/2021](https://resources.geant.org/wp-content/uploads/2022/02/GN4-3_White-Paper_In-Band-Network-Telemetry.pdf) giới thiệu thử nghiệm INT trong mạng NREN. [GÉANT D6.7, §3](https://resources.geant.org/wp-content/uploads/2022/02/D6.7-Network_Technology_Evolution_Update.pdf) mô tả việc đưa timestamps và link/queue utilisation vào packet. Khả năng thu queue metadata không tự cho tuổi thông tin lúc controller dùng nó: **chưa có nguồn số đo phù hợp cho tuổi backlog telemetry tới controller ở link nhanh trong use case này**.
-
-## Độ trễ action
-
-Kuźniar, Perešíni, Kostić, Canini, *Computer Networks* 2018, §4.1/Table 2 báo một số switch có data plane chậm hơn control-plane confirmation khoảng **250 ms (HP 5406zl)** hoặc **400 ms (Pica8 P-3290)**. Đã đối chiếu kỹ thuật [bản tác giả](https://dejankostic.com/documents/publications/switches-elsevier18-author-copy.pdf) ngày 08/10/2026; có những corner case dài hơn nhiều, nên 400 ms không phải cận trên phổ quát.
-
-Đây là chênh lệch giữa confirmation và rule thực sự có hiệu lực trong các thí nghiệm đó, không phải số đo end-to-end $d_{\text{act}}$ cho use case này. Tổng gần 0 ở phần actuation là giả định ideal diagnostic, không suy rằng paper đã chứng minh mọi hệ có latency dưới 1 ms. Phase 8 còn phải đo timing thật; chưa có record tác giả tự đọc paper.
-
-Nguồn này đã nối với EV-29 trong [inventory](../00_evidence_inventory.md) ở File 5; đối chiếu kỹ thuật không thay record tác giả tự đọc.
-
-## Độ nhạy theo tổng tuổi và độ trễ
-
-**0,35 / 0,6 / 1,0 s là ba kịch bản**, không phải khoảng tin cậy hoặc cận trên của độ trễ. Chúng minh họa tuổi testbed cộng actuation từ ideal tới vài trăm ms; pipeline khác hoặc tail có thể nằm ngoài khoảng này.
-
-| Link, $q_0$ | 0,35 s | 0,6 s | 1,0 s |
-|---|---|---|---|
-| 10 Mb/s, 100 | ② | ② | ③ |
-| 10 Mb/s, 1000 | ① | ① | ② |
-| 100 Mb/s, 100 | ③ | ③ | ③ |
-| 100 Mb/s, 1000 | ② | ② | ③ |
-| ≥ 1 Gb/s (mọi dòng trong lưới) | ③ | ③ | ③ |
-
-Với **tổng 1,0 s**, không còn dòng nào ở vùng ①. Không suy điều đó từ riêng câu “action vài trăm ms”: nhãn còn phụ thuộc $\tau_{\text{eff}}$. Ví dụ tổng 0,65 s vẫn cho vùng ① ở 10 Mb/s, 1000 packet.
-
-**Kết luận có điều kiện:** trong lưới minh họa và độ trễ cỡ testbed, backlog có triển vọng nhất ở link chậm/buffer sâu; ngay cả 10 Mb/s, 1000 packet cũng từ vùng ① xuống ② khi tổng tăng lên 1 s. Giữ domain “tỉ số neo link chậm” làm mặc định DRAFT, không kết luận đã có practical gain.
-
-## Hệ quả với contract
-
-1. **Scope:** báo theo $T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$ và $h/T_{\text{drain}}$, với các mẫu số hợp lệ; use case neo link chậm còn cần timing thực tế.
-2. **Phần state:** mode chậm có thể còn hữu ích khi backlog nhanh thay đổi. Đây là hypothesis, chưa phải kết quả; ô phụ $S_0^{\tau=0}$ (D22) giúp phân biệt freshness với lợi ích thấy mode. Mode vẫn không có feasible refresh nếu telemetry không đo được nó.
-3. **Model repair:** xét horizon so với động học sau Switch; tuổi telemetry không trực tiếp quyết định toàn bộ gain của model.
-4. **L1.8:** chọn $\Delta t$, $H$ và regime sao cho nằm trong ①–② cả với kịch bản 1 s, hoặc ghi rõ kết quả chỉ đứng khi action đủ nhanh. Không khóa số chỉ từ note này.
-5. **AS4:** actuation delay là ưu tiên kiểm của bản nháp, tác giả còn phải xác nhận lựa chọn trong [L0.6](../lessons/L0.6_scope.md). File 5 đã bổ sung điều kiện timing và giới hạn suy gain vào C9/EV-28 trong boundary/inventory.
-
-## Giới hạn
-
-Fluid một bottleneck, không ngẫu nhiên/drop/TCP; không mô hình persistence của hidden mode. Vùng ③ sàng lọc các regime backlog trong xấp xỉ này, **không phải định lý gain bằng 0 cho queue stochastic hoặc cho toàn bộ State repair**. Vùng ① cũng không chứng minh gain dương. Chưa đo timing mới, chưa rerun mạng và chưa xác nhận held-out cho Main RQ; G1 giữ nguyên.
+AoI trong nguồn tính từ cuối cửa sổ đọc counter tới khi HTTP GET trả về. Rate được trung bình trên cửa sổ $W\approx0{,}5$ s; tuổi hiệu dụng theo quy ước PROVENANCE xấp xỉ AoI + $W/2$, khoảng **0,58–0,62 s**. Bản T00 lịch sử dùng 0,35 s làm kịch bản đại diện cho bậc AoI testbed, chưa là số đo backlog telemetry riêng. Phương án A bỏ vai trò neo của những số này; với mẫu backlog tức thời không cộng $W/2$.
 
 ## Chạy lại và tự kiểm
 
-Từ gốc repo, tạo môi trường riêng rồi chạy:
-
 ```bash
-python3 -m venv /tmp/state-model-regret-timescale-venv
-/tmp/state-model-regret-timescale-venv/bin/python -m pip install pytest
-/tmp/state-model-regret-timescale-venv/bin/python -m pytest -p no:cacheprovider tests/test_timescale.py -q
-python3 -m experiments.lessons.l0_6_timescale
-python3 -m experiments.lessons.l0_6_timescale 0.35
-python3 -m experiments.lessons.l0_6_timescale 1.0
+python -m pytest -q                              # 11 test: 10 timescale + 1 smoke
+python -m experiments.lessons.l0_6_timescale     # ma trận 8 × 5
+python -m experiments.lessons.l0_6_timescale 0.2 # bảng chi tiết
+python -m experiments.lessons.l0_6_timescale 1.0
 ```
 
-Đối chiếu AoI từ clone archive có tag:
+Bài tác giả: tự tính dòng 10 Mb/s, 100 packet, rho = 0,8 so với 0,2/1 s; so nhãn min hai tải, rồi đổi SNMP poll/cửa sổ 30 s thành tuổi hiệu dụng. Ghi lời giải riêng tại [L0.6](../lessons/L0.6_scope.md). Cột 30 s đều ③ trong ma trận **không chứng minh** State repair vô ích; mode chậm có thể liên quan nếu đủ bền và suy được từ observation, nhưng chưa có bằng chứng gain hoặc operator refresh khả thi.
 
-```bash
-git -C /path/to/archive-clone show archive-switch-or-stay-2026-10-02:data/aoi_measured/aoi_v7_estimates.json \
-  | python3 -c 'import json,sys; d=json.load(sys.stdin); [print(k, v["aoi"]["n"], round(v["aoi"]["mean"],6), round(v["aoi"]["p95"],6)) for k,v in d["cells"].items()]'
-```
-
-**Bài tính tay cho tác giả, chưa có record hoàn thành:** 10 Mb/s, $q_0=100$, $\rho=0{,}8$: tự tính $t_{\text{pkt}}$, $\mu$, $T_{\text{drain}}$, rồi so với 0,6 s. Ghi phép tính, giải thích dùng tải trước quyết định và câu trả lời ba câu về use case vào [L0.6](../lessons/L0.6_scope.md), đã có khung ở File 8. Giá trị tham chiếu từ script/test là 1,2 ms, khoảng 833,333 packet/s, 0,6 s, vùng ②; nhãn bảng dùng min của hai mức tải cũng là ②. Ở tổng 1 s, riêng $\rho=0{,}8$ vẫn ② nhưng nhãn theo min là ③; nhãn chung không loại được mọi mức tải.
-
-### Trạng thái thực hiện
-
-- [x] Note, script và test có đúng đường dẫn; tác giả ghi Doan Van Tai.
-- [x] Chạy 7 test: **7 passed**; ba bảng CLI ở 0,35 / 0,6 / 1,0 s khớp bảng trong note.
-- [x] Đọc JSON/PROVENANCE từ đúng commit/tag, kiểm hash và 10 ô AoI; không tái tính raw.
-- [x] Đối chiếu nguồn primary về độ trễ switch; không coi là số đo use case.
-- [ ] Tác giả tự tính tay một dòng, giải thích bằng lời mình và ghi vào L0.6.
-- [ ] Tác giả xác nhận domain/rủi ro ưu tiên; cập nhật nguồn gốc khi có bài làm.
-
-V9 có số liệu nguồn và nhãn giả định/thiếu nguồn rõ; chưa coi việc tích hợp tài liệu và chạy code là bằng chứng tác giả đã tự hiểu bài hoặc Phase 0 đã đóng.
+**Trạng thái:** lựa chọn phương án A và cả hai neo do tác giả cung cấp ngày 08/10; các bài tự tính/giải thích, tự đọc paper, xác nhận estimator/rủi ro và gate contract/Phase 0 còn chờ.

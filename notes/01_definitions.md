@@ -50,7 +50,7 @@ Simulator đóng vai plant được đánh giá, còn twin là pipeline ước l
 | D5 | Action $a$, lượng chuyển $u$ | Stay: managed traffic $u$ đi A. Switch: $u$ chuyển sang B tại $t_0$, giữ suốt horizon. A giảm đúng lượng B tăng | packet/slot | DRAFT |
 | D6 | Recurrence | $q_{l,k+1}=[q_{l,k}+b_{l,k}+u_l(a)-c_l]^+$. Phép $[\cdot]^+$ là nguồn phi tuyến duy nhất của plant | packet | DRAFT |
 | D7 | State thật $x$ | $(q_A,q_B,m_A,m_B)$ tại $t_0$: backlog và mode **hiện tại** của traffic nền | packet; on/off | DRAFT |
-| D8 | Observation $y$, age $\tau$ | $y$ = backlog hai queue đo tại $t_0-\tau$, có timestamp; mode **không** quan sát được. $\tau$ là thuộc tính của observation | packet; slot | DRAFT |
+| D8 | Observation $y$, age $\tau$ | $y$ = backlog hai queue đo tại $t_0-\tau$, có timestamp; mode **không** quan sát được. $\tau$ thuộc observation. Backlog telemetry là giả định ideal; mirroring/rate counter chưa chứng minh đáp ứng. Schema theo chế độ còn OPEN (§9) | packet; slot | DRAFT |
 | D9 | Estimator $S$ | Ánh xạ **cố định** từ history observation $(y_{\le t_0},\tau)$ sang $\hat x$ hợp lệ (point state hoặc belief có schema cố định). $S_0$: belief trên $(q,m)$ tại $t_0$ (B2). $S_1$: trả $x$ thật (chỉ diagnostic). Mô hình bên trong $S$ là một phần của $S$ | — | DRAFT |
 | D10 | Model $M$ | $M:(\hat x,a)\mapsto\hat J(a)$. $M_0$: mean rollout **load-aware** (đưa $u$ vào đúng queue, khởi tạo từ $\hat x$, arrivals thay bằng kỳ vọng có điều kiện theo mode). $M_1$: kỳ vọng đúng trên toàn bộ law. Cùng $\theta$; khác **cách dùng** $\theta$ | packet·s | DRAFT |
 | D11 | Tương lai $w$ | Realization của traffic nền sau $t_0$. Chỉ evaluator sinh | — | **LOCKED** |
@@ -181,9 +181,9 @@ Vì ba indicator chỉ nhận 0/1, hệ số thuộc $\{-1,0,1,2\}$. Ví dụ 20
 
 **Scope:** một managed traffic class; hai path rời, mỗi path một bottleneck queue; quyết định nhị phân Stay/Switch, chuyển lượng cố định $u$ và giữ suốt horizon; traffic nền ngoại sinh; một objective chính; một state repair, một model repair.
 
-**Domain dự kiến:** báo theo tỉ số không thứ nguyên $T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$ và $h/T_{\text{drain}}$, neo vào use case link chậm/buffer sâu (phương án “tỉ số neo link chậm” của L0.6). [T00](theory/T00_timescale_sanity.md) định nghĩa ký hiệu và kiểm fluid: trong lưới minh họa, tổng độ trễ 1 s không còn dòng vùng ①. Link chậm chưa đủ để bảo đảm thông tin backlog còn hữu ích; domain còn phụ thuộc backlog, load và timing. Chỉ dùng các tỉ số có mẫu số dương/hữu hạn; chưa coi đây là validation mạng hoặc số đo timing thật.
+**Domain — phương án A:** báo theo tỉ số không thứ nguyên $T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$ và $h/T_{\text{drain}}$. $\tau_{\text{eff}}+d_{\text{act}}$ là **trục quét** trải bốn chế độ có nguồn: cỡ ms, dưới 1 s, vài giây, từ vài chục giây ([T00](theory/T00_timescale_sanity.md)). Giữ cả hai neo: **(a)** telemetry cỡ ms + link datacenter 1–10 Gb/s; **(b)** polling 0,1–1 s + link edge 10–100 Mb/s. Tổng 5 ms/0,2/1/5/30 s là lưới minh họa, không phải số đo use case; chu kỳ polling cần đổi qua $P,L,W$ và cộng delay. Lựa chọn A do tác giả cung cấp ngày 08/10/2026; lưới số contract v1 và timing thật chưa chốt. Chỉ dùng mẫu số dương/hữu hạn; drain fluid không chứng minh gain dương/0. $T_{\text{drain}}$ dùng state thật chỉ là diagnostic; HC1 phải dùng proxy tính từ thông tin trước action và ghi cách ước lượng, không lấy state ẩn làm predictor.
 
-Các phương án domain dùng tên mô tả, ví dụ “tỉ số neo link chậm”; không dùng lại D1/D2/D3 làm mã domain vì các mã đó đã chỉ Slot/Horizon/Path trong bảng định nghĩa.
+Các phương án domain dùng tên mô tả, ví dụ “trục tuổi telemetry, hai neo (a)/(b)”; không dùng lại D1/D2/D3 làm mã domain vì các mã đó đã chỉ Slot/Horizon/Path trong bảng định nghĩa.
 
 **Ngoài scope:** nhiều controller; RL/chuỗi quyết định; active probing; tail/safety; TCP; shared bottleneck và topology lớn.
 
@@ -209,14 +209,15 @@ AS4 là giả định của diagnostic. $d_{\text{act}}$ trong domain/feasible r
 
 | Mục | Vì sao chưa quyết | Quyết ở |
 |---|---|---|
-| $\Delta t$, $H$, lưới $\tau$ | Cần tính tay và ràng buộc vùng ①–② của T00 | L1.8 |
+| $\Delta t$, $H$, lưới $\tau$ | Cần tính tay; quét tuổi/delay phủ bốn chế độ, mỗi neo có điểm ①–② của T00; đổi giây sang slot qua $\Delta t$ | L1.8 |
+| Mô hình observation theo chế độ telemetry | D8 giả định backlog, Planck/rate counter chưa chứng minh cung cấp backlog. Quét tuổi giữ schema; rate-only phải tách scenario/version, estimator và observation giữ chung giữa các ô cùng $S$ | L1.8 |
 | $u$, $c_A$, $c_B$, tham số Markov | Cần running example có queue | L1.8 |
 | Chi tiết $S_0$: belief là posterior chính xác hay xấp xỉ; prior lấy từ đâu; cách $M_0$ dùng belief (khuyến nghị: lấy trung bình mean-rollout theo belief, không plug-in) | Quyết định §7(c) có giữ hay không | L1.6–L1.8 |
 | Lưới $D$ cho Phase 3 | Cần exact enumeration | L1.8 |
 | Reference cost, mức $\varepsilon_R$, $\varepsilon_E$ | Cần thang cost | L1.8 |
 | Seed streams | Cần CRN; tránh mọi mục trong `00_exposure_register.md` (seed **và** cấu hình) | L1.7–L1.8 |
 | $\varepsilon$ vận hành, feasible repairs, $d_{\text{act}}$ của use case | Cần chi phí và timing thật | Phase 8 |
-| Domain timescale và căn cứ neo link chậm/buffer sâu | T00 đã kiểm fluid/độ nhạy; chưa chọn lưới hoặc đo timing thật cho use case | L1.8; Phase 8 |
+| Domain timescale và hai neo (a)/(b) | Phương án A đã được cung cấp; cần chọn lưới hợp lệ cho mỗi neo và đo timing/cost thật, không dùng AoI prototype làm neo | L1.8; Phase 8 |
 | Đặc tả $H_0/H_1$ (D25), predictor HC1, metric/biên kiểm HC1/HM1, discovery/calibration/held-out split và ngân sách fit | Brief có vế bác bỏ DRAFT; chưa chọn metric, fit hoặc đóng băng protocol. Phải giữ quyền thông tin và thang chuẩn hóa ở §0/§4 | A05, trước confirmation/Phase 4 |
 | Diagnostic $I_\Delta$ | Chưa có đặc tả interaction ở tầng dự đoán | L1.5 |
 | Schema belief, metric sai số state và lựa chọn B2/B1 | Tránh trộn point state với belief hoặc thay estimator giữa các ô | L1.6–L1.8; DL-008 |
@@ -258,7 +259,7 @@ Nguồn kiểm 4: snapshot Final Review cập nhật 06/10/2026, SHA-256 `fc766e
 | AS1/AS4, ngoài scope, K5/pipeline repair | §3/§5/§8; K1–K4/K9 là nhãn kill criteria giải thích ngay trong brief |
 | G1/candidate gap, prior IDs P01–P13, E0, evidence/motivation | Khái niệm provenance/gate: [inventory](00_evidence_inventory.md), [review reading note](verification/final_review_reading_note.md), [claim boundary](01_claim_boundary_v0.md); không phải term mới của plant |
 
-**Kiểm brief File 7:** 897 từ theo `wc -w`, đủ 15 mục; Main RQ khớp nguyên văn; các EV có trong inventory, liên kết local mở được. Bản PDF kiểm tạm dựng bằng Pandoc/XeTeX có **2 trang A4**, font DejaVu Serif 11 pt, lề 20 mm, không có dòng tràn hoặc ký tự thiếu. Scan overclaim chỉ gặp phủ định/xác định rủi ro; không thêm claim novelty hay network evidence. Đây là kiểm tài liệu, chưa là bài tác giả tự viết lại hoặc kiểm đọc 5 phút.
+**Kiểm brief sau phương án A (08/10):** 915 từ theo `wc -w`, đủ 15 mục; Main RQ khớp nguyên văn; các EV có trong inventory, liên kết local mở được. Bản PDF kiểm tạm dựng lại bằng Pandoc/XeTeX có **2 trang A4**, font DejaVu Serif 11 pt, lề 20 mm, không có dòng tràn hoặc ký tự thiếu. Domain hai neo và EV-31 đã nối với D8/§8–9/T00; không thêm claim novelty hay network evidence. Đây là kiểm tài liệu, chưa là bài tác giả tự viết lại hoặc kiểm đọc 5 phút.
 
 **Cách tái kiểm:** đếm/so ID và term trong bảng §2; đối chiếu thuật ngữ brief bằng mapping trên và T00; tìm `OPEN` rồi nối từng mục tới §9; đọc các section Final Review nêu trên với đúng digest; kiểm lại tổng term. Nếu sửa brief làm xuất hiện khái niệm chưa định nghĩa hoặc đổi quyền thông tin/thang đo, mở lại kiểm 2.
 
@@ -402,7 +403,7 @@ Tác giả tự viết lại câu scope, chọn assumption rủi ro nhất kèm 
 - [ ] Tác giả làm ít nhất bài 1–3 phản biện §7, sau đó bài 4 về Bayes-optimal nếu kịp.
 - [x] Phần 3: D25, ngân sách 25 term, §8 scope/assumptions, §9 mục còn mở, §10 kiểm nhất quán đã bổ sung.
 - [ ] Tác giả viết lại scope và xác nhận assumption rủi ro nhất kèm lý do.
-- [x] T00 đã có định nghĩa timescale, nguồn AoI và bảng độ nhạy; 7 test đạt, đã chạy ba mức độ trễ.
+- [x] T00 đã có trục quét 5 ms–30 s, hai neo (a)/(b), nguồn literature và provenance AoI lịch sử; 10 test timescale đạt, ma trận 40 ô và bảng chi tiết đã đối chiếu.
 - [x] File 7: brief đã có, phép kiểm 2 được đối chiếu kỹ thuật với mapping thuật ngữ và cập nhật §10.
 - [x] File 8: khung note L0.3–L0.7 đã có, mẫu đối chiếu và ô chưa làm được phân biệt; chưa tính là bài tự làm hoặc gate đạt.
 - [ ] Tác giả tự kiểm thuật ngữ, viết lại brief và dựng chuỗi HC1/HP1 bằng lời mình; xác nhận các lựa chọn DRAFT.

@@ -10,7 +10,7 @@ Tích hợp File 7; tác giả còn viết lại, tự giải thích và xác nh
 
 **Known.** Theo literature map thứ cấp, dự đoán chính xác và quyết định tốt là hai việc khác nhau; state cũ có thể làm routing kém (EV-06). Với recurrence/objective tuyến tính, không clipping trên mọi path liên quan và lấy kỳ vọng nhất quán, mean rollout cho đúng expected cost (EV-20). $\Gamma\ne0$ tự nó không xác nhận cơ chế mạng (EV-01); value-of-information là prior phải kiểm (EV-27).
 
-**Unknown.** Hai repair giảm regret bao nhiêu, ở đâu, và phụ thuộc nhau thế nào? T00 chỉ sàng lọc timescale fluid: trong lưới khảo sát, backlog có triển vọng còn liên quan hơn ở link chậm/buffer sâu, tùy tổng tuổi thông tin và độ trễ action. Chưa suy gain thực tế; mode chậm có thể hữu ích nhưng chưa được kiểm.
+**Unknown.** Hai repair giảm regret bao nhiêu, ở đâu, và phụ thuộc nhau thế nào? Literature cho thang measurement/polling/control từ ms tới phút; T00 chuyển thành trục tuổi/delay minh họa và sàng lọc theo tỉ số drain/tổng delay. Mode chậm có thể còn hữu ích, chưa được kiểm; drain fluid chưa chứng minh gain.
 
 **Gap status.** **G1 — candidate gap** (EV-05). Chưa có effect đúng thế giới mới, prediction trên dữ liệu chưa dùng hoặc timing/cost thật. Literature chủ yếu qua review; chưa xác nhận novelty.
 
@@ -28,7 +28,7 @@ Tích hợp File 7; tác giả còn viết lại, tự giải thích và xác nh
 
 **Primary estimand.** Expected regret $R_{sm}$ so với một oracle biết state/law nhưng không biết tương lai realized; contrasts $G_S,G_M,G_{SM},\Gamma,G_{S\mid M_1},G_{M\mid S_1}$ trên cùng $D$, báo theo điều kiện. Objective: thời gian chờ tích lũy của mọi packet trên cả hai queue trong horizon, kể cả packet chưa xong (packet·s). Đo cách sửa twin giúp lựa chọn bớt tốn kém bao nhiêu; ngưỡng % cần reference cost, không so trực tiếp với packet·s.
 
-**Scope.** Một managed class; hai path rời, mỗi path một bottleneck; Stay/Switch chuyển lượng cố định, giữ suốt horizon; nền Markov on/off ngoại sinh; một State repair và một Model repair. Domain neo link chậm/buffer sâu còn DRAFT.
+**Scope.** Một managed class; hai path rời, mỗi path một bottleneck; Stay/Switch chuyển lượng cố định, giữ suốt horizon; nền Markov on/off ngoại sinh; một State repair và một Model repair. Tuổi/delay là trục quét, giữ hai neo: (a) telemetry ms + datacenter 1–10 Gb/s; (b) polling 0,1–1 s + edge 10–100 Mb/s. Schema backlog/rate còn OPEN.
 
 **Assumptions rủi ro nhất.** AS1: nền ngoại sinh, thiếu feedback TCP. AS4: diagnostic giả định action hiệu lực ngay; repair thực tế cần timing riêng. Đây là ưu tiên bản nháp, tác giả còn xác nhận.
 
@@ -36,7 +36,7 @@ Tích hợp File 7; tác giả còn viết lại, tự giải thích và xác nh
 
 **Closest prior.** P01–P03, P11–P13 theo Final Review (EV-06, đọc thứ cấp). Khi posterior chính xác, prior khớp $D$ và $M_1$ tích phân đúng, $G_{S\mid M_1}$ là EVPI về state hiện tại sau observation (EV-27); value-of-information/model-improvement value là rủi ro lớn.
 
-**Evidence hiện có.** Logic và liệt kê hữu hạn: phản ví dụ $\Gamma$, trộn episode, bù sai số, null 60 = 60 (EV-01/20/25/26); bảng timescale có nguồn AoI và giới hạn timing (EV-10/28/29). **Chưa có network evidence cho RQ này.** Kết quả luồng nhỏ cũ chỉ là motivation.
+**Evidence hiện có.** Logic và liệt kê hữu hạn: phản ví dụ $\Gamma$, trộn episode, bù sai số, null 60 = 60 (EV-01/20/25/26); bảng timescale theo chế độ literature (EV-28/29/31). AoI prototype giữ đối chiếu, không làm neo (EV-10). **Chưa có network evidence cho RQ này.** Kết quả luồng nhỏ cũ chỉ là motivation.
 
 **Kill criteria — dừng hoặc đổi claim.** K1: prior đã có cùng estimand, cơ chế và regime. K2: null đóng băng đã đủ. K3: effect không còn trước baseline mạnh. K4: signal chỉ có với tuổi/bias phi thực tế. K9: timing/cost khiến use case không hợp lý. K5/pipeline repair giữ ở contract §5.
 
