@@ -1,8 +1,12 @@
-# Evidence inventory — L0.1 Part 3
+# Evidence inventory — L0.1 Part 3; bổ sung L0.2–L0.6
 
-Type, Conditions, Tác giả giải thích được, Claim có phạm vi và Vai trò dùng judgment do tác giả xác nhận ngày 07/10/2026; wording factual được sửa theo nguồn immutable. Đối chiếu bằng máy/log được ghi riêng khỏi hiểu bài. Không biến kiểm nguồn thành kiểm vấn đáp độc lập.
+Tác giả: **Doan Van Tai** · Bổ sung File 5: **08/10/2026**.
 
-**Giới hạn numbering:** bản PHASE_0 chứa bảng EV-01…EV-12 gốc chưa được cung cấp/tìm thấy theo đúng tài liệu. EV-01/05/06/08/10 giữ các mốc được hướng dẫn nhắc; những số còn lại 02–12 là mapping làm việc có nguồn, không giả đã khôi phục nguyên bảng PHASE_0. EV-13…EV-19 theo đúng danh sách bổ sung tác giả gửi. Việc thiếu mapping không được dùng để bịa source.
+Với EV-01…EV-19, Type, Conditions, Tác giả giải thích được, Claim có phạm vi và Vai trò dùng judgment do tác giả xác nhận ngày 07/10/2026; wording factual được sửa theo nguồn immutable. Đối chiếu bằng máy/log được ghi riêng khỏi hiểu bài. Không biến kiểm nguồn thành kiểm vấn đáp độc lập.
+
+**Giới hạn numbering:** EV-01…EV-19 là mapping làm việc của L0.1, lập khi chưa có bảng gốc. File 5 nay cung cấp bảng đối chiếu EV-01…EV-12 của PHASE_0 (§8, Bước 6); các hàng chưa có trong repo được thêm thành EV-20…EV-24, xem **Mapping PHASE_0 → repo**. Không đánh số lại để giữ các tham chiếu C1–C5. EV-25…EV-30 là các mục bổ sung từ L0.2–L0.6. Chưa có bản PHASE_0/master plan đầy đủ để đối chiếu độc lập các đoạn được dẫn; bảng mapping dưới đây ghi theo trích đoạn được cung cấp.
+
+EV-20…EV-30 được tích hợp từ nội dung tác giả cung cấp. Cột đối chiếu ghi việc kiểm nguồn/phép tính thực sự đã làm; các ô tác giả tự giải thích vẫn chờ bài làm hoặc xác nhận tương ứng, không tự đổi thành “Có”.
 
 ## Inventory
 
@@ -17,7 +21,7 @@ Type, Conditions, Tác giả giải thích được, Claim có phạm vi và Vai
 | EV-07 | F8 history-twin và gate lỗi | Old-world simulation; confirmatory estimands không diễn giải ở ô lỗi | T10/FH dùng oracle bin; P2/T10, quỹ đạo riêng và hậu kiểm f08b cần phân biệt | Một phần — exact statistical interpretation | F8 không có kết luận xác nhận khi estimands dùng oracle T10/FH hỏng; các quan sát f08b giữ nhãn khám phá. | Historical evidence/background + motivation. | S05 | Đọc toàn F8 §1–4, tách valid non-oracle result khỏi oracle gate. |
 | EV-08 | GO-check freshness so với đổi luật | E2 exploratory/post-hoc | R1 old world, 94/95 seeds đã xem; α=0,2%, cooldown=0 | Có | SC SYM giảm delay so SC FIX trong cấu hình cụ thể; không suy State repair dominates ở finite load. | Motivation. | S06/S07/S21 | Đọc source và CSV posthoc, exact contrast tại EV-15. |
 | EV-09 | Seed registry và status đã xem | Documentary/exposure record | Snapshot 01/10, không chứng minh exposure ở máy khác | Có | Dải 20001–20020 đã xem; nhãn “để dành” trong snapshot không tự bảo đảm unseen hôm nay. | Methodological background + exposure. | S08/S01 | Đối chiếu registry với F6 và n02 metadata. |
-| EV-10 | AoI order of magnitude trên testbed | Reported E5 source; raw revalidation chưa hoàn tất | dt4n Phase 23, AoI cuối cửa sổ tới GET, CLEAN/PROD | Có về scope; measurement exact chưa kiểm lại | F1 báo CLEAN mean 0,369 s, PROD mean 0,343 s; “khoảng 0,36 s” chỉ mô tả bậc, không là một mean chung đã tái đo. | Background/real-measurement report có giới hạn. | S11; raw_backup_manifest.json | Đọc summary/construct; không tái tính raw, không đại diện production. |
+| EV-10 | AoI order of magnitude trên testbed | Reported E5 source; raw revalidation chưa hoàn tất | dt4n Phase 23, AoI cuối cửa sổ tới GET, CLEAN/PROD | Có về scope; raw measurement chưa kiểm lại | F1 báo CLEAN mean 0,369 s, PROD mean 0,343 s; JSON theo 10 ô có mean 0,329887–0,374230 s. Không là một mean chung đã tái đo. | Background/real-measurement report có giới hạn. | S11; raw_backup_manifest.json; [T00: JSON/PROVENANCE tại commit cố định](theory/T00_timescale_sanity.md) | 08/10 kiểm hash/JSON: 10 ô, 28.776 quan sát/ô; không tái tính raw, không đại diện production. |
 | EV-11 | GO-check CHƯA GO theo TC1–TC3 | E2 + gate judgment scoped | Old-world VoIP, rollout delay, harm budget; oracle nhìn trước chỉ thang headroom | Có | Bản ghi ngày 01/10 chưa GO; TC2 chưa đủ nguồn, TC3 dưới magnitude floor; DP0 chờ quyết. | Historical evidence + motivation. | S06/S21 | Đọc gate report và protocol, không tự phê duyệt NARROW/PIVOT. |
 | EV-12 | Ý tưởng tái sử dụng repo cho sandbox | Idea / research provenance | README §9 tại snapshot 02/10; chưa phải sandbox evaluation hoàn chỉnh | Có | Repo cũ liệt kê finite-load feedback là phần còn thiếu; có thành phần để tham khảo, chưa đủ benchmark Main RQ. | Provenance + background. | S12 | Đọc README §9; không coi ý tưởng là empirical evidence. |
 | EV-13 | N2 + n02/n02b factorial pilot | E2 exploratory + Idea/Provenance | PSA POS_probeB, G_all, H=0,5, 10 seeds 9101–9110; no finite-action feedback | Có | Pilot tổ chức sources thành information/model families; bảng có ý tưởng bỏ qua action feedback, nhưng script S/M/P thao tác staleness/measurement/parameter. | Provenance + motivation; không direct evidence. | S13/S16–S19 | Đọc N2/script/run JSON/CSV; xác nhận seeds, scope, missing Δρ; không rerun pilot. |
@@ -27,9 +31,77 @@ Type, Conditions, Tác giả giải thích được, Claim có phạm vi và Vai
 | EV-17 | F6 ↔ F8 bound 6,84 và gate T10/FH | Scoped non-oracle bound + oracle validity limitation | T10, quỹ đạo S0_FH, upper clairvoyant gain so baseline; same old world | Một phần — exact statistical interpretation | Bound không cần oracle bin 6,84±0,15 ms vẫn dưới m=8,1; không cứu estimands xác nhận dùng oracle T10/FH lỗi. | Historical evidence/background; không generalize. | S01/S05 | Đọc F6 §1 và F8 §3; phân biệt rõ hai phát biểu, không coi chúng mâu thuẫn. |
 | EV-18 | Final Review không có byline rõ | Provenance/source limitation | Full snapshot đúng digest đã đối chiếu | Có | Snapshot hiện không ghi rõ byline/author identity; chưa đủ dữ kiện xác nhận người viết, không bác nội dung chỉ vì thiếu byline. | Provenance limitation. | Review digest / reading note / source_checks.json | Mở snapshot; kiểm đầu file và byline; không suy chắc người viết. |
 | EV-19 | Raw AoI backup 30 JSONL | Potential E5 source, incomplete verification | Local tar metadata, 30 aoi_*.jsonl; raw không public, chưa tái tính mean | Có | Có raw backup với metadata/hash; chưa chứng minh là bộ khoảng 427 MiB được nhắc hoặc xác nhận lại 0,36 s. | Source recovery / unresolved. | raw_backup_manifest.json; bundle_manifest.json | Đối chiếu manifest thật; raw AoI 71.674.153 byte; tổng file tar 444.748.020 byte, hai lượng khác nhau. |
+| EV-20 | Không có clipping → mean rollout cho đúng expected backlog (60 = 60) | E0 (tuyến tính) + E1 (liệt kê 8 path) | Không chạm 0 trên mọi path liên quan; cùng input/belief và cách lấy kỳ vọng, state đã biết trong ví dụ; objective tuyến tính | Chưa — tác giả tự liệt kê ở L1.2/L1.6 | Nếu recurrence và objective tuyến tính trên mọi path của các action, mean rollout cho đúng expected cost: $G_M=G_{M\mid S_1}=0$ | Evidence logic đã known; không là kết quả novelty | Final Review §5.2; [contract §7(d)](01_definitions.md); log tính dưới bảng | Đọc §5.2 đúng snapshot; liệt kê bằng máy ngày 08/10, mean 60; chưa có bài tự liệt kê của tác giả |
+| EV-21 | Đóng góp cumulative của backlog ban đầu không biến mất khi horizon dài | E0 (fluid tất định) | $r>0$, $q(t)=(q_0-rt)^+$, $h\ge q_0/r$: $\int_0^h q\,dt=q_0^2/(2r)$ | Chưa | Không suy $G_S$ giảm đơn điệu về 0 chỉ vì horizon dài; ví dụ không chứng minh gain thực tế dương | Evidence logic | Final Review §5.3; log tính dưới bảng | Đọc §5.3 đúng snapshot; kiểm $q_0=10,r=2,h=10/20$ đều 25 ngày 08/10; tác giả chưa tự tính |
+| EV-22 | Running example: $G_S<0$, $\Gamma>0$, $I_\Delta=0$ | E1 minh hoạ (chưa tái kiểm) | Toy; switching cost chọn để dạy | Chưa — tính lại ở L1.3–L1.5 | Không claim gì về mạng; chưa dùng làm evidence đã xác minh | Minh hoạ | Master plan II.6 (theo File 5) | Chưa có nguồn đầy đủ để đối chiếu |
+| EV-23 | Lợi thế luật dùng bất định giảm khoảng 97% khi giới hạn tần suất đổi trong một kịch bản | E2 exploratory/post-hoc, old world | R1_dualISP, $\alpha=0{,}2\%$; trần trung bình tương đương 1 lần/30 s trên quỹ đạo tham chiếu, không phải cooldown triển khai; dùng lại test seeds | — | Gain width từ 2,515126 xuống 0,077540 ms (−96,92%); không biến mất hoàn toàn hoặc thành điều kiện cần toàn cục | Lịch sử/motivation; không direct evidence Main RQ | [GO switch report tại commit cố định](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/map/go_switch_report.md) | Đọc toàn report ngày 08/10 và tính lại tỉ lệ; chưa rerun experiment/CSV |
+| EV-24 | Bảng delay/loss đo trên Mininet (HTB token bucket) | Reported E6 (calibration); chưa audit nội dung | Token bucket khác server có service time | — | Ứng viên representation độc lập cho Phase 7; chưa coi là validation plant mới | Background/hạn chế | [Mininet calibration tại commit cố định](https://github.com/vantai13/dt4n-decision-risk-project/tree/e669f5c8053a81d6de192de9f9d0d6304ee67802/data/mininet_calibration) | Có 5 file; chưa đối chiếu nội dung/số đo riêng |
+| EV-25 | Hai loại episode có $\gamma=+2$ và $\gamma=-2$; tỉ lệ $p$ cho $\Gamma=4p-2$ (50/50 → 0) | E0 | Cost thật 20/18; sai số cộng vào gap; cùng pipeline và objective | Chưa | $\Gamma$ trung bình phụ thuộc $D$; trung bình gần 0 có thể che các vùng trái dấu, nên báo theo điều kiện | Evidence logic cho quy tắc báo theo điều kiện | [RQ card §ví dụ](lessons/L0.2_rq_card.md); [contract §7](01_definitions.md); File 5; log tính dưới bảng | Kiểm đại số ngày 08/10, $p=0{,}7$ → 0,8; chưa có kiểm độc lập/read-back |
+| EV-26 | Bù sai số: oracle State repair cho $G_S=0$, sửa một nửa sai số state cho gain 1 | E0 | Cost 20/18; $(e_M,e_S)=(1;1{,}5)$ và $(3;-2{,}5)$, mỗi loại 50%; pipeline, $D$, objective và tập action cố định | Chưa | Gain của một oracle repair không là cận trên cho feasible repair cùng loại; $R_{00}$ là cận trên chung cho gain so với ô 00 | Evidence logic; phản ví dụ cho quy tắc master plan V.3/K10 được trích | File 5 (dẫn L0.4 §7); [contract §7(f)](01_definitions.md); log tính dưới bảng | Kiểm bằng máy ngày 08/10: $R_{00}=R_{10}=1$, $R_{\text{half}}=0$; chưa có bài tự tính/kiểm độc lập |
+| EV-27 | Cấu trúc dấu của các contrast | E0 (suy diễn từ thiết kế) | (a) ô 11 = oracle; (c) belief $S_0$ là posterior chính xác, prior trùng $D$, $M_1$ tích phân đúng; nhóm báo cáo chỉ dựa trên thông tin trước action | Chưa | $G_{SM},G_{S\mid M_1},G_{M\mid S_1}\ge0$; thêm (c): $G_M\ge0$, $G_{S\mid M_1}$ = EVPI về state hiện tại sau observation, không về $w$ | Evidence logic; rủi ro novelty K1/value of information | [Contract §7(a),(c) và phạm vi](01_definitions.md) | Đối chiếu suy diễn đã ghi trong contract; **chưa có kiểm độc lập**; belief xấp xỉ/nhóm theo state ẩn không có đầy đủ bảo đảm (c) |
+| EV-28 | Bảng timescale ba vùng và độ nhạy timing | E0 + nguồn reported E5 | Fluid một bottleneck; $\rho$ trước quyết định 0,5/0,8; packet 1500 B; backlog 100/1000; link 10 Mb/s–10 Gb/s; factor 3 | Chưa — tác giả tự tính một dòng | Trong lưới T00, link chậm/buffer sâu có triển vọng backlog còn liên quan hơn. Vùng ① có ở tổng 0,35/0,6 s, không còn ở 1 s; 0,6 s không là ngưỡng cứng. Không suy gain dương hay bằng 0 | Evidence thứ tự độ lớn, nối K9; chưa là practical-gain evidence | [T00: bảng, nguồn và giới hạn](theory/T00_timescale_sanity.md) | Script + 7 test timescale đạt, ba bảng đã đối chiếu ngày 08/10; chưa đo timing mới |
+| EV-29 | Một số switch áp luật lên data plane hàng trăm ms sau control-plane confirmation | L-primary (đối chiếu kỹ thuật); tác giả chưa tự đọc | Một số switch phần cứng trong thí nghiệm năm 2018; không là end-to-end $d_{\text{act}}$ của use case này | Chưa tự đọc | Table 2 báo khoảng 250 ms/400 ms ở hai switch, có corner case dài hơn; không suy latency dưới 1 ms hoặc cận trên phổ quát | Evidence giới hạn cho AS4/K9 | [Kuźniar et al., Computer Networks 2018, §4.1/Table 2](https://dejankostic.com/documents/publications/switches-elsevier18-author-copy.pdf); [T00](theory/T00_timescale_sanity.md) | Nguồn primary đã đối chiếu kỹ thuật ở File 3 ngày 08/10; chưa có record tác giả tự đọc |
+| EV-30 | Engine DES cũ có $[\cdot]^+$; giả định “managed không đổi tải” nằm ở chỗ gọi | Documentary (đọc code) | Code tại immutable archive; engine có finite-buffer admission khác AS3 | Chưa | `workload_after` là Reference; `des_world.py` phải Rebuild phần action/load | Provenance cho legacy map | [Legacy: phân loại và dòng code đã kiểm](../legacy/INDEX.md); tag chính: `experiments/f04b_des_gap.py`, `experiments/scan/des_world.py` | Đọc engine dòng 40–50 và `des_path` ngày 08/10; chưa rerun DES; bài tự kiểm L0.5 còn chờ |
 
 Log máy đọc: [source_checks.json](verification/source_checks.json). Kết quả tính lại: [verification_results.json](verification/verification_results.json). Script và cách chạy: [verification README](verification/README.md).
 E0 là logic, E2 là scoped simulation/exploration; F7 có tiền đăng ký riêng nhưng không vì vậy thành E3 cho RQ finite-load mới. L-2nd là literature thứ cấp; chưa có record L-self cho primary papers. E5 của AoI vẫn có điều kiện xác minh raw.
+
+### Log đối chiếu kỹ thuật bổ sung — 08/10/2026
+
+Các phép tính dưới đây được chạy bằng Python trong lần tích hợp File 5; không thay bài tác giả tự làm hoặc kiểm chứng độc lập. Final Review §5.2–5.3 được đọc từ snapshot có digest ghi dưới bảng nguồn.
+
+**EV-20:** $q_{k+1}=\max(0,q_k+2+B_k-3)$, $q_0=20$, $B_k\in\{0,2\}$ độc lập đồng xác suất, $H=3$, cost $q_1+q_2+q_3$ (slot = 1).
+
+| Background path | Backlog $(q_1,q_2,q_3)$ | Tổng |
+|---|---|---:|
+| (0,0,0) | (19,18,17) | 54 |
+| (0,0,2) | (19,18,19) | 56 |
+| (0,2,0) | (19,20,19) | 58 |
+| (0,2,2) | (19,20,21) | 60 |
+| (2,0,0) | (21,20,19) | 60 |
+| (2,0,2) | (21,20,21) | 62 |
+| (2,2,0) | (21,22,21) | 64 |
+| (2,2,2) | (21,22,23) | 66 |
+
+Tổng 480/8 = **60**; backlog nhỏ nhất 17 nên reflection không hoạt động. Mean background = 1, tổng arrivals = 3 bằng service: mean rollout giữ backlog 20 trong ba slot, cũng bằng **60**. Một ví dụ này không chứng minh giả định no-clipping cho mọi action/regime; mệnh đề tổng quát cần các điều kiện EV-20.
+
+**EV-21:** với $q_0=10,r=2$, queue hết tại $t=5$; cả $h=10$ và $h=20$ cho diện tích tam giác $10\times5/2=25$. Cumulative contribution giữ nguyên; time average lần lượt 2,5 và 1,25.
+
+**EV-25:** $\Gamma=p(2)+(1-p)(-2)=4p-2$; $p=0{,}7$ cho **0,8**, $p=0{,}5$ cho **0**.
+
+**EV-26:** true gap Switch − Stay = −2; dự báo gap = $-2+e_M+e_S$, tie → Stay. Giữ $e_M$ và sửa $e_S$ như sau:
+
+| $(e_M,e_S)$ | Gap ô 00 / regret | Gap oracle State / regret | Gap sửa nửa State / regret |
+|---|---|---|---|
+| (1; 1,5) | 0,5 / 2 | −1 / 0 | −0,25 / 0 |
+| (3; −2,5) | −1,5 / 0 | 1 / 2 | −0,25 / 0 |
+
+Lấy trung bình 50/50: $R_{00}=R_{10}=1$, $R_{\text{half}}=0$. Gain oracle State = **0**, gain sửa nửa State = **1**, đúng bằng cận chung $R_{00}$. Đây là phản ví dụ logic, không chứng minh refresh thực tế có gain.
+
+**EV-23:** số trong immutable report S23 cho $100(1-0{,}077540/2{,}515126)=96{,}9171\%$. Source được đọc và kiểm SHA-256; không tái chạy experiment lịch sử.
+
+### Bài tự kiểm còn chờ
+
+Tác giả tự liệt kê EV-20, tính diện tích EV-21, kiểm ví dụ EV-22 ở L1.3–L1.5, giải thích EV-25/26/27 ở L0.2/L0.4, tính tay một dòng EV-28 ở L0.6, tự đọc EV-29 và mở code EV-30 ở L0.5. Chỉ cập nhật cột “Tác giả giải thích lại được?” khi có bài làm/xác nhận thật; EV-27 vẫn cần kiểm độc lập.
+
+## Mapping PHASE_0 → repo
+
+Mapping theo bảng trích trong File 5, chưa đối chiếu bản PHASE_0 §8, Bước 6 đầy đủ. Mã ở cột đầu thuộc PHASE_0; mọi trích dẫn EV ngoài bảng này dùng mã repo. Đặc biệt EV-05/06 đảo vị trí giữa hai bảng.
+
+| PHASE_0 | Nội dung | Repo |
+|---|---|---|
+| EV-01 | $\Gamma=\pm2$ không cần queue | EV-01 |
+| EV-02 | 60 = 60 khi không có clipping | EV-20 |
+| EV-03 | Backlog ban đầu không biến mất khi horizon dài | EV-21 |
+| EV-04 | Running example | EV-22 |
+| EV-05 | Literature map P01–P13 | EV-06 |
+| EV-06 | G1, CONDITIONAL GO, HOLD | EV-05 |
+| EV-07 | F6/F7 | EV-02, EV-03, EV-04, EV-16 |
+| EV-08 | GO-check khoảng 3 ms | EV-08, EV-15 |
+| EV-09 | Luật bất định giảm khoảng 97% khi giới hạn tần suất | EV-23 |
+| EV-10 | AoI testbed | EV-10, EV-19 |
+| EV-11 | Mininet calibration | EV-24 |
+| EV-12 | Ý tưởng sandbox | EV-12 |
 
 ## Bảng nguồn immutable
 
@@ -45,7 +117,7 @@ Mỗi Sxx đã mở toàn file từ tag; full hash/digest ở log. Nội dung l�
 | S06 | [`archive-switch-or-stay-2026-10-02:notes/gocheck/GVHD_status.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/gocheck/GVHD_status.md) | `aad18c69943598530587e759c496331616268a4e15eb7cc4ab3a56b818e37436` |
 | S07 | [`archive-switch-or-stay-2026-10-02:results/gocheck/reproduction_contrasts.csv`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/results/gocheck/reproduction_contrasts.csv) | `81281961a1ae2e1425ada091314e89f86c58491959e6897c7dc5a16a5fa18580` |
 | S08 | [`archive-switch-or-stay-2026-10-02:notes/seed_registry.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/seed_registry.md) | `21a7337625abafb77a390752606f44915fa2dc57dbe4cf0236f69caa61ea9c12` |
-| S09 | [`archive-switch-or-stay-2026-10-02:notes/gocheck/PREDICTIONS_claude.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/gocheck/PREDICTIONS_claude.md) | `7c47e5c5e1ab3a464834e5b7180260fe81073eea303ba9e6dcb0f82d4221d944` |
+| S09 | [Bản dự đoán GO-check — archive 02/10/2026](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/gocheck/PREDICTIONS_claude.md) | `7c47e5c5e1ab3a464834e5b7180260fe81073eea303ba9e6dcb0f82d4221d944` |
 | S10 | [`archive-switch-or-stay-2026-10-02:experiments/gocheck/rollout.py`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/experiments/gocheck/rollout.py) | `6d134d66431042f86b7128c715d54329b0302bac1b9f3c549264f1f9f13776b9` |
 | S11 | [`archive-switch-or-stay-2026-10-02:notes/feasibility/F1_operating_point.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/feasibility/F1_operating_point.md) | `323965721a30c48af1491ec074fdd2244ee2c71712656cba3c57652b11df5aee` |
 | S12 | [`archive-switch-or-stay-2026-10-02:README.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/README.md) | `f57224ddd87d24936bf116eb7dbabc99be2a732ee0677208c1367bace8810215` |
@@ -59,6 +131,7 @@ Mỗi Sxx đã mở toàn file từ tag; full hash/digest ở log. Nội dung l�
 | S20 | [`archive-switch-or-stay-2026-10-02:notes/03_experiment_log.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/03_experiment_log.md) | `249bd213e3a3c8f4379e62d025a776a408843c37861923b8fd2669026149c0e8` |
 | S21 | [`archive-switch-or-stay-2026-10-02:notes/gocheck/GO_check_spec.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/gocheck/GO_check_spec.md) | `f3281971df38349d719ea2d09f038ed96c7f6677298d4a4029e0d45146912d2b` |
 | S22 | [`archive-switch-or-stay-2026-10-02:notes/map/rollout_v6_preparation.md`](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/map/rollout_v6_preparation.md) | `6f989ddcd44072042e5237751904dca0f2189685143f92825072f0494b34c744` |
+| S23 | [GO switch report — đối chiếu File 5 ngày 08/10/2026](https://github.com/vantai13/dt4n-decision-risk-project/blob/e669f5c8053a81d6de192de9f9d0d6304ee67802/notes/map/go_switch_report.md) | `10a6730b5ac8363366d92ac66bf89e00876a5758a932ff86fd9f4cf42a54d7cc` |
 
 Final Review: [reading note](verification/final_review_reading_note.md), digest full snapshot `fc766e319427ba01da7362de2018cd4da6695dc1fcaa9812ed7badd5c0651fd1`. Note là summary có thể mở công khai; full source vẫn local-only, limitation ở EV-05/06/18. Raw và bundle cũng chỉ public metadata, không giả có download.
 
@@ -72,8 +145,8 @@ Final Review: [reading note](verification/final_review_reading_note.md), digest 
 |---|---|---|
 | (a) Practical effect/equivalence boundary trong load-changing world | EV-13 gần formulation nhất nhưng là pilot PSA thiếu action-induced feedback; EV-14 chưa đúng branching/estimand | NOT MET |
 | (b) Prediction trên dữ liệu chưa dùng xây explanation | Không có E3 đúng Main RQ; EV-09/13 và exposure chỉ ghi data đã xem | NOT MET |
-| (c) Use case có timescale và intervention cost hợp lý | EV-10 chỉ báo AoI setup cũ; không khóa cost/timing cho repairs finite-load | NOT MET |
-| Nhánh mechanism: phân biệt threshold null | EV-01 bác diễn giải Γ quá mạnh, chưa xác nhận network mechanism | NOT MET |
+| (c) Use case có timescale và intervention cost hợp lý | EV-28 sàng lọc lưới link chậm/buffer sâu, nhạy với tổng tuổi và độ trễ; EV-29 cho chênh lệch confirmation/data plane ở switch cụ thể; chưa có cost/timing thật của repairs | NOT MET (domain đã thu hẹp) |
+| Nhánh mechanism: phân biệt threshold null | EV-01 bác diễn giải Γ quá mạnh; EV-27 cho dấu một số contrast là hệ quả thiết kế có điều kiện; chưa có prediction phân biệt với null | NOT MET |
 
 **G1 — candidate gap.** Có câu hỏi, logical evidence, historical motivation và prior threats; chưa có đủ đúng-world evidence, unseen confirmation hay practical timescale. Archive/provenance mạnh hơn không nâng scientific effect evidence lên G2. Đọc thêm literature có thể giữ/hạ/loại candidate, không tự tạo G2.
 
@@ -87,10 +160,12 @@ Final Review: [reading note](verification/final_review_reading_note.md), digest 
 6. S/M của script n02 là staleness/measurement, không State/Model; P mới thao tác prior parameter. Bản đồ N2 có hai family, không có nghĩa experiment đã là factorial hai repairs của Main RQ.
 7. N1 có n01c 300 cặp DES với thêm tải từ cả warm-up; nguồn tự nói chưa branch từ cùng workload tại t và chưa đo trực tiếp nhóm chuyển. Không dùng nó xác nhận đúng-world repair effects.
 8. AoI “0,36 s” là order of magnitude; F1 tách CLEAN 0,369/PROD 0,343 s. Chưa tái tính raw. 30 JSONL không tự chứng minh khớp dataset khoảng 427 MiB.
-9. Bảng PHASE_0 EV-01…EV-12 và full review public source còn thiếu như ghi đầu file; không đánh dấu đã đọc primary papers hoặc đã kiểm nguồn trên mọi máy.
+9. Full review public source còn thiếu; chưa có record tác giả tự đọc primary papers hoặc kiểm nguồn trên mọi máy. Bảng đối chiếu EV gốc PHASE_0 nay có trong File 5, nhưng chưa có bản PHASE_0 đầy đủ để đối chiếu độc lập.
+10. Theo File 5, master plan V.3 viết “feasible repair luôn kém hơn hoặc bằng oracle” và K10 đo theo oracle headroom. Nếu “oracle” ở đây là **một repair riêng lẻ** trong pipeline cố định, EV-26 bác cận trên đó; $R_{00}$ mới là cận trên chung. Oracle quyết định chung vẫn là cận đúng. Chưa đối chiếu câu gốc master plan.
+11. Theo File 5, master plan Part XI xếp `workload_after` là Rebuild vì giả định luồng nhỏ. Đọc code cho thấy engine nhận arrival stream tổng quát; giả định managed không đổi tải nằm ở `des_world.py` (EV-30). PHASE_0 được hướng dẫn ghi là đã phân loại đúng; chưa đối chiếu hai văn bản gốc.
 
 Chuyển các discrepancy này vào changelog master plan khi đóng Phase 0; không sửa master plan không có trong phạm vi phiên này.
 
 ## Chưa kiểm được
 
-Primary literature; byline review; full raw identity và AoI recomputation; sandbox/máy khác; original EV numbering; read-back/vấn đáp của người thật. Các giới hạn không bị xóa khi tác giả đã phê duyệt understanding. Không bắt đầu L0.2.
+Tác giả tự đọc primary literature (EV-29 hiện chỉ có đối chiếu kỹ thuật); byline review; full raw identity và AoI recomputation; sandbox/máy khác; PHASE_0/master plan đầy đủ; nguồn EV-22 và nội dung/số đo EV-24; kiểm độc lập EV-25…EV-27; bài tự kiểm và read-back/vấn đáp của người thật. EV-23 đã đọc report nhưng chưa rerun kết quả. Các giới hạn không bị xóa khi tác giả đã phê duyệt understanding.
