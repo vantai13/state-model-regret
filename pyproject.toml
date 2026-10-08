@@ -1,0 +1,21 @@
+[project]
+name = "smr"
+version = "0.0.1"
+description = "State x Model repair value for load-changing routing decisions (research code)"
+authors = [{ name = "Doan Van Tai" }]
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "pandas", "matplotlib"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
