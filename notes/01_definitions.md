@@ -139,7 +139,7 @@ $I_\Delta$ là interaction ở tầng dự đoán, còn $\Gamma$ là interaction
 
 Hai dose tối đa là diagnostic endpoints; chúng không chứng minh hai repair có cùng chi phí triển khai. RQ3 phải dùng repair khả thi và ngân sách/chi phí khai báo riêng. Nếu gain của State repair chủ yếu đến từ thấy mode ẩn, không được coi toàn bộ gain đó là lợi ích refresh backlog thực tế.
 
-Giữ B2 làm mặc định DRAFT phù hợp D9. B1 là lựa chọn thay thế cần đặc tả đủ cách ước lượng backlog và mode, ghi lý do ở DL-008 và kiểm lại §7(c); không trộn B1/B2 giữa các ô cùng chỉ số $s$.
+B2 đã được tác giả nêu chọn làm baseline chính trong [Ownership Review ngày 08/10](PHASE_0_ownership_review.md); contract tổng thể còn DRAFT, schema/cách triển khai chưa chốt và bài tự kiểm còn chờ. B1 là lựa chọn thay thế cần đặc tả đủ cách ước lượng backlog và mode, ghi lý do ở DL-008 và kiểm lại §7(c); không trộn B1/B2 giữa các ô cùng chỉ số $s$.
 
 ## 6. Quy tắc khoá ngay (DRAFT, đổi phải có DL entry)
 
@@ -211,7 +211,7 @@ AS4 là giả định của diagnostic. $d_{\text{act}}$ trong domain/feasible r
 |---|---|---|
 | $\Delta t$, $H$, lưới $\tau$ | Cần tính tay; quét tuổi/delay phủ bốn chế độ, mỗi neo có điểm ①–② của T00; đổi giây sang slot qua $\Delta t$ | L1.8 |
 | Mô hình observation theo chế độ telemetry | D8 giả định backlog, Planck/rate counter chưa chứng minh cung cấp backlog. Quét tuổi giữ schema; rate-only phải tách scenario/version, estimator và observation giữ chung giữa các ô cùng $S$ | L1.8 |
-| $u$, $c_A$, $c_B$, tham số Markov | Cần running example có queue | L1.8 |
+| $u$, $c_A$, $c_B$, tham số Markov | Cần running example có queue; đối chiếu mode persistence với tuổi telemetry/action, phân biệt nhớ mode và backlog | L1.8 |
 | Chi tiết $S_0$: belief là posterior chính xác hay xấp xỉ; prior lấy từ đâu; cách $M_0$ dùng belief (khuyến nghị: lấy trung bình mean-rollout theo belief, không plug-in) | Quyết định §7(c) có giữ hay không | L1.6–L1.8 |
 | Lưới $D$ cho Phase 3 | Cần exact enumeration | L1.8 |
 | Reference cost, mức $\varepsilon_R$, $\varepsilon_E$ | Cần thang cost | L1.8 |
@@ -220,14 +220,15 @@ AS4 là giả định của diagnostic. $d_{\text{act}}$ trong domain/feasible r
 | Domain timescale và hai neo (a)/(b) | Phương án A đã được cung cấp; cần chọn lưới hợp lệ cho mỗi neo và đo timing/cost thật, không dùng AoI prototype làm neo | L1.8; Phase 8 |
 | Đặc tả $H_0/H_1$ (D25), predictor HC1, metric/biên kiểm HC1/HM1, discovery/calibration/held-out split và ngân sách fit | Brief có vế bác bỏ DRAFT; chưa chọn metric, fit hoặc đóng băng protocol. Phải giữ quyền thông tin và thang chuẩn hóa ở §0/§4 | A05, trước confirmation/Phase 4 |
 | Diagnostic $I_\Delta$ | Chưa có đặc tả interaction ở tầng dự đoán | L1.5 |
-| Schema belief, metric sai số state và lựa chọn B2/B1 | Tránh trộn point state với belief hoặc thay estimator giữa các ô | L1.6–L1.8; DL-008 |
+| Schema belief, metric sai số state và sensitivity B1 | B2 đã được chọn; chi tiết còn OPEN để tránh trộn point state với belief hoặc đổi estimator giữa các ô | L1.6–L1.8; DL-008 |
+| Model baseline trung gian có xét biến động traffic | Ownership Review đề xuất kiểm baseline mạnh hơn M0; chưa đặc tả model, quyền thông tin hoặc ngân sách so sánh | L1.8 |
 | Quy đổi packet·s sang ms/packet: mẫu số, tập packet và reference cost | Chưa có quy tắc quy đổi công khai, không coi mean delay packet đã xong là cùng objective | DL-005; L1.8 |
 
 Với B2, khuyến nghị chạy mean-rollout cho từng state hợp lệ rồi lấy trung bình theo belief. Khi đó hai model dùng cùng uncertainty về state, khác cách xử lý tương lai ngẫu nhiên. Plug-in một state trung bình có thể thêm xấp xỉ ở tầng state và tạo mode không hợp lệ; nếu chọn cách đó phải ghi rõ estimand và kiểm lại model-only repair, không âm thầm thay mặc định.
 
 CRN là dùng chung primitive streams giữa các action/ô khi evaluator đánh giá để giảm variance; không được chia sẻ realized evaluation future với $M_0$, $M_1$ hoặc oracle. Đối chiếu [exposure register](00_exposure_register.md) cho cả seed lẫn regime đã xem, không chỉ đổi seed.
 
-Các lựa chọn DRAFT về đơn vị, ô phụ D22, B2/B1 và assumption ưu tiên vẫn được theo dõi trong phụ lục. Nếu thay chúng tạo ra mục chưa quyết mới, bổ sung vào bảng này cùng nơi quyết.
+Các lựa chọn DRAFT về đơn vị, ô phụ D22, chi tiết B2/sensitivity B1 và assumption ưu tiên vẫn được theo dõi trong phụ lục. Nếu thay chúng tạo ra mục chưa quyết mới, bổ sung vào bảng này cùng nơi quyết.
 
 ## 10. Kiểm nhất quán trước khi gắn tag `contract-v0`
 
@@ -303,9 +304,9 @@ Hướng dẫn gọi đây là “12 câu hỏi”; bảng được cung cấp c
 |---|---|---|
 | D3 | Capacity là parameter cố định trong episode | DL-004 đã có DRAFT ở [decision log](02_decision_log.md) |
 | D8 | Mode không quan sát được qua telemetry; state thật chỉ diagnostic/oracle | Ghi lý do tại decision entry tương ứng nếu thay giả định telemetry |
-| D9 | $S_0$ là belief (B2), schema cố định | DL-008 đã có DRAFT ở [decision log](02_decision_log.md); nối §7(c) |
+| D9 | B2 đã được nêu chọn; schema/cách triển khai và tự kiểm còn chờ | [Ownership Review](PHASE_0_ownership_review.md); DL-008 ở [decision log](02_decision_log.md); nối §7(c) |
 
-Việc chép các mặc định DRAFT chưa là record tác giả đã tự kiểm và chốt lựa chọn. D3/D8/D9 có thể đổi với lý do được ghi; DL-004/DL-008 đã được tạo ở File 6 nhưng ngày xác nhận còn trống. Chi tiết schema và cách $M_0/M_1$ dùng belief phải được kiểm cùng repair cards ở Phần 2.
+Ownership Review ghi nhận tác giả đã nêu chọn B2 và domain hai neo; chưa là record tự kiểm hoặc chốt toàn bộ contract. D3/D8 và chi tiết D9 vẫn cần rà soát; DL-004 và phần còn lại của DL-008 còn DRAFT. Chi tiết schema và cách $M_0/M_1$ dùng belief phải được kiểm cùng repair cards ở Phần 2.
 
 ### Tự điền bảng quyền thông tin và phát hiện rò
 
@@ -349,7 +350,7 @@ Bảng có 11 nhóm câu hỏi bao phủ 12 term, vì D23–D24 dùng chung mộ
 - **D13:** mặc định primary packet·s, kèm bản quy đổi ms/packet. Nếu chuyển ms/packet thành primary, đặc tả mẫu số, reference cost và ghi DL-005 trước khi dùng kết quả.
 - **D22:** giữ ô phụ trong bản nháp; có thể bỏ với lý do, khi đó mất một diagnostic để tách freshness khỏi mode visibility.
 - **D23–D24:** giữ OPEN; chưa điền ngưỡng hoặc reference cost.
-- **§7/B2:** giữ §7 trong contract và B2 làm mặc định DRAFT; lựa chọn này chưa là record tác giả đã tự kiểm hay chốt DL-008.
+- **§7/B2:** B2 đã được nêu chọn trong Ownership Review; vị trí giữ §7, chi tiết belief và bài tự kiểm còn chờ, chưa chốt toàn bộ DL-008.
 
 Tự nghĩ một bộ số cho mỗi hàng “Đọc kết quả” ở §4. Với ví dụ thay thế $G_S=G_M=1$, $G_{SM}=1{,}9$, $\Gamma=-0{,}1$: sửa một cái đã đủ chưa? So gain riêng với gain chung và ngưỡng đã khai báo; không suy “một cái đủ” chỉ từ dấu âm của $\Gamma$.
 
@@ -399,7 +400,8 @@ Tác giả tự viết lại câu scope, chọn assumption rủi ro nhất kèm 
 - [ ] Tác giả tự điền bảng quyền thông tin và làm bài phát hiện rò trong L0.3.
 - [x] Phần 2: D13–D24 đã nối cùng bảng, §4 estimand card, §5 repair cards, §6 quy tắc, §7 hệ quả biết trước đã bổ sung.
 - [ ] Tác giả trả lời được toàn bộ câu hỏi tự kiểm D13–D24.
-- [ ] Tác giả xác nhận D13 (đơn vị), D22 (ô phụ), B2/B1 và vị trí giữ §7; ghi quyết định tương ứng.
+- [x] Ghi nhận lựa chọn B2 làm baseline chính và domain hai neo từ Ownership Review ngày 08/10; chưa thay bài tự kiểm.
+- [ ] Tác giả xác nhận D13 (đơn vị), D22 (ô phụ), chi tiết B2/sensitivity B1 và vị trí giữ §7; ghi quyết định tương ứng.
 - [ ] Tác giả làm ít nhất bài 1–3 phản biện §7, sau đó bài 4 về Bayes-optimal nếu kịp.
 - [x] Phần 3: D25, ngân sách 25 term, §8 scope/assumptions, §9 mục còn mở, §10 kiểm nhất quán đã bổ sung.
 - [ ] Tác giả viết lại scope và xác nhận assumption rủi ro nhất kèm lý do.
@@ -409,5 +411,7 @@ Tác giả tự viết lại câu scope, chọn assumption rủi ro nhất kèm 
 - [ ] Tác giả tự kiểm thuật ngữ, viết lại brief và dựng chuỗi HC1/HP1 bằng lời mình; xác nhận các lựa chọn DRAFT.
 - [ ] Tác giả kiểm toàn bộ nội dung và cập nhật nguồn gốc trước khi đóng băng/tag; commit bản nháp theo File 7 không thay bước này.
 - [ ] Commit, gắn tag `contract-v0` và push sau khi đủ điều kiện ở §10.
+
+**Ownership:** xem [review và bảng việc chưa hoàn thành](PHASE_0_ownership_review.md); V3/V10/V11 còn mở.
 
 **Gate:** V4/V5 có định nghĩa và quy tắc ở mức tài liệu; V6 có mapping/estimand card; V7 có repair cards nhưng vẫn có điều kiện vì $S_1$ gộp ba thành phần và chi tiết belief chưa chốt; V8 có scope và danh sách mục mở với nơi quyết. Chưa ghi các gate này là tác giả đã tự kiểm đạt hoặc Phase 0 đã đóng. Đủ nội dung contract v0, còn điều kiện kiểm/tag ở §10; các con số vẫn khoá ở contract v1 (L1.8).
