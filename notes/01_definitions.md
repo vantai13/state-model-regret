@@ -3,9 +3,10 @@
 Tác giả: **Doan Van Tai** · Ngày bổ sung: **08/10/2026**.
 
 > **Nguồn gốc.** Bản v0 tích hợp đủ ba phần nội dung tác giả cung cấp ngày 08/10/2026; hướng dẫn dẫn nguồn L0.3–L0.6, master plan Part II và Final Review §2, §5, §11. File 8 đã bổ sung khung lesson L0.3–L0.7, nhưng chưa có bài tự làm; master plan đầy đủ còn thiếu để đối chiếu. Final Review gốc đã được kiểm digest và đối chiếu kỹ thuật ở §10; việc đó không thay record tác giả tự kiểm. Bản này **chưa** qua người đọc độc lập.
-> **Mức hoàn thiện.** Đã có **đủ nội dung Phần 1–3/3**: §0–§10, D1–D25; T00 đã kiểm code/bảng. File 7 bổ sung brief và hoàn tất đối chiếu thuật ngữ kỹ thuật ở §10. Theo lệnh lưu tài liệu trong File 7, contract được lưu cùng brief dưới dạng **DRAFT**, chưa gắn tag `contract-v0`; các bài tự kiểm và lựa chọn của tác giả chưa có record hoàn thành. Commit lưu bản nháp không đồng nghĩa chốt/tag hoặc phê duyệt độc lập.
+> **Mức hoàn thiện.** Đủ nội dung Phần 1–3/3 và năm sửa đổi DL-010; bản kỹ thuật đóng băng tại `contract-v0` theo [closeout B](phases/PHASE_0_closeout.md), ngày 08/10/2026. DRAFT/OPEN bên trong giữ nguyên; V3/V10/V11 và tự kiểm của tác giả còn mở. Đóng băng snapshot không thay phê duyệt độc lập.
 > **Trạng thái.** LOCKED = nguyên tắc, đổi phải có DL entry và tăng phiên bản. DRAFT = mặc định hiện tại. OPEN = còn mở, có nơi quyết (§9). Nhãn từng nguyên tắc không có nghĩa toàn bộ contract đã được chốt.
 > **Ngân sách.** 25 term (giới hạn khoảng 25), hiện có 25/25. Ký hiệu timescale ($T_{\text{drain}}$, $\tau_{\text{eff}}$, $d_{\text{act}}$) định nghĩa ở [T00](theory/T00_timescale_sanity.md); $I_\Delta$ hoãn tới L1.5. Con số cụ thể ($\Delta t$, $H$, $u$, $c$, tham số Markov, $\varepsilon_R$, $\varepsilon_E$) khoá ở L1.8, thành contract v1.
+> **Sửa đổi theo [DL-010](02_decision_log.md) (08/10/2026).** Năm sửa đổi bắt buộc của review chuyển phase đã đưa vào: ngữ nghĩa slot và objective (D1, D13, ghi chú dưới bảng §2); phạm vi model repair (§0, D21, §5); quy tắc chống chỉnh timescale (§6 quy tắc 7); null bảo toàn (§6 quy tắc 8, §7g, §7h); quy tắc cheap kill (§7f). Các mục §7 mới là E0 — hệ quả của thiết kế, không phải phát hiện. Không thêm term D; vẫn 25/25.
 
 Contract quy định thế giới, phép đo, đối tượng so sánh và quyền thông tin trước khi có số liệu. Từ Phase 3, code và thí nghiệm phải khớp contract; thay đổi phải được ghi bằng phiên bản và decision-log entry, không lặng lẽ đổi khi triển khai.
 
@@ -22,6 +23,8 @@ Contract quy định thế giới, phép đo, đối tượng so sánh và quy�
 RQ1 chia kết quả theo toạ độ controller quan sát được trước action, ví dụ tuổi thông tin hoặc backlog đã đo. Không dùng mode thật chỉ simulator biết làm toạ độ chính của bản đồ này; hệ quả được trình bày ở §7c trong Phần 2.
 
 Đối chiếu câu hỏi với [RQ card L0.2](lessons/L0.2_rq_card.md) và [Final Review reading note](verification/final_review_reading_note.md). D19 và estimand card nằm ở §2/§4; $H_0/H_1$ được định nghĩa ở D25, đặc tả tại A05 trước Phase 4. Chưa có kết quả xác nhận RQ2 hoặc RQ3.
+
+**Phạm vi của “model fidelity” (DL-010).** Trong contract này, “action-response model fidelity” của Main RQ chỉ được đo qua **một** thành phần: cách biểu diễn tính ngẫu nhiên của tương lai, với cùng $\theta$ đúng và cùng recurrence (D21). Sai tham số và sai cấu trúc nằm ngoài primary estimand (§5). Mọi câu trả lời cho Main RQ phải nói đúng phạm vi này.
 
 **Ba hypothesis của [brief v0](00_research_brief.md):** HC1 là dự đoán bản đồ conditional gains cho RQ1; HM1 là kiểm sức dự báo bổ sung của $H_1$ so với $H_0$ cho RQ2; HP1 là kiểm net gain của repair khả thi so ngưỡng và baseline mạnh cho RQ3. Đây là mã hypothesis DRAFT, không thêm term D hoặc tạo kết quả mới. Các vế bác bỏ nằm trong brief; đặc tả metric, predictor, biên kiểm và split phải khóa trước confirmation (§9).
 
@@ -43,7 +46,7 @@ Simulator đóng vai plant được đánh giá, còn twin là pipeline ước l
 
 | ID | Term | Định nghĩa vận hành | Đơn vị | Trạng thái |
 |---|---|---|---|---|
-| D1 | Slot $\Delta t$ | Đơn vị thời gian rời rạc; mọi rate tính theo packet/slot | s | DRAFT (giá trị: L1.8) |
+| D1 | Slot $\Delta t$ | Đơn vị thời gian rời rạc; mọi rate tính theo packet/slot. Slot $k$ là $[t_0+k\Delta t,\,t_0+(k+1)\Delta t)$; trong slot: mode có hiệu lực → arrivals vào queue → phục vụ tối đa $c_l$; $q_{l,k+1}$ là backlog **cuối** slot $k$ (ghi chú dưới bảng) | s | DRAFT (giá trị: L1.8) |
 | D2 | Horizon $h$ | $h=H\Delta t$, dùng chung cho mọi ô và mọi action | s | DRAFT ($H$: L1.8) |
 | D3 | Path, capacity $c_l$ | Hai path rời $l\in\{A,B\}$, mỗi path một bottleneck queue; $c_l$ là **parameter**, cố định trong episode | packet/slot | DRAFT |
 | D4 | Traffic nền, law $\theta$ | $b_{l,k}$ sinh từ Markov on/off độc lập trên mỗi path. $\theta$ = (ma trận chuyển mode, rate on/off, $c_l$), cố định trong episode | packet/slot | DRAFT |
@@ -55,7 +58,7 @@ Simulator đóng vai plant được đánh giá, còn twin là pipeline ước l
 | D10 | Model $M$ | $M:(\hat x,a)\mapsto\hat J(a)$. $M_0$: mean rollout **load-aware** (đưa $u$ vào đúng queue, khởi tạo từ $\hat x$, arrivals thay bằng kỳ vọng có điều kiện theo mode). $M_1$: kỳ vọng đúng trên toàn bộ law. Cùng $\theta$; khác **cách dùng** $\theta$ | packet·s | DRAFT |
 | D11 | Tương lai $w$ | Realization của traffic nền sau $t_0$. Chỉ evaluator sinh | — | **LOCKED** |
 | D12 | Episode, phân phối $D$ | Episode = (state thật, history observation, $w$). Cặp (state, observation) sinh **bằng law của plant**; không ghép tuỳ ý | — | DRAFT (lưới: L1.8) |
-| D13 | Cost $C$ | $C(a,w)=\Delta t\sum_{k=1}^{H}\sum_{l}q_{l,k}(a,w)+c_{\text{sw}}\mathbf 1\{a=\text{Switch}\}$: tổng thời gian chờ của **mọi** packet trên **cả hai** queue, kể cả packet chưa xong | packet·s | DRAFT |
+| D13 | Cost $C$ (cumulative queue occupancy) | $C(a,w)=\Delta t\sum_{k=1}^{H}\sum_{l}q_{l,k}(a,w)+c_{\text{sw}}\mathbf 1\{a=\text{Switch}\}$: diện tích backlog cuối slot của **cả hai** queue trong $h$, gồm packet có sẵn tại $t_0$ và packet chưa xong; **không** gồm $k=0$ và phần chờ sau $h$. Bằng tổng thời gian chờ đo ở độ phân giải slot; **không** phải mean delay | packet·s | DRAFT |
 | D14 | Objective $J$ | $J(a;x,\theta)=\mathbb E_w[C(a,w)]$ | packet·s | DRAFT |
 | D15 | Oracle $a^*$ | $\arg\min_a J(a;x,\theta)$: biết $x$ và $\theta$, **không** biết $w$. Thước đo chẩn đoán, không phải policy | — | **LOCKED** |
 | D16 | Luật quyết định | Chọn $a$ có $\hat J$ nhỏ hơn; nếu $\widehat\Delta=0$ thì Stay | — | DRAFT |
@@ -63,11 +66,19 @@ Simulator đóng vai plant được đánh giá, còn twin là pipeline ước l
 | D18 | Regret | $r=J(\hat a)-J(a^*)\ge0$; $R_{sm}=\mathbb E_D[r]$ của ô $(s,m)$; $L_{sm}=\mathbb E_D[J(\hat a_{sm})]$ | packet·s | DRAFT |
 | D19 | Contrasts | $G_S=L_{00}-L_{10}$, $G_M=L_{00}-L_{01}$, $G_{SM}=L_{00}-L_{11}$, $\Gamma=G_{SM}-G_S-G_M$, $G_{S\mid M_1}=L_{01}-L_{11}$, $G_{M\mid S_1}=L_{10}-L_{11}$ | packet·s | DRAFT |
 | D20 | State repair | Operator $S_0\to S_1$, dose tối đa; gộp ba thành phần: tuổi về 0, thấy mode, bỏ nhiễu/gộp cửa sổ. Tên: *giá trị của thông tin state hiện tại đầy đủ* | — | DRAFT |
-| D21 | Model repair | Operator $M_0\to M_1$, dose tối đa; $S$ giữ nguyên kể cả mô hình bên trong. Tên: *giá trị của biểu diễn đúng tính ngẫu nhiên của phản ứng* | — | DRAFT |
+| D21 | Model repair | Operator $M_0\to M_1$, dose tối đa; $S$ giữ nguyên kể cả mô hình bên trong. Chỉ đổi **cách biểu diễn tính ngẫu nhiên** của tương lai (kỳ vọng có điều kiện → toàn bộ law), cùng $\theta$ đúng và cùng recurrence D6. **Không** đo sai tham số ($\hat\theta\ne\theta$) hay sai cấu trúc (TCP, buffer hữu hạn, shared link). Tên: *giá trị của biểu diễn đúng tính ngẫu nhiên của phản ứng* | — | DRAFT |
 | D22 | Ô chẩn đoán phụ $S_0^{\tau=0}$ | $S_0$ với tuổi 0 nhưng vẫn không thấy mode. Tách "tươi hơn" khỏi "thấy mode". **Không** thuộc primary estimand | — | DRAFT |
 | D23 | Practical threshold $\varepsilon_R$ | Ngưỡng tương đối so với một reference cost, chọn **trước** confirmation; vài mức (ví dụ 0,5%, 1%, 2%) là quy ước khảo sát độ nhạy, chưa phải SLA | % | OPEN (L1.8) |
 | D24 | Equivalence margin $\varepsilon_E$ | Gain coi là "tương đương 0" khi cả khoảng tin cậy nằm trong $\pm\varepsilon_E$ | % | OPEN (L1.8) |
 | D25 | Threshold null $H_0$; giải thích $H_1$ | $H_0$: mô hình chỉ cộng sai số state và sai số model vào gap rồi qua ngưỡng quyết định; fit trên dữ liệu calibration rồi **đóng băng**. $H_1$: giải thích dựa trên động học queue sau action, cùng quyền thông tin và ngân sách fit với $H_0$ | — | DRAFT (đặc tả A05, trước Phase 4) |
+
+**Ngữ nghĩa slot và objective (DL-010).**
+- *Mốc thời gian.* $t_0$ là đầu slot 0, action có hiệu lực từ slot 0 (AS4). State $x=(q_{A,0},q_{B,0},m_{A,0},m_{B,0})$: backlog đầu slot 0 và mode có hiệu lực **trong** slot 0. Tương lai $w$ gồm arrivals $b_{l,0},\dots,b_{l,H-1}$ và mode $m_{l,1},\dots,m_{l,H-1}$.
+- *Observation.* $\tau$ là số nguyên slot, $\tau\ge0$; $y$ là backlog đầu slot $-\tau$. $\tau=0$ nghĩa là đọc backlog đúng tại $t_0$ (ô phụ D22).
+- *Trong một slot.* Arrivals vào trước, phục vụ sau, nên packet đến trong slot có thể được phục vụ ngay trong slot đó. Đổi thứ tự là đổi recurrence D6, phải có DL.
+- *Cost đếm gì.* $q_{l,k}$ với $k=1,\dots,H$ là backlog cuối các slot $0,\dots,H-1$. Mỗi packet góp $\Delta t$ cho mỗi ranh giới slot mà nó còn nằm trong queue. Vì vậy $C$ là tổng thời gian chờ **làm tròn theo slot** và **cắt tại $h$**; packet đến và đi trong cùng slot góp 0. Gọi là *cumulative queue occupancy*, không gọi là mean delay (mean delay chia cho số packet và thường chỉ đếm packet đã xong).
+- *Vì sao bỏ $k=0$.* $q_{l,0}$ như nhau cho mọi action, nên bỏ hay giữ không đổi $\Delta$, regret hay contrast. Nhưng nó đổi **mức** $L$, nên đổi reference cost và ngưỡng phần trăm; §9 phải dùng cùng quy ước này.
+- *Hệ quả.* Đổi $\Delta t$ với cùng tốc độ vật lý làm đổi phần làm tròn của $C$. Kết quả chỉ có nghĩa nếu không phụ thuộc mạnh vào $\Delta t$ (§6 quy tắc 7).
 
 Đã có đủ 25 hàng trong một bảng. Mỗi hàng giữ định nghĩa vận hành, đơn vị và trạng thái; quyền thông tin được gom ở §3. D23–D24 vẫn OPEN, các mức phần trăm nêu ở D23 chỉ là ví dụ, chưa được chọn làm ngưỡng. D25 đặt nguyên tắc cho null và giải thích động học: cả hai phải được đóng băng trước dữ liệu confirmation và có cùng quyền thông tin/ngân sách fit; cách fit cụ thể còn chờ A05.
 
@@ -133,11 +144,13 @@ $I_\Delta$ là interaction ở tầng dự đoán, còn $\Gamma$ là interaction
 | Dose (diagnostic) | Tối đa | Tối đa |
 | Giữ cố định | $M$, plant, episode, $H$, objective | $S$ kể cả mô hình bên trong, plant, episode, $H$, objective |
 | Sau khi sửa biết | Ô 10: biết $x$; không biết $w$ | Ô 01: cùng $\theta$, dùng đúng law; vẫn không biết $x$, $w$ |
-| Phiên bản khả thi (RQ3) | Refresh phần đo được (backlog) với độ trễ $d$ và chi phí telemetry. Phần “thấy mode” **không** có bản khả thi nếu mode không đo được | Model hiệu chỉnh từ dữ liệu hữu hạn, ngân sách cố định |
-| Rủi ro | Gọi nhầm là “freshness” | $M_0$ thành strawman; estimator đổi theo model |
+| Phiên bản khả thi (RQ3) | Refresh phần đo được (backlog) với độ trễ $d$ và chi phí telemetry. Phần “thấy mode” **không** có bản khả thi nếu mode không đo được | Biểu diễn ngẫu nhiên khả thi cùng $\theta$, ví dụ rollout Monte Carlo $K$ mẫu hoặc model trung gian có phương sai, ngân sách tính cố định. Model ước lượng $\theta$ từ dữ liệu hữu hạn là repair **khác** (tham số), cần tên và estimand riêng |
+| Rủi ro | Gọi nhầm là “freshness” | $M_0$ thành strawman; estimator đổi theo model; gọi $G_M$ là giá trị “model fidelity” nói chung |
 | Nếu không tách được | Đổi tên estimand thành **pipeline repair** (K5) | Như trái |
 
 Hai dose tối đa là diagnostic endpoints; chúng không chứng minh hai repair có cùng chi phí triển khai. RQ3 phải dùng repair khả thi và ngân sách/chi phí khai báo riêng. Nếu gain của State repair chủ yếu đến từ thấy mode ẩn, không được coi toàn bộ gain đó là lợi ích refresh backlog thực tế.
+
+**Phạm vi model repair (DL-010).** $M_0$ và $M_1$ cùng biết $\theta$ đúng và cùng recurrence D6; chúng chỉ khác ở chỗ $M_0$ thay arrivals tương lai bằng kỳ vọng có điều kiện, còn $M_1$ lấy kỳ vọng trên toàn bộ law. Vì vậy $G_M$ là giá trị của **biểu diễn ngẫu nhiên đúng**, một phần nhỏ của “model fidelity”. Ba loại sai số model khác **không** được đo: (i) sai tham số, ví dụ ước lượng sai rate on/off; (ii) sai cấu trúc, ví dụ bỏ qua TCP phản hồi hoặc buffer hữu hạn; (iii) sai mô hình bù tuổi, vốn thuộc $S$. Feasible model repair ở RQ3 phải cùng loại với operator diagnostic (cùng $\theta$, đổi cách biểu diễn ngẫu nhiên); nếu thêm ước lượng $\theta$, đó là repair tham số và phải báo riêng.
 
 B2 đã được tác giả nêu chọn làm baseline chính trong [Ownership Review ngày 08/10](PHASE_0_ownership_review.md); contract tổng thể còn DRAFT, schema/cách triển khai chưa chốt và bài tự kiểm còn chờ. B1 là lựa chọn thay thế cần đặc tả đủ cách ước lượng backlog và mode, ghi lý do ở DL-008 và kiểm lại §7(c); không trộn B1/B2 giữa các ô cùng chỉ số $s$.
 
@@ -149,8 +162,10 @@ B2 đã được tác giả nêu chọn làm baseline chính trong [Ownership Re
 4. Luôn báo đủ $G_S$, $G_M$, $G_{SM}$, $\Gamma$, hai gain có điều kiện, điểm xuất phát và phân phối margin.
 5. Ô báo cáo định nghĩa bằng **toạ độ quan sát được trước action** (ví dụ $\tau$, backlog quan sát, persistence). Nếu cắt theo state ẩn (ví dụ mode thật) thì ghi rõ, vì bảo đảm ở §7(c) không còn giữ.
 6. Đổi objective, estimand hoặc metric sau khi đã thấy kết quả → DL entry ghi “post hoc”.
+7. **Chống chỉnh timescale (DL-010).** Mọi thang thời gian khai báo bằng **giây vật lý** từ chế độ có nguồn (T00, EV-31): tổng tuổi và độ trễ $\tau_{\text{eff}}+d_{\text{act}}$, horizon $h$, thời gian lưu trung bình của mode $T_{\text{mode}}$. Sau đó mới đổi sang slot qua $\Delta t$, ví dụ $H=h/\Delta t$, với chain có thời gian lưu geometric, xác suất rời mode mỗi slot $p=\Delta t/T_{\text{mode}}$ (cần $p\le1$); hoặc khai báo generator thời gian liên tục $Q$ rồi dùng $P(\Delta t)=\exp(Q\Delta t)$. Xác suất có ít nhất một lần rời mode $1-e^{-\Delta t/T_{\text{mode}}}$ không tự là phần tử chuyển mode quan sát cuối slot nếu có thể rời rồi quay lại. Lưới khoá trước khi xem contrast (contract v1, L1.8). Báo **mọi** điểm lưới, kể cả điểm gain bằng 0, kèm $T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$, $h/T_{\text{drain}}$ và $T_{\text{mode}}/(\tau_{\text{eff}}+d_{\text{act}})$. Kiểm bất biến thang: chạy lại với $\Delta t/2$ và cùng tốc độ vật lý; contrast đổi dấu hoặc lệch quá dung sai khai báo trước được ghi là artefact rời rạc hoá, không phải kết quả.
+8. **Null bảo toàn (DL-010, §7g).** Báo tỉ lệ episode thuộc vùng bảo toàn (không queue nào bỏ phí capacity trong $h$ dưới cả hai action) và tỉ lệ dự đoán hoà $\widehat\Delta=0$ ở mỗi ô. Đây là toạ độ diagnostic của evaluator, không cấp cho predictor (quy tắc 5). Mọi chương trình mô phỏng phải qua **negative control**: trong một cấu hình không idle, bốn ô cho cùng cost và mọi contrast bằng 0 đúng tuyệt đối.
 
-Các quy tắc lần lượt ngăn chọn tie rule sau kết quả, chỉnh switching cost để dịch ranh giới, chọn ngưỡng hậu nghiệm, chỉ báo contrast thuận lợi, chia nhóm bằng thông tin ẩn và âm thầm đổi thước đo. Persistence chỉ là toạ độ hợp lệ nếu controller biết được nó từ thông tin được cấp trước action.
+Các quy tắc lần lượt ngăn chọn tie rule sau kết quả, chỉnh switching cost để dịch ranh giới, chọn ngưỡng hậu nghiệm, chỉ báo contrast thuận lợi, chia nhóm bằng thông tin ẩn, âm thầm đổi thước đo, chọn thang thời gian sao cho hiệu ứng xuất hiện, và để các episode tầm thường ($\Delta=0$ do bảo toàn) làm loãng hoặc che trung bình. Persistence chỉ là toạ độ hợp lệ nếu controller biết được nó từ thông tin được cấp trước action.
 
 ## 7. Hệ quả biết trước — **không** phải phát hiện
 
@@ -164,6 +179,17 @@ Các quy tắc lần lượt ngăn chọn tie rule sau kết quả, chỉnh swit
 - **(d) Không có clipping trên mọi sample path liên quan:** với cùng input/belief và cách lấy kỳ vọng nhất quán, recurrence và objective đều tuyến tính, $M_0$ cho đúng expected cost như $M_1$, nên $G_M=G_{M\mid S_1}=0$. Hướng dẫn dẫn Final Review §5.2, ví dụ 60 = 60; cần kiểm tay ở L1.3–L1.4. Chỉ một trajectory quan sát không chạm biên chưa đủ điều kiện này.
 - **(e) Đồng nhất thức:** $\Gamma=G_{S\mid M_1}-G_S=G_{M\mid S_1}-G_M$. Đồng nhất thức cũng đúng ở mức episode với $g,\gamma$.
 - **(f) Cận trên:** với cùng $D$, objective và tập action, $R_{00}$ là cận trên cho lợi ích của **mọi** repair so với ô 00, vì không repair nào có cost thấp hơn oracle. Gain của **một** oracle repair **không** phải cận trên cho feasible repair cùng loại, vì sai số state và model có thể bù nhau. [L0.4 §3](lessons/L0.4_estimand.md) đã có khung bài phản ví dụ; log tính ở EV-26. Quy tắc dùng $R_{00}$ cho cheap kill/K10 đang DRAFT ở DL-006, chưa có bài tự kiểm/xác nhận của tác giả.
+  **Quy tắc cheap kill/K10 đã sửa (DL-006, DL-010):** trên một miền đã khai báo, nếu cận trên khoảng tin cậy của $100R_{00}/C_{\text{ref}}$ nhỏ hơn $\varepsilon_R$, thì loại miền theo mức tin cậy đã khai báo: không repair nào (state, model hay pipeline; oracle hay khả thi) đạt ngưỡng theo cận này → NARROW hoặc dừng miền đó. **Không** loại một feasible repair chỉ vì oracle repair cùng loại có gain nhỏ (EV-26, NC11). Cận chỉ giữ khi feasible repair dùng cùng $D$, objective, tập action và **thời điểm hiệu lực** của action với oracle; nếu repair thêm độ trễ thực thi hoặc đổi tập action, phải dựng lại oracle tương ứng rồi mới dùng cận.
+- **(g) Bảo toàn và null tương đương quyết định.** Giả sử D5 (A giảm đúng lượng B tăng), AS1 (cùng $b$ cho hai action), capacity cố định, objective cộng hai queue cùng trọng số, $c_{\text{sw}}=0$. Viết $[z]^+=z+[-z]^+$ thì
+
+  $$\sum_l q_{l,k}(a)=\sum_l q_{l,0}+\sum_{j<k}\Big(\sum_l b_{l,j}+u-\sum_l c_l\Big)+\sum_{j<k}I_j(a),\qquad I_j(a)=\sum_l\big[c_l-q_{l,j}-b_{l,j}-u_l(a)\big]^+ .$$
+
+  $I_j(a)$ là capacity bị **bỏ phí** (queue rỗng, server rảnh) trong slot $j$. Số hạng thứ hai không phụ thuộc action, nên trên cùng $w$:
+
+  $$C(\text{Switch},w)-C(\text{Stay},w)=\Delta t\sum_{j=0}^{H-1}(H-j)\big[I_j(\text{Switch},w)-I_j(\text{Stay},w)\big].$$
+
+  Hệ quả: (i) action chỉ đổi cost qua capacity bỏ phí, và slot càng sớm càng nặng ký; (ii) **null tương đương quyết định:** nếu trên mọi path có xác suất dương, không queue nào idle trong $h$ dưới cả hai action, thì $\Delta=0$, mọi ô có cùng $J$, mọi regret và contrast bằng 0 — vùng đó không mang thông tin cho Main RQ; (iii) cùng đẳng thức áp cho quỹ đạo trung bình của $M_0$: nếu quỹ đạo trung bình không chạm 0 dưới cả hai action thì $\widehat\Delta_{M_0}=0$, tie rule chọn Stay, dù $\Delta$ thật có thể khác 0; (iv) một ví dụ Stay/Switch không suy biến **cần** idle với xác suất dương dưới ít nhất một action. Đây là hệ quả của bảo toàn công việc (work conservation) quen thuộc trong queueing, E0, không phải phát hiện. Nó mạnh hơn (d): (d) nói $M_0$ đúng trong vùng không clipping; (g) nói trong vùng đó cả hai action tương đương.
+- **(h) $M_0$ không bao giờ dự đoán cao hơn $M_1$.** Hàm $f(q,b)=[q+b+u_l-c_l]^+$ lồi theo $(q,b)$ và không giảm theo $q$. Quy nạp với bất đẳng thức Jensen cho $\mathbb E[q_{l,k}]\ge\bar q_{l,k}$ khi xuất phát từ cùng state, trong đó $\bar q$ là quỹ đạo trung bình của $M_0$. Ở đây mean arrivals phải là $\mathbb E[b_{l,k}\mid x,\theta]$ đúng cho từng slot, không giữ mode hiện tại bất biến. Với belief, lấy trung bình các mean-rollout theo từng state hợp lệ và cùng trọng số belief; cách plug-in khác phải kiểm lại, chưa tự được hưởng bảo đảm. Do đó với cùng state hoặc cùng belief theo cách trên và cùng action, $\hat J_{M_0}(a)\le\hat J_{M_1}(a)$. Hai action bị đánh giá thấp với lượng khác nhau, nên dấu sai số của $\widehat\Delta$ **không** cố định. Model repair chỉ đổi quyết định khi phần đánh giá thấp, tức khoảng Jensen của capacity bỏ phí, chênh giữa hai action đủ để lật dấu gap. E0.
 
 **Giải thích bất biến (b).** Với $\lvert\Delta\rvert>0$, đặt $i_{sm}=1$ nếu ô chọn action có cost lớn hơn, bằng 0 nếu chọn action tối ưu. Khi đó $\ell_{sm}=J_{\min}+i_{sm}\lvert\Delta\rvert$, $i_{11}=0$ và
 
@@ -191,7 +217,7 @@ Các phương án domain dùng tên mô tả, ví dụ “trục tuổi telemetr
 |---|---|---|---|
 | AS1 | Traffic nền ngoại sinh | TCP tự giảm khi nghẽn → cost Switch bị đánh giá cao | Phase 7 |
 | AS2 | Traffic nền hai path độc lập | Burst đồng thời làm Switch kém hấp dẫn hơn | Phase 7 |
-| AS3 | Slotted, buffer vô hạn | Drop ở biên đầy là phi tuyến thứ hai | Phase 7 |
+| AS3 | Slotted, buffer vô hạn | Drop ở biên đầy là phi tuyến thứ hai. Drop làm **giảm** occupancy, nên D13 sẽ thưởng cho action gây mất gói; trước khi nới AS3 phải thêm phạt loss vào objective (DL mới) | Phase 7 |
 | AS4 | Action hiệu lực ngay | Độ trễ thực thi làm giảm giá trị state | Phase 8 |
 | AS5 | Markov on/off, tham số cố định | Burst đuôi dài làm $(q,m)$ không còn đủ | Phase 7 |
 | AS6 | Capacity cố định | Capacity trôi | Phase 8 |
@@ -209,9 +235,12 @@ AS4 là giả định của diagnostic. $d_{\text{act}}$ trong domain/feasible r
 
 | Mục | Vì sao chưa quyết | Quyết ở |
 |---|---|---|
-| $\Delta t$, $H$, lưới $\tau$ | Cần tính tay; quét tuổi/delay phủ bốn chế độ, mỗi neo có điểm ①–② của T00; đổi giây sang slot qua $\Delta t$ | L1.8 |
+| $\Delta t$, $H$, lưới $\tau$ | Cần tính tay; quét tuổi/delay phủ bốn chế độ, mỗi neo có điểm ①–② của T00; khai báo bằng giây trước rồi đổi sang slot qua $\Delta t$ (§6 quy tắc 7) | L1.8 |
+| Ví dụ Stay/Switch không suy biến sinh từ plant | §7(g): $\Delta\ne0$ cần idle với xác suất dương; bảng 4/4,25 (EV-22) chưa sinh từ plant | Phase 1 (L1.2–L1.4) |
+| Dung sai kiểm bất biến $\Delta t$ / $\Delta t/2$ | Cần chọn trước khi xem contrast (§6 quy tắc 7) | L1.8; kiểm ở Phase 1 |
+| Tỉ lệ vùng bảo toàn trong $D$ và negative control | Lưới $D$ toàn vùng không idle sẽ cho mọi contrast bằng 0 (§7g); cần báo tỉ lệ và có test negative control | L1.8; Phase 3 |
 | Mô hình observation theo chế độ telemetry | D8 giả định backlog, Planck/rate counter chưa chứng minh cung cấp backlog. Quét tuổi giữ schema; rate-only phải tách scenario/version, estimator và observation giữ chung giữa các ô cùng $S$ | L1.8 |
-| $u$, $c_A$, $c_B$, tham số Markov | Cần running example có queue; đối chiếu mode persistence với tuổi telemetry/action, phân biệt nhớ mode và backlog | L1.8 |
+| $u$, $c_A$, $c_B$, tham số Markov | Cần running example có queue; đối chiếu mode persistence (khai báo bằng $T_{\text{mode}}$ giây) với tuổi telemetry/action, phân biệt nhớ mode và backlog | L1.8 |
 | Chi tiết $S_0$: belief là posterior chính xác hay xấp xỉ; prior lấy từ đâu; cách $M_0$ dùng belief (khuyến nghị: lấy trung bình mean-rollout theo belief, không plug-in) | Quyết định §7(c) có giữ hay không | L1.6–L1.8 |
 | Lưới $D$ cho Phase 3 | Cần exact enumeration | L1.8 |
 | Reference cost, mức $\varepsilon_R$, $\varepsilon_E$ | Cần thang cost | L1.8 |
@@ -260,15 +289,17 @@ Nguồn kiểm 4: snapshot Final Review cập nhật 06/10/2026, SHA-256 `fc766e
 | AS1/AS4, ngoài scope, K5/pipeline repair | §3/§5/§8; K1–K4/K9 là nhãn kill criteria giải thích ngay trong brief |
 | G1/candidate gap, prior IDs P01–P13, E0, evidence/motivation | Khái niệm provenance/gate: [inventory](00_evidence_inventory.md), [review reading note](verification/final_review_reading_note.md), [claim boundary](01_claim_boundary_v0.md); không phải term mới của plant |
 
-**Kiểm brief sau phương án A (08/10):** 915 từ theo `wc -w`, đủ 15 mục; Main RQ khớp nguyên văn; các EV có trong inventory, liên kết local mở được. Bản PDF kiểm tạm dựng lại bằng Pandoc/XeTeX có **2 trang A4**, font DejaVu Serif 11 pt, lề 20 mm, không có dòng tràn hoặc ký tự thiếu. Domain hai neo và EV-31 đã nối với D8/§8–9/T00; không thêm claim novelty hay network evidence. Đây là kiểm tài liệu, chưa là bài tác giả tự viết lại hoặc kiểm đọc 5 phút.
+**Kiểm brief sau DL-010 (08/10):** 984 từ theo `wc -w`, đủ 15 mục; Main RQ khớp nguyên văn; các EV có trong inventory, liên kết local mở được. PDF dựng lại bằng Pandoc/XeTeX có **2 trang A4**, font DejaVu Serif 11 pt, lề 20 mm, không có dòng tràn hoặc ký tự thiếu. Domain hai neo, phạm vi model repair và conservation null nối đúng contract; không thêm novelty hoặc network evidence. Đây là kiểm tài liệu, chưa là bài tự viết lại hoặc kiểm đọc 5 phút.
+
+**Kiểm sau DL-010 (08/10):** vẫn 25 term, các mục mới ở §9 có nơi quyết; §7(g)–(h) là E0 với giả định ghi tại chỗ. Đã tái lập kiểm hữu hạn bằng [verify_dl010.py](verification/verify_dl010.py): **5.832** cặp action cho bảo toàn (2.048 cặp không idle), **72** trường hợp state/action Markov cho Jensen, **0 vi phạm**; [kết quả](verification/dl010_results.json). Không dùng số Monte Carlo/script tạm trong review làm số đã chạy của repo. Kiểm số hữu hạn không chứng minh định lý cho mọi law và không thay bài tự kiểm của tác giả.
 
 **Cách tái kiểm:** đếm/so ID và term trong bảng §2; đối chiếu thuật ngữ brief bằng mapping trên và T00; tìm `OPEN` rồi nối từng mục tới §9; đọc các section Final Review nêu trên với đúng digest; kiểm lại tổng term. Nếu sửa brief làm xuất hiện khái niệm chưa định nghĩa hoặc đổi quyền thông tin/thang đo, mở lại kiểm 2.
 
-**Lưu bản nháp và đóng băng là hai bước.** File 7 yêu cầu commit brief cùng contract: lưu bản DRAFT để review được, không ghi là đã chốt. Chỉ gắn tag `contract-v0` khi đủ ba phần, hoàn tất năm phép kiểm, cập nhật nguồn gốc cùng record tự kiểm của tác giả. Hiện năm phép kiểm đã có đối chiếu kỹ thuật, nhưng chưa có record tự kiểm/xác nhận lựa chọn, nên **chưa chạy** chuỗi đóng băng/tag/push dưới đây:
+**Đóng băng có điều kiện (08/10/2026).** Theo yêu cầu tác giả đóng Phase 0 và phương án B của [closeout §6](phases/PHASE_0_closeout.md), bản kỹ thuật gồm sửa đổi DL-010 được lưu tại tag `contract-v0`; `phase-0-closeout` ghi GO có điều kiện, mang V3/V10/V11. Đây là ngoại lệ có record đối với điều kiện tự kiểm trước tag ở bản nháp cũ, không ghi các bài tự làm đã hoàn thành. Các lựa chọn DRAFT/OPEN vẫn giữ nhãn bên trong bản đóng băng; thay đổi sau tag cần phiên bản mới và DL. Các lệnh dưới đây được thực hiện ở commit closeout; số contract v1 còn khóa ở L1.8:
 
 ```bash
 git add notes/01_definitions.md
-git commit -m "Contract v0: definitions, information rights, estimand, repairs, scope"
+git commit -m "DL-010: five contract amendments and conditional Phase 0 closeout (B)"
 git tag -a contract-v0 -m "Research contract v0 (Phase 0). Numbers locked later in contract-v1 (L1.8)."
 git push origin main
 git push origin contract-v0
@@ -392,9 +423,27 @@ Tác giả tự viết lại câu scope, chọn assumption rủi ro nhất kèm 
 
 Đây là chuỗi thiết kế có thể bị bác, không phải bằng chứng cơ chế/gain đã xảy ra. Tác giả còn tự viết lại toàn brief, dựng chuỗi HC1/HP1 và làm bài đọc 5 phút nếu chọn. V11 chưa được đánh dấu đạt; không đưa bảng này vào brief làm vượt ngân sách đọc.
 
+### Câu hỏi tự kiểm DL-010
+
+1. Hai queue A, B có $c_A=c_B=3$, $u=2$, $q_{A,0}=q_{B,0}=10$, $H=2$, $\Delta t=1$; arrivals nền $b_A=(2,2)$, $b_B=(1,1)$. Tính $C(\text{Stay})$ và $C(\text{Switch})$. Có queue nào idle không? Vì sao hai cost bằng nhau?
+2. Giữ nguyên câu 1 nhưng $q_{B,0}=0$, $b_B=(0,0)$. Tính lại hai cost, chỉ ra slot nào bỏ phí capacity và kiểm công thức $\Delta t\sum_j (H-j)[I_j(\text{Switch})-I_j(\text{Stay})]$.
+3. Vì sao $G_M$ trong contract không trả lời được câu “twin của tôi ước lượng sai rate on/off thì thiệt bao nhiêu”?
+4. Nếu đổi $\Delta t$ từ 10 ms xuống 5 ms mà vẫn giữ “xác suất rời mode mỗi slot = 0,1”, persistence vật lý đổi thế nào?
+
+<details>
+<summary>Đáp án tham khảo — chỉ mở sau khi tự làm</summary>
+
+1. Stay: A $10\to11\to12$, B $10\to8\to6$, $C=11+12+8+6=37$. Switch: A $10\to9\to8$, B $10\to10\to10$, $C=9+8+10+10=37$. Không queue nào idle, nên tổng backlog đi y hệt nhau (§7g ii).
+2. Stay: A $10\to11\to12$, B $0\to0\to0$ với B bỏ phí 3 mỗi slot; $C=23$. Switch: A $10\to9\to8$, B $0\to0\to0$ với B bỏ phí 1 mỗi slot; $C=17$. $I(\text{Stay})=(3,3)$, $I(\text{Switch})=(1,1)$; công thức: $2(1-3)+1(1-3)=-6=17-23$. Switch tốt hơn vì dùng capacity B đang bỏ phí.
+3. Vì $M_0$ và $M_1$ cùng biết $\theta$ đúng (D21); sai rate là sai tham số, ngoài estimand.
+4. Thời gian lưu trung bình khoảng $\Delta t/0{,}1$: từ 100 ms còn 50 ms. Mode “nhớ” ngắn đi một nửa chỉ vì đổi slot — đúng loại chỉnh nhân tạo quy tắc 7 cấm.
+
+</details>
+
 ### Kiểm tiến độ
 
 - [x] Khối 1–5 đã được tích hợp: đầu file, §0–§3, D1–D12 và quyền thông tin.
+- [x] DL-010: năm sửa đổi bắt buộc đã đưa vào D1, D13, D21, §0, §5, §6 (quy tắc 7–8), §7(f)–(h), §8 AS3, §9; chờ tác giả rà và làm 4 câu tự kiểm ở trên.
 - [ ] Tác giả trả lời được toàn bộ câu hỏi tự kiểm D1–D12.
 - [ ] Tác giả xác nhận giữ hay đổi D3, D8, D9 và ghi lý do khi đổi.
 - [ ] Tác giả tự điền bảng quyền thông tin và làm bài phát hiện rò trong L0.3.
@@ -410,8 +459,8 @@ Tác giả tự viết lại câu scope, chọn assumption rủi ro nhất kèm 
 - [x] File 8: khung note L0.3–L0.7 đã có, mẫu đối chiếu và ô chưa làm được phân biệt; chưa tính là bài tự làm hoặc gate đạt.
 - [ ] Tác giả tự kiểm thuật ngữ, viết lại brief và dựng chuỗi HC1/HP1 bằng lời mình; xác nhận các lựa chọn DRAFT.
 - [ ] Tác giả kiểm toàn bộ nội dung và cập nhật nguồn gốc trước khi đóng băng/tag; commit bản nháp theo File 7 không thay bước này.
-- [ ] Commit, gắn tag `contract-v0` và push sau khi đủ điều kiện ở §10.
+- [x] Đóng băng bản kỹ thuật `contract-v0` và `phase-0-closeout` theo DL-009/phương án B; V3/V10/V11 là điều kiện còn mở, không được tính PASS.
 
 **Ownership:** xem [review và bảng việc chưa hoàn thành](PHASE_0_ownership_review.md); V3/V10/V11 còn mở.
 
-**Gate:** V4/V5 có định nghĩa và quy tắc ở mức tài liệu; V6 có mapping/estimand card; V7 có repair cards nhưng vẫn có điều kiện vì $S_1$ gộp ba thành phần và chi tiết belief chưa chốt; V8 có scope và danh sách mục mở với nơi quyết. Chưa ghi các gate này là tác giả đã tự kiểm đạt hoặc Phase 0 đã đóng. Đủ nội dung contract v0, còn điều kiện kiểm/tag ở §10; các con số vẫn khoá ở contract v1 (L1.8).
+**Gate:** V4/V5 có định nghĩa và quy tắc ở mức tài liệu; V6 có mapping/estimand card; V7 có repair cards nhưng vẫn có điều kiện vì $S_1$ gộp ba thành phần và chi tiết belief chưa chốt; V8 có scope và danh sách mục mở với nơi quyết. Không ghi các gate này là tác giả đã tự kiểm đạt. Phase 0 đóng **có điều kiện theo B**, V3/V10/V11 mang sang; các con số vẫn khóa ở contract v1 (L1.8).

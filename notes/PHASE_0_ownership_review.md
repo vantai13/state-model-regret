@@ -3,10 +3,10 @@
 **Project:** State × Model — Expected Decision Regret in Load-Changing Routing  
 **Tác giả:** Doan Van Tai  
 **Date:** 08/10/2026  
-**Status:** Technical artifacts available; author ownership, formal closeout and external review pending  
+**Status:** Phase 0 closed conditionally (B), 08/10/2026; V3/V10/V11 and external review remain open.
 **Provenance:** Tích hợp từ hai bản Ownership Review tác giả cung cấp ngày 08/10/2026; đối chiếu với repo tại commit `b37545b`. Phần diễn giải và phép tính là tham khảo, chưa là bài tự giải thích/tính tay đã xác nhận. Lựa chọn B2 và domain hai neo được ghi theo nội dung tác giả cung cấp; contract tổng thể còn DRAFT.
 
-Không ghi **COMPLETE** hoặc **GO** khi các mục ownership/gate tương ứng còn Pending. Bảng việc còn thiếu và chỗ cần bổ sung nằm ở §10.2; các mục được hoãn sang phase sau nằm ở §10.3.
+Không ghi ownership **COMPLETE** hoặc GO vô điều kiện khi còn Pending. Yêu cầu đóng phase sau đó đã được xử lý bằng **GO có điều kiện B**, không tự đổi V3/V10/V11 thành Đạt. Bảng việc còn thiếu và chỗ cần bổ sung nằm ở §10.2; các mục được hoãn sang phase sau nằm ở §10.3.
 
 ---
 
@@ -446,7 +446,7 @@ Chưa có bằng chứng trong tài liệu được cung cấp rằng GVHD đã 
 
 ### Phase decision
 
-**Khuyến nghị từ bản gửi: HOLD formal Phase 0 closeout.** Có thể chuẩn bị nội dung học Phase 1; đây chưa là quyết định gate/chuyển phase đã xác nhận. [DL-009](02_decision_log.md) vẫn PENDING CLOSEOUT; chưa có file closeout chính thức hoặc rubric đầy đủ để chốt outcome.
+**Cập nhật quyết định 08/10:** yêu cầu tác giả đóng phase theo hướng dẫn mới được thực hiện bằng [phương án B](phases/PHASE_0_closeout.md): GO có điều kiện, mang V3/V10/V11. Khuyến nghị HOLD ở bản ownership trước được thay bằng record DL-009 này; các bài tự làm vẫn Pending. Chỉ tiến phân tích/exact nhỏ Phase 1; HOLD Phase 4 tới khi V10 đạt.
 
 Không bắt đầu expensive simulation hoặc nâng claim novelty dựa trên bản giải trình này.
 
@@ -461,7 +461,7 @@ Không bắt đầu expensive simulation hoặc nâng claim novelty dựa trên 
 - [ ] Tôi đã kiểm nguồn gốc tài liệu và việc ghi nhận hỗ trợ theo quy định học vụ áp dụng.
 - [ ] Tôi đã gửi pivot memo hoặc heads-up cho GVHD.
 - [ ] Tôi đã nhận và ghi lại nhận xét của người đọc độc lập.
-- [ ] Tôi đã khóa contract/tag và ghi decision log sau khi hoàn thành các bước xác nhận tương ứng.
+- [x] Bản kỹ thuật đã đóng băng và ghi decision log theo closeout B; các bước tự kiểm V3/V10/V11 vẫn mở, không được suy đã hoàn thành từ tag.
 
 ---
 
@@ -473,7 +473,7 @@ Thiết kế 2×2 cung cấp cách so sánh có kiểm soát, nhưng các gain v
 
 Timescale và observation schema là các điều kiện quan trọng quyết định use case có hợp lý hay không.
 
-Đề xuất bước tiếp theo: sau khi xử lý các điều kiện gate còn thiếu, học và kiểm tra cơ chế tại Phase 1, chốt các tham số còn mở ở L1.8 và kiểm tra prior work tại Phase 2 trước khi đưa ra claim khoa học mạnh hơn.
+Theo closeout B, bước tiếp theo là phân tích/exact nhỏ Phase 1 đồng thời xử lý V3/V10/V11, chốt các tham số còn mở ở L1.8 và kiểm tra prior work tại Phase 2 trước khi đưa ra claim khoa học mạnh hơn.
 
 ---
 
@@ -512,7 +512,7 @@ Timescale và observation schema là các điều kiện quan trọng quyết đ
 | Heads-up/pivot memo cho GVHD | [Heads-up nháp](meetings/2026-10-07_headsup.md), [bản chat](meetings/2026-10-07_headsup_chat.md) | Hai bản đang CHƯA GỬI; chưa có pivot memo riêng hoặc record gửi/nhận. Chỉ cập nhật khi có trao đổi thật |
 | Người đọc độc lập và phản hồi — V10 | [L0.7 §1–3](lessons/L0.7_review.md) | Người đọc có quyền phản biện, commit/bản đã đọc, ngày, feedback và thay đổi; GVHD approval theo dõi riêng |
 | Understanding artifacts — V11 | L0.2–L0.7 | Bài tự làm và tự kiểm các mục trên; nội dung tham khảo này chưa đủ |
-| File 9/closeout chính thức, quyết định gate và tag | [DL-009](02_decision_log.md), contract §10 | Còn thiếu `notes/phases/PHASE_0_closeout.md`; đối chiếu rubric V1–V11, chốt outcome thật rồi mới tạo tag phù hợp |
+| File 9/closeout, quyết định gate và tag | [DL-009](02_decision_log.md), [closeout](phases/PHASE_0_closeout.md), contract §10 | **Đã đóng có điều kiện B** theo yêu cầu ngày 08/10; `contract-v0` và `phase-0-closeout` ghi V3/V10/V11 mở. Bài tự làm và review độc lập vẫn còn |
 
 ### 10.3. OPEN được hoãn đúng chỗ, không phải tự điền số để đóng Phase 0
 
@@ -537,4 +537,4 @@ Timescale và observation schema là các điều kiện quan trọng quyết đ
 - Raw AoI chưa tái tính/khóa identity đầy đủ; bản sao backup ngoài máy, sandbox/máy khác chưa được xác minh. Xem [inventory — phần còn thiếu](00_evidence_inventory.md).
 - Chưa có network evidence đúng RQ, held-out prediction hoặc repair timing/cost thật; không nâng G1 và không suy novelty từ bảng minh họa.
 
-**Ưu tiên thực hiện:** viết lại RQ → tự tính 2×2/timescale → hoàn tất bài tự kiểm L0.3–L0.6/brief → ghi trao đổi GVHD và phản hồi người đọc → rà contract/DL → formal closeout/tag theo gate. Các bước liên hệ người khác chỉ được ghi hoàn thành khi thật sự đã diễn ra.
+**Ưu tiên thực hiện:** viết lại RQ → tự tính 2×2/timescale → hoàn tất bài tự kiểm L0.3–L0.6/brief → ghi trao đổi GVHD và phản hồi người đọc → rà contract/DL → bổ sung record hoàn thành các điều kiện của closeout B; không di chuyển tag đã tạo. Các bước liên hệ người khác chỉ được ghi hoàn thành khi thật sự đã diễn ra.

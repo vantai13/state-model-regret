@@ -1,4 +1,4 @@
-# Claim boundary v0 — tác giả xác nhận 07/10/2026; C6–C9, NC11–NC15, U8–U9 bổ sung 08/10 (chờ tác giả xác nhận)
+# Claim boundary v0 — C1–C5 xác nhận 07/10/2026; C6–C10, NC11–NC17, U8–U9 bổ sung 08/10 (chờ tác giả xác nhận)
 
 Tác giả: **Doan Van Tai**.
 
@@ -17,6 +17,7 @@ Ranh giới dựa trên inventory hiện có và literature thứ cấp; Phase 2
 | C7 | Với pipeline cố định, gain của một oracle repair không phải cận trên cho feasible repair cùng loại; $R_{00}$ là cận trên chung cho gain so với ô 00, với cùng $D$, objective và tập action. | EV-26; contract §7(f) |
 | C8 | Khi không có clipping trên mọi path liên quan của các action, cùng input/belief và cách lấy kỳ vọng nhất quán, recurrence và objective tuyến tính, mean rollout cho đúng expected cost; model repair mean → law có giá trị 0. Một trajectory không chạm biên chưa đủ. | EV-20; contract §7(d) |
 | C9 | Trong lưới fluid T00 đã khai báo, sàng lọc backlog phụ thuộc tỉ số $T_{\text{drain}}/(\tau_{\text{eff}}+d_{\text{act}})$: link 1–10 Gb/s có ①–② ở 5 ms; ở 1/5 s chỉ 10 Mb/s, 1000 packet còn ②; 30 s tất cả ③. Không suy gain thực tế dương/0 hoặc điều kiện cần cho mọi backlog/tải. | EV-28, EV-29, EV-31 |
+| C10 | Trong mô hình contract (D5, AS1, capacity cố định, objective cộng hai queue cùng trọng số, $c_{\text{sw}}=0$, buffer vô hạn), Stay và Switch chỉ khác cost qua capacity bỏ phí; nếu không queue nào idle dưới cả hai action trên mọi path có xác suất dương thì mọi ô tương đương và mọi contrast bằng 0. Với cùng state/belief và action, $M_0$ không dự đoán cost cao hơn $M_1$. Đây là hệ quả đã biết, không phải phát hiện. | EV-32, EV-33; contract §7(g)–(h) |
 
 ## Không được claim
 
@@ -37,6 +38,8 @@ Ranh giới dựa trên inventory hiện có và literature thứ cấp; Phase 2
 | NC13 | $G_M\ge0$ hay $G_{S\mid M_1}\ge0$ là phát hiện thực nghiệm mới. | EV-27: $G_{S\mid M_1}\ge0$ do ô 11 = oracle; $G_M\ge0$ chỉ được bảo đảm trung bình với posterior chính xác, prior khớp $D$ và nhóm theo thông tin trước action. |
 | NC14 | Contract v0 đã được người đọc độc lập chấp nhận. | Chưa có biên bản/record thật; không suy từ kiểm code hoặc tích hợp tài liệu. |
 | NC15 | AoI đo trên testbed dt4n đại diện cho tuổi telemetry thực tế nói chung. | EV-10 là một prototype, không dùng làm neo; EV-31 có các thang thời gian khác nhau, chưa đồng nhất thành AoI. |
+| NC16 | $G_M$ đo giá trị của “model fidelity” nói chung, gồm sai tham số hoặc sai cấu trúc. | D21/§5: $M_0$, $M_1$ cùng $\theta$ đúng và cùng recurrence; chỉ khác biểu diễn ngẫu nhiên (DL-010). |
+| NC17 | Phase 0 đã được GVHD duyệt, hoặc GO WITH CAUTION nghĩa là đã có cơ chế mạng, novelty hay khuyến nghị vận hành. | DL-010 là review kỹ thuật tự động, chỉ chấp thuận tiến kỹ thuật; G1 giữ; phê duyệt GVHD là record riêng. |
 
 ## Chưa biết
 

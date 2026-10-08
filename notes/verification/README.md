@@ -26,3 +26,15 @@ Script mặc định clone public repo cũ vào temporary directory, đọc nộ
 | final_review_reading_note.md | Tóm tắt từ full snapshot theo digest; không là bản gốc hoặc primary-paper verification. |
 
 Raw, full bundles, full review và private feedback không được copy vào repo này. Manifest nguyên bản đầy đủ vẫn local-only; public summaries không có cùng hash với manifest nguyên bản và không giả chúng là bản nguyên vẹn. Second bundle copies ở filesystem khác cùng máy, chưa off-site. Full review chưa public và primary papers chưa đọc lại là giới hạn khoa học đã ghi trong inventory.
+
+## DL-010 — kiểm hữu hạn cho closeout Phase 0
+
+[verify_dl010.py](verify_dl010.py), tác giả Doan Van Tai, chạy bằng thư viện chuẩn:
+
+```bash
+python3 notes/verification/verify_dl010.py
+```
+
+[Kết quả đã chạy](dl010_results.json): 5.832 cặp action kiểm bảo toàn (2.048 cặp không idle, mỗi cặp kiểm 16 cách gán action cho bốn ô), 72 trường hợp state/action kiểm Jensen bằng liệt kê Markov và số hữu tỉ, 0 vi phạm. Hai ví dụ contract cho cost 37/37 và 23/17. Lưới conservation: backlog mỗi queue 0/2/10, capacity 2/3, managed load 0/2, arrivals mỗi queue/slot 0/1/4, H=2. Lưới Jensen: cùng backlog, capacity 3, managed load 2, modes 0/4, ma trận chuyển ((3/4,1/4),(1/2,1/2)), H=3; trạng thái ban đầu đã biết. Switching cost bằng 0, slot bằng 1.
+
+Đây là đối chiếu hữu hạn cho EV-32/33; không thay chứng minh đại số tổng quát, bài tính tay của tác giả, kiểm leakage của pipeline triển khai hoặc người đọc độc lập V10. Các lần Monte Carlo/script tạm được kể trong review không được ghi thành số chạy của repo.

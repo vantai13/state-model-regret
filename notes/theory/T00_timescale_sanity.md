@@ -132,3 +132,5 @@ python -m experiments.lessons.l0_6_timescale 1.0
 Bài tác giả: tự tính dòng 10 Mb/s, 100 packet, rho = 0,8 so với 0,2/1 s; so nhãn min hai tải, rồi đổi SNMP poll/cửa sổ 30 s thành tuổi hiệu dụng. Ghi lời giải riêng tại [L0.6](../lessons/L0.6_scope.md). Cột 30 s đều ③ trong ma trận **không chứng minh** State repair vô ích; mode chậm có thể liên quan nếu đủ bền và suy được từ observation, nhưng chưa có bằng chứng gain hoặc operator refresh khả thi.
 
 **Trạng thái:** phương án A/cả hai neo và B2 đã được tác giả nêu chọn ngày 08/10, xem [Ownership Review](../PHASE_0_ownership_review.md). Các bài tự tính/giải thích, tự đọc paper, chi tiết estimator, assumption rủi ro và gate contract/Phase 0 còn chờ.
+
+**Cập nhật closeout 08/10:** [phương án B](../phases/PHASE_0_closeout.md) đóng Phase 0 có điều kiện; V3/V10/V11 và các bài chưa làm giữ nguyên.
