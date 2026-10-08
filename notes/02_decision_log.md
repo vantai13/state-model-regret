@@ -85,7 +85,7 @@ Sổ có **10 mã DL-000…DL-009**: 3 entry lịch sử có ngày, 6 bản nhá
 - Alternatives: B1 làm bản chính (chưa chọn vì có nguy cơ baseline yếu; phải kiểm cách bù tuổi và ước lượng backlog/mode, không mặc định B1 luôn thổi phồng $G_S$); domain link nhanh (chưa có nguồn tuổi backlog telemetry tới controller phù hợp use case).
 - Consequence: nếu belief là posterior chính xác, prior khớp $D$, $M_1$ tích phân đúng và nhóm báo cáo theo thông tin trước action, $G_M\ge0$ là hệ quả Bayes-optimal và $G_{S\mid M_1}$ có diễn giải EVPI (EV-27). $G_{S\mid M_1}\ge0$ riêng nó còn đúng do ô 11 = oracle. Literature value-of-information thành prior phải kiểm ở Phase 2. Posterior chính xác/xấp xỉ, prior, schema, cách $M_0$ dùng belief và lưới $D$ vẫn OPEN ở L1.6–L1.8; chưa khóa các con số của contract v1.
 - Revisit when: L1.6–L1.8 cho thấy posterior chính xác quá đắt; có nguồn tuổi telemetry nhanh; có số đo $d_{\text{act}}$ thật; hoặc sinh $D$ không khớp prior đã dùng.
-- Ai quyết: **Doan Van Tai — chờ xác nhận**. Chọn B2/domain và chốt/tag contract chưa có record hoàn thành; phép kiểm thuật ngữ còn chờ brief File 7.
+- Ai quyết: **Doan Van Tai — chờ xác nhận**. Chọn B2/domain và chốt/tag contract chưa có record hoàn thành; phép kiểm thuật ngữ đã đối chiếu kỹ thuật ở File 7, không thay tự kiểm của tác giả.
 
 ### DL-009 — Gate Phase 0 (PENDING CLOSEOUT; ngày quyết: ⟨chưa có⟩)
 
@@ -109,4 +109,4 @@ Bảng này là đối chiếu phụ thuộc tài liệu, **chưa phải bài t�
 | DL-007 | Legacy map, danh sách không mang sang, README/cách cài, provenance và dependency/import của khung code; thêm entry giải thích hướng mới, giữ nguyên genesis/archive tags |
 | DL-008 | Contract D9/D12, §5/§7(c)/§8–§10; T00 nếu domain/giả định đổi; inventory EV-27/28, claim C9/NC12–13/U8–9; brief, lesson L0.6 và closeout; nếu đã tag thì tạo phiên bản mới, không di chuyển tag |
 
-Brief File 7, các lesson File 8 và closeout File 9 được nêu như tài liệu phụ thuộc **sắp bổ sung**, không phải file đã tồn tại. Những chỗ master plan/PHASE_0 được dẫn theo File 6 vẫn cần đối chiếu bản gốc trước khi ghi đã sửa hoặc đã kiểm.
+[Brief File 7](00_research_brief.md) và khung lesson File 8 ([L0.3](lessons/L0.3_objects.md), [L0.4](lessons/L0.4_estimand.md), [L0.5](lessons/L0.5_legacy.md), [L0.6](lessons/L0.6_scope.md), [L0.7](lessons/L0.7_review.md)) đã tồn tại; bài tự làm/xác nhận còn chờ. Closeout File 9 chưa có. Những chỗ master plan/PHASE_0 được dẫn theo File 6 vẫn cần đối chiếu bản gốc trước khi ghi đã sửa hoặc đã kiểm.

@@ -99,7 +99,7 @@ Kuźniar, Perešíni, Kostić, Canini, *Computer Networks* 2018, §4.1/Table 2 b
 
 Đây là chênh lệch giữa confirmation và rule thực sự có hiệu lực trong các thí nghiệm đó, không phải số đo end-to-end $d_{\text{act}}$ cho use case này. Tổng gần 0 ở phần actuation là giả định ideal diagnostic, không suy rằng paper đã chứng minh mọi hệ có latency dưới 1 ms. Phase 8 còn phải đo timing thật; chưa có record tác giả tự đọc paper.
 
-Hướng dẫn dự kiến nối nguồn này với EV-29; inventory hiện mới có EV-01–EV-19, chưa ghi EV-29 đã tồn tại hoặc tác giả đã đọc.
+Nguồn này đã nối với EV-29 trong [inventory](../00_evidence_inventory.md) ở File 5; đối chiếu kỹ thuật không thay record tác giả tự đọc.
 
 ## Độ nhạy theo tổng tuổi và độ trễ
 
@@ -123,7 +123,7 @@ Với **tổng 1,0 s**, không còn dòng nào ở vùng ①. Không suy điều
 2. **Phần state:** mode chậm có thể còn hữu ích khi backlog nhanh thay đổi. Đây là hypothesis, chưa phải kết quả; ô phụ $S_0^{\tau=0}$ (D22) giúp phân biệt freshness với lợi ích thấy mode. Mode vẫn không có feasible refresh nếu telemetry không đo được nó.
 3. **Model repair:** xét horizon so với động học sau Switch; tuổi telemetry không trực tiếp quyết định toàn bộ gain của model.
 4. **L1.8:** chọn $\Delta t$, $H$ và regime sao cho nằm trong ①–② cả với kịch bản 1 s, hoặc ghi rõ kết quả chỉ đứng khi action đủ nhanh. Không khóa số chỉ từ note này.
-5. **AS4:** actuation delay là ưu tiên kiểm của bản nháp, tác giả còn phải xác nhận lựa chọn trong L0.6. File 5 cần bổ sung điều kiện timing vào C9/EV-28 theo hướng dẫn; hiện chưa tạo các mã đó trong inventory/boundary.
+5. **AS4:** actuation delay là ưu tiên kiểm của bản nháp, tác giả còn phải xác nhận lựa chọn trong [L0.6](../lessons/L0.6_scope.md). File 5 đã bổ sung điều kiện timing và giới hạn suy gain vào C9/EV-28 trong boundary/inventory.
 
 ## Giới hạn
 
@@ -149,7 +149,7 @@ git -C /path/to/archive-clone show archive-switch-or-stay-2026-10-02:data/aoi_me
   | python3 -c 'import json,sys; d=json.load(sys.stdin); [print(k, v["aoi"]["n"], round(v["aoi"]["mean"],6), round(v["aoi"]["p95"],6)) for k,v in d["cells"].items()]'
 ```
 
-**Bài tính tay cho tác giả, chưa có record hoàn thành:** 10 Mb/s, $q_0=100$, $\rho=0{,}8$: tự tính $t_{\text{pkt}}$, $\mu$, $T_{\text{drain}}$, rồi so với 0,6 s. Ghi phép tính, giải thích dùng tải trước quyết định và câu trả lời ba câu về use case vào `notes/lessons/L0.6_scope.md` khi làm file 8. Giá trị tham chiếu từ script/test là 1,2 ms, khoảng 833,333 packet/s, 0,6 s, vùng ②; nhãn bảng dùng min của hai mức tải cũng là ②.
+**Bài tính tay cho tác giả, chưa có record hoàn thành:** 10 Mb/s, $q_0=100$, $\rho=0{,}8$: tự tính $t_{\text{pkt}}$, $\mu$, $T_{\text{drain}}$, rồi so với 0,6 s. Ghi phép tính, giải thích dùng tải trước quyết định và câu trả lời ba câu về use case vào [L0.6](../lessons/L0.6_scope.md), đã có khung ở File 8. Giá trị tham chiếu từ script/test là 1,2 ms, khoảng 833,333 packet/s, 0,6 s, vùng ②; nhãn bảng dùng min của hai mức tải cũng là ②. Ở tổng 1 s, riêng $\rho=0{,}8$ vẫn ② nhưng nhãn theo min là ③; nhãn chung không loại được mọi mức tải.
 
 ### Trạng thái thực hiện
 

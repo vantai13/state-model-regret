@@ -84,6 +84,8 @@ Lấy trung bình 50/50: $R_{00}=R_{10}=1$, $R_{\text{half}}=0$. Gain oracle Sta
 
 Tác giả tự liệt kê EV-20, tính diện tích EV-21, kiểm ví dụ EV-22 ở L1.3–L1.5, giải thích EV-25/26/27 ở L0.2/L0.4, tính tay một dòng EV-28 ở L0.6, tự đọc EV-29 và mở code EV-30 ở L0.5. Chỉ cập nhật cột “Tác giả giải thích lại được?” khi có bài làm/xác nhận thật; EV-27 vẫn cần kiểm độc lập.
 
+File 8 đã tạo khung [L0.3](lessons/L0.3_objects.md), [L0.4](lessons/L0.4_estimand.md), [L0.5](lessons/L0.5_legacy.md), [L0.6](lessons/L0.6_scope.md), [L0.7](lessons/L0.7_review.md). Chưa có bài tác giả cung cấp nên không đổi các ô hiểu bài thành “Có”. Mẫu tính/đọc code và kiểm kỹ thuật có log riêng; V3/V10/V11 còn mở theo RQ card/review note, chưa đóng Phase 0.
+
 ## Mapping PHASE_0 → repo
 
 Mapping theo bảng trích trong File 5, chưa đối chiếu bản PHASE_0 §8, Bước 6 đầy đủ. Mã ở cột đầu thuộc PHASE_0; mọi trích dẫn EV ngoài bảng này dùng mã repo. Đặc biệt EV-05/06 đảo vị trí giữa hai bảng.

@@ -2,7 +2,7 @@
 
 Tác giả: **Doan Van Tai** · Ngày bổ sung: **08/10/2026**.
 
-> **Nguồn gốc.** Bản v0 tích hợp đủ ba phần nội dung tác giả cung cấp ngày 08/10/2026; hướng dẫn dẫn nguồn L0.3–L0.6, master plan Part II và Final Review §2, §5, §11. Các lesson và master plan này chưa có đầy đủ trong repo để đối chiếu. Final Review gốc đã được kiểm digest và đối chiếu kỹ thuật ở §10; việc đó không thay record tác giả tự kiểm. Bản này **chưa** qua người đọc độc lập.
+> **Nguồn gốc.** Bản v0 tích hợp đủ ba phần nội dung tác giả cung cấp ngày 08/10/2026; hướng dẫn dẫn nguồn L0.3–L0.6, master plan Part II và Final Review §2, §5, §11. File 8 đã bổ sung khung lesson L0.3–L0.7, nhưng chưa có bài tự làm; master plan đầy đủ còn thiếu để đối chiếu. Final Review gốc đã được kiểm digest và đối chiếu kỹ thuật ở §10; việc đó không thay record tác giả tự kiểm. Bản này **chưa** qua người đọc độc lập.
 > **Mức hoàn thiện.** Đã có **đủ nội dung Phần 1–3/3**: §0–§10, D1–D25; T00 đã kiểm code/bảng. File 7 bổ sung brief và hoàn tất đối chiếu thuật ngữ kỹ thuật ở §10. Theo lệnh lưu tài liệu trong File 7, contract được lưu cùng brief dưới dạng **DRAFT**, chưa gắn tag `contract-v0`; các bài tự kiểm và lựa chọn của tác giả chưa có record hoàn thành. Commit lưu bản nháp không đồng nghĩa chốt/tag hoặc phê duyệt độc lập.
 > **Trạng thái.** LOCKED = nguyên tắc, đổi phải có DL entry và tăng phiên bản. DRAFT = mặc định hiện tại. OPEN = còn mở, có nơi quyết (§9). Nhãn từng nguyên tắc không có nghĩa toàn bộ contract đã được chốt.
 > **Ngân sách.** 25 term (giới hạn khoảng 25), hiện có 25/25. Ký hiệu timescale ($T_{\text{drain}}$, $\tau_{\text{eff}}$, $d_{\text{act}}$) định nghĩa ở [T00](theory/T00_timescale_sanity.md); $I_\Delta$ hoãn tới L1.5. Con số cụ thể ($\Delta t$, $H$, $u$, $c$, tham số Markov, $\varepsilon_R$, $\varepsilon_E$) khoá ở L1.8, thành contract v1.
@@ -163,7 +163,7 @@ Các quy tắc lần lượt ngăn chọn tie rule sau kết quả, chỉnh swit
 - **(c) Nếu belief của $S_0$ là posterior chính xác theo $\theta$ và prior của nó trùng với $D$:** ô 01 dùng $M_1$ tích phân đúng expected cost theo belief, nên Bayes-optimal theo observation. Khi đó $G_M\ge0$ (tính trung bình), và $G_{S\mid M_1}$ bằng **giá trị kỳ vọng của thông tin hoàn hảo (EVPI)** về state hiện tại, sau thông tin observation đã có. Đây không phải biết trước realization $w$. Dấu không âm này không phải phát hiện; literature value-of-information là closest prior phải kiểm ở Phase 2. Hướng dẫn trỏ Final Review P11; cần đối chiếu primary literature khi đến Phase 2.
 - **(d) Không có clipping trên mọi sample path liên quan:** với cùng input/belief và cách lấy kỳ vọng nhất quán, recurrence và objective đều tuyến tính, $M_0$ cho đúng expected cost như $M_1$, nên $G_M=G_{M\mid S_1}=0$. Hướng dẫn dẫn Final Review §5.2, ví dụ 60 = 60; cần kiểm tay ở L1.3–L1.4. Chỉ một trajectory quan sát không chạm biên chưa đủ điều kiện này.
 - **(e) Đồng nhất thức:** $\Gamma=G_{S\mid M_1}-G_S=G_{M\mid S_1}-G_M$. Đồng nhất thức cũng đúng ở mức episode với $g,\gamma$.
-- **(f) Cận trên:** với cùng $D$, objective và tập action, $R_{00}$ là cận trên cho lợi ích của **mọi** repair so với ô 00, vì không repair nào có cost thấp hơn oracle. Gain của **một** oracle repair **không** phải cận trên cho feasible repair cùng loại, vì sai số state và model có thể bù nhau. Hướng dẫn dẫn phản ví dụ L0.4 §7 và dự kiến dùng $R_{00}$ cho cheap kill/K10; các lesson/quy tắc này chưa có đầy đủ trong repo.
+- **(f) Cận trên:** với cùng $D$, objective và tập action, $R_{00}$ là cận trên cho lợi ích của **mọi** repair so với ô 00, vì không repair nào có cost thấp hơn oracle. Gain của **một** oracle repair **không** phải cận trên cho feasible repair cùng loại, vì sai số state và model có thể bù nhau. [L0.4 §3](lessons/L0.4_estimand.md) đã có khung bài phản ví dụ; log tính ở EV-26. Quy tắc dùng $R_{00}$ cho cheap kill/K10 đang DRAFT ở DL-006, chưa có bài tự kiểm/xác nhận của tác giả.
 
 **Giải thích bất biến (b).** Với $\lvert\Delta\rvert>0$, đặt $i_{sm}=1$ nếu ô chọn action có cost lớn hơn, bằng 0 nếu chọn action tối ưu. Khi đó $\ell_{sm}=J_{\min}+i_{sm}\lvert\Delta\rvert$, $i_{11}=0$ và
 
@@ -294,7 +294,7 @@ Phụ lục này lưu bài tập và tiến độ của cả ba phần; §0–§
 | D11 | Tương lai realized chỉ evaluator biết | Nếu oracle biết $w$ thì regret đo cái gì? |
 | D12 | State và observation cùng sinh từ law plant | Ví dụ ghép tuỳ ý nào là không thể xảy ra? |
 
-Hướng dẫn gọi đây là “12 câu hỏi”; bảng được cung cấp có **11 câu**, vì D1–D2 dùng chung một câu. Giữ nguyên nhóm câu hỏi này, không ghi đã hoàn thành 12 câu độc lập. Ví dụ L0.3 chưa có trong repo; cần bổ sung lesson trước khi đối chiếu ví dụ đó.
+Hướng dẫn gọi đây là “12 câu hỏi”; bảng được cung cấp có **11 câu**, vì D1–D2 dùng chung một câu. Giữ nguyên nhóm câu hỏi này, không ghi đã hoàn thành 12 câu độc lập. [L0.3 §2](lessons/L0.3_objects.md) đã có ví dụ MẪU để đối chiếu; tác giả chưa tự dựng episode thay thế.
 
 ### Các lựa chọn DRAFT cần xác nhận
 
@@ -341,7 +341,7 @@ Mỗi tình huống sau vi phạm luật nào?
 | D22 | Ô phụ tách tươi hơn khỏi thấy mode, không thuộc primary | Vì sao ô này không nằm trong primary estimand? |
 | D23–D24 | Ngưỡng tương đối chọn trước; kiểm tương đương khác kiểm khác biệt | Vì sao “p > 0,05” không chứng minh tương đương? |
 
-Bảng có 11 nhóm câu hỏi bao phủ 12 term, vì D23–D24 dùng chung một câu. Các ví dụ X/Y và phản ví dụ bù sai số cần đối chiếu L0.4 khi lesson được bổ sung; chưa ghi nhận tác giả đã trả lời.
+Bảng có 11 nhóm câu hỏi bao phủ 12 term, vì D23–D24 dùng chung một câu. Ví dụ X/Y và phản ví dụ bù sai số đã có mẫu/bài tập ở [L0.4](lessons/L0.4_estimand.md); chưa ghi nhận tác giả đã trả lời.
 
 ### Lựa chọn Phần 2 và bài tập đọc estimand card
 
@@ -356,14 +356,14 @@ Câu hỏi construct validity ở §4 dành cho người đọc độc lập; ch
 
 ### Bài tập phản biện §7
 
-Ghi lời giải của tác giả vào `notes/lessons/L0.4_estimand.md` khi làm file 8; chưa tạo record bài làm thay tác giả.
+Ghi lời giải của tác giả vào [L0.4 §5](lessons/L0.4_estimand.md), đã có khung ở File 8; chưa tạo record bài làm thay tác giả.
 
 1. **(a), một dòng:** vì sao $\ell_{01}(e)\ge\ell_{11}(e)$ trong mọi episode?
 2. **(b):** dựng một episode cho $\gamma=0$ và một episode cho $\gamma=2\lvert\Delta\rvert$. Ghi rõ ô nào sai.
 3. **(e):** tự chứng minh vế thứ hai, $\Gamma=G_{M\mid S_1}-G_M$.
 4. **(c), khó:** chứng minh $G_M\ge0$ khi belief là posterior chính xác và prior khớp $D$. Gợi ý: với cùng thông tin $I$, quyết định Bayes làm nhỏ nhất $\mathbb E[J(a)\mid I]$ trong mọi luật chỉ dùng $I$; ô 00 cũng là một luật chỉ dùng $I$. Nếu belief chỉ xấp xỉ, bước nào của chứng minh bị gãy?
 
-Nếu bác được (c) trong đúng các giả định, phải sửa §7(c), entry EV-27 dự kiến và brief tương ứng; không bỏ qua phản ví dụ. Primary-literature check về value-of-information ở Phase 2 vẫn cần làm, dù các bất đẳng thức đã được kiểm bằng toán.
+Nếu bác được (c) trong đúng các giả định, phải sửa §7(c), EV-27, NC13 và brief tương ứng; không bỏ qua phản ví dụ. Primary-literature check về value-of-information ở Phase 2 vẫn cần làm, dù các bất đẳng thức đã được kiểm bằng toán.
 
 ### Tự kiểm scope và assumptions
 
@@ -404,6 +404,7 @@ Tác giả tự viết lại câu scope, chọn assumption rủi ro nhất kèm 
 - [ ] Tác giả viết lại scope và xác nhận assumption rủi ro nhất kèm lý do.
 - [x] T00 đã có định nghĩa timescale, nguồn AoI và bảng độ nhạy; 7 test đạt, đã chạy ba mức độ trễ.
 - [x] File 7: brief đã có, phép kiểm 2 được đối chiếu kỹ thuật với mapping thuật ngữ và cập nhật §10.
+- [x] File 8: khung note L0.3–L0.7 đã có, mẫu đối chiếu và ô chưa làm được phân biệt; chưa tính là bài tự làm hoặc gate đạt.
 - [ ] Tác giả tự kiểm thuật ngữ, viết lại brief và dựng chuỗi HC1/HP1 bằng lời mình; xác nhận các lựa chọn DRAFT.
 - [ ] Tác giả kiểm toàn bộ nội dung và cập nhật nguồn gốc trước khi đóng băng/tag; commit bản nháp theo File 7 không thay bước này.
 - [ ] Commit, gắn tag `contract-v0` và push sau khi đủ điều kiện ở §10.
