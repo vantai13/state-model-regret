@@ -226,3 +226,53 @@ Output tại `results/lessons/l1_7/`; root demo và exposure ghi trước chạy
 Đã pin NumPy2.5.3/record PCG64; root lấy từ tài liệu,không tự nhận entropy mới.
 Mock là tham khảo có tài liệu,chưa là bài kín sách/V10. Không khóa contract-v1,
 không mở root discovery/calibration/confirmation; G1,V3/V10/V11,HOLD Phase4 giữ nguyên.
+
+## L1.8 Part A — physical seconds → slots (22/10/2026)
+
+[Card trước chạy](../lessons/L1.8A_experiment_card.md) · [Spec](../lessons/L1.8A_slot_model_spec.md) · [Index](l1_8_a/README.md) · [Report](../../results/lessons/l1_8_a/report.md).
+
+```bash
+.venv/bin/python -m experiments.lessons.run_l1_8_a
+.venv/bin/python notes/verification/verify_l1_8_a_artifacts.py
+```
+
+4/4core,10/10bổ sung,111/111 toàn repo PASS;96 fluid-boundary và900round-trip
+cases không vi phạm. Neo a:dt.12ms,c10,age42slot=5.04ms(+.8%),H50.
+Neo b:dt12ms,c10,age17slot=.204s(+2%),H50,drainpre.6s,post1.2s nếurho_post.9,
+h/Tpost.5. T_mode b=.1s minh hoạ;anchor a chưa cóT_mode/rho_post.
+R2 correlation qua204ms=.016907466 tại12/6/3ms;R1=.009415233/.012954208/.014883122.
+D13 cho queue drain2→0 trong1s là0/.5/.75/.875 so fluidarea1 khi dt1/.5/.25/.125s.
+Interior-crossing correction so với boundary telescoping là dương (ví dụ+1/4),tổng
+error drain vẫn âm. Không thay D13 thành fluid area.
+
+Output tạiresults/lessons/l1_8_a;khôngRNG/seed,không nghiên cứu mạng/held-out.
+PartBcontrast acceptance,PartCgrid,PartDdecisions,PartEfreeze chưa làm.
+Không tái lập con số43% của nguồn khi thiếu full configuration. G1,V3/V10/V11 vàHOLDPhase4 giữ nguyên.
+
+[Audit artifact trong process mới](../../results/lessons/l1_8_a/independent_artifact_audit.json) dùng Decimal exp 60 chữ số và nguyên hàm positive-part để đối chiếu CSV; PASS, không thay review khoa học độc lập.
+
+## L1.8 Part B — refinement bằng finite-law DP (22/10/2026)
+
+[Card](../lessons/L1.8B_experiment_card.md) · [Working protocol](../lessons/L1.8B_refinement_protocol.md) · [Report](../../results/lessons/l1_8_b/report.md) · [Index](l1_8_b/README.md).
+
+```bash
+.venv/bin/python -m experiments.lessons.run_l1_8_b
+.venv/bin/python notes/verification/verify_l1_8_b_artifacts.py
+```
+
+**13/13 Part B, 124/124 toàn repo PASS**. DP không Monte Carlo, gộp integer backlog
+units1/m; tám levels m1…128 có4/6/14/30/62/126/254/510 states. GS từ0.9296875 xuống
+0.307151637, GM0, Gamma/m2=0.078002930 vàm128=0.017151712. Richardson cuối cho
+GS≈0.302699661/Gamma≈0.017362905, chỉ là estimates, chưa true continuum reference.
+Cref tạm5.933106738,tol1%; original coarse-report chọnm8 cóerror proxy1.220%,
+finer-report hoặchalf-tol chọnm16 còn0.616%. Recordrho mọi metric,không tự khóaorder band.
+
+Forward scoring độc lập tái sinhD vàchấm6policies khớp backward trong3.6e-15.
+Audit1006state rows/4024F5 checks/78triplets,hashes vàJUnit PASS; zeroaction0,
+meanI≈0,R110,không precision action mismatch ở cảprimary vàdiagnostic cells.
+
+Có2rounding discrepancies trong nguồn (Gamma/m4, Lstar/m32). Bảng tách B6 khớp
+hybrid midpointM1→endpointM0,không là fixed-model State-only path. Fixed-M0 mode
+share ởm128=17.811%;không claim11% từhybrid cho State-only. Hai fixed-M0 components
+chưa cófirst-order ratio ổn định ởtriplet cuối. XemCSV/script vàlog lầnđầu dừng ởaudit
+nguồn;baseline tests cuối đềuPASS. GiữG1,V3/V10/V11,HOLDPhase4; chưaPartsC–E/contractv1.

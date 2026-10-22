@@ -61,3 +61,32 @@ Sandbox khác, Colab và máy ngoài phiên này chưa kiểm được. Không c
 Các root discovery/calibration/confirmation chưa cấp và không được mở trong L1.7.
 Lưới chỉ kiểm invariants của L1.2/L1.4 được ghi verification, không suy đã đọc
 outcome từng regime. Nguồn cũ/L0.5 không được coi là đã rerun bởi demo hiện tại.
+
+## Bổ sung exposure L1.8 Part A — 22/10/2026
+
+| Regime / phép kiểm | Outcome đã xem | Artifact |
+|---|---|---|
+| Anchor a:1Gb/s,1500byte,qB100,rho_pre.8,age+act5ms,h6ms,dt.12/.06/.03ms | Conversion/rounding/ratios,không có full ON/OFF law hoặccontrast;T_mode/rho_post chưa khai báo | [Thẻ](../results/lessons/l1_8_a/anchor_cards.csv),[refinements](../results/lessons/l1_8_a/anchor_refinements.csv) |
+| Anchor b:10Mb/s,1500byte,qB100,rho_pre.8,age+act.2s,h.6s,dt12/6/3ms,T_mode.1s;rho_post.9 minh hoạ | R1/R2 probabilities,correlation qua.204s,run duration,semigroup,rounding,pre/post drain;không J/GS/GM/Gamma cho anchor | [R1/R2](../results/lessons/l1_8_a/persistence_comparison.csv),[report](../results/lessons/l1_8_a/report.md) |
+| q0{0,1,2,5},arrival rate{0,1,3,5},service{1,3},dt{1,1/2,1/4};drain/rise với h1s,dt1/2/4/8 nghịch đảo | Đã xem96 endpoint/cost/crossing checks và8 cost convergence rows;deterministic verification | [Boundary grid](../results/lessons/l1_8_a/boundary_grid.csv),[E1](../results/lessons/l1_8_a/fluid_convergence.csv) |
+| Canonical xd all-off,H2,dt1;q=(10−2t)+,h10/20;R1fixedleave.1,dt10/5ms | Branch gapD13−4/fluid−3;cumulative25/timeavg2.5,1.25;effective holding times khi giữ leave cố định | [Canonical branch](../results/lessons/l1_8_a/canonical_all_off.csv),[results](../results/lessons/l1_8_a/results.json) |
+
+Không seed mới;deterministic/reference verification,không confirmation. Đã đọc con số
+GS.930→.534 vàGamma+.078 trong tài liệu nhưng thiếu full configuration nên chưa tái lập;
+regime p=s5/8 được nhắc đó không được gọi là unseen sau khi đã đọc outcome.
+Không tự mởD-grid PartC hoặcchọnT_mode theo gain.
+Artifact/hash của các lesson cũ giữ nguyên như snapshot lúc chạy. Sổ exposure tiếp tục
+được bổ sung;hash input-document trong config cũ phải đối chiếu đúng snapshot nguồn,
+không diễn giải việc sổ tăng dòng thành thay đổi số đo cũ.
+
+## Bổ sung exposure L1.8 Part B — 22/10/2026
+
+| Regime / kiểm | Outcome đã xem | Artifact |
+|---|---|---|
+| Toy y=(2,0) tại−1,initialmode stationary1/2 độc lập y;rates c3/3,A1,u2,B5/0,h2,coarsep=s5/8,lambda1/4;R2,m1/2/4/8/16/32/64/128 | Đã đọc bảng nguồn trước chạy; đã xem đủL/J/gaps/actions/contrasts,mode/freshness splits,rho/Richardson ở8levels. Không cònunseen;không chuyển thànhconfirmation bằngseed mới | [Levels](../results/lessons/l1_8_b/level_metrics.csv),[state cells](../results/lessons/l1_8_b/state_cells.csv),[report](../results/lessons/l1_8_b/report.md) |
+| Cùngtoy,u0 tại8levels;float64/longdouble;finite paths m1/2/4 vàforward scoring mọi level | Verification/negative control,khôngpruning/RNG/seed. Tolerance1% củaCref tạmLstar(m128),không phảiSESOI hoặcCref đã khóa | [Config](../results/lessons/l1_8_b/config.json),[rules](../results/lessons/l1_8_b/rule_comparison.csv),[controls](../results/lessons/l1_8_b/zero_action_controls.csv) |
+| M0 fixed split,M1 fixed split,hybrid midpointM1 endpointM0 | Đã xem khác biệt định nghĩa phép tách;sourceB6 số làmtròn khớphybrid. Khôngchọn lạiprimary split để khớpnguồn | [Source split comparison](../results/lessons/l1_8_b/source_split_comparison.csv) |
+
+Không mở thêmcell/levelTmode dài10× củaself-check,không chạy hai physical anchors với
+law chưa khai báo. Khôngseed mới,khôngheldout hoặcfitH0/H1. Cácsai khác bảngnguồn
+vàlogaudit lỗi lầnđầu được giữ để kiểm;khôngnới threshold hoặcẩn điểm khôngthuận lợi.

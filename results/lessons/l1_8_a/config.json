@@ -1,0 +1,62 @@
+{
+  "author": "Doan Van Tai",
+  "scope": "L1.8 Part A only",
+  "anchors": [
+    {
+      "name": "a",
+      "link_bps": "1000000000",
+      "packet_bytes": "1500",
+      "qB0": "100",
+      "rho_pre_B": "4/5",
+      "age_plus_act_s": "1/200",
+      "horizon_s": "3/500",
+      "rho_post_B_switch": null,
+      "T_mode_s": null
+    },
+    {
+      "name": "b",
+      "link_bps": "10000000",
+      "packet_bytes": "1500",
+      "qB0": "100",
+      "rho_pre_B": "4/5",
+      "age_plus_act_s": "1/5",
+      "horizon_s": "3/5",
+      "rho_post_B_switch": "9/10",
+      "T_mode_s": "1/10"
+    }
+  ],
+  "dt_candidates_s": {
+    "a": "3/25000",
+    "b": "3/250"
+  },
+  "persistence_law_candidate": "R2 symmetric finite-positive CTMC",
+  "rounding": "nearest/ties-to-even; positive durations must not round to zero",
+  "float_check_tolerances": {
+    "relative": 1e-12,
+    "absolute": 1e-14
+  },
+  "seed": null,
+  "random_sampling": false,
+  "dt_final_locked": false,
+  "contract_v1_locked": false,
+  "PartB_acceptance_run": false,
+  "Phase3_contrast_scale_invariance_checked": false,
+  "input": {
+    "path": "/home/vantai/.codex/attachments/9febf793-2885-436f-9482-934cd26287f2/Pasted text.txt",
+    "sha256": "171f461b704cfa5bf25ce660b71b5fb4420e627f266d65cce31a977b938712d8"
+  },
+  "source_hashes": {
+    "experiments/lessons/l1_8_slots.py": "4440d2b9eaf8e48ec498afba8a999d332f72510f8eafeb82e807e603892c3308",
+    "experiments/lessons/l1_8_reference.py": "4c84b5482f45b6302004fd5d528e6ec14af5932c13644f40161cd23e848eefb2",
+    "experiments/lessons/run_l1_8_a.py": "b8018fc66f2cc21f2d912773ae6a974d1c68fd954ee97446a82b7f15e9c17489",
+    "tests/test_l1_8_slots.py": "4748f212eca2899a3671567ab035902b5c560ac92c157f3196d91694c5f66d74",
+    "tests/test_l1_8_boundaries.py": "2b011c45021b551bf5d7783b1bb0e41422351d4d3b96db381999402eb609e3d9",
+    "experiments/lessons/l1_2_queue.py": "4d3bdbd2bd2a27185c6a146697e93c0444cd0342e22ac5486c781a0c1d4a7420",
+    "experiments/lessons/l0_6_timescale.py": "1472669828ed2e647d016f8105f72616f57ca6f8ccacc3fdfbe8f947df19c4ff",
+    "notes/01_definitions.md": "5eb1eff49d21fa9287255bab87d734b6620225863376fbec49e20172eb3a4109",
+    "notes/theory/T00_timescale_sanity.md": "d059d048e0d0bc62d30527c83bc559f3584fa6110a49de8dfd26d9a06d058480",
+    "notes/lessons/L1.8A_experiment_card.md": "142cccbdee3c07564dee84d73e577ba7d92d7839608a9b5add37af54bccce0c0",
+    "notes/lessons/L1.8A_slot_model_spec.md": "8353b23e9c8f93d97bf353ecb12bc45a7cce8a03d82d94d88bad83ea1acd2c88"
+  },
+  "base_commit": "7b4d2189d7860a2ebe1b5731964dc985370f05f8"
+}

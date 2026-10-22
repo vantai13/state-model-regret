@@ -1,0 +1,20 @@
+lesson: 11/11 PASS
+full_suite: 122/122 PASS
+m=1: states=4,Lstar=6.390625000,GS=0.929687500,Gamma=0.000000000,GM=0.000000000
+m=2: states=6,Lstar=6.131225586,GS=0.533813477,Gamma=0.078002930,GM=0.000000000
+m=4: states=14,Lstar=6.008341279,GS=0.434653798,Gamma=0.025459083,GM=0.000000000
+m=8: states=30,Lstar=5.963776317,GS=0.375064711,Gamma=0.013776903,GM=0.000000000
+m=16: states=62,Lstar=5.946226852,GS=0.339263182,Gamma=0.014904793,GM=0.000000000
+m=32: states=126,Lstar=5.938468844,GS=0.320785710,Gamma=0.016265891,GM=0.000000000
+m=64: states=254,Lstar=5.934848382,GS=0.311603614,Gamma=0.016940520,GM=0.000000000
+m=128: states=510,Lstar=5.933106738,GS=0.307151637,Gamma=0.017151712,GM=0.000000000
+Traceback (most recent call last):
+  File "/home/vantai/state-model-regret/experiments/lessons/run_l1_8_b.py", line 362, in main
+    try: execute(out)
+         ~~~~~~~^^^^^
+  File "/home/vantai/state-model-regret/experiments/lessons/run_l1_8_b.py", line 332, in execute
+    discrepancies=compare_source(out,summaries)
+  File "/home/vantai/state-model-regret/experiments/lessons/run_l1_8_b.py", line 115, in compare_source
+    assert len(discrepancies)==1 and discrepancies[0]['m']==4 and discrepancies[0]['metric']=='Gamma'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
