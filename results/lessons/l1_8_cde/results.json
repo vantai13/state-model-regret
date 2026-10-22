@@ -1,0 +1,202 @@
+{
+  "author": "Doan Van Tai",
+  "status": "TECHNICAL_PASS_WITH_PENDING_GATES",
+  "config": {
+    "author": "Doan Van Tai",
+    "time": "2026-10-22T20:54:02.776377+07:00",
+    "python": "3.14.5",
+    "numpy": "2.5.3",
+    "git_design_commit": "f20e28bafbfc989fa1a59f545ef47d21430e1953",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "-m",
+      "experiments.lessons.run_l1_8_cde",
+      "--output-dir",
+      "/home/vantai/state-model-regret/results/lessons/l1_8_cde"
+    ],
+    "source_hashes": {
+      "src/smr/design.py": "a0afa5d2e473ec87ed377b65ae7c3bdd8f7c43d634662a75165a62cc91d5402e",
+      "src/smr/exact.py": "c3216f0a318e5212882d1e1980dc5b69b7688486b7662c3b009d131366192f5b",
+      "src/smr/thresholds.py": "cb26e33cca88064ef13fef41e7675a7cc4eafb5198a901c8f6f2eced27839bbf",
+      "tests/test_l1_8_contract.py": "e2fb8f77449ed16caf4240e6871b786da9d44bb933153a3da71811302350e3cb",
+      "experiments/lessons/run_l1_8_cde.py": "67ef97e6b52715bbdebea17bfacd18f80b85d51bed5adb283b3404cfb425b9cb",
+      "notes/design/grid_v1.json": "86b138bc77ccab76129f5416596e7977e17b2fc529666fdcefa918bc4d1ad191",
+      "notes/design/grid_v1.md": "cbc3160cfb340095c51083162df959d0d8def19ab79273d246bb3be6dcc57463",
+      "notes/01_definitions_v1.md": "6dcd0b53809834b36701fa59f3e4af19866f475c0b2701337e63a20bf44ecd1a",
+      "notes/00_research_brief_v1.md": "10de7b0c4d287773da7acd7821234385fd0564c763d6982be7ffe3016eaae48e",
+      "notes/lessons/L1.8D_decision_cards.md": "089357fea9e2e174af9aaf4f76bfa0ba69ef05607d9f83224ad70da4b8130a84",
+      "notes/lessons/L1.8E_question_card.md": "82ce84628bb5aa62e5e96ede976154f25d34683b34e5f058885db0ffb2aa1d60",
+      "notes/lessons/L1.8E_changes_v0_v1.md": "abb400f39f86152e7cc51168a3dcc8f5fcf66df6cb77f14421efe1d89a875f4e",
+      "notes/phases/PHASE_1_closeout.md": "89b8163006612b326bc417566af0ef42e30e97b0c97efa62032bb83b07ae6a6e"
+    },
+    "attachments": [
+      {
+        "path": "/home/vantai/.codex/attachments/d3491ab2-086d-4b6a-8631-155cd269eb5b/Pasted text.txt",
+        "sha256": "ca07d649703c1fe1a696282cce92f640855419e68a8873b05eb62f62c1bed5c3"
+      },
+      {
+        "path": "/home/vantai/.codex/attachments/29b93c8c-40d1-447d-a519-4077188002ef/Pasted text.txt",
+        "sha256": "b3d72a680c021371536c5574400f6e7bf9a96b36c1ca11a9535d2f22b9882bdc"
+      },
+      {
+        "path": "/home/vantai/.codex/attachments/e188727e-4b63-47f7-9fc8-e51216673a56/Pasted text.txt",
+        "sha256": "f5096d9c8b4329e9c290708ed53da21add9547ffab2f4b3f58f54160a0911356"
+      }
+    ],
+    "manifest_sha256": "86b138bc77ccab76129f5416596e7977e17b2fc529666fdcefa918bc4d1ad191",
+    "random_draws": 0,
+    "seed": null,
+    "scope": "CDE diagnostics only; J checks on already exposed teaching configurations",
+    "new_grid_contrasts_computed": false,
+    "reserve_generated": false
+  },
+  "tests": {
+    "lesson": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_8_cde/lesson.xml",
+        "tests/test_l1_8_contract.py"
+      ],
+      "returncode": 0,
+      "total": 22,
+      "failed": [],
+      "errors": [],
+      "skipped": [],
+      "passed": 22,
+      "log": "lesson.txt",
+      "junit": "lesson.xml"
+    },
+    "full_suite": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_8_cde/full_suite.xml"
+      ],
+      "returncode": 0,
+      "total": 146,
+      "failed": [],
+      "errors": [],
+      "skipped": [],
+      "passed": 146,
+      "log": "full_suite.txt",
+      "junit": "full_suite.xml"
+    }
+  },
+  "references": {
+    "golden_values": 8,
+    "golden_violations": 0,
+    "backward_forward_values": 132,
+    "backward_forward_max_error": 7.105427357601002e-15,
+    "reference_check_wall_s": 0.12147850199835375,
+    "correlated_queue_checks": 8,
+    "canonical_interaction": {
+      "mean": 0.0,
+      "expected_abs": 0.25,
+      "probability_exceeding_delta": 0.5,
+      "delta": "1/32"
+    }
+  },
+  "idle_pairs": 5832,
+  "idle_mismatches": 0,
+  "episode_state_rows": 6776,
+  "main_cells": 24,
+  "negative_controls": 2,
+  "stress_cells": 2,
+  "reserve_coordinates": 16,
+  "reserve_generated": false,
+  "new_grid_contrasts_computed": false,
+  "diagnostic_wall_s": 0.996132223001041,
+  "max_D_mass_error": 1.1102230246251565e-15,
+  "stationary_balance_max_error": 2.7755575615628914e-17,
+  "main_s_bt_min": 0.0,
+  "main_s_bt_max": 0.0,
+  "negative_s_bt": [
+    0.9999999999999994,
+    1.0000000000000007
+  ],
+  "max_upper_updates": 17395248000,
+  "max_estimated_peak_bytes": 17395248,
+  "budget_alarm_cells": [
+    "M20",
+    "M22",
+    "M24"
+  ],
+  "budget_measured_full_J": false,
+  "final_dt": "PENDING_A01",
+  "numerical_grid_convergence": "NOT_RUN_BEFORE_TAG",
+  "consistency": {
+    "author": "Doan Van Tai",
+    "overall": "CONDITIONAL_PASS",
+    "checks": [
+      {
+        "id": 1,
+        "status": "PASS",
+        "check": "25 unique operational definition IDs, no duplicate row"
+      },
+      {
+        "id": 2,
+        "status": "PASS",
+        "check": "Main RQ exact in v0/v1/brief/review digest; brief D references defined",
+        "references": [
+          "D10",
+          "D12",
+          "D13",
+          "D15",
+          "D18",
+          "D19",
+          "D21",
+          "D22",
+          "D23",
+          "D24",
+          "D25",
+          "D8",
+          "D9"
+        ]
+      },
+      {
+        "id": 3,
+        "status": "PASS",
+        "check": "every declared deferred/pending topic has location",
+        "topics": [
+          "A01",
+          "A05",
+          "P0-V3",
+          "P0-V10",
+          "P0-V11",
+          "HUMAN",
+          "FEEDBACK",
+          "MODEL5",
+          "FEASIBLE8",
+          "PRIOR2A",
+          "SOURCE"
+        ]
+      },
+      {
+        "id": 4,
+        "status": "PARTIAL",
+        "check": "Final Review full-source consistency",
+        "reason": "Repository reading note checked; full source sections2/11/12 unavailable, full comparison not performed"
+      },
+      {
+        "id": 5,
+        "status": "PASS",
+        "check": "25-term budget; v0 bytes match immutable contract-v0"
+      },
+      {
+        "id": 6,
+        "status": "PASS",
+        "check": "threshold/refinement/Cref/I/prior/grid/roles/RNG cross-card constraints"
+      }
+    ],
+    "external_human_review": "PENDING",
+    "full_PHASE_1_template_comparison": "NOT_AVAILABLE"
+  },
+  "random_draws": 0
+}

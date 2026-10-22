@@ -11,3 +11,5 @@ Người thực hiện: **Doan Van Tai** · 22/10/2026.
 5 consistency checks PASS, full-source comparison PARTIAL. No grid contrasts/margins, reserve coordinates only. Budget là conservative estimates; A01 final dt/runtime và P0-V3/V10/V11/human feedback còn pending. Artifact auditor độc lập về công thức, không phải một người reviewer độc lập.
 
 Git evidence: `push_receipt.json` và `push_output.txt` trong thư mục này được ghi sau khi push; receipt đối chiếu local/remote main, annotated contract-v1 và peeled target. Tag cũ không di chuyển. Receipt được commit bổ sung sau tag nên main có thể là descendant của tag; tagged scientific files vẫn phải byte-exact. Lần tái lập dùng output-dir mới, không ghi đè artifacts snapshot.
+
+Kiểm liên kết:94 local links trong11 Markdown files tồn tại. `git diff --check` cho source/docs đạt; raw `run_output.txt` giữ nguyên dòng trống cuối do Tee/print (staged whitespace check báo đúng1 blank-line-at-EOF), không chuẩn hóa byte log sau chạy. SHA256 manifest ghi byte thực.

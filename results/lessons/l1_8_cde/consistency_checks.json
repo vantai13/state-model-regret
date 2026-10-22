@@ -1,0 +1,67 @@
+{
+  "author": "Doan Van Tai",
+  "overall": "CONDITIONAL_PASS",
+  "checks": [
+    {
+      "id": 1,
+      "status": "PASS",
+      "check": "25 unique operational definition IDs, no duplicate row"
+    },
+    {
+      "id": 2,
+      "status": "PASS",
+      "check": "Main RQ exact in v0/v1/brief/review digest; brief D references defined",
+      "references": [
+        "D10",
+        "D12",
+        "D13",
+        "D15",
+        "D18",
+        "D19",
+        "D21",
+        "D22",
+        "D23",
+        "D24",
+        "D25",
+        "D8",
+        "D9"
+      ]
+    },
+    {
+      "id": 3,
+      "status": "PASS",
+      "check": "every declared deferred/pending topic has location",
+      "topics": [
+        "A01",
+        "A05",
+        "P0-V3",
+        "P0-V10",
+        "P0-V11",
+        "HUMAN",
+        "FEEDBACK",
+        "MODEL5",
+        "FEASIBLE8",
+        "PRIOR2A",
+        "SOURCE"
+      ]
+    },
+    {
+      "id": 4,
+      "status": "PARTIAL",
+      "check": "Final Review full-source consistency",
+      "reason": "Repository reading note checked; full source sections2/11/12 unavailable, full comparison not performed"
+    },
+    {
+      "id": 5,
+      "status": "PASS",
+      "check": "25-term budget; v0 bytes match immutable contract-v0"
+    },
+    {
+      "id": 6,
+      "status": "PASS",
+      "check": "threshold/refinement/Cref/I/prior/grid/roles/RNG cross-card constraints"
+    }
+  ],
+  "external_human_review": "PENDING",
+  "full_PHASE_1_template_comparison": "NOT_AVAILABLE"
+}

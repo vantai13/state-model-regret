@@ -1,0 +1,76 @@
+# L1.8 C–E — kết quả thực chạy
+
+Người thực hiện: **Doan Van Tai**. G1; technical freeze có điều kiện, không human/independent sign-off.
+
+- Lesson **22/22 PASS**; full suite **146/146 PASS**.
+- Idle: 5832 cặp action, 0 mismatch; goldens 8 giá trị, 0 vi phạm.
+- Backward/forward B16: 132 giá trị, max error 7.1054273576e-15; correlated additivity 8 cases PASS.
+- 24 main+2negative+2stress; main s_bt min/max=0/0; controls=[np.float64(0.9999999999999994), np.float64(1.0000000000000007)].
+- D mass error max=1.11022302463e-15; infinite-stationary balance error max=2.77555756156e-17; scaling 28/28 PASS.
+- Diagnostic thực chạy 0.996132s (28 ô và28 scale copies); không phải runtime tính J.
+- Upper bound max **17,395,248,000 scalar updates**, peak workspace estimate **17,395,248 bytes**; planning-budget alarms: M20, M22, M24.
+- Budget là ước lượng bảo thủ, chưa benchmark full J. Các ô alarm giữ nguyên; A01 cần tối ưu/benchmark, không tuyên bố toàn lưới đã tính được.
+- Canonical I: E[I]=0.0, EabsI=0.25, P(absI>δ)=0.5, δ=1/32 (teaching units).
+- Ngưỡng đã chọn: Cref=Lstar cùng ô/cùng dt, εR1%, εE.5%, discretization budget.25%; các threshold examples là function checks, không measured network gains.
+- Consistency:5 PASS và1 PARTIAL (full Final Review thiếu); source reading note đã đối chiếu. V0 byte-exact với contract-v0.
+- Final dt/main-grid refinement A01 **CHƯA CHẠY**. Không tính J/gaps/margins/contrasts trên new grid; reserve16 chỉ tọa độ, chưa sinh; RNG/seed mới0.
+
+## Tái lập
+
+```bash
+PYTHONPATH=src:. .venv/bin/python -m experiments.lessons.run_l1_8_cde
+.venv/bin/python -m pytest -q tests/test_l1_8_contract.py
+.venv/bin/python -m pytest -q
+.venv/bin/python notes/verification/verify_l1_8_cde_artifacts.py
+```
+
+Runner lưu commands thực tế, phiên bản, input/source SHA256 và design commit ở config.json. Không ghi đè run cũ: dùng --output-dir khác khi tái lập. JUnit/log đầy đủ: lesson.txt/.xml, full_suite.txt/.xml.
+
+## Số liệu và output
+
+| File | Nội dung |
+|---|---|
+| design_diagnostics.csv | Toàn bộ28 ô, s_bt, mass, ratios, conservative budget |
+| episode_states.csv | Finite D sau prehistory; cho auditor dựng lại law/screen độc lập |
+| idle_grid_5832.csv, stationary_balance.csv, scale_checks.csv | Kiểm độc lập rollout, stationary incoming balance và scale |
+| golden_costs.csv, backward_forward_B16.csv, queue_additivity.csv | J checks trên worked examples đã exposed, không main grid |
+| canonical_I_delta.csv, threshold_examples.csv | Diagnostic I và test quy đổi/ngưỡng |
+| results.json, config.json, consistency_checks.json | Metrics, inputs, status và checks |
+| run_output.txt, lesson.txt/.xml, full_suite.txt/.xml | Log thực và JUnit |
+| design_diagnostics.png | Conservation mass và budget; không gain map |
+| artifact_manifest.json | SHA256 outputs, không self-hash |
+
+Contract/brief/cards/closeout nằm trong notes; code chính src/smr/{design,exact,thresholds}.py. Các phần tự học/human feedback/primary literature/network validity chưa xác nhận, HOLD Phase4 trước V10. A01/A04 sau tag là bước nghiên cứu riêng, không thực hiện âm thầm trong L1.8.
+
+## Bảng thiết kế thực đo
+
+| Cell | Role | states D | s_bt | H | update upper bound |
+|---|---|---:|---:|---:|---:|
+| M01 | main | 242 | 0 | 80 | 307520 |
+| M02 | main | 242 | 0 | 400 | 23041600 |
+| M03 | main | 242 | 0 | 80 | 307520 |
+| M04 | main | 242 | 0 | 400 | 23041600 |
+| M05 | main | 242 | 0 | 80 | 307520 |
+| M06 | main | 242 | 0 | 400 | 23041600 |
+| M07 | main | 242 | 0 | 240 | 1844160 |
+| M08 | main | 242 | 0 | 1200 | 184324800 |
+| M09 | main | 242 | 0 | 240 | 1844160 |
+| M10 | main | 242 | 0 | 1200 | 184324800 |
+| M11 | main | 242 | 0 | 240 | 1844160 |
+| M12 | main | 242 | 0 | 1200 | 184324800 |
+| M13 | main | 242 | 0 | 720 | 13826880 |
+| M14 | main | 242 | 0 | 3600 | 1589774400 |
+| M15 | main | 242 | 0 | 720 | 13826880 |
+| M16 | main | 242 | 0 | 3600 | 1589774400 |
+| M17 | main | 242 | 0 | 720 | 13826880 |
+| M18 | main | 242 | 0 | 3600 | 1589774400 |
+| M19 | main | 242 | 0 | 2400 | 142857600 |
+| M20 | main | 242 | 0 | 12000 | 17395248000 |
+| M21 | main | 242 | 0 | 2400 | 142857600 |
+| M22 | main | 242 | 0 | 12000 | 17395248000 |
+| M23 | main | 242 | 0 | 2400 | 142857600 |
+| M24 | main | 242 | 0 | 12000 | 17395248000 |
+| N01 | negative_control | 242 | 1 | 60 | 3067440 |
+| N02 | negative_control | 242 | 1 | 120 | 31622880 |
+| S01 | stress | 242 | 0 | 120 | 749280 |
+| S02 | stress | 242 | 0 | 360 | 5358240 |
