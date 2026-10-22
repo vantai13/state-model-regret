@@ -1,0 +1,500 @@
+{
+  "version": "contract-v1",
+  "author": "Doan Van Tai",
+  "date": "2026-10-22",
+  "status": "ADOPTED_CONDITIONAL",
+  "authorization": "User explicitly selected proposed profile on 2026-10-22",
+  "profile": {
+    "mu_packet_s": 10,
+    "A_background_packet_s": 5,
+    "B_off_packet_s": 2,
+    "B_on_packet_s": 14,
+    "B_stationary_on": 0.5,
+    "rho_B": 0.8,
+    "age_s": "1",
+    "managed_rate": "2*eta",
+    "yA_rule": "yB",
+    "yB_rule": "2*z",
+    "h_main_rule": "z/(1-eta)",
+    "initialization": "B stationary conditional on yB; A controlled at yA; prehistory Stay",
+    "observation": "noiseless backlog A/B with timestamp; hidden modes",
+    "S0": "exact finite-law B2 posterior; shared across M0/M1",
+    "dt_candidate_s": "1/120",
+    "R2": true
+  },
+  "thresholds": {
+    "C_ref": "Lstar per cell at same dt",
+    "epsilon_R": 0.01,
+    "epsilon_R_sensitivity": [
+      0.005,
+      0.02
+    ],
+    "epsilon_E": 0.005,
+    "refinement_fraction": 0.0025,
+    "I_delta_threshold": "epsilon_E*C_ref",
+    "zero_reference": "retain absolute output and exclude relative classification"
+  },
+  "calibration_cells": [
+    "M01",
+    "M02",
+    "M10"
+  ],
+  "refinement_levels": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "final_dt_status": "PENDING_A01_AFTER_TAG",
+  "budget": {
+    "max_updates_per_cell_level": 2000000000,
+    "max_estimated_workspace_bytes": 1073741824,
+    "excess": "HOLD and optimize; no dropping cells or loosening thresholds"
+  },
+  "rng": {
+    "exact_phase3": true,
+    "new_draws": 0,
+    "roots_allocated": false,
+    "key_schema": [
+      "stage_root",
+      "role",
+      "episode_id",
+      "future_id",
+      "branch_id"
+    ],
+    "roles": [
+      "episode",
+      "future",
+      "predictor",
+      "branch"
+    ],
+    "stages": [
+      "discovery",
+      "calibration",
+      "confirmation"
+    ],
+    "actor_variants_in_key": false
+  },
+  "cells": [
+    {
+      "id": "M01",
+      "role": "main",
+      "z": "1/3",
+      "kappa": "3/10",
+      "eta": "1/2",
+      "yA": "2/3",
+      "yB": "2/3",
+      "age": "1",
+      "horizon": "2/3"
+    },
+    {
+      "id": "M02",
+      "role": "main",
+      "z": "1/3",
+      "kappa": "3/10",
+      "eta": "9/10",
+      "yA": "2/3",
+      "yB": "2/3",
+      "age": "1",
+      "horizon": "10/3"
+    },
+    {
+      "id": "M03",
+      "role": "main",
+      "z": "1/3",
+      "kappa": "1",
+      "eta": "1/2",
+      "yA": "2/3",
+      "yB": "2/3",
+      "age": "1",
+      "horizon": "2/3"
+    },
+    {
+      "id": "M04",
+      "role": "main",
+      "z": "1/3",
+      "kappa": "1",
+      "eta": "9/10",
+      "yA": "2/3",
+      "yB": "2/3",
+      "age": "1",
+      "horizon": "10/3"
+    },
+    {
+      "id": "M05",
+      "role": "main",
+      "z": "1/3",
+      "kappa": "3",
+      "eta": "1/2",
+      "yA": "2/3",
+      "yB": "2/3",
+      "age": "1",
+      "horizon": "2/3"
+    },
+    {
+      "id": "M06",
+      "role": "main",
+      "z": "1/3",
+      "kappa": "3",
+      "eta": "9/10",
+      "yA": "2/3",
+      "yB": "2/3",
+      "age": "1",
+      "horizon": "10/3"
+    },
+    {
+      "id": "M07",
+      "role": "main",
+      "z": "1",
+      "kappa": "3/10",
+      "eta": "1/2",
+      "yA": "2",
+      "yB": "2",
+      "age": "1",
+      "horizon": "2"
+    },
+    {
+      "id": "M08",
+      "role": "main",
+      "z": "1",
+      "kappa": "3/10",
+      "eta": "9/10",
+      "yA": "2",
+      "yB": "2",
+      "age": "1",
+      "horizon": "10"
+    },
+    {
+      "id": "M09",
+      "role": "main",
+      "z": "1",
+      "kappa": "1",
+      "eta": "1/2",
+      "yA": "2",
+      "yB": "2",
+      "age": "1",
+      "horizon": "2"
+    },
+    {
+      "id": "M10",
+      "role": "main",
+      "z": "1",
+      "kappa": "1",
+      "eta": "9/10",
+      "yA": "2",
+      "yB": "2",
+      "age": "1",
+      "horizon": "10"
+    },
+    {
+      "id": "M11",
+      "role": "main",
+      "z": "1",
+      "kappa": "3",
+      "eta": "1/2",
+      "yA": "2",
+      "yB": "2",
+      "age": "1",
+      "horizon": "2"
+    },
+    {
+      "id": "M12",
+      "role": "main",
+      "z": "1",
+      "kappa": "3",
+      "eta": "9/10",
+      "yA": "2",
+      "yB": "2",
+      "age": "1",
+      "horizon": "10"
+    },
+    {
+      "id": "M13",
+      "role": "main",
+      "z": "3",
+      "kappa": "3/10",
+      "eta": "1/2",
+      "yA": "6",
+      "yB": "6",
+      "age": "1",
+      "horizon": "6"
+    },
+    {
+      "id": "M14",
+      "role": "main",
+      "z": "3",
+      "kappa": "3/10",
+      "eta": "9/10",
+      "yA": "6",
+      "yB": "6",
+      "age": "1",
+      "horizon": "30"
+    },
+    {
+      "id": "M15",
+      "role": "main",
+      "z": "3",
+      "kappa": "1",
+      "eta": "1/2",
+      "yA": "6",
+      "yB": "6",
+      "age": "1",
+      "horizon": "6"
+    },
+    {
+      "id": "M16",
+      "role": "main",
+      "z": "3",
+      "kappa": "1",
+      "eta": "9/10",
+      "yA": "6",
+      "yB": "6",
+      "age": "1",
+      "horizon": "30"
+    },
+    {
+      "id": "M17",
+      "role": "main",
+      "z": "3",
+      "kappa": "3",
+      "eta": "1/2",
+      "yA": "6",
+      "yB": "6",
+      "age": "1",
+      "horizon": "6"
+    },
+    {
+      "id": "M18",
+      "role": "main",
+      "z": "3",
+      "kappa": "3",
+      "eta": "9/10",
+      "yA": "6",
+      "yB": "6",
+      "age": "1",
+      "horizon": "30"
+    },
+    {
+      "id": "M19",
+      "role": "main",
+      "z": "10",
+      "kappa": "3/10",
+      "eta": "1/2",
+      "yA": "20",
+      "yB": "20",
+      "age": "1",
+      "horizon": "20"
+    },
+    {
+      "id": "M20",
+      "role": "main",
+      "z": "10",
+      "kappa": "3/10",
+      "eta": "9/10",
+      "yA": "20",
+      "yB": "20",
+      "age": "1",
+      "horizon": "100"
+    },
+    {
+      "id": "M21",
+      "role": "main",
+      "z": "10",
+      "kappa": "1",
+      "eta": "1/2",
+      "yA": "20",
+      "yB": "20",
+      "age": "1",
+      "horizon": "20"
+    },
+    {
+      "id": "M22",
+      "role": "main",
+      "z": "10",
+      "kappa": "1",
+      "eta": "9/10",
+      "yA": "20",
+      "yB": "20",
+      "age": "1",
+      "horizon": "100"
+    },
+    {
+      "id": "M23",
+      "role": "main",
+      "z": "10",
+      "kappa": "3",
+      "eta": "1/2",
+      "yA": "20",
+      "yB": "20",
+      "age": "1",
+      "horizon": "20"
+    },
+    {
+      "id": "M24",
+      "role": "main",
+      "z": "10",
+      "kappa": "3",
+      "eta": "9/10",
+      "yA": "20",
+      "yB": "20",
+      "age": "1",
+      "horizon": "100"
+    },
+    {
+      "id": "N01",
+      "role": "negative_control",
+      "z": "50",
+      "kappa": "3/10",
+      "eta": "1/2",
+      "yA": "100",
+      "yB": "100",
+      "age": "1",
+      "horizon": "1/2"
+    },
+    {
+      "id": "N02",
+      "role": "negative_control",
+      "z": "50",
+      "kappa": "3",
+      "eta": "9/10",
+      "yA": "100",
+      "yB": "100",
+      "age": "1",
+      "horizon": "1"
+    },
+    {
+      "id": "S01",
+      "role": "stress",
+      "z": "1",
+      "kappa": "3/10",
+      "eta": "3/2",
+      "yA": "2",
+      "yB": "2",
+      "age": "1",
+      "horizon": "1"
+    },
+    {
+      "id": "S02",
+      "role": "stress",
+      "z": "3",
+      "kappa": "3",
+      "eta": "3/2",
+      "yA": "6",
+      "yB": "6",
+      "age": "1",
+      "horizon": "3"
+    }
+  ],
+  "reserve_coordinates_only": [
+    {
+      "z": "3/5",
+      "kappa": "3/5",
+      "eta": "1/2",
+      "role": "held_out"
+    },
+    {
+      "z": "3/5",
+      "kappa": "3/5",
+      "eta": "9/10",
+      "role": "held_out"
+    },
+    {
+      "z": "3/5",
+      "kappa": "2",
+      "eta": "1/2",
+      "role": "held_out"
+    },
+    {
+      "z": "3/5",
+      "kappa": "2",
+      "eta": "9/10",
+      "role": "held_out"
+    },
+    {
+      "z": "2",
+      "kappa": "3/5",
+      "eta": "1/2",
+      "role": "held_out"
+    },
+    {
+      "z": "2",
+      "kappa": "3/5",
+      "eta": "9/10",
+      "role": "held_out"
+    },
+    {
+      "z": "2",
+      "kappa": "2",
+      "eta": "1/2",
+      "role": "held_out"
+    },
+    {
+      "z": "2",
+      "kappa": "2",
+      "eta": "9/10",
+      "role": "held_out"
+    },
+    {
+      "z": "5",
+      "kappa": "3/5",
+      "eta": "1/2",
+      "role": "held_out"
+    },
+    {
+      "z": "5",
+      "kappa": "3/5",
+      "eta": "9/10",
+      "role": "held_out"
+    },
+    {
+      "z": "5",
+      "kappa": "2",
+      "eta": "1/2",
+      "role": "held_out"
+    },
+    {
+      "z": "5",
+      "kappa": "2",
+      "eta": "9/10",
+      "role": "held_out"
+    },
+    {
+      "z": "30",
+      "kappa": "3/5",
+      "eta": "1/2",
+      "role": "extrapolation"
+    },
+    {
+      "z": "30",
+      "kappa": "3/5",
+      "eta": "9/10",
+      "role": "extrapolation"
+    },
+    {
+      "z": "30",
+      "kappa": "2",
+      "eta": "1/2",
+      "role": "extrapolation"
+    },
+    {
+      "z": "30",
+      "kappa": "2",
+      "eta": "9/10",
+      "role": "extrapolation"
+    }
+  ],
+  "reserve_state": "DECLARED_NOT_GENERATED_OR_SCORED",
+  "exposure": "Only conservation/timescale/budget diagnostics permitted before tag",
+  "pending": [
+    "A01 calibration",
+    "A05 null protocol",
+    "P0-V3",
+    "P0-V10",
+    "P0-V11",
+    "human feedback"
+  ]
+}

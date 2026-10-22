@@ -276,3 +276,6 @@ hybrid midpointM1→endpointM0,không là fixed-model State-only path. Fixed-M0 
 share ởm128=17.811%;không claim11% từhybrid cho State-only. Hai fixed-M0 components
 chưa cófirst-order ratio ổn định ởtriplet cuối. XemCSV/script vàlog lầnđầu dừng ởaudit
 nguồn;baseline tests cuối đềuPASS. GiữG1,V3/V10/V11,HOLDPhase4; chưaPartsC–E/contractv1.
+
+
+L1.8 CDE: [index](l1_8_cde/README.md), [report](../../results/lessons/l1_8_cde/report.md), [artifact auditor](verify_l1_8_cde_artifacts.py). Đọc rõ5 consistency PASS+1source PARTIAL và A01/human gates pending; không grid contrast hoặc held-out outcome.

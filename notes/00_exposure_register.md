@@ -90,3 +90,12 @@ không diễn giải việc sổ tăng dòng thành thay đổi số đo cũ.
 Không mở thêmcell/levelTmode dài10× củaself-check,không chạy hai physical anchors với
 law chưa khai báo. Khôngseed mới,khôngheldout hoặcfitH0/H1. Cácsai khác bảngnguồn
 vàlogaudit lỗi lầnđầu được giữ để kiểm;khôngnới threshold hoặcẩn điểm khôngthuận lợi.
+
+
+## L1.8 Parts C–E — 22/10/2026, khai báo trước outcome
+
+Profile do tác giả chọn: μ10,A5,B OFF2/ON14, symmetric R2; stationary conditional B, A controlled; observation backlog/noise0/hiddenmode; candidate dt1/120s. Lưới [manifest](design/grid_v1.json): M01–M24, N01–N02, S01–S02; calibration M01/M02/M10. Chỉ được xem s_bt, time ratios và budget, không tính J/gap/margin/contrast trên những ô này trước contract-v1. Full diagnostics và scale copies được lưu ở report CDE; không chuyển screen thành evidence effect.
+
+Reserve z.6/2/5 × κ.6/2 × η.5/.9 (12) và extrapolation z30 cùng κ/η (4): chỉ khai báo tọa độ, **không sinh D/screen/outcomes**. Chưa allocate bất kỳ discovery/calibration/confirmation root nào. Cần audit exposure bên ngoài repository trước A05/confirmation; tọa độ đơn lẻ xuất hiện trước không đồng nghĩa mọi combination còn fresh.
+
+J goldens và B16 backward/forward cùng correlated-additivity checks trong CDE là verification trên teaching regimes đã exposed; canonical I/threshold examples cũng không confirmation. Budget-only diagnostics là exposure thiết kế, không outcome gain. Commit grid trước chạy chẩn đoán đầy đủ; tag trước mọi Phase3 contrast. Không mở Phase3 trong task CDE này.

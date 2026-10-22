@@ -137,3 +137,109 @@ Bảng này là đối chiếu phụ thuộc tài liệu, **chưa phải bài t�
 | DL-010 | Contract D1/D13/D21, §0/§5/§6 (7–8)/§7(f)–(h)/§8 AS3/§9; inventory EV-32/33; claim C10/NC16–17; brief; closeout; nếu đã tag thì tạo `contract-v0.1` |
 
 [Brief File 7](00_research_brief.md) và khung lesson File 8 ([L0.3](lessons/L0.3_objects.md), [L0.4](lessons/L0.4_estimand.md), [L0.5](lessons/L0.5_legacy.md), [L0.6](lessons/L0.6_scope.md), [L0.7](lessons/L0.7_review.md)) đã tồn tại; bài tự làm/xác nhận còn chờ. Closeout File 9 đã ghi **phương án B/GO có điều kiện** tại [phases/PHASE_0_closeout.md](phases/PHASE_0_closeout.md); V3/V10/V11 mang sang Phase 1. Những chỗ master plan/PHASE_0 được dẫn theo File 6 vẫn cần đối chiếu bản gốc trước khi ghi đã sửa hoặc đã kiểm.
+
+
+## L1.8 C–E — quyết định kỹ thuật ngày 22/10/2026
+
+Tác giả **Doan Van Tai** đã chọn cấu hình đề xuất và “khóa v1 có điều kiện” trong phiên thực hiện. Không suy đó là bài tự làm, read-back hoặc independent approval. Mỗi entry dưới dẫn tới thẻ có đủ Decision/Why/Alternatives/Consequence/Test/Status.
+
+### DL-011 — Reference Lstar (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **1**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-012 — Practical threshold1% (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **2**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-013 — Equivalence.5% / numerical budget.25% (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **3**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-014 — Packet·s và ratio-of-expectations (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **4**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-015 — Observation backlog/timestamp hidden mode (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **5**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-016 — S0 B2/shared belief (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **6**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-017 — Conditional stationary D / selected rates (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **6b**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-018 — Intermediate models DEFERRED (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **7**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-019 — Stage×role RNG schema, roots unallocated (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **8**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-020 — IΔ threshold εE*Cref (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **9**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-021 — R2/grid/calibration/reserve (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **10**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-022 — Feedback pending / conditional freeze (2026-10-22)
+
+- Decision và năm trường kiểm chứng còn lại: thẻ **11**, [decision cards](lessons/L1.8D_decision_cards.md).
+- Ai quyết: **Doan Van Tai**; adoption kỹ thuật theo profile/ngưỡng đã chọn, phần deferred/pending giữ đúng trạng thái thẻ.
+- Revisit: khi A01/A04 phát hiện sai số, thiếu budget, hoặc có phản hồi độc lập; ghi version mới, không sửa tag cũ.
+
+### DL-023 — Physical embedding và sửa kiểm refinement (2026-10-22)
+
+- Decision: R2 exact symmetric embedding; λ0 teaching không có finite Tmode. Giữ A/B artifacts lịch sử; v1 dùng per-cell same-dt Cref, error budget.25%, fine-level reporting và triplet diagnostic.
+- Why: Part B đã kiểm GS/gap/action có thể đổi theo slot; old toy tolerance1% không chứng nhận v1. M0 fixed split17.81% ởm128 khác hybrid≈11%; không đổi endpoint để khớp nguồn.
+- Alternatives: R1 hoặc lấy Richardson làm proven limit bị loại. Consequence: final grid dt chờ A01, không tự mở contrast để khóa.
+- Test: A/B audits, new tests và report CDE; trạng thái protocol LOCKED, convergence main-grid PENDING.
+- Ai quyết: **Doan Van Tai**, theo yêu cầu thực hiện CDE trên nền A/B; không gán kết quả toy cho mạng thật.
+
+### DL-024 — Contract-v1 conditional technical freeze, ngoại lệ V11 (2026-10-22)
+
+- Decision: tạo annotated tag contract-v1 sau commit clean, push main và tag theo yêu cầu tác giả; G1/conditional GO cho chuẩn bị Phase2a/Phase3, A01 còn gate; HOLD Phase4 tới P0-V10.
+- Why: tác giả chọn rõ “khóa v1 có điều kiện”; Part E cho phép tag trước P0-V11 khi ghi ngoại lệ, kế thừa closeout B. Công việc chuẩn bị được hoàn tất, không giả human feedback.
+- Alternatives: unconditional GO hoặc tuyên bố V3/V11 đã pass bị loại. Consequence: P0-V3/P0-V10/P0-V11 và human/external feedback còn mở; source comparison partial; final dt/budget A01 chưa chứng nhận.
+- Test: six consistency checks, actual JUnit/artifact audits, tag ancestry/remote checks ở verification receipt. Trạng thái thực tế theo closeout/report/receipt, không chỉ entry kế hoạch này.
+- Ai quyết: **Doan Van Tai**; đổi sau feedback bằng phiên bản mới, không force tag, không gửi thông điệp cho người khác trong tác vụ này.
+
+### DL-025 — Đối chiếu riêng DL-003…008; không thay lịch sử xác nhận (2026-10-22)
+
+| Entry cũ | Kết quả đối chiếu kỹ thuật và adoption v1 | Còn thiếu |
+|---|---|---|
+| DL-003 | KEEP Main RQ nguyên văn; không khóa HC1 shape trước discovery | Tác giả tự diễn giải/read-back |
+| DL-004 | KEEP tách plant/evaluator/estimator/model/oracle; hidden future, shared S | Tác giả tự làm bài phân loại |
+| DL-005 | KEEP endpoint occupancy/oracle/regret; CHỐT conversion/Cref/threshold theo cards1–4 | Human construct review |
+| DL-006 | KEEP endpoints/tie/cheap kill R00; làm rõ fixed-model D22, model randomness scope | Bài tự tính counterexample, feasible Phase8 |
+| DL-007 | KEEP repo mới và legacy map; không migrate code cũ; thêm package kernels có tests | Bài tự kiểm legacy của tác giả |
+| DL-008 | KEEP B2/hai neo; CHỐT schema, conditional D, stable grid và R2; intermediate DEFERRED | Final dt A01, primary-source/telemetry validation và self-check |
+
+Ai chịu trách nhiệm: **Doan Van Tai**. Đây là đối chiếu và thực thi kỹ thuật trên các lựa chọn đã có/chọn trong phiên22/10, không ghi tác giả đã tự đọc lại hoặc hoàn thành bài. Entries lịch sử DRAFT giữ nguyên, P0-V11 không tự đóng.

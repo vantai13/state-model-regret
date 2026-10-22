@@ -24,3 +24,8 @@ Không đưa cell/action/model/K/variant vào khóa. Numeric encoding vẫn có 
 interface chưa cô lập quyền đọc. Chờ thẻ8 L1.8 khóa kiến trúc research contract v1.
 Predictor hiện rút tuần tự K mẫu: prefix nested nếu cùng root/episode/H;
 chưa có stream riêng theo sample k. RNG NumPy2.5.3/PCG64 được ghi trong config mỗi lần chạy.
+
+
+## L1.8D v1 — schema stage × role, 22/10/2026
+
+Khóa stage_root(discovery/calibration/confirmation) × role(episode/future/predictor/branch) × episode_id/future_id/branch_id. Pipeline/actor variant không nằm trong key future dùng CRN. Đây là làm rõ đề xuất L1.7, không cấp root: **roots_allocated=false, draws mới=0**. Phase3 exact không cần RNG. Cấp seed chỉ trước phase dùng tương ứng, không instantiate confirmation sớm. DL-019; machine schema trong notes/design/grid_v1.json.
