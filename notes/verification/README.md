@@ -279,3 +279,5 @@ nguồn;baseline tests cuối đềuPASS. GiữG1,V3/V10/V11,HOLDPhase4; chưaPa
 
 
 L1.8 CDE: [index](l1_8_cde/README.md), [report](../../results/lessons/l1_8_cde/report.md), [artifact auditor](verify_l1_8_cde_artifacts.py). Đọc rõ5 consistency PASS+1source PARTIAL và A01/human gates pending; không grid contrast hoặc held-out outcome.
+
+B1 v1.1 (23/10/2026): [index](v1_1_b1/README.md), [báo cáo](../../results/lessons/l1_8_v1_1_b1/report.md), [điều kiện DRAFT](../design/design_conditions_v1_1.md). Baseline146→154/154 PASS; coverage thiếu SD2/WD2 của nguồn được phát hiện và sửa bằng verification cases bổ sung; first_run FAIL được giữ. HOLD A01/A04 grid v1; chưa chọn/chạy grid v1.1 hoặc p_switch, chưa tạo tag mới.

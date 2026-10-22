@@ -1,0 +1,12 @@
+lesson: 8/8 PASS
+full_suite: 154/154 PASS
+Traceback (most recent call last):
+  File "/home/vantai/state-model-regret/experiments/lessons/run_v1_1_b1.py", line 276, in main
+    execute(out)
+    ~~~~~~~^^^^^
+  File "/home/vantai/state-model-regret/experiments/lessons/run_v1_1_b1.py", line 244, in execute
+    exhaustive_result=exhaustive(out)
+  File "/home/vantai/state-model-regret/experiments/lessons/run_v1_1_b1.py", line 115, in exhaustive
+    assert all(r['states']>0 and r['pathwise_violations']==r['M0_sign_violations']==0 for r in metrics.values())
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

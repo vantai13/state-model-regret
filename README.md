@@ -2,6 +2,8 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Cập nhật 23/10/2026 — B1 v1.1:** lưới v1 có vùng Stay áp đảo theo path, gồm M01–M12, S01 và cả ba ô calibration. **HOLD A01/A04 trên v1**; tag và các scientific files v1 giữ nguyên. Đã tích hợp [điều kiện ĐK1–ĐK8](notes/design/design_conditions_v1_1.md), code dominance và DL-026…028. [Trạng thái thiết kế](notes/design/README.md) · [kết quả B1](results/lessons/l1_8_v1_1_b1/report.md). B1 chưa chọn lưới/p_switch/calibration v1.1; các lựa chọn §11 còn DRAFT, P0-V11 và review độc lập chưa hoàn tất. Những mô tả conditional GO bên dưới là record lịch sử trước phát hiện này.
+
 Main RQ (nguyên văn Final Review cập nhật 06/10/2026):
 > For load-changing routing actions, how do improvements in current-state information and action-response model fidelity differ and interact in their effect on expected decision regret?
 

@@ -1,0 +1,64 @@
+{
+  "author": "Doan Van Tai",
+  "execution_time": "2026-10-23T06:49:57.655483+07:00",
+  "source_document_date": "2026-10-22",
+  "integration_date": "2026-10-23",
+  "python": "3.14.5",
+  "git_base_commit": "f9ec18221a3d8b3c445ba56a3ae04a0d9113438b",
+  "contract_v1_target": "6bb631f9181cc06bfade9d71e54ad57ca3bbb284",
+  "immutable_v1_blobs": {
+    "notes/01_definitions_v1.md": "a45e118efa5085ef04bb7972a41875a11c8619d0",
+    "notes/design/grid_v1.md": "e7b8c7347601d918f5d7c3fa7cd8b2604c2bdd6a",
+    "notes/design/grid_v1.json": "144c7c1b4061ef44cee9cd4af86c5333153a93a9",
+    "src/smr/design.py": "ca69940c7c83f8bf49f65d6aa7890d9afe2cb9c5",
+    "src/smr/exact.py": "acebb8b56f7046c58b206f4b315b7080e98ff60c",
+    "src/smr/thresholds.py": "ef261650cbf538d8666a86251db7f9af0dc6abf2",
+    "notes/phases/PHASE_1_closeout.md": "712c15d19ba68e44838fc247d85a23f77d3e69d5",
+    "notes/lessons/L1.8D_decision_cards.md": "796cf873d514a7240ec15b9caa4fb51b4114fb89"
+  },
+  "source_patch_original_commit": "e1763b16bff6a4ecd56aa0534fca2592318e0e5c",
+  "input_hashes": [
+    {
+      "path": "/home/vantai/.codex/attachments/3211803d-71c7-4fc6-92f2-a8cfa6a7d0fb/Pasted text.txt",
+      "sha256": "99e4c3d64cd863eefa108afa799996d201d2d12022eaab79d7f35b629dd8cc9a"
+    },
+    {
+      "path": "/home/vantai/.codex/attachments/37dcc956-8a6f-4d29-957f-a1e48edc5de0/Pasted text.txt",
+      "sha256": "02d6af9871e5548f0c483ba58dc3361871733c4f830a3c11d1a89d9631cef0a3"
+    },
+    {
+      "path": "/home/vantai/.codex/attachments/49acaac5-1e7e-4303-af33-78ae0a1480a1/Pasted text.txt",
+      "sha256": "8d9bd29ff86a3c28f6c51d126f1eff014fbed9cdff3765bd77bea9376a41d83e"
+    },
+    {
+      "path": "/home/vantai/.codex/attachments/66cc89a7-531e-4387-b4b5-d22fa0bff405/Pasted text.txt",
+      "sha256": "adf774c11e5ef68c6579589daaeda777b3ce425b1c30280c99c69ae6eae3a1e8"
+    }
+  ],
+  "source_hashes": {
+    "src/smr/dominance.py": "91ba3526e449d05ea18236f595ec7674433fd7084e52410bd8f862ffb8ff9603",
+    "tests/test_dominance_v1_1.py": "bd5fe3f0707fecc4a676b76461ca9ad42b91c8e9f882b45755010ea90ed409c3",
+    "notes/design/design_conditions_v1_1.md": "f5f6b365a549f7dbaeceed6ade438f3d73bba5be4080289b6ae03aaabf5d48c9",
+    "experiments/lessons/run_v1_1_b1.py": "85c5793d9831a03ae84e54afe94da32a580db50c5cae4a8e1b056faefe6f40e0"
+  },
+  "command": [
+    "/home/vantai/state-model-regret/.venv/bin/python",
+    "-m",
+    "experiments.lessons.run_v1_1_b1",
+    "--output-dir",
+    "/home/vantai/state-model-regret/results/lessons/l1_8_v1_1_b1"
+  ],
+  "baseline_command": [
+    "/home/vantai/state-model-regret/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--color=no",
+    "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_8_v1_1_b1/baseline.xml"
+  ],
+  "scope": "B1 only; no v1.1 grid or p_switch",
+  "random_draws": 0,
+  "new_seeds": [],
+  "source_attribution": "Retained in imported patch files",
+  "independent_human_validation": false
+}

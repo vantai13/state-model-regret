@@ -243,3 +243,40 @@ Tác giả **Doan Van Tai** đã chọn cấu hình đề xuất và “khóa v1
 | DL-008 | KEEP B2/hai neo; CHỐT schema, conditional D, stable grid và R2; intermediate DEFERRED | Final dt A01, primary-source/telemetry validation và self-check |
 
 Ai chịu trách nhiệm: **Doan Van Tai**. Đây là đối chiếu và thực thi kỹ thuật trên các lựa chọn đã có/chọn trong phiên22/10, không ghi tác giả đã tự đọc lại hoặc hoàn thành bài. Entries lịch sử DRAFT giữ nguyên, P0-V11 không tự đóng.
+
+### DL-026 — Post-hoc: lưới v1 có vùng Stay áp đảo theo từng path (2026-10-22)
+
+> Soạn bởi Claude (AI) theo yêu cầu của tác giả; tác giả chưa xác nhận. Nhãn: **post hoc** — phát hiện sau khi khóa v1, **trước** mọi outcome trên lưới.
+
+> **Tích hợp/kiểm chứng: Doan Van Tai, 23/10/2026.** Giữ ngày/provenance bản nguồn 22/10; không ghi lùi ngày chạy kiểm hoặc commit. HOLD A01/A04 trên v1 có hiệu lực theo kiểm kỹ thuật; các lựa chọn lưới v1.1 ở DL-027 vẫn DRAFT.
+
+- Decision: giữ nguyên tag `contract-v1` (không di chuyển); **HOLD A01/A04 trên lưới v1**; chuẩn bị `contract-v1.1` theo [điều kiện thiết kế ĐK1–ĐK8](design/design_conditions_v1_1.md) (DL-027).
+- Phát hiện gì: ở M01–M12 và S01 (13/28 ô), cả ba ô calibration (M01, M02, M10) và 6/12 ô held-out của reserve, $q_A(t_0)=\max(0,y_A-(5-u)\cdot\text{age})=0$ và lượng đến A dưới capacity dưới cả hai action. Theo tính đơn điệu, $C(\text{Switch},w)\ge C(\text{Stay},w)$ với mọi $w$; cả bốn pipeline chọn Stay; mọi regret và contrast bằng 0 theo cấu trúc. $s_{bt}$ không bắt được vì chỉ kiểm khả năng idle (tầng 1), không kiểm sự tồn tại của bài toán quyết định (tầng 2).
+- Phát hiện bằng cách nào: một mock review do AI viết ngày 22/10 (không phải người đọc độc lập, không thay P0-V10); xác nhận bằng phân tích **chỉ dùng tham số** và support của $D$ đã có ([test](../tests/test_dominance_v1_1.py) `test_v1_grid_classification_documents_dl026`). Không tính $J$, gap, margin hay contrast nào trên ô lưới v1: `results/lessons/l1_8_cde` chỉ chứa support của $D$ và $s_{bt}$.
+- Exposure: mock review đã tính **dấu** của $C(\text{Sw})-C(\text{St})$ trên 200 path ngẫu nhiên cho mỗi ô trong 13 ô bị áp đảo (contrast của các ô này bằng 0 theo cấu trúc, không lộ thông tin thêm). Ghi ở exposure register.
+- Nguyên nhân thiết kế: (i) A tất định với $\rho_A<1$ và $y_A$ nhỏ; (ii) $\psi=(\lambda_A-\lambda_B)/\mu=-0{,}3$ ở mọi ô, làm lệch tải trung bình (không chứng minh Stay tối ưu ở mọi ô còn lại); (iii) $h=z/(1-\eta)$ gộp trục horizon vào $z$; (iv) $y_A=y_B$; (v) calibration chọn ở $z$ nhỏ nhất; (vi) screen chỉ có tầng 1. Một phần đến từ hướng dẫn L1.8 Part C (AI).
+- Không đổi: ngưỡng, dung sai, $C_{\text{ref}}$, R2, B2, objective, luật hoà (ĐK8).
+- Ai quyết: **Doan Van Tai — chờ xác nhận**.
+
+### DL-027 — Điều kiện thiết kế v1.1 và nới quy tắc chẩn đoán (2026-10-22)
+
+> Soạn bởi Claude (AI) theo yêu cầu của tác giả; mọi lựa chọn là đề xuất, chờ xác nhận ([§11 của file điều kiện](design/design_conditions_v1_1.md)).
+
+- Decision: thêm tầng 2 của không suy biến bằng **ĐK1** (bốn điều kiện áp đảo giải tích SD1, SD2, WD1, WD2; code `src/smr/dominance.py`) và **ĐK2** (chẩn đoán chỉ dùng plant $p_{\text{sw}}=P_D(a^*=\text{Switch})$, khoảng chấp nhận đề xuất $[0{,}1;0{,}9]$, bảy luật chống chọn lọc). Tách $y_A$ khỏi $y_B$ (ĐK3) và $h$ khỏi $z$ (ĐK4, toạ độ $r_h$). Thêm trục $\psi$ với mức hai phía của 0 và nền ON/OFF cho A (ĐK5). Ô kiểm âm chỉ là ô SD; ô WD là "oracle-hằng" (ĐK6). Calibration chỉ trong ô `candidate` có $p_{\text{sw}}$ trong khoảng (ĐK7).
+- Why: DL-026. Riêng ĐK2 nới quy tắc "không tính giá trị action thật để chọn thiết kế" của `grid_v1.md`, **chỉ cho $p_{\text{sw}}$**, vì nó đo sự tồn tại của bài toán quyết định chứ không đo contrast; $G_{S\mid M_1}\le\min(p_{\text{sw}},1-p_{\text{sw}})\cdot\max\lvert\Delta\rvert$.
+- Alternatives: giữ lưới v1 và chỉ đổi calibration (bị loại: các ô còn lại có $\psi=-0{,}3$, chưa biết có bài toán quyết định); chỉ dùng ĐK1 không có ĐK2 (bị loại: ĐK1 chỉ là điều kiện đủ, không kết luận được M13–M24); A tất định với $y_A$ transient (giữ làm phương án yếu, chỉ dùng nếu tác giả chọn).
+- Consequence: lưới v1.1 chọn ở B2–B4 theo thứ tự commit trong file điều kiện; tag `contract-v1.1` sau sáu kiểm nhất quán; A01 chạy lại trên calibration mới.
+- Test: 5 test ĐK1 (vét cạn 9.216 state, $M_0$, luật hoà, phân loại v1, input lỗi); ba mutant bị bắt. ĐK2 chưa được tính trên ô nào.
+- Ai quyết: **Doan Van Tai — chờ xác nhận**.
+
+**Bổ sung tích hợp 23/10/2026:** 5 test nguồn cộng3 test edge cases; số thực chạy và mutation checks ở [report B1](../results/lessons/l1_8_v1_1_b1/report.md). Không dùng `tol` để bỏ state probability>0 khi gán nhãn ô. R2 có probabilities từ exp; phương pháp xác nhận dấu J/độ chính xác và Δt screen **chưa chọn**, không ghi Fraction(float) là exact physical law. Nhãn ngoài khoảng nhưng p_sw chưa bằng0/1 là oracle-lệch/gần-hằng, không phải hằng đúng nghĩa. B3 HOLD trước khi chốt các lựa chọn và commit protocol. Không chạy p_sw hoặc chọn số lưới ở B1.
+
+**Sửa kết luận coverage của nguồn:** trong9.216 cases gốc, SD1/WD1 có3.456 cases mỗi điều kiện nhưng SD2/WD2 đều0. Vì vậy claim “đã vét cạn cả bốn điều kiện” chưa được chứng minh bằng bộ đó. Runner đã FAIL ở coverage assertion dù154 tests PASS; log/JUnit giữ trong first_run. Thêm3.456 verification cases low-arrival/H1 để kiểm đủ cả bốn điều kiện; không đổi grid/threshold/ĐK8.
+
+### DL-028 — Sửa căn cứ của DL-024 về P0-V11 (2026-10-22)
+
+> Soạn bởi Claude (AI) theo yêu cầu của tác giả.
+
+- Decision: ghi nhận **xung đột nguồn do mock review báo**: Part E cho phép ghi ngoại lệ tag trước P0-V11, còn review dẫn PHASE_1 §17.1 yêu cầu HOLD khi V11 chưa đạt. Bản đầy đủ PHASE_1 chưa có để đối chiếu câu gốc, nên không tuyên bố đã xác minh trực tiếp mâu thuẫn. Tag `contract-v1` giữ nguyên như một bản đóng băng kỹ thuật có ngoại lệ đã biết; không dời tag.
+- Consequence: trước khi tag `contract-v1.1`, phải xử lý trạng thái P0-V11 và đối chiếu nguồn gate. Attachment bổ sung nhắc bài tự tính ngoài vở ngày22/10; đây là lời trong nguồn, phiên tích hợp23/10 chưa có ảnh/bài làm hoặc record read-back để kiểm. Không tạo commit `[kín sách]` thay tác giả; P0-V11 vẫn OPEN. B1 không tạo tag mới.
+- Ai quyết: **Doan Van Tai — chờ xác nhận**.

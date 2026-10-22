@@ -99,3 +99,26 @@ Profile do tác giả chọn: μ10,A5,B OFF2/ON14, symmetric R2; stationary cond
 Reserve z.6/2/5 × κ.6/2 × η.5/.9 (12) và extrapolation z30 cùng κ/η (4): chỉ khai báo tọa độ, **không sinh D/screen/outcomes**. Chưa allocate bất kỳ discovery/calibration/confirmation root nào. Cần audit exposure bên ngoài repository trước A05/confirmation; tọa độ đơn lẻ xuất hiện trước không đồng nghĩa mọi combination còn fresh.
 
 J goldens và B16 backward/forward cùng correlated-additivity checks trong CDE là verification trên teaching regimes đã exposed; canonical I/threshold examples cũng không confirmation. Budget-only diagnostics là exposure thiết kế, không outcome gain. Commit grid trước chạy chẩn đoán đầy đủ; tag trước mọi Phase3 contrast. Không mở Phase3 trong task CDE này.
+
+## Post-hoc review lưới v1 và B1 của v1.1 — 22/10/2026 (DL-026–028)
+
+Ghi bởi Claude (AI) theo yêu cầu của tác giả. Không có RNG/seed mới trong repo.
+
+| Regime / phép kiểm | Exposure | Artifact |
+|---|---|---|
+| Mock review (AI, ngoài repo): dấu của C(Switch)−C(Stay) trên 200 path ngẫu nhiên cho mỗi ô M01–M12, S01 | Chỉ dấu trên các ô có contrast bằng 0 theo cấu trúc; không có J/gap/contrast; seed của review không được ghi lại | Review của tác giả, DL-026 |
+| Phân loại ĐK1 cho 28 ô v1 (q_A(t0), lượng đến A, hai path cực trị trên support D đã có) | Chỉ tham số và support D đã exposed ở CDE; kết quả: 13 SD-cell, 2 conservation-cell, 13 candidate | [Test](../tests/test_dominance_v1_1.py) |
+| Lưới vét cạn 9.216 state nhỏ (H 2–3, c 2–3, u 1–2, rate (0,3)/(1,5), keep 1/4 hoặc 3/4, q 0/1/4) và ví dụ luật hoà (A bão hoà, B OFF1/ON5, c3, H3) | Verification định lý ĐK1, không phải workload của RQ; đã xem J của một state ví dụ | Cùng test |
+| Lưới v1.1 | **Chưa sinh.** Chưa chạy ĐK1 hoặc ĐK2 trên bất kỳ ô ứng viên nào. Reserve v1.1 chỉ được chạy ĐK1, không $p_{\text{sw}}$ | [Điều kiện](design/design_conditions_v1_1.md) |
+
+Reserve v1: 6/12 ô held-out (z=0,6 và z=2, η=0,5) thuộc vùng Stay áp đảo; không dùng reserve v1 làm held-out của v1.1 mà không audit lại.
+
+### Tích hợp và chạy kiểm B1 thực tế — 23/10/2026
+
+Người thực hiện: **Doan Van Tai**. Các dòng nguồn22/10 ở trên là provenance của patch/mock review, không phải ngày hoặc bằng chứng đã chạy trong phiên tích hợp. Random200paths/ô ngoài repo chưa tái lập; nguồn không cung cấp seed/log, chỉ ghi exposure được báo. Những kiểm vô hạn/mean rollout thực chạy tại [report B1](../results/lessons/l1_8_v1_1_b1/report.md) dùng vét cạn, không RNG/seed mới.
+
+Chỉ phân loại tham số và support D v1 đã lưu, không tính J/gap/margin/contrast cho28 ô v1. Reserve v1 chỉ kiểm điều kiện SD2 từ tham số A để đối chiếu6/12 held-out, không sinh D hoặc chấm action. Toy9.216state và ví dụ WD/tie có cost được tính làm verification, không là grid v1.1 hoặc confirmation. Ba mutant chạy trong memory, không đổi source thật.
+
+Coverage audit phát hiện9.216 ca nguồn chưa bao giờ kích hoạt SD2/WD2; lần runner đầu FAIL assertion coverage dù test suite PASS. Thêm3.456 ca với nền OFF0/ON1 trên cả hai queue và H1/2/3, tổng12.672state-parameter cases/116.352cặp path; giữ số liệu này là verification exposure, không đưa vào confirmation hoặc chọn grid v1.1.
+
+**v1.1: chưa chọn số/lưới, chưa ĐK1/ĐK2 trên candidate, chưa sinh reserve, chưa allocate root, chưa A01.** Khoảng p_sw và bảy lựa chọn §11 là DRAFT; Δt/phương pháp xác nhận dấu R2 chưa khóa. Phải commit protocol trước B3; không gọi B1 DRAFT là preregistration hoàn tất.
