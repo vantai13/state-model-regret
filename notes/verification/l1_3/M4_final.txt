@@ -1,0 +1,15 @@
+F........                                                                [100%]
+=================================== FAILURES ===================================
+___________________ test_mode_path_probabilities_sum_to_one ____________________
+
+    def test_mode_path_probabilities_sum_to_one():
+        for initial in ("on", "off"):
+            for p, s in ((F(1, 2), F(1, 2)), (F(3, 4), F(1, 4)), (F(1), F(0))):
+>               assert sum(pr for _, pr in mode_paths(initial, 3, p, s)) == 1
+E               assert Fraction(4, 1) == 1
+E                +  where Fraction(4, 1) = sum(<generator object test_mode_path_probabilities_sum_to_one.<locals>.<genexpr> at 0x714c02535fc0>)
+
+tests/test_l1_3_expected_cost.py:14: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_3_expected_cost.py::test_mode_path_probabilities_sum_to_one
+1 failed, 8 passed in 0.03s

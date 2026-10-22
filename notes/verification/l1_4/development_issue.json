@@ -1,0 +1,17 @@
+{
+  "stage": "measure_grid before mutation runs",
+  "status": "FAIL",
+  "prior_pytest_result": "48/48 PASS",
+  "observed_coefficient_labels": {
+    "0.0": 810,
+    "1.0": 306,
+    "-1.0": 40
+  },
+  "assertion_expected_labels": [
+    "-1",
+    "0",
+    "1"
+  ],
+  "cause": "Integer cost division produced float coefficient labels instead of exact Fraction labels",
+  "resolution": "Use Fraction costs/ratios before division; keep formulas/configuration/golden unchanged"
+}

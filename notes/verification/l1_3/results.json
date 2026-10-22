@@ -1,0 +1,711 @@
+{
+  "author": "Doan Van Tai",
+  "run_time_asia_saigon": "2026-10-21T17:03:45.666103+07:00",
+  "configuration": {
+    "author": "Doan Van Tai",
+    "canonical": {
+      "cA": 3,
+      "cB": 3,
+      "u": 2,
+      "bA": 1,
+      "rate_on": 5,
+      "rate_off": 0,
+      "p_onon": "1/2",
+      "p_offoff": "1/2",
+      "H": 2
+    },
+    "observation": [
+      2,
+      0
+    ],
+    "tau": 1,
+    "prior_on": "1/2",
+    "prior_independent_of_observation": true,
+    "pre_t0_action": "Stay",
+    "dt": 1,
+    "c_sw": 0,
+    "tie_action": "Stay",
+    "metric": "end-of-slot cumulative occupancy; packet-slot",
+    "seed": null,
+    "method": "exact integers/Fractions; enumerate all positive-probability paths",
+    "asymmetric": {
+      "p_onon": "3/4",
+      "p_offoff": "1/4"
+    },
+    "supplementary": {
+      "H": 3,
+      "tau_values": [
+        0,
+        2
+      ],
+      "prior_on": "3/4"
+    }
+  },
+  "environment": {
+    "python": "3.14.5",
+    "pytest": "9.1.1"
+  },
+  "base_commit": "d1b41e9a32d04da6257cfbbaf59467b65c5103b7",
+  "source_sha256": {
+    "experiments/lessons/l1_2_queue.py": "4d3bdbd2bd2a27185c6a146697e93c0444cd0342e22ac5486c781a0c1d4a7420",
+    "experiments/lessons/l1_3_expected_cost.py": "d442be2a24f7f3ca58ae6c056e5106ec1761f912a23465238df7471b88f4ef93",
+    "experiments/lessons/run_l1_2.py": "345b946c17bf8edbb2033b928bbaccbe44fba4512c91d6f480c5c505358ca1d8",
+    "experiments/lessons/run_l1_3.py": "d569b672a877a35a62a5416b66955e337c9ee99508f3f2991e9cc135eb6c33d7",
+    "tests/golden_phase1.py": "c592d9bd92e9c4b3b5d8daf6c21da57c1ee952517b2f37a6d7bff97872c51e60",
+    "tests/test_l1_2_queue.py": "b2eaba3ee1a6db67986f8ec4997107ab0780cb7de4a382755a1b8ddfafd1ecb2",
+    "tests/test_l1_3_expected_cost.py": "d235606fdb12069d8636c677f2dc8113b796a47ccc70c50c9d7f6ce02eedf0e5",
+    "tests/test_l1_3_boundaries.py": "3d505bf2fc81e59458bb00ddc7276f6f0c917feb61d2b624fecbe9cb724c40fc",
+    "pyproject.toml": "fed2866617de7309770a46a919d740dd3fdca45149a6a3cf40c1c9146a1940aa",
+    "notes/lessons/L1.3_experiment_card.md": "11b413b51ad6754915af9936f2690c64b163edd6132cf42b2f17d739a051e2e9"
+  },
+  "supplied_documents": [
+    {
+      "part": 1,
+      "sha256": "253efcc8f243bcf351f64be86525221ca9b35e7fcd76bfb2d012f9d7df5ee0e6"
+    },
+    {
+      "part": 2,
+      "sha256": "c4a768ff69ff37741cb301c57da0f38f5ce75ebc7f3616aef84ba86581d1f6e9"
+    }
+  ],
+  "golden_provenance": "Doan Van Tai — supplied L1.3 worked answers; author hand exercises pending",
+  "tests": {
+    "lesson": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/lesson.xml",
+        "tests/test_l1_3_expected_cost.py"
+      ],
+      "returncode": 0,
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 0.2447551850000309,
+      "log": "lesson.txt",
+      "junit": "lesson.xml"
+    },
+    "lessons": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/lessons.xml",
+        "tests/test_l1_2_queue.py",
+        "tests/test_l1_3_expected_cost.py"
+      ],
+      "returncode": 0,
+      "total": 20,
+      "passed": 20,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 0.33531923499867844,
+      "log": "lessons.txt",
+      "junit": "lessons.xml"
+    },
+    "boundaries": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/boundaries.xml",
+        "tests/test_l1_3_boundaries.py"
+      ],
+      "returncode": 0,
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 0.22352562300147838,
+      "log": "boundaries.txt",
+      "junit": "boundaries.xml"
+    },
+    "full_suite": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/full_suite.xml",
+        "tests/"
+      ],
+      "returncode": 0,
+      "total": 34,
+      "passed": 34,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 0.38269008200040844,
+      "log": "full_suite.txt",
+      "junit": "full_suite.xml"
+    }
+  },
+  "states": [
+    {
+      "state": "x_a",
+      "qA": 2,
+      "qB": 2,
+      "mode0": "on",
+      "probability": "1/4",
+      "j_stay": "23/2",
+      "j_switch": "27/2",
+      "delta": "2",
+      "oracle": "Stay",
+      "p_idle_stay": "0",
+      "p_idle_switch": "1",
+      "conservation": false,
+      "oracle_cost": "23/2",
+      "clairvoyant_cost": "23/2",
+      "regret_stay": "0",
+      "regret_switch": "2"
+    },
+    {
+      "state": "x_b",
+      "qA": 2,
+      "qB": 2,
+      "mode0": "off",
+      "probability": "1/4",
+      "j_stay": "5",
+      "j_switch": "7/2",
+      "delta": "-3/2",
+      "oracle": "Switch",
+      "p_idle_stay": "1",
+      "p_idle_switch": "1",
+      "conservation": false,
+      "oracle_cost": "7/2",
+      "clairvoyant_cost": "7/2",
+      "regret_stay": "3/2",
+      "regret_switch": "0"
+    },
+    {
+      "state": "x_c",
+      "qA": 2,
+      "qB": 0,
+      "mode0": "on",
+      "probability": "1/4",
+      "j_stay": "8",
+      "j_switch": "19/2",
+      "delta": "3/2",
+      "oracle": "Stay",
+      "p_idle_stay": "1/2",
+      "p_idle_switch": "1",
+      "conservation": false,
+      "oracle_cost": "8",
+      "clairvoyant_cost": "8",
+      "regret_stay": "0",
+      "regret_switch": "3/2"
+    },
+    {
+      "state": "x_d",
+      "qA": 2,
+      "qB": 0,
+      "mode0": "off",
+      "probability": "1/4",
+      "j_stay": "5",
+      "j_switch": "2",
+      "delta": "-3",
+      "oracle": "Switch",
+      "p_idle_stay": "1",
+      "p_idle_switch": "1",
+      "conservation": false,
+      "oracle_cost": "2",
+      "clairvoyant_cost": "2",
+      "regret_stay": "3",
+      "regret_switch": "0"
+    }
+  ],
+  "baselines": [
+    {
+      "policy": "Oracle",
+      "cost": "25/4",
+      "regret": "0"
+    },
+    {
+      "policy": "Always Stay",
+      "cost": "59/8",
+      "regret": "9/8"
+    },
+    {
+      "policy": "Always Switch",
+      "cost": "57/8",
+      "regret": "7/8"
+    }
+  ],
+  "extras": {
+    "asymmetric": {
+      "parameters": {
+        "cA": 3,
+        "cB": 3,
+        "u": 2,
+        "bA": 1,
+        "rate_on": 5,
+        "rate_off": 0,
+        "p_onon": "3/4",
+        "p_offoff": "1/4",
+        "H": 2
+      },
+      "state": [
+        2,
+        2,
+        "off"
+      ],
+      "costs": [
+        "11/2",
+        "19/4"
+      ],
+      "branches": [
+        {
+          "bB": [
+            0,
+            0
+          ],
+          "probability": "1/4",
+          "costs": [
+            4,
+            1
+          ]
+        },
+        {
+          "bB": [
+            0,
+            5
+          ],
+          "probability": "3/4",
+          "costs": [
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    "h3": {
+      "parameters": {
+        "cA": 3,
+        "cB": 3,
+        "u": 2,
+        "bA": 1,
+        "rate_on": 5,
+        "rate_off": 0,
+        "p_onon": "1/2",
+        "p_offoff": "1/2",
+        "H": 3
+      },
+      "state": [
+        2,
+        0,
+        "off"
+      ],
+      "costs": [
+        "17/2",
+        "23/4"
+      ],
+      "branches": [
+        {
+          "bB": [
+            0,
+            0,
+            0
+          ],
+          "probability": "1/4",
+          "costs": [
+            6,
+            0
+          ]
+        },
+        {
+          "bB": [
+            0,
+            0,
+            5
+          ],
+          "probability": "1/4",
+          "costs": [
+            8,
+            4
+          ]
+        },
+        {
+          "bB": [
+            0,
+            5,
+            5
+          ],
+          "probability": "1/4",
+          "costs": [
+            12,
+            12
+          ]
+        },
+        {
+          "bB": [
+            0,
+            5,
+            0
+          ],
+          "probability": "1/4",
+          "costs": [
+            8,
+            7
+          ]
+        }
+      ]
+    },
+    "tau0": [
+      {
+        "state": [
+          2,
+          0,
+          "on"
+        ],
+        "probability": "3/4"
+      },
+      {
+        "state": [
+          2,
+          0,
+          "off"
+        ],
+        "probability": "1/4"
+      }
+    ],
+    "tau2": [
+      {
+        "state": [
+          2,
+          4,
+          "on"
+        ],
+        "probability": "27/64"
+      },
+      {
+        "state": [
+          2,
+          4,
+          "off"
+        ],
+        "probability": "9/64"
+      },
+      {
+        "state": [
+          2,
+          0,
+          "off"
+        ],
+        "probability": "1/16"
+      },
+      {
+        "state": [
+          2,
+          0,
+          "on"
+        ],
+        "probability": "3/16"
+      },
+      {
+        "state": [
+          2,
+          2,
+          "on"
+        ],
+        "probability": "9/64"
+      },
+      {
+        "state": [
+          2,
+          2,
+          "off"
+        ],
+        "probability": "3/64"
+      }
+    ]
+  },
+  "old_example_audit": {
+    "source": "L1.3 Part 1 section 13 quotation; not a full audit of original Master Plan",
+    "c_sw0": {
+      "stay": "4",
+      "switch": "5/4",
+      "delta": "-11/4"
+    },
+    "c_sw3": {
+      "stay": "4",
+      "switch": "17/4",
+      "delta": "1/4"
+    },
+    "A_from_observation_zero": [
+      0,
+      0
+    ],
+    "D12_reachable_A2_from_A0": false,
+    "label": "bookkeeping example, not a plant-generated episode under the quoted assumptions"
+  },
+  "mutations": {
+    "M1": {
+      "description": "Hoà chọn Switch",
+      "initial": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M1_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M1_initial.xml",
+          "tests/test_l1_3_expected_cost.py",
+          "-k",
+          "not test_asymmetric_chain_weights_branches_by_probability"
+        ],
+        "returncode": 1,
+        "total": 8,
+        "passed": 7,
+        "failed": 1,
+        "failed_tests": [
+          "test_zero_action_gives_zero_delta"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.24843206600053236,
+        "log": "M1_initial.txt",
+        "junit": "M1_initial.xml"
+      },
+      "final": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M1_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M1_final.xml",
+          "tests/test_l1_3_expected_cost.py"
+        ],
+        "returncode": 1,
+        "total": 9,
+        "passed": 8,
+        "failed": 1,
+        "failed_tests": [
+          "test_zero_action_gives_zero_delta"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.26826909000010346,
+        "log": "M1_final.txt",
+        "junit": "M1_final.xml"
+      }
+    },
+    "M2": {
+      "description": "Mode slot 0 bị phân nhánh thay vì cố định theo x",
+      "initial": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M2_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M2_initial.xml",
+          "tests/test_l1_3_expected_cost.py",
+          "-k",
+          "not test_asymmetric_chain_weights_branches_by_probability"
+        ],
+        "returncode": 1,
+        "total": 8,
+        "passed": 5,
+        "failed": 3,
+        "failed_tests": [
+          "test_expected_costs_match_hand_calculation",
+          "test_oracle_rule_on_means_stay_off_means_switch",
+          "test_oracle_cost_and_fixed_rule_regrets"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.25539561299956404,
+        "log": "M2_initial.txt",
+        "junit": "M2_initial.xml"
+      },
+      "final": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M2_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M2_final.xml",
+          "tests/test_l1_3_expected_cost.py"
+        ],
+        "returncode": 1,
+        "total": 9,
+        "passed": 5,
+        "failed": 4,
+        "failed_tests": [
+          "test_expected_costs_match_hand_calculation",
+          "test_oracle_rule_on_means_stay_off_means_switch",
+          "test_oracle_cost_and_fixed_rule_regrets",
+          "test_asymmetric_chain_weights_branches_by_probability"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.2561267709988897,
+        "log": "M2_final.txt",
+        "junit": "M2_final.xml"
+      }
+    },
+    "M3": {
+      "description": "D12 bỏ chạy plant, giữ backlog y làm state hiện tại",
+      "initial": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M3_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M3_initial.xml",
+          "tests/test_l1_3_expected_cost.py",
+          "-k",
+          "not test_asymmetric_chain_weights_branches_by_probability"
+        ],
+        "returncode": 1,
+        "total": 8,
+        "passed": 6,
+        "failed": 2,
+        "failed_tests": [
+          "test_episodes_generated_from_plant_D12",
+          "test_oracle_cost_and_fixed_rule_regrets"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.25293346699982067,
+        "log": "M3_initial.txt",
+        "junit": "M3_initial.xml"
+      },
+      "final": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M3_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M3_final.xml",
+          "tests/test_l1_3_expected_cost.py"
+        ],
+        "returncode": 1,
+        "total": 9,
+        "passed": 7,
+        "failed": 2,
+        "failed_tests": [
+          "test_episodes_generated_from_plant_D12",
+          "test_oracle_cost_and_fixed_rule_regrets"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.25694461800048884,
+        "log": "M3_final.txt",
+        "junit": "M3_final.xml"
+      }
+    },
+    "M4": {
+      "description": "Không nhân xác suất path cũ: dùng pm thay pr×pm",
+      "initial": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M4_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M4_initial.xml",
+          "tests/test_l1_3_expected_cost.py",
+          "-k",
+          "not test_asymmetric_chain_weights_branches_by_probability"
+        ],
+        "returncode": 1,
+        "total": 8,
+        "passed": 7,
+        "failed": 1,
+        "failed_tests": [
+          "test_mode_path_probabilities_sum_to_one"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.24613451299956068,
+        "log": "M4_initial.txt",
+        "junit": "M4_initial.xml"
+      },
+      "final": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M4_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M4_final.xml",
+          "tests/test_l1_3_expected_cost.py"
+        ],
+        "returncode": 1,
+        "total": 9,
+        "passed": 8,
+        "failed": 1,
+        "failed_tests": [
+          "test_mode_path_probabilities_sum_to_one"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.24578845299947716,
+        "log": "M4_final.txt",
+        "junit": "M4_final.xml"
+      }
+    },
+    "M5": {
+      "description": "Expected cost lấy trung bình thường, bỏ trọng số xác suất",
+      "initial": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M5_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M5_initial.xml",
+          "tests/test_l1_3_expected_cost.py",
+          "-k",
+          "not test_asymmetric_chain_weights_branches_by_probability"
+        ],
+        "returncode": 0,
+        "total": 8,
+        "passed": 8,
+        "failed": 0,
+        "failed_tests": [],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.30490972400002647,
+        "log": "M5_initial.txt",
+        "junit": "M5_initial.xml"
+      },
+      "final": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_3/M5_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_3/M5_final.xml",
+          "tests/test_l1_3_expected_cost.py"
+        ],
+        "returncode": 1,
+        "total": 9,
+        "passed": 8,
+        "failed": 1,
+        "failed_tests": [
+          "test_asymmetric_chain_weights_branches_by_probability"
+        ],
+        "errors": [],
+        "skipped": [],
+        "wall_seconds": 0.2848336189999827,
+        "log": "M5_final.txt",
+        "junit": "M5_final.xml"
+      }
+    }
+  },
+  "elapsed_seconds": 4.535081289999653,
+  "scope": "declared finite toy cases; G1/V3/V10/V11 unchanged; no network evidence or author understanding certification"
+}

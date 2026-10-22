@@ -1,0 +1,109 @@
+FFFF.FFFF..                                                              [100%]
+=================================== FAILURES ===================================
+__________________________ test_hand_table_one_queue ___________________________
+
+    def test_hand_table_one_queue():
+        case = ONE_QUEUE
+>       assert rollout(case["q0"], case["arrivals"], case["c"]) == (case["backlogs"], case["idles"])
+E       assert ([3, 5, 3, 0,..., 0, 0, 3, 3]) == ([3, 5, 3, 0,..., 0, 0, 3, 0])
+E         
+E         At index 1 diff: [0, 0, 0, 0, 3, 3] != [0, 0, 0, 0, 3, 0]
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:17: AssertionError
+________________________ test_identity_linear_plus_idle ________________________
+
+    def test_identity_linear_plus_idle():
+        q0, c, arrivals = 4, 3, [2, 5, 1, 0, 0, 6]
+        backlogs, idles = rollout(q0, arrivals, c)
+>       assert backlogs[-1] == q0 + sum(a - c for a in arrivals) + sum(idles)
+E       assert 3 == ((4 + -4) + 6)
+E        +  where -4 = sum(<generator object test_identity_linear_plus_idle.<locals>.<genexpr> at 0x700104325fc0>)
+E        +  and   6 = sum([0, 0, 0, 0, 3, 3])
+
+tests/test_l1_2_queue.py:23: AssertionError
+___________________ test_conservation_arrivals_minus_served ____________________
+
+    def test_conservation_arrivals_minus_served():
+        q0, c, arrivals = 4, 3, [2, 5, 1, 0, 0, 6]
+        backlogs, idles = rollout(q0, arrivals, c)
+>       assert sum(arrivals) - sum(c - i for i in idles) == backlogs[-1] - q0
+E       assert (14 - 12) == (3 - 4)
+E        +  where 14 = sum([2, 5, 1, 0, 0, 6])
+E        +  and   12 = sum(<generator object test_conservation_arrivals_minus_served.<locals>.<genexpr> at 0x700104b23ca0>)
+
+tests/test_l1_2_queue.py:29: AssertionError
+_______________ test_complementarity_backlog_times_idle_is_zero ________________
+
+    def test_complementarity_backlog_times_idle_is_zero():
+        for q, a, c in product(range(6), range(6), range(1, 5)):
+            q_next, idle = step(q, a, c)
+            assert q_next >= 0 and idle >= 0
+>           assert q_next * idle == 0
+E           assert (1 * 1) == 0
+
+tests/test_l1_2_queue.py:36: AssertionError
+_______________________ test_dl010_question_2_with_idle ________________________
+
+    def test_dl010_question_2_with_idle():
+        case = TWO_QUEUE_CASES["dl010_with_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+        assert (stay, switch) == case["costs"]
+>       assert (idle_st, idle_sw) == case["idles"]
+E       assert ([3, 3], [3, 3]) == ([3, 3], [1, 1])
+E         
+E         At index 1 diff: [3, 3] != [1, 1]
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:52: AssertionError
+_______________________ test_canonical_x_d_both_branches _______________________
+
+    def test_canonical_x_d_both_branches():
+        for name in ("canonical_B_on", "canonical_B_off"):
+            case = TWO_QUEUE_CASES[name]
+            stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+            switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+            assert (stay, switch) == case["costs"]
+>           assert switch - stay == weighted_idle_diff(idle_sw, idle_st)
+E           assert (4 - 6) == 2
+E            +  where 2 = weighted_idle_diff([4, 6], [4, 4])
+
+tests/test_l1_2_queue.py:62: AssertionError
+_______________ test_identity_cost_difference_on_exhaustive_grid _______________
+
+    def test_identity_cost_difference_on_exhaustive_grid():
+        count = 0
+        for cfg in _grid():
+            stay, idle_st = two_queue_cost(action="Stay", **cfg)
+            switch, idle_sw = two_queue_cost(action="Switch", **cfg)
+>           assert switch - stay == weighted_idle_diff(idle_sw, idle_st), cfg
+E           AssertionError: {'q0': (0, 0), 'bA': [0, 0], 'bB': [0, 1], 'u': 2, ...}
+E           assert (1 - 0) == 0
+E            +  where 0 = weighted_idle_diff([4, 4], [4, 4])
+
+tests/test_l1_2_queue.py:76: AssertionError
+________________ test_negative_control_no_idle_means_equal_cost ________________
+
+    def test_negative_control_no_idle_means_equal_cost():
+        count = 0
+        for cfg in _grid():
+            stay, idle_st = two_queue_cost(action="Stay", **cfg)
+            switch, idle_sw = two_queue_cost(action="Switch", **cfg)
+            if sum(idle_st) == sum(idle_sw) == 0:
+                assert stay == switch, cfg
+                count += 1
+>       assert count == 2048
+E       assert 882 == 2048
+
+tests/test_l1_2_queue.py:89: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_2_queue.py::test_hand_table_one_queue - assert ([3, 5, 3...
+FAILED tests/test_l1_2_queue.py::test_identity_linear_plus_idle - assert 3 ==...
+FAILED tests/test_l1_2_queue.py::test_conservation_arrivals_minus_served - as...
+FAILED tests/test_l1_2_queue.py::test_complementarity_backlog_times_idle_is_zero
+FAILED tests/test_l1_2_queue.py::test_dl010_question_2_with_idle - assert ([3...
+FAILED tests/test_l1_2_queue.py::test_canonical_x_d_both_branches - assert (4...
+FAILED tests/test_l1_2_queue.py::test_identity_cost_difference_on_exhaustive_grid
+FAILED tests/test_l1_2_queue.py::test_negative_control_no_idle_means_equal_cost
+8 failed, 3 passed in 0.11s

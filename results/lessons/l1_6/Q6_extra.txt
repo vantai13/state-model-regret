@@ -1,0 +1,18 @@
+.F.                                                                      [100%]
+=================================== FAILURES ===================================
+________________ test_three_slot_m0_conditions_nonzero_off_rate ________________
+
+    def test_three_slot_m0_conditions_nonzero_off_rate():
+        # P_on = 0,1/2,5/8; background means 1,5/2,23/8.
+        # Switch B backlog=0,3/2,27/8 -> cost39/8. A remains empty.
+        th = dict(CANON,rate_on=4,rate_off=1,p_onon=F(3,4),p_offoff=F(1,2),H=3)
+        assert m0_cost((0,0,"off"),"Stay",th) == 0
+>       assert m0_cost((0,0,"off"),"Switch",th) == F(39,8)
+E       AssertionError: assert Fraction(7, 2) == Fraction(39, 8)
+E        +  where Fraction(7, 2) = m0_cost((0, 0, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E        +  and   Fraction(39, 8) = F(39, 8)
+
+tests/test_l1_6_reference.py:26: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_6_reference.py::test_three_slot_m0_conditions_nonzero_off_rate
+1 failed, 2 passed in 0.03s

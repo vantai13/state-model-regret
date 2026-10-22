@@ -1,0 +1,19 @@
+...........F                                                             [100%]
+=================================== FAILURES ===================================
+_____________ test_asymmetric_errors_distinguish_state_from_model ______________
+
+    def test_asymmetric_errors_distinguish_state_from_model():
+        c = C(table_from_additive(20, 18, 3, F(1, 2)))
+>       assert {name: c[name] for name in FACTORIAL_ASYMMETRIC} == FACTORIAL_ASYMMETRIC
+E       AssertionError: assert {'G_S': 0, 'G...2, 'Gamma': 0} == {'G_S': 2, 'G...0, 'Gamma': 0}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'G_S': 0} != {'G_S': 2}
+E         {'G_M': 2} != {'G_M': 0}
+E         Use -v to get more diff
+
+tests/test_l1_4_factorial.py:114: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_4_factorial.py::test_asymmetric_errors_distinguish_state_from_model
+1 failed, 11 passed in 0.08s

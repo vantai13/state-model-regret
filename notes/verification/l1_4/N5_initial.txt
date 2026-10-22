@@ -1,0 +1,24 @@
+..FF.......                                                              [100%]
+=================================== FAILURES ===================================
+_____________________ test_tie_rule_is_part_of_definition ______________________
+
+    def test_tie_rule_is_part_of_definition():
+        table = table_from_additive(20, 18, F(3, 2), F(1, 2))
+>       assert table["00"] == 20 and C(table)["Gamma"] == -2
+E       assert (18 == 20)
+
+tests/test_l1_4_factorial.py:31: AssertionError
+_________________ test_gamma_is_a_step_function_of_error_size __________________
+
+    def test_gamma_is_a_step_function_of_error_size():
+        expected = {0: 0, 1: 0, 2: -2, 3: -2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2}
+        for k, gamma in expected.items():
+            e = F(k, 2)
+>           assert C(table_from_additive(20, 18, e, e))["Gamma"] == gamma
+E           assert 0 == -2
+
+tests/test_l1_4_factorial.py:40: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_4_factorial.py::test_tie_rule_is_part_of_definition - as...
+FAILED tests/test_l1_4_factorial.py::test_gamma_is_a_step_function_of_error_size
+2 failed, 9 passed, 1 deselected in 0.08s

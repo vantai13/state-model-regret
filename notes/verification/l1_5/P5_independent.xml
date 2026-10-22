@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="11" time="0.057" timestamp="2026-10-21T20:19:40.236485+07:00" hostname="vantai"><testcase classname="tests.test_l1_5_identity" name="test_F5_matches_direct_regret_on_canonical_16_pairs" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_F5_tie_term_running_example" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_F5_equals_direct_regret_on_grid_including_ties" time="0.001" /><testcase classname="tests.test_l1_5_identity" name="test_consistency_is_not_regret" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_i_delta_canonical_golden" time="0.001"><failure message="AssertionError: assert {(2, 2, 'on')...action(-1, 2)} == {(2, 2, 'on')...raction(0, 1)}&#10;  &#10;  Differing items:&#10;  {(2, 2, 'off'): Fraction(-1, 1)} != {(2, 2, 'off'): Fraction(-1, 2)}&#10;  {(2, 2, 'on'): Fraction(0, 1)} != {(2, 2, 'on'): Fraction(1, 2)}&#10;  {(2, 0, 'off'): Fraction(-1, 2)} != {(2, 0, 'off'): Fraction(0, 1)}&#10;  {(2, 0, 'on'): Fraction(-1, 2)} != {(2, 0, 'on'): Fraction(0, 1)}&#10;  Use -v to get more diff">def test_i_delta_canonical_golden():
+&gt;       assert i_delta_per_state(BELIEF, DELTA, DHAT_M0) == CANONICAL_I_DELTA
+E       AssertionError: assert {(2, 2, 'on')...action(-1, 2)} == {(2, 2, 'on')...raction(0, 1)}
+E         
+E         Differing items:
+E         {(2, 2, 'off'): Fraction(-1, 1)} != {(2, 2, 'off'): Fraction(-1, 2)}
+E         {(2, 2, 'on'): Fraction(0, 1)} != {(2, 2, 'on'): Fraction(1, 2)}
+E         {(2, 0, 'off'): Fraction(-1, 2)} != {(2, 0, 'off'): Fraction(0, 1)}
+E         {(2, 0, 'on'): Fraction(-1, 2)} != {(2, 0, 'on'): Fraction(0, 1)}
+E         Use -v to get more diff
+
+tests/test_l1_5_identity.py:52: AssertionError</failure></testcase><testcase classname="tests.test_l1_5_identity" name="test_i_delta_equals_belief_mean_error_minus_state_error" time="0.001"><failure message="AssertionError: assert Fraction(0, 1) == (Fraction(1, 2) - Fraction(0, 1))&#10; +  where Fraction(1, 2) = belief_average({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(1, 1), (2, 0, 'on'): Fraction(1, 2), (2, 0, 'off'): Fraction(1, 2)})">def test_i_delta_equals_belief_mean_error_minus_state_error():
+        values = i_delta_per_state(BELIEF, DELTA, DHAT_M0)
+        errors = {x: DHAT_M0[x]-DELTA[x] for x in XS}
+        for x in XS:
+&gt;           assert values[x] == belief_average(BELIEF, errors)-errors[x]
+E           AssertionError: assert Fraction(0, 1) == (Fraction(1, 2) - Fraction(0, 1))
+E            +  where Fraction(1, 2) = belief_average({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(1, 1), (2, 0, 'on'): Fraction(1, 2), (2, 0, 'off'): Fraction(1, 2)})
+
+tests/test_l1_5_identity.py:59: AssertionError</failure></testcase><testcase classname="tests.test_l1_5_identity" name="test_mean_i_delta_given_y_is_zero_canonical" time="0.001"><failure message="AssertionError: assert Fraction(-1, 2) == 0&#10; +  where Fraction(-1, 2) = belief_average({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(-1, 1), (2, 0, 'on'): Fraction(-1, 2), (2, 0, 'off'): Fraction(-1, 2)})&#10; +    where {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(-1, 1), (2, 0, 'on'): Fraction(-1, 2), (2, 0, 'off'): Fraction(-1, 2)} = i_delta_per_state({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(2, 1), (2, 2, 'off'): Fraction(-3, 2), (2, 0, 'on'): Fraction(3, 2), (2, 0, 'off'): Fraction(-3, 1)}, {(2, 2, 'on'): Fraction(2, 1), (2, 2, 'off'): Fraction(-1, 2), (2, 0, 'on'): Fraction(2, 1), (2, 0, 'off'): Fraction(-5, 2)})">def test_mean_i_delta_given_y_is_zero_canonical():
+&gt;       assert belief_average(BELIEF, i_delta_per_state(BELIEF, DELTA, DHAT_M0)) == 0
+E       AssertionError: assert Fraction(-1, 2) == 0
+E        +  where Fraction(-1, 2) = belief_average({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(-1, 1), (2, 0, 'on'): Fraction(-1, 2), (2, 0, 'off'): Fraction(-1, 2)})
+E        +    where {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(-1, 1), (2, 0, 'on'): Fraction(-1, 2), (2, 0, 'off'): Fraction(-1, 2)} = i_delta_per_state({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(2, 1), (2, 2, 'off'): Fraction(-3, 2), (2, 0, 'on'): Fraction(3, 2), (2, 0, 'off'): Fraction(-3, 1)}, {(2, 2, 'on'): Fraction(2, 1), (2, 2, 'off'): Fraction(-1, 2), (2, 0, 'on'): Fraction(2, 1), (2, 0, 'off'): Fraction(-5, 2)})
+
+tests/test_l1_5_identity.py:63: AssertionError</failure></testcase><testcase classname="tests.test_l1_5_identity" name="test_mean_zero_holds_for_any_belief_and_any_numbers" time="0.000"><failure message="assert Fraction(-1, 2) == 0&#10; +  where Fraction(-1, 2) = sum(&lt;generator object test_mean_zero_holds_for_any_belief_and_any_numbers.&lt;locals&gt;.&lt;genexpr&gt; at 0x79d774f49e40&gt;)">def test_mean_zero_holds_for_any_belief_and_any_numbers():
+        states = ("s1", "s2", "s3")
+        beliefs = ((F(1, 3),)*3, (F(1, 2), F(1, 3), F(1, 6)), (F(7, 10), F(1, 10), F(1, 5)))
+        values = [F(k, 2) for k in (-3, 0, 1, 4)]
+        for weights in beliefs:
+            b = dict(zip(states, weights))
+            for d in product(values, repeat=3):
+                for m in product(values, repeat=3):
+                    interaction = i_delta_per_state(b, dict(zip(states, d)), dict(zip(states, m)))
+&gt;                   assert sum(wi * interaction[s] for wi, s in zip(weights, states)) == 0
+E                   assert Fraction(-1, 2) == 0
+E                    +  where Fraction(-1, 2) = sum(&lt;generator object test_mean_zero_holds_for_any_belief_and_any_numbers.&lt;locals&gt;.&lt;genexpr&gt; at 0x79d774f49e40&gt;)
+
+tests/test_l1_5_identity.py:75: AssertionError</failure></testcase><testcase classname="tests.test_l1_5_identity" name="test_mean_nonzero_when_belief_does_not_match_D" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_limitation_grouping_by_true_mode_is_not_zero" time="0.000"><failure message="assert ((Fraction(-1, 2) / 2) == Fraction(1, 4))&#10; +  where Fraction(-1, 2) = sum([Fraction(0, 1), Fraction(-1, 2)])&#10; +  and   2 = len([Fraction(0, 1), Fraction(-1, 2)])&#10; +  and   Fraction(1, 4) = F(1, 4)">def test_limitation_grouping_by_true_mode_is_not_zero():
+        interaction = i_delta_per_state(BELIEF, DELTA, DHAT_M0)
+        on = [interaction[x] for x in XS if x[2] == "on"]
+        off = [interaction[x] for x in XS if x[2] == "off"]
+&gt;       assert sum(on)/len(on) == F(1, 4) and sum(off)/len(off) == F(-1, 4)
+E       assert ((Fraction(-1, 2) / 2) == Fraction(1, 4))
+E        +  where Fraction(-1, 2) = sum([Fraction(0, 1), Fraction(-1, 2)])
+E        +  and   2 = len([Fraction(0, 1), Fraction(-1, 2)])
+E        +  and   Fraction(1, 4) = F(1, 4)
+
+tests/test_l1_5_identity.py:89: AssertionError</failure></testcase><testcase classname="tests.test_l1_5_identity" name="test_dispersion_is_the_informative_diagnostic" time="0.000"><failure message="AssertionError: assert Fraction(1, 2) == Fraction(1, 4)&#10; +  where Fraction(1, 2) = belief_average({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(1, 1), (2, 0, 'on'): Fraction(1, 2), (2, 0, 'off'): Fraction(1, 2)})&#10; +  and   Fraction(1, 4) = F(1, 4)">def test_dispersion_is_the_informative_diagnostic():
+        interaction = i_delta_per_state(BELIEF, DELTA, DHAT_M0)
+&gt;       assert belief_average(BELIEF, {x: abs(v) for x, v in interaction.items()}) == F(1, 4)
+E       AssertionError: assert Fraction(1, 2) == Fraction(1, 4)
+E        +  where Fraction(1, 2) = belief_average({(2, 2, 'on'): Fraction(1, 4), (2, 2, 'off'): Fraction(1, 4), (2, 0, 'on'): Fraction(1, 4), (2, 0, 'off'): Fraction(1, 4)}, {(2, 2, 'on'): Fraction(0, 1), (2, 2, 'off'): Fraction(1, 1), (2, 0, 'on'): Fraction(1, 2), (2, 0, 'off'): Fraction(1, 2)})
+E        +  and   Fraction(1, 4) = F(1, 4)
+
+tests/test_l1_5_identity.py:94: AssertionError</failure></testcase></testsuite></testsuites>

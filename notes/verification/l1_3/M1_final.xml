@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="9" time="0.038" timestamp="2026-10-21T17:03:47.286678+07:00" hostname="vantai"><testcase classname="tests.test_l1_3_expected_cost" name="test_mode_path_probabilities_sum_to_one" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_episodes_generated_from_plant_D12" time="0.000" /><testcase classname="tests.test_l1_3_expected_cost" name="test_expected_costs_match_hand_calculation" time="0.000" /><testcase classname="tests.test_l1_3_expected_cost" name="test_oracle_rule_on_means_stay_off_means_switch" time="0.000" /><testcase classname="tests.test_l1_3_expected_cost" name="test_delta_equals_expected_weighted_idle_difference" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_zero_action_gives_zero_delta" time="0.001"><failure message="AssertionError: assert ('Switch', Fraction(0, 1)) == ('Stay', 0)&#10;  &#10;  At index 0 diff: 'Switch' != 'Stay'&#10;  Use -v to get more diff">def test_zero_action_gives_zero_delta():
+        for state in EXPECTED_COSTS:
+&gt;           assert oracle(state, dict(CANON, u=0)) == ("Stay", 0)
+E           AssertionError: assert ('Switch', Fraction(0, 1)) == ('Stay', 0)
+E             
+E             At index 0 diff: 'Switch' != 'Stay'
+E             Use -v to get more diff
+
+tests/test_l1_3_expected_cost.py:48: AssertionError</failure></testcase><testcase classname="tests.test_l1_3_expected_cost" name="test_non_degenerate_every_state" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_oracle_cost_and_fixed_rule_regrets" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_asymmetric_chain_weights_branches_by_probability" time="0.000" /></testsuite></testsuites>

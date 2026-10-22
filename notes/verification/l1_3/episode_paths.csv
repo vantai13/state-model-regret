@@ -1,0 +1,15 @@
+scenario,observation_A,observation_B,tau,modes,path_probability,qA0,qB0,mode0
+canonical,2,0,1,on -> on,1/4,2,2,on
+canonical,2,0,1,on -> off,1/4,2,2,off
+canonical,2,0,1,off -> off,1/4,2,0,off
+canonical,2,0,1,off -> on,1/4,2,0,on
+tau0_prior3_4,2,0,0,on,3/4,2,0,on
+tau0_prior3_4,2,0,0,off,1/4,2,0,off
+tau2_prior3_4,2,0,2,on -> on -> on,27/64,2,4,on
+tau2_prior3_4,2,0,2,on -> on -> off,9/64,2,4,off
+tau2_prior3_4,2,0,2,on -> off -> off,3/64,2,0,off
+tau2_prior3_4,2,0,2,on -> off -> on,9/64,2,0,on
+tau2_prior3_4,2,0,2,off -> off -> off,1/64,2,0,off
+tau2_prior3_4,2,0,2,off -> off -> on,3/64,2,0,on
+tau2_prior3_4,2,0,2,off -> on -> on,9/64,2,2,on
+tau2_prior3_4,2,0,2,off -> on -> off,3/64,2,2,off

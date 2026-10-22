@@ -1,0 +1,71 @@
+F..F.FF.F..                                                              [100%]
+=================================== FAILURES ===================================
+__________________________ test_hand_table_one_queue ___________________________
+
+    def test_hand_table_one_queue():
+        case = ONE_QUEUE
+>       assert rollout(case["q0"], case["arrivals"], case["c"]) == (case["backlogs"], case["idles"])
+E       assert ([3, 5, 3, 0,..., 0, 0, 3, 3]) == ([3, 5, 3, 0,..., 0, 0, 3, 0])
+E         
+E         At index 0 diff: [3, 5, 3, 0, 0, 6] != [3, 5, 3, 0, 0, 3]
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:17: AssertionError
+_______________ test_complementarity_backlog_times_idle_is_zero ________________
+
+    def test_complementarity_backlog_times_idle_is_zero():
+        for q, a, c in product(range(6), range(6), range(1, 5)):
+            q_next, idle = step(q, a, c)
+            assert q_next >= 0 and idle >= 0
+>           assert q_next * idle == 0
+E           assert (1 * 1) == 0
+
+tests/test_l1_2_queue.py:36: AssertionError
+_______________________ test_dl010_question_2_with_idle ________________________
+
+    def test_dl010_question_2_with_idle():
+        case = TWO_QUEUE_CASES["dl010_with_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>       assert (stay, switch) == case["costs"]
+E       assert (23, 21) == (23, 17)
+E         
+E         At index 1 diff: 21 != 17
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:51: AssertionError
+_______________________ test_canonical_x_d_both_branches _______________________
+
+    def test_canonical_x_d_both_branches():
+        for name in ("canonical_B_on", "canonical_B_off"):
+            case = TWO_QUEUE_CASES[name]
+            stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+            switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>           assert (stay, switch) == case["costs"]
+E           assert (11, 11) == (6, 4)
+E             
+E             At index 0 diff: 11 != 6
+E             Use -v to get more diff
+
+tests/test_l1_2_queue.py:61: AssertionError
+________________ test_negative_control_no_idle_means_equal_cost ________________
+
+    def test_negative_control_no_idle_means_equal_cost():
+        count = 0
+        for cfg in _grid():
+            stay, idle_st = two_queue_cost(action="Stay", **cfg)
+            switch, idle_sw = two_queue_cost(action="Switch", **cfg)
+            if sum(idle_st) == sum(idle_sw) == 0:
+                assert stay == switch, cfg
+                count += 1
+>       assert count == 2048
+E       assert 882 == 2048
+
+tests/test_l1_2_queue.py:89: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_2_queue.py::test_hand_table_one_queue - assert ([3, 5, 3...
+FAILED tests/test_l1_2_queue.py::test_complementarity_backlog_times_idle_is_zero
+FAILED tests/test_l1_2_queue.py::test_dl010_question_2_with_idle - assert (23...
+FAILED tests/test_l1_2_queue.py::test_canonical_x_d_both_branches - assert (1...
+FAILED tests/test_l1_2_queue.py::test_negative_control_no_idle_means_equal_cost
+5 failed, 6 passed in 0.13s

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.029" timestamp="2026-10-21T18:31:36.989241+07:00" hostname="vantai"><testcase classname="tests.test_l1_4_patterns" name="test_property_b_all_patterns_include_coefficient_two" time="0.001"><failure message="assert -2 == (1 * 2)">def test_property_b_all_patterns_include_coefficient_two():
+        seen = set()
+        for delta in (-2, 2):
+            stay, switch = 20, 20+delta
+            best, margin = min(stay, switch), abs(delta)
+            for i00, i10, i01 in product((0, 1), repeat=3):
+                indicators = dict(zip(("00", "10", "01", "11"), (i00, i10, i01, 0)))
+                # Non-tied predicted gaps selected to implement each given pattern.
+                gaps = {cell: -delta if wrong else delta for cell, wrong in indicators.items()}
+                table = cell_costs(stay, switch, gaps)
+                assert table == {cell: best+margin*i for cell, i in indicators.items()}
+                c = contrasts(table["00"], table["10"], table["01"], table["11"])
+                coefficient = i10+i01-i00
+&gt;               assert c["Gamma"] == coefficient*margin
+E               assert -2 == (1 * 2)
+
+tests/test_l1_4_patterns.py:21: AssertionError</failure></testcase></testsuite></testsuites>

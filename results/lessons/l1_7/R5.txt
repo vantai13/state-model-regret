@@ -1,0 +1,108 @@
+.F....F..FFF.                                                            [100%]
+=================================== FAILURES ===================================
+______________ test_naive_differs_only_because_of_the_extra_draw _______________
+
+    def test_naive_differs_only_because_of_the_extra_draw():
+        differ = 0
+        for i in range(N):
+            prim, _ = primitive_two_actions(DEMO_ROOT, i, XB, TH6, 1)
+            st0, sw0 = naive_two_actions(same_key_seed(i), XB, TH6, 0)
+            st1, sw1 = naive_two_actions(same_key_seed(i), XB, TH6, 1)
+>           assert st0 == sw0 == st1 == prim                     # đối chứng: không rút thêm thì trùng
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           assert [0, 5, 0, 5, 5, 5] == [0, 0, 0, 5, 0, 0]
+E             
+E             At index 1 diff: 5 != 0
+E             Use -v to get more diff
+
+tests/test_l1_7_streams.py:51: AssertionError
+__________________ test_episode_replay_and_order_independence __________________
+
+    def test_episode_replay_and_order_independence():
+        nested = (np.random.SeedSequence(DEMO_ROOT, spawn_key=(ROLE["future"],))
+                  .spawn(38)[37].spawn(2)[PATH["B"]])
+>       assert np.array_equal(np.random.default_rng(nested).random(5),
+                              future_rng(DEMO_ROOT, 37, "B").random(5))
+E       AssertionError: assert False
+E        +  where False = <function array_equal at 0x7a0fb514b170>(array([0.56521813, 0.1489679 , 0.81298275, 0.29267459, 0.48666524]), array([0.41035933, 0.24758383, 0.67952966, 0.79629572, 0.4123307 ]))
+E        +    where <function array_equal at 0x7a0fb514b170> = np.array_equal
+E        +    and   array([0.56521813, 0.1489679 , 0.81298275, 0.29267459, 0.48666524]) = random(5)
+E        +      where random = Generator(PCG64) at 0x7A0F9B1D0740.random
+E        +        where Generator(PCG64) at 0x7A0F9B1D0740 = <cyfunction default_rng at 0x7a0f9af40830>(SeedSequence(\n    entropy=144558766427411771296652109119745142241,\n    spawn_key=(1, 37, 1),\n))
+E        +          where <cyfunction default_rng at 0x7a0f9af40830> = <module 'numpy.random' from '/home/vantai/state-model-regret/.venv/lib/python3.14/site-packages/numpy/random/__init__.py'>.default_rng
+E        +            where <module 'numpy.random' from '/home/vantai/state-model-regret/.venv/lib/python3.14/site-packages/numpy/random/__init__.py'> = np.random
+E        +    and   array([0.41035933, 0.24758383, 0.67952966, 0.79629572, 0.4123307 ]) = random(5)
+E        +      where random = Generator(PCG64) at 0x7A0F9B1D04A0.random
+E        +        where Generator(PCG64) at 0x7A0F9B1D04A0 = future_rng(144558766427411771296652109119745142241, 37, 'B')
+
+tests/test_l1_7_streams.py:77: AssertionError
+______________________ test_naive_is_unbiased_but_noisier ______________________
+
+    def test_naive_is_unbiased_but_noisier():
+        exact = float(expected_cost(XB, "Switch", TH6) - expected_cost(XB, "Stay", TH6))   # 145/16
+        d = {"prim": [], "naive": []}
+        for i in range(N):
+            for name, pair in (("prim", primitive_two_actions(DEMO_ROOT, i, XB, TH6, 1)),
+                               ("naive", naive_two_actions(same_key_seed(i), XB, TH6, 1))):
+                c = path_costs(XB, TH6, *pair)
+                d[name].append(c["Switch"][0] - c["Stay"][0])
+        for v in d.values():
+            v = np.array(v, float)
+>           assert abs(v.mean() - exact) <= 3 * v.std(ddof=1) / np.sqrt(N)   # cả hai không lệch
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: assert np.float64(13.0625) <= ((3 * np.float64(0.0)) / np.float64(44.721359549995796))
+E            +  where np.float64(13.0625) = abs((np.float64(-4.0) - 9.0625))
+E            +    where np.float64(-4.0) = <built-in method mean of numpy.ndarray object at 0x7a0f9b1f7ab0>()
+E            +      where <built-in method mean of numpy.ndarray object at 0x7a0f9b1f7ab0> = array([-4., -4., -4., ..., -4., -4., -4.], shape=(2000,)).mean
+E            +  and   np.float64(0.0) = <built-in method std of numpy.ndarray object at 0x7a0f9b1f7ab0>(ddof=1)
+E            +    where <built-in method std of numpy.ndarray object at 0x7a0f9b1f7ab0> = array([-4., -4., -4., ..., -4., -4., -4.], shape=(2000,)).std
+E            +  and   np.float64(44.721359549995796) = <ufunc 'sqrt'>(2000)
+E            +    where <ufunc 'sqrt'> = np.sqrt
+
+tests/test_l1_7_streams.py:111: AssertionError
+_______________ test_sampler_matches_exact_J_on_asymmetric_chain _______________
+
+    def test_sampler_matches_exact_J_on_asymmetric_chain():
+        # p ≠ s: sai quy ước "u < P(giữ)" sẽ đổi phân phối. Với p = s = ½ thì không lộ.
+        th = dict(CANON, H=4, p_onon=F(3, 4), p_offoff=F(1, 2))
+        for x in [(2, 2, "on"), (2, 0, "off")]:
+            for a in ("Stay", "Switch"):
+                c = np.array([path_costs(x, th, *primitive_two_actions(DEMO_ROOT, i, x, th, 0))[a][0]
+                              for i in range(N)], float)
+>               assert abs(c.mean() - float(expected_cost(x, a, th))) <= 3 * c.std(ddof=1) / np.sqrt(N), (x, a)
+E               AssertionError: ((2, 2, 'on'), 'Stay')
+E               assert np.float64(7.828125) <= ((3 * np.float64(0.0)) / np.float64(44.721359549995796))
+E                +  where np.float64(7.828125) = abs((np.float64(36.0) - 28.171875))
+E                +    where np.float64(36.0) = <built-in method mean of numpy.ndarray object at 0x7a0f9b1f7b70>()
+E                +      where <built-in method mean of numpy.ndarray object at 0x7a0f9b1f7b70> = array([36., 36., 36., ..., 36., 36., 36.], shape=(2000,)).mean
+E                +    and   28.171875 = float(Fraction(1803, 64))
+E                +      where Fraction(1803, 64) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E                +  and   np.float64(0.0) = <built-in method std of numpy.ndarray object at 0x7a0f9b1f7b70>(ddof=1)
+E                +    where <built-in method std of numpy.ndarray object at 0x7a0f9b1f7b70> = array([36., 36., 36., ..., 36., 36., 36.], shape=(2000,)).std
+E                +  and   np.float64(44.721359549995796) = <ufunc 'sqrt'>(2000)
+E                +    where <ufunc 'sqrt'> = np.sqrt
+
+tests/test_l1_7_streams.py:124: AssertionError
+______________ test_leaky_mk_beats_the_oracle_honest_mk_does_not _______________
+
+    def test_leaky_mk_beats_the_oracle_honest_mk_does_not():
+        m = _measured_costs(XB, TH3, N)              # chính xác: oracle 31/4, rò 13/2, đúng luật 65/8
+        assert np.all(m["leak"] <= m["oracle"])      # rò: không bao giờ thua oracle, ở MỌI episode
+        gap = m["oracle"] - m["leak"]
+>       assert gap.mean() > 3 * gap.std(ddof=1) / np.sqrt(N)
+E       AssertionError: assert np.float64(0.0) > ((3 * np.float64(0.0)) / np.float64(44.721359549995796))
+E        +  where np.float64(0.0) = <built-in method mean of numpy.ndarray object at 0x7a0f9af7c1b0>()
+E        +    where <built-in method mean of numpy.ndarray object at 0x7a0f9af7c1b0> = array([0., 0., 0., ..., 0., 0., 0.], shape=(2000,)).mean
+E        +  and   np.float64(0.0) = <built-in method std of numpy.ndarray object at 0x7a0f9af7c1b0>(ddof=1)
+E        +    where <built-in method std of numpy.ndarray object at 0x7a0f9af7c1b0> = array([0., 0., 0., ..., 0., 0., 0.], shape=(2000,)).std
+E        +  and   np.float64(44.721359549995796) = <ufunc 'sqrt'>(2000)
+E        +    where <ufunc 'sqrt'> = np.sqrt
+
+tests/test_l1_7_streams.py:146: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_7_streams.py::test_naive_differs_only_because_of_the_extra_draw
+FAILED tests/test_l1_7_streams.py::test_episode_replay_and_order_independence
+FAILED tests/test_l1_7_streams.py::test_naive_is_unbiased_but_noisier - Asser...
+FAILED tests/test_l1_7_streams.py::test_sampler_matches_exact_J_on_asymmetric_chain
+FAILED tests/test_l1_7_streams.py::test_leaky_mk_beats_the_oracle_honest_mk_does_not
+5 failed, 8 passed in 2.19s

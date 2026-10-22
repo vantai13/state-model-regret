@@ -1,0 +1,80 @@
+{
+  "author": "Doan Van Tai",
+  "canonical": {
+    "cA": 3,
+    "cB": 3,
+    "u": 2,
+    "bA": 1,
+    "rate_on": 5,
+    "rate_off": 0,
+    "p_onon": "1/2",
+    "p_offoff": "1/2",
+    "H": 2
+  },
+  "history": [
+    [
+      -1,
+      [
+        2,
+        0
+      ]
+    ]
+  ],
+  "prior_D": "1/2",
+  "prior_S0": "1/2",
+  "dt": 1,
+  "c_sw": 0,
+  "tie_action": "Stay",
+  "cell_order": [
+    "00",
+    "10",
+    "01",
+    "11"
+  ],
+  "rate_on_grid": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "transition_grid": [
+    [
+      "1/2",
+      "1/2"
+    ],
+    [
+      "3/4",
+      "3/4"
+    ],
+    [
+      "3/4",
+      "1/2"
+    ]
+  ],
+  "observed_qA": [
+    0,
+    2,
+    4
+  ],
+  "observed_qB": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "managed_u": [
+    1,
+    2
+  ],
+  "priors": [
+    "1/4",
+    "1/2",
+    "3/4"
+  ],
+  "seed": null,
+  "method": "exact finite enumeration; B2 vs evaluator reference",
+  "warmup_simulated": false,
+  "physical_timescale_locked": false,
+  "H0_fitted": false,
+  "held_out_evaluated": false
+}

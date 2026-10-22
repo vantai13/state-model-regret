@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="11" time="0.109" timestamp="2026-10-09T21:04:55.209162+07:00" hostname="vantai"><testcase classname="tests.test_l1_2_queue" name="test_hand_table_one_queue" time="0.001"><failure message="assert ([3, 5, 3, 0,..., 0, 0, 3, 3]) == ([3, 5, 3, 0,..., 0, 0, 3, 0])&#10;  &#10;  At index 1 diff: [0, 0, 0, 0, 3, 3] != [0, 0, 0, 0, 3, 0]&#10;  Use -v to get more diff">def test_hand_table_one_queue():
+        case = ONE_QUEUE
+&gt;       assert rollout(case["q0"], case["arrivals"], case["c"]) == (case["backlogs"], case["idles"])
+E       assert ([3, 5, 3, 0,..., 0, 0, 3, 3]) == ([3, 5, 3, 0,..., 0, 0, 3, 0])
+E         
+E         At index 1 diff: [0, 0, 0, 0, 3, 3] != [0, 0, 0, 0, 3, 0]
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:17: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_identity_linear_plus_idle" time="0.001"><failure message="assert 3 == ((4 + -4) + 6)&#10; +  where -4 = sum(&lt;generator object test_identity_linear_plus_idle.&lt;locals&gt;.&lt;genexpr&gt; at 0x700104325fc0&gt;)&#10; +  and   6 = sum([0, 0, 0, 0, 3, 3])">def test_identity_linear_plus_idle():
+        q0, c, arrivals = 4, 3, [2, 5, 1, 0, 0, 6]
+        backlogs, idles = rollout(q0, arrivals, c)
+&gt;       assert backlogs[-1] == q0 + sum(a - c for a in arrivals) + sum(idles)
+E       assert 3 == ((4 + -4) + 6)
+E        +  where -4 = sum(&lt;generator object test_identity_linear_plus_idle.&lt;locals&gt;.&lt;genexpr&gt; at 0x700104325fc0&gt;)
+E        +  and   6 = sum([0, 0, 0, 0, 3, 3])
+
+tests/test_l1_2_queue.py:23: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_conservation_arrivals_minus_served" time="0.000"><failure message="assert (14 - 12) == (3 - 4)&#10; +  where 14 = sum([2, 5, 1, 0, 0, 6])&#10; +  and   12 = sum(&lt;generator object test_conservation_arrivals_minus_served.&lt;locals&gt;.&lt;genexpr&gt; at 0x700104b23ca0&gt;)">def test_conservation_arrivals_minus_served():
+        q0, c, arrivals = 4, 3, [2, 5, 1, 0, 0, 6]
+        backlogs, idles = rollout(q0, arrivals, c)
+&gt;       assert sum(arrivals) - sum(c - i for i in idles) == backlogs[-1] - q0
+E       assert (14 - 12) == (3 - 4)
+E        +  where 14 = sum([2, 5, 1, 0, 0, 6])
+E        +  and   12 = sum(&lt;generator object test_conservation_arrivals_minus_served.&lt;locals&gt;.&lt;genexpr&gt; at 0x700104b23ca0&gt;)
+
+tests/test_l1_2_queue.py:29: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_complementarity_backlog_times_idle_is_zero" time="0.000"><failure message="assert (1 * 1) == 0">def test_complementarity_backlog_times_idle_is_zero():
+        for q, a, c in product(range(6), range(6), range(1, 5)):
+            q_next, idle = step(q, a, c)
+            assert q_next &gt;= 0 and idle &gt;= 0
+&gt;           assert q_next * idle == 0
+E           assert (1 * 1) == 0
+
+tests/test_l1_2_queue.py:36: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_dl010_question_1_no_idle" time="0.000" /><testcase classname="tests.test_l1_2_queue" name="test_dl010_question_2_with_idle" time="0.000"><failure message="assert ([3, 3], [3, 3]) == ([3, 3], [1, 1])&#10;  &#10;  At index 1 diff: [3, 3] != [1, 1]&#10;  Use -v to get more diff">def test_dl010_question_2_with_idle():
+        case = TWO_QUEUE_CASES["dl010_with_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+        assert (stay, switch) == case["costs"]
+&gt;       assert (idle_st, idle_sw) == case["idles"]
+E       assert ([3, 3], [3, 3]) == ([3, 3], [1, 1])
+E         
+E         At index 1 diff: [3, 3] != [1, 1]
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:52: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_canonical_x_d_both_branches" time="0.000"><failure message="assert (4 - 6) == 2&#10; +  where 2 = weighted_idle_diff([4, 6], [4, 4])">def test_canonical_x_d_both_branches():
+        for name in ("canonical_B_on", "canonical_B_off"):
+            case = TWO_QUEUE_CASES[name]
+            stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+            switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+            assert (stay, switch) == case["costs"]
+&gt;           assert switch - stay == weighted_idle_diff(idle_sw, idle_st)
+E           assert (4 - 6) == 2
+E            +  where 2 = weighted_idle_diff([4, 6], [4, 4])
+
+tests/test_l1_2_queue.py:62: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_identity_cost_difference_on_exhaustive_grid" time="0.001"><failure message="AssertionError: {'q0': (0, 0), 'bA': [0, 0], 'bB': [0, 1], 'u': 2, ...}&#10;assert (1 - 0) == 0&#10; +  where 0 = weighted_idle_diff([4, 4], [4, 4])">def test_identity_cost_difference_on_exhaustive_grid():
+        count = 0
+        for cfg in _grid():
+            stay, idle_st = two_queue_cost(action="Stay", **cfg)
+            switch, idle_sw = two_queue_cost(action="Switch", **cfg)
+&gt;           assert switch - stay == weighted_idle_diff(idle_sw, idle_st), cfg
+E           AssertionError: {'q0': (0, 0), 'bA': [0, 0], 'bB': [0, 1], 'u': 2, ...}
+E           assert (1 - 0) == 0
+E            +  where 0 = weighted_idle_diff([4, 4], [4, 4])
+
+tests/test_l1_2_queue.py:76: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_negative_control_no_idle_means_equal_cost" time="0.033"><failure message="assert 882 == 2048">def test_negative_control_no_idle_means_equal_cost():
+        count = 0
+        for cfg in _grid():
+            stay, idle_st = two_queue_cost(action="Stay", **cfg)
+            switch, idle_sw = two_queue_cost(action="Switch", **cfg)
+            if sum(idle_st) == sum(idle_sw) == 0:
+                assert stay == switch, cfg
+                count += 1
+&gt;       assert count == 2048
+E       assert 882 == 2048
+
+tests/test_l1_2_queue.py:89: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_zero_action_control" time="0.017" /><testcase classname="tests.test_l1_2_queue" name="test_dt_scales_cost_linearly" time="0.000" /></testsuite></testsuites>

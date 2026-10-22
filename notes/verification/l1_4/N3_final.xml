@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="12" time="0.078" timestamp="2026-10-21T18:31:35.578235+07:00" hostname="vantai"><testcase classname="tests.test_l1_4_factorial" name="test_20_18_complements_when_errors_large" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_20_18_substitutes_when_errors_medium" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_tie_rule_is_part_of_definition" time="0.000"><failure message="assert (18 == 20)">def test_tie_rule_is_part_of_definition():
+        table = table_from_additive(20, 18, F(3, 2), F(1, 2))
+&gt;       assert table["00"] == 20 and C(table)["Gamma"] == -2
+E       assert (18 == 20)
+
+tests/test_l1_4_factorial.py:31: AssertionError</failure></testcase><testcase classname="tests.test_l1_4_factorial" name="test_gamma_is_a_step_function_of_error_size" time="0.000"><failure message="assert 0 == -2">def test_gamma_is_a_step_function_of_error_size():
+        expected = {0: 0, 1: 0, 2: -2, 3: -2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2}
+        for k, gamma in expected.items():
+            e = F(k, 2)
+&gt;           assert C(table_from_additive(20, 18, e, e))["Gamma"] == gamma
+E           assert 0 == -2
+
+tests/test_l1_4_factorial.py:40: AssertionError</failure></testcase><testcase classname="tests.test_l1_4_factorial" name="test_average_can_hide_opposite_signs_EV25" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_partial_repair_beats_oracle_repair_EV26" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_property_a_cell_11_is_oracle" time="0.012" /><testcase classname="tests.test_l1_4_factorial" name="test_property_b_gamma_takes_four_values" time="0.013" /><testcase classname="tests.test_l1_4_factorial" name="test_property_e_gamma_is_change_in_conditional_gain" time="0.013" /><testcase classname="tests.test_l1_4_factorial" name="test_canonical_table_golden" time="0.001" /><testcase classname="tests.test_l1_4_factorial" name="test_contrast_of_mean_equals_mean_of_contrasts" time="0.001" /><testcase classname="tests.test_l1_4_factorial" name="test_asymmetric_errors_distinguish_state_from_model" time="0.000" /></testsuite></testsuites>

@@ -1,0 +1,70 @@
+...FF...FF...                                                            [100%]
+=================================== FAILURES ===================================
+_____ test_primitive_gives_identical_futures_whatever_the_branch_draws[1] ______
+
+extra = 1
+
+    @pytest.mark.parametrize("extra", [0, 1, 7])
+    def test_primitive_gives_identical_futures_whatever_the_branch_draws(extra):
+        for i in range(N):
+            st, sw = primitive_two_actions(DEMO_ROOT, i, XB, TH6, extra)
+>           assert st == sw == primitive_two_actions(DEMO_ROOT, i, XB, TH6, 0)[0]
+E           assert [0, 5, 0, 5, 5, 5] == [0, 5, 0, 0, 0, 0]
+E             
+E             At index 3 diff: 5 != 0
+E             Use -v to get more diff
+
+tests/test_l1_7_streams.py:60: AssertionError
+_____ test_primitive_gives_identical_futures_whatever_the_branch_draws[7] ______
+
+extra = 7
+
+    @pytest.mark.parametrize("extra", [0, 1, 7])
+    def test_primitive_gives_identical_futures_whatever_the_branch_draws(extra):
+        for i in range(N):
+            st, sw = primitive_two_actions(DEMO_ROOT, i, XB, TH6, extra)
+>           assert st == sw == primitive_two_actions(DEMO_ROOT, i, XB, TH6, 0)[0]
+E           assert [0, 5, 0, 5, 5, 5] == [0, 0, 0, 5, 5, 0]
+E             
+E             At index 1 diff: 5 != 0
+E             Use -v to get more diff
+
+tests/test_l1_7_streams.py:60: AssertionError
+__________ test_identity2_detector_zero_under_crn_nonzero_under_naive __________
+
+    def test_identity2_detector_zero_under_crn_nonzero_under_naive():
+        broken = 0
+        for i in range(N):
+>           assert identity2_residual(path_costs(XB, TH6, *primitive_two_actions(DEMO_ROOT, i, XB, TH6, 1))) == 0
+E           AssertionError: assert -30 == 0
+E            +  where -30 = identity2_residual({'Stay': (26, [1, 0, 1, 0, 0, 0]), 'Switch': (16, [0, 2, 2, 2, 2, 2])})
+E            +    where {'Stay': (26, [1, 0, 1, 0, 0, 0]), 'Switch': (16, [0, 2, 2, 2, 2, 2])} = path_costs((2, 2, 'off'), {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...}, *([0, 5, 0, 5, 5, 5], [0, 5, 0, 0, 0, 0]))
+E            +      where ([0, 5, 0, 5, 5, 5], [0, 5, 0, 0, 0, 0]) = primitive_two_actions(144558766427411771296652109119745142241, 0, (2, 2, 'off'), {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...}, 1)
+
+tests/test_l1_7_streams.py:96: AssertionError
+______________________ test_naive_is_unbiased_but_noisier ______________________
+
+    def test_naive_is_unbiased_but_noisier():
+        exact = float(expected_cost(XB, "Switch", TH6) - expected_cost(XB, "Stay", TH6))   # 145/16
+        d = {"prim": [], "naive": []}
+        for i in range(N):
+            for name, pair in (("prim", primitive_two_actions(DEMO_ROOT, i, XB, TH6, 1)),
+                               ("naive", naive_two_actions(same_key_seed(i), XB, TH6, 1))):
+                c = path_costs(XB, TH6, *pair)
+                d[name].append(c["Switch"][0] - c["Stay"][0])
+        for v in d.values():
+            v = np.array(v, float)
+            assert abs(v.mean() - exact) <= 3 * v.std(ddof=1) / np.sqrt(N)   # cả hai không lệch
+        var_prim, var_naive = (np.var(d[k], ddof=1) for k in ("prim", "naive"))
+>       assert abs(var_prim - 117.4961) / 117.4961 < 0.15        # khớp phương sai CRN chính xác (Part 1, A5)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       assert (np.float64(236.12568589294642) / 117.4961) < 0.15
+E        +  where np.float64(236.12568589294642) = abs((np.float64(353.62178589294643) - 117.4961))
+
+tests/test_l1_7_streams.py:113: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_7_streams.py::test_primitive_gives_identical_futures_whatever_the_branch_draws[1]
+FAILED tests/test_l1_7_streams.py::test_primitive_gives_identical_futures_whatever_the_branch_draws[7]
+FAILED tests/test_l1_7_streams.py::test_identity2_detector_zero_under_crn_nonzero_under_naive
+FAILED tests/test_l1_7_streams.py::test_naive_is_unbiased_but_noisier - asser...
+4 failed, 9 passed in 2.73s

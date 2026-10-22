@@ -1,0 +1,939 @@
+{
+  "author": "Doan Van Tai",
+  "run_time_asia_saigon": "2026-10-22T11:20:58.778686+07:00",
+  "configuration": {
+    "author": "Doan Van Tai",
+    "canonical": {
+      "cA": 3,
+      "cB": 3,
+      "u": 2,
+      "bA": 1,
+      "rate_on": 5,
+      "rate_off": 0,
+      "p_onon": "1/2",
+      "p_offoff": "1/2",
+      "H": 2
+    },
+    "history": [
+      [
+        -1,
+        [
+          2,
+          0
+        ]
+      ]
+    ],
+    "prior_D": "1/2",
+    "prior_S0": "1/2",
+    "dt": 1,
+    "c_sw": 0,
+    "tie_action": "Stay",
+    "cell_order": [
+      "00",
+      "10",
+      "01",
+      "11"
+    ],
+    "rate_on_grid": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "transition_grid": [
+      [
+        "1/2",
+        "1/2"
+      ],
+      [
+        "3/4",
+        "3/4"
+      ],
+      [
+        "3/4",
+        "1/2"
+      ]
+    ],
+    "observed_qA": [
+      0,
+      2,
+      4
+    ],
+    "observed_qB": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "managed_u": [
+      1,
+      2
+    ],
+    "priors": [
+      "1/4",
+      "1/2",
+      "3/4"
+    ],
+    "seed": null,
+    "method": "exact finite enumeration; B2 vs evaluator reference",
+    "warmup_simulated": false,
+    "physical_timescale_locked": false,
+    "H0_fitted": false,
+    "held_out_evaluated": false
+  },
+  "environment": {
+    "python": "3.14.5",
+    "pytest": "9.1.1"
+  },
+  "base_commit": "d1b41e9a32d04da6257cfbbaf59467b65c5103b7",
+  "source_sha256": {
+    "experiments/lessons/l1_2_queue.py": "4d3bdbd2bd2a27185c6a146697e93c0444cd0342e22ac5486c781a0c1d4a7420",
+    "experiments/lessons/l1_3_expected_cost.py": "d442be2a24f7f3ca58ae6c056e5106ec1761f912a23465238df7471b88f4ef93",
+    "experiments/lessons/l1_4_factorial.py": "414d841dc6157c1b21fc7c10031c3ef9b7dd0a0c07b071bc15dcc06337bed848",
+    "experiments/lessons/l1_5_identity.py": "29aa947085ad898090cbc71058d989318ccc662b91dfe61dd3e9e353731729c0",
+    "experiments/lessons/l1_6_belief.py": "c3349b09a0486ce737912dabe8457830719370ccf911161a263e48bbd89380b7",
+    "experiments/lessons/l1_6_reference.py": "03321a6417a7629be57dc7e0fea01ed16cd07467fc6b2ac815f885662a053f32",
+    "experiments/lessons/run_l1_2.py": "345b946c17bf8edbb2033b928bbaccbe44fba4512c91d6f480c5c505358ca1d8",
+    "experiments/lessons/run_l1_3.py": "d569b672a877a35a62a5416b66955e337c9ee99508f3f2991e9cc135eb6c33d7",
+    "experiments/lessons/run_l1_6.py": "192c951435cd2b8254aac963f6f750a324dded0e70506071ea00b26f71e1639c",
+    "tests/test_l1_6_belief.py": "73b45b526d8fbfc8179fa54b4566c8d9b8fbc0ccda1a61e013b9a712a3f9b060",
+    "tests/test_l1_6_reference.py": "11613cec682542e18ca7cd72a865a1bdb46abde29e5011f6331b44169cef9533",
+    "tests/golden_phase1.py": "74a11dff5873dad4c6818174a8f60b294eefb6235af86f4c798efce9b279a4dc",
+    "pyproject.toml": "fed2866617de7309770a46a919d740dd3fdca45149a6a3cf40c1c9146a1940aa",
+    "notes/lessons/L1.6_experiment_card.md": "5f4e3a4c0e0bf4aa76b824e16bbba1edabffa413fea7fa290f24fd59b523d50b",
+    "notes/lessons/L1.6_belief_model_spec.md": "afdfcd13eb61d77a9d3cb03c0136d7bd1a95200d85069c73c03b3e2969597274"
+  },
+  "supplied_documents": [
+    {
+      "part": "A",
+      "sha256": "c50b15bc96830e7539a0b453115d544131491fbae21c253bc68055ada0af26c6"
+    },
+    {
+      "part": "B",
+      "sha256": "801c1477e5140f685817336a399b940531603754ccdbbc1ec96fbe1d95b1d421"
+    },
+    {
+      "part": "C",
+      "sha256": "77bb6bea78e2bafa64399d6425f9db178873e881e5479248421165fb597924f5"
+    },
+    {
+      "part": "D",
+      "sha256": "538a613055c3e8abff668e78993608c9f7ae658ba712a70259cc2f75b6ebf61d"
+    }
+  ],
+  "golden_provenance": "Doan Van Tai — supplied L1.6 A-D worked answers, recorded 2026-10-22; paper exercises pending",
+  "tests": {
+    "lesson": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/lesson.xml",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "failed_tests": [],
+      "failed_test_functions": [],
+      "errors": [],
+      "skipped": [],
+      "returncode": 0,
+      "log": "lesson.txt",
+      "junit": "lesson.xml",
+      "wall_seconds": 2.5790576279996458,
+      "canonical_failed_tests": []
+    },
+    "lessons": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/lessons.xml",
+        "tests/test_l1_2_queue.py",
+        "tests/test_l1_3_expected_cost.py",
+        "tests/test_l1_4_factorial.py",
+        "tests/test_l1_5_identity.py",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 59,
+      "passed": 59,
+      "failed": 0,
+      "failed_tests": [],
+      "failed_test_functions": [],
+      "errors": [],
+      "skipped": [],
+      "returncode": 0,
+      "log": "lessons.txt",
+      "junit": "lessons.xml",
+      "wall_seconds": 2.92129247199955,
+      "canonical_failed_tests": []
+    },
+    "reference": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/reference.xml",
+        "tests/test_l1_6_reference.py"
+      ],
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "failed_tests": [],
+      "failed_test_functions": [],
+      "errors": [],
+      "skipped": [],
+      "returncode": 0,
+      "log": "reference.txt",
+      "junit": "reference.xml",
+      "wall_seconds": 0.22999305899975298,
+      "canonical_failed_tests": []
+    },
+    "full_suite": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/full_suite.xml",
+        "tests/"
+      ],
+      "total": 80,
+      "passed": 80,
+      "failed": 0,
+      "failed_tests": [],
+      "failed_test_functions": [],
+      "errors": [],
+      "skipped": [],
+      "returncode": 0,
+      "log": "full_suite.txt",
+      "junit": "full_suite.xml",
+      "wall_seconds": 2.8852312519993575,
+      "canonical_failed_tests": []
+    }
+  },
+  "canonical": {
+    "states": [
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "qA": 2,
+        "qB": 2,
+        "mode": "on",
+        "M0_stay": "23/2",
+        "M0_switch": "27/2",
+        "M1_stay": "23/2",
+        "M1_switch": "27/2",
+        "delta": "2",
+        "model_gap_error": "0",
+        "I_delta": "1/2",
+        "G_S": "0",
+        "G_M": "-2",
+        "G_SM": "0",
+        "Gamma": "2",
+        "G_S|M1": "2",
+        "G_M|S1": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "qA": 2,
+        "qB": 2,
+        "mode": "off",
+        "M0_stay": "4",
+        "M0_switch": "7/2",
+        "M1_stay": "5",
+        "M1_switch": "7/2",
+        "delta": "-3/2",
+        "model_gap_error": "1",
+        "I_delta": "-1/2",
+        "G_S": "3/2",
+        "G_M": "3/2",
+        "G_SM": "3/2",
+        "Gamma": "-3/2",
+        "G_S|M1": "0",
+        "G_M|S1": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "qA": 2,
+        "qB": 0,
+        "mode": "on",
+        "M0_stay": "15/2",
+        "M0_switch": "19/2",
+        "M1_stay": "8",
+        "M1_switch": "19/2",
+        "delta": "3/2",
+        "model_gap_error": "1/2",
+        "I_delta": "0",
+        "G_S": "0",
+        "G_M": "-3/2",
+        "G_SM": "0",
+        "Gamma": "3/2",
+        "G_S|M1": "3/2",
+        "G_M|S1": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "qA": 2,
+        "qB": 0,
+        "mode": "off",
+        "M0_stay": "4",
+        "M0_switch": "3/2",
+        "M1_stay": "5",
+        "M1_switch": "2",
+        "delta": "-3",
+        "model_gap_error": "1/2",
+        "I_delta": "0",
+        "G_S": "3",
+        "G_M": "3",
+        "G_SM": "3",
+        "Gamma": "-3",
+        "G_S|M1": "0",
+        "G_M|S1": "0"
+      }
+    ],
+    "cells": [
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "00",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "true_cost": "23/2",
+        "regret": "0"
+      },
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "10",
+        "delta_hat": "2",
+        "action": "Stay",
+        "true_cost": "23/2",
+        "regret": "0"
+      },
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "01",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "true_cost": "27/2",
+        "regret": "2"
+      },
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "11",
+        "delta_hat": "2",
+        "action": "Stay",
+        "true_cost": "23/2",
+        "regret": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "00",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "true_cost": "5",
+        "regret": "3/2"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "10",
+        "delta_hat": "-1/2",
+        "action": "Switch",
+        "true_cost": "7/2",
+        "regret": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "01",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "true_cost": "7/2",
+        "regret": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "11",
+        "delta_hat": "-3/2",
+        "action": "Switch",
+        "true_cost": "7/2",
+        "regret": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "00",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "true_cost": "8",
+        "regret": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "10",
+        "delta_hat": "2",
+        "action": "Stay",
+        "true_cost": "8",
+        "regret": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "01",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "true_cost": "19/2",
+        "regret": "3/2"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "11",
+        "delta_hat": "3/2",
+        "action": "Stay",
+        "true_cost": "8",
+        "regret": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "00",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "true_cost": "5",
+        "regret": "3"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "10",
+        "delta_hat": "-5/2",
+        "action": "Switch",
+        "true_cost": "2",
+        "regret": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "01",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "true_cost": "2",
+        "regret": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "11",
+        "delta_hat": "-3",
+        "action": "Switch",
+        "true_cost": "2",
+        "regret": "0"
+      }
+    ],
+    "means": {
+      "00": "59/8",
+      "10": "25/4",
+      "01": "57/8",
+      "11": "25/4"
+    },
+    "regrets": {
+      "00": "9/8",
+      "10": "0",
+      "01": "7/8",
+      "11": "0"
+    },
+    "contrasts": {
+      "G_S": "9/8",
+      "G_M": "1/4",
+      "G_SM": "9/8",
+      "Gamma": "-1/4",
+      "G_S|M1": "7/8",
+      "G_M|S1": "0"
+    },
+    "belief": [
+      {
+        "state": [
+          2,
+          2,
+          "on"
+        ],
+        "probability": "1/4"
+      },
+      {
+        "state": [
+          2,
+          2,
+          "off"
+        ],
+        "probability": "1/4"
+      },
+      {
+        "state": [
+          2,
+          0,
+          "off"
+        ],
+        "probability": "1/4"
+      },
+      {
+        "state": [
+          2,
+          0,
+          "on"
+        ],
+        "probability": "1/4"
+      }
+    ],
+    "evidence": "1",
+    "predictions": {
+      "M0": {
+        "Stay": "27/4",
+        "Switch": "7"
+      },
+      "M1": {
+        "Stay": "59/8",
+        "Switch": "57/8"
+      }
+    },
+    "oracle_cost": "25/4",
+    "EVPPI": "7/8",
+    "current_backlog_costs": {
+      "M0": "7",
+      "M1": "7"
+    },
+    "freshness_gain": "3/8",
+    "mode_visibility_gain": "3/4"
+  },
+  "grid": {
+    "matched_cases": 864,
+    "wrong_prior_cases": 576,
+    "matched_negative_G_M": 0,
+    "wrong_prior_negative_G_M": 5,
+    "jensen_state_action_cases": 6696,
+    "jensen_violations": 0,
+    "posterior_mismatches": 0,
+    "mean_I_violations": 0,
+    "F5_pairs_checked": 13392,
+    "zero_margin_state_cases": 222,
+    "wrong_prior_example": {
+      "grid_id": 94,
+      "prior_D": "3/4",
+      "rate_on": 4,
+      "p": "1/2",
+      "s": "1/2",
+      "yA": 4,
+      "yB": 3,
+      "u": 1,
+      "prior_S0": "1/2",
+      "L00": "119/16",
+      "L10": "29/4",
+      "L01": "61/8",
+      "L11": "29/4",
+      "G_S": "3/16",
+      "G_M": "-3/16",
+      "G_SM": "3/16",
+      "Gamma": "3/16",
+      "G_S|M1": "3/8",
+      "G_M|S1": "0",
+      "matched_G_M": "0",
+      "belief_matches_D": false
+    }
+  },
+  "extras": {
+    "variants": [
+      {
+        "scenario": "canonical",
+        "p": "1/2",
+        "s": "1/2",
+        "persistence": "0",
+        "prior": "1/2",
+        "evidence": "1",
+        "L00": "59/8",
+        "L10": "25/4",
+        "L01": "57/8",
+        "L11": "25/4",
+        "G_S": "9/8",
+        "G_M": "1/4",
+        "G_SM": "9/8",
+        "Gamma": "-1/4",
+        "G_S|M1": "7/8",
+        "G_M|S1": "0",
+        "current_backlog_cost_M0": "7",
+        "current_backlog_cost_M1": "7",
+        "freshness_gain": "3/8",
+        "mode_visibility_gain": "3/4"
+      },
+      {
+        "scenario": "p55",
+        "p": "11/20",
+        "s": "11/20",
+        "persistence": "1/10",
+        "prior": "1/2",
+        "evidence": "1",
+        "L00": "6021/800",
+        "L10": "2521/400",
+        "L01": "5761/800",
+        "L11": "2521/400",
+        "G_S": "979/800",
+        "G_M": "13/40",
+        "G_SM": "979/800",
+        "Gamma": "-13/40",
+        "G_S|M1": "719/800",
+        "G_M|S1": "0",
+        "current_backlog_cost_M0": "2809/400",
+        "current_backlog_cost_M1": "2809/400",
+        "freshness_gain": "403/800",
+        "mode_visibility_gain": "18/25"
+      },
+      {
+        "scenario": "p75_controlled",
+        "p": "3/4",
+        "s": "3/4",
+        "persistence": "1/2",
+        "prior": "1/2",
+        "evidence": "1",
+        "L00": "241/32",
+        "L10": "105/16",
+        "L01": "241/32",
+        "L11": "105/16",
+        "G_S": "31/32",
+        "G_M": "0",
+        "G_SM": "31/32",
+        "Gamma": "0",
+        "G_S|M1": "31/32",
+        "G_M|S1": "0",
+        "current_backlog_cost_M0": "113/16",
+        "current_backlog_cost_M1": "113/16",
+        "freshness_gain": "15/32",
+        "mode_visibility_gain": "1/2"
+      },
+      {
+        "scenario": "p75_empty_conditioned_prior",
+        "p": "3/4",
+        "s": "3/4",
+        "persistence": "1/2",
+        "prior": "1/4",
+        "evidence": "1",
+        "L00": "351/64",
+        "L10": "153/32",
+        "L01": "351/64",
+        "L11": "153/32",
+        "G_S": "45/64",
+        "G_M": "0",
+        "G_SM": "45/64",
+        "Gamma": "0",
+        "G_S|M1": "45/64",
+        "G_M|S1": "0",
+        "current_backlog_cost_M0": "21/4",
+        "current_backlog_cost_M1": "21/4",
+        "freshness_gain": "15/64",
+        "mode_visibility_gain": "15/32"
+      },
+      {
+        "scenario": "two_observations_up",
+        "p": "3/4",
+        "s": "3/4",
+        "persistence": "1/2",
+        "prior": "1/2",
+        "evidence": "1/2",
+        "L00": "381/32",
+        "L10": "45/4",
+        "L01": "381/32",
+        "L11": "45/4",
+        "G_S": "21/32",
+        "G_M": "0",
+        "G_SM": "21/32",
+        "Gamma": "0",
+        "G_S|M1": "21/32",
+        "G_M|S1": "0",
+        "current_backlog_cost_M0": "727/64",
+        "current_backlog_cost_M1": "727/64",
+        "freshness_gain": "35/64",
+        "mode_visibility_gain": "7/64"
+      }
+    ],
+    "B1": [
+      {
+        "selected_qA": 2,
+        "selected_qB": 2,
+        "selected_mode": "on",
+        "tie_rule": "choose this tied joint-MAP state",
+        "action_M0": "Stay",
+        "action_M1": "Stay",
+        "G_S": "9/8",
+        "G_M": "0"
+      },
+      {
+        "selected_qA": 2,
+        "selected_qB": 2,
+        "selected_mode": "off",
+        "tie_rule": "choose this tied joint-MAP state",
+        "action_M0": "Switch",
+        "action_M1": "Switch",
+        "G_S": "7/8",
+        "G_M": "0"
+      },
+      {
+        "selected_qA": 2,
+        "selected_qB": 0,
+        "selected_mode": "on",
+        "tie_rule": "choose this tied joint-MAP state",
+        "action_M0": "Stay",
+        "action_M1": "Stay",
+        "G_S": "9/8",
+        "G_M": "0"
+      },
+      {
+        "selected_qA": 2,
+        "selected_qB": 0,
+        "selected_mode": "off",
+        "tie_rule": "choose this tied joint-MAP state",
+        "action_M0": "Switch",
+        "action_M1": "Switch",
+        "G_S": "7/8",
+        "G_M": "0"
+      }
+    ],
+    "mean_state_shortcut": [
+      "9/2",
+      "13/2"
+    ],
+    "negative_gap_error_iid_example": {
+      "true_costs": {
+        "Stay": "0",
+        "Switch": "5/4"
+      },
+      "mean_path_costs": [
+        0,
+        0
+      ],
+      "e_M": "-5/4"
+    },
+    "impossible_history_rejected": true,
+    "reference_posterior_cases": 9,
+    "source_note": "separate iid illustrations; not a change to canonical known-slot0 Markov model"
+  },
+  "mutations": {
+    "Q1": {
+      "description": "Bỏ chuẩn hoá belief",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_6/Q1_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/Q1.xml",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 16,
+      "passed": 14,
+      "failed": 2,
+      "failed_tests": [
+        "test_belief_two_observations_eliminates_and_renormalises",
+        "test_belief_is_joint_not_product_of_marginals"
+      ],
+      "failed_test_functions": [
+        "test_belief_is_joint_not_product_of_marginals",
+        "test_belief_two_observations_eliminates_and_renormalises"
+      ],
+      "errors": [],
+      "skipped": [],
+      "returncode": 1,
+      "log": "Q1.txt",
+      "junit": "Q1.xml",
+      "wall_seconds": 2.535478638999848,
+      "canonical_failed_tests": []
+    },
+    "Q2": {
+      "description": "Bỏ likelihood, giữ cả chuỗi không khớp observation",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_6/Q2_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/Q2.xml",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 16,
+      "passed": 13,
+      "failed": 3,
+      "failed_tests": [
+        "test_belief_two_observations_eliminates_and_renormalises",
+        "test_belief_is_joint_not_product_of_marginals",
+        "test_impossible_observation_raises"
+      ],
+      "failed_test_functions": [
+        "test_belief_is_joint_not_product_of_marginals",
+        "test_belief_two_observations_eliminates_and_renormalises",
+        "test_impossible_observation_raises"
+      ],
+      "errors": [],
+      "skipped": [],
+      "returncode": 1,
+      "log": "Q2.txt",
+      "junit": "Q2.xml",
+      "wall_seconds": 2.5175957339997694,
+      "canonical_failed_tests": []
+    },
+    "Q3": {
+      "description": "M0 dùng stationary mean từ slot1 thay conditional mean",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_6/Q3_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/Q3.xml",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 16,
+      "passed": 13,
+      "failed": 3,
+      "failed_tests": [
+        "test_property_7h_m0_never_above_m1_on_grid",
+        "test_the_7c_check_can_fail_when_prior_is_wrong",
+        "test_persistence_variants_golden"
+      ],
+      "failed_test_functions": [
+        "test_persistence_variants_golden",
+        "test_property_7h_m0_never_above_m1_on_grid",
+        "test_the_7c_check_can_fail_when_prior_is_wrong"
+      ],
+      "errors": [],
+      "skipped": [],
+      "returncode": 1,
+      "log": "Q3.txt",
+      "junit": "Q3.xml",
+      "wall_seconds": 1.9017347779990814,
+      "canonical_failed_tests": []
+    },
+    "Q4": {
+      "description": "M1 dùng uniform belief khác belief của M0",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_6/Q4_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/Q4.xml",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 16,
+      "passed": 12,
+      "failed": 4,
+      "failed_tests": [
+        "test_property_7c_bayes_decision_on_grid[prior_D0]",
+        "test_property_7c_bayes_decision_on_grid[prior_D1]",
+        "test_property_7c_bayes_decision_on_grid[prior_D2]",
+        "test_the_7c_check_can_fail_when_prior_is_wrong"
+      ],
+      "failed_test_functions": [
+        "test_property_7c_bayes_decision_on_grid",
+        "test_the_7c_check_can_fail_when_prior_is_wrong"
+      ],
+      "errors": [],
+      "skipped": [],
+      "returncode": 1,
+      "log": "Q4.txt",
+      "junit": "Q4.xml",
+      "wall_seconds": 0.9811748590000207,
+      "canonical_failed_tests": []
+    },
+    "Q5": {
+      "description": "S0 ép prior=1/2",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_6/Q5_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/Q5.xml",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 16,
+      "passed": 14,
+      "failed": 2,
+      "failed_tests": [
+        "test_property_7c_bayes_decision_on_grid[prior_D0]",
+        "test_property_7c_bayes_decision_on_grid[prior_D2]"
+      ],
+      "failed_test_functions": [
+        "test_property_7c_bayes_decision_on_grid"
+      ],
+      "errors": [],
+      "skipped": [],
+      "returncode": 1,
+      "log": "Q5.txt",
+      "junit": "Q5.xml",
+      "wall_seconds": 1.4515030270013085,
+      "canonical_failed_tests": []
+    }
+  },
+  "sixth_mutation": {
+    "core": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_6/Q6_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/Q6_core.xml",
+        "tests/test_l1_6_belief.py"
+      ],
+      "total": 16,
+      "passed": 16,
+      "failed": 0,
+      "failed_tests": [],
+      "failed_test_functions": [],
+      "errors": [],
+      "skipped": [],
+      "returncode": 0,
+      "log": "Q6_core.txt",
+      "junit": "Q6_core.xml",
+      "wall_seconds": 2.493427139999767,
+      "canonical_failed_tests": []
+    },
+    "extra": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_6/Q6_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_6/Q6_extra.xml",
+        "tests/test_l1_6_reference.py"
+      ],
+      "total": 3,
+      "passed": 2,
+      "failed": 1,
+      "failed_tests": [
+        "test_three_slot_m0_conditions_nonzero_off_rate"
+      ],
+      "failed_test_functions": [
+        "test_three_slot_m0_conditions_nonzero_off_rate"
+      ],
+      "errors": [],
+      "skipped": [],
+      "returncode": 1,
+      "log": "Q6_extra.txt",
+      "junit": "Q6_extra.xml",
+      "wall_seconds": 0.23759930300002452,
+      "canonical_failed_tests": []
+    }
+  },
+  "elapsed_seconds": 25.218078025000068,
+  "scope": "finite toy E0/E1; posterior verified only under declared initialization/history; no physical timescale, network or novelty validation"
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="13" time="2.973" timestamp="2026-10-22T17:21:30.536020+07:00" hostname="vantai"><testcase classname="tests.test_l1_7_streams" name="test_tape_example_from_part1" time="0.001"><failure message="AssertionError: assert ['off', 'on',..., 'off', 'on'] == ['off', 'off'... 'off', 'off']&#10;  &#10;  At index 1 diff: 'on' != 'off'&#10;  Use -v to get more diff">def test_tape_example_from_part1():
+        tape = [0.31, 0.72, 0.05, 0.88, 0.46, 0.63]
+        b_st = background_B(XB, TH6, tape[0:5])
+        b_sw = background_B(XB, TH6, tape[1:6])                 # Switch rút trước một số
+&gt;       assert mode_path("off", tape[0:5], F(1, 2), F(1, 2)) == ["off", "off", "on", "on", "off", "off"]
+E       AssertionError: assert ['off', 'on',..., 'off', 'on'] == ['off', 'off'... 'off', 'off']
+E         
+E         At index 1 diff: 'on' != 'off'
+E         Use -v to get more diff
+
+tests/test_l1_7_streams.py:32: AssertionError</failure></testcase><testcase classname="tests.test_l1_7_streams" name="test_naive_differs_only_because_of_the_extra_draw" time="0.510" /><testcase classname="tests.test_l1_7_streams" name="test_primitive_gives_identical_futures_whatever_the_branch_draws[0]" time="0.322" /><testcase classname="tests.test_l1_7_streams" name="test_primitive_gives_identical_futures_whatever_the_branch_draws[1]" time="0.310" /><testcase classname="tests.test_l1_7_streams" name="test_primitive_gives_identical_futures_whatever_the_branch_draws[7]" time="0.295" /><testcase classname="tests.test_l1_7_streams" name="test_draws_on_other_streams_do_not_move_B" time="0.021" /><testcase classname="tests.test_l1_7_streams" name="test_episode_replay_and_order_independence" time="0.002" /><testcase classname="tests.test_l1_7_streams" name="test_stream_key_refuses_labels" time="0.000" /><testcase classname="tests.test_l1_7_streams" name="test_identity2_detector_zero_under_crn_nonzero_under_naive" time="0.425" /><testcase classname="tests.test_l1_7_streams" name="test_naive_is_unbiased_but_noisier" time="0.408" /><testcase classname="tests.test_l1_7_streams" name="test_sampler_matches_exact_J_on_asymmetric_chain" time="0.167"><failure message="AssertionError: ((2, 2, 'on'), 'Stay')&#10;assert np.float64(10.173375) &lt;= ((3 * np.float64(5.203656096283092)) / np.float64(44.721359549995796))&#10; +  where np.float64(10.173375) = abs((np.float64(17.9985) - 28.171875))&#10; +    where np.float64(17.9985) = &lt;built-in method mean of numpy.ndarray object at 0x710ff4427cf0&gt;()&#10; +      where &lt;built-in method mean of numpy.ndarray object at 0x710ff4427cf0&gt; = array([36., 16., 16., ..., 31., 21., 31.], shape=(2000,)).mean&#10; +    and   28.171875 = float(Fraction(1803, 64))&#10; +      where Fraction(1803, 64) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})&#10; +  and   np.float64(5.203656096283092) = &lt;built-in method std of numpy.ndarray object at 0x710ff4427cf0&gt;(ddof=1)&#10; +    where &lt;built-in method std of numpy.ndarray object at 0x710ff4427cf0&gt; = array([36., 16., 16., ..., 31., 21., 31.], shape=(2000,)).std&#10; +  and   np.float64(44.721359549995796) = &lt;ufunc 'sqrt'&gt;(2000)&#10; +    where &lt;ufunc 'sqrt'&gt; = np.sqrt">def test_sampler_matches_exact_J_on_asymmetric_chain():
+        # p ≠ s: sai quy ước "u &lt; P(giữ)" sẽ đổi phân phối. Với p = s = ½ thì không lộ.
+        th = dict(CANON, H=4, p_onon=F(3, 4), p_offoff=F(1, 2))
+        for x in [(2, 2, "on"), (2, 0, "off")]:
+            for a in ("Stay", "Switch"):
+                c = np.array([path_costs(x, th, *primitive_two_actions(DEMO_ROOT, i, x, th, 0))[a][0]
+                              for i in range(N)], float)
+&gt;               assert abs(c.mean() - float(expected_cost(x, a, th))) &lt;= 3 * c.std(ddof=1) / np.sqrt(N), (x, a)
+E               AssertionError: ((2, 2, 'on'), 'Stay')
+E               assert np.float64(10.173375) &lt;= ((3 * np.float64(5.203656096283092)) / np.float64(44.721359549995796))
+E                +  where np.float64(10.173375) = abs((np.float64(17.9985) - 28.171875))
+E                +    where np.float64(17.9985) = &lt;built-in method mean of numpy.ndarray object at 0x710ff4427cf0&gt;()
+E                +      where &lt;built-in method mean of numpy.ndarray object at 0x710ff4427cf0&gt; = array([36., 16., 16., ..., 31., 21., 31.], shape=(2000,)).mean
+E                +    and   28.171875 = float(Fraction(1803, 64))
+E                +      where Fraction(1803, 64) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E                +  and   np.float64(5.203656096283092) = &lt;built-in method std of numpy.ndarray object at 0x710ff4427cf0&gt;(ddof=1)
+E                +    where &lt;built-in method std of numpy.ndarray object at 0x710ff4427cf0&gt; = array([36., 16., 16., ..., 31., 21., 31.], shape=(2000,)).std
+E                +  and   np.float64(44.721359549995796) = &lt;ufunc 'sqrt'&gt;(2000)
+E                +    where &lt;ufunc 'sqrt'&gt; = np.sqrt
+
+tests/test_l1_7_streams.py:124: AssertionError</failure></testcase><testcase classname="tests.test_l1_7_streams" name="test_leaky_mk_beats_the_oracle_honest_mk_does_not" time="0.299" /><testcase classname="tests.test_l1_7_streams" name="test_canonical_example_is_blind_to_the_leak" time="0.160" /></testsuite></testsuites>

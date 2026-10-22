@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="16" time="1.244" timestamp="2026-10-22T11:21:19.219629+07:00" hostname="vantai"><testcase classname="tests.test_l1_6_belief" name="test_belief_canonical_one_observation" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_belief_canonical_older_observation_tau2" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_belief_two_observations_eliminates_and_renormalises" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_belief_is_joint_not_product_of_marginals" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_impossible_observation_raises" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_m0_golden_canonical" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_m0_exact_when_no_queue_can_empty" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_property_7h_m0_never_above_m1_on_grid" time="0.120" /><testcase classname="tests.test_l1_6_belief" name="test_predict_averages_predictions_not_states" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_end_to_end_canonical_matches_L14" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D0]" time="0.005"><failure message="assert Fraction(1, 8) == 0">prior_D = Fraction(1, 4)
+
+    @pytest.mark.parametrize("prior_D",[F(1,4),F(1,2),F(3,4)])
+    def test_property_7c_bayes_decision_on_grid(prior_D):
+        for th,y,D in _grid(prior_D):
+            L,_,b = factorial_end_to_end([(-1,y)],th,prior_D,D)
+            best = min(sum(p*expected_cost(x,a,th) for x,p in D.items()) for a in ("Stay","Switch"))
+            assert L["01"] == best
+            assert C(L)["G_M"] &gt;= 0 and C(L)["G_S|M1"] &gt;= 0
+            d00 = predict(b,"Switch","M0",th)-predict(b,"Stay","M0",th)
+            d01 = predict(b,"Switch","M1",th)-predict(b,"Stay","M1",th)
+            mean = sum(p*i_delta(d00,m0_cost(x,"Switch",th)-m0_cost(x,"Stay",th),d01,
+                                expected_cost(x,"Switch",th)-expected_cost(x,"Stay",th)) for x,p in D.items())
+&gt;           assert mean == 0
+E           assert Fraction(1, 8) == 0
+
+tests/test_l1_6_belief.py:103: AssertionError</failure></testcase><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D1]" time="0.537" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D2]" time="0.005"><failure message="assert Fraction(-1, 8) == 0">prior_D = Fraction(3, 4)
+
+    @pytest.mark.parametrize("prior_D",[F(1,4),F(1,2),F(3,4)])
+    def test_property_7c_bayes_decision_on_grid(prior_D):
+        for th,y,D in _grid(prior_D):
+            L,_,b = factorial_end_to_end([(-1,y)],th,prior_D,D)
+            best = min(sum(p*expected_cost(x,a,th) for x,p in D.items()) for a in ("Stay","Switch"))
+            assert L["01"] == best
+            assert C(L)["G_M"] &gt;= 0 and C(L)["G_S|M1"] &gt;= 0
+            d00 = predict(b,"Switch","M0",th)-predict(b,"Stay","M0",th)
+            d01 = predict(b,"Switch","M1",th)-predict(b,"Stay","M1",th)
+            mean = sum(p*i_delta(d00,m0_cost(x,"Switch",th)-m0_cost(x,"Stay",th),d01,
+                                expected_cost(x,"Switch",th)-expected_cost(x,"Stay",th)) for x,p in D.items())
+&gt;           assert mean == 0
+E           assert Fraction(-1, 8) == 0
+
+tests/test_l1_6_belief.py:103: AssertionError</failure></testcase><testcase classname="tests.test_l1_6_belief" name="test_the_7c_check_can_fail_when_prior_is_wrong" time="0.525" /><testcase classname="tests.test_l1_6_belief" name="test_tau0_cell_splits_G_S" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_persistence_variants_golden" time="0.003" /></testsuite></testsuites>

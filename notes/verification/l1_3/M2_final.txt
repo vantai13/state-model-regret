@@ -1,0 +1,51 @@
+..FF...FF                                                                [100%]
+=================================== FAILURES ===================================
+__________________ test_expected_costs_match_hand_calculation __________________
+
+    def test_expected_costs_match_hand_calculation():
+        # Golden answers supplied in the lesson, not a record of completed author exercises.
+        for state, (stay, switch) in EXPECTED_COSTS.items():
+>           assert expected_cost(state, "Stay", CANON) == stay
+E           AssertionError: assert Fraction(33, 4) == Fraction(23, 2)
+E            +  where Fraction(33, 4) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+
+tests/test_l1_3_expected_cost.py:25: AssertionError
+_______________ test_oracle_rule_on_means_stay_off_means_switch ________________
+
+    def test_oracle_rule_on_means_stay_off_means_switch():
+        for state in EXPECTED_COSTS:
+>           assert oracle(state, CANON)[0] == ("Stay" if state[2] == "on" else "Switch")
+E           AssertionError: assert 'Stay' == 'Switch'
+E             
+E             - Switch
+E             + Stay
+
+tests/test_l1_3_expected_cost.py:31: AssertionError
+___________________ test_oracle_cost_and_fixed_rule_regrets ____________________
+
+    def test_oracle_cost_and_fixed_rule_regrets():
+        episodes = generate_episodes((2, 0), 1, CANON, F(1, 2))
+        l_star = sum(pr * min(expected_cost(x, action, CANON) for action in ("Stay", "Switch"))
+                     for x, pr in episodes.items())
+        l_stay = sum(pr * expected_cost(x, "Stay", CANON) for x, pr in episodes.items())
+        l_switch = sum(pr * expected_cost(x, "Switch", CANON) for x, pr in episodes.items())
+>       assert l_star == F(25, 4)
+E       assert Fraction(7, 1) == Fraction(25, 4)
+E        +  where Fraction(25, 4) = F(25, 4)
+
+tests/test_l1_3_expected_cost.py:63: AssertionError
+____________ test_asymmetric_chain_weights_branches_by_probability _____________
+
+    def test_asymmetric_chain_weights_branches_by_probability():
+        th = dict(CANON, p_onon=F(3, 4), p_offoff=F(1, 4))
+>       assert expected_cost(X_B, "Stay", th) == ASYMMETRIC_EXPECTED_COSTS[0]
+E       AssertionError: assert Fraction(175, 16) == Fraction(11, 2)
+E        +  where Fraction(175, 16) = expected_cost((2, 2, 'off'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+
+tests/test_l1_3_expected_cost.py:70: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_3_expected_cost.py::test_expected_costs_match_hand_calculation
+FAILED tests/test_l1_3_expected_cost.py::test_oracle_rule_on_means_stay_off_means_switch
+FAILED tests/test_l1_3_expected_cost.py::test_oracle_cost_and_fixed_rule_regrets
+FAILED tests/test_l1_3_expected_cost.py::test_asymmetric_chain_weights_branches_by_probability
+4 failed, 5 passed in 0.05s

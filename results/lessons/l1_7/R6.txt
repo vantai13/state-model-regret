@@ -1,0 +1,41 @@
+..........F.F                                                            [100%]
+=================================== FAILURES ===================================
+_______________ test_sampler_matches_exact_J_on_asymmetric_chain _______________
+
+    def test_sampler_matches_exact_J_on_asymmetric_chain():
+        # p ≠ s: sai quy ước "u < P(giữ)" sẽ đổi phân phối. Với p = s = ½ thì không lộ.
+        th = dict(CANON, H=4, p_onon=F(3, 4), p_offoff=F(1, 2))
+        for x in [(2, 2, "on"), (2, 0, "off")]:
+            for a in ("Stay", "Switch"):
+                c = np.array([path_costs(x, th, *primitive_two_actions(DEMO_ROOT, i, x, th, 0))[a][0]
+                              for i in range(N)], float)
+>               assert abs(c.mean() - float(expected_cost(x, a, th))) <= 3 * c.std(ddof=1) / np.sqrt(N), (x, a)
+E               AssertionError: ((2, 2, 'on'), 'Stay')
+E               assert np.float64(14.173875) <= ((3 * np.float64(4.359988618147435)) / np.float64(44.721359549995796))
+E                +  where np.float64(14.173875) = abs((np.float64(13.998) - 28.171875))
+E                +    where np.float64(13.998) = <built-in method mean of numpy.ndarray object at 0x7e5b80f0ef70>()
+E                +      where <built-in method mean of numpy.ndarray object at 0x7e5b80f0ef70> = array([12.,  8.,  8., ..., 12., 15., 10.], shape=(2000,)).mean
+E                +    and   28.171875 = float(Fraction(1803, 64))
+E                +      where Fraction(1803, 64) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E                +  and   np.float64(4.359988618147435) = <built-in method std of numpy.ndarray object at 0x7e5b80f0ef70>(ddof=1)
+E                +    where <built-in method std of numpy.ndarray object at 0x7e5b80f0ef70> = array([12.,  8.,  8., ..., 12., 15., 10.], shape=(2000,)).std
+E                +  and   np.float64(44.721359549995796) = <ufunc 'sqrt'>(2000)
+E                +    where <ufunc 'sqrt'> = np.sqrt
+
+tests/test_l1_7_streams.py:124: AssertionError
+_________________ test_canonical_example_is_blind_to_the_leak __________________
+
+    def test_canonical_example_is_blind_to_the_leak():
+        for x in [(2, 2, "on"), (2, 2, "off"), (2, 0, "on"), (2, 0, "off")]:
+            m = _measured_costs(x, CANON, 300)
+>           assert np.array_equal(m["leak"], m["oracle"]), x
+E           AssertionError: (2, 2, 'on')
+E           assert False
+E            +  where False = <function array_equal at 0x7e5b9c762c30>(array([6., 1., 1., 6., 6., 6., 6., 1., 6., 6., 1., 6., 1., 6., 1., 1., 6.,\n       1., 6., 1., 1., 1., 6., 6., 6., 1., ...6., 1., 1., 6., 1., 6., 6., 1., 1., 6., 1., 1., 6., 1., 1., 1., 6.,\n       6., 1., 1., 6., 6., 6., 1., 1., 6., 6., 6.]), array([6., 4., 4., 6., 6., 6., 6., 4., 6., 6., 4., 6., 4., 6., 4., 4., 6.,\n       4., 6., 4., 4., 4., 6., 6., 6., 4., ...6., 4., 4., 6., 4., 6., 6., 4., 4., 6., 4., 4., 6., 4., 4., 4., 6.,\n       6., 4., 4., 6., 6., 6., 4., 4., 6., 6., 6.]))
+E            +    where <function array_equal at 0x7e5b9c762c30> = np.array_equal
+
+tests/test_l1_7_streams.py:155: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_7_streams.py::test_sampler_matches_exact_J_on_asymmetric_chain
+FAILED tests/test_l1_7_streams.py::test_canonical_example_is_blind_to_the_leak
+2 failed, 11 passed in 2.73s

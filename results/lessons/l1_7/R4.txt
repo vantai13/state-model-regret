@@ -1,0 +1,23 @@
+...........F.                                                            [100%]
+=================================== FAILURES ===================================
+______________ test_leaky_mk_beats_the_oracle_honest_mk_does_not _______________
+
+    def test_leaky_mk_beats_the_oracle_honest_mk_does_not():
+        m = _measured_costs(XB, TH3, N)              # chính xác: oracle 31/4, rò 13/2, đúng luật 65/8
+        assert np.all(m["leak"] <= m["oracle"])      # rò: không bao giờ thua oracle, ở MỌI episode
+        gap = m["oracle"] - m["leak"]
+        assert gap.mean() > 3 * gap.std(ddof=1) / np.sqrt(N)
+        excess = m["honest"] - m["oracle"]
+>       assert excess.mean() >= -3 * excess.std(ddof=1) / np.sqrt(N)
+E       AssertionError: assert np.float64(-1.2635) >= ((-3 * np.float64(1.2995815503857584)) / np.float64(44.721359549995796))
+E        +  where np.float64(-1.2635) = <built-in method mean of numpy.ndarray object at 0x732f6bfe2e50>()
+E        +    where <built-in method mean of numpy.ndarray object at 0x732f6bfe2e50> = array([-2.,  0.,  0., ..., -2., -3., -2.], shape=(2000,)).mean
+E        +  and   np.float64(1.2995815503857584) = <built-in method std of numpy.ndarray object at 0x732f6bfe2e50>(ddof=1)
+E        +    where <built-in method std of numpy.ndarray object at 0x732f6bfe2e50> = array([-2.,  0.,  0., ..., -2., -3., -2.], shape=(2000,)).std
+E        +  and   np.float64(44.721359549995796) = <ufunc 'sqrt'>(2000)
+E        +    where <ufunc 'sqrt'> = np.sqrt
+
+tests/test_l1_7_streams.py:148: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_7_streams.py::test_leaky_mk_beats_the_oracle_honest_mk_does_not
+1 failed, 12 passed in 3.34s

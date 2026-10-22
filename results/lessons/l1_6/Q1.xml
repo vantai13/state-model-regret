@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="16" time="2.314" timestamp="2026-10-22T11:21:11.296836+07:00" hostname="vantai"><testcase classname="tests.test_l1_6_belief" name="test_belief_canonical_one_observation" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_belief_canonical_older_observation_tau2" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_belief_two_observations_eliminates_and_renormalises" time="0.001"><failure message="AssertionError: assert {(2, 4, 'on')...action(1, 32)} == {(2, 4, 'on')...action(1, 16)}&#10;  &#10;  Differing items:&#10;  {(2, 0, 'off'): Fraction(3, 32)} != {(2, 0, 'off'): Fraction(3, 16)}&#10;  {(2, 0, 'on'): Fraction(1, 32)} != {(2, 0, 'on'): Fraction(1, 16)}&#10;  {(2, 4, 'off'): Fraction(3, 32)} != {(2, 4, 'off'): Fraction(3, 16)}&#10;  {(2, 4, 'on'): Fraction(9, 32)} != {(2, 4, 'on'): Fraction(9, 16)}&#10;  Use -v to get more diff">def test_belief_two_observations_eliminates_and_renormalises():
+        history = [(-2,(2,0)),(-1,(2,2))]
+&gt;       assert belief(history, P34, F(1,2)) == BELIEF_TWO_OBS_UP
+E       AssertionError: assert {(2, 4, 'on')...action(1, 32)} == {(2, 4, 'on')...action(1, 16)}
+E         
+E         Differing items:
+E         {(2, 0, 'off'): Fraction(3, 32)} != {(2, 0, 'off'): Fraction(3, 16)}
+E         {(2, 0, 'on'): Fraction(1, 32)} != {(2, 0, 'on'): Fraction(1, 16)}
+E         {(2, 4, 'off'): Fraction(3, 32)} != {(2, 4, 'off'): Fraction(3, 16)}
+E         {(2, 4, 'on'): Fraction(9, 32)} != {(2, 4, 'on'): Fraction(9, 16)}
+E         Use -v to get more diff
+
+tests/test_l1_6_belief.py:38: AssertionError</failure></testcase><testcase classname="tests.test_l1_6_belief" name="test_belief_is_joint_not_product_of_marginals" time="0.001"><failure message="assert (Fraction(3, 8) * Fraction(5, 16)) == Fraction(15, 32)&#10; +  where Fraction(15, 32) = F(15, 32)">def test_belief_is_joint_not_product_of_marginals():
+        b = belief([(-2,(2,0)),(-1,(2,2))], P34, F(1,2))
+        p_q4 = sum(p for x,p in b.items() if x[1] == 4)
+        p_on = sum(p for x,p in b.items() if x[2] == "on")
+&gt;       assert p_q4*p_on == F(15,32) != b[(2,4,"on")] == F(9,16)
+E       assert (Fraction(3, 8) * Fraction(5, 16)) == Fraction(15, 32)
+E        +  where Fraction(15, 32) = F(15, 32)
+
+tests/test_l1_6_belief.py:47: AssertionError</failure></testcase><testcase classname="tests.test_l1_6_belief" name="test_impossible_observation_raises" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_m0_golden_canonical" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_m0_exact_when_no_queue_can_empty" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_property_7h_m0_never_above_m1_on_grid" time="0.125" /><testcase classname="tests.test_l1_6_belief" name="test_predict_averages_predictions_not_states" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_end_to_end_canonical_matches_L14" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D0]" time="0.542" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D1]" time="0.529" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D2]" time="0.541" /><testcase classname="tests.test_l1_6_belief" name="test_the_7c_check_can_fail_when_prior_is_wrong" time="0.524" /><testcase classname="tests.test_l1_6_belief" name="test_tau0_cell_splits_G_S" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_persistence_variants_golden" time="0.003" /></testsuite></testsuites>

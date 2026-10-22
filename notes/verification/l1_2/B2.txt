@@ -1,0 +1,47 @@
+....FFF....                                                              [100%]
+=================================== FAILURES ===================================
+________________________ test_dl010_question_1_no_idle _________________________
+
+    def test_dl010_question_1_no_idle():
+        case = TWO_QUEUE_CASES["dl010_no_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>       assert (stay, switch) == case["costs"]
+E       assert (57, 57) == (37, 37)
+E         
+E         At index 0 diff: 57 != 37
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:43: AssertionError
+_______________________ test_dl010_question_2_with_idle ________________________
+
+    def test_dl010_question_2_with_idle():
+        case = TWO_QUEUE_CASES["dl010_with_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>       assert (stay, switch) == case["costs"]
+E       assert (33, 27) == (23, 17)
+E         
+E         At index 0 diff: 33 != 23
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:51: AssertionError
+_______________________ test_canonical_x_d_both_branches _______________________
+
+    def test_canonical_x_d_both_branches():
+        for name in ("canonical_B_on", "canonical_B_off"):
+            case = TWO_QUEUE_CASES[name]
+            stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+            switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>           assert (stay, switch) == case["costs"]
+E           assert (8, 6) == (6, 4)
+E             
+E             At index 0 diff: 8 != 6
+E             Use -v to get more diff
+
+tests/test_l1_2_queue.py:61: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_2_queue.py::test_dl010_question_1_no_idle - assert (57, ...
+FAILED tests/test_l1_2_queue.py::test_dl010_question_2_with_idle - assert (33...
+FAILED tests/test_l1_2_queue.py::test_canonical_x_d_both_branches - assert (8...
+3 failed, 8 passed in 0.13s

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="9" time="0.046" timestamp="2026-10-21T17:03:47.794651+07:00" hostname="vantai"><testcase classname="tests.test_l1_3_expected_cost" name="test_mode_path_probabilities_sum_to_one" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_episodes_generated_from_plant_D12" time="0.000" /><testcase classname="tests.test_l1_3_expected_cost" name="test_expected_costs_match_hand_calculation" time="0.001"><failure message="AssertionError: assert Fraction(33, 4) == Fraction(23, 2)&#10; +  where Fraction(33, 4) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})">def test_expected_costs_match_hand_calculation():
+        # Golden answers supplied in the lesson, not a record of completed author exercises.
+        for state, (stay, switch) in EXPECTED_COSTS.items():
+&gt;           assert expected_cost(state, "Stay", CANON) == stay
+E           AssertionError: assert Fraction(33, 4) == Fraction(23, 2)
+E            +  where Fraction(33, 4) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+
+tests/test_l1_3_expected_cost.py:25: AssertionError</failure></testcase><testcase classname="tests.test_l1_3_expected_cost" name="test_oracle_rule_on_means_stay_off_means_switch" time="0.001"><failure message="AssertionError: assert 'Stay' == 'Switch'&#10;  &#10;  - Switch&#10;  + Stay">def test_oracle_rule_on_means_stay_off_means_switch():
+        for state in EXPECTED_COSTS:
+&gt;           assert oracle(state, CANON)[0] == ("Stay" if state[2] == "on" else "Switch")
+E           AssertionError: assert 'Stay' == 'Switch'
+E             
+E             - Switch
+E             + Stay
+
+tests/test_l1_3_expected_cost.py:31: AssertionError</failure></testcase><testcase classname="tests.test_l1_3_expected_cost" name="test_delta_equals_expected_weighted_idle_difference" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_zero_action_gives_zero_delta" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_non_degenerate_every_state" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_oracle_cost_and_fixed_rule_regrets" time="0.001"><failure message="assert Fraction(7, 1) == Fraction(25, 4)&#10; +  where Fraction(25, 4) = F(25, 4)">def test_oracle_cost_and_fixed_rule_regrets():
+        episodes = generate_episodes((2, 0), 1, CANON, F(1, 2))
+        l_star = sum(pr * min(expected_cost(x, action, CANON) for action in ("Stay", "Switch"))
+                     for x, pr in episodes.items())
+        l_stay = sum(pr * expected_cost(x, "Stay", CANON) for x, pr in episodes.items())
+        l_switch = sum(pr * expected_cost(x, "Switch", CANON) for x, pr in episodes.items())
+&gt;       assert l_star == F(25, 4)
+E       assert Fraction(7, 1) == Fraction(25, 4)
+E        +  where Fraction(25, 4) = F(25, 4)
+
+tests/test_l1_3_expected_cost.py:63: AssertionError</failure></testcase><testcase classname="tests.test_l1_3_expected_cost" name="test_asymmetric_chain_weights_branches_by_probability" time="0.000"><failure message="AssertionError: assert Fraction(175, 16) == Fraction(11, 2)&#10; +  where Fraction(175, 16) = expected_cost((2, 2, 'off'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})">def test_asymmetric_chain_weights_branches_by_probability():
+        th = dict(CANON, p_onon=F(3, 4), p_offoff=F(1, 4))
+&gt;       assert expected_cost(X_B, "Stay", th) == ASYMMETRIC_EXPECTED_COSTS[0]
+E       AssertionError: assert Fraction(175, 16) == Fraction(11, 2)
+E        +  where Fraction(175, 16) = expected_cost((2, 2, 'off'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+
+tests/test_l1_3_expected_cost.py:70: AssertionError</failure></testcase></testsuite></testsuites>

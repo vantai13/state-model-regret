@@ -1,0 +1,26 @@
+# Sổ seed của repo hiện tại
+
+Người phụ trách: **Doan Van Tai** · Cập nhật: **22/10/2026**.
+“Đã xem” là đã đọc một đại lượng nghiên cứu từ seed/regime; xem thêm
+[exposure register](00_exposure_register.md), gồm các seed lịch sử không được cấp lại.
+Sổ này không xác nhận exposure trên mọi máy/sandbox.
+
+| Stage | Root | Vai trò / phạm vi | Ngày tiếp nhận | Trạng thái | Regime / artifact |
+|---|---|---|---|---|---|
+| lesson-demo | 144558766427411771296652109119745142241 | future,predictor,branch; episode0–1999 | 22/10/2026 | Đã exposed qua đáp án tài liệu; được cấp cho demo L1.7 | [Card](lessons/L1.7_experiment_card.md), [config](../results/lessons/l1_7/config.json) |
+| discovery | Chưa cấp | Phase4 | — | Chưa sinh/mở | Chờ L1.8/V10 |
+| calibration | Chưa cấp | Fit H0/H1 | — | Chưa sinh/mở | Chờ protocol |
+| confirmation | Chưa cấp | Sau freeze | — | Chưa sinh/mở | Chờ seed và regime chưa exposed |
+
+Root demo được chép nguyên từ tài liệu L1.7 Part2. Tài liệu nói sinh bằng
+SeedSequence().entropy ngày09/10/2026; đây là provenance do nguồn cung cấp,
+không phải entropy sinh mới hoặc lịch sử đã được kiểm độc lập tại repo này.
+Root này lớn hơn mọi dải số nguyên cũ được liệt kê trong exposure register;
+điều đó không làm regime đã xem trở thành held-out. Không dùng demo cho claim nghiên cứu.
+
+Draft cho demo: gốc theo stage, khóa con chỉ role và integer index≥0;
+future=(1,episode,path), predictor=(2,episode), branch=(3,episode), episode=(0,episode).
+Không đưa cell/action/model/K/variant vào khóa. Numeric encoding vẫn có thể vi phạm quy ước;
+interface chưa cô lập quyền đọc. Chờ thẻ8 L1.8 khóa kiến trúc research contract v1.
+Predictor hiện rút tuần tự K mẫu: prefix nested nếu cùng root/episode/H;
+chưa có stream riêng theo sample k. RNG NumPy2.5.3/PCG64 được ghi trong config mỗi lần chạy.

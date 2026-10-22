@@ -1,0 +1,75 @@
+....FFFFF..                                                              [100%]
+=================================== FAILURES ===================================
+________________________ test_dl010_question_1_no_idle _________________________
+
+    def test_dl010_question_1_no_idle():
+        case = TWO_QUEUE_CASES["dl010_no_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>       assert (stay, switch) == case["costs"]
+E       assert (37, 43) == (37, 37)
+E         
+E         At index 1 diff: 43 != 37
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:43: AssertionError
+_______________________ test_dl010_question_2_with_idle ________________________
+
+    def test_dl010_question_2_with_idle():
+        case = TWO_QUEUE_CASES["dl010_with_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>       assert (stay, switch) == case["costs"]
+E       assert (23, 23) == (23, 17)
+E         
+E         At index 1 diff: 23 != 17
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:51: AssertionError
+_______________________ test_canonical_x_d_both_branches _______________________
+
+    def test_canonical_x_d_both_branches():
+        for name in ("canonical_B_on", "canonical_B_off"):
+            case = TWO_QUEUE_CASES[name]
+            stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+            switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+>           assert (stay, switch) == case["costs"]
+E           assert (6, 8) == (6, 4)
+E             
+E             At index 1 diff: 8 != 4
+E             Use -v to get more diff
+
+tests/test_l1_2_queue.py:61: AssertionError
+_______________ test_identity_cost_difference_on_exhaustive_grid _______________
+
+    def test_identity_cost_difference_on_exhaustive_grid():
+        count = 0
+        for cfg in _grid():
+            stay, idle_st = two_queue_cost(action="Stay", **cfg)
+            switch, idle_sw = two_queue_cost(action="Switch", **cfg)
+>           assert switch - stay == weighted_idle_diff(idle_sw, idle_st), cfg
+E           AssertionError: {'q0': (0, 0), 'bA': [0, 0], 'bB': [0, 0], 'u': 2, ...}
+E           assert (0 - 0) == -6
+E            +  where -6 = weighted_idle_diff([0, 0], [2, 2])
+
+tests/test_l1_2_queue.py:76: AssertionError
+________________ test_negative_control_no_idle_means_equal_cost ________________
+
+    def test_negative_control_no_idle_means_equal_cost():
+        count = 0
+        for cfg in _grid():
+            stay, idle_st = two_queue_cost(action="Stay", **cfg)
+            switch, idle_sw = two_queue_cost(action="Switch", **cfg)
+            if sum(idle_st) == sum(idle_sw) == 0:
+>               assert stay == switch, cfg
+E               AssertionError: {'q0': (0, 0), 'bA': [0, 0], 'bB': [4, 0], 'u': 2, ...}
+E               assert 2 == 8
+
+tests/test_l1_2_queue.py:87: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_2_queue.py::test_dl010_question_1_no_idle - assert (37, ...
+FAILED tests/test_l1_2_queue.py::test_dl010_question_2_with_idle - assert (23...
+FAILED tests/test_l1_2_queue.py::test_canonical_x_d_both_branches - assert (6...
+FAILED tests/test_l1_2_queue.py::test_identity_cost_difference_on_exhaustive_grid
+FAILED tests/test_l1_2_queue.py::test_negative_control_no_idle_means_equal_cost
+5 failed, 6 passed in 0.06s

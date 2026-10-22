@@ -1,0 +1,43 @@
+..FFF...........                                                         [100%]
+=================================== FAILURES ===================================
+___________ test_belief_two_observations_eliminates_and_renormalises ___________
+
+    def test_belief_two_observations_eliminates_and_renormalises():
+        history = [(-2,(2,0)),(-1,(2,2))]
+>       assert belief(history, P34, F(1,2)) == BELIEF_TWO_OBS_UP
+E       AssertionError: assert {(2, 4, 'on')...on(1, 8), ...} == {(2, 4, 'on')...action(1, 16)}
+E         
+E         Differing items:
+E         {(2, 4, 'off'): Fraction(3, 32)} != {(2, 4, 'off'): Fraction(3, 16)}
+E         {(2, 4, 'on'): Fraction(9, 32)} != {(2, 4, 'on'): Fraction(9, 16)}
+E         {(2, 0, 'off'): Fraction(3, 8)} != {(2, 0, 'off'): Fraction(3, 16)}
+E         {(2, 0, 'on'): Fraction(1, 8)} != {(2, 0, 'on'): Fraction(1, 16)}
+E         Left contains 2 more items:
+E         {(2, 2, 'off'): Fraction(1, 32), (2, 2, 'on'): Fraction(3, 32)}
+E         Use -v to get more diff
+
+tests/test_l1_6_belief.py:38: AssertionError
+________________ test_belief_is_joint_not_product_of_marginals _________________
+
+    def test_belief_is_joint_not_product_of_marginals():
+        b = belief([(-2,(2,0)),(-1,(2,2))], P34, F(1,2))
+        p_q4 = sum(p for x,p in b.items() if x[1] == 4)
+        p_on = sum(p for x,p in b.items() if x[2] == "on")
+>       assert p_q4*p_on == F(15,32) != b[(2,4,"on")] == F(9,16)
+E       assert (Fraction(3, 8) * Fraction(1, 2)) == Fraction(15, 32)
+E        +  where Fraction(15, 32) = F(15, 32)
+
+tests/test_l1_6_belief.py:47: AssertionError
+______________________ test_impossible_observation_raises ______________________
+
+    def test_impossible_observation_raises():
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/test_l1_6_belief.py:51: Failed
+=========================== short test summary info ============================
+FAILED tests/test_l1_6_belief.py::test_belief_two_observations_eliminates_and_renormalises
+FAILED tests/test_l1_6_belief.py::test_belief_is_joint_not_product_of_marginals
+FAILED tests/test_l1_6_belief.py::test_impossible_observation_raises - Failed...
+3 failed, 13 passed in 2.30s

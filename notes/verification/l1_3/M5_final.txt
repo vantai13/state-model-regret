@@ -1,0 +1,14 @@
+........F                                                                [100%]
+=================================== FAILURES ===================================
+____________ test_asymmetric_chain_weights_branches_by_probability _____________
+
+    def test_asymmetric_chain_weights_branches_by_probability():
+        th = dict(CANON, p_onon=F(3, 4), p_offoff=F(1, 4))
+>       assert expected_cost(X_B, "Stay", th) == ASYMMETRIC_EXPECTED_COSTS[0]
+E       AssertionError: assert Fraction(5, 1) == Fraction(11, 2)
+E        +  where Fraction(5, 1) = expected_cost((2, 2, 'off'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+
+tests/test_l1_3_expected_cost.py:70: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_3_expected_cost.py::test_asymmetric_chain_weights_branches_by_probability
+1 failed, 8 passed in 0.03s

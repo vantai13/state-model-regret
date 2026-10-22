@@ -115,6 +115,8 @@ Trong cùng episode, bốn pipeline được đánh giá với cùng true state,
 
 Theo bảng running example tác giả cung cấp, được gắn nguồn Master Plan II.6 trong [EV-22](00_evidence_inventory.md). Chưa có bản Master Plan đầy đủ để đối chiếu nguồn và cách sinh các predicted cost. Đây là kiểm đại số của bảng được cung cấp, chưa là tái lập plant hoặc bằng chứng về mạng.
 
+**Cập nhật 21/10/2026 — L1.3:** ghi nhãn bảng lịch sử này là **ví dụ sổ sách, không phải episode sinh từ plant** theo cấu hình được trích ở L1.3 Part 1 §13: A nhận đúng capacity trước t0, nên observation A=0 không thể tiến thành state thật A=2. Liệt kê lại cho J=4 và 5/4 ở c_sw=0; cost 4/4,25 của bảng cũ có c_sw=3, khác cấu hình hiện hành. Bảng dưới giữ để kiểm đại số; episode chuẩn L1.3 thay nó trong phần J phía sau. [Báo cáo](verification/l1_3/report.md); chưa kiểm Master Plan gốc đầy đủ.
+
 Để dùng $L,G,\Gamma$ đúng contract, phần này xét $D$ suy biến gồm đúng episode minh họa; với một episode thuộc $D$ tổng quát phải dùng $\ell,g,\gamma$. Các giá trị $J$ là **expected cost theo tương lai**, không phải cost của một realization ngẫu nhiên:
 
 $$

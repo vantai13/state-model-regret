@@ -1,0 +1,88 @@
+FFFFF...FF.                                                              [100%]
+=================================== FAILURES ===================================
+___________________ test_20_18_complements_when_errors_large ___________________
+
+    def test_20_18_complements_when_errors_large():
+        c = C(table_from_additive(20, 18, 3, 3))
+>       assert (c["G_S"], c["G_M"], c["G_SM"], c["Gamma"]) == (0, 0, 2, 2)
+E       assert (0, 0, 2, -2) == (0, 0, 2, 2)
+E         
+E         At index 3 diff: -2 != 2
+E         Use -v to get more diff
+
+tests/test_l1_4_factorial.py:21: AssertionError
+__________________ test_20_18_substitutes_when_errors_medium ___________________
+
+    def test_20_18_substitutes_when_errors_medium():
+        c = C(table_from_additive(20, 18, F(3, 2), F(3, 2)))
+>       assert (c["G_S"], c["G_M"], c["G_SM"], c["Gamma"]) == (2, 2, 2, -2)
+E       assert (2, 2, 2, 2) == (2, 2, 2, -2)
+E         
+E         At index 3 diff: 2 != -2
+E         Use -v to get more diff
+
+tests/test_l1_4_factorial.py:26: AssertionError
+_____________________ test_tie_rule_is_part_of_definition ______________________
+
+    def test_tie_rule_is_part_of_definition():
+        table = table_from_additive(20, 18, F(3, 2), F(1, 2))
+>       assert table["00"] == 20 and C(table)["Gamma"] == -2
+E       assert (20 == 20 and 2 == -2)
+
+tests/test_l1_4_factorial.py:31: AssertionError
+_________________ test_gamma_is_a_step_function_of_error_size __________________
+
+    def test_gamma_is_a_step_function_of_error_size():
+        expected = {0: 0, 1: 0, 2: -2, 3: -2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2}
+        for k, gamma in expected.items():
+            e = F(k, 2)
+>           assert C(table_from_additive(20, 18, e, e))["Gamma"] == gamma
+E           assert 2 == -2
+
+tests/test_l1_4_factorial.py:40: AssertionError
+__________________ test_average_can_hide_opposite_signs_EV25 ___________________
+
+    def test_average_can_hide_opposite_signs_EV25():
+        large = C(table_from_additive(20, 18, 3, 3))["Gamma"]
+        medium = C(table_from_additive(20, 18, F(3, 2), F(3, 2)))["Gamma"]
+>       assert F(7, 10)*large + F(3, 10)*medium == F(4, 5)
+E       assert ((Fraction(7, 10) * -2) + (Fraction(3, 10) * 2)) == Fraction(4, 5)
+E        +  where Fraction(7, 10) = F(7, 10)
+E        +  and   Fraction(3, 10) = F(3, 10)
+E        +  and   Fraction(4, 5) = F(4, 5)
+
+tests/test_l1_4_factorial.py:46: AssertionError
+_____________ test_property_e_gamma_is_change_in_conditional_gain ______________
+
+    def test_property_e_gamma_is_change_in_conditional_gain():
+        for table, _ in _grid():
+            c = C(table)
+>           assert c["Gamma"] == c["G_S|M1"]-c["G_S"] == c["G_M|S1"]-c["G_M"]
+E           assert Fraction(-3, 1) == (Fraction(0, 1) - Fraction(-3, 1))
+
+tests/test_l1_4_factorial.py:84: AssertionError
+_________________________ test_canonical_table_golden __________________________
+
+    def test_canonical_table_golden():
+        rows = _canonical_rows()
+        assert rows == [FACTORIAL_ROWS[x] for x in (X_A, X_B, X_C, X_D)]
+        means = {cell: sum(r[cell] for r in rows)/4 for cell in rows[0]}
+        assert means == FACTORIAL_MEANS
+>       assert C(means) == FACTORIAL_CONTRASTS
+E       AssertionError: assert {'G_S': Fract...on(1, 4), ...} == {'G_S': Fract...n(-1, 4), ...}
+E         
+E         Omitting 5 identical items, use -vv to show
+E         Differing items:
+E         {'Gamma': Fraction(1, 4)} != {'Gamma': Fraction(-1, 4)}
+E         Use -v to get more diff
+
+tests/test_l1_4_factorial.py:101: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_4_factorial.py::test_20_18_complements_when_errors_large
+FAILED tests/test_l1_4_factorial.py::test_20_18_substitutes_when_errors_medium
+FAILED tests/test_l1_4_factorial.py::test_tie_rule_is_part_of_definition - as...
+FAILED tests/test_l1_4_factorial.py::test_gamma_is_a_step_function_of_error_size
+FAILED tests/test_l1_4_factorial.py::test_average_can_hide_opposite_signs_EV25
+FAILED tests/test_l1_4_factorial.py::test_property_e_gamma_is_change_in_conditional_gain
+FAILED tests/test_l1_4_factorial.py::test_canonical_table_golden - AssertionE...
+7 failed, 4 passed, 1 deselected in 0.09s

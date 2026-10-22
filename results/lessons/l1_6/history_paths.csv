@@ -1,0 +1,73 @@
+scenario,modes,prior_path_probability,compatible,qA0,qB0,mode0
+canonical,on -> on,1/4,True,2,2,on
+canonical,on -> off,1/4,True,2,2,off
+canonical,off -> on,1/4,True,2,0,on
+canonical,off -> off,1/4,True,2,0,off
+p55,on -> on,11/40,True,2,2,on
+p55,on -> off,9/40,True,2,2,off
+p55,off -> on,9/40,True,2,0,on
+p55,off -> off,11/40,True,2,0,off
+p75_controlled,on -> on,3/8,True,2,2,on
+p75_controlled,on -> off,1/8,True,2,2,off
+p75_controlled,off -> on,1/8,True,2,0,on
+p75_controlled,off -> off,3/8,True,2,0,off
+p75_empty_conditioned_prior,on -> on,3/16,True,2,2,on
+p75_empty_conditioned_prior,on -> off,1/16,True,2,2,off
+p75_empty_conditioned_prior,off -> on,3/16,True,2,0,on
+p75_empty_conditioned_prior,off -> off,9/16,True,2,0,off
+two_observations_up,on -> on -> on,9/32,True,2,4,on
+two_observations_up,on -> on -> off,3/32,True,2,4,off
+two_observations_up,on -> off -> on,1/32,True,2,0,on
+two_observations_up,on -> off -> off,3/32,True,2,0,off
+two_observations_up,off -> on -> on,3/32,False,2,2,on
+two_observations_up,off -> on -> off,1/32,False,2,2,off
+two_observations_up,off -> off -> on,3/32,False,2,0,on
+two_observations_up,off -> off -> off,9/32,False,2,0,off
+older_tau2,on -> on -> on,1/8,True,2,4,on
+older_tau2,on -> on -> off,1/8,True,2,4,off
+older_tau2,on -> off -> on,1/8,True,2,0,on
+older_tau2,on -> off -> off,1/8,True,2,0,off
+older_tau2,off -> on -> on,1/8,True,2,2,on
+older_tau2,off -> on -> off,1/8,True,2,2,off
+older_tau2,off -> off -> on,1/8,True,2,0,on
+older_tau2,off -> off -> off,1/8,True,2,0,off
+two_up_prior_quarter,on -> on -> on,9/64,True,2,4,on
+two_up_prior_quarter,on -> on -> off,3/64,True,2,4,off
+two_up_prior_quarter,on -> off -> on,1/64,True,2,0,on
+two_up_prior_quarter,on -> off -> off,3/64,True,2,0,off
+two_up_prior_quarter,off -> on -> on,9/64,False,2,2,on
+two_up_prior_quarter,off -> on -> off,3/64,False,2,2,off
+two_up_prior_quarter,off -> off -> on,9/64,False,2,0,on
+two_up_prior_quarter,off -> off -> off,27/64,False,2,0,off
+two_empty,on -> on -> on,9/32,False,2,4,on
+two_empty,on -> on -> off,3/32,False,2,4,off
+two_empty,on -> off -> on,1/32,False,2,0,on
+two_empty,on -> off -> off,3/32,False,2,0,off
+two_empty,off -> on -> on,3/32,True,2,2,on
+two_empty,off -> on -> off,1/32,True,2,2,off
+two_empty,off -> off -> on,3/32,True,2,0,on
+two_empty,off -> off -> off,9/32,True,2,0,off
+tau3_nonzero_off,on -> on -> on -> on,27/256,False,2,3,on
+tau3_nonzero_off,on -> on -> on -> off,9/256,False,2,3,off
+tau3_nonzero_off,on -> on -> off -> on,3/128,False,2,0,on
+tau3_nonzero_off,on -> on -> off -> off,3/128,False,2,0,off
+tau3_nonzero_off,on -> off -> on -> on,3/128,True,2,1,on
+tau3_nonzero_off,on -> off -> on -> off,1/128,True,2,1,off
+tau3_nonzero_off,on -> off -> off -> on,1/64,True,2,0,on
+tau3_nonzero_off,on -> off -> off -> off,1/64,True,2,0,off
+tau3_nonzero_off,off -> on -> on -> on,27/128,False,2,2,on
+tau3_nonzero_off,off -> on -> on -> off,9/128,False,2,2,off
+tau3_nonzero_off,off -> on -> off -> on,3/64,False,2,0,on
+tau3_nonzero_off,off -> on -> off -> off,3/64,False,2,0,off
+tau3_nonzero_off,off -> off -> on -> on,9/64,False,2,1,on
+tau3_nonzero_off,off -> off -> on -> off,3/64,False,2,1,off
+tau3_nonzero_off,off -> off -> off -> on,3/32,False,2,0,on
+tau3_nonzero_off,off -> off -> off -> off,3/32,False,2,0,off
+impossible_history,on -> on -> on,9/32,False,2,4,on
+impossible_history,on -> on -> off,3/32,False,2,4,off
+impossible_history,on -> off -> on,1/32,False,2,0,on
+impossible_history,on -> off -> off,3/32,False,2,0,off
+impossible_history,off -> on -> on,3/32,False,2,2,on
+impossible_history,off -> on -> off,1/32,False,2,2,off
+impossible_history,off -> off -> on,3/32,False,2,0,on
+impossible_history,off -> off -> off,9/32,False,2,0,off

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="16" time="1.690" timestamp="2026-10-22T11:21:16.339262+07:00" hostname="vantai"><testcase classname="tests.test_l1_6_belief" name="test_belief_canonical_one_observation" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_belief_canonical_older_observation_tau2" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_belief_two_observations_eliminates_and_renormalises" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_belief_is_joint_not_product_of_marginals" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_impossible_observation_raises" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_m0_golden_canonical" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_m0_exact_when_no_queue_can_empty" time="0.000" /><testcase classname="tests.test_l1_6_belief" name="test_property_7h_m0_never_above_m1_on_grid" time="0.009"><failure message="AssertionError: assert Fraction(5, 2) &lt;= Fraction(7, 4)&#10; +  where Fraction(5, 2) = m0_cost((0, 2, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})&#10; +  and   Fraction(7, 4) = expected_cost((0, 2, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})">def test_property_7h_m0_never_above_m1_on_grid():
+        for th,_,D in _grid(F(1,2)):
+            for x in D:
+                for a in ("Stay","Switch"):
+&gt;                   assert m0_cost(x,a,th) &lt;= expected_cost(x,a,th)
+E                   AssertionError: assert Fraction(5, 2) &lt;= Fraction(7, 4)
+E                    +  where Fraction(5, 2) = m0_cost((0, 2, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E                    +  and   Fraction(7, 4) = expected_cost((0, 2, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+
+tests/test_l1_6_belief.py:77: AssertionError</failure></testcase><testcase classname="tests.test_l1_6_belief" name="test_predict_averages_predictions_not_states" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_end_to_end_canonical_matches_L14" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D0]" time="0.409" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D1]" time="0.413" /><testcase classname="tests.test_l1_6_belief" name="test_property_7c_bayes_decision_on_grid[prior_D2]" time="0.408" /><testcase classname="tests.test_l1_6_belief" name="test_the_7c_check_can_fail_when_prior_is_wrong" time="0.399"><failure message="assert 24 == 5">def test_the_7c_check_can_fail_when_prior_is_wrong():
+        negatives = 0
+        for prior_D in (F(1,4),F(3,4)):
+            for th,y,D in _grid(prior_D):
+                L,_,_ = factorial_end_to_end([(-1,y)],th,F(1,2),D)
+                negatives += C(L)["G_M"] &lt; 0
+&gt;       assert negatives == 5
+E       assert 24 == 5
+
+tests/test_l1_6_belief.py:112: AssertionError</failure></testcase><testcase classname="tests.test_l1_6_belief" name="test_tau0_cell_splits_G_S" time="0.001" /><testcase classname="tests.test_l1_6_belief" name="test_persistence_variants_golden" time="0.001"><failure message="assert (Fraction(51,...raction(5, 8)) == (Fraction(31,...raction(0, 1))&#10;  &#10;  At index 0 diff: Fraction(51, 32) != Fraction(31, 32)&#10;  Use -v to get more diff">def test_persistence_variants_golden():
+        for th,prior,gs,gm in ((P34,F(1,2),F(31,32),F(0)),(P34,F(1,4),F(45,64),F(0)),
+                (dict(CANON,p_onon=F(11,20),p_offoff=F(11,20)),F(1,2),F(979,800),F(13,40))):
+            D = generate_episodes((2,0),1,th,prior)
+            L,_,_ = factorial_end_to_end([(-1,(2,0))],th,prior,D)
+&gt;           assert (C(L)["G_S"],C(L)["G_M"]) == (gs,gm)
+E           assert (Fraction(51,...raction(5, 8)) == (Fraction(31,...raction(0, 1))
+E             
+E             At index 0 diff: Fraction(51, 32) != Fraction(31, 32)
+E             Use -v to get more diff
+
+tests/test_l1_6_belief.py:126: AssertionError</failure></testcase></testsuite></testsuites>

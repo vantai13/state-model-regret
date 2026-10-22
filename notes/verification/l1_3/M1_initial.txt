@@ -1,0 +1,16 @@
+.....F..                                                                 [100%]
+=================================== FAILURES ===================================
+______________________ test_zero_action_gives_zero_delta _______________________
+
+    def test_zero_action_gives_zero_delta():
+        for state in EXPECTED_COSTS:
+>           assert oracle(state, dict(CANON, u=0)) == ("Stay", 0)
+E           AssertionError: assert ('Switch', Fraction(0, 1)) == ('Stay', 0)
+E             
+E             At index 0 diff: 'Switch' != 'Stay'
+E             Use -v to get more diff
+
+tests/test_l1_3_expected_cost.py:48: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_3_expected_cost.py::test_zero_action_gives_zero_delta - ...
+1 failed, 7 passed, 1 deselected in 0.03s

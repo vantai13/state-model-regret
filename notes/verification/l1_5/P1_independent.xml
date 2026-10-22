@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="11" time="0.284" timestamp="2026-10-21T20:19:36.971090+07:00" hostname="vantai"><testcase classname="tests.test_l1_5_identity" name="test_F5_matches_direct_regret_on_canonical_16_pairs" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_F5_tie_term_running_example" time="0.001"><failure message="assert 0 == Fraction(11, 4)&#10; +  where 0 = regret_identity(Fraction(-11, 4), Fraction(0, 1))">def test_F5_tie_term_running_example():
+        for delta, predicted, expected in TIE_REGRET_GOLDEN:
+&gt;           assert regret_identity(delta, predicted) == expected
+E           assert 0 == Fraction(11, 4)
+E            +  where 0 = regret_identity(Fraction(-11, 4), Fraction(0, 1))
+
+tests/test_l1_5_identity.py:33: AssertionError</failure></testcase><testcase classname="tests.test_l1_5_identity" name="test_F5_equals_direct_regret_on_grid_including_ties" time="0.001"><failure message="AssertionError: (Fraction(-2, 1), Fraction(0, 1))&#10;assert 0 == Fraction(2, 1)&#10; +  where 0 = regret_identity(Fraction(-2, 1), Fraction(0, 1))&#10; +  and   Fraction(2, 1) = direct_regret(Fraction(10, 1), (Fraction(10, 1) + Fraction(-2, 1)), Fraction(0, 1))&#10; +    where Fraction(10, 1) = F(10)&#10; +    and   Fraction(10, 1) = F(10)">def test_F5_equals_direct_regret_on_grid_including_ties():
+        values = [F(k, 2) for k in range(-4, 5)]
+        for d, dh in product(values, repeat=2):
+&gt;           assert regret_identity(d, dh) == direct_regret(F(10), F(10)+d, dh), (d, dh)
+E           AssertionError: (Fraction(-2, 1), Fraction(0, 1))
+E           assert 0 == Fraction(2, 1)
+E            +  where 0 = regret_identity(Fraction(-2, 1), Fraction(0, 1))
+E            +  and   Fraction(2, 1) = direct_regret(Fraction(10, 1), (Fraction(10, 1) + Fraction(-2, 1)), Fraction(0, 1))
+E            +    where Fraction(10, 1) = F(10)
+E            +    and   Fraction(10, 1) = F(10)
+
+tests/test_l1_5_identity.py:40: AssertionError</failure></testcase><testcase classname="tests.test_l1_5_identity" name="test_consistency_is_not_regret" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_i_delta_canonical_golden" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_i_delta_equals_belief_mean_error_minus_state_error" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_mean_i_delta_given_y_is_zero_canonical" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_mean_zero_holds_for_any_belief_and_any_numbers" time="0.241" /><testcase classname="tests.test_l1_5_identity" name="test_mean_nonzero_when_belief_does_not_match_D" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_limitation_grouping_by_true_mode_is_not_zero" time="0.000" /><testcase classname="tests.test_l1_5_identity" name="test_dispersion_is_the_informative_diagnostic" time="0.000" /></testsuite></testsuites>

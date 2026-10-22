@@ -1,0 +1,29 @@
+.FF........                                                              [100%]
+=================================== FAILURES ===================================
+_______________________ test_F5_tie_term_running_example _______________________
+
+    def test_F5_tie_term_running_example():
+        for delta, predicted, expected in TIE_REGRET_GOLDEN:
+>           assert regret_identity(delta, predicted) == expected
+E           assert Fraction(11, 2) == Fraction(11, 4)
+E            +  where Fraction(11, 2) = regret_identity(Fraction(-11, 4), Fraction(0, 1))
+
+notes/verification/l1_5/coupled_checker/test_l1_5_identity.py:36: AssertionError
+_____________ test_F5_equals_direct_regret_on_grid_including_ties ______________
+
+    def test_F5_equals_direct_regret_on_grid_including_ties():
+        values = [F(k, 2) for k in range(-4, 5)]
+        for d, dh in product(values, repeat=2):
+>           assert regret_identity(d, dh) == direct_regret(F(10), F(10)+d, dh), (d, dh)
+E           AssertionError: (Fraction(-2, 1), Fraction(0, 1))
+E           assert Fraction(4, 1) == Fraction(2, 1)
+E            +  where Fraction(4, 1) = regret_identity(Fraction(-2, 1), Fraction(0, 1))
+E            +  and   Fraction(2, 1) = direct_regret(Fraction(10, 1), (Fraction(10, 1) + Fraction(-2, 1)), Fraction(0, 1))
+E            +    where Fraction(10, 1) = F(10)
+E            +    and   Fraction(10, 1) = F(10)
+
+notes/verification/l1_5/coupled_checker/test_l1_5_identity.py:43: AssertionError
+=========================== short test summary info ============================
+FAILED notes/verification/l1_5/coupled_checker/test_l1_5_identity.py::test_F5_tie_term_running_example
+FAILED notes/verification/l1_5/coupled_checker/test_l1_5_identity.py::test_F5_equals_direct_regret_on_grid_including_ties
+2 failed, 9 passed in 0.30s

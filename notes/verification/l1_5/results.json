@@ -1,0 +1,936 @@
+{
+  "author": "Doan Van Tai",
+  "run_time_asia_saigon": "2026-10-21T20:19:33.686355+07:00",
+  "configuration": {
+    "author": "Doan Van Tai",
+    "canonical": {
+      "cA": 3,
+      "cB": 3,
+      "u": 2,
+      "bA": 1,
+      "rate_on": 5,
+      "rate_off": 0,
+      "p_onon": "1/2",
+      "p_offoff": "1/2",
+      "H": 2
+    },
+    "cell_order": [
+      "00",
+      "10",
+      "01",
+      "11"
+    ],
+    "observation": [
+      2,
+      0
+    ],
+    "tau": 1,
+    "prior_on": "1/2",
+    "belief": [
+      "1/4",
+      "1/4",
+      "1/4",
+      "1/4"
+    ],
+    "m0_gaps": [
+      "2",
+      "-1/2",
+      "2",
+      "-5/2"
+    ],
+    "dt": 1,
+    "c_sw": 0,
+    "tie_action": "Stay",
+    "metric": "regret / gap / I_delta; packet-slot",
+    "seed": null,
+    "f5_grid": [
+      "-2",
+      "-3/2",
+      "-1",
+      "-1/2",
+      "0",
+      "1/2",
+      "1",
+      "3/2",
+      "2"
+    ],
+    "belief_grid_weights": [
+      [
+        "1/3",
+        "1/3",
+        "1/3"
+      ],
+      [
+        "1/2",
+        "1/3",
+        "1/6"
+      ],
+      [
+        "7/10",
+        "1/10",
+        "1/5"
+      ]
+    ],
+    "belief_grid_levels": [
+      "-3/2",
+      "0",
+      "1/2",
+      "2"
+    ],
+    "cost_error_bounds": [
+      "0",
+      "1/2",
+      "1",
+      "2"
+    ],
+    "method": "exact finite enumeration; independent checker for belief moments",
+    "significance_delta": null,
+    "quantile_convention": null,
+    "H0_fitted": false,
+    "held_out_evaluated": false
+  },
+  "environment": {
+    "python": "3.14.5",
+    "pytest": "9.1.1"
+  },
+  "base_commit": "d1b41e9a32d04da6257cfbbaf59467b65c5103b7",
+  "source_sha256": {
+    "experiments/lessons/l1_2_queue.py": "4d3bdbd2bd2a27185c6a146697e93c0444cd0342e22ac5486c781a0c1d4a7420",
+    "experiments/lessons/l1_3_expected_cost.py": "d442be2a24f7f3ca58ae6c056e5106ec1761f912a23465238df7471b88f4ef93",
+    "experiments/lessons/l1_4_factorial.py": "414d841dc6157c1b21fc7c10031c3ef9b7dd0a0c07b071bc15dcc06337bed848",
+    "experiments/lessons/l1_5_identity.py": "29aa947085ad898090cbc71058d989318ccc662b91dfe61dd3e9e353731729c0",
+    "experiments/lessons/run_l1_2.py": "345b946c17bf8edbb2033b928bbaccbe44fba4512c91d6f480c5c505358ca1d8",
+    "experiments/lessons/run_l1_3.py": "d569b672a877a35a62a5416b66955e337c9ee99508f3f2991e9cc135eb6c33d7",
+    "experiments/lessons/run_l1_5.py": "187833b9c6b0a4bcbda5318979e149fe1b53a7bc748ff205dbdccb97de5a0cb9",
+    "tests/test_l1_5_identity.py": "0a158a9295075f481bd57c3ac859579216fb7d95f371536a251b8bbe740c2357",
+    "tests/test_l1_5_diagnostic_limits.py": "a95aa57036b0fd78dc67cd29904c585c1edc0f47a12e73d8b809897292160259",
+    "tests/golden_phase1.py": "73e70545c4355b1c50e3f213cfd73a0fea1161a33bf4f7db8a291bd9cba867ba",
+    "pyproject.toml": "fed2866617de7309770a46a919d740dd3fdca45149a6a3cf40c1c9146a1940aa",
+    "notes/lessons/L1.5_experiment_card.md": "9e4e68563ea59743def12e717006817ad6352430d94d47ef9b602975771920c3",
+    "notes/lessons/L1.5_identity_diagnostic_spec.md": "6ab852f0c7b0a7a073e7f822d58e9f7d34085d200290c247490aa9f642b18700"
+  },
+  "supplied_documents": [
+    {
+      "part": 1,
+      "sha256": "1a3c9b2f7125a91a65d994f6d372127bb244b1dbec16da6d0705af17eb31f2dc"
+    },
+    {
+      "part": 2,
+      "sha256": "3446c0ce6684f2b4d421c639dfa0340aae6070dd4e3143e2cffc9e31225f8b80"
+    }
+  ],
+  "golden_provenance": "Doan Van Tai — supplied L1.5 worked answers, recorded 2026-10-21; paper exercises pending",
+  "tests": {
+    "lesson": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/lesson.xml",
+        "tests/test_l1_5_identity.py"
+      ],
+      "returncode": 0,
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "log": "lesson.txt",
+      "junit": "lesson.xml",
+      "wall_seconds": 0.6233983319980325
+    },
+    "lessons": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/lessons.xml",
+        "tests/test_l1_2_queue.py",
+        "tests/test_l1_3_expected_cost.py",
+        "tests/test_l1_4_factorial.py",
+        "tests/test_l1_5_identity.py"
+      ],
+      "returncode": 0,
+      "total": 43,
+      "passed": 43,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "log": "lessons.txt",
+      "junit": "lessons.xml",
+      "wall_seconds": 0.6506116639975517
+    },
+    "limits": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/limits.xml",
+        "tests/test_l1_5_diagnostic_limits.py"
+      ],
+      "returncode": 0,
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "log": "limits.txt",
+      "junit": "limits.xml",
+      "wall_seconds": 0.23522587700063013
+    },
+    "full_suite": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/full_suite.xml",
+        "tests/"
+      ],
+      "returncode": 0,
+      "total": 61,
+      "passed": 61,
+      "failed": 0,
+      "failed_tests": [],
+      "errors": [],
+      "skipped": [],
+      "log": "full_suite.txt",
+      "junit": "full_suite.xml",
+      "wall_seconds": 0.6680997930016019
+    }
+  },
+  "canonical": {
+    "states": [
+      {
+        "state": "x_a",
+        "qA": 2,
+        "qB": 2,
+        "mode": "on",
+        "probability": "1/4",
+        "delta": "2",
+        "margin": "2",
+        "m0_gap": "2",
+        "model_gap_error": "0",
+        "d00": "1/4",
+        "d10": "2",
+        "d01": "-1/4",
+        "d11": "2",
+        "I_delta": "1/2",
+        "gamma": "2"
+      },
+      {
+        "state": "x_b",
+        "qA": 2,
+        "qB": 2,
+        "mode": "off",
+        "probability": "1/4",
+        "delta": "-3/2",
+        "margin": "3/2",
+        "m0_gap": "-1/2",
+        "model_gap_error": "1",
+        "d00": "1/4",
+        "d10": "-1/2",
+        "d01": "-1/4",
+        "d11": "-3/2",
+        "I_delta": "-1/2",
+        "gamma": "-3/2"
+      },
+      {
+        "state": "x_c",
+        "qA": 2,
+        "qB": 0,
+        "mode": "on",
+        "probability": "1/4",
+        "delta": "3/2",
+        "margin": "3/2",
+        "m0_gap": "2",
+        "model_gap_error": "1/2",
+        "d00": "1/4",
+        "d10": "2",
+        "d01": "-1/4",
+        "d11": "3/2",
+        "I_delta": "0",
+        "gamma": "3/2"
+      },
+      {
+        "state": "x_d",
+        "qA": 2,
+        "qB": 0,
+        "mode": "off",
+        "probability": "1/4",
+        "delta": "-3",
+        "margin": "3",
+        "m0_gap": "-5/2",
+        "model_gap_error": "1/2",
+        "d00": "1/4",
+        "d10": "-5/2",
+        "d01": "-1/4",
+        "d11": "-3",
+        "I_delta": "0",
+        "gamma": "-3"
+      }
+    ],
+    "pairs": [
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "00",
+        "j_stay": "23/2",
+        "j_switch": "27/2",
+        "delta": "2",
+        "margin": "2",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "10",
+        "j_stay": "23/2",
+        "j_switch": "27/2",
+        "delta": "2",
+        "margin": "2",
+        "delta_hat": "2",
+        "action": "Stay",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "01",
+        "j_stay": "23/2",
+        "j_switch": "27/2",
+        "delta": "2",
+        "margin": "2",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "wrong_sign_loss": "2",
+        "tie_loss": 0,
+        "direct_regret": "2",
+        "f5_regret": "2",
+        "residual": "0"
+      },
+      {
+        "state": "x_a",
+        "probability": "1/4",
+        "cell": "11",
+        "j_stay": "23/2",
+        "j_switch": "27/2",
+        "delta": "2",
+        "margin": "2",
+        "delta_hat": "2",
+        "action": "Stay",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "00",
+        "j_stay": "5",
+        "j_switch": "7/2",
+        "delta": "-3/2",
+        "margin": "3/2",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "wrong_sign_loss": "3/2",
+        "tie_loss": 0,
+        "direct_regret": "3/2",
+        "f5_regret": "3/2",
+        "residual": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "10",
+        "j_stay": "5",
+        "j_switch": "7/2",
+        "delta": "-3/2",
+        "margin": "3/2",
+        "delta_hat": "-1/2",
+        "action": "Switch",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "01",
+        "j_stay": "5",
+        "j_switch": "7/2",
+        "delta": "-3/2",
+        "margin": "3/2",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_b",
+        "probability": "1/4",
+        "cell": "11",
+        "j_stay": "5",
+        "j_switch": "7/2",
+        "delta": "-3/2",
+        "margin": "3/2",
+        "delta_hat": "-3/2",
+        "action": "Switch",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "00",
+        "j_stay": "8",
+        "j_switch": "19/2",
+        "delta": "3/2",
+        "margin": "3/2",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "10",
+        "j_stay": "8",
+        "j_switch": "19/2",
+        "delta": "3/2",
+        "margin": "3/2",
+        "delta_hat": "2",
+        "action": "Stay",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "01",
+        "j_stay": "8",
+        "j_switch": "19/2",
+        "delta": "3/2",
+        "margin": "3/2",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "wrong_sign_loss": "3/2",
+        "tie_loss": 0,
+        "direct_regret": "3/2",
+        "f5_regret": "3/2",
+        "residual": "0"
+      },
+      {
+        "state": "x_c",
+        "probability": "1/4",
+        "cell": "11",
+        "j_stay": "8",
+        "j_switch": "19/2",
+        "delta": "3/2",
+        "margin": "3/2",
+        "delta_hat": "3/2",
+        "action": "Stay",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "00",
+        "j_stay": "5",
+        "j_switch": "2",
+        "delta": "-3",
+        "margin": "3",
+        "delta_hat": "1/4",
+        "action": "Stay",
+        "wrong_sign_loss": "3",
+        "tie_loss": 0,
+        "direct_regret": "3",
+        "f5_regret": "3",
+        "residual": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "10",
+        "j_stay": "5",
+        "j_switch": "2",
+        "delta": "-3",
+        "margin": "3",
+        "delta_hat": "-5/2",
+        "action": "Switch",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "01",
+        "j_stay": "5",
+        "j_switch": "2",
+        "delta": "-3",
+        "margin": "3",
+        "delta_hat": "-1/4",
+        "action": "Switch",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      },
+      {
+        "state": "x_d",
+        "probability": "1/4",
+        "cell": "11",
+        "j_stay": "5",
+        "j_switch": "2",
+        "delta": "-3",
+        "margin": "3",
+        "delta_hat": "-3",
+        "action": "Switch",
+        "wrong_sign_loss": 0,
+        "tie_loss": 0,
+        "direct_regret": "0",
+        "f5_regret": 0,
+        "residual": "0"
+      }
+    ],
+    "cell_summaries": [
+      {
+        "cell": "00",
+        "decision_consistency": "1/2",
+        "expected_regret": "9/8"
+      },
+      {
+        "cell": "10",
+        "decision_consistency": "1",
+        "expected_regret": "0"
+      },
+      {
+        "cell": "01",
+        "decision_consistency": "1/2",
+        "expected_regret": "7/8"
+      },
+      {
+        "cell": "11",
+        "decision_consistency": "1",
+        "expected_regret": "0"
+      }
+    ],
+    "mean_i_delta": "0",
+    "mean_abs_i_delta": "1/4",
+    "mean_model_gap_error": "1/2",
+    "i_delta_distribution": [
+      {
+        "I_delta": "-1/2",
+        "probability": "1/4",
+        "cumulative_probability": "1/4"
+      },
+      {
+        "I_delta": "0",
+        "probability": "1/2",
+        "cumulative_probability": "3/4"
+      },
+      {
+        "I_delta": "1/2",
+        "probability": "1/4",
+        "cumulative_probability": "1"
+      }
+    ]
+  },
+  "f5_grid": {
+    "pairs": 81,
+    "violations": 0,
+    "predicted_tie_pairs": 9,
+    "true_tie_pairs": 9,
+    "strict_margin_cases": 24,
+    "cost_bound_cases": 324,
+    "cost_bound_violations": 0
+  },
+  "belief_grid": {
+    "configurations": 12288,
+    "beliefs": 3,
+    "configurations_per_belief": 4096,
+    "mean_zero_violations": 0
+  },
+  "diagnostic_limits": {
+    "cases": [
+      {
+        "scenario": "matched",
+        "same_belief_as_D": true,
+        "mean_I_delta": "0",
+        "zero_mean_guard_pass": true
+      },
+      {
+        "scenario": "detectable_mismatch",
+        "same_belief_as_D": false,
+        "mean_I_delta": "1/8",
+        "zero_mean_guard_pass": false
+      },
+      {
+        "scenario": "undetected_mismatch",
+        "same_belief_as_D": false,
+        "mean_I_delta": "0",
+        "zero_mean_guard_pass": true
+      },
+      {
+        "scenario": "different_beliefs_cells_00_01",
+        "same_belief_as_D": false,
+        "mean_I_delta": "7/8",
+        "zero_mean_guard_pass": false
+      }
+    ],
+    "hidden_groups": [
+      {
+        "mode": "on",
+        "probability": "1/2",
+        "mean_I_delta": "1/4",
+        "guard_applicable": false
+      },
+      {
+        "mode": "off",
+        "probability": "1/2",
+        "mean_I_delta": "-1/4",
+        "guard_applicable": false
+      }
+    ],
+    "different_cell_beliefs_mean": "7/8",
+    "prediction_without_decision_interaction": {
+      "I_delta": "4",
+      "gamma": "0"
+    },
+    "additive_e0_cases": 3,
+    "H0_fitted": false,
+    "held_out_evaluated": false
+  },
+  "mutations": {
+    "P1": {
+      "description": "F5 bỏ số hạng hoà",
+      "coupled": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P1_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P1_coupled.xml",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/coupled_checker/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 9,
+        "failed": 2,
+        "failed_tests": [
+          "test_F5_tie_term_running_example",
+          "test_F5_equals_direct_regret_on_grid_including_ties"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P1_coupled.txt",
+        "junit": "P1_coupled.xml",
+        "wall_seconds": 0.530290854996565
+      },
+      "independent": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P1_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P1_independent.xml",
+          "tests/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 9,
+        "failed": 2,
+        "failed_tests": [
+          "test_F5_tie_term_running_example",
+          "test_F5_equals_direct_regret_on_grid_including_ties"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P1_independent.txt",
+        "junit": "P1_independent.xml",
+        "wall_seconds": 0.5064878849989327
+      }
+    },
+    "P2": {
+      "description": "F5 dùng <=, đếm hoà như sai dấu",
+      "coupled": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P2_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P2_coupled.xml",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/coupled_checker/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 9,
+        "failed": 2,
+        "failed_tests": [
+          "test_F5_tie_term_running_example",
+          "test_F5_equals_direct_regret_on_grid_including_ties"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P2_coupled.txt",
+        "junit": "P2_coupled.xml",
+        "wall_seconds": 0.5437825560002238
+      },
+      "independent": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P2_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P2_independent.xml",
+          "tests/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 9,
+        "failed": 2,
+        "failed_tests": [
+          "test_F5_tie_term_running_example",
+          "test_F5_equals_direct_regret_on_grid_including_ties"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P2_independent.txt",
+        "junit": "P2_independent.xml",
+        "wall_seconds": 0.5035050020014751
+      }
+    },
+    "P3": {
+      "description": "I_delta đổi dấu số hạng d10",
+      "coupled": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P3_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P3_coupled.xml",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/coupled_checker/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 5,
+        "failed": 6,
+        "failed_tests": [
+          "test_i_delta_canonical_golden",
+          "test_i_delta_equals_belief_mean_error_minus_state_error",
+          "test_mean_i_delta_given_y_is_zero_canonical",
+          "test_mean_zero_holds_for_any_belief_and_any_numbers",
+          "test_limitation_grouping_by_true_mode_is_not_zero",
+          "test_dispersion_is_the_informative_diagnostic"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P3_coupled.txt",
+        "junit": "P3_coupled.xml",
+        "wall_seconds": 0.28794206400198163
+      },
+      "independent": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P3_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P3_independent.xml",
+          "tests/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 5,
+        "failed": 6,
+        "failed_tests": [
+          "test_i_delta_canonical_golden",
+          "test_i_delta_equals_belief_mean_error_minus_state_error",
+          "test_mean_i_delta_given_y_is_zero_canonical",
+          "test_mean_zero_holds_for_any_belief_and_any_numbers",
+          "test_limitation_grouping_by_true_mode_is_not_zero",
+          "test_dispersion_is_the_informative_diagnostic"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P3_independent.txt",
+        "junit": "P3_independent.xml",
+        "wall_seconds": 0.27779010999802267
+      }
+    },
+    "P4": {
+      "description": "belief_average bỏ trọng số",
+      "coupled": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P4_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P4_coupled.xml",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/coupled_checker/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 10,
+        "failed": 1,
+        "failed_tests": [
+          "test_mean_nonzero_when_belief_does_not_match_D"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P4_coupled.txt",
+        "junit": "P4_coupled.xml",
+        "wall_seconds": 0.4742217109997
+      },
+      "independent": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P4_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P4_independent.xml",
+          "tests/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 9,
+        "failed": 2,
+        "failed_tests": [
+          "test_mean_zero_holds_for_any_belief_and_any_numbers",
+          "test_mean_nonzero_when_belief_does_not_match_D"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P4_independent.txt",
+        "junit": "P4_independent.xml",
+        "wall_seconds": 0.3690701169980457
+      }
+    },
+    "P5": {
+      "description": "Cell01 dùng M0 thay cho delta thật",
+      "coupled": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P5_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P5_coupled.xml",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/coupled_checker/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 5,
+        "failed": 6,
+        "failed_tests": [
+          "test_i_delta_canonical_golden",
+          "test_i_delta_equals_belief_mean_error_minus_state_error",
+          "test_mean_i_delta_given_y_is_zero_canonical",
+          "test_mean_zero_holds_for_any_belief_and_any_numbers",
+          "test_limitation_grouping_by_true_mode_is_not_zero",
+          "test_dispersion_is_the_informative_diagnostic"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P5_coupled.txt",
+        "junit": "P5_coupled.xml",
+        "wall_seconds": 0.29459891599981347
+      },
+      "independent": {
+        "command": [
+          "/home/vantai/state-model-regret/.venv/bin/python",
+          "/home/vantai/state-model-regret/notes/verification/l1_5/P5_patch.py",
+          "-q",
+          "--color=no",
+          "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/P5_independent.xml",
+          "tests/test_l1_5_identity.py"
+        ],
+        "returncode": 1,
+        "total": 11,
+        "passed": 5,
+        "failed": 6,
+        "failed_tests": [
+          "test_i_delta_canonical_golden",
+          "test_i_delta_equals_belief_mean_error_minus_state_error",
+          "test_mean_i_delta_given_y_is_zero_canonical",
+          "test_mean_zero_holds_for_any_belief_and_any_numbers",
+          "test_limitation_grouping_by_true_mode_is_not_zero",
+          "test_dispersion_is_the_informative_diagnostic"
+        ],
+        "errors": [],
+        "skipped": [],
+        "log": "P5_independent.txt",
+        "junit": "P5_independent.xml",
+        "wall_seconds": 0.28967298499992467
+      }
+    }
+  },
+  "cross_module_mutation": {
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/notes/verification/l1_5/cross_choose_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/notes/verification/l1_5/cross_choose.xml",
+      "tests/test_l1_5_identity.py"
+    ],
+    "returncode": 1,
+    "total": 11,
+    "passed": 9,
+    "failed": 2,
+    "failed_tests": [
+      "test_F5_tie_term_running_example",
+      "test_F5_equals_direct_regret_on_grid_including_ties"
+    ],
+    "errors": [],
+    "skipped": [],
+    "log": "cross_choose.txt",
+    "junit": "cross_choose.xml",
+    "wall_seconds": 0.5207349910015182
+  },
+  "elapsed_seconds": 8.148812839001039,
+  "scope": "exact finite verification; given belief/M0; no posterior certification, H0 fit or held-out claims; G1/V3/V10/V11 unchanged"
+}

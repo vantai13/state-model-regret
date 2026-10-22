@@ -1,0 +1,42 @@
+F.........F..                                                            [100%]
+=================================== FAILURES ===================================
+_________________________ test_tape_example_from_part1 _________________________
+
+    def test_tape_example_from_part1():
+        tape = [0.31, 0.72, 0.05, 0.88, 0.46, 0.63]
+        b_st = background_B(XB, TH6, tape[0:5])
+        b_sw = background_B(XB, TH6, tape[1:6])                 # Switch rút trước một số
+>       assert mode_path("off", tape[0:5], F(1, 2), F(1, 2)) == ["off", "off", "on", "on", "off", "off"]
+E       AssertionError: assert ['off', 'on',..., 'off', 'on'] == ['off', 'off'... 'off', 'off']
+E         
+E         At index 1 diff: 'on' != 'off'
+E         Use -v to get more diff
+
+tests/test_l1_7_streams.py:32: AssertionError
+_______________ test_sampler_matches_exact_J_on_asymmetric_chain _______________
+
+    def test_sampler_matches_exact_J_on_asymmetric_chain():
+        # p ≠ s: sai quy ước "u < P(giữ)" sẽ đổi phân phối. Với p = s = ½ thì không lộ.
+        th = dict(CANON, H=4, p_onon=F(3, 4), p_offoff=F(1, 2))
+        for x in [(2, 2, "on"), (2, 0, "off")]:
+            for a in ("Stay", "Switch"):
+                c = np.array([path_costs(x, th, *primitive_two_actions(DEMO_ROOT, i, x, th, 0))[a][0]
+                              for i in range(N)], float)
+>               assert abs(c.mean() - float(expected_cost(x, a, th))) <= 3 * c.std(ddof=1) / np.sqrt(N), (x, a)
+E               AssertionError: ((2, 2, 'on'), 'Stay')
+E               assert np.float64(10.173375) <= ((3 * np.float64(5.203656096283092)) / np.float64(44.721359549995796))
+E                +  where np.float64(10.173375) = abs((np.float64(17.9985) - 28.171875))
+E                +    where np.float64(17.9985) = <built-in method mean of numpy.ndarray object at 0x710ff4427cf0>()
+E                +      where <built-in method mean of numpy.ndarray object at 0x710ff4427cf0> = array([36., 16., 16., ..., 31., 21., 31.], shape=(2000,)).mean
+E                +    and   28.171875 = float(Fraction(1803, 64))
+E                +      where Fraction(1803, 64) = expected_cost((2, 2, 'on'), 'Stay', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E                +  and   np.float64(5.203656096283092) = <built-in method std of numpy.ndarray object at 0x710ff4427cf0>(ddof=1)
+E                +    where <built-in method std of numpy.ndarray object at 0x710ff4427cf0> = array([36., 16., 16., ..., 31., 21., 31.], shape=(2000,)).std
+E                +  and   np.float64(44.721359549995796) = <ufunc 'sqrt'>(2000)
+E                +    where <ufunc 'sqrt'> = np.sqrt
+
+tests/test_l1_7_streams.py:124: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_7_streams.py::test_tape_example_from_part1 - AssertionEr...
+FAILED tests/test_l1_7_streams.py::test_sampler_matches_exact_J_on_asymmetric_chain
+2 failed, 11 passed in 2.97s

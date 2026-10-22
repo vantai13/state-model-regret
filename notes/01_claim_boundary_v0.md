@@ -57,6 +57,70 @@ Ranh giới dựa trên inventory hiện có và literature thứ cấp; Phase 2
 
 Đối chiếu [inventory](00_evidence_inventory.md), [exposure register](00_exposure_register.md) và [closeout](lessons/L0.1_CLOSEOUT.md). G1 không phải xác suất nhận paper; giữ HOLD full study cho đến đúng gate. Các bài tự kiểm, read-back và xác nhận của các lesson mới còn chờ; không ghi đã học xong chỉ vì tài liệu được tích hợp.
 
+## Quy tắc báo cáo bổ sung từ L1.4 — 21/10/2026
+
+**Γ > 0 phải kèm phân bố pattern (i00,i10,i01)** và phân phối γ theo vùng điều kiện,
+với hai action tất định, Δ≠0 và cell11 là oracle chính xác. Pattern (1,1,1) cho biết
+phải sửa cả hai để cứu lựa chọn sai của ô 00; các pattern (0,1,0),(0,0,1),(0,1,1)
+là bù sai số, sửa riêng có thể làm hỏng lựa chọn vốn đúng. Không suy dấu Γ thành
+network mechanism hoặc khuyến nghị đầu tư. Khi Δ=0, mọi cost thật của hai action
+bằng nhau; báo riêng, không chia γ cho margin bằng 0.
+
+[Kết quả L1.4](verification/l1_4/report.md) tái lập trong ví dụ đồ chơi:
+G_S=9/8,G_M=1/4,Γ=−1/4; γ từ −3 tới +2. G_M dương trung bình nhưng model repair
+làm hại 1/2 tổng xác suất episode. Toàn bộ γ dương ở ví dụ này thuộc pattern (0,0,1),
+chưa phải “cần cả hai để cứu lựa chọn sai”. Đây là E0/E1 theo dự đoán cho sẵn,
+chưa đổi NC1/NC2, G1 hoặc xác nhận hiểu bài cá nhân.
+
+Nếu gap11=Δ và I_Δ=0, pattern (0,1,1) không thể xảy ra, nên γ≤|Δ|.
+Một episode có γ=2|Δ| với Δ≠0 và đúng các giả định trên bác bỏ cộng tính của gaps,
+chưa xác định nguyên nhân là queue vật lý. Ở Phase 3, phải kiểm tính chất (b) trên
+dự đoán thực M0/M1; lưới lỗi cộng không chạm hệ số 2. Đặc tả null/I_Δ đầy đủ vẫn chờ L1.5.
+
+## Bổ sung L1.5 — identity, diagnostic và null (21/10/2026)
+
+F5 là đồng nhất thức cho hai action và luật hoà Stay, gồm số hạng hoà; dùng để kiểm
+code, không gọi “regret được giải thích bởi sai dấu” là phát hiện. Decision consistency
+không thay regret: ở ví dụ chuẩn, ô 00 và 01 cùng 50% trùng oracle nhưng R=9/8 và 7/8.
+
+I_Δ=d11−d10−d01+d00 là diagnostic trước argmin, khác gamma sau argmin. Khi belief
+bằng posterior và hai ô S0 lấy trung bình dự đoán theo cùng belief, E_D[I_Δ|y]=0.
+Đây là điều kiện cần dưới các giả định, không đủ chứng nhận posterior đúng; mean-zero
+vẫn có thể xảy ra với D khác belief. Không dùng guard này cho nhóm mode/margin thật.
+Báo E|I_Δ| và phân phối; đề xuất P(|I_Δ|>δ) với δ khai báo trước thay tỷ lệ exact I≠0,
+để mang sang thẻ 9 L1.8. Chưa khóa δ, C_ref, epsilon_E hoặc convention quantile chính thức.
+
+[Kết quả L1.5](verification/l1_5/report.md) cho I=(1/2,−1/2,0,0), E|I|=1/4;
+guard phát hiện ví dụ D lệch với mean=1/8 và ví dụ hai ô dùng belief khác với mean=7/8.
+Phản ví dụ D khác belief nhưng cùng kỳ vọng sai số model vẫn có mean=0.
+Không suy I khác 0 thành cơ chế vật lý, hay từ ví dụ chuẩn thành bác bỏ RQ2/H0.
+
+[Spec làm việc](lessons/L1.5_identity_diagnostic_spec.md) ghi điều kiện F5/F6, giới hạn
+phép kiểm và yêu cầu cho H0/H1 ở A05. Family/features, split theo workload/parameter,
+metric/biên lỗi và ngân sách fit còn chờ khóa; không cấp true gaps/errors của held-out
+cho predictor. Chưa fit H0/H1 hoặc chấm held-out. Snapshot contract-v0, G1 và các gate giữ nguyên.
+
+## Bổ sung L1.6 — S0/M0 end-to-end (22/10/2026)
+
+Trong cấu hình hữu hạn đã kiểm, B2 khớp golden/posterior evaluator được khai báo riêng;
+M0 dùng conditional means, Jensen và idle identity khớp. Bảng chuẩn giờ sinh end-to-end,
+không nhập gap L1.4 cho sẵn. Đây là E0/E1, chưa chứng nhận mọi posterior/history/H hoặc mạng thật.
+
+Matched posterior và aggregation đúng đủ để bảo đảm GM≥0; không viết “khi và chỉ khi
+belief đúng”. Prior sai vẫn có thể cho GM≥0; mean I=0 cũng chưa đủ chứng nhận posterior.
+Lưới đã xem có 0/864 GM âm khi matched và 5/576 khi prior sai. Phải kiểm prior/D,
+shared belief và predictor definitions trước khi diễn giải GM âm.
+
+Theo thứ tự backlog cũ→backlog hiện tại→state đầy đủ, GS chuẩn9/8 tách thành3/8 freshness
+và3/4 mode visibility. Không gán phần thấy mode cho refresh telemetry/net gain khả thi.
+Ô backlog hiện tại condition evaluator D nên vẫn là diagnostic. Các conditional rows với
+history/D khác nhau không chứng minh GS đơn điệu; ba persistence points không xác lập quy luật mạng.
+
+G_S given M1 có dạng EVPPI về state dưới posterior đúng; chưa đọc/đối chiếu P11 gốc,
+không claim khái niệm giá trị thông tin là novelty. Phase2a cần đối chiếu P11–P13.
+[Spec](lessons/L1.6_belief_model_spec.md) · [Kết quả](../results/lessons/l1_6/report.md).
+Chưa khóa contract-v1/kiểm timescale vật lý; G1,V3/V10/V11 và HOLD Phase 4 giữ nguyên.
+
 ## Bài tự đọc ranh giới — chưa có bài làm của tác giả
 
 Với mỗi câu, chọn “được nói / không được nói / chưa biết”, ghi ID và điều kiện cần giữ:

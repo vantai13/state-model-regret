@@ -1,0 +1,822 @@
+{
+  "author": "Doan Van Tai",
+  "run_time_asia_saigon": "2026-10-22T17:21:46.384415+07:00",
+  "command": [
+    "/home/vantai/state-model-regret/.venv/bin/python",
+    "-m",
+    "experiments.lessons.run_l1_7",
+    "--output-dir",
+    "/home/vantai/state-model-regret/results/lessons/l1_7"
+  ],
+  "environment": {
+    "python": "3.14.5",
+    "numpy": "2.5.3",
+    "pytest": "9.1.1",
+    "matplotlib": "3.11.2",
+    "bit_generator": "PCG64",
+    "platform": "Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.35"
+  },
+  "config": {
+    "author": "Doan Van Tai",
+    "method": "supplied teaching-root demo with exact finite references",
+    "canonical": {
+      "cA": 3,
+      "cB": 3,
+      "u": 2,
+      "bA": 1,
+      "rate_on": 5,
+      "rate_off": 0,
+      "p_onon": "1/2",
+      "p_offoff": "1/2",
+      "H": 2
+    },
+    "root": 144558766427411771296652109119745142241,
+    "root_provenance": "provided attachment Part2; adopted 2026-10-22; not newly generated",
+    "roles": {
+      "episode": 0,
+      "future": 1,
+      "predictor": 2,
+      "branch": 3
+    },
+    "paths": {
+      "A": 0,
+      "B": 1
+    },
+    "episode_range": [
+      0,
+      1999
+    ],
+    "N": 2000,
+    "H_crn": 6,
+    "H_leak": 3,
+    "K_leak": 1,
+    "extra_draws": [
+      0,
+      1,
+      7
+    ],
+    "sampler": {
+      "H": 4,
+      "p_onon": "3/4",
+      "p_offoff": "1/2",
+      "states": [
+        [
+          2,
+          2,
+          "on"
+        ],
+        [
+          2,
+          0,
+          "off"
+        ]
+      ]
+    },
+    "dt": 1,
+    "c_sw": 0,
+    "tie": "Stay",
+    "thresholds": {
+      "max_error_SE": 3,
+      "primitive_variance_relative_tolerance": 0.15,
+      "minimum_mismatch_rate": 0.9,
+      "minimum_variance_ratio": 2
+    },
+    "source_hashes": {
+      "experiments/lessons/l1_2_queue.py": "4d3bdbd2bd2a27185c6a146697e93c0444cd0342e22ac5486c781a0c1d4a7420",
+      "experiments/lessons/l1_3_expected_cost.py": "d442be2a24f7f3ca58ae6c056e5106ec1761f912a23465238df7471b88f4ef93",
+      "experiments/lessons/l1_4_factorial.py": "414d841dc6157c1b21fc7c10031c3ef9b7dd0a0c07b071bc15dcc06337bed848",
+      "experiments/lessons/l1_5_identity.py": "29aa947085ad898090cbc71058d989318ccc662b91dfe61dd3e9e353731729c0",
+      "experiments/lessons/l1_6_belief.py": "c3349b09a0486ce737912dabe8457830719370ccf911161a263e48bbd89380b7",
+      "experiments/lessons/l1_6_reference.py": "03321a6417a7629be57dc7e0fea01ed16cd07467fc6b2ac815f885662a053f32",
+      "experiments/lessons/l1_7_reference.py": "0658468897e00ad3a1ef1be8b0504912cdb3c65a7b47b11239470d20d28dccf2",
+      "experiments/lessons/l1_7_streams.py": "7c75a357fbe011048cc18bad958e51d25605cb06becc9334991512b7a81b8807",
+      "experiments/lessons/run_l1_7.py": "77ed36afef2874c921717cb9968093ec5730d16fbefd037d4aaee1cd28702323",
+      "tests/test_l1_7_streams.py": "aba2f6f06f843a6dbd8a1011756874ce94c4baba88ff5f5e9146d7660c658523",
+      "tests/test_l1_7_limits.py": "9402b5a4be330a02b51f347a146493e0b79bd686815b1bd75d3f07d28f6929d0",
+      "experiments/lessons/requirements-l1_7.txt": "4e9428a015282be1c7b25c6560a274200f42fa96c3d9891bbf12a62d28e12123",
+      "notes/lessons/L1.7_experiment_card.md": "4cea31c257785c51ee04eb6be3d078f42dbae204a400e7a42284722341dbde67",
+      "notes/seed_registry.md": "f428f7bdff2ed8c66a069e5fd09a913c5a62245b119d2239e51d3df8e89fee36",
+      "notes/00_exposure_register.md": "d78acc215c1c1fa3b172ee3a37aa6358e39ae1a8c3394dc48e79d4bd1e4cb96c"
+    },
+    "input_hashes": [
+      {
+        "path": "/home/vantai/.codex/attachments/fe413710-3b2e-4f37-81bd-68a3811155b2/Pasted text.txt",
+        "sha256": "bd9ac8dd728e0f43167ecf7693fb3e7027d94762a3ff9580810b646813a69183"
+      },
+      {
+        "path": "/home/vantai/.codex/attachments/4c9b7506-2453-4d44-9e80-6cb02d12b625/Pasted text.txt",
+        "sha256": "a84ae51f2cbeb535bbf0da4cee16177fb62a2514c6f05c06d329f90290fe5411"
+      }
+    ],
+    "git_HEAD": "d1b41e9a32d04da6257cfbbaf59467b65c5103b7",
+    "git_note": "working tree contains uncommitted lesson work; source hashes identify actual version",
+    "confirmation_opened": false,
+    "phase4_E01_run": false,
+    "independent_MC_run": false
+  },
+  "tests": {
+    "lesson": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/lesson.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 0,
+      "total": 13,
+      "failed": 0,
+      "passed": 13,
+      "failed_tests": [],
+      "failed_functions": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 3.903955781002878,
+      "log": "lesson.txt",
+      "junit": "lesson.xml"
+    },
+    "lessons": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/lessons.xml",
+        "tests/test_l1_2_queue.py",
+        "tests/test_l1_3_expected_cost.py",
+        "tests/test_l1_4_factorial.py",
+        "tests/test_l1_5_identity.py",
+        "tests/test_l1_6_belief.py",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 0,
+      "total": 72,
+      "failed": 0,
+      "passed": 72,
+      "failed_tests": [],
+      "failed_functions": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 7.081354755002394,
+      "log": "lessons.txt",
+      "junit": "lessons.xml"
+    },
+    "limits": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/limits.xml",
+        "tests/test_l1_7_limits.py"
+      ],
+      "returncode": 0,
+      "total": 4,
+      "failed": 0,
+      "passed": 4,
+      "failed_tests": [],
+      "failed_functions": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 0.3260348539988627,
+      "log": "limits.txt",
+      "junit": "limits.xml"
+    },
+    "full_suite": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/full_suite.xml",
+        "tests/"
+      ],
+      "returncode": 0,
+      "total": 97,
+      "failed": 0,
+      "passed": 97,
+      "failed_tests": [],
+      "failed_functions": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 7.2750836800005345,
+      "log": "full_suite.txt",
+      "junit": "full_suite.xml"
+    }
+  },
+  "exact": {
+    "moments": [
+      {
+        "H": 2,
+        "state": "(2, 2, 'on')",
+        "mean_stay": "23/2",
+        "mean_switch": "27/2",
+        "delta": "2",
+        "var_stay": "25/4",
+        "var_switch": "25/4",
+        "covariance": "25/4",
+        "paired_variance": "0",
+        "independent_variance": "25/2",
+        "correlation": 1.0,
+        "independent_over_paired": null
+      },
+      {
+        "H": 2,
+        "state": "(2, 2, 'off')",
+        "mean_stay": "5",
+        "mean_switch": "7/2",
+        "delta": "-3/2",
+        "var_stay": "1",
+        "var_switch": "25/4",
+        "covariance": "5/2",
+        "paired_variance": "9/4",
+        "independent_variance": "29/4",
+        "correlation": 1.0,
+        "independent_over_paired": 3.2222222222222223
+      },
+      {
+        "H": 6,
+        "state": "(2, 2, 'off')",
+        "mean_stay": "671/32",
+        "mean_switch": "961/32",
+        "delta": "145/16",
+        "var_stay": "50911/1024",
+        "var_switch": "280095/1024",
+        "covariance": "105345/1024",
+        "paired_variance": "30079/256",
+        "independent_variance": "165503/512",
+        "correlation": 0.8821764004131567,
+        "independent_over_paired": 2.751138668173809
+      },
+      {
+        "H": 6,
+        "state": "(2, 2, 'on')",
+        "mean_stay": "535/16",
+        "mean_switch": "117/2",
+        "delta": "401/16",
+        "var_stay": "43471/256",
+        "var_switch": "1375/4",
+        "covariance": "1845/8",
+        "paired_variance": "13391/256",
+        "independent_variance": "131471/256",
+        "correlation": 0.954564320496676,
+        "independent_over_paired": 9.817862743633784
+      },
+      {
+        "H": 6,
+        "state": "(6, 6, 'on')",
+        "mean_stay": "1241/16",
+        "mean_switch": "177/2",
+        "delta": "175/16",
+        "var_stay": "73407/256",
+        "var_switch": "1375/4",
+        "covariance": "9975/32",
+        "paired_variance": "1807/256",
+        "independent_variance": "161407/256",
+        "correlation": 0.9928709806368383,
+        "independent_over_paired": 89.32318760376315
+      },
+      {
+        "H": 6,
+        "state": "(10, 10, 'on')",
+        "mean_stay": "3987/32",
+        "mean_switch": "253/2",
+        "delta": "61/32",
+        "var_stay": "345079/1024",
+        "var_switch": "1375/4",
+        "covariance": "21775/64",
+        "paired_variance": "279/1024",
+        "independent_variance": "697079/1024",
+        "correlation": 0.9996490306207532,
+        "independent_over_paired": 2498.4910394265235
+      }
+    ],
+    "shifted": {
+      "mean_stay": "671/32",
+      "mean_switch": "961/32",
+      "delta": "145/16",
+      "var_stay": "50911/1024",
+      "var_switch": "280095/1024",
+      "covariance": "-17871/1024",
+      "paired_variance": "91687/256",
+      "independent_variance": "165503/512",
+      "correlation": -0.14965470076210094,
+      "independent_over_paired": 0.9025434358196909,
+      "conditional_first_keep": {
+        "mean_stay": "297/16",
+        "mean_switch": "961/32",
+        "delta": "367/32",
+        "var_stay": "7071/256",
+        "var_switch": "280095/1024",
+        "covariance": "40647/512",
+        "paired_variance": "145791/1024",
+        "independent_variance": "308379/1024",
+        "correlation": 0.913346146412057,
+        "independent_over_paired": 2.1152128732226267
+      },
+      "conditional_first_flip": {
+        "mean_stay": "187/8",
+        "mean_switch": "961/32",
+        "delta": "213/32",
+        "var_stay": "3855/64",
+        "var_switch": "280095/1024",
+        "covariance": "-29259/256",
+        "paired_variance": "575847/1024",
+        "independent_variance": "341775/1024",
+        "correlation": -0.8904193917889562,
+        "independent_over_paired": 0.5935170279605521
+      }
+    },
+    "leak": {
+      "J": {
+        "Stay": "17/2",
+        "Switch": "31/4"
+      },
+      "oracle_action": "Switch",
+      "oracle": "31/4",
+      "leak": "13/2",
+      "honest": "65/8",
+      "honest_win_probability": "1/4"
+    },
+    "episode_pairing": {
+      "mean_stay": "25/4",
+      "mean_switch": "59/8",
+      "delta": "9/8",
+      "var_stay": "225/16",
+      "var_switch": "459/64",
+      "covariance": "315/32",
+      "paired_variance": "99/64",
+      "independent_variance": "1359/64",
+      "correlation": 0.9801960588196068,
+      "independent_over_paired": 13.727272727272727
+    },
+    "wrong_law": {
+      "true_delta": "-3/2",
+      "wrong_delta": "-9/4",
+      "bias": "-3/4"
+    }
+  },
+  "crn": [
+    {
+      "method": "primitive",
+      "n": 2000,
+      "mean": 9.236,
+      "sample_variance": 118.87274037018508,
+      "SE": 0.24379575505962472,
+      "exact": "145/16",
+      "error": 0.17350000000000065,
+      "error_over_SE": 0.7116612836739837,
+      "within_3SE": true,
+      "exact_variance": "30079/256",
+      "future_mismatch": 0,
+      "residual_nonzero": 0
+    },
+    {
+      "method": "naive",
+      "n": 2000,
+      "mean": 8.745,
+      "sample_variance": 353.62178589294643,
+      "SE": 0.4204888737487274,
+      "exact": "145/16",
+      "error": -0.3175000000000008,
+      "error_over_SE": -0.7550734866524199,
+      "within_3SE": true,
+      "exact_variance": "91687/256",
+      "future_mismatch": 1942,
+      "residual_nonzero": 1914
+    }
+  ],
+  "leak": {
+    "summary": [
+      {
+        "method": "oracle",
+        "n": 2000,
+        "mean": 7.836,
+        "sample_variance": 27.361784892446224,
+        "SE": 0.11696534720259293,
+        "exact": "31/4",
+        "error": 0.0860000000000003,
+        "error_over_SE": 0.7352605028482643,
+        "within_3SE": true
+      },
+      {
+        "method": "leak",
+        "n": 2000,
+        "mean": 6.5725,
+        "sample_variance": 16.00074412206103,
+        "SE": 0.08944479896019955,
+        "exact": "13/2",
+        "error": 0.07249999999999979,
+        "error_over_SE": 0.8105557935488263,
+        "within_3SE": true
+      },
+      {
+        "method": "honest",
+        "n": 2000,
+        "mean": 8.22,
+        "sample_variance": 15.936568284142067,
+        "SE": 0.08926524599232914,
+        "exact": "65/8",
+        "error": 0.09500000000000064,
+        "error_over_SE": 1.0642439724880643,
+        "within_3SE": true
+      }
+    ],
+    "paired_oracle_minus_leak": {
+      "n": 2000,
+      "mean": 1.2635,
+      "sample_variance": 1.6889122061030513,
+      "SE": 0.029059526889671235,
+      "exact": "5/4",
+      "error": 0.013500000000000068,
+      "error_over_SE": 0.4645636541590922,
+      "within_3SE": true
+    },
+    "paired_honest_minus_oracle": {
+      "n": 2000,
+      "mean": 0.384,
+      "sample_variance": 5.731409704852426,
+      "SE": 0.053532278602971994,
+      "exact": "3/8",
+      "error": 0.009000000000000008,
+      "error_over_SE": 0.16812286409008467,
+      "within_3SE": true
+    },
+    "honest_wins": 495,
+    "honest_win_rate": 0.2475,
+    "leak_never_loses": true,
+    "canonical_blind_cases": 1200
+  },
+  "sampler": [
+    {
+      "state": "(2, 2, 'on')",
+      "action": "Stay",
+      "n": 2000,
+      "mean": 28.0605,
+      "sample_variance": 66.65216583291647,
+      "SE": 0.1825543286708322,
+      "exact": "1803/64",
+      "error": -0.11137499999999889,
+      "error_over_SE": -0.6100923533882433,
+      "within_3SE": true
+    },
+    {
+      "state": "(2, 2, 'on')",
+      "action": "Switch",
+      "n": 2000,
+      "mean": 39.375,
+      "sample_variance": 89.9043271635818,
+      "SE": 0.21201925285641135,
+      "exact": "2527/64",
+      "error": -0.109375,
+      "error_over_SE": -0.5158729621317621,
+      "within_3SE": true
+    },
+    {
+      "state": "(2, 0, 'off')",
+      "action": "Stay",
+      "n": 2000,
+      "mean": 13.998,
+      "sample_variance": 19.00950075037518,
+      "SE": 0.09749230931303038,
+      "exact": "445/32",
+      "error": 0.09174999999999933,
+      "error_over_SE": 0.941099873892683,
+      "within_3SE": true
+    },
+    {
+      "state": "(2, 0, 'off')",
+      "action": "Switch",
+      "n": 2000,
+      "mean": 13.359,
+      "sample_variance": 72.27525662831417,
+      "SE": 0.19009899608929312,
+      "exact": "421/32",
+      "error": 0.20274999999999999,
+      "error_over_SE": 1.0665495566571244,
+      "within_3SE": true
+    }
+  ],
+  "diagnostics": {
+    "residual_false_negative": {
+      "state": [
+        2,
+        2,
+        "off"
+      ],
+      "H": 4,
+      "background_stay": [
+        0,
+        5,
+        0,
+        0
+      ],
+      "background_switch": [
+        0,
+        0,
+        5,
+        5
+      ],
+      "costs": {
+        "Stay": [
+          10,
+          [
+            1,
+            0,
+            1,
+            3
+          ]
+        ],
+        "Switch": [
+          13,
+          [
+            0,
+            2,
+            2,
+            2
+          ]
+        ]
+      },
+      "residual": 0,
+      "reason": "weighted background-arrival differences cancel"
+    },
+    "tape": {
+      "uniforms": [
+        0.31,
+        0.72,
+        0.05,
+        0.88,
+        0.46,
+        0.63
+      ],
+      "source": "invented deterministic tape supplied by lesson, not RNG output",
+      "background_stay": [
+        0,
+        0,
+        5,
+        5,
+        0,
+        0
+      ],
+      "background_switch": [
+        0,
+        5,
+        5,
+        0,
+        0,
+        5
+      ],
+      "naive_costs": {
+        "Stay": [
+          19,
+          [
+            1,
+            3,
+            0,
+            0,
+            0,
+            2
+          ]
+        ],
+        "Switch": [
+          41,
+          [
+            0,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        ]
+      },
+      "naive_residual": 15
+    },
+    "predictor_keys": "(2,episode), sequential samples; no implemented per-k streams",
+    "role_alias_limit": "(1,i) differs from (1,i,B); role-code alias alone need not leak future"
+  },
+  "mutations": {
+    "R1": {
+      "description": "Action Switch mã hoá thành1 lọt vào khóa future",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_7/R1_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R1.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 1,
+      "total": 13,
+      "failed": 5,
+      "passed": 8,
+      "failed_tests": [
+        "test_primitive_gives_identical_futures_whatever_the_branch_draws[0]",
+        "test_primitive_gives_identical_futures_whatever_the_branch_draws[1]",
+        "test_primitive_gives_identical_futures_whatever_the_branch_draws[7]",
+        "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+        "test_naive_is_unbiased_but_noisier"
+      ],
+      "failed_functions": [
+        "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+        "test_naive_is_unbiased_but_noisier",
+        "test_primitive_gives_identical_futures_whatever_the_branch_draws"
+      ],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 2.9026584300008835,
+      "log": "R1.txt",
+      "junit": "R1.xml"
+    },
+    "R2": {
+      "description": "Switch rút extra_draws từ future thay vì branch",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_7/R2_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R2.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 1,
+      "total": 13,
+      "failed": 4,
+      "passed": 9,
+      "failed_tests": [
+        "test_primitive_gives_identical_futures_whatever_the_branch_draws[1]",
+        "test_primitive_gives_identical_futures_whatever_the_branch_draws[7]",
+        "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+        "test_naive_is_unbiased_but_noisier"
+      ],
+      "failed_functions": [
+        "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+        "test_naive_is_unbiased_but_noisier",
+        "test_primitive_gives_identical_futures_whatever_the_branch_draws"
+      ],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 3.043584828999883,
+      "log": "R2.txt",
+      "junit": "R2.xml"
+    },
+    "R3": {
+      "description": "Đảo u<P(keep) thành u>=P(keep)",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_7/R3_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R3.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 1,
+      "total": 13,
+      "failed": 2,
+      "passed": 11,
+      "failed_tests": [
+        "test_tape_example_from_part1",
+        "test_sampler_matches_exact_J_on_asymmetric_chain"
+      ],
+      "failed_functions": [
+        "test_sampler_matches_exact_J_on_asymmetric_chain",
+        "test_tape_example_from_part1"
+      ],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 3.281194963001326,
+      "log": "R3.txt",
+      "junit": "R3.xml"
+    },
+    "R4": {
+      "description": "predictor_rng trả stream future B",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_7/R4_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R4.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 1,
+      "total": 13,
+      "failed": 1,
+      "passed": 12,
+      "failed_tests": [
+        "test_leaky_mk_beats_the_oracle_honest_mk_does_not"
+      ],
+      "failed_functions": [
+        "test_leaky_mk_beats_the_oracle_honest_mk_does_not"
+      ],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 3.6588489599998866,
+      "log": "R4.txt",
+      "junit": "R4.xml"
+    },
+    "R5": {
+      "description": "Bỏ episode khỏi khóa của mọi role",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_7/R5_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R5.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 1,
+      "total": 13,
+      "failed": 5,
+      "passed": 8,
+      "failed_tests": [
+        "test_naive_differs_only_because_of_the_extra_draw",
+        "test_episode_replay_and_order_independence",
+        "test_naive_is_unbiased_but_noisier",
+        "test_sampler_matches_exact_J_on_asymmetric_chain",
+        "test_leaky_mk_beats_the_oracle_honest_mk_does_not"
+      ],
+      "failed_functions": [
+        "test_episode_replay_and_order_independence",
+        "test_leaky_mk_beats_the_oracle_honest_mk_does_not",
+        "test_naive_differs_only_because_of_the_extra_draw",
+        "test_naive_is_unbiased_but_noisier",
+        "test_sampler_matches_exact_J_on_asymmetric_chain"
+      ],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 2.471782386997802,
+      "log": "R5.txt",
+      "junit": "R5.xml"
+    },
+    "R6": {
+      "description": "Background luôn bắt đầu từ off",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_7/R6_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R6.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 1,
+      "total": 13,
+      "failed": 2,
+      "passed": 11,
+      "failed_tests": [
+        "test_sampler_matches_exact_J_on_asymmetric_chain",
+        "test_canonical_example_is_blind_to_the_leak"
+      ],
+      "failed_functions": [
+        "test_canonical_example_is_blind_to_the_leak",
+        "test_sampler_matches_exact_J_on_asymmetric_chain"
+      ],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 3.010769087999506,
+      "log": "R6.txt",
+      "junit": "R6.xml"
+    },
+    "R7": {
+      "description": "Bỏ chia K; equivalent mutant đối với action",
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "/home/vantai/state-model-regret/results/lessons/l1_7/R7_patch.py",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R7.xml",
+        "tests/test_l1_7_streams.py"
+      ],
+      "returncode": 0,
+      "total": 13,
+      "failed": 0,
+      "passed": 13,
+      "failed_tests": [],
+      "failed_functions": [],
+      "errors": [],
+      "skipped": [],
+      "wall_seconds": 3.6628351420004037,
+      "log": "R7.txt",
+      "junit": "R7.xml"
+    }
+  },
+  "elapsed_seconds": 42.27657006500158,
+  "scope": {
+    "G_level": "G1",
+    "V3_V10_V11": "open",
+    "phase4": "HOLD",
+    "held_out": false,
+    "closed_book_mock_done": false,
+    "legacy_L05_done": false
+  },
+  "artifact_checks": {
+    "crn_rows_recomputed": 4000,
+    "leak_rows_recomputed": 2000,
+    "source_hashes_verified": 15,
+    "all_baseline_JUnit_clean": true,
+    "status": "PASS"
+  }
+}

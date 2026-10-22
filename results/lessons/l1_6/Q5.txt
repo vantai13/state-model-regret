@@ -1,0 +1,44 @@
+..........F.F...                                                         [100%]
+=================================== FAILURES ===================================
+______________ test_property_7c_bayes_decision_on_grid[prior_D0] _______________
+
+prior_D = Fraction(1, 4)
+
+    @pytest.mark.parametrize("prior_D",[F(1,4),F(1,2),F(3,4)])
+    def test_property_7c_bayes_decision_on_grid(prior_D):
+        for th,y,D in _grid(prior_D):
+            L,_,b = factorial_end_to_end([(-1,y)],th,prior_D,D)
+            best = min(sum(p*expected_cost(x,a,th) for x,p in D.items()) for a in ("Stay","Switch"))
+            assert L["01"] == best
+            assert C(L)["G_M"] >= 0 and C(L)["G_S|M1"] >= 0
+            d00 = predict(b,"Switch","M0",th)-predict(b,"Stay","M0",th)
+            d01 = predict(b,"Switch","M1",th)-predict(b,"Stay","M1",th)
+            mean = sum(p*i_delta(d00,m0_cost(x,"Switch",th)-m0_cost(x,"Stay",th),d01,
+                                expected_cost(x,"Switch",th)-expected_cost(x,"Stay",th)) for x,p in D.items())
+>           assert mean == 0
+E           assert Fraction(1, 8) == 0
+
+tests/test_l1_6_belief.py:103: AssertionError
+______________ test_property_7c_bayes_decision_on_grid[prior_D2] _______________
+
+prior_D = Fraction(3, 4)
+
+    @pytest.mark.parametrize("prior_D",[F(1,4),F(1,2),F(3,4)])
+    def test_property_7c_bayes_decision_on_grid(prior_D):
+        for th,y,D in _grid(prior_D):
+            L,_,b = factorial_end_to_end([(-1,y)],th,prior_D,D)
+            best = min(sum(p*expected_cost(x,a,th) for x,p in D.items()) for a in ("Stay","Switch"))
+            assert L["01"] == best
+            assert C(L)["G_M"] >= 0 and C(L)["G_S|M1"] >= 0
+            d00 = predict(b,"Switch","M0",th)-predict(b,"Stay","M0",th)
+            d01 = predict(b,"Switch","M1",th)-predict(b,"Stay","M1",th)
+            mean = sum(p*i_delta(d00,m0_cost(x,"Switch",th)-m0_cost(x,"Stay",th),d01,
+                                expected_cost(x,"Switch",th)-expected_cost(x,"Stay",th)) for x,p in D.items())
+>           assert mean == 0
+E           assert Fraction(-1, 8) == 0
+
+tests/test_l1_6_belief.py:103: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_6_belief.py::test_property_7c_bayes_decision_on_grid[prior_D0]
+FAILED tests/test_l1_6_belief.py::test_property_7c_bayes_decision_on_grid[prior_D2]
+2 failed, 14 passed in 1.24s

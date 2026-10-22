@@ -1,0 +1,45 @@
+.......F.....F.F                                                         [100%]
+=================================== FAILURES ===================================
+__________________ test_property_7h_m0_never_above_m1_on_grid __________________
+
+    def test_property_7h_m0_never_above_m1_on_grid():
+        for th,_,D in _grid(F(1,2)):
+            for x in D:
+                for a in ("Stay","Switch"):
+>                   assert m0_cost(x,a,th) <= expected_cost(x,a,th)
+E                   AssertionError: assert Fraction(5, 2) <= Fraction(7, 4)
+E                    +  where Fraction(5, 2) = m0_cost((0, 2, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E                    +  and   Fraction(7, 4) = expected_cost((0, 2, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+
+tests/test_l1_6_belief.py:77: AssertionError
+________________ test_the_7c_check_can_fail_when_prior_is_wrong ________________
+
+    def test_the_7c_check_can_fail_when_prior_is_wrong():
+        negatives = 0
+        for prior_D in (F(1,4),F(3,4)):
+            for th,y,D in _grid(prior_D):
+                L,_,_ = factorial_end_to_end([(-1,y)],th,F(1,2),D)
+                negatives += C(L)["G_M"] < 0
+>       assert negatives == 5
+E       assert 24 == 5
+
+tests/test_l1_6_belief.py:112: AssertionError
+_______________________ test_persistence_variants_golden _______________________
+
+    def test_persistence_variants_golden():
+        for th,prior,gs,gm in ((P34,F(1,2),F(31,32),F(0)),(P34,F(1,4),F(45,64),F(0)),
+                (dict(CANON,p_onon=F(11,20),p_offoff=F(11,20)),F(1,2),F(979,800),F(13,40))):
+            D = generate_episodes((2,0),1,th,prior)
+            L,_,_ = factorial_end_to_end([(-1,(2,0))],th,prior,D)
+>           assert (C(L)["G_S"],C(L)["G_M"]) == (gs,gm)
+E           assert (Fraction(51,...raction(5, 8)) == (Fraction(31,...raction(0, 1))
+E             
+E             At index 0 diff: Fraction(51, 32) != Fraction(31, 32)
+E             Use -v to get more diff
+
+tests/test_l1_6_belief.py:126: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_6_belief.py::test_property_7h_m0_never_above_m1_on_grid
+FAILED tests/test_l1_6_belief.py::test_the_7c_check_can_fail_when_prior_is_wrong
+FAILED tests/test_l1_6_belief.py::test_persistence_variants_golden - assert (...
+3 failed, 13 passed in 1.69s

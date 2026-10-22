@@ -1,0 +1,34 @@
+.F.....F.                                                                [100%]
+=================================== FAILURES ===================================
+____________________ test_episodes_generated_from_plant_D12 ____________________
+
+    def test_episodes_generated_from_plant_D12():
+>       assert generate_episodes((2, 0), 1, CANON, F(1, 2)) == {
+            X_A: F(1, 4), X_B: F(1, 4), X_C: F(1, 4), X_D: F(1, 4)}
+E       AssertionError: assert {(2, 0, 'on')...raction(1, 2)} == {(2, 2, 'on')...raction(1, 4)}
+E         
+E         Differing items:
+E         {(2, 0, 'off'): Fraction(1, 2)} != {(2, 0, 'off'): Fraction(1, 4)}
+E         {(2, 0, 'on'): Fraction(1, 2)} != {(2, 0, 'on'): Fraction(1, 4)}
+E         Right contains 2 more items:
+E         {(2, 2, 'off'): Fraction(1, 4), (2, 2, 'on'): Fraction(1, 4)}
+E         Use -v to get more diff
+
+tests/test_l1_3_expected_cost.py:18: AssertionError
+___________________ test_oracle_cost_and_fixed_rule_regrets ____________________
+
+    def test_oracle_cost_and_fixed_rule_regrets():
+        episodes = generate_episodes((2, 0), 1, CANON, F(1, 2))
+        l_star = sum(pr * min(expected_cost(x, action, CANON) for action in ("Stay", "Switch"))
+                     for x, pr in episodes.items())
+        l_stay = sum(pr * expected_cost(x, "Stay", CANON) for x, pr in episodes.items())
+        l_switch = sum(pr * expected_cost(x, "Switch", CANON) for x, pr in episodes.items())
+>       assert l_star == F(25, 4)
+E       assert Fraction(5, 1) == Fraction(25, 4)
+E        +  where Fraction(25, 4) = F(25, 4)
+
+tests/test_l1_3_expected_cost.py:63: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_3_expected_cost.py::test_episodes_generated_from_plant_D12
+FAILED tests/test_l1_3_expected_cost.py::test_oracle_cost_and_fixed_rule_regrets
+2 failed, 7 passed in 0.04s

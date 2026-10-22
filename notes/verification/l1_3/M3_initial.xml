@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="8" time="0.039" timestamp="2026-10-21T17:03:48.054170+07:00" hostname="vantai"><testcase classname="tests.test_l1_3_expected_cost" name="test_mode_path_probabilities_sum_to_one" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_episodes_generated_from_plant_D12" time="0.001"><failure message="AssertionError: assert {(2, 0, 'on')...raction(1, 2)} == {(2, 2, 'on')...raction(1, 4)}&#10;  &#10;  Differing items:&#10;  {(2, 0, 'on'): Fraction(1, 2)} != {(2, 0, 'on'): Fraction(1, 4)}&#10;  {(2, 0, 'off'): Fraction(1, 2)} != {(2, 0, 'off'): Fraction(1, 4)}&#10;  Right contains 2 more items:&#10;  {(2, 2, 'off'): Fraction(1, 4), (2, 2, 'on'): Fraction(1, 4)}&#10;  Use -v to get more diff">def test_episodes_generated_from_plant_D12():
+&gt;       assert generate_episodes((2, 0), 1, CANON, F(1, 2)) == {
+            X_A: F(1, 4), X_B: F(1, 4), X_C: F(1, 4), X_D: F(1, 4)}
+E       AssertionError: assert {(2, 0, 'on')...raction(1, 2)} == {(2, 2, 'on')...raction(1, 4)}
+E         
+E         Differing items:
+E         {(2, 0, 'on'): Fraction(1, 2)} != {(2, 0, 'on'): Fraction(1, 4)}
+E         {(2, 0, 'off'): Fraction(1, 2)} != {(2, 0, 'off'): Fraction(1, 4)}
+E         Right contains 2 more items:
+E         {(2, 2, 'off'): Fraction(1, 4), (2, 2, 'on'): Fraction(1, 4)}
+E         Use -v to get more diff
+
+tests/test_l1_3_expected_cost.py:18: AssertionError</failure></testcase><testcase classname="tests.test_l1_3_expected_cost" name="test_expected_costs_match_hand_calculation" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_oracle_rule_on_means_stay_off_means_switch" time="0.000" /><testcase classname="tests.test_l1_3_expected_cost" name="test_delta_equals_expected_weighted_idle_difference" time="0.001" /><testcase classname="tests.test_l1_3_expected_cost" name="test_zero_action_gives_zero_delta" time="0.000" /><testcase classname="tests.test_l1_3_expected_cost" name="test_non_degenerate_every_state" time="0.000" /><testcase classname="tests.test_l1_3_expected_cost" name="test_oracle_cost_and_fixed_rule_regrets" time="0.001"><failure message="assert Fraction(5, 1) == Fraction(25, 4)&#10; +  where Fraction(25, 4) = F(25, 4)">def test_oracle_cost_and_fixed_rule_regrets():
+        episodes = generate_episodes((2, 0), 1, CANON, F(1, 2))
+        l_star = sum(pr * min(expected_cost(x, action, CANON) for action in ("Stay", "Switch"))
+                     for x, pr in episodes.items())
+        l_stay = sum(pr * expected_cost(x, "Stay", CANON) for x, pr in episodes.items())
+        l_switch = sum(pr * expected_cost(x, "Switch", CANON) for x, pr in episodes.items())
+&gt;       assert l_star == F(25, 4)
+E       assert Fraction(5, 1) == Fraction(25, 4)
+E        +  where Fraction(25, 4) = F(25, 4)
+
+tests/test_l1_3_expected_cost.py:63: AssertionError</failure></testcase></testsuite></testsuites>

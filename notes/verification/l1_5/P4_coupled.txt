@@ -1,0 +1,16 @@
+........F..                                                              [100%]
+=================================== FAILURES ===================================
+________________ test_mean_nonzero_when_belief_does_not_match_D ________________
+
+    def test_mean_nonzero_when_belief_does_not_match_D():
+        # Specific mismatch with power to detect it; not a universal D != belief claim.
+        distribution = dict(zip(XS, (F(3, 8), F(1, 8), F(3, 8), F(1, 8))))
+        interaction = i_delta_per_state(BELIEF, DELTA, DHAT_M0)
+>       assert belief_average(distribution, interaction) != 0
+E       AssertionError: assert Fraction(0, 1) != 0
+E        +  where Fraction(0, 1) = belief_average({(2, 2, 'on'): Fraction(3, 8), (2, 2, 'off'): Fraction(1, 8), (2, 0, 'on'): Fraction(3, 8), (2, 0, 'off'): Fraction(1, 8)}, {(2, 2, 'on'): Fraction(1, 2), (2, 2, 'off'): Fraction(-1, 2), (2, 0, 'on'): Fraction(0, 1), (2, 0, 'off'): Fraction(0, 1)})
+
+notes/verification/l1_5/coupled_checker/test_l1_5_identity.py:85: AssertionError
+=========================== short test summary info ============================
+FAILED notes/verification/l1_5/coupled_checker/test_l1_5_identity.py::test_mean_nonzero_when_belief_does_not_match_D
+1 failed, 10 passed in 0.25s

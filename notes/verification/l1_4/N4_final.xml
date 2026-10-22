@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="12" time="0.078" timestamp="2026-10-21T18:31:36.131394+07:00" hostname="vantai"><testcase classname="tests.test_l1_4_factorial" name="test_20_18_complements_when_errors_large" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_20_18_substitutes_when_errors_medium" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_tie_rule_is_part_of_definition" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_gamma_is_a_step_function_of_error_size" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_average_can_hide_opposite_signs_EV25" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_partial_repair_beats_oracle_repair_EV26" time="0.000" /><testcase classname="tests.test_l1_4_factorial" name="test_property_a_cell_11_is_oracle" time="0.013" /><testcase classname="tests.test_l1_4_factorial" name="test_property_b_gamma_takes_four_values" time="0.013" /><testcase classname="tests.test_l1_4_factorial" name="test_property_e_gamma_is_change_in_conditional_gain" time="0.013" /><testcase classname="tests.test_l1_4_factorial" name="test_canonical_table_golden" time="0.001" /><testcase classname="tests.test_l1_4_factorial" name="test_contrast_of_mean_equals_mean_of_contrasts" time="0.001" /><testcase classname="tests.test_l1_4_factorial" name="test_asymmetric_errors_distinguish_state_from_model" time="0.001"><failure message="AssertionError: assert {'G_S': 0, 'G...2, 'Gamma': 0} == {'G_S': 2, 'G...0, 'Gamma': 0}&#10;  &#10;  Omitting 1 identical items, use -vv to show&#10;  Differing items:&#10;  {'G_S': 0} != {'G_S': 2}&#10;  {'G_M': 2} != {'G_M': 0}&#10;  Use -v to get more diff">def test_asymmetric_errors_distinguish_state_from_model():
+        c = C(table_from_additive(20, 18, 3, F(1, 2)))
+&gt;       assert {name: c[name] for name in FACTORIAL_ASYMMETRIC} == FACTORIAL_ASYMMETRIC
+E       AssertionError: assert {'G_S': 0, 'G...2, 'Gamma': 0} == {'G_S': 2, 'G...0, 'Gamma': 0}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Differing items:
+E         {'G_S': 0} != {'G_S': 2}
+E         {'G_M': 2} != {'G_M': 0}
+E         Use -v to get more diff
+
+tests/test_l1_4_factorial.py:114: AssertionError</failure></testcase></testsuite></testsuites>

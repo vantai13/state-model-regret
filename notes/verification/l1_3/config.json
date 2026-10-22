@@ -1,0 +1,40 @@
+{
+  "author": "Doan Van Tai",
+  "canonical": {
+    "cA": 3,
+    "cB": 3,
+    "u": 2,
+    "bA": 1,
+    "rate_on": 5,
+    "rate_off": 0,
+    "p_onon": "1/2",
+    "p_offoff": "1/2",
+    "H": 2
+  },
+  "observation": [
+    2,
+    0
+  ],
+  "tau": 1,
+  "prior_on": "1/2",
+  "prior_independent_of_observation": true,
+  "pre_t0_action": "Stay",
+  "dt": 1,
+  "c_sw": 0,
+  "tie_action": "Stay",
+  "metric": "end-of-slot cumulative occupancy; packet-slot",
+  "seed": null,
+  "method": "exact integers/Fractions; enumerate all positive-probability paths",
+  "asymmetric": {
+    "p_onon": "3/4",
+    "p_offoff": "1/4"
+  },
+  "supplementary": {
+    "H": 3,
+    "tau_values": [
+      0,
+      2
+    ],
+    "prior_on": "3/4"
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "R1": {
+    "description": "Action Switch mã hoá thành1 lọt vào khóa future",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/results/lessons/l1_7/R1_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R1.xml",
+      "tests/test_l1_7_streams.py"
+    ],
+    "returncode": 1,
+    "total": 13,
+    "failed": 5,
+    "passed": 8,
+    "failed_tests": [
+      "test_primitive_gives_identical_futures_whatever_the_branch_draws[0]",
+      "test_primitive_gives_identical_futures_whatever_the_branch_draws[1]",
+      "test_primitive_gives_identical_futures_whatever_the_branch_draws[7]",
+      "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+      "test_naive_is_unbiased_but_noisier"
+    ],
+    "failed_functions": [
+      "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+      "test_naive_is_unbiased_but_noisier",
+      "test_primitive_gives_identical_futures_whatever_the_branch_draws"
+    ],
+    "errors": [],
+    "skipped": [],
+    "wall_seconds": 2.9026584300008835,
+    "log": "R1.txt",
+    "junit": "R1.xml"
+  },
+  "R2": {
+    "description": "Switch rút extra_draws từ future thay vì branch",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/results/lessons/l1_7/R2_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R2.xml",
+      "tests/test_l1_7_streams.py"
+    ],
+    "returncode": 1,
+    "total": 13,
+    "failed": 4,
+    "passed": 9,
+    "failed_tests": [
+      "test_primitive_gives_identical_futures_whatever_the_branch_draws[1]",
+      "test_primitive_gives_identical_futures_whatever_the_branch_draws[7]",
+      "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+      "test_naive_is_unbiased_but_noisier"
+    ],
+    "failed_functions": [
+      "test_identity2_detector_zero_under_crn_nonzero_under_naive",
+      "test_naive_is_unbiased_but_noisier",
+      "test_primitive_gives_identical_futures_whatever_the_branch_draws"
+    ],
+    "errors": [],
+    "skipped": [],
+    "wall_seconds": 3.043584828999883,
+    "log": "R2.txt",
+    "junit": "R2.xml"
+  },
+  "R3": {
+    "description": "Đảo u<P(keep) thành u>=P(keep)",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/results/lessons/l1_7/R3_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R3.xml",
+      "tests/test_l1_7_streams.py"
+    ],
+    "returncode": 1,
+    "total": 13,
+    "failed": 2,
+    "passed": 11,
+    "failed_tests": [
+      "test_tape_example_from_part1",
+      "test_sampler_matches_exact_J_on_asymmetric_chain"
+    ],
+    "failed_functions": [
+      "test_sampler_matches_exact_J_on_asymmetric_chain",
+      "test_tape_example_from_part1"
+    ],
+    "errors": [],
+    "skipped": [],
+    "wall_seconds": 3.281194963001326,
+    "log": "R3.txt",
+    "junit": "R3.xml"
+  },
+  "R4": {
+    "description": "predictor_rng trả stream future B",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/results/lessons/l1_7/R4_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R4.xml",
+      "tests/test_l1_7_streams.py"
+    ],
+    "returncode": 1,
+    "total": 13,
+    "failed": 1,
+    "passed": 12,
+    "failed_tests": [
+      "test_leaky_mk_beats_the_oracle_honest_mk_does_not"
+    ],
+    "failed_functions": [
+      "test_leaky_mk_beats_the_oracle_honest_mk_does_not"
+    ],
+    "errors": [],
+    "skipped": [],
+    "wall_seconds": 3.6588489599998866,
+    "log": "R4.txt",
+    "junit": "R4.xml"
+  },
+  "R5": {
+    "description": "Bỏ episode khỏi khóa của mọi role",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/results/lessons/l1_7/R5_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R5.xml",
+      "tests/test_l1_7_streams.py"
+    ],
+    "returncode": 1,
+    "total": 13,
+    "failed": 5,
+    "passed": 8,
+    "failed_tests": [
+      "test_naive_differs_only_because_of_the_extra_draw",
+      "test_episode_replay_and_order_independence",
+      "test_naive_is_unbiased_but_noisier",
+      "test_sampler_matches_exact_J_on_asymmetric_chain",
+      "test_leaky_mk_beats_the_oracle_honest_mk_does_not"
+    ],
+    "failed_functions": [
+      "test_episode_replay_and_order_independence",
+      "test_leaky_mk_beats_the_oracle_honest_mk_does_not",
+      "test_naive_differs_only_because_of_the_extra_draw",
+      "test_naive_is_unbiased_but_noisier",
+      "test_sampler_matches_exact_J_on_asymmetric_chain"
+    ],
+    "errors": [],
+    "skipped": [],
+    "wall_seconds": 2.471782386997802,
+    "log": "R5.txt",
+    "junit": "R5.xml"
+  },
+  "R6": {
+    "description": "Background luôn bắt đầu từ off",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/results/lessons/l1_7/R6_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R6.xml",
+      "tests/test_l1_7_streams.py"
+    ],
+    "returncode": 1,
+    "total": 13,
+    "failed": 2,
+    "passed": 11,
+    "failed_tests": [
+      "test_sampler_matches_exact_J_on_asymmetric_chain",
+      "test_canonical_example_is_blind_to_the_leak"
+    ],
+    "failed_functions": [
+      "test_canonical_example_is_blind_to_the_leak",
+      "test_sampler_matches_exact_J_on_asymmetric_chain"
+    ],
+    "errors": [],
+    "skipped": [],
+    "wall_seconds": 3.010769087999506,
+    "log": "R6.txt",
+    "junit": "R6.xml"
+  },
+  "R7": {
+    "description": "Bỏ chia K; equivalent mutant đối với action",
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "/home/vantai/state-model-regret/results/lessons/l1_7/R7_patch.py",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/l1_7/R7.xml",
+      "tests/test_l1_7_streams.py"
+    ],
+    "returncode": 0,
+    "total": 13,
+    "failed": 0,
+    "passed": 13,
+    "failed_tests": [],
+    "failed_functions": [],
+    "errors": [],
+    "skipped": [],
+    "wall_seconds": 3.6628351420004037,
+    "log": "R7.txt",
+    "junit": "R7.xml"
+  }
+}

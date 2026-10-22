@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="3" time="0.030" timestamp="2026-10-22T11:21:23.164935+07:00" hostname="vantai"><testcase classname="tests.test_l1_6_reference" name="test_longer_history_nonzero_off_rate_matches_evaluator" time="0.001" /><testcase classname="tests.test_l1_6_reference" name="test_three_slot_m0_conditions_nonzero_off_rate" time="0.001"><failure message="AssertionError: assert Fraction(7, 2) == Fraction(39, 8)&#10; +  where Fraction(7, 2) = m0_cost((0, 0, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})&#10; +  and   Fraction(39, 8) = F(39, 8)">def test_three_slot_m0_conditions_nonzero_off_rate():
+        # P_on = 0,1/2,5/8; background means 1,5/2,23/8.
+        # Switch B backlog=0,3/2,27/8 -&gt; cost39/8. A remains empty.
+        th = dict(CANON,rate_on=4,rate_off=1,p_onon=F(3,4),p_offoff=F(1,2),H=3)
+        assert m0_cost((0,0,"off"),"Stay",th) == 0
+&gt;       assert m0_cost((0,0,"off"),"Switch",th) == F(39,8)
+E       AssertionError: assert Fraction(7, 2) == Fraction(39, 8)
+E        +  where Fraction(7, 2) = m0_cost((0, 0, 'off'), 'Switch', {'cA': 3, 'cB': 3, 'u': 2, 'bA': 1, ...})
+E        +  and   Fraction(39, 8) = F(39, 8)
+
+tests/test_l1_6_reference.py:26: AssertionError</failure></testcase><testcase classname="tests.test_l1_6_reference" name="test_history_schema_and_unknown_model_are_rejected" time="0.000" /></testsuite></testsuites>

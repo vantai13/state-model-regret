@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="11" time="0.133" timestamp="2026-10-09T21:04:54.857331+07:00" hostname="vantai"><testcase classname="tests.test_l1_2_queue" name="test_hand_table_one_queue" time="0.000" /><testcase classname="tests.test_l1_2_queue" name="test_identity_linear_plus_idle" time="0.000" /><testcase classname="tests.test_l1_2_queue" name="test_conservation_arrivals_minus_served" time="0.000" /><testcase classname="tests.test_l1_2_queue" name="test_complementarity_backlog_times_idle_is_zero" time="0.000" /><testcase classname="tests.test_l1_2_queue" name="test_dl010_question_1_no_idle" time="0.001"><failure message="assert (57, 57) == (37, 37)&#10;  &#10;  At index 0 diff: 57 != 37&#10;  Use -v to get more diff">def test_dl010_question_1_no_idle():
+        case = TWO_QUEUE_CASES["dl010_no_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+&gt;       assert (stay, switch) == case["costs"]
+E       assert (57, 57) == (37, 37)
+E         
+E         At index 0 diff: 57 != 37
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:43: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_dl010_question_2_with_idle" time="0.000"><failure message="assert (33, 27) == (23, 17)&#10;  &#10;  At index 0 diff: 33 != 23&#10;  Use -v to get more diff">def test_dl010_question_2_with_idle():
+        case = TWO_QUEUE_CASES["dl010_with_idle"]
+        stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+        switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+&gt;       assert (stay, switch) == case["costs"]
+E       assert (33, 27) == (23, 17)
+E         
+E         At index 0 diff: 33 != 23
+E         Use -v to get more diff
+
+tests/test_l1_2_queue.py:51: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_canonical_x_d_both_branches" time="0.000"><failure message="assert (8, 6) == (6, 4)&#10;  &#10;  At index 0 diff: 8 != 6&#10;  Use -v to get more diff">def test_canonical_x_d_both_branches():
+        for name in ("canonical_B_on", "canonical_B_off"):
+            case = TWO_QUEUE_CASES[name]
+            stay, idle_st = two_queue_cost(action="Stay", **case["cfg"])
+            switch, idle_sw = two_queue_cost(action="Switch", **case["cfg"])
+&gt;           assert (stay, switch) == case["costs"]
+E           assert (8, 6) == (6, 4)
+E             
+E             At index 0 diff: 8 != 6
+E             Use -v to get more diff
+
+tests/test_l1_2_queue.py:61: AssertionError</failure></testcase><testcase classname="tests.test_l1_2_queue" name="test_identity_cost_difference_on_exhaustive_grid" time="0.038" /><testcase classname="tests.test_l1_2_queue" name="test_negative_control_no_idle_means_equal_cost" time="0.033" /><testcase classname="tests.test_l1_2_queue" name="test_zero_action_control" time="0.018" /><testcase classname="tests.test_l1_2_queue" name="test_dt_scales_cost_linearly" time="0.000" /></testsuite></testsuites>

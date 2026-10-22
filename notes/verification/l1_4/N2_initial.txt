@@ -1,0 +1,41 @@
+......F.FF.                                                              [100%]
+=================================== FAILURES ===================================
+______________________ test_property_a_cell_11_is_oracle _______________________
+
+    def test_property_a_cell_11_is_oracle():
+        for table, _ in _grid():
+            c = C(table)
+>           assert c["G_SM"] >= 0 and c["G_S|M1"] >= 0 and c["G_M|S1"] >= 0
+E           assert (Fraction(0, 1) >= 0 and Fraction(-3, 1) >= 0)
+
+tests/test_l1_4_factorial.py:72: AssertionError
+_____________ test_property_e_gamma_is_change_in_conditional_gain ______________
+
+    def test_property_e_gamma_is_change_in_conditional_gain():
+        for table, _ in _grid():
+            c = C(table)
+>           assert c["Gamma"] == c["G_S|M1"]-c["G_S"] == c["G_M|S1"]-c["G_M"]
+E           assert Fraction(0, 1) == (Fraction(3, 1) - Fraction(0, 1))
+
+tests/test_l1_4_factorial.py:84: AssertionError
+_________________________ test_canonical_table_golden __________________________
+
+    def test_canonical_table_golden():
+        rows = _canonical_rows()
+        assert rows == [FACTORIAL_ROWS[x] for x in (X_A, X_B, X_C, X_D)]
+        means = {cell: sum(r[cell] for r in rows)/4 for cell in rows[0]}
+        assert means == FACTORIAL_MEANS
+>       assert C(means) == FACTORIAL_CONTRASTS
+E       AssertionError: assert {'G_S': Fract...n(-1, 4), ...} == {'G_S': Fract...n(-1, 4), ...}
+E         
+E         Omitting 5 identical items, use -vv to show
+E         Differing items:
+E         {'G_S|M1': Fraction(1, 4)} != {'G_S|M1': Fraction(7, 8)}
+E         Use -v to get more diff
+
+tests/test_l1_4_factorial.py:101: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_l1_4_factorial.py::test_property_a_cell_11_is_oracle - asse...
+FAILED tests/test_l1_4_factorial.py::test_property_e_gamma_is_change_in_conditional_gain
+FAILED tests/test_l1_4_factorial.py::test_canonical_table_golden - AssertionE...
+3 failed, 8 passed, 1 deselected in 0.06s
