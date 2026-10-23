@@ -1,0 +1,14 @@
+# Thư viện hỗ trợ nghiên cứu, cài TÁCH khỏi dependencies lõi của package smr.
+# Không thêm vào pyproject cho tới khi một experiment cụ thể cần (MASTER_PLAN X.3).
+#
+#   python -m pip install -r tools/research/requirements-research.txt
+#
+# Phiên bản tối thiểu đã cài và import thử ngày 23/10/2026 với Python 3.13.
+
+hypothesis>=6.140      # property-based testing: sinh hàng nghìn input để kiểm invariant (bảo toàn, R11=0, ...)
+statsmodels>=0.14      # CI, TOST equivalence (ttost_paired), mô hình hồi quy cho phân tích ở Phase 4-6
+simpy>=4.1             # discrete-event simulation: ứng viên representation độc lập ở Phase 7
+pyalex>=0.21           # client Python cho OpenAlex: tìm paper, citation chaining bằng code
+habanero>=2.9          # client Crossref: lấy metadata/BibTeX từ DOI
+bibtexparser>=2.0      # đọc/ghi file .bib khi kiểm citation
+requests>=2.31         # cần cho script validate_citations.py của skill citation-management
