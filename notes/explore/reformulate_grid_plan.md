@@ -60,3 +60,13 @@ Thước đo (ĐK8); plant v1.1: $\mu=10$, nền B OFF 2/ON 14 ($\lambda_B=8$), 
 4. Ít exposure.
 
 Kết quả là **đề xuất cho tác giả**. Việc áp dụng vào `main` cần tác giả quyết, một DL và một protocol chính thức viết trước khi chạy lại.
+
+## 8. Giai đoạn 2 — kiểm ổn định
+
+**Thời điểm thật:** viết khi giai đoạn 1 đã ghi 9/480 dòng vào `ladder_rows.jsonl`, trước khi người chạy xem bất kỳ giá trị $p_{\text{sw}}$ nào của giai đoạn 1 (chỉ đếm số dòng). Commit `cde9944` (các script) được tạo khi đã có 5/480 dòng chưa xem; thông điệp commit đó ghi "before stage-1 results" là không chính xác và được sửa tại đây.
+
+Với các ô được neo của **thủ tục đứng đầu theo §7**:
+1. Tính lại $p_{\text{sw}}$ ở dt/4 ($1/480$). Ô đạt nếu vẫn nằm trong $[0{,}1;0{,}9]$. Lý do: A01 sẽ làm mịn tới dt/4–dt/16, và quy tắc 7 của ĐK2 tính lại $p_{\text{sw}}$ ở mức A01 chọn.
+2. Gắn nhãn ĐK1 (SD / WD / bảo toàn / candidate) ở dt và dt/2.
+
+Giai đoạn này chỉ kiểm, không đổi luật chọn ô của §5.
