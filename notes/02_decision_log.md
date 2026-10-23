@@ -325,3 +325,7 @@ Sparse longdouble đã chạy: reference(-2,+1) đạt law bound; (-17,+7),keep.
 ### DL-035 — B4: dùng đúng một lượt redesign tải A sau screen đầu (2026-10-23)
 
 Initial8/22 in, cần15/22. Chọn duy nhất λA={7;7.2;8.1}, center7.2, trước mọi p_sw mới. Căn cứ chỉ là screen đã khai báo: B90 ởλ6.5 thường dưới.1, B50 ởλ7.5 và mọi mứcλ8.5 thường trên.9. Nâng mức thấp, hạ mức giữa và mức dương; ψ={−.1;−.08;+.01} giữ hai phía0; highηcenter pre-load.9<1. Biên độ±6, κ/quantile/r_h/η và threshold không đổi. Chọn mức có lattice đơn giản để không gây nổ solver/DP; không quét thử nhiều λ. Controls/reserve giữ thiết kế trước. Đây là redesign hậu screen được protocol cho phép, không pretended preregistration ban đầu. Giữ đủ22 main và mọi out; nếu lần hai không đạt15 thì NARROW/REFORMULATE, không lượt thứ hai, không formal freeze/tag v1.1.
+
+### DL-036 — B4 kết thúc: REJECTED / NARROW REQUIRED (2026-10-23)
+
+Đã dùng đúng một redesign:8/22→11/22, yêu cầu15/22. Không unstable/precision unresolved trong88rows; kết quả không đạt là screen thiết kế, không phải lỗi số học. Giữ toàn bộ28ô+6reserve trong grid_v1_1 decision record; không chọn calibration khi grid rejected. N01/N02 SD-cell,N03/N04 conservation-cell; chưa chạy contrast. Không thử lầnλ thứ hai, không bỏκ3 hoặc ôout sau khi xem outcomes để gọi PASS. B5 đánh giá readiness nhưng không được nâng draft thành contract chính thức hoặc tagv1.1. Cần một protocol NARROW/REFORMULATE mới trước nghiên cứu tiếp; không xem thất bại của screen convention là bác bỏ hypothesis của MainRQ.
