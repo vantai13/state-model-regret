@@ -1,0 +1,91 @@
+{
+  "author": "Doan Van Tai",
+  "artifact_audit": "PASS",
+  "B4_status": "REJECTED_NARROW_REQUIRED",
+  "B5_status": "NOT_READY",
+  "initial_in": 8,
+  "redesign_in": 11,
+  "required": 15,
+  "checks": [
+    {
+      "id": 1,
+      "status": "PASS",
+      "check": "Each operational term defined once",
+      "definitions": 25
+    },
+    {
+      "id": 2,
+      "status": "PASS",
+      "check": "Brief concepts and Main RQ map to D1–D25; scope retained"
+    },
+    {
+      "id": 3,
+      "status": "PASS",
+      "check": "Deferred items assigned: A01 final dt, A05 null/heldout, Phase8 feasible repairs, P0-V10 independent review"
+    },
+    {
+      "id": 4,
+      "status": "PARTIAL",
+      "check": "Full Final Review source consistency",
+      "reason": "Reading note and known scope checked; full source not available to independently compare sections"
+    },
+    {
+      "id": 5,
+      "status": "PASS",
+      "check": "25-term budget and immutable v0 bytes"
+    },
+    {
+      "id": 6,
+      "status": "FAIL",
+      "check": "Cross-card numerical/grid/calibration constraints",
+      "numeric_constraints": "PASS",
+      "law_error_max": 1.0285290621378551e-29,
+      "posterior_error_max": 4.0000001058986274e-16,
+      "p_interval_width_max": 5.770939282001564e-13,
+      "reason": "Grid acceptance11/22<15/22 after one redesign; no eligible final calibration set can be locked"
+    }
+  ],
+  "full_suite_passed": 177,
+  "native_subtraction_mutant": {
+    "first_attempt": "SURVIVED",
+    "after_nondyadic_test": "KILLED"
+  },
+  "manifest_files_checked": {
+    "v1_1_a1": 54,
+    "v1_1_a1_redesign": 22,
+    "v1_1_a2": 283,
+    "v1_1_a2_redesign": 142,
+    "v1_1_a3": 10,
+    "v1_1_a4": 48,
+    "v1_1_a4_redesign": 48,
+    "v1_1_a5": 2,
+    "l1_8_a": 29,
+    "l1_8_b": 34,
+    "l1_8_cde": 22,
+    "l1_8_v1_1_b1": 26,
+    "v1_1_m2": 63
+  },
+  "queue_supports_checked": 272,
+  "prior_rows_checked": 40,
+  "sign_rows_checked": 88,
+  "chronology": [
+    "27eeed4",
+    "e3161cf",
+    "9f0783e",
+    "571d4cf",
+    "c7ddef3",
+    "6b87256",
+    "19d03cc",
+    "3fe81d2",
+    "ae876ab",
+    "8126ef9"
+  ],
+  "max_law_error": 1.0285290621378551e-29,
+  "max_posterior_error": 4.0000001058986274e-16,
+  "max_p_interval_width": 5.770939282001564e-13,
+  "unresolved_mass_max": 0.0,
+  "formal_contract_promoted": false,
+  "tag_allowed": false,
+  "headsup_sent": false,
+  "author_attestation": "V1/V8/P0-V3/P0-V11 direct user confirmation, no stored human artifacts"
+}

@@ -39,8 +39,9 @@ def test_golden_gap_and_queue_signs():
 
 
 def test_zero_capacity_loss_is_exact_zero_and_large_toy_fits_budget():
-    out,_,seconds=backward(np.array([10000,10001]),(-3,2),300,F(3,4))
-    assert np.all(out==0) and seconds<1200
+    for keep in (F(3,4),F(97,100)):
+        out,_,seconds=backward(np.array([10000,10001]),(-3,2),300,keep)
+        assert np.all(out==0) and seconds<1200
 
 
 def test_two_markov_queues_against_joint_exact_paths():

@@ -1,0 +1,71 @@
+{
+  "author": "Doan Van Tai",
+  "input_sha256": "94cf6ae3c6c63a11062f54e73a402fcf7b3a2f54791aa415b757feeec165572b",
+  "source_hashes": {
+    "src/smr/stationary_spectral.py": "cc7c3f82f88cbc99013130b580dc3374075d021c884e77b3bf382caf10d8cb6c",
+    "src/smr/stationary_v2.py": "60639e6fc33eb16ee3b55b196ba6fcab00715d28f2a72b5501915834513b627a",
+    "src/smr/gap_screen.py": "b85ca281910cfbbe5ebe810d77570f88927ce0e9b1f3b5f3d582aded0270ad38",
+    "src/smr/native/idle_backward.cpp": "8a76d84abf8fd0c1b59c247d2ae8555ac9803dfde117cd8105cf8e988f0b9c84",
+    "experiments/lessons/run_v1_1_a1.py": "dab47524da81ce88df9a0f8d0f63a9b011127cb5bdd34192540b995d2ab436f2",
+    "experiments/lessons/run_v1_1_a1_redesign.py": "1dc37c939dc0860d8181fdbfebfe7195ddbbc3d79e024c707647f6d868830442",
+    "experiments/lessons/run_v1_1_a2.py": "9fa76cef855198ea658e898b03916265115cebf3cc0498632406e4f3e7b81f0c",
+    "experiments/lessons/run_v1_1_a4.py": "19c9fa1dad9fbe6fdb7e789eefe0d44e4e3ada5a4a4bbe797c40fdd821da186f",
+    "experiments/lessons/run_v1_1_a5.py": "33b6ee4c1aa2ed53cfbaae820f82cfc6b8e5d8d80057db184bf5cc3dc9ced33d",
+    "tests/test_stationary_spectral.py": "517eb4580c7b8ec476b4011d4429f7ef599f4e3477cb5534f3983543c366767e",
+    "tests/test_gap_screen.py": "f9e1e9f2b1aa6cf448eba8b108c29596b974b2c20ab20ab7ad83917bcd4fcdce",
+    "notes/verification/verify_v1_1_part_a.py": "e56c243b8a655a0e189a28f1a8864819562a87e524da0595156cb4ae22140d98",
+    "notes/verification/verify_v1_1_factorized_law.py": "a8e8d3d37086d823b6a6ebe37895329a201a0010f4ef659cf409549cd0e9fe63",
+    "experiments/lessons/report_v1_1_part_a.py": "cea31b94cd1092b5ef5700bb1bdf84a41a91abb1620c17c6d3ee9dd31aedd047"
+  },
+  "versions": {
+    "python": "3.14.5",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "mpmath": "1.3.0",
+    "longdouble_eps": "1.084202172485504434e-19"
+  },
+  "physical_config": {
+    "mu_packet_per_s": 10,
+    "age_s": 1,
+    "dt_s": [
+      "1/120",
+      "1/240"
+    ],
+    "A_background_amplitude": 6,
+    "B_OFF": 2,
+    "B_ON": 14,
+    "lambdaA_initial": [
+      "6.5",
+      "7.5",
+      "8.5"
+    ],
+    "lambdaA_redesign": [
+      "7",
+      "7.2",
+      "8.1"
+    ],
+    "kappa": [
+      ".3",
+      "1",
+      "3"
+    ],
+    "eta_core": 0.5,
+    "eta_spoke": 0.9
+  },
+  "prior_law_error_target": 1e-10,
+  "posterior_error_target": 1e-08,
+  "tail_target_spectral": 1e-36,
+  "uncertain_mass_alarm": 0.01,
+  "p_acceptance": [
+    0.1,
+    0.9
+  ],
+  "required_main_in": 15,
+  "redesign_limit": 1,
+  "memory_limit_bytes": 4294967296,
+  "seconds_per_solver_or_action": 1200,
+  "A01_updates_limit": 200000000000.0,
+  "seed": null,
+  "RNG_draws": 0,
+  "margin_or_Lstar_outputs": false
+}

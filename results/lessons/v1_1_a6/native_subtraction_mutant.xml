@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.797" timestamp="2026-10-23T11:17:43.789926+07:00" hostname="vantai"><testcase classname="tests.test_gap_screen" name="test_zero_capacity_loss_is_exact_zero_and_large_toy_fits_budget" time="0.748"><failure message="assert (np.False_)&#10; +  where np.False_ = &lt;function all at 0x7a4003f411f0&gt;(array([[-1.30967237e-10,  1.16415322e-10],\n       [-1.30967237e-10,  1.16415322e-10]]) == 0)&#10; +    where &lt;function all at 0x7a4003f411f0&gt; = np.all">def test_zero_capacity_loss_is_exact_zero_and_large_toy_fits_budget():
+        for keep in (F(3,4),F(97,100)):
+            out,_,seconds=backward(np.array([10000,10001]),(-3,2),300,keep)
+&gt;           assert np.all(out==0) and seconds&lt;1200
+E           assert (np.False_)
+E            +  where np.False_ = &lt;function all at 0x7a4003f411f0&gt;(array([[-1.30967237e-10,  1.16415322e-10],\n       [-1.30967237e-10,  1.16415322e-10]]) == 0)
+E            +    where &lt;function all at 0x7a4003f411f0&gt; = np.all
+
+tests/test_gap_screen.py:44: AssertionError</failure></testcase></testsuite></testsuites>

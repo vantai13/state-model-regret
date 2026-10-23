@@ -1,15 +1,15 @@
-# Research contract v1.1 — DRAFT, chưa tag
+# Research contract v1.1 — DRAFT, B4 REJECTED
 
-Người phụ trách: **Doan Van Tai** · 23/10/2026. Lựa chọn theo ủy quyền kỹ thuật, [mốc2](design/decisions_v1_1_m2.md), không là bài kín sách/read-back. [v1](01_definitions_v1.md) giữ snapshot; active [closeout](phases/PHASE_1_closeout.md) HOLD. Chưa có grid manifest được chốt hoặc A01/A04. Vẫn25term, ngưỡng/objective/cùng θ không đổi.
+Người phụ trách: **Doan Van Tai** · 23/10/2026. Lựa chọn theo ủy quyền kỹ thuật, [mốc2](design/decisions_v1_1_m2.md), không là bài kín sách/read-back. [v1](01_definitions_v1.md) giữ snapshot; active [closeout](phases/PHASE_1_closeout.md) HOLD. [Grid decision record](design/grid_v1_1.md) giữ đủ28ô+6reserve nhưng bị REJECTED: initial8/22, redesign11/22<15. Không calibration hoặc A01/A04. Bốn human gates đã author-attested trực tiếp23/10, chưa independently verified. Vẫn25term, ngưỡng/objective/cùng θ không đổi.
 
 Main RQ: *For load-changing routing actions, how do improvements in current-state information and action-response model fidelity differ and interact in their effect on expected decision regret?*
 
 | ID | Term | Định nghĩa vận hành | Đơn vị | Trạng thái |
 |---|---|---|---|---|
 | D1 | Slot Δt | dt_screen=age/120 và half; ứng viên, final theo A01 sau gate | s | PROTOCOL ADOPTED; final A01 |
-| D2 | Horizon h | h=Hdt, cùng giữa action/pipeline trong cell; r_h riêng theo quantileB và headroom; control horizon khai báo riêng | s | ADOPTED |
+| D2 | Horizon h | Hcoarse=ceil(h_target/dt_coarse), báo rounding; finer H=ref*Hcoarse giữ cùng physical h giữa action/pipeline và hai screen levels; control h riêng | s | ADOPTED |
 | D3 | Path, capacity | A/B rời, một bottleneck mỗi path, capacity bằng nhau và cố định trong episode; hệ chuẩn μ=10 | packet/s | ADOPTED |
-| D4 | Nền, θ | Nền A/B độc lập ON/OFF, symmetric R2, Tmode dùng chung; A amplitude±6 giữ nguyên khiu đổi; thông số theo mốc2 | packet/s | ADOPTED |
+| D4 | Nền, θ | Nền A/B độc lập ON/OFF, symmetric R2, Tmode dùng chung; A amplitude±6 giữ nguyên khiu đổi; initial λA6.5/7.5/8.5; một redesign λA7/7.2/8.1, center7.2; cả hai grid không đạt screen; không còn level đã accepted | packet/s | ADOPTED |
 | D5 | Action, u | Stay: managed u trên A; Switch: chuyển đúng u sang B tại t0, giữ suốt h; u=2η | packet/s | ADOPTED |
 | D6 | Recurrence | q_next=max(0,q+background_amount+managed_amount−capacity_amount); không finite-buffer cap | packet | ADOPTED |
 | D7 | State x | (qA,qB,mA,mB); mA từ placeholder deterministic thành mode ngẫu nhiên thật, mode hiệu lực slot0 | packet, mode | ADOPTED |
@@ -17,7 +17,7 @@ Main RQ: *For load-changing routing actions, how do improvements in current-stat
 | D9 | Estimator S | B2 posterior trên cả hai backlog/mode, b=D theo ideal law; một belief giữ nguyên giữa M0/M1; numeric approximation phải báo cận | distribution | ADOPTED |
 | D10 | Model M | M0: trung bình **cost của mean rollout từng state trong belief**, conditional mode, load-aware; M1: trung bình cost đúng law. Cùng θ; không rollout từ mean-state thay belief | packet·s | ADOPTED |
 | D11 | Future w | Realized background sau t0; evaluator giữ riêng, không controller/oracle nào nhận | — | ADOPTED |
-| D12 | Episode, D | D stationary conditional cho A/B tại yA,yB; A trước quyết định mangu; pre-Stay tới t0. Numeric prior cần cận sai số law/posterior, belief cùng law với evaluator | probability | ADOPTED |
+| D12 | Episode, D | D stationary conditional cho A/B tại yA,yB; A trước quyết định mangu; pre-Stay tới t0. Spectral interval residual+Lyapunov tail+Bellman return bound; law≤1e−10, posterior≤1e−8. Prior tính lại mỗi dt, giữ observation coarse vật lý; D_A,D_B lưu riêng với cận propagation/normalization, không Cartesian product; belief cùng law với evaluator | probability | ADOPTED |
 | D13 | Cost C | Δt Σ(k=1..H)(qA,k+qB,k), c_sw=0; endpoint occupancy, gồm packet còn tồn, bỏ k0 và phần sau h | packet·s | ADOPTED |
 | D14 | Objective J | E_w[C(action,w) given x,θ]; không hindsight realization | packet·s | ADOPTED |
 | D15 | Oracle a* | Argmin true J, biết x/law nhưng không w, một benchmark cho mọi ô | action | ADOPTED |
@@ -40,4 +40,12 @@ Một observation mỗi ô: bổ đề N2 và proof tại [reference](theory/T01
 
 D4/D7/D12/D20/D22 thay đổi plant và estimand interpretation, không chỉ đổi grid. Primary State gain gồm thấy hai mode, nên không so trực tiếp attribution với PartB/v1. κ là relative-age axis1/κ; z derived, không claim independent persistence effect. Selected decision-relevance grid không ước lượng prevalence ở mạng thật.
 
-Version/gate: B2 parameters→ĐK1; B3 chỉ p_sw ởdt/half và numeric checks, không reserve p_sw hoặc margin outcomes; unstable không calibration; giữ mọi ô, tối đa1 redesign. B5 consistency không tự cho tag khi V11 thiếu. Nguồn gate full và artifacts người thật còn chờ; không có lời GO độc lập từ tests. Scope/rights kế thừa v1: evaluator giữ w, chỉ S1 nhận x trong decision branch; no TCP/shared bottleneck/tail operational claim. N1/N2/stat solver là engineering/theory verification, không hypothesis confirmation.
+Version/gate: B2 parameters→ĐK1; B3 chỉ p_sw ởdt/half và numeric checks, không reserve p_sw hoặc margin outcomes; unstable không calibration; giữ mọi ô, tối đa1 redesign. B4 đã hết một redesign và không đạt15/22, nên B5 không được promote/tag. V1/V8/P0-V3/P0-V11 author-attested; nguồn gate full chưa có, V9/P0-V10 độc lập còn chờ; tests không tự mở gate. Scope/rights kế thừa v1: evaluator giữ w, chỉ S1 nhận x trong decision branch; no TCP/shared bottleneck/tail operational claim. N1/N2/stat solver là engineering/theory verification, không hypothesis confirmation.
+
+## Phần A — implementation và điều kiện còn mở
+
+Native idle DP dùng zero-tail đã chứng minh và integer index, không clip miền reachable. P_sw bằng sorted factorized support và strict interval; error gồm γ8H, R2 probability radius, posterior/D propagation và aggregation rounding. Hai screen levels đều không có unresolved mass trên88 rows. Không lưu W/Δ hoặc Lstar.
+
+Budget khai báo trước screen:4GiB và1200s/certificate hoặc native action; A01≤2e11 scalar updates/cell/level, mức tới dt/16. Budget không là chứng nhận convergence hoặc hypothesis. Formal freeze phải chờ protocol NARROW/REFORMULATE mới có lưới accepted; không có lần redesign thứ hai trong protocol này. A01 final dt, A05 predictor/null/held-out, Phase8 feasible repairs và P0-V10/independent review vẫn có nơi quyết.
+
+Changelog v1→v1.1: D4 background A có mode thực; D7 mA từ placeholder thành uncertainty; D12 conditional stationary cho cả A/B; D20 State repair thấy hai mode; D22 freshness/mode split đổi nội dung, không so trực tiếp v1. Giữ objective, R2, belief shared, εR1%, εE.5%, refinement.25% và exact tie Stay.

@@ -252,3 +252,7 @@ Doan Van Tai. Redesign prereg19d03cc, candidate3fe81d2; λA7/7.2/8.1, center7.2.
 | M22 | 2 | 0.9999999999999567 | 1.0 | out |
 
 11/22 in, yêu cầu15/22; unresolved mass0 ở44rows. Đã hết một lượt redesign; giữ đủ22main, B4 không chấp nhận, không chuyển calibration/freeze. Results: results/lessons/v1_1_a4_redesign/.
+
+## Phần A — verification bổ sung sau screen,23/10/2026
+
+Doan Van Tai. Chỉ mở toy conservation q10000/10001,H300,incs−3/+2 và keep3/4,97/100 để kiểm mutant cost-subtraction. Test dyadic đầu không bắt được mutant, record PASS giữ nguyên; thêm keep97/100 làm mutant FAIL, source kernel không đổi. Không mở candidate margin/Lstar. Full177tests PASS sau bổ sung. D/dominance audit136rows và136legacyB comparisons chỉ dùng support/parameters đã exposed, không future J. Plot chỉ dùng p_sw đã exposed và stationary error bounds. FinalB4 giữ rejected11/22, không lọc ô để nhận lưới. No RNG/seed, no extra screen/heldout hoặc contrast. Human gates author-attested bằng phản hồi trực tiếp, không tạo human artifact. Heads-up chưa gửi.

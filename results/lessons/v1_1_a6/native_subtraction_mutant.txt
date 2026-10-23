@@ -1,0 +1,16 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_zero_capacity_loss_is_exact_zero_and_large_toy_fits_budget ________
+
+    def test_zero_capacity_loss_is_exact_zero_and_large_toy_fits_budget():
+        for keep in (F(3,4),F(97,100)):
+            out,_,seconds=backward(np.array([10000,10001]),(-3,2),300,keep)
+>           assert np.all(out==0) and seconds<1200
+E           assert (np.False_)
+E            +  where np.False_ = <function all at 0x7a4003f411f0>(array([[-1.30967237e-10,  1.16415322e-10],\n       [-1.30967237e-10,  1.16415322e-10]]) == 0)
+E            +    where <function all at 0x7a4003f411f0> = np.all
+
+tests/test_gap_screen.py:44: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_gap_screen.py::test_zero_capacity_loss_is_exact_zero_and_large_toy_fits_budget
+1 failed in 0.80s

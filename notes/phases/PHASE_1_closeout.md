@@ -1,25 +1,23 @@
-# Phase 1 — HOLD, trạng thái cập nhật 23/10/2026
+# Phase 1 — HOLD: B4 không đạt sau một redesign
 
-Người phụ trách: **Doan Van Tai**. **HOLD Gate1 và A01/A04**; G1 giữ nguyên. Bản CONDITIONAL GO ngày22/10 là lịch sử tại tag `contract-v1` (6bb631f), không là trạng thái hiện tại. Tag không di chuyển; f9ec182 chỉ thêm receipt, scientific files hai snapshot giống nhau.
+Người phụ trách: **Doan Van Tai**, cập nhật23/10/2026. Kết quả PhầnA: solver/prior đã vượt nút thắt, nhưng lưới **REJECTED / NARROW REQUIRED**. Initial8/22 main in; một redesign11/22, yêu cầu15/22. Đã hết lượt redesign trong protocol này. Giữ đủ28ô+6reserve; chưa chốt calibration, chưa nâng contract draft hoặc tagv1.1, A01/A04 chưa mở.
 
-Hai review mới dẫn PHASE_1 v1.0, SHA rút gọn47f9a335…d4d7ba, dòng332/1953: P0-V11 chưa đạt thì HOLD, không tag. Full file chưa được cung cấp để tự kiểm hash/câu gốc. Tạm áp quy tắc HOLD chặt hơn và ưu tiên master-plan được review dẫn; lời ngoại lệ từ lesson Part E không dùng để mở gate. Không ghi nguồn gốc đã verified khi chỉ có reviewer báo.
-
-| Gate | Trạng thái và điều kiện gỡ HOLD |
+| Gate / mục | Trạng thái thực tế |
 |---|---|
-| V1 | AUTHOR-ATTESTED 23/10/2026: tác giả xác nhận hoàn thành ngoài repo; không lưu artifact để kiểm độc lập |
-| V2/V3/V4 | Hạ tầng kiểm, plant law và shared-belief interfaces đã có; giữ output lịch sử, thêm N1 kiểm strict ties |
-| V5 | Final grid dt/calibration chưa có; old calibration SD invalid cho A01 |
-| V6/V7 | v1 lỗi thiết kế13SD,3calibrationSD; v1.1 chưa có grid đã qua ĐK1/2 hoặc tag; six-check/source alignment còn chờ |
-| V8 | AUTHOR-ATTESTED 23/10/2026: tác giả xác nhận hoàn thành ngoài repo; không lưu record |
-| V9 | External feedback chưa có; mock review không thay người đọc độc lập |
-| P0-V3 | AUTHOR-ATTESTED 23/10/2026: tác giả xác nhận đã read-back ngoài repo |
-| P0-V11 | AUTHOR-ATTESTED 23/10/2026: tác giả xác nhận hoàn thành ngoài repo; chưa kiểm độc lập |
-| P0-V10 | Người đọc độc lập vẫn bắt buộc trước Phase4 |
+| V1 | AUTHOR-ATTESTED: tác giả xác nhận trực tiếp đã làm ngoài repo, không lưu artifact để kiểm độc lập |
+| V2/V3/V4 | Hạ tầng plant/belief/idle identity và strict-sign screen có tests/audits; chưa validation mạng |
+| V5 | Chưa final grid dt hoặc calibration A01; budget tới dt/16 chỉ là ước lượng |
+| V6/V7 | B2/B3 đủ chronology, B4 thất bại11/22<15/22; B5 readiness NOT_READY |
+| V8 | AUTHOR-ATTESTED: tác giả xác nhận trao đổi người thật ngoài repo, không lưu record |
+| V9 | Chưa external feedback; heads-up chỉ là nháp nội bộ theo chỉ dẫn tác giả |
+| P0-V3 | AUTHOR-ATTESTED: tác giả xác nhận read-back ngoài repo |
+| P0-V11 | AUTHOR-ATTESTED: tác giả xác nhận hoàn thành ngoài repo; không ghi independently verified |
+| P0-V10 | Người đọc độc lập còn thiếu, chặn Phase4; không phải nguyên nhân B4 rejected |
 
-[Mốc2](../design/decisions_v1_1_m2.md) đã ghi lựa chọn N2(a), numeric policy N1, model A stationary, fixed amplitude và các axis trước candidate calculations. Proof/test được tạo thay mặt tác giả là **technical reference**, không đóng understanding gates. Không tạo commit `[kín sách]` thay tác giả.
+Solver:20/20 certificate original và20/20 sau một redesign, law≤1e−10/posterior≤1e−8; phương án phổ dùng interval residual, independent tail và Bellman bound. Không thay plant để vừa cap50.000. D lưu theo queue; screen88rows ởdt1/120 và1/240, không lưu margin/Lstar/contrasts, không reserve p_sw. Negative controlsN01/N02 SD,N03/N04 conservation có kỳ vọng sáu contrasts0 theo chứng chỉ, chưa chạy contrasts.
 
-Gỡ HOLD cần: nguồn gate đầy đủ/đối chiếu được; V1/P0-V3/P0-V11/V8 thực có record; N1 đã kiểm non-circular strict sign; solver/prior và computational budget chứng nhận cho grid; B2/B3/B4 theo đúng chronological commits; B5 consistency rồi chỉ tag khi gate cho phép. A01/A04 không tự mở từ việc tests PASS. Phase2a có thể đọc riêng; chưa novelty hoặc network evidence.
+Sáu consistency checks:4 PASS,1 PARTIAL (full Final Review source chưa có),1 FAIL (grid/calibration prerequisite không đạt; numerical cross-constraints PASS). [Receipt](../../results/lessons/v1_1_a6/readiness.json), [báo cáo PhầnA](../verification/v1_1_part_a/README.md), [grid decision record](../design/grid_v1_1.md). Full suite và mutation evidence xem báo cáo; code PASS không đổi kết luận B4.
 
-Heads-up chỉ lưu nháp theo chỉ dẫn tác giả23/10, **không gửi**. Không tạo lịch/biên bản/read-back giả. Giữ lịch sử [CDE](../../results/lessons/l1_8_cde/report.md) và [B1](../../results/lessons/l1_8_v1_1_b1/report.md); input hash nguồn cũ đối chiếu snapshot git của lúc chạy, không sửa hash để khớp tài liệu active mới.
+Bốn human gates được tác giả xác nhận trong chat23/10 sau record thiếu xác nhận trước đây; không tạo ảnh, biên bản hoặc commit kín sách thay tác giả. PHASE_1 source chỉ có digest rút gọn47f9a335…d4d7ba và dòng332/1953 do review báo; tìm385 attachment text (original/LF) không tìm hash đầy đủ. Không tự điền full SHA hoặc quote chưa mở. Câu ngoại lệ PartE không dùng để bỏ gate.
 
-Cập nhật23/10: bốn gate trên có xác nhận trực tiếp mới của tác giả, supersede trạng thái thiếu xác nhận trước đó. Technical HOLD còn phụ thuộc A1–A6; nguồn gate đầy đủ chưa có. Xem DL-032.
+Tag contract-v1 giữ nguyên6bb631f; CONDITIONAL GO22/10 là lịch sử. Heads-up chưa gửi. G1 giữ nguyên. Bước tiếp theo cần protocol NARROW/REFORMULATE mới, với reason và exposure đã có; không âm thầm bỏ ôout hoặc thử λ lần thứ hai để báo PASS. Chưa có bằng chứng hypothesis/novelty/practical-network value.
