@@ -1,0 +1,64 @@
+{
+  "author": "Doan Van Tai",
+  "status": "ACCEPTED",
+  "reproduction": {
+    "ladder_rows": 200,
+    "ladder_mismatches": [],
+    "confirm_rows": 38,
+    "confirm_mismatches": [],
+    "main_cells": 38,
+    "matches_proposed_cells": true
+  },
+  "main_cells": 38,
+  "main_failures": [
+    {
+      "slice": "V09",
+      "target": 0.3,
+      "lambdaA": "6",
+      "p_coarse": 0.7445329263067468,
+      "deviation": 0.44453292630674685,
+      "bracketing": "floor",
+      "at_ladder_floor": true,
+      "at_ladder_ceiling": false
+    },
+    {
+      "slice": "V10",
+      "target": 0.3,
+      "lambdaA": "25/4",
+      "p_coarse": 0.7962587002290893,
+      "deviation": 0.4962587002290893,
+      "bracketing": "floor",
+      "at_ladder_floor": false,
+      "at_ladder_ceiling": false
+    }
+  ],
+  "heldout_cells": 12,
+  "heldout_failures": [],
+  "heldout_slices_without_cell": [],
+  "calibration": [
+    {
+      "id": "M01",
+      "reason": "smallest kappa, then smallest B post-switch drain/dt"
+    },
+    {
+      "id": "M10",
+      "reason": "closest to the core centre (normalized axes)"
+    },
+    {
+      "id": "M22",
+      "reason": "largest A01 budget at dt/16"
+    }
+  ],
+  "controls": {
+    "N01": "SD-cell",
+    "N02": "SD-cell",
+    "N03": "conservation-cell",
+    "N04": "conservation-cell",
+    "W01": "WD-cell",
+    "S01": "WD-cell"
+  },
+  "probes": {
+    "P01": "conservation-cell",
+    "P02": "WD-cell"
+  }
+}

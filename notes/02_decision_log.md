@@ -351,3 +351,13 @@ Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FA
 - **Alternatives:** NARROW về 11 ô của v1.1 (mất trục tải; còn ô vượt budget); thiết kế đối xứng P1/P2 (≤ 63% ô đạt); neo với $r_h=1$ (P3, 7 ô vượt budget).
 - **Consequence:** contract v1.2 thay bản nháp v1.1 ở D1, D2, D4 và phần lưới; ĐK8 và plant v1.1 không đổi. Held-out được neo lúc chốt lưới; $p_{\text{sw}}$ của held-out bị cấm làm biến cho $H_0/H_1$. G1 giữ nguyên.
 - **Ai quyết:** **Doan Van Tai** (yêu cầu thực hiện ngày 23/10, sau khi đọc báo cáo thử nghiệm và một review riêng).
+
+### DL-039 — Chạy chính thức lưới v1.2: ACCEPTED (2026-10-23)
+
+- **Kết quả:** chạy theo [protocol v1.2](design/v1_2_protocol.md) (commit `d696eef`, trước lần chạy). Tái lập **tuyệt đối** thử nghiệm: 200 dòng thang và 38 ô kiểm ở dt/4, **0 chỗ lệch**; tập ô trùng `proposed_v1_2_cells.csv`. Lưới **ACCEPTED**: 38 ô chính, mỗi ô trong $[0{,}1;0{,}9]$ ở dt, dt/2, dt/4, nhãn `candidate`, budget tối đa $6{,}8\times10^{10}$ ở dt/16. Hai mục tiêu không neo được đúng như dự kiến: lát V09 và V10 ($\kappa$ 3, B q50), mục tiêu 0,3, kiểu `floor`. [Bảng lưới](design/grid_v1_2.md).
+- **Held-out:** 6/6 lát neo được cả hai mục tiêu, thành 12 ô (R01–R12). Tất cả trong dải ở ba mức, `candidate`, có điểm kẹp, budget tối đa $8{,}7\times10^{10}$ ở dt/16. Đây là exposure mới (chỉ $p_{\text{sw}}$, nhãn, budget).
+- **Ô kiểm âm và đầu dò:** nhãn đúng kỳ vọng: N01, N02 SD-cell; N03, N04 conservation-cell; W01, S01 WD-cell; P01 conservation-cell; P02 WD-cell.
+- **Calibration A01: M01, M09, M22** ($\kappa$ 0,3 / 1 / 3). **Lỗi đã sửa:** lần chọn đầu cho M10 thay vì M09, vì khoảng cách tới tâm được tính bằng số thực và $(0{,}7-0{,}3)/0{,}4=0{,}9999999999999999$ làm vỡ một trường hợp hòa chính xác. Protocol quy định hòa thì chọn mã nhỏ hơn. Code được sửa để dùng phân số chính xác và chỉ chạy lại bước chọn (`--reselect`); **không tính lại gì trên plant**. Lần chọn đầu được giữ trong `results/lessons/v1_2/selection_first_attempt.json`.
+- **Không có:** $J$, $L_*$, margin, belief, pipeline, contrast hay regret ở bất kỳ ô nào.
+- **Consequence:** đủ điều kiện khóa contract v1.2 (§8 của protocol). A01 chạy trên M01, M09, M22.
+- **Ai quyết:** **Doan Van Tai** (yêu cầu thực hiện ngày 23/10).

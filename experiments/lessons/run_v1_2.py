@@ -125,9 +125,12 @@ def calibration(main):
     c1 = min(pool, key=lambda c: (F(c['kappa']), F(c['yB']) / (2 - F(c['u'])), by_id(c)))
 
     def dist(c):
-        x = [(m.log(float(F(c['kappa']))) - m.log(.3)) / (m.log(3) - m.log(.3)), (float(F(c['eta'])) - .5) / .25,
-             (float(F(c['alphaB'])) - .5) / .4, (min(a['target'] for a in c['anchors']) - .3) / .4]
-        return sum((v - .5) ** 2 for v in x)
+        # Exact rationals for the linear axes; the log axis is rounded so equal kappa gives equal
+        # distance. A float version broke exact ties (0.7-0.3)/0.4 = 0.9999999999999999 (DL-039).
+        log_k = F(round((m.log(float(F(c['kappa']))) - m.log(.3)) / (m.log(3) - m.log(.3)), 12))
+        target = min(F(str(a['target'])) for a in c['anchors'])
+        x = [log_k, (F(c['eta']) - F(1, 2)) / F(1, 4), (F(c['alphaB']) - F(1, 2)) / F(2, 5), (target - F(3, 10)) / F(2, 5)]
+        return sum((v - F(1, 2)) ** 2 for v in x)
 
     rest = [c for c in pool if c['id'] != c1['id']]
     c2 = min(rest, key=lambda c: (dist(c), by_id(c)))
@@ -228,7 +231,32 @@ def run(workers):
     print(json.dumps(selection, indent=1, ensure_ascii=False, default=str))
 
 
+def reselect():
+    """Re-apply only the calibration rule to the stored accepted rows (no plant computation).
+    Keeps the first selection as evidence of the float tie-break defect recorded in DL-039."""
+    grid_path = ROOT / 'notes/design/grid_v1_2.json'
+    grid, sel = json.loads(grid_path.read_text()), json.loads((OUT / 'selection.json').read_text())
+    first = OUT / 'selection_first_attempt.json'
+    if first.exists():
+        raise SystemExit('reselection already done')
+    first.write_text((OUT / 'selection.json').read_text())
+    assert grid['status'] == sel['status'] == 'ACCEPTED'
+    cal = calibration(grid['main'])
+    for r in grid['main']:
+        r['calibration'] = any(c['id'] == r['id'] for c in cal)
+    grid['calibration'] = sel['calibration'] = cal
+    sel['calibration_fix'] = dict(first_attempt=[c['id'] for c in json.loads(first.read_text())['calibration']],
+                                  reason='float rounding broke an exact tie in the centre distance; protocol says ties go to the smaller ID',
+                                  plant_recomputed=False)
+    write(grid_path, grid)
+    write(OUT / 'selection.json', sel)
+    manifest(OUT)
+    print(json.dumps(sel['calibration_fix'], indent=1), [c['id'] for c in cal])
+
+
 if __name__ == '__main__':
     p = argparse.ArgumentParser()
     p.add_argument('--workers', type=int, default=8)
-    run(p.parse_args().workers)
+    p.add_argument('--reselect', action='store_true')
+    a = p.parse_args()
+    reselect() if a.reselect else run(a.workers)

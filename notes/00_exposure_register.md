@@ -270,3 +270,16 @@ Doan Van Tai. Nhánh `explore/reformulate-grid` (commit `db955de` → `ee349a4`)
 | Tính lại để kiểm script | M01, M02, M04 của v1.1 (đã xem từ trước, khớp tuyệt đối) |
 
 **Chưa xem:** $J$, $L_*$, $C_{\text{ref}}$, margin, belief, pipeline, contrast, regret. **Chưa tính:** mọi tọa độ held-out của protocol v1.2 ($\kappa$ 0,6 và 2; B q75; $\eta$ 0,625; $h$ 4 và 12 s). Không RNG, không seed.
+
+## Lưới v1.2 — chạy chính thức, 23/10/2026
+
+Doan Van Tai. Protocol commit `d696eef` trước khi chạy; kết quả `results/lessons/v1_2/`, [grid](design/grid_v1_2.md).
+
+| Đã xem | Phạm vi | Mới? |
+|---|---|---|
+| Khoảng $p_{\text{sw}}$ ở dt, dt/2 cho thang của 20 lát chính; dt/4 và nhãn của 38 ô chính | Tái lập tuyệt đối thử nghiệm | Không |
+| Khoảng $p_{\text{sw}}$ ở dt, dt/2 cho thang của 6 lát held-out H01–H06 (65 điểm thang) | $\kappa$ 0,6 và 2, B q75, $\eta$ 0,625, $h$ 4 và 12 s | **Có** |
+| $p_{\text{sw}}$ ở dt/4 và nhãn ĐK1 của 12 ô held-out R01–R12 | | **Có** |
+| Nhãn và $p_{\text{sw}}$ của N01–N04, W01, S01 và đầu dò P01, P02 | Định nghĩa v1.1 / ô đã có trong thử nghiệm | Không đáng kể |
+
+**Chưa xem:** $J$, $L_*$, margin, contrast, regret ở bất kỳ ô nào. Held-out chưa dùng cho discovery hay calibration.
