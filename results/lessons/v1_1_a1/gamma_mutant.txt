@@ -1,0 +1,18 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_rounding_guard_covers_actual_lost_positive_summand ____________
+
+    def test_rounding_guard_covers_actual_lost_positive_summand():
+        eps=np.finfo(np.longdouble).eps
+        total,bound=positive_sum([np.longdouble(1),eps/4])
+        actual=F(1)+F(str(eps/4))-F(str(total))
+        assert actual>0
+>       assert F(str(bound))>=actual
+E       AssertionError: assert Fraction(0, 1) >= Fraction(542101086242752217, 20000000000000000000000000000000000000)
+E        +  where Fraction(0, 1) = F('0.0')
+E        +    where '0.0' = str(np.longdouble('0.0'))
+
+tests/test_stationary_spectral.py:33: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_stationary_spectral.py::test_rounding_guard_covers_actual_lost_positive_summand
+1 failed in 0.12s
