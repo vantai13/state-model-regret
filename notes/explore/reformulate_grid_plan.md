@@ -1,5 +1,7 @@
 # Thử nghiệm REFORMULATE lưới — kế hoạch viết trước khi tính
 
+> **Cập nhật trạng thái 23/10/2026 (thêm sau khi viết):** nhánh đã được push công khai lên GitHub và merge vào `main` tại `87dcd53`. Tác giả quyết định áp dụng P4 theo [DL-038](../02_decision_log.md) và [protocol v1.2](../design/v1_2_protocol.md). Các câu "không thay đổi `main`" và "chưa được tác giả xác nhận" bên dưới mô tả trạng thái lúc viết.
+
 > **Provenance.** Claude (AI) soạn và chạy theo yêu cầu của **Doan Van Tai** ngày 23/10/2026 ("REFORMULATE Phase 1 … chạy thử nghiệm trên một nhánh khác, tìm cách hiệu quả nhất"). Tác giả chưa xác nhận nội dung. Đây là **DISCOVERY trên nhánh `explore/reformulate-grid`**, không phải preregistration chính thức, không thay đổi `main`, không tạo tag.
 >
 > File này được commit **trước** mọi phép tính của thử nghiệm.

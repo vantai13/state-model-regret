@@ -1,5 +1,7 @@
 # Thử nghiệm REFORMULATE lưới — báo cáo
 
+> **Cập nhật trạng thái 23/10/2026 (thêm sau khi viết):** nhánh đã được push công khai lên GitHub và merge vào `main` tại `87dcd53`. Tác giả quyết định áp dụng P4 theo [DL-038](../02_decision_log.md) và [protocol v1.2](../design/v1_2_protocol.md). Các câu "không thay đổi `main`" và "chưa được tác giả xác nhận" bên dưới mô tả trạng thái lúc viết.
+
 > **Provenance.** Claude (AI) chạy và viết theo yêu cầu của **Doan Van Tai**, 23/10/2026, trên nhánh `explore/reformulate-grid`. Đây là **DISCOVERY**, chưa được tác giả xác nhận, không thay đổi `main`, không tag. Kế hoạch: [reformulate_grid_plan.md](reformulate_grid_plan.md) (commit `db955de`, trước mọi phép tính).
 >
 > **Chỉ tính đại lượng thiết kế:** chứng chỉ prior, D, khoảng $p_{\text{sw}}$, nhãn ĐK1, budget. **Không tính** $J$, $L_*$, margin, belief, $M_0/M_1$, contrast hay regret. Không đụng các tọa độ để dành làm held-out.

@@ -333,3 +333,21 @@ Initial8/22 in, cần15/22. Chọn duy nhất λA={7;7.2;8.1}, center7.2, trư�
 ### DL-037 — B5 readiness: không promote khi B4 rejected (2026-10-23)
 
 Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FAIL(grid11/22<15/22 và chưa calibration; numeric cross-constraintsPASS). Solver20+20certificates, full177/177PASS, law error max1.02853e−29/posterior4.000001e−16,88screenrows unresolved0. Native subtraction mutant lọt test dyadic đầu; giữ PASS, thêm97/100 vào cùng test đã có, mutantFAIL; không thay kernel hoặc candidate outcomes.136B reference comparisons maxTV1.31666e−14. Draft definitions/boundary/brief đã cập nhật, không promote thành bản chính thức hoặc gắn tagv1.1. Author-attested human gates giữ đúng xác nhận trực tiếp; nguồn digest chưa tự kiểm full, heads-up chưa gửi. Báo cáo/results/config/plot và các log tại results/lessons/v1_1_a6, index notes/verification/v1_1_part_a/README.md. Bước tiếp theo phải là protocol NARROW/REFORMULATE mới, không lượt redesignλ thứ hai.
+
+### DL-038 — REFORMULATE hệ tọa độ lưới: neo theo ranh giới quyết định, horizon vật lý (2026-10-23)
+
+> Văn bản do AI soạn theo yêu cầu thực hiện của tác giả. Tác giả quyết định áp dụng; lý do chưa được tác giả tự viết lại (PHASE_1 §5.4, luật 5) — mục mở.
+
+- **Decision:** nhãn **REFORMULATE**, không phải NARROW, vì trục so sánh đổi định nghĩa chứ không chỉ thu hẹp vùng. $\lambda_A$ thôi là trục thiết kế và được neo cho từng lát (mục tiêu $p_{\text{sw}}$ 0,3/0,7, thang 0,25, cửa sổ ±0,15 ở dt và dt/2, kiểm dải ở dt/4, nhãn ĐK1 `candidate`). Horizon là số giây cố định: 8 s ở lõi, 2 s ở nan hoa. Bỏ yêu cầu "ψ hai phía của 0" và luật "≥ 15/22, một lượt redesign"; thay bằng luật neo có điểm dừng. Held-out được neo bằng cùng luật. Luật calibration mới. Chi tiết: [protocol v1.2](design/v1_2_protocol.md).
+- **Why:** [thử nghiệm](explore/reformulate_grid_report.md) cho thấy ranh giới dịch theo $y_B$ và $\kappa$ (ví dụ $p_{\text{sw}}=0{,}5$ tại $\lambda_A\approx7{,}38$ so với $\approx6{,}56$), nên một $\lambda_A$ chung không thể đặt mọi ô vào dải. P4 là thủ tục duy nhất có mọi ô chính vừa trong dải vừa trong budget. 38 ô đề xuất vẫn trong dải tới dt/4 (trôi ≤ 0,003) và đều `candidate`.
+- **Đổi ý nghĩa phép so sánh:** từ "cùng tải" thành "cùng độ khó". $\lambda_A$ đồng biến với điều kiện, nên khác biệt giữa hai lát không được quy riêng cho một trục. 34/38 ô có $\psi<0$, 3 ô $\psi=0$, 1 ô $\psi>0$; khoảng $[-0{,}2;+0{,}05]$. Mọi kết quả có điều kiện gần ranh giới quyết định, không đại diện tần suất.
+- **Ghi trung thực:**
+  1. $h=8$ s ở lõi và $h=2$ s ở nan hoa được chọn **sau khi** thấy $p_{\text{sw}}$. Đây là lựa chọn hậu nghiệm; chấp nhận được vì $p_{\text{sw}}$ là đại lượng thiết kế, không phải outcome.
+  2. Thông điệp commit `cde9944` ghi "before stage-1 results" là không chính xác: lúc đó đã có 5/480 dòng (chưa xem). Đính chính tại đây và trong §8 của kế hoạch; không viết lại lịch sử git.
+  3. Nhánh thử nghiệm đã được push công khai ngày 23/10. Các giá trị $p_{\text{sw}}$, nhãn và budget của thử nghiệm đã công khai (ghi trong exposure register). Chưa ai thấy contrast.
+  4. Có 3 ô nằm ở đáy thang $\lambda_A=6$ (từ các lát thử nghiệm S05, S18, S27). Protocol ghi rõ: đáy 6 là giới hạn vật lý, không mở thang; báo `bracketed`/`floor`/`ceiling` cho từng ô.
+  5. "Cùng độ khó" chỉ là xấp xỉ: 3 ô lệch mục tiêu hơn 0,1 (nhiều nhất 0,13). Phase 3 báo $p_{\text{sw}}$ thực của từng ô.
+  6. Bốn commit thử nghiệm giữ nguyên hash (và dòng co-author trong message) vì các file config trích dẫn chúng làm bằng chứng thứ tự thời gian. Từ merge `87dcd53`, commit chỉ đứng tên tác giả.
+- **Alternatives:** NARROW về 11 ô của v1.1 (mất trục tải; còn ô vượt budget); thiết kế đối xứng P1/P2 (≤ 63% ô đạt); neo với $r_h=1$ (P3, 7 ô vượt budget).
+- **Consequence:** contract v1.2 thay bản nháp v1.1 ở D1, D2, D4 và phần lưới; ĐK8 và plant v1.1 không đổi. Held-out được neo lúc chốt lưới; $p_{\text{sw}}$ của held-out bị cấm làm biến cho $H_0/H_1$. G1 giữ nguyên.
+- **Ai quyết:** **Doan Van Tai** (yêu cầu thực hiện ngày 23/10, sau khi đọc báo cáo thử nghiệm và một review riêng).

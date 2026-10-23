@@ -256,3 +256,17 @@ Doan Van Tai. Redesign prereg19d03cc, candidate3fe81d2; λA7/7.2/8.1, center7.2.
 ## Phần A — verification bổ sung sau screen,23/10/2026
 
 Doan Van Tai. Chỉ mở toy conservation q10000/10001,H300,incs−3/+2 và keep3/4,97/100 để kiểm mutant cost-subtraction. Test dyadic đầu không bắt được mutant, record PASS giữ nguyên; thêm keep97/100 làm mutant FAIL, source kernel không đổi. Không mở candidate margin/Lstar. Full177tests PASS sau bổ sung. D/dominance audit136rows và136legacyB comparisons chỉ dùng support/parameters đã exposed, không future J. Plot chỉ dùng p_sw đã exposed và stationary error bounds. FinalB4 giữ rejected11/22, không lọc ô để nhận lưới. No RNG/seed, no extra screen/heldout hoặc contrast. Human gates author-attested bằng phản hồi trực tiếp, không tạo human artifact. Heads-up chưa gửi.
+
+## Thử nghiệm REFORMULATE lưới (DISCOVERY), 23/10/2026 — đã công khai
+
+Doan Van Tai. Nhánh `explore/reformulate-grid` (commit `db955de` → `ee349a4`), push công khai lên GitHub ngày 23/10, merge vào `main` tại `87dcd53`. Kế hoạch và báo cáo: `notes/explore/`.
+
+| Đã xem | Phạm vi |
+|---|---|
+| Khoảng $p_{\text{sw}}$ ở dt và dt/2 | 480 cặp (lát, $\lambda_A$): $\kappa\in\{0{,}3;1;3\}$, B q50/q90, A q90 (A q50 ở $\kappa$ 1), $\eta\in\{0{,}5;0{,}75\}$, horizon $r_h=1$, 2 s, 8 s; thang $\lambda_A$ từ 6, bước 0,25 |
+| Khoảng $p_{\text{sw}}$ ở dt/4 | 48 ô được neo của P4 |
+| Nhãn ĐK1 | 48 ô neo của P4 và 5 đầu dò cấu trúc |
+| Budget, $y_A$, $y_B$, $H$, sai số law | mọi dòng trên |
+| Tính lại để kiểm script | M01, M02, M04 của v1.1 (đã xem từ trước, khớp tuyệt đối) |
+
+**Chưa xem:** $J$, $L_*$, $C_{\text{ref}}$, margin, belief, pipeline, contrast, regret. **Chưa tính:** mọi tọa độ held-out của protocol v1.2 ($\kappa$ 0,6 và 2; B q75; $\eta$ 0,625; $h$ 4 và 12 s). Không RNG, không seed.
