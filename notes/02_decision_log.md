@@ -281,6 +281,8 @@ Ai chịu trách nhiệm: **Doan Van Tai**. Đây là đối chiếu và thực 
 - Consequence: trước khi tag `contract-v1.1`, phải xử lý trạng thái P0-V11 và đối chiếu nguồn gate. Attachment bổ sung nhắc bài tự tính ngoài vở ngày22/10; đây là lời trong nguồn, phiên tích hợp23/10 chưa có ảnh/bài làm hoặc record read-back để kiểm. Không tạo commit `[kín sách]` thay tác giả; P0-V11 vẫn OPEN. B1 không tạo tag mới.
 - Ai quyết: **Doan Van Tai — chờ xác nhận**.
 
+**Cập nhật có hiệu lực 23/10/2026, Doan Van Tai:** hai review mới cùng xác nhận câu ngoại lệ đến từ lesson Part E và người soạn lesson nhận đó là lỗi. Áp dụng **HOLD** theo master-plan được review dẫn; ngoại lệ Part E không còn là căn cứ mở gate hoặc tag mới. Review nêu PHASE_1 v1.0, SHA rút gọn `47f9a335…d4d7ba`, dòng332/1953, nhưng full file chưa có: đây là provenance do reviewer báo, chưa phải hash/câu gốc tự kiểm. Tag lịch sử giữ tại `6bb631f`, không di chuyển. [Closeout active](phases/PHASE_1_closeout.md), README và DL-031 cùng ghi HOLD. Tác giả yêu cầu heads-up giữ nội bộ, chưa gửi.
+
 
 ### DL-029 — N2(a): một observation mỗi ô, bổ đề E0 (2026-10-23)
 

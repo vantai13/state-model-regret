@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.181" timestamp="2026-10-23T08:39:18.677932+07:00" hostname="vantai"><testcase classname="tests.test_v1_1_numerics" name="test_precision_policy_preserves_true_oracle_and_requires_resolution" time="0.001"><failure message="AssertionError: assert 'Stay' == 'Switch'&#10;  &#10;  - Switch&#10;  + Stay">def test_precision_policy_preserves_true_oracle_and_requires_resolution():
+        assert resolve_sign(F(-1,10**20))['action']=='Switch'
+&gt;       assert resolve_sign(-F(1,10**1000),error_bound=0.)['action']=='Switch'
+E       AssertionError: assert 'Stay' == 'Switch'
+E         
+E         - Switch
+E         + Stay
+
+tests/test_v1_1_numerics.py:53: AssertionError</failure></testcase></testsuite></testsuites>

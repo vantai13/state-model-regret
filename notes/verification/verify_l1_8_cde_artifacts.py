@@ -9,6 +9,7 @@ import csv
 import hashlib
 import json
 import math
+import subprocess
 from collections import defaultdict
 from fractions import Fraction as F
 from pathlib import Path
@@ -32,12 +33,20 @@ def close(a,b,atol=3e-12):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir',type=Path,default=ROOT/'results/lessons/l1_8_cde')
-    out=parser.parse_args().output_dir.resolve()
+    parser.add_argument('--read-only',action='store_true',help='Verify without modifying historical outputs')
+    args=parser.parse_args()
+    out=args.output_dir.resolve()
     index=json.loads((out/'artifact_manifest.json').read_text())
     for entry in index['files']:
         p=out/entry['file']; assert p.stat().st_size==entry['size_bytes'] and sha(p)==entry['sha256'],p
     config=json.loads((out/'config.json').read_text())
-    for name,digest in config['source_hashes'].items(): assert sha(ROOT/name)==digest,name
+    source_snapshots={}
+    for name,digest in config['source_hashes'].items():
+        if sha(ROOT/name)==digest: continue
+        commit=config['git_design_commit']
+        snapshot=subprocess.check_output(['git','show',f'{commit}:{name}'],cwd=ROOT)
+        assert hashlib.sha256(snapshot).hexdigest()==digest,name
+        source_snapshots[name]=commit
     manifest=json.loads((ROOT/'notes/design/grid_v1.json').read_text())
     result=json.loads((out/'results.json').read_text())
     assert not result['new_grid_contrasts_computed'] and not result['reserve_generated'] and result['random_draws']==0
@@ -102,11 +111,15 @@ def main():
         assert all(c.find('failure') is None and c.find('error') is None and c.find('skipped') is None for c in cases)
         if name=='full_suite': total=len(cases)
     audit=dict(author='Doan Van Tai',status='PASS',verifier_sha256=sha(Path(__file__)),
+               historical_source_snapshots=source_snapshots,read_only=args.read_only,
                manifest_files_checked=len(index['files']),source_hashes_checked=len(config['source_hashes']),
                grid_cells_rebuilt=len(cells),episode_state_rows=len(episodes),
                max_rebuilt_state_probability_error=max_mass_error,idle_pairs_checked=len(idle),
                full_suite_passed=total,new_grid_contrasts_computed=False,reserve_generated=False,random_draws=0)
     payload=json.dumps(audit,ensure_ascii=False,indent=2)+'\n'
+    if args.read_only:
+        print(payload,end='')
+        return
     (out/'independent_artifact_audit.json').write_text(payload)
     (out/'independent_artifact_audit.txt').write_text(payload)
     entries=[dict(file=p.name,size_bytes=p.stat().st_size,sha256=sha(p)) for p in sorted(out.iterdir())

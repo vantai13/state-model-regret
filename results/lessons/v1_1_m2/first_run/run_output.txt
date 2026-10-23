@@ -1,0 +1,41 @@
+lesson: 11/11 PASS
+full_suite: 165/165 PASS
+parameter map lambdaA=13/2 kappa=3/10 eta=1/2: CERTIFIED_STATIONARY_PROTOTYPE cap=24397
+parameter map lambdaA=13/2 kappa=1 eta=1/2: HOLD_CAP cap=82843
+parameter map lambdaA=13/2 kappa=3 eta=1/2: HOLD_CAP cap=253342
+parameter map lambdaA=15/2 kappa=3/10 eta=1/2: CERTIFIED_STATIONARY_PROTOTYPE cap=15492
+parameter map lambdaA=15/2 kappa=1 eta=1/2: HOLD_CAP cap=52810
+parameter map lambdaA=15/2 kappa=3 eta=1/2: HOLD_CAP cap=161606
+parameter map lambdaA=17/2 kappa=3/10 eta=1/2: HOLD_CAP cap=153780
+parameter map lambdaA=17/2 kappa=1 eta=1/2: HOLD_CAP cap=525627
+parameter map lambdaA=17/2 kappa=3 eta=1/2: HOLD_CAP cap=1609018
+parameter map lambdaA=15/2 kappa=1 eta=9/10: HOLD_CAP cap=1907307
+# Mốc2 — N1–N6: kết quả thực chạy
+
+Người phụ trách: **Doan Van Tai**,23/10/2026. Technical reference; không fake bài kín sách/read-back hoặc buổi người thật. Heads-up chỉ lưu nháp theo yêu cầu, chưa gửi.
+
+- Baseline **154/154 PASS**; new tests **11/11 PASS**; full **165/165 PASS**.
+- Truth300 structural ties: subtraction chọn nhầm Switch **95**, idle identity **0**.
+- M0468 structural ties: subtraction chọn nhầm Switch **182**, idle identity **0**. Counts là deterministic fixtures của phiên này, không giả tái lập105/114/183/6549 của reviewer.
+- N2 canonical: L00=59/8,L01=57/8,GM=1/4,GSgivenM1=7/8; bias=1/2,positive=7/8,negative=9/8. **1875** exact two-state checks,0 violations.
+- Stationary solver: **5 reference cases**, gồm −2/+1 đối chiếu Decimal70digits, generic−5/+3, R2 probability interval; tail và law/residual certificates lưu riêng. Finite cap không giả là physical buffer.
+- N3 parameter map: **10 sets**; statuses **{'CERTIFIED_STATIONARY_PROTOTYPE': 2, 'HOLD_CAP': 8}**. Chỉ thông số/stationary/quantile/budget, không J hoặc oracle frequency.
+- Sửa lỗi review: eta.9,rhoB.2 cho postload.92<.95. q90/kappa chỉ gần invariant finite-slot, không equality tuyệt đối.
+- Legacy CDE audit read-only PASS; active closeout HOLD, old source hash đối chiếu commit snapshot thay vì sửa historical inputs. Tagv1 không dời.
+
+## Trạng thái và giới hạn
+
+**Mốc2 đã commit27eeed4 trước parameter map.** Đã chọn11 mục theo ủy quyền, proof/reference N2, idle-gap+certificates/precision API, stationary certificate và feasibility/claim updates. Không coi numeric band là thay mathematical oracle; unresolved sign phải escalation/HOLD.
+
+Các sets vượt cap50.000 hoặc posterior/quantile không certified được giữ HOLD; chưa dựng/chốt grid manifest v1.1 hoặc chạy p_sw, A01/A04. Chưa tagv1.1 do grid/validity gates chưa đạt; P0-V3/P0-V11/V1/V8 vẫn thiếu record. Không có email gửi, RNG/seed mới hoặc network experiment. Phase2a mới bắt đầu primary reading, chưa novelty conclusion; full PHASE_1 chưa có để kiểm hash đầy đủ.
+
+## Lệnh và artifacts
+
+```bash
+PYTHONPATH=src:. .venv/bin/python -m experiments.lessons.run_v1_1_m2
+.venv/bin/python notes/verification/verify_l1_8_cde_artifacts.py --read-only
+```
+
+config.json/results.json: commands,inputs/source hashes,choices và metrics. baseline/lesson/full_suite txt+xml: pytest thật. structural_ties.csv: before/after768ca; N2_lemma.json: canonical/reference; stationary_certificates.csv+stationary_reference_masses.npz: bounded reference laws; feasibility_parameters.csv/feasible_regions.csv/quantile_scaling.csv: thông số vàHOLD; N1_N3_N4_diagnostics.png:plot; run_output.txt:log; artifact_manifest.json:outputSHA256. No Monte Carlo CI; quantile estimates ngoài certified law được dán nhãn estimate.
+
+Source: src/smr/idle_gap.py,single_observation.py,stationary.py; tests mới trong tests/test_v1_1_numerics.py vàtest_stationary_certificate.py. Contract draft25terms; active closeout HOLD; proof tham khảo T01/T02; heads-up nháp notes/meetings/2026-10-23_headsup.md. Không dùng technical report thay artifact người thật.

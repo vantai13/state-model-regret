@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.110" timestamp="2026-10-23T08:40:30.570430+07:00" hostname="vantai"><testcase classname="tests.test_v1_1_numerics" name="test_mean_structural_ties_and_subtraction_mutant" time="0.001"><failure message="AssertionError: assert 8.881784197001252e-16 == 0&#10; +  where 8.881784197001252e-16 = gap_from_idle((Fraction(100, 3), 0, Fraction(200, 7), 0), {'cA': Fraction(1, 12), 'cB': Fraction(1, 12), 'u': Fraction(1, 120), 'H': 12, ...}, 'M0')">def test_mean_structural_ties_and_subtraction_mutant():
+        bad=0
+        for state,plant in conservation_cases(468):
+&gt;           assert gap_from_idle(state,plant,'M0')==0
+E           AssertionError: assert 8.881784197001252e-16 == 0
+E            +  where 8.881784197001252e-16 = gap_from_idle((Fraction(100, 3), 0, Fraction(200, 7), 0), {'cA': Fraction(1, 12), 'cB': Fraction(1, 12), 'u': Fraction(1, 120), 'H': 12, ...}, 'M0')
+
+tests/test_v1_1_numerics.py:28: AssertionError</failure></testcase></testsuite></testsuites>

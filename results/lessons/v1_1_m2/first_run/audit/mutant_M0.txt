@@ -1,0 +1,15 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_mean_structural_ties_and_subtraction_mutant _______________
+
+    def test_mean_structural_ties_and_subtraction_mutant():
+        bad=0
+        for state,plant in conservation_cases(468):
+>           assert gap_from_idle(state,plant,'M0')==0
+E           AssertionError: assert 8.881784197001252e-16 == 0
+E            +  where 8.881784197001252e-16 = gap_from_idle((Fraction(100, 3), 0, Fraction(200, 7), 0), {'cA': Fraction(1, 12), 'cB': Fraction(1, 12), 'u': Fraction(1, 120), 'H': 12, ...}, 'M0')
+
+tests/test_v1_1_numerics.py:28: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_v1_1_numerics.py::test_mean_structural_ties_and_subtraction_mutant
+1 failed in 0.11s

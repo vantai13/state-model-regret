@@ -1,0 +1,13 @@
+# Phase2a — bắt đầu đối chiếu primary, chưa kết luận novelty
+
+Người phụ trách: **Doan Van Tai** ·23/10/2026. Đây là reading reference, không xác nhận tác giả đã tự đọc kín sách hoặc hoàn tất Phase2a.
+
+**Nguồn đã mở:** Strong,Oakley,Brennan(2014), *Estimating Multiparameter Partial Expected Value of Perfect Information…*, DOI10.1177/0272989X13505910. Full publisher text, Method/Partial EVPI, Eqs1–4 định nghĩa optimal expected benefit trước/sau biết một nhóm inputs, vẫn tích phân uncertainty còn lại. [Primary publisher](https://journals.sagepub.com/doi/10.1177/0272989X13505910). Không copy phương pháp regression/experiment của họ thành kết quả của repo.
+
+**Nguồn tiếp cận một phần:** Birge(1982), *The value of the stochastic solution in stochastic linear programs with fixed recourse*, DOI10.1007/BF01585113. Indexed primary PDF/abstract mô tả benefit của stochastic solution so deterministic expected-value approximation. [Primary repository PDF](https://deepblue.lib.umich.edu/bitstream/handle/2027.42/47912/10107_2005_Article_BF01585113.pdf). Direct fetch trả403 trong phiên này; không ghi đã đọc full paper hoặc kiểm tất cả assumptions/bounds của nó.
+
+**Nguồn tiếp cận một phần:** Escudero, Garín, Merino, Pérez(2007), *The value of the stochastic solution in multistage problems*, TOP15,48–64, DOI10.1007/s11750-007-0005-4. Indexed publisher abstract nói mở rộng EVPI/VSS sang multistage và các bounds phụ thuộc cấu trúc bài toán. [Primary publisher](https://doi.org/10.1007/s11750-007-0005-4). Direct publisher fetch không truy cập được và bản author's proof qua CiteSeer trả403. Chưa đọc phần định nghĩa/chứng minh đầy đủ, không áp dụng trực tiếp inequalities của paper cho queue.
+
+**Suy luận riêng từ contract/toán:** đổi benefit thành−cost, chọn revealed inputs=current state và uncertainty còn lại=future arrivals conditional on state; GSgivenM1 có dạng EVPPI có điều kiện observation. Với state đã biết, M0 thay future arrivals bằng conditional means: GMgivenS1 có quan hệ với VSS/certainty-equivalent comparison. Bài Birge là stochastic linear programming/fixed recourse; queue dynamics binary action không tự thỏa mọi assumption của paper. GM khi state còn ẩn giữ averaging belief trên state, nên không tự gọi nó là VSS của mean của toàn bộ random inputs.
+
+Γ=GMgivenS1−GM chỉ là identity bookkeeping. Chưa kiểm đủ literature về tương tác thông tin-state và stochastic approximation; không kết luận “chưa ai làm”, không nâng G1. P11–P13 trong review cũ chưa được ánh xạ đủ sang bibliographic records. Các nguồn trên giúp xác định thành phần có prior name; chưa hoàn tất novelty search, prediction hoặc network validity. Việc tìm thêm tên VSS không tự giải quyết câu hỏi interaction.

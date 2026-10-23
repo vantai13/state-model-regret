@@ -1,0 +1,16 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_precision_policy_preserves_true_oracle_and_requires_resolution ______
+
+    def test_precision_policy_preserves_true_oracle_and_requires_resolution():
+        assert resolve_sign(F(-1,10**20))['action']=='Switch'
+>       assert resolve_sign(-F(1,10**1000),error_bound=0.)['action']=='Switch'
+E       AssertionError: assert 'Stay' == 'Switch'
+E         
+E         - Switch
+E         + Stay
+
+tests/test_v1_1_numerics.py:53: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_v1_1_numerics.py::test_precision_policy_preserves_true_oracle_and_requires_resolution
+1 failed in 0.18s

@@ -1,0 +1,82 @@
+{
+  "author": "Doan Van Tai",
+  "status": "PASS",
+  "artifact_counts": {
+    "l1_8_a": 29,
+    "l1_8_b": 34,
+    "l1_8_cde": 22,
+    "l1_8_v1_1_b1": 26,
+    "v1_1_m2": 21
+  },
+  "source_hashes_checked": 12,
+  "inputs_checked": 2,
+  "N1": {
+    "M1": {
+      "cases": 300,
+      "subtraction_wrong": 95,
+      "idle_wrong": 0
+    },
+    "M0": {
+      "cases": 468,
+      "subtraction_wrong": 182,
+      "idle_wrong": 0
+    }
+  },
+  "N2_exact_cases": 1875,
+  "stationary_closed_form_actual_TV": {
+    "1": "9.64933677244740135118080472772130471924858441969064531604679577600636E-18",
+    "2": "1.560061611670915516714126001048556150641266951304345217455818213096678E-17",
+    "3": "2.112511095766189887065572728192203191653179444442674402906889191359836E-17"
+  },
+  "feasibility_status_counts": {
+    "CERTIFIED_STATIONARY_PROTOTYPE": 2,
+    "HOLD_CAP": 8
+  },
+  "mutants": {
+    "M1": {
+      "returncode": 1,
+      "tests": 1,
+      "failed": 1,
+      "killed": true,
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-c",
+        "import sys,pytest; import smr.idle_gap as module; from experiments.lessons.v1_1_numerics import subtract_truth; module.gap_from_idle=lambda state,plant,model=\"M1\": subtract_truth(state,plant); sys.exit(pytest.main([\"-q\",\"tests/test_v1_1_numerics.py::test_truth_structural_ties_and_subtraction_mutant\",\"--junitxml=/home/vantai/state-model-regret/results/lessons/v1_1_m2/audit/mutant_M1.xml\"]))"
+      ],
+      "source_files_modified": false
+    },
+    "M0": {
+      "returncode": 1,
+      "tests": 1,
+      "failed": 1,
+      "killed": true,
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-c",
+        "import sys,pytest; import smr.idle_gap as module; from experiments.lessons.v1_1_numerics import subtract_mean; module.gap_from_idle=lambda state,plant,model=\"M1\": subtract_mean(state,plant); sys.exit(pytest.main([\"-q\",\"tests/test_v1_1_numerics.py::test_mean_structural_ties_and_subtraction_mutant\",\"--junitxml=/home/vantai/state-model-regret/results/lessons/v1_1_m2/audit/mutant_M0.xml\"]))"
+      ],
+      "source_files_modified": false
+    }
+  },
+  "contract_v1_target": "6bb631f9181cc06bfade9d71e54ad57ca3bbb284",
+  "preregistration_commit": "27eeed4",
+  "original_manifest_sha256": "caa00286089da234a27e522d3cb1523e9c68351da7cdb5984de3177125a07832",
+  "outputs": [
+    {
+      "file": "audit/mutant_M0.txt",
+      "sha256": "a7a10e7eee1ca377bde47fa5032ae219fc97dd9dcc1334b9dab807802f871120"
+    },
+    {
+      "file": "audit/mutant_M0.xml",
+      "sha256": "89b8a0f1b7a8ebb086ade6336af37493001787b72325b119c9b784f271b87e68"
+    },
+    {
+      "file": "audit/mutant_M1.txt",
+      "sha256": "716367f6a30629481593552f838a4b7e6d74ce032ee118ae86dbedf37e95ecd7"
+    },
+    {
+      "file": "audit/mutant_M1.xml",
+      "sha256": "f53cf7ff104a29842e39ff08ff431c52de9f773c2c9f6a4e3320de4b327f418c"
+    }
+  ]
+}

@@ -131,3 +131,18 @@ Người thực hiện: **Doan Van Tai**. Hai nguồn mới là mock reviews, kh
 Scripts reviewer nêu recheck_b1.py(4000randomplants),float_ties2.py(truth300/M020000),idleidentity recheck(truth300/M0468), các bảng quantile/feasibility chưa có source/log để tái lập đúng. Phiên này sẽ tạo kiểm deterministic riêng, báo counts riêng, không nhận105/114/183/6549 là số đo local. Canonical N2 đã exposed; prototypes/toy của N1/N2/stationary là verification, không grid candidate.
 
 Mốc2 ghi đủ lựa chọn/phương pháp trước tính candidate. Không J/gap/contrast/reserve p_sw hoặc Phase3 run trên v1/v1.1. Không RNG/root mới; historical frozen outputs giữ hash, active closeout đổi trạng thái có version/git history.
+
+## Kết quả exposure mốc 2 — 23/10/2026
+
+Người phụ trách: **Doan Van Tai**. Quyết định đã commit `27eeed4` trước tính tham số. Không tạo RNG/seed mới, không mở held-out hoặc reserve outcomes.
+
+| Phạm vi đã xem | Outcome / evidence | Artifact |
+|---|---|---|
+| Verification N1: 300 truth +468 M0 structural ties, H12 | Subtraction sai95/182; idle identity sai0/0. Fixtures deterministic local, không tái lập nguyên scripts reviewer chưa có | `results/lessons/v1_1_m2/structural_ties.csv` |
+| N2 canonical đã exposed và1.875 rational two-state cases | GM1/4, GSgivenM1 7/8, model bias1/2;0 violations, không candidate grid | `results/lessons/v1_1_m2/N2_lemma.json` |
+| Stationary references: −2/+1 tại s=.5/.75/.9 và R2(dt1/120,T.3); generic−5/+3,s.75 | 5 laws có tail/law certificates;3 closed forms đối chiếu Decimal70 | `stationary_certificates.csv`, `stationary_reference_masses.npz` trong cùng output dir |
+| Parameter map: λA6.5/7.5/8.5 ×κ.3/1/3,η.5; center λA7.5,κ1,η.9 | Rates, stability, quantile/budget:2 certified,8 HOLD_CAP. Không future J, p_switch, margin hoặc contrasts của candidate | `results/lessons/v1_1_m2/feasibility_parameters.csv` |
+| Hai mutant subtraction, subprocess riêng | Mỗi mutant1 test FAIL có chủ đích; production không sửa | `results/lessons/v1_1_m2/audit/` |
+| Primary reading Phase2a | Strong/Oakley/Brennan2014: full publisher Method/Eqs1–4; Birge1982 và Escudero2007: indexed primary abstracts, full text fetch bị chặn, chưa đọc full. Mapping là suy luận, novelty chưa kết luận | `notes/theory/T03_primary_reading_start.md` |
+
+Không có human artifact, email đã gửi hoặc tagv1.1 mới. Heads-up lưu nháp nội bộ theo yêu cầu tác giả. Giới hạn cap là kết quả phải giữ, không loại ô để làm đẹp lưới.

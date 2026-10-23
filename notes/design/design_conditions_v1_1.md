@@ -1,4 +1,4 @@
-# Điều kiện thiết kế v1.1 (ĐK1–ĐK8) — viết trước khi chọn số
+# Điều kiện thiết kế v1.1 (ĐK1–ĐK8) — B1 và supplement mốc2
 
 > **Provenance.** Soạn bởi **Claude (AI) theo yêu cầu của Doan Van Tai**, 22/10/2026, sau mock review lưới v1 và [DL-026](../02_decision_log.md). Mọi lựa chọn dưới đây là **AI đề xuất, chờ tác giả xác nhận** (danh sách ở §11). File này **không** là understanding artifact V11 của tác giả.
 >
@@ -190,7 +190,7 @@ Kiểm thứ tự: `git merge-base --is-ancestor <commit B1> <commit B3>`.
 - [ ] Danh sách ĐK8 khớp contract v1
 - [ ] Exposure register cập nhật
 
-## 11. Tác giả cần xác nhận (AI đề xuất, chưa quyết)
+## 11. Lựa chọn B1 và trạng thái mốc2
 
 | # | Lựa chọn | Đề xuất | Phương án khác |
 |---|---|---|---|
@@ -212,3 +212,16 @@ Kiểm thứ tự: `git merge-base --is-ancestor <commit B1> <commit B3>`.
 - Nguồn review ghi f9ec182 là tag v1; tag thực tế trỏ6bb631f, còn f9ec182 chỉ thêm push receipt. Các scientific files của hai commit giống nhau; giữ tag gốc.
 - B1 chỉ kiểm toy vét cạn và support/tham số của v1 đã có; không sinh candidate, không p_sw, không chọn reserve/calibration v1.1, không A01. Báo cáo ghi riêng số test chạy thực tế và provenance của những kiểm ngoài repo chưa tái lập.
 - Lần chạy tích hợp đầu tiên có8/8 lesson và154/154 full-suite PASS nhưng coverage assertion của runner FAIL vì SD2/WD2 có0 ca. `first_run/coverage_failure.json` giữ đúng trạng thái này. Chỉ mở rộng verification cases; không hạ điều kiện coverage hoặc sửa ngưỡng nghiên cứu để PASS.
+
+
+## 13. Mốc2 — N1–N6,23/10/2026
+
+Các lựa chọn §11 ban đầu là DRAFT B1. Theo ủy quyền tác giả “tự thực hiện hết”, người phụ trách **Doan Van Tai** đã chọn/ghi đủ11 mục và commit **27eeed4** trước tính candidate; xem [quyết định mốc2](decisions_v1_1_m2.md), DL-029…031. Đây là chốt kỹ thuật theo ủy quyền, không phải bằng chứng tác giả hiểu kín sách; không tự mở gate/tag.
+
+- N2 giữ một observation/cell, bổ đề E0/reference có tests; A04 companion g/bias/positive-negative margins. GM0 có thể cùng action khác khi g0. Có cả Δ dương và âm mới cho State value dương; mixed Switch/tie không đủ.
+- N1 dùng idle-gap với rational coordinates, assert SD/WD/conservation; eps_num1e−9*Cref và alarmuncertifiedband>.01 để tăng precision. Không clamp/đổi true oracle; chưa resolve sign thì HOLD. B3 không tính Cref/Lstar/margins chỉ để đặt band.
+- ĐK5 signψ hai phía0 ở coreη.5; highη.9 spoke tạicenterλA7.5. Nền A=λA±6 không đổi khiu đổi, A meanλ={6.5,7.5,8.5}, μ10,B2/14; numeric stationary with tail/law bound. Solver budget cap≤50.000; uncertified posterior/quantile hoặc vượt budget giữ HOLD, không đổi level để đẹp.
+- Relative age là1/κ; zA/zB làderived diagnostics. Quantile co giãn gần theoκ trong fluid limit, không bằng nhau tuyệt đối ở finite dt; không claim persistence riêng age/backlog scale.
+- **Luật8 ĐK2:** p_sw tạiage/120 vàhalf; acceptance class khác→unstable, không calibration. Nếu error interval chạm threshold thì indeterminate/unstable, không tự chọn side. Chỉ p_sw và numerical-resolution diagnostics ởB3, không reserve p_sw/margins/contrasts. Current task chưa thực thiB3.
+- ĐK8 giữ **thước đo**, không nói plant không đổi: D4,D7(mA từhằng→ngẫu nhiên),D12,D20,D22 đổi. Changelog và [contract draft](../01_definitions_v1_1_draft.md); splits không so trực tiếp v1/PartB.
+- Selected grid không ước lượng tần suất contrasts lớn trong mạng thật. Protocol review/primary source và V1/V8/P0-V3/V11 còn chờ; active closeout HOLD. Heads-up nội bộ, chưa gửi theo chỉ dẫn tác giả.

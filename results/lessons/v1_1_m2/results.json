@@ -1,0 +1,162 @@
+{
+  "author": "Doan Van Tai",
+  "status": "TECHNICAL_PREPARATION_PASS_GATE_AND_GRID_HOLD",
+  "config": {
+    "author": "Doan Van Tai",
+    "time": "2026-10-23T08:39:25.914327+07:00",
+    "python": "3.14.5",
+    "numpy": "2.5.3",
+    "preregistration_commit": "27eeed4",
+    "inputs": [
+      {
+        "path": "/home/vantai/.codex/attachments/c5d3cb8c-bcc4-4ff7-9677-822418639b67/Pasted text.txt",
+        "sha256": "1abbf6701bf38768c67bb8accdf44ecce138e8c69c18d615375a5c696ab29ddd"
+      },
+      {
+        "path": "/home/vantai/.codex/attachments/540be37b-1f39-4f32-9e64-112ca66c2820/Pasted text.txt",
+        "sha256": "a3373966de1b59ae8125db9f08f40e64faa017704f0b671019ae4f809d988e48"
+      }
+    ],
+    "source_hashes": {
+      "src/smr/idle_gap.py": "b749bbf5c85270a76c3d89dd19f582051625e87f91fbf5185dfec5ff0c92af47",
+      "src/smr/single_observation.py": "3d5cdcf5ffea436ceca3b7770c07f52bdda9e9dc731f22d642882f71a5a66726",
+      "src/smr/stationary.py": "7d8a850f8aa26d132b179b54bea1bab7293f321093c73d776baf00a1e4b0f31a",
+      "tests/test_v1_1_numerics.py": "0021137f345ca59cdddc0a5514d2ca4544c79f48eceb7c86be9e4072e448b6f4",
+      "tests/test_stationary_certificate.py": "197e1b41d8798e1bb869250bba279eed1a9f19094b57403b919c7d2c75ff4bb2",
+      "experiments/lessons/v1_1_numerics.py": "e25b24fbe751648fb5aedb0dbef3ae1fa60508dc515a841e5e64ca80bb7d27c4",
+      "experiments/lessons/run_v1_1_m2.py": "ff3927dea02f5cbc2714c993fc10fb43386de9a869685dc6a238e7ce78b1749c",
+      "notes/design/decisions_v1_1_m2.md": "b437fe92afacf5df0d0599bcedfb3338370751feb6d1537aac1cb685fba9c871",
+      "notes/01_definitions_v1_1_draft.md": "c542e36c9a592083728b39d2be5c95a572a00bd6ff1730ffe7824c8db7c11d6d",
+      "notes/theory/T01_single_observation.md": "e66dad670ac4d2e72a12f7fa2cf4f36448b1e5ea8b472a51a3b889229b92c636",
+      "notes/theory/T02_stationary_certificate.md": "17de3f59cefa40aa26d5ed3a675f21a841b685c4d856444fa13abbcd8d5804e1",
+      "notes/phases/PHASE_1_closeout.md": "7ceb0f24504ec4fcc1134449819ee094075e4170c6f3a484a8284576d93ceecc"
+    },
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "-m",
+      "experiments.lessons.run_v1_1_m2"
+    ],
+    "choices": {
+      "N2": "one observation/cell",
+      "epsilon_num_relative": 1e-09,
+      "uncertain_mass_alarm": 0.01,
+      "tail_target": 1e-20,
+      "infinite_law_target": 1e-10,
+      "cap_limit": 50000,
+      "dt_screen": "1/120",
+      "half_step": "1/240",
+      "lambdaA": [
+        "6.5",
+        "7.5",
+        "8.5"
+      ],
+      "amplitudeA": "6",
+      "lambdaB": "8",
+      "eta_core": ".5",
+      "eta_spoke": ".9"
+    },
+    "rng_draws": 0,
+    "seed": null,
+    "scope": "verification toys and parameter map, no grid outcomes",
+    "headsup_sent": false,
+    "handwritten_artifact_created": false
+  },
+  "baseline": {
+    "command": [
+      "/home/vantai/state-model-regret/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "--color=no",
+      "--junitxml=/home/vantai/state-model-regret/results/lessons/v1_1_m2/baseline.xml"
+    ],
+    "returncode": 0,
+    "total": 154,
+    "failed": [],
+    "errors": [],
+    "skipped": [],
+    "passed": 154,
+    "log": "baseline.txt",
+    "junit": "baseline.xml"
+  },
+  "tests": {
+    "lesson": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/v1_1_m2/lesson.xml",
+        "tests/test_v1_1_numerics.py",
+        "tests/test_stationary_certificate.py"
+      ],
+      "returncode": 0,
+      "total": 11,
+      "failed": [],
+      "errors": [],
+      "skipped": [],
+      "passed": 11,
+      "log": "lesson.txt",
+      "junit": "lesson.xml"
+    },
+    "full_suite": {
+      "command": [
+        "/home/vantai/state-model-regret/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--color=no",
+        "--junitxml=/home/vantai/state-model-regret/results/lessons/v1_1_m2/full_suite.xml"
+      ],
+      "returncode": 0,
+      "total": 165,
+      "failed": [],
+      "errors": [],
+      "skipped": [],
+      "passed": 165,
+      "log": "full_suite.txt",
+      "junit": "full_suite.xml"
+    }
+  },
+  "N1": {
+    "M1": {
+      "cases": 300,
+      "subtraction_wrong": 95,
+      "idle_wrong": 0
+    },
+    "M0": {
+      "cases": 468,
+      "subtraction_wrong": 182,
+      "idle_wrong": 0
+    }
+  },
+  "N2": {
+    "E_delta": "-1/4",
+    "E_model_delta": "1/4",
+    "model_bias": "1/2",
+    "E_positive": "7/8",
+    "E_negative": "9/8",
+    "a00": 0,
+    "a01": 1,
+    "L00": "59/8",
+    "L01": "57/8",
+    "L11": "25/4",
+    "G_M": "1/4",
+    "G_S_given_M1": "7/8"
+  },
+  "N2_exact_cases": 1875,
+  "stationary_reference_cases": 5,
+  "feasibility_parameter_sets": 10,
+  "feasibility_status_counts": {
+    "CERTIFIED_STATIONARY_PROTOTYPE": 2,
+    "HOLD_CAP": 8
+  },
+  "candidate_grid_created": false,
+  "p_switch_computed": false,
+  "A01_A04_run": false,
+  "tag_v1_1_created": false,
+  "human_artifacts_verified": false,
+  "headsup_sent": false,
+  "new_rng_draws": 0
+}
