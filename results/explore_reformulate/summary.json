@@ -1,0 +1,213 @@
+{
+  "rows": 480,
+  "failures": 0,
+  "failure_status": [],
+  "slices": 48,
+  "procedures": [
+    {
+      "procedure": "P0 v1.1 redesign (archived)",
+      "main_cells": 22,
+      "in_band": 11,
+      "in_fraction": 0.5,
+      "over_cap_dt16": 6,
+      "over_cap_dt8": 2,
+      "max_updates_dt16": 3001056171520,
+      "coverage_in": {
+        "kappa": [
+          "1",
+          "3",
+          "3/10"
+        ],
+        "alphaB": [
+          "1/2",
+          "9/10"
+        ],
+        "alphaA": [
+          "1/2",
+          "9/10"
+        ],
+        "eta": [
+          "1/2"
+        ],
+        "r_h": [
+          "1",
+          "3"
+        ],
+        "psi_levels": 2,
+        "psi_range": [
+          -0.1,
+          -0.08
+        ]
+      },
+      "note": "from results/lessons/v1_1_a6 and v1_1_a2_redesign; not recomputed"
+    },
+    {
+      "procedure": "P1 symmetric, r_h=1",
+      "main_cells": 16,
+      "in_band": 10,
+      "in_fraction": 0.625,
+      "min_edge_distance": 0.028,
+      "max_drift": 0.000755,
+      "over_cap_dt16": 4,
+      "over_cap_dt8": 1,
+      "max_updates_dt16": 4829286083584,
+      "coverage_in": {
+        "kappa": [
+          "3/10",
+          "1",
+          "3"
+        ],
+        "alphaB": [
+          "1/2",
+          "9/10"
+        ],
+        "alphaA": [
+          "1/2",
+          "9/10"
+        ],
+        "eta": [
+          "1/2",
+          "3/4"
+        ],
+        "horizon": [
+          "rh1"
+        ],
+        "psi_range": [
+          -0.15,
+          -0.1
+        ],
+        "psi_levels": 2
+      },
+      "note": ""
+    },
+    {
+      "procedure": "P2 symmetric, physical h",
+      "main_cells": 32,
+      "in_band": 19,
+      "in_fraction": 0.594,
+      "min_edge_distance": 0.023,
+      "max_drift": 0.001154,
+      "over_cap_dt16": 0,
+      "over_cap_dt8": 0,
+      "max_updates_dt16": 42994360320,
+      "coverage_in": {
+        "kappa": [
+          "3/10",
+          "1",
+          "3"
+        ],
+        "alphaB": [
+          "1/2",
+          "9/10"
+        ],
+        "alphaA": [
+          "1/2",
+          "9/10"
+        ],
+        "eta": [
+          "1/2",
+          "3/4"
+        ],
+        "horizon": [
+          "2",
+          "8"
+        ],
+        "psi_range": [
+          -0.15,
+          -0.1
+        ],
+        "psi_levels": 2
+      },
+      "note": ""
+    },
+    {
+      "procedure": "P3 anchored, r_h=1",
+      "main_cells": 26,
+      "in_band": 26,
+      "in_fraction": 1.0,
+      "min_edge_distance": 0.083,
+      "max_drift": 0.001539,
+      "over_cap_dt16": 7,
+      "over_cap_dt8": 3,
+      "max_updates_dt16": 7036959042560,
+      "coverage_in": {
+        "kappa": [
+          "3/10",
+          "1",
+          "3"
+        ],
+        "alphaB": [
+          "1/2",
+          "9/10"
+        ],
+        "alphaA": [
+          "1/2",
+          "9/10"
+        ],
+        "eta": [
+          "1/2",
+          "3/4"
+        ],
+        "horizon": [
+          "rh1"
+        ],
+        "psi_range": [
+          -0.2,
+          0.0
+        ],
+        "psi_levels": 9
+      },
+      "note": "main = anchored cells only; unanchored targets listed in anchors.csv",
+      "anchor_attempts": 32,
+      "anchored": 26
+    },
+    {
+      "procedure": "P4 anchored, physical h",
+      "main_cells": 48,
+      "in_band": 48,
+      "in_fraction": 1.0,
+      "min_edge_distance": 0.07,
+      "max_drift": 0.001709,
+      "over_cap_dt16": 0,
+      "over_cap_dt8": 0,
+      "max_updates_dt16": 68402995200,
+      "coverage_in": {
+        "kappa": [
+          "3/10",
+          "1",
+          "3"
+        ],
+        "alphaB": [
+          "1/2",
+          "9/10"
+        ],
+        "alphaA": [
+          "1/2",
+          "9/10"
+        ],
+        "eta": [
+          "1/2",
+          "3/4"
+        ],
+        "horizon": [
+          "2",
+          "8"
+        ],
+        "psi_range": [
+          -0.2,
+          0.05
+        ],
+        "psi_levels": 11
+      },
+      "note": "main = anchored cells only; unanchored targets listed in anchors.csv",
+      "anchor_attempts": 64,
+      "anchored": 48
+    }
+  ],
+  "loo": {
+    "cases": 24,
+    "in_band": 8,
+    "in_window": 6
+  },
+  "monotone_violation_slices": 8
+}
