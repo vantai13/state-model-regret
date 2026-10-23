@@ -122,3 +122,12 @@ Chỉ phân loại tham số và support D v1 đã lưu, không tính J/gap/marg
 Coverage audit phát hiện9.216 ca nguồn chưa bao giờ kích hoạt SD2/WD2; lần runner đầu FAIL assertion coverage dù test suite PASS. Thêm3.456 ca với nền OFF0/ON1 trên cả hai queue và H1/2/3, tổng12.672state-parameter cases/116.352cặp path; giữ số liệu này là verification exposure, không đưa vào confirmation hoặc chọn grid v1.1.
 
 **v1.1: chưa chọn số/lưới, chưa ĐK1/ĐK2 trên candidate, chưa sinh reserve, chưa allocate root, chưa A01.** Khoảng p_sw và bảy lựa chọn §11 là DRAFT; Δt/phương pháp xác nhận dấu R2 chưa khóa. Phải commit protocol trước B3; không gọi B1 DRAFT là preregistration hoàn tất.
+
+
+## Review N1–N6 và quyết định mốc2 — 23/10/2026
+
+Người thực hiện: **Doan Van Tai**. Hai nguồn mới là mock reviews, không independent validation. Mock dominance review cũ nay cung cấp `random.seed(1)`,200paths/cell; script được nêu là dominance_check.py nhưng chưa cung cấp byte. Ghi seed/exposure được báo, không cấp lại root1 như fresh confirmation và không tuyên bố đã replay.
+
+Scripts reviewer nêu recheck_b1.py(4000randomplants),float_ties2.py(truth300/M020000),idleidentity recheck(truth300/M0468), các bảng quantile/feasibility chưa có source/log để tái lập đúng. Phiên này sẽ tạo kiểm deterministic riêng, báo counts riêng, không nhận105/114/183/6549 là số đo local. Canonical N2 đã exposed; prototypes/toy của N1/N2/stationary là verification, không grid candidate.
+
+Mốc2 ghi đủ lựa chọn/phương pháp trước tính candidate. Không J/gap/contrast/reserve p_sw hoặc Phase3 run trên v1/v1.1. Không RNG/root mới; historical frozen outputs giữ hash, active closeout đổi trạng thái có version/git history.

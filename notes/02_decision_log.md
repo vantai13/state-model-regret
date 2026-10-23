@@ -280,3 +280,30 @@ Ai chịu trách nhiệm: **Doan Van Tai**. Đây là đối chiếu và thực 
 - Decision: ghi nhận **xung đột nguồn do mock review báo**: Part E cho phép ghi ngoại lệ tag trước P0-V11, còn review dẫn PHASE_1 §17.1 yêu cầu HOLD khi V11 chưa đạt. Bản đầy đủ PHASE_1 chưa có để đối chiếu câu gốc, nên không tuyên bố đã xác minh trực tiếp mâu thuẫn. Tag `contract-v1` giữ nguyên như một bản đóng băng kỹ thuật có ngoại lệ đã biết; không dời tag.
 - Consequence: trước khi tag `contract-v1.1`, phải xử lý trạng thái P0-V11 và đối chiếu nguồn gate. Attachment bổ sung nhắc bài tự tính ngoài vở ngày22/10; đây là lời trong nguồn, phiên tích hợp23/10 chưa có ảnh/bài làm hoặc record read-back để kiểm. Không tạo commit `[kín sách]` thay tác giả; P0-V11 vẫn OPEN. B1 không tạo tag mới.
 - Ai quyết: **Doan Van Tai — chờ xác nhận**.
+
+
+### DL-029 — N2(a): một observation mỗi ô, bổ đề E0 (2026-10-23)
+
+- Decision: giữ một observation/cell, b=D; bổ đề và các companion diagnostics ở [mốc2](design/decisions_v1_1_m2.md). Tác giả giao thực hiện phần kỹ thuật/lựa chọn có căn cứ trong review; không suy thành understanding artifact.
+- Why: conditional map theo observable y, attribution rõ. GM là0 hoặcabs(EΔ) tùy action; không đọc GM0 là mean model đủ cho mọi tình huống. EΔ0 có thể làm GM0 dù action khác nhau.
+- Alternatives: trộn observations làm S0 policy thay theo y; giữ cho sensitivity sau này, cần nhiều hơn hai quantile để tái dựng đúng law.
+- Consequence: A04 phải kèm EΔ, model gap bias, EΔ+/EΔ−. Bổ đề/proof lập trình là reference, không tạo commit kín sách thay tác giả.
+- Test: canonical rational và exact exhaustive/mixture/tie cases trước mở B2; kết quả trong report mốc2.
+- Ai chịu trách nhiệm: **Doan Van Tai**; bài tự chứng minh/read-back còn OPEN.
+
+### DL-030 — N1: idle-based gap, certificates và precision alarm (2026-10-23)
+
+- Decision: gap theo weighted idle identity; rational/integer coordinates; assert conservation==0, SD≥0, WD≤0. eps_num=1e−9*Cref, alarm uncertified near-zero mass>.01; numeric band không tự thay strict true oracle.
+- Why: subtraction hai tổng có thể chọn Switch trên structural ties. Gán Stay cho mọi small negative gap sẽ đổi estimand/R11 và điều kiện bổ đề; certificate/error escalation bảo vệ định nghĩa thay vì sửa kết quả.
+- Alternatives: clamp dấu theo chứng chỉ hoặc gọi Fraction(float) exact physical R2 bị loại. High-precision phải phân biệt rounded-input law với exp law thật. B3 không tính Lstar chỉ để đặt band.
+- Consequence: unresolved precision phải HOLD và tăng precision; báo riêng structural ties và uncertified mass. B3 chỉ p_sw/numerical diagnostics, companion margins chờ A04.
+- Test: deterministic structural tie fixtures, SD/WD signs, exact rational path reference và mutant subtraction phải fail. Không dùng số105/114/183 từ review làm số đo của phiên nếu script nguồn chưa có.
+- Ai chịu trách nhiệm: **Doan Van Tai**, theo ủy quyền triển khai; D16 v1 giữ lịch sử, supplement v1.1 ở mốc2/protocol.
+
+### DL-031 — N3–N6 và quyết định trước grid, mốc2 (2026-10-23)
+
+- Decision: toàn bộ11 lựa chọn tại [mốc2](design/decisions_v1_1_m2.md), A/B độc lập ON/OFF, stationary có conditional prior, nền A amplitude±6 không đổi theou; ψ sign hai phía0 ở ηcore; highηspoke center ổn định; inverseκ là relative-age axis, z derived.
+- Why: tránh nền A phụ thuộc managed load để ép dạng đóng, tránh confound u và background. Generic feasibility không thay fixed-amplitude feasibility. Sửa claim reviewer: η.9 cho postload.9+.1ρB, không luôn≥.95. Quantile scaling chỉ gần đúng finite slot.
+- Consequence: plant D4/D7/D12/D20/D22 đổi, splits không so trực tiếp với v1; p_sw hai mức phải ổn định để calibration; selected grid không đại diện prevalence mạng thật. Numeric stationary solver cần tail/law/posterior error và budget. Vượt budget không bỏ ô để đẹp.
+- Gate: cập nhật active Phase1 closeout HOLD; PHASE_1 source có SHA rút gọn47f9a335…d4d7ba và line332/1953 do hai review báo, chưa có byte gốc để tự kiểm. Không dùng ngoại lệ Part E làm căn cứ GO. Tagv1 tại6bb631f không di chuyển.
+- Ai chịu trách nhiệm: **Doan Van Tai**. Không gửi heads-up theo chỉ dẫn23/10; lưu draft. Commit mốc2 trước candidate computations; chưa tạo grid/contrast/tagv1.1 tại mốc này.
