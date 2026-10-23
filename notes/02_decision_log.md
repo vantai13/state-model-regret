@@ -321,3 +321,7 @@ Sparse longdouble đã chạy: reference(-2,+1) đạt law bound; (-17,+7),keep.
 ### DL-034 — B2: control SD1 cần tách khỏi conservation (2026-10-23)
 
 ĐK1 trước mọi J cho thấy N02 với A90/B100,h.25 là conservation-cell vì A cũng không thể idle. Đặt yA=0 (observation có xác suất dừng dương), giữ B100 vàh.25 để chứng nhận SD-cell riêng. Giữ toàn bộ lần dựng đầu và support/labels; không thay main λA, không dùng lượt redesign B4. Các main M13/M15/M17/M20 là WD-cell vẫn giữ, chỉ loại khỏi calibration sau screen theo protocol.
+
+### DL-035 — B4: dùng đúng một lượt redesign tải A sau screen đầu (2026-10-23)
+
+Initial8/22 in, cần15/22. Chọn duy nhất λA={7;7.2;8.1}, center7.2, trước mọi p_sw mới. Căn cứ chỉ là screen đã khai báo: B90 ởλ6.5 thường dưới.1, B50 ởλ7.5 và mọi mứcλ8.5 thường trên.9. Nâng mức thấp, hạ mức giữa và mức dương; ψ={−.1;−.08;+.01} giữ hai phía0; highηcenter pre-load.9<1. Biên độ±6, κ/quantile/r_h/η và threshold không đổi. Chọn mức có lattice đơn giản để không gây nổ solver/DP; không quét thử nhiều λ. Controls/reserve giữ thiết kế trước. Đây là redesign hậu screen được protocol cho phép, không pretended preregistration ban đầu. Giữ đủ22 main và mọi out; nếu lần hai không đạt15 thì NARROW/REFORMULATE, không lượt thứ hai, không formal freeze/tag v1.1.
