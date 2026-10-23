@@ -309,3 +309,7 @@ Ai chịu trách nhiệm: **Doan Van Tai**. Đây là đối chiếu và thực 
 - Consequence: plant D4/D7/D12/D20/D22 đổi, splits không so trực tiếp với v1; p_sw hai mức phải ổn định để calibration; selected grid không đại diện prevalence mạng thật. Numeric stationary solver cần tail/law/posterior error và budget. Vượt budget không bỏ ô để đẹp.
 - Gate: cập nhật active Phase1 closeout HOLD; PHASE_1 source có SHA rút gọn47f9a335…d4d7ba và line332/1953 do hai review báo, chưa có byte gốc để tự kiểm. Không dùng ngoại lệ Part E làm căn cứ GO. Tagv1 tại6bb631f không di chuyển.
 - Ai chịu trách nhiệm: **Doan Van Tai**. Không gửi heads-up theo chỉ dẫn23/10; lưu draft. Commit mốc2 trước candidate computations; chưa tạo grid/contrast/tagv1.1 tại mốc này.
+
+### DL-032 — Phần A: author attestation và budget trước screen (2026-10-23)
+
+Doan Van Tai xác nhận trực tiếp đã hoàn thành V1/V8/P0-V3/P0-V11 ngoài repository, không lưu artifact. Ghi **author-attested**, không phải independently verified. Protocol/budget/center/reserve/control và quy tắc giữ observation vật lý qua refinement tại [Phần A](design/v1_1_A_protocol.md). Ưu tiên solver sparse rồi spectral, giữ nguyên10 bộ chính; thay thiết kế nếu có phải có DL trước outcome. Không bịa full SHA/câu gốc PHASE_1 chưa có. Gate kỹ thuật và P0-V10 giữ theo điều kiện thực đạt.
