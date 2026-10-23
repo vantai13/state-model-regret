@@ -1,0 +1,145 @@
+{
+  "author": "Doan Van Tai",
+  "artifact_audit": "PASS",
+  "chronology": [
+    "db955de",
+    "cde9944",
+    "00c9584",
+    "ee349a4",
+    "87dcd53",
+    "d696eef",
+    "7de4427"
+  ],
+  "grid_status": "ACCEPTED",
+  "checks": [
+    {
+      "id": 1,
+      "check": "Each operational term defined once",
+      "definitions": 25,
+      "status": "PASS"
+    },
+    {
+      "id": 2,
+      "check": "Main RQ verbatim in contract and brief; brief points to contract and grid v1.2",
+      "status": "PASS"
+    },
+    {
+      "id": 3,
+      "check": "Deferred items have an owner: A01 final dt, A05 null/held-out, Phase 8 rate-only/feasible, P0-V10 reader",
+      "status": "PASS"
+    },
+    {
+      "id": 4,
+      "check": "Final Review consistency",
+      "status": "PASS",
+      "method": "Đối chiếu thủ công từng mục với toàn văn Final Review (bản cập nhật 06/10/2026) do tác giả dán trong chat ngày 23/10; repo không lưu file gốc nên không kiểm hash. Script chỉ kiểm các term được ánh xạ có mặt.",
+      "mapping": [
+        {
+          "section": "§2.1",
+          "requirement": "oracle biết state và law, không biết future; một benchmark cho mọi ô",
+          "terms": [
+            "D14",
+            "D15"
+          ]
+        },
+        {
+          "section": "§2.2",
+          "requirement": "bảng 2×2, G_S, G_M, G_SM, Γ và hai gain có điều kiện",
+          "terms": [
+            "D19"
+          ]
+        },
+        {
+          "section": "§2.5",
+          "requirement": "regret theo margin, quy tắc hòa chốt trước",
+          "terms": [
+            "D16",
+            "D17",
+            "D18"
+          ]
+        },
+        {
+          "section": "§2.7",
+          "requirement": "threshold null bị giới hạn, khóa trước kiểm, split theo workload",
+          "terms": [
+            "D25"
+          ]
+        },
+        {
+          "section": "§5.3",
+          "requirement": "h=HΔt; objective cumulative khác time-average",
+          "terms": [
+            "D2",
+            "D13"
+          ]
+        },
+        {
+          "section": "§11.1",
+          "requirement": "objective queue occupancy trên horizon cố định, c_sw khai báo",
+          "terms": [
+            "D13"
+          ]
+        },
+        {
+          "section": "§11.2",
+          "requirement": "nền Markov on/off, buffer vô hạn, không transport feedback; M0 mean rollout load-aware; M1 đúng law; không truyền \"mode trung bình\"",
+          "terms": [
+            "D4",
+            "D6",
+            "D10"
+          ]
+        },
+        {
+          "section": "§12.2",
+          "requirement": "quyền thông tin: estimator đóng băng, M1 không thấy w, evaluator giữ w",
+          "terms": [
+            "D9",
+            "D11",
+            "D21"
+          ]
+        },
+        {
+          "section": "§12.6",
+          "requirement": "εR là quy ước 0,5/1/2% của reference cost; εE và TOST",
+          "terms": [
+            "D23",
+            "D24"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "check": "25-term budget and immutable v0 bytes",
+      "status": "PASS"
+    },
+    {
+      "id": 6,
+      "check": "Cross-card numerical, grid and calibration constraints",
+      "status": "PASS",
+      "calibration": [
+        "M01",
+        "M09",
+        "M22"
+      ],
+      "max_updates_dt16": 87058206720,
+      "max_unresolved": 0.001861094018645521
+    }
+  ],
+  "full_suite": {
+    "tests": 193,
+    "failed": []
+  },
+  "contract_files": {
+    "definitions": "090eb2dcd63ad0ca6fdbda4cad4980349ddc74f2df684f29441b911f9fb5d9e6",
+    "brief": "3ffe7e4e2de58c184a60541dbe82ec016ff06cda559e25c2cac2d3d4650a37fb",
+    "boundary": "d5f585c132a1629e782f9c08ae76a0b928c8125d064c2c1b41f331f13a8af016"
+  },
+  "open_items": [
+    "V9: heads-up/memo GVHD chưa gửi",
+    "P0-V10: người đọc độc lập chưa có (chặn Phase 4)",
+    "PHASE_1 §5.4 luật 5: lý do và câu chữ v1.2 do AI soạn, tác giả chưa tự viết lại",
+    "V1/V8/P0-V3/P0-V11: author-attested, không có artifact để kiểm độc lập"
+  ],
+  "ready_to_tag": true
+}

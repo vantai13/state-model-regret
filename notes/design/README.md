@@ -6,6 +6,8 @@
 | [design_conditions_v1_1.md](design_conditions_v1_1.md) | Lựa chọn kỹ thuật đã ADOPTED tại mốc 2; chưa khóa contract | Điều kiện ĐK1–ĐK8 và bổ sung N1–N6; provenance bản nguồn B1 được giữ |
 | [decisions_v1_1_m2.md](decisions_v1_1_m2.md) | Đã commit `27eeed4` trước tính tham số ứng viên | 11 lựa chọn; chưa chứng nhận human gates |
 | [grid_v1_1.md](grid_v1_1.md), [JSON](grid_v1_1.json) | **REJECTED / NARROW REQUIRED** | 28ô+6reserve; screen8/22→11/22, yêu cầu15; không calibration/freeze |
+| [v1_2_protocol.md](v1_2_protocol.md) | Commit `d696eef` trước lần chạy chính thức | REFORMULATE (DL-038): neo λA theo ranh giới quyết định, horizon vật lý, held-out khai báo trước |
+| [grid_v1_2.md](grid_v1_2.md), [JSON](grid_v1_2.json) | **ACCEPTED, LOCKED tại `contract-v1.2`** | 38 ô chính, 12 held-out, 6 kiểm âm, 2 đầu dò; calibration M01, M09, M22 (DL-039) |
 
 Tích hợp B1 và chạy kiểm chứng: **Doan Van Tai**, **23/10/2026**. Ngày22/10 và attribution trong bản dự thảo nguồn được giữ nguyên; không phải ngày chạy/commit mới. [Report](../../results/lessons/l1_8_v1_1_b1/report.md) phân biệt kết quả đã chạy với lựa chọn §11 chưa được chốt. Chưa triển khai/chạy `p_switch`, chưa sinh lưới ứng viên hoặc reserve v1.1, chưa tag v1.1. Số liệu s_bt của v1 không xác nhận lưới có information value.
 
