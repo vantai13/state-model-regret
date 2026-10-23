@@ -6,8 +6,11 @@ from smr.stationary import r2_keep
 import numpy as np,time,resource,subprocess
 
 
+CANDIDATE=ROOT/'notes/design/grid_v1_1_candidate.json'
+DATA=ROOT/'results/lessons/v1_1_a2'
+
 def load_cells():
-    rows=json.loads((ROOT/'notes/design/grid_v1_1_candidate.json').read_text())['cells']
+    rows=json.loads(CANDIDATE.read_text())['cells']
     for c in rows:
         for k in ('lambdaA','kappa','eta','u','yA','yB','h','age'):c[k]=F(c[k])
         for k in ('ratesA','ratesB'):c[k]=tuple(map(F,c[k]))
@@ -15,7 +18,7 @@ def load_cells():
 
 
 def component(c,which,ref,extended,metadata):
-    path=ROOT/f'results/lessons/v1_1_a2/{c["id"]}_{ref}_{which}.npz'
+    path=DATA/f'{c["id"]}_{ref}_{which}.npz'
     with np.load(path) as f:mass=f['mass'];support=f['support']
     entry=next(m for m in metadata if m['cell']==c['id'] and m['refinement']==ref and m['queue']==which)
     native=F(entry['unit']);unit=common_unit(c,which,ref);factor=native/unit;assert factor.denominator==1
@@ -47,12 +50,19 @@ def screen(c,ref,extended,metadata):
     return result
 
 
-def run():
-    out=ROOT/'results/lessons/v1_1_a4';out.mkdir(parents=True,exist_ok=True)
-    metadata=json.loads((ROOT/'results/lessons/v1_1_a2/supports.json').read_text())
+def run(redesign=False):
+    global CANDIDATE,DATA
+    if redesign:
+        CANDIDATE=ROOT/'notes/design/grid_v1_1_redesign_candidate.json'
+        DATA=ROOT/'results/lessons/v1_1_a2_redesign'
+    out=ROOT/('results/lessons/v1_1_a4_redesign' if redesign else 'results/lessons/v1_1_a4');out.mkdir(parents=True,exist_ok=True)
+    metadata=json.loads((DATA/'supports.json').read_text())
     cells=[c for c in load_cells() if c['role']=='main'];assert len(cells)==22
-    write(out/'config.json',dict(author='Doan Van Tai',candidate_commit='571d4cf',screen_parent=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
-        acceptance=[.1,.9],required_in=15,levels=[1,2],no_margin_output=True,no_Lstar=True,reserve_screened=False,seed=None))
+    config=dict(author='Doan Van Tai',candidate_commit=subprocess.check_output(['git','log','-1','--format=%H','--',str(CANDIDATE.relative_to(ROOT))],text=True).strip(),candidate_sha256=__import__('hashlib').sha256(CANDIDATE.read_bytes()).hexdigest(),redesign=redesign,screen_parent=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+        acceptance=[.1,.9],required_in=15,levels=[1,2],no_margin_output=True,no_Lstar=True,reserve_screened=False,seed=None,source_hashes={p:__import__('hashlib').sha256((ROOT/p).read_bytes()).hexdigest() for p in ('src/smr/gap_screen.py','src/smr/native/idle_backward.cpp','experiments/lessons/run_v1_1_a4.py')})
+    if (out/'config.json').exists():
+        old=json.loads((out/'config.json').read_text());assert old['candidate_sha256']==config['candidate_sha256'] and old['source_hashes']==config['source_hashes']
+    else:write(out/'config.json',config)
     rows=[]
     for c in cells:
         for ref in (1,2):
@@ -72,4 +82,6 @@ def run():
             write(target,row);rows.append(row)
             print(f"B3 {c['id']} /{ref}: [{r['p_low']:.9f},{r['p_high']:.9f}] {label} unresolved={r['unresolved_mass']:.3g} {row['wall_s']:.2f}s",flush=True)
     csvwrite(out/'screen.csv',rows);manifest(out)
-if __name__=='__main__':run()
+if __name__=='__main__':
+    import argparse
+    p=argparse.ArgumentParser();p.add_argument('--redesign',action='store_true');run(p.parse_args().redesign)

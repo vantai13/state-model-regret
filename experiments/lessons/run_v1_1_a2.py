@@ -5,9 +5,12 @@ from smr.stationary import r2_keep
 from smr.dominance import can_idle_within,empty_after_every_slot
 
 
-def cells():
+def cells(redesign=False):
     result=[]
-    def make(id,role,lam=F(15,2),k=F(1),eta=F(1,2),a=F(9,10),b=F(1,2),rh=F(1),**overrides):
+    center=F(36,5) if redesign else F(15,2)
+    levels=(F(7),F(36,5),F(81,10)) if redesign else (F(13,2),F(15,2),F(17,2))
+    def make(id,role,lam=None,k=F(1),eta=F(1,2),a=F(9,10),b=F(1,2),rh=F(1),**overrides):
+        if lam is None:lam=center
         if 'ratesA' in overrides:lam=sum(overrides['ratesA'])/2
         if 'yA' in overrides:yA=overrides['yA']
         else:
@@ -21,14 +24,14 @@ def cells():
             alphaA=a,alphaB=b,yA=yA,yB=yB,r_h=rh,target_h=h,H_coarse=H,h=F(H,120),
             rounding_error=F(H,120)-h,zA=yA/(10-lam-2*eta),zB=yB/2,
             drain_B_post=None if eta>=1 else yB/(2-2*eta),age=F(1)))
-    for lam,k,ab in __import__('itertools').product((F(13,2),F(15,2),F(17,2)),(F(3,10),F(1),F(3)),(F(1,2),F(9,10))):
+    for lam,k,ab in __import__('itertools').product(levels,(F(3,10),F(1),F(3)),(F(1,2),F(9,10))):
         make(f'M{len(result)+1:02}','main',lam,k,b=ab)
     make('M19','main',a=F(1,2));make('M20','main',rh=F(1,2));make('M21','main',rh=F(3));make('M22','main',eta=F(9,10))
-    make('N01','negative',yA=F(0),ratesA=(F(4),F(4)),h=F(1,4))
-    make('N02','negative',yA=F(0),yB=F(100),h=F(1,4))
-    make('N03','negative',yA=F(100),yB=F(100),h=F(1,4))
-    make('N04','negative',yA=F(200),yB=F(200),h=F(1,2))
-    make('W01','wd_probe',yA=F(100),yB=F(0),h=F(1,4))
+    make('N01','negative',lam=F(15,2),yA=F(0),ratesA=(F(4),F(4)),h=F(1,4))
+    make('N02','negative',lam=F(15,2),yA=F(0),yB=F(100),h=F(1,4))
+    make('N03','negative',lam=F(15,2),yA=F(100),yB=F(100),h=F(1,4))
+    make('N04','negative',lam=F(15,2),yA=F(200),yB=F(200),h=F(1,2))
+    make('W01','wd_probe',lam=F(15,2),yA=F(100),yB=F(0),h=F(1,4))
     make('S01','stress',lam=F(13,2),eta=F(3,2))
     for lam,k in __import__('itertools').product((F(7),F(8)),(F(3,5),F(2),F(4))):
         make(f'R{len(result)-27:02}','reserve_extrapolation' if k==4 else 'reserve',lam,k,b=F(3,4))
@@ -85,10 +88,10 @@ def common_unit(cell,which,ref):
     return F(math.gcd(*(int(v*den) for v in vals)),den)
 
 
-def run():
-    out=ROOT/'results/lessons/v1_1_a2';out.mkdir(parents=True,exist_ok=True)
+def run(redesign=False):
+    out=ROOT/('results/lessons/v1_1_a2_redesign' if redesign else 'results/lessons/v1_1_a2');out.mkdir(parents=True,exist_ok=True)
     if (out/'labels.csv').exists():raise SystemExit('preserve A2 evidence')
-    proposed=cells();labels=[];budgets=[];metadata=[]
+    proposed=cells(redesign);labels=[];budgets=[];metadata=[]
     write(out/'config.json',dict(author='Doan Van Tai',A01_updates_limit=2e11,RAM_limit=4*1024**3,no_J=True,cells=proposed))
     for c in proposed:
         for ref in (1,2):
@@ -113,8 +116,10 @@ def run():
                                 within_A01_budget=updates<=2e11 and peak<=4*1024**3))
         print('B2',c['id'],labels[-1]['label'],flush=True)
     write(out/'supports.json',metadata);csvwrite(out/'labels.csv',labels);csvwrite(out/'budget.csv',budgets)
-    write(ROOT/'notes/design/grid_v1_1_candidate.json',dict(author='Doan Van Tai',status='CANDIDATE_BEFORE_SCREEN',cells=proposed,
-          outcomes_computed=False,labels=labels,budget_path='results/lessons/v1_1_a2/budget.csv'))
-    (ROOT/'notes/design/grid_v1_1_candidate.md').write_text('# Lưới ứng viên v1.1\n\nDoan Van Tai,23/10/2026. 28 ô +6 reserve, giữ observation/horizon vật lý giữa hai mức. D tách theo queue, không tích Descartes. Chưa tính J/gap/p_switch. Cấu hình đầy đủ trong JSON, support và ĐK1/budget trong results/lessons/v1_1_a2/.\n')
+    write(ROOT/('notes/design/grid_v1_1_redesign_candidate.json' if redesign else 'notes/design/grid_v1_1_candidate.json'),dict(author='Doan Van Tai',status='CANDIDATE_BEFORE_SCREEN',cells=proposed,
+          outcomes_computed=False,labels=labels,budget_path=str(out.relative_to(ROOT)/'budget.csv')))
+    (ROOT/('notes/design/grid_v1_1_redesign_candidate.md' if redesign else 'notes/design/grid_v1_1_candidate.md')).write_text('# Lưới ứng viên v1.1\n\nDoan Van Tai,23/10/2026. 28 ô +6 reserve, giữ observation/horizon vật lý giữa hai mức. D tách theo queue, không tích Descartes. Chưa tính J/gap/p_switch. Cấu hình đầy đủ trong JSON, support và ĐK1/budget trong results/lessons/v1_1_a2/.\n')
     manifest(out)
-if __name__=='__main__':run()
+if __name__=='__main__':
+    import argparse
+    p=argparse.ArgumentParser();p.add_argument('--redesign',action='store_true');run(p.parse_args().redesign)
