@@ -317,3 +317,7 @@ Doan Van Tai xác nhận trực tiếp đã hoàn thành V1/V8/P0-V3/P0-V11 ngo�
 ### DL-033 — A1: dùng spectral certificate, giữ nguyên20 trường hợp (2026-10-23)
 
 Sparse longdouble đã chạy: reference(-2,+1) đạt law bound; (-17,+7),keep.99 có cận2.293e−10 vượt1e−10. Không bỏ rounding guard để qua test. Chọn phương án phổ trước candidate J, giữ nguyên10 bộ ×2 mức. Spectral approximation được chứng nhận bằng interval balance/normalization, independent Lyapunov tail và explicit hitting-time bound; không gọi root finder chính xác. 20/20 law/posterior/quantiles PASS, 10/10 đối chiếu v1 có allowance riêng cho chuyển thành mảng. Test bỏ gamma bị bắt. Proof T04 và results/lessons/v1_1_a1. Cap50.000 thay bằng4GiB/1200s đã khai báoC0; không nới sai số hoặc đổi thiết kế.
+
+### DL-034 — B2: control SD1 cần tách khỏi conservation (2026-10-23)
+
+ĐK1 trước mọi J cho thấy N02 với A90/B100,h.25 là conservation-cell vì A cũng không thể idle. Đặt yA=0 (observation có xác suất dừng dương), giữ B100 vàh.25 để chứng nhận SD-cell riêng. Giữ toàn bộ lần dựng đầu và support/labels; không thay main λA, không dùng lượt redesign B4. Các main M13/M15/M17/M20 là WD-cell vẫn giữ, chỉ loại khỏi calibration sau screen theo protocol.
