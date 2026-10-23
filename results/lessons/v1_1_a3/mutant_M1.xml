@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.126" timestamp="2026-10-23T08:40:30.195592+07:00" hostname="vantai"><testcase classname="tests.test_v1_1_numerics" name="test_truth_structural_ties_and_subtraction_mutant" time="0.017"><failure message="AssertionError: assert 1.7763568394002505e-15 == 0&#10; +  where 1.7763568394002505e-15 = gap_from_idle((Fraction(100, 3), 0, Fraction(200, 7), 0), {'cA': Fraction(1, 12), 'cB': Fraction(1, 12), 'u': Fraction(1, 120), 'H': 12, ...}, 'M1')">def test_truth_structural_ties_and_subtraction_mutant():
+        bad=0
+        for state,plant in conservation_cases(300):
+            assert classify_state(*state,plant)['label']=='conservation'
+&gt;           assert gap_from_idle(state,plant,'M1')==0
+E           AssertionError: assert 1.7763568394002505e-15 == 0
+E            +  where 1.7763568394002505e-15 = gap_from_idle((Fraction(100, 3), 0, Fraction(200, 7), 0), {'cA': Fraction(1, 12), 'cB': Fraction(1, 12), 'u': Fraction(1, 120), 'H': 12, ...}, 'M1')
+
+tests/test_v1_1_numerics.py:20: AssertionError</failure></testcase></testsuite></testsuites>
