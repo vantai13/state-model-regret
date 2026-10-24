@@ -82,3 +82,15 @@ kiếm và ý nghĩa các cột ở [quy trình](search_protocol.md).
 
 | Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
 |---|---|---|---|---|---:|---:|---|
+
+## Dọn thư viện — 24/10/2026, không phải phiên tìm paper
+
+Theo yêu cầu tác giả: giữ R32/R34/R51 trong bảng chính; 18 mã còn lại lưu tạm.
+Phân loại từ metadata/notes sẵn có, không chạy query hoặc đọc nguồn mới;
+không đổi nhãn PC/Gate. R51 là DT chung, không tính thành paper networking.
+
+Bảng chính chuyển thành `papers/paper_comparison.xlsx`. Dữ liệu cũ ở
+`papers/archive/data/`, gồm `classification_source_check.json` được nhắc trong
+lượt kiểm lịch sử phía trên. Snapshot 21 bài, CSV và 4 nhóm cũ ở `papers/archive/`.
+PDF/text và audit chưa tracked chuyển ra kho local; đường cũ/mới, checksum và
+lý do ở [manifest](../../papers/archive/cleanup_manifest.json).

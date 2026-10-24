@@ -1,63 +1,35 @@
-# Bắt đầu đọc paper ở đây
+# Paper — mở bảng này trước
 
-Người phụ trách: **Doan Van Tai** · 24/10/2026. Phân nhóm/thứ tự là AI đề xuất.
+Người phụ trách: **Doan Van Tai** · dọn ngày **24/10/2026**.
 
-**Trước mỗi lần tìm/kiểm paper:** dùng [quy tắc + checklist 7 bước](../notes/literature/search_protocol.md).
-Ưu tiên NDT/networking; 21 bài hiện có là kho tham chiếu, không phải yêu cầu đọc hết.
+**[Excel đang dùng](paper_comparison.xlsx)** chỉ giữ 3 nguồn gần đề tài từ thư viện cũ.
+Đây là bảng tham khảo, không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết.
 
-**Bạn đang học Part A: mở [Excel](paper_comparison_part_a.xlsx), tab `Bat_dau_Part_A`.**
-
-| Thứ tự | Bài chính | Học để hiểu gì? |
+| Mã | Vì sao giữ trong bảng chính? | Trạng thái hiện có |
 |---|---|---|
-| 1 | SOB14 — Strong, Oakley, Brennan | EVPPI: giá trị thông tin state |
-| 2 | B82 — Birge | VSS: giá trị dùng stochastic model |
-| 3 | P11 — Strong, Oakley | EVMI: học discrepancy khác dùng M0/M1 |
+| R32 | VoI trong feedback control: gần trục thông tin state | Có PDF; AI đã đọc một số mục |
+| R34 | Điều khiển queue khi thông tin chiều dài queue bị trễ | Metadata; chưa có PDF |
+| R51 = P03 | DT²: cầu nối giữa model và chất lượng quyết định | Qua nguồn thứ cấp; chưa có PDF; **DT chung, không chuyên networking** |
 
-B82 chưa có PDF local; không ghi đã đọc full. MAB11, E07, SOC12 là ba nguồn bổ trợ gốc,
-không cần đọc hết trước ba bài chính. Ba tài liệu tra cứu R10/R07/R18 không thành bài bắt buộc mới.
+Excel có 3 tab: `Danh_sach`, `Ghi_chu_doc`, `Huong_dan`. Cập nhật mức bạn đọc
+ở `Danh_sach`; mức AI đọc và ghi chú nằm riêng. Ghi chú cũ giữ nguyên provenance.
 
-## 21 bài nằm ở đâu trong lộ trình?
+## Thư mục còn lại dùng làm gì?
 
-| Nhóm | Các bài | Khi nào dùng? |
-|---|---|---|
-| [01 — Part A đọc chính](groups/01_Part_A_doc_chinh/README.md) | SOB14, B82, P11 | Học ngay, theo thứ tự trên |
-| [02 — Part A bổ trợ](groups/02_Part_A_bo_tro/README.md) | MAB11, E07, SOC12; R10, R07, R18 | Tra khi cần, không đọc cả sách |
-| [03 — Audit trước Phase 3](groups/03_Audit_truoc_Phase3/README.md) | R01, R04, R02, R03, R06, R25, R29 | Sau Part A; ưu tiên R01 → R04 để đối chiếu claims |
-| [04 — Part B để sau](groups/04_Part_B_de_sau/README.md) | R43, R12, R32, R34, R51 | L2.4/L2.6/L2.7; chưa cần học lúc này |
-
-15 bài shortlist là nguồn audit bổ sung, **không phải15 bài mới phải học hết cho Part A**.
-Catalog59 nguồn ở review run là phạm vi tìm kiếm, không phải danh sách bài tập.
-Nhóm04 chỉ gom bài audit liên quan Part B; không thay các paper gốc P12/P13 của lesson plan.
-
-## Thư mục/file có chức năng gì?
-
-| Nơi | Chức năng |
+| Nơi | Dùng khi nào? |
 |---|---|
-| `paper_comparison_part_a.xlsx` | Học/tra cứu: bắt đầu → phân loại → danh sách → ghi chú |
-| `part_a_quick_view.csv` | Bảng nhanh6 nguồn Part A gốc; không phải toàn bộ21 bài |
-| `groups/01…04/` | Mỗi nhóm có README, tên bài, mục đích và link nguồn |
-| `PDF_local/01…04/` | Mở PDF theo thứ tự học; lối mở đến bản gốc, không là bài trùng |
-| `PDF_local/Part_A/` | Kho PDF gốc của các lesson Part A |
-| `PDF_local/review_2026-10-24/` | Kho PDF gốc tải trong lượt audit |
-| `PDF_local/inbox/` | PDF bạn đưa thêm, ví dụ Secomandi R04 |
-| `PDF_local/_backups/` | Sao lưu trước khi sắp xếp; không phải tài liệu học |
-| `data/` | Dữ liệu nguồn cho Excel, phân nhóm và kết quả kiểm |
-| `../notes/literature/` | Note/proof/đối chiếu; `review_runs/` giữ log và kết quả audit |
+| `PDF_local/` | Mở PDF thuộc bảng đang dùng; hiện chỉ có R32 |
+| `data/` | Catalog 3 bài và kết quả kiểm Excel; không cần mở khi học |
+| [archive/](archive/README.md) | Tra lại thư viện 21 bài, ghi chú và phân nhóm cũ |
 
-PDF thật nằm ở `~/papers/state-model-regret/`; `PDF_local` là alias local, Git bỏ qua.
-Giữ nguyên11 PDF gốc, tạo11 lối mở theo nhóm;10 mục chưa có PDF vẫn có link/trạng thái thật.
+**18 bài đã bỏ khỏi bảng chính và lưu tạm.** SOB14, B82, P11 chỉ tra tên khái niệm
+khi cần; các bài health economics, revenue management, weather, vehicle routing,
+sách và lý thuyết bổ sung được cất lại. Lưu tạm không có nghĩa là đã bác bỏ nguồn
+hay đã giải quyết rủi ro prior. Các note/proof Part A vẫn ở `notes/literature/`.
 
-## Các mã dễ nhầm
+Trước khi tìm/thêm bài: [quy tắc + checklist](../notes/literature/search_protocol.md).
+Không thêm hoặc tải paper mới trong lượt dọn này.
 
-- `P11`, `R04`: ID paper ở hai danh sách khác nhau. **R04 không phải P04**.
-- `PC1…PC6`: claims của đề tài. `P0…P3`: độ ưu tiên, không phải lesson/part.
-- `A1…A6` ở cột Vùng: vùng tìm kiếm literature, không phải Part A/B.
-- **R51 = P03** (DT²); **R43 không phải P12** (AVE2022 khác VE2020).
-
-Nội dung AI/đọc thứ cấp không thành bạn đã đọc. Cập nhật tiến độ ở `Danh_sach`;
-`Ghi_chu_doc` giữ ghi chú và vị trí nguồn. Phân nhóm không đổi contract/claim/Gate.
-
-Tái tạo: `.venv/bin/python tools/paper_library/build_notes.py`.
-Builder giữ mức bạn đã đọc và ghi chú hiện có theo ID.
-[Kiểm phân loại](data/verification.json) · [Kiểm nguồn](data/classification_source_check.json)
-· [PDF gốc/lối mở](data/classification_manifest.json).
+Tái tạo Excel: `.venv/bin/python tools/paper_library/build_notes.py`.
+Builder giữ mức đọc và ghi chú theo ID; không tự tái tạo 4 nhóm cũ hay tải PDF.
+[Kiểm Excel](data/verification.json) · [Lịch sử di chuyển](archive/cleanup_manifest.json).

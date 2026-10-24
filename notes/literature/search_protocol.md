@@ -130,7 +130,7 @@ Không viết “chưa ai làm”; nhãn PC là **AI đề xuất**, chờ quy�
 
 **Query/kết quả sàng:** [search log](search_log.md). **Note đã được duyệt:**
 `notes/literature/papers/`. **So sánh:** [matrix](matrix.md) và
-[Excel](../../papers/paper_comparison_part_a.xlsx). **Claim/nhãn:**
+[Excel](../../papers/paper_comparison.xlsx). **Claim/nhãn:**
 [claims](claims.md), [prior boundary](prior_boundary.md). Chỉ cập nhật sau thao
 tác thật; không tạo số liệu minh họa thành log thật hoặc tự nâng Gate/G-level.
 

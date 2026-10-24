@@ -7,6 +7,7 @@ Hỏi → Tìm → Kiểm → Duyệt → Đọc → Ghi → Dừng. Áp dụng 
 ưu tiên NDT/networking, ghi kết quả thực vào [search log](search_log.md).
 Các mục Part A bên dưới là artifact đã lưu, không phải yêu cầu đọc hết trước
 khi tìm paper networking.
+[Thư viện đang dùng: 3 bài](../../papers/README.md) · [18 bài lưu tạm và snapshot cũ](../../papers/archive/README.md).
 
 Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được AI đọc không phải
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự

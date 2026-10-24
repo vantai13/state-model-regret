@@ -28,3 +28,10 @@ chỉ vì một nguồn literature hay hướng dẫn của AI đề xuất.
    lỗi/hạn chế và lý do dừng; báo trực tiếp kết quả cùng đường dẫn đã lưu.
 
 Nhắc nhanh: **Hỏi → Tìm → Kiểm → Duyệt → Đọc → Ghi → Dừng**.
+
+## Thư viện sau dọn ngày 24/10/2026
+
+Bảng hiện dùng: `papers/paper_comparison.xlsx`; dữ liệu: `papers/data/catalog.json`.
+`papers/archive/` là snapshot lịch sử; không tự đưa 21 bài hoặc 4 nhóm đọc cũ
+trở lại danh sách bắt buộc. Lưu tạm không đồng nghĩa nguồn đã bị bác bỏ.
+Note/proof Part A và kết quả thí nghiệm vẫn là evidence, phải giữ nguyên.
