@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "date": "2026-10-24",
+  "responsible": "Doan Van Tai",
+  "scope": "Document links, historical log preservation, checksums and unchanged research artifacts; no simulation run",
+  "base_commit": "fad5406cc5d2e6ea4c4dbda62d0b3fb4cfbf082f",
+  "markdown_documents_checked": 6,
+  "local_links_checked": 108,
+  "historical_log_body_preserved": true,
+  "historical_table_lines_preserved": 33,
+  "part_a_checksum_entries_verified": 52,
+  "unchanged_artifact_sha256": {
+    "notes/01_definitions_v1_2.md": "090eb2dcd63ad0ca6fdbda4cad4980349ddc74f2df684f29441b911f9fb5d9e6",
+    "notes/design/grid_v1_2.md": "4b5f7f9843c14f5680dba035e62d45677c95ebcff9de282dd5ad0e74a4b86540",
+    "notes/literature/claims.md": "1041245560213f74e3988f05baea69a6c1033bec9239d96cab5e9af0181dd9d3",
+    "notes/literature/prior_predictions.md": "f57ef63cbfc300d57851975e06424d362db467b99ed5d4675c85de98f6b638df",
+    "notes/literature/prior_boundary.md": "4319bbd7f506f7dbbc34043999226f821452f56ff42fb74aca5b60cbdd6cdae7",
+    "papers/paper_comparison_part_a.xlsx": "628595b362abe5fcd35f8587c284bbdfe3bc0cb6c3107c4e4ca299fbcc747df8",
+    "papers/data/catalog.json": "a176e68c44e69839e77401e38043e8590b60b63589c02fad7e8393fcc56c864e",
+    "papers/data/audit_2026-10-24.json": "a6c34e170b43a02ddf0b0f071e6ca043d02d4305e28254c51032511341cd7d8b"
+  },
+  "new_paper_queries": 0,
+  "new_pdfs_downloaded": 0,
+  "new_paper_content_notes": 0,
+  "commands": [
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "verified_files": null
+    },
+    {
+      "command": "sha256sum -c results/lessons/part_a/SHA256SUMS",
+      "exit_code": 0,
+      "verified_files": 52
+    }
+  ],
+  "environment_note": "Initial bare python invocation returned exit 127 (command not found); all Python checks then used .venv/bin/python successfully."
+}

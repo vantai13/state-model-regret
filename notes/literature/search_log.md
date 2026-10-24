@@ -1,4 +1,8 @@
-# Search log — nguồn cho L2.1–L2.3
+# Search log — tra cứu và tìm paper
+
+**Trước mỗi phiên:** mở [quy tắc + checklist](search_protocol.md).
+Các bảng L2.1–L2.3 bên dưới giữ nguyên lịch sử; phiên mới dùng bảng cuối file,
+phân biệt lookup/keyword/backward/forward/author/venue.
 
 Người phụ trách: **Doan Van Tai** · AI đặt query và screen, 24/10/2026.
 Được tạo theo yêu cầu hoàn tất các deliverable. Chỉ log lượt thực sự chạy;
@@ -69,3 +73,12 @@ Người phụ trách: Doan Van Tai; AI thực hiện theo yêu cầu làm rõ p
 3 đọc chính /6 bổ trợ /7 audit /5 để sau là AI đề xuất lộ trình; không thêm bài
 bắt buộc cho Part A, không đổi contract/claims/Gate. DOI/URL/kết quả kiểm tại
 `papers/data/classification_source_check.json`. Bản ghi audit/nguồn gốc vẫn giữ.
+
+## Phiên tiếp theo — theo quy tắc tìm và kiểm paper
+
+Áp dụng từ 24/10/2026. Thay đổi quy trình này không chạy query hay kiểm paper
+mới, nên chưa thêm dòng kết quả. Ghi từng query/đường vào thực chạy; thẻ tìm
+kiếm và ý nghĩa các cột ở [quy trình](search_protocol.md).
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|

@@ -2,6 +2,9 @@
 
 Người phụ trách: **Doan Van Tai** · 24/10/2026. Phân nhóm/thứ tự là AI đề xuất.
 
+**Trước mỗi lần tìm/kiểm paper:** dùng [quy tắc + checklist 7 bước](../notes/literature/search_protocol.md).
+Ưu tiên NDT/networking; 21 bài hiện có là kho tham chiếu, không phải yêu cầu đọc hết.
+
 **Bạn đang học Part A: mở [Excel](paper_comparison_part_a.xlsx), tab `Bat_dau_Part_A`.**
 
 | Thứ tự | Bài chính | Học để hiểu gì? |

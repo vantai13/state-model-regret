@@ -2,6 +2,9 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Mỗi lần tìm hoặc kiểm paper:** mở [quy tắc + checklist 7 bước](notes/literature/search_protocol.md).
+**Hỏi → Tìm → Kiểm → Duyệt → Đọc → Ghi → Dừng**; [log các lượt thực chạy](notes/literature/search_log.md).
+
 **Trạng thái 23/10/2026: Phase 1 đóng — GO có điều kiện sang Phase 3.** Contract khóa tại tag **`contract-v1.2`**. [Lưới v1.2](notes/design/grid_v1_2.md) ACCEPTED: 38 ô chính được neo theo ranh giới quyết định (oracle chọn Switch khoảng 30% hoặc 70%), 12 ô held-out, 6 ô kiểm âm, 2 đầu dò; mọi ô ổn định tới dt/4 và trong budget. Calibration A01: M01, M09, M22. Sáu kiểm nhất quán PASS, **193/193 tests PASS**. Chưa tính contrast hay regret ở ô nào. [Closeout](notes/phases/PHASE_1_closeout.md) · [contract v1.2](notes/01_definitions_v1_2.md) · [claim boundary](notes/01_claim_boundary_v1_2.md) · [DL-038, DL-039](notes/02_decision_log.md) · [thử nghiệm thiết kế](notes/explore/reformulate_grid_report.md).
 
 Điều kiện còn mở: HOLD Phase 4 tới khi có người đọc độc lập (P0-V10); heads-up và memo GVHD **chưa gửi** (V9), nên gửi trước A04; lý do và câu chữ v1.2 do AI soạn, tác giả chưa tự viết lại. V1/V8/P0-V3/P0-V11 author-attested. G1 giữ nguyên. Các đoạn dưới là lịch sử, gồm trạng thái HOLD trước đó của lưới v1.1 (B4 rejected).

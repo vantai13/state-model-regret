@@ -2,6 +2,12 @@
 
 Người phụ trách: **Doan Van Tai** · 24/10/2026.
 
+**Tìm hoặc kiểm paper mới: mở [quy tắc + checklist](search_protocol.md) trước.**
+Hỏi → Tìm → Kiểm → Duyệt → Đọc → Ghi → Dừng. Áp dụng cả tra DOI và khảo sát;
+ưu tiên NDT/networking, ghi kết quả thực vào [search log](search_log.md).
+Các mục Part A bên dưới là artifact đã lưu, không phải yêu cầu đọc hết trước
+khi tìm paper networking.
+
 Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được AI đọc không phải
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
