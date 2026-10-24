@@ -1,0 +1,226 @@
+{
+  "owner": "Doan Van Tai",
+  "as_of": "2026-10-24",
+  "provenance": "AI đề xuất thứ tự học từ lesson plan và audit; không đổi claim, contract hoặc Gate.",
+  "groups": [
+    {
+      "id": "01_Part_A_doc_chinh",
+      "title": "Part A — đọc chính",
+      "when": "Đọc ngay, theo thứ tự 1→3",
+      "role": "Ba bài chính cho L2.2–L2.3.",
+      "count": 3
+    },
+    {
+      "id": "02_Part_A_bo_tro",
+      "title": "Part A — bổ trợ, tra khi cần",
+      "when": "Không cần đọc hết bây giờ",
+      "role": "Ba nguồn bổ trợ gốc của Part A và ba tài liệu audit giúp hiểu nền tảng.",
+      "count": 6
+    },
+    {
+      "id": "03_Audit_truoc_Phase3",
+      "title": "Audit — sau Part A, trước prediction Phase 3",
+      "when": "Sau ba bài chính; ưu tiên R01→R04",
+      "role": "Đối chiếu prior cho claims trước khi đóng băng dự đoán; không phải thêm lesson Part A.",
+      "count": 7
+    },
+    {
+      "id": "04_Part_B_de_sau",
+      "title": "Part B — để sau",
+      "when": "Chưa cần học lúc này",
+      "role": "Các bài audit liên quan L2.4/L2.6/L2.7; không thay danh sách paper gốc của Part B.",
+      "count": 5
+    }
+  ],
+  "papers": {
+    "SOB14": {
+      "group": "01_Part_A_doc_chinh",
+      "order": 1,
+      "lesson": "L2.2",
+      "purpose": "Hiểu EVPPI: giá trị của thông tin state.",
+      "section": "Method, Eqs1–4, pp312–313.",
+      "when": "Đọc đầu tiên",
+      "alias": ""
+    },
+    "B82": {
+      "group": "01_Part_A_doc_chinh",
+      "order": 2,
+      "lesson": "L2.2",
+      "purpose": "Hiểu VSS: giá trị dùng stochastic model thay mean input.",
+      "section": "Định nghĩa EV/EEV/RP; chưa đọc được full text.",
+      "when": "Đọc thứ hai; chưa có PDF thì giữ mức abstract",
+      "alias": ""
+    },
+    "P11": {
+      "group": "01_Part_A_doc_chinh",
+      "order": 3,
+      "lesson": "L2.3",
+      "purpose": "Phân biệt học discrepancy (EVMI) với dùng M0/M1.",
+      "section": "§2.4 Eqs2.7–2.8; discussion.",
+      "when": "Đọc thứ ba",
+      "alias": ""
+    },
+    "MAB11": {
+      "group": "02_Part_A_bo_tro",
+      "order": 4,
+      "lesson": "Bổ trợ L2.2",
+      "purpose": "Tra điều kiện của các cận WS/RP/EV/EEV.",
+      "section": "§2 khi có full text; hiện chỉ abstract.",
+      "when": "Tra khi vướng các bound",
+      "alias": ""
+    },
+    "E07": {
+      "group": "02_Part_A_bo_tro",
+      "order": 5,
+      "lesson": "Bổ trợ L2.2",
+      "purpose": "Biết VSS/EVPI đã có trong bài toán nhiều giai đoạn.",
+      "section": "Abstract đủ cho mục đích bối cảnh hiện tại.",
+      "when": "Đọc lướt, chưa cần proofs",
+      "alias": ""
+    },
+    "SOC12": {
+      "group": "02_Part_A_bo_tro",
+      "order": 6,
+      "lesson": "Bổ trợ L2.3",
+      "purpose": "Biết internal discrepancy có tiền thân trước P11.",
+      "section": "Abstract; chỉ mở sâu nếu cần structural uncertainty.",
+      "when": "Đọc lướt",
+      "alias": ""
+    },
+    "R10": {
+      "group": "02_Part_A_bo_tro",
+      "order": 7,
+      "lesson": "Audit bổ trợ L2.2",
+      "purpose": "Tra chương sách giải thích EVPI/VSS.",
+      "section": "Chương4, bản1997, pp137–152.",
+      "when": "Tài liệu tra cứu; không đọc cả sách",
+      "alias": ""
+    },
+    "R07": {
+      "group": "02_Part_A_bo_tro",
+      "order": 8,
+      "lesson": "Audit bổ trợ M0",
+      "purpose": "Hiểu tên certainty equivalence của mean approximation.",
+      "section": "§2.7.2, bản2 năm2025, pp262–264.",
+      "when": "Chỉ đọc mục liên quan",
+      "alias": ""
+    },
+    "R18": {
+      "group": "02_Part_A_bo_tro",
+      "order": 9,
+      "lesson": "Audit bổ trợ GS<0",
+      "purpose": "Hiểu vì sao thông tin có thể hại policy dưới tối ưu.",
+      "section": "Abstract và kết luận; note hiện có là AI-T.",
+      "when": "Tra sau khi hiểu toy V1",
+      "alias": ""
+    },
+    "R01": {
+      "group": "03_Audit_truoc_Phase3",
+      "order": 10,
+      "lesson": "Audit claims PC2/PC3",
+      "purpose": "Đối chiếu stochastic và deterministic re-solving.",
+      "section": "Bản TR: §2, Prop.1 và Example3.",
+      "when": "Sau P11; ưu tiên đầu nhóm audit",
+      "alias": ""
+    },
+    "R04": {
+      "group": "03_Audit_truoc_Phase3",
+      "order": 11,
+      "lesson": "Audit claims PC3/PC4",
+      "purpose": "Kiểm điều kiện khi cập nhật quyết định có lợi/hại.",
+      "section": "§3 Def.2–5, Prop.1–3; Table1.",
+      "when": "Sau R01; PDF đã có",
+      "alias": ""
+    },
+    "R02": {
+      "group": "03_Audit_truoc_Phase3",
+      "order": 12,
+      "lesson": "Audit phản ví dụ",
+      "purpose": "Tìm phản ví dụ gốc re-solving làm giảm revenue.",
+      "section": "§5 theo audit; primary chưa đọc.",
+      "when": "Sau R01/R04, khi cần đối chiếu ví dụ",
+      "alias": ""
+    },
+    "R03": {
+      "group": "03_Audit_truoc_Phase3",
+      "order": 13,
+      "lesson": "Audit re-solving",
+      "purpose": "Đọc thêm bối cảnh CE/re-solving và loss bound.",
+      "section": "Introduction §1.2–1.3.",
+      "when": "Sau R01/R04, không cần đọc hết proofs",
+      "alias": ""
+    },
+    "R06": {
+      "group": "03_Audit_truoc_Phase3",
+      "order": 14,
+      "lesson": "Audit CE/state estimation",
+      "purpose": "So CE theo ước lượng state với posterior B2.",
+      "section": "Theorem1 và assumptions; hiện là preprint.",
+      "when": "Đọc sau, khi kiểm assumptions/null",
+      "alias": ""
+    },
+    "R25": {
+      "group": "03_Audit_truoc_Phase3",
+      "order": 15,
+      "lesson": "Audit claims PC2/PC3",
+      "purpose": "So giá trị forecast xác suất với forecast tươi hơn.",
+      "section": "Định nghĩa relative value; primary chưa đọc.",
+      "when": "Hàng đợi đối chiếu; đang thiếu PDF",
+      "alias": ""
+    },
+    "R29": {
+      "group": "03_Audit_truoc_Phase3",
+      "order": 16,
+      "lesson": "Audit dynamic/stochastic routing",
+      "purpose": "Tra nghiên cứu tách dynamic và stochastic routing.",
+      "section": "Abstract rồi mục so sánh; chưa có full text.",
+      "when": "Đọc lướt sau R01/R04",
+      "alias": ""
+    },
+    "R43": {
+      "group": "04_Part_B_de_sau",
+      "order": 17,
+      "lesson": "L2.4",
+      "purpose": "So approximate value equivalence với notion đủ tốt của dự án.",
+      "section": "Definition1, Proposition2 khi sang L2.4.",
+      "when": "Để sau Part A",
+      "alias": ""
+    },
+    "R12": {
+      "group": "04_Part_B_de_sau",
+      "order": 18,
+      "lesson": "L2.4 / L2.7",
+      "purpose": "Kiểm khi nào mean-value solution đủ tốt.",
+      "section": "Định lý và assumptions; hiện abstract.",
+      "when": "Để sau Part A",
+      "alias": ""
+    },
+    "R32": {
+      "group": "04_Part_B_de_sau",
+      "order": 19,
+      "lesson": "L2.6",
+      "purpose": "So giá trị thông tin state trong feedback control.",
+      "section": "Định nghĩa VoI và cost; xem note audit.",
+      "when": "Để sau Part A",
+      "alias": ""
+    },
+    "R34": {
+      "group": "04_Part_B_de_sau",
+      "order": 20,
+      "lesson": "L2.6",
+      "purpose": "Tra queue control với thông tin queue length trễ.",
+      "section": "Model, information structure; hiện metadata.",
+      "when": "Để sau Part A",
+      "alias": ""
+    },
+    "R51": {
+      "group": "04_Part_B_de_sau",
+      "order": 21,
+      "lesson": "L2.7",
+      "purpose": "So prediction fidelity với decision regret trong DT.",
+      "section": "L2.7 mới đọc nội dung sâu.",
+      "when": "Để sau Part A",
+      "alias": "R51 = P03 (cùng bài DT²)"
+    }
+  }
+}

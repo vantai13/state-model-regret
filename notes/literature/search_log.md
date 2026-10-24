@@ -52,3 +52,20 @@ Các lookup ngoài Part A trước lúc tác giả thu phạm vi không được
 hoặc thư viện. Không ghi các mục đó như đã hoàn thành Part B. Workbook chỉ có
 6 bài; comparison/priority là AI đề xuất, hai targeted và bốn abstract readings,
 không mục nào được tự ghi full reading hay L-self. Không tính là blind-spot L2.8.
+
+## Kiểm danh tính và phân loại21 bài — 24/10/2026
+
+Người phụ trách: Doan Van Tai; AI thực hiện theo yêu cầu làm rõ paper/thư mục.
+
+| Lookup thực chạy | Nguồn/tool | Screened / giữ | Kết quả |
+|---|---|---|---|
+| 15 DOI trong6 nguồn Part A và15 bài audit | paper-search Crossref | 15 / 15 | Title/DOI tồn tại; không nâng mức đọc nội dung |
+| R43, R06, R07, R18, R51 | NeurIPS, arXiv, trang tác giả MIT | 5 / 5 | Đối chiếu loại nguồn và identity; preprint/sách không tự thành journal |
+| R10 chapter DOI | Springer official chapter page | 1 / 1, trùng DOI đã lookup | Publisher ghi1997, pp137–152; không dùng placeholder1970 từ Crossref |
+| MAB11 exact-title + repository filter | web search, Bergamo repository | 1 primary / 1 | Working paper2011, giữ abstract-only |
+| R51 / P03 | PMLR official proceedings | 1 / 1, cùng paper đã kiểm | DT² cùng bài, không phải hai paper khác nhau |
+
+21 unique IDs được kiểm metadata, không phải21 full-text reviews. Phân nhóm
+3 đọc chính /6 bổ trợ /7 audit /5 để sau là AI đề xuất lộ trình; không thêm bài
+bắt buộc cho Part A, không đổi contract/claims/Gate. DOI/URL/kết quả kiểm tại
+`papers/data/classification_source_check.json`. Bản ghi audit/nguồn gốc vẫn giữ.
