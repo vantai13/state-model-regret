@@ -74,6 +74,9 @@ def reference(A, Bh, Bl):
 def run():
     out = ROOT / "results/lessons/part_a"
     summary = json.loads((ROOT / "results/lessons/l2_2/voi_mapping.json").read_text())
+    for name in ("l2_2/cases.csv", "l2_3/p11_toy.csv"):
+        data = (ROOT / "results/lessons" / name).read_bytes()
+        assert b"\r" not in data and data.endswith(b"\n"), ("CSV must use LF", name)
     pairs = tuple(combinations(range(8), 2))
     expected_inputs = set(product(pairs, repeat=3))
     seen, counts = set(), Counter()
@@ -121,6 +124,7 @@ def run():
     result = dict(status="PASS", independent_csv_rows=len(seen),
                   l2_3_checks=p11["check_count"], local_links_checked=checked_links,
                   source_hashes_match=True, no_pdfs_in_literature_repo=True,
+                  csv_uses_lf=True,
                   scope="artifact/finite-toy audit; not human independent review")
     (out / "artifact_audit.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, ensure_ascii=False), flush=True)

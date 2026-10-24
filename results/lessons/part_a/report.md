@@ -34,13 +34,15 @@ python3 -u -m experiments.lessons.audit_l2_part_a > results/lessons/part_a/artif
 ```
 
 System Python experiment: 3.14.5, standard library/Fraction, không RNG, seed=null.
-9/9 lesson tests PASS; full suite **202/202 PASS**, 26.72s tại lần chạy lưu log.
+9/9 lesson tests PASS; full suite **202/202 PASS**. Lần đầu 26.72s;
+log full-suite hiện lưu lượt tái kiểm sau khi chuẩn hóa CSV sang LF.
 Thử gọi system python pytest ban đầu thất bại vì thiếu pytest; đã chuyển sang
 .venv có sẵn. [Preflight](preflight.log) giữ lỗi thật; không gọi đó là test PASS.
 Audit độc lập đọc toàn CSV, dựng lại costs/contrasts/counts không import scorer,
 kiểm golden P11 và source hashes; trạng thái/số links trong [JSON](artifact_audit.json).
 Kết quả thực chạy: **21.952/21.952 dòng khớp**, 17 P11 checks được đối chiếu,
-**47 local links** hợp lệ, source hashes khớp, không PDF trong literature repo.
+local links hợp lệ (số cụ thể trong JSON), source hashes khớp, không PDF trong
+literature repo; CSV được kiểm dùng LF.
 Đây là kiểm artifact bằng máy, không thay independent human review.
 
 ## C. Số đo — exact verification toy
@@ -119,3 +121,11 @@ không dựng evidence. Học tiếp L2.4 được; không tự chạy L3.3/Phas
 Hai commit đầu là receipts sau exposure, không backdate hoặc gắn tag mù.
 Commit tích hợp sau chứa code, data và báo cáo; không ghi hash vào chính commit.
 Không push hoặc gửi heads-up trong tác vụ này.
+
+## Record sửa định dạng
+
+Staging check ở lượt tích hợp báo CSV mặc định CRLF/trailing whitespace và
+blank line cuối source. Commit0590921 đã được tạo trước khi xử lý check đỏ;
+giữ lịch sử và ghi lỗi tại preflight.log. Writer đã đổi sang LF, sinh lại toàn
+bộ output và chạy lại full suite/audit, không đổi công thức, ngưỡng hoặc số đếm.
+Auditor bổ sung kiểm LF để chặn tái diễn. Lệnh whitespace check cuối phải exit0.

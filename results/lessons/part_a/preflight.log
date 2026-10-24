@@ -3,3 +3,8 @@ Exit code: 1
 Observed: /home/linuxbrew/.linuxbrew/opt/python@3.14/bin/python3.14: No module named pytest
 Resolution: use the existing project environment .venv/bin/python; no dependency installation or test change was needed to resolve the environment failure.
 The first standalone experiment commands used system Python 3.14.5 and the standard library only. Test commands use the existing .venv.
+
+Staging check: git diff --cached --check returned exit 2.
+Observed: CSV default CRLF was treated as trailing whitespace; l2_2 script had a blank line at EOF.
+The integration commit was created before this formatting result was handled.
+Resolution: explicitly write CSV with LF, normalize source EOF, regenerate both experiments, and rerun tests/artifact audit/checksums before a corrective commit. Numerical expectations and thresholds were not changed.

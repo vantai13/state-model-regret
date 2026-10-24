@@ -95,7 +95,7 @@ def run(output):
     (output / "config.json").write_text(json.dumps(config, indent=2) + "\n")
     fields = ["id", "action", "baseline_cost", "learned_cost", "EVPI_delta", "true_cost", "true_regret"]
     with (output / "p11_toy.csv").open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields, extrasaction="ignore")
+        writer = csv.DictWriter(stream, fieldnames=fields, extrasaction="ignore", lineterminator="\n")
         writer.writeheader()
         writer.writerows(serializable(rows))
     print(f"L2.3 PASS: {len(checks)} exact checks; 4 priors; RNG=none; unit=packet*s")

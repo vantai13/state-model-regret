@@ -182,7 +182,7 @@ def run(output):
             row.update({k: int(v) for k, v in checks.items()})
             row.update({k: int(v) for k, v in diagnostics.items()})
             if writer is None:
-                writer = csv.DictWriter(stream, fieldnames=list(row))
+                writer = csv.DictWriter(stream, fieldnames=list(row), lineterminator="\n")
                 writer.writeheader()
             writer.writerow(row)
             rows += 1
@@ -212,4 +212,3 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", default="results/lessons/l2_2")
     run(parser.parse_args().output)
-
