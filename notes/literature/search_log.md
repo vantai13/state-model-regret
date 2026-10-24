@@ -35,3 +35,20 @@ count làm bằng chứng chất lượng; không gọi thư viện lậu.
 Không cộng các lookup trùng vào tổng unique paper hoặc coi đây là blind-spot
 session. Lượt search bổ sung không đạt stopping rule hai query×20 results và
 không được dùng để kết luận không có prior.
+
+## Thư viện Excel — chỉ Part A, 24/10/2026
+
+Theo yêu cầu tạo thư viện/Excel và push bảng; sau đó tác giả giới hạn chỉ Part A.
+
+| Đường vào thực chạy | Nguồn/tool | Screen / giữ trong thư viện | Kết quả |
+|---|---|---|---|
+| DOI của SOB14/B82/P11/E07/SOC12 | paper-search Crossref | 5 / 5 | Metadata chính thức khớp; năm workbook theo issue, không nhầm online year |
+| MAB11, exact-title query | web search, repository Bergamo | 1 primary record / 1 | Working paper2011; chỉ dùng abstract, không tự cấp peer review |
+| SOC12, exact-title OA query | web search, White Rose | 1 primary PDF / 1 | Tải author manuscript,36trang; vẫn ghi mức đọc abstract |
+| 6 link PDF trong papers/data/catalog.json | urllib / local cache, pdfinfo, pdftotext p1 | 6 attempts / 3 PDF thành công | SOB14/P11/SOC12: title/hash/pages kiểm được; B82/MAB11 HTTP403; E07 trả non-PDF |
+| B82 primary PDF + E07 DOI-only | paper-pilot inspect_open_access_pdf | 2 retries / 0 PDF mới | B82 vẫn403; E07 không có OA PDF URL; không dùng shadow libraries |
+
+Các lookup ngoài Part A trước lúc tác giả thu phạm vi không được đưa vào Excel
+hoặc thư viện. Không ghi các mục đó như đã hoàn thành Part B. Workbook chỉ có
+6 bài; comparison/priority là AI đề xuất, hai targeted và bốn abstract readings,
+không mục nào được tự ghi full reading hay L-self. Không tính là blind-spot L2.8.
