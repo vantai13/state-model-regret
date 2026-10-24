@@ -6,6 +6,17 @@ Tác giả: **Doan Van Tai**.
 
 Điều kiện còn mở: HOLD Phase 4 tới khi có người đọc độc lập (P0-V10); heads-up và memo GVHD **chưa gửi** (V9), nên gửi trước A04; lý do và câu chữ v1.2 do AI soạn, tác giả chưa tự viết lại. V1/V8/P0-V3/P0-V11 author-attested. G1 giữ nguyên. Các đoạn dưới là lịch sử, gồm trạng thái HOLD trước đó của lưới v1.1 (B4 rejected).
 
+**L2.1–L2.3, cập nhật 24/10/2026:** đã lưu bộ literature Part A, proof T03 v2,
+code tái lập và toàn bộ output toy. **21.952 toy**, I1–I6 không vi phạm;
+**17/17** kiểm P11 và **202/202** tests toàn repo PASS.
+[Báo cáo, checklist, commands và output](results/lessons/part_a/report.md) ·
+[Literature index](notes/literature/README.md) ·
+[Prior boundary](notes/literature/prior_boundary.md).
+Formal Part A **HOLD**: forecasts AI-assisted đã exposed trước commit,
+L-self/proof kín sách/đọc lại và review người thật chưa có record; B82/MAB11 còn
+hạn chế full-text. Đây là verification toy, chưa chạy contrast lưới Phase3,
+chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
+
 Các record bên dưới là lịch sử của Phase0/L1.2–L1.8 và mốc2. [Mốc2](notes/design/decisions_v1_1_m2.md) đã chốt trước candidate calculations; [report mốc2](notes/verification/v1_1_m2/README.md) ghi2/10 certificates của prototype cũ, đã được PhầnA thay thế. Lưới v1 cũ có13ô Stay áp đảo, cả3calibration bị invalid, vẫn HOLD A01/A04; tag v1 và output lịch sử giữ nguyên. Các lựa chọn §11 đã adopted theoủy quyền, không còn chờ từng quyết định kỹ thuật. Contract/claim boundary v1.1 vẫn là **draft cập nhật**, vì B4 không đạt.
 
 Main RQ (nguyên văn Final Review cập nhật 06/10/2026):

@@ -1,0 +1,250 @@
+{
+  "status": "PASS",
+  "cases": 21952,
+  "failures": {
+    "I1": 0,
+    "I2": 0,
+    "I3": 0,
+    "I4": 0,
+    "I5": 0,
+    "I6": 0
+  },
+  "counts": {
+    "wrong_prior_i1": 410,
+    "wrong_prior_up": 410,
+    "wrong_prior_down": 0,
+    "mean_state_L00_changed": 3528,
+    "tie_sw_i1_fail": 0,
+    "ignores_mode_i2": 5730,
+    "tautological_i2_fail": 0,
+    "GS_negative": 2048,
+    "Gamma_positive": 2698,
+    "Gamma_negative": 1436,
+    "Gamma_zero": 17818,
+    "M0_better_global_EV": 2434,
+    "M0_worse_global_EV": 1094,
+    "EV_above_WS": 137,
+    "EV_above_RP": 0,
+    "subjective_objective_differ": 1940
+  },
+  "expected_counts_exposed": true,
+  "golden": {
+    "V1": {
+      "J": {
+        "hi": {
+          "St": "3",
+          "Sw": "5/2"
+        },
+        "lo": {
+          "St": "3/2",
+          "Sw": "0"
+        }
+      },
+      "J0": {
+        "hi": {
+          "St": "2",
+          "Sw": "5/2"
+        },
+        "lo": {
+          "St": "3/2",
+          "Sw": 0
+        }
+      },
+      "true": {
+        "hi": "1/2",
+        "lo": "1/2"
+      },
+      "belief": {
+        "hi": "1/2",
+        "lo": "1/2"
+      },
+      "actions": {
+        "00": "Sw",
+        "01": "Sw",
+        "10": {
+          "hi": "St",
+          "lo": "Sw"
+        },
+        "11": {
+          "hi": "Sw",
+          "lo": "Sw"
+        }
+      },
+      "EVPPI_subjective": "0",
+      "EVSS_taut": "1/4",
+      "L": {
+        "00": "5/4",
+        "01": "5/4",
+        "10": "3/2",
+        "11": "5/4"
+      },
+      "con": {
+        "GS": "-1/4",
+        "GM": "0",
+        "GSM": "0",
+        "Gam": "1/4",
+        "GSgM1": "0",
+        "GMgS1": "1/4"
+      },
+      "EVPPI": "0",
+      "EVSS": "1/4",
+      "Dplus": "0",
+      "Dminus": "1",
+      "WS": "9/8",
+      "RP": "5/4",
+      "EV": "1",
+      "EEV": "5/4"
+    },
+    "V2": {
+      "J": {
+        "hi": {
+          "St": "2",
+          "Sw": "3/2"
+        },
+        "lo": {
+          "St": "7/2",
+          "Sw": "9/2"
+        }
+      },
+      "J0": {
+        "hi": {
+          "St": "3/2",
+          "Sw": 0
+        },
+        "lo": {
+          "St": "3",
+          "Sw": "7/2"
+        }
+      },
+      "true": {
+        "hi": "1/2",
+        "lo": "1/2"
+      },
+      "belief": {
+        "hi": "1/2",
+        "lo": "1/2"
+      },
+      "actions": {
+        "00": "Sw",
+        "01": "St",
+        "10": {
+          "hi": "Sw",
+          "lo": "St"
+        },
+        "11": {
+          "hi": "Sw",
+          "lo": "St"
+        }
+      },
+      "EVPPI_subjective": "1/4",
+      "EVSS_taut": "0",
+      "L": {
+        "00": "3",
+        "01": "11/4",
+        "10": "5/2",
+        "11": "5/2"
+      },
+      "con": {
+        "GS": "1/2",
+        "GM": "1/4",
+        "GSM": "1/2",
+        "Gam": "-1/4",
+        "GSgM1": "1/4",
+        "GMgS1": "0"
+      },
+      "EVPPI": "1/4",
+      "EVSS": "0",
+      "Dplus": "1/2",
+      "Dminus": "1/4",
+      "WS": "19/8",
+      "RP": "11/4",
+      "EV": "3/2",
+      "EEV": "11/4"
+    },
+    "V4": {
+      "J": {
+        "hi": {
+          "St": "1/2",
+          "Sw": "0"
+        },
+        "lo": {
+          "St": "1/2",
+          "Sw": "1"
+        }
+      },
+      "J0": {
+        "hi": {
+          "St": "1/2",
+          "Sw": 0
+        },
+        "lo": {
+          "St": "1/2",
+          "Sw": "1"
+        }
+      },
+      "true": {
+        "hi": "1/2",
+        "lo": "1/2"
+      },
+      "belief": {
+        "hi": "1/2",
+        "lo": "1/2"
+      },
+      "actions": {
+        "00": "St",
+        "01": "St",
+        "10": {
+          "hi": "Sw",
+          "lo": "St"
+        },
+        "11": {
+          "hi": "Sw",
+          "lo": "St"
+        }
+      },
+      "EVPPI_subjective": "1/4",
+      "EVSS_taut": "0",
+      "L": {
+        "00": "1/2",
+        "01": "1/2",
+        "10": "1/4",
+        "11": "1/4"
+      },
+      "con": {
+        "GS": "1/4",
+        "GM": "0",
+        "GSM": "1/4",
+        "Gam": "0",
+        "GSgM1": "1/4",
+        "GMgS1": "0"
+      },
+      "EVPPI": "1/4",
+      "EVSS": "0",
+      "Dplus": "1/4",
+      "Dminus": "1/4",
+      "WS": "1/8",
+      "RP": "1/2",
+      "EV": "1/4",
+      "EEV": "1/2"
+    }
+  },
+  "config": {
+    "author": "Doan Van Tai",
+    "arithmetic": "fractions.Fraction",
+    "capacity": 3,
+    "managed_load": 2,
+    "q0": [
+      0,
+      0
+    ],
+    "dt_seconds": 1,
+    "horizon_slots": 1,
+    "unit": "packet*s",
+    "prior_hi": "1/2",
+    "seed": null,
+    "family": "three independent unordered distinct pairs from 0..7",
+    "tie": "St",
+    "role": "exposed verification toy; not grid v1.2"
+  },
+  "source_sha256": "92a797c4d696befc64d9468c550f4f6e1c80ca9cf059494ed1db77635f57a712"
+}

@@ -139,3 +139,13 @@ Với mỗi câu, chọn “được nói / không được nói / chưa biết�
 4. **Không được** — NC5; phạm vi prior còn là câu hỏi U9.
 
 </details>
+
+## Đính chính phạm vi C7 từ L2.3 — 24/10/2026
+
+Giữ nguyên record C7/EV-26 lịch sử. Phản ví dụ oracle-state dưới fixed-M0 không
+cho phép kết luận mọi oracle repair riêng lẻ đều không upper-bound feasible
+repair. Với fixed information, matched posterior, true M1 và cùng objective,
+action set, M1 là Bayes optimum: model-repair gain so ô00≤GM, hoặc so ô10≤GMgivenS1.
+R00 vẫn là cận chung từ ô00. [T03 v2](theory/T03_primary_reading_start.md) và
+[note P11](literature/papers/P11.md) có proof/toy; đây là AI-assisted reference,
+không thay historical tags hoặc independent review.

@@ -39,7 +39,7 @@ E0 và E1 trên một mô hình lý tưởng đã khai báo: ví dụ chuẩn si
 |---|---|
 | Gain nhỏ hơn $\varepsilon_R$ ở mọi ô (kết quả hợp lệ, không phải lỗi thiết kế) | A04 |
 | Threshold null giải thích hết pattern | A05, Phase 6 |
-| P11 (EVPPI) đã trả lời phần chính của $G_{S\mid M_1}$ | Phase 2a |
+| SOB14 (EVPPI) bao phủ functional của $G_{S\mid M_1}$; P11 (EVPI discrepancy/EVMI) liên quan framing input/model value — đính chính nhãn 24/10/2026 | Phase 2a; T03 v2, notes/literature/papers/P11.md |
 | GVHD đổi objective, đơn vị hoặc hướng sau khi đã chạy | Khi gửi memo |
 | Contrast không hội tụ trong budget khi làm mịn | A01 |
 

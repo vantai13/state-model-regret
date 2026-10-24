@@ -30,3 +30,22 @@ Người phụ trách: **Doan Van Tai** · 23/10/2026. Bổ sung cho [boundary v
 - Ô oracle-hằng (WD) vẫn có thể có $G_M>0$; giữ chúng cho nhánh model.
 - State repair gồm thấy cả hai mode; phần "thấy mode" không phải lợi ích của refresh telemetry backlog (D22).
 - Exposure: $p_{\text{sw}}$, nhãn và budget của thử nghiệm đã công khai trên GitHub; contrast chưa ai thấy.
+
+## Bổ sung Part A — 24/10/2026
+
+AI triển khai theo yêu cầu tác giả; [T03 v2](theory/T03_primary_reading_start.md)
+và [prior boundary](literature/prior_boundary.md) là reference, không L-self.
+
+- GSgivenM1 bằng EVPPI(x|y) dưới G1–G4; GMgivenS1 bằng E_D[VSS(x)] theo
+  định nghĩa conditional mean-future problem dưới G2–G5. Nonnegativity và
+  Gamma difference-of-gains không là contribution.
+- P11 §2.4 Eq2.7–2.8 đã so input/discrepancy information. Không gọi D21 là
+  EVMI hoặc model fidelity gồm parameter/structure repair.
+- Chỉnh phạm vi C7 v0: fixed-M0 oracle-state gain không luôn bound feasible
+  state-repair gain. Riêng M1 tối ưu true cost với matched belief và cùng info,
+  GM/GMgivenS1 vẫn bound model repairs cùng info tương ứng. R00 là cận chung,
+  không phải cận duy nhất. Đây là E0/proof, toy chỉ verification.
+- p_sw band/candidate chưa chứng nhận hai dấu strict của true gap; không kết
+  luận GSgivenM1>0 từ nhãn thiết kế đơn độc. D22 fixed-M0 không tự là EVPPI.
+- Số 21.952 toy và 17 kiểm P11 không phải output lưới v1.2, network evidence
+  hoặc novelty. Predictions là AI-assisted exposed; formal Gate còn HOLD.

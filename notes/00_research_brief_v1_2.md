@@ -8,6 +8,14 @@ For load-changing routing actions, how do improvements in current-state informat
 
 **Hệ và đo lường.** D1–D25 tại [contract v1.2](01_definitions_v1_2.md). Hai path tách, capacity 10 packet/s, recurrence phản xạ, nền A/B ON/OFF, cumulative occupancy (packet·s), oracle biết state và law nhưng không biết tương lai. S0 là posterior từ một snapshot backlog cũ; S1 thấy backlog và mode hiện tại. M0 là mean rollout theo từng state trong belief; M1 là expected cost đúng law. Đo sáu contrast D19 và regret D18.
 
+**Làm rõ phạm vi từ L2.3, 24/10/2026.** Trong contract v1.2, action-response
+model fidelity được vận hành hóa bằng stochastic representation với cùng law
+và theta đúng; chưa can thiệp sai tham số hoặc sai cấu trúc. Model-repair gain
+không tự là giá trị học model discrepancy (EVMI) của P11. Main RQ giữ nguyên;
+[T03 v2](theory/T03_primary_reading_start.md) và [note P11](literature/papers/P11.md)
+ghi phép đối chiếu và giới hạn đọc. Câu này do AI soạn theo ủy quyền, chưa là
+phê duyệt phạm vi từ GVHD.
+
 **Lưới v1.2.** 38 ô chính, mỗi ô được neo để oracle chọn Switch khoảng 30% hoặc 70% số tình huống; 12 ô held-out neo cùng luật; 6 ô kiểm âm; 2 đầu dò cấu trúc. Horizon vật lý 8 s (nan hoa 2 s). So sánh ở cùng độ khó, không cùng tải ([claim boundary](01_claim_boundary_v1_2.md)).
 
 **Ngưỡng.** εR 1% của Cref = L* theo ô (độ nhạy 0,5%/2%), εE 0,5%, dung sai làm mịn 0,25%, luật hòa Stay.

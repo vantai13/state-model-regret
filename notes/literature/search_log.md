@@ -21,3 +21,17 @@ bốn phiên blind-spot A1–A4 của L2.8.
 Các đường PDF, checksum, lỗi tải và kết quả đọc nằm trong source_access.json và
 paper note. Bản ghi trùng DOI không tính là bài độc lập. Không dùng citation
 count làm bằng chứng chất lượng; không gọi thư viện lậu.
+
+## Lượt bổ sung để giải quyết nguồn bị chặn, cùng ngày
+
+| Query/đường vào | Tool | Phạm vi thực screen | Kết quả |
+|---|---|---|---|
+| DOI B82 10.1007/BF01585113 | paper-search download_with_fallback, use_scihub=false | Lookup1, không phải search coverage | Không có direct/repository PDF; Unpaywall không trả OA URL hoặc thiếu email cấu hình |
+| "The value of information in multi-stage linear stochastic programming" Maggioni Allevi Bertocchi | web search | Giữ1 primary repository record, các kết quả khác không screen đầy đủ | Metadata/abstract MAB11; giữ mức A, không xác nhận §2 |
+| "The value of the stochastic solution" "1982" pdf Birge | web search | Giữ1 Deep Blue primary PDF candidate, các kết quả khác không screen đầy đủ | PDF403; không dùng các nguồn thứ cấp để thay full text |
+| Deep Blue PDF và MAB11 retrieve PDF | web open | 2 access attempts, không tính thành 2 paper mới | Cả hai HTTP403; dừng, ghi giới hạn |
+| P11/SOB14 published PDF | urllib + pdftotext local | 2 PDF tải thành công | T theo section/page trong note; không gọi F/L-self |
+
+Không cộng các lookup trùng vào tổng unique paper hoặc coi đây là blind-spot
+session. Lượt search bổ sung không đạt stopping rule hai query×20 results và
+không được dùng để kết luận không có prior.

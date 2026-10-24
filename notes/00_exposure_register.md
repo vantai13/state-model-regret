@@ -283,3 +283,19 @@ Doan Van Tai. Protocol commit `d696eef` trước khi chạy; kết quả `result
 | Nhãn và $p_{\text{sw}}$ của N01–N04, W01, S01 và đầu dò P01, P02 | Định nghĩa v1.1 / ô đã có trong thử nghiệm | Không đáng kể |
 
 **Chưa xem:** $J$, $L_*$, margin, contrast, regret ở bất kỳ ô nào. Held-out chưa dùng cho discovery hay calibration.
+
+## Exposure L2.1–L2.3 — 24/10/2026
+
+Người phụ trách: **Doan Van Tai**; AI-assisted. Trước các commit lưu artifact,
+claims, forecasts và nguồn L2.2/L2.3 đã xuất hiện trong hội thoại. Bootstrap
+`5ab4750` và proof `3870931` là receipts sau exposure, không prereading evidence.
+
+| Configuration / nội dung | Trạng thái đã biết | Artifact |
+|---|---|---|
+| PC1–PC6; K2/K3/K5/K6 và Q5 | AI chọn theo ủy quyền, đã exposed; không blind calibration của tác giả | literature/prior_predictions.md, claims.md |
+| 21.952 toy một slot, pairs0..7, C3/U2/prior1/2 | Golden V1/V2/V4, mutant counts đã lộ trong lesson; lượt lưu là replication | results/lessons/l2_2/cases.csv và voi_mapping.json |
+| P11 toy4priors; V1 bounds; V2 discrepancy disclosure | Đã xem true costs, VOI/regret và corrections; không fresh confirmation | results/lessons/l2_3/p11_toy.json |
+| SOB14/P11 primary notes; B82/MAB11/E07/SOC12 | AI đọc theo mức note; không L-self hoặc nhận xét independent human | literature/README.md và papers/ |
+
+Không RNG mới, không dùng held-out grid để chọn forecasts, chưa chạy outcomes
+Phase3. Việc ghi source ở đây không nâng G1 hoặc chứng nhận prediction mù.

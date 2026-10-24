@@ -361,3 +361,29 @@ Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FA
 - **Không có:** $J$, $L_*$, margin, belief, pipeline, contrast hay regret ở bất kỳ ô nào.
 - **Consequence:** đủ điều kiện khóa contract v1.2 (§8 của protocol). A01 chạy trên M01, M09, M22.
 - **Ai quyết:** **Doan Van Tai** (yêu cầu thực hiện ngày 23/10).
+
+### DL-040 — L2.1–L2.3: lưu artifact sau exposure, formal gate còn HOLD (2026-10-24)
+
+- **Người phụ trách:** Doan Van Tai, theo yêu cầu “hoàn tất hết” sau khi đối chiếu
+  checklist; AI thực hiện code, lookup và note, không ghi là tác giả đã tự đọc.
+- **Decision:** hoàn thiện literature scaffold/claims/forecasts, T03 v2, code
+  tái lập, CSV/JSON/log/tests, matrix/boundary/source notes và đáp án tham khảo.
+  Bootstrap commit5ab4750; proof commit3870931. Giữ deviation dự đoán đã exposed
+  trước lưu, không backdate/fake prereading tag hoặc tính blind calibration.
+- **Kết quả thực chạy:** 21.952 exact toys, I1–I6 mỗi invariant0 violations;
+  wrong-belief410, mean-state3528, ignored-mode5730, tie-control0;
+  17/17 P11 checks, 9/9 lesson tests và 202/202 full-suite tests PASS.
+- **Nguồn:** P11/SOB14 AI targeted primary reading; B82/MAB11 PDF403, B82 OA
+  fallback không có PDF; E07/SOC12 abstract-only. Note giữ mức thật. Không dùng
+  theorem chưa đọc hoặc tạo L-self thay người thật.
+- **Corrections:** P11 Eq2.7 là EVPI(delta) diễn giải upper bound EVMI; D21 khác
+  estimand. Biết theta chưa có nghĩa biết delta(x) ở hidden x. C7 giới hạn cho
+  state repair fixed-M0; matched same-info M1 tối ưu nên GM/GMgivenS1 vẫn bound
+  model repair. Giữ Main RQ, contract/grid/thresholds và historical tags.
+- **Consequence:** technical artifact hoàn thành; formal Part A HOLD do L-self,
+  proof/read-back/đọc lại, missing prereading commit và source-reading limits.
+  G1/HOLD Phase4 giữ nguyên. Không tự freeze L3.3, chạy Phase3, gửi heads-up
+  hoặc push từ nhiệm vụ này. Học tiếp L2.4 được.
+- **Evidence:** [report](../results/lessons/part_a/report.md),
+  [prior boundary](literature/prior_boundary.md),
+  [artifact audit](../results/lessons/part_a/artifact_audit.json).

@@ -104,3 +104,14 @@ git -C /path/to/archive-clone show archive-switch-or-stay-2026-10-02:experiments
 ```
 
 Giữ các mục Unknown ở trạng thái chưa phân loại; không mở bundle hoặc chạy lại experiment cũ để lấp checklist. Cập nhật dòng nguồn gốc khi có record tự kiểm thật của tác giả.
+
+## Phân loại hiện hành cho Phase 2 — 24/10/2026
+
+Theo L2.1 và ủy quyền thực hiện của Doan Van Tai, hai note literature cũ
+`notes/01_literature/notes/opentwin_2026_v2.md` và
+`notes/01_literature/notes/li_remote_decision_2026.md` dùng như **Reference** cho
+RQ hiện tại. Nhãn Keep trong bảng lịch sử bên trên được giữ để bảo toàn record;
+supplement này cập nhật cách dùng hiện hành: không import thành source evidence
+hoặc L-self trước khi mở đúng primary. Các module/query logs cũ giữ Reference,
+không suy coverage của RQ mới. Bảng hiện hành:
+[artifact classification](../notes/literature/artifact_classification.md).

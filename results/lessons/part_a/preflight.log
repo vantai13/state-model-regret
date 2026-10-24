@@ -1,0 +1,5 @@
+Command: python3 -m pytest -q tests/test_l2_part_a.py
+Exit code: 1
+Observed: /home/linuxbrew/.linuxbrew/opt/python@3.14/bin/python3.14: No module named pytest
+Resolution: use the existing project environment .venv/bin/python; no dependency installation or test change was needed to resolve the environment failure.
+The first standalone experiment commands used system Python 3.14.5 and the standard library only. Test commands use the existing .venv.

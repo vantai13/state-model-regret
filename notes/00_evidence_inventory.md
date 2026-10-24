@@ -186,3 +186,20 @@ H3 leak intentionally vượt oracle trong realized evaluation còn H2 không th
 confirmation,novelty hoặc proof mọi stream độc lập/không leakage. Residual0 có false-negative
 đã kiểm. Dùng chung plant để replay artifact không là scientific independent review;
 G1,V3/V10/V11 và HOLD Phase4 không đổi. Mock kín sách/L0.5 vẫn Pending.
+
+## Evidence Part A — 24/10/2026
+
+Người phụ trách: **Doan Van Tai**; AI triển khai. Các ID mới không đánh số lại
+EV-01…EV-33. Source-read bởi AI giữ AI-only, chưa thành L-self của tác giả.
+
+| EV | Nội dung | Tầng/phạm vi | Artifact |
+|---|---|---|---|
+| EV-34 | EVPPI/VSS mapping, G1–G5 và corrections | E0 proof reference + E1 exact finite verification; 21.952 toy, I1–I6 mỗi invariant0 vi phạm; không Phase3 grid | [T03 v2](theory/T03_primary_reading_start.md), [JSON](../results/lessons/l2_2/voi_mapping.json) |
+| EV-35 | SOB14 Method Eq1–4 pp312–313; P11 §§2–6 pp108–124 | AI targeted primary reading; B82/E07/SOC12 abstract-only, MAB11 chưa đủ §2; không L-self | [Literature index](literature/README.md), [source access](../results/lessons/part_a/source_access.json) |
+| EV-36 | P11 toy4priors, discrepancy/state-information distinction và same-info model bounds | E0 inference + 17 E1 checks; V1 GS−1/4 không bound no-op; M1 same-info optimality vẫn cho model bound | [P11 note](literature/papers/P11.md), [JSON](../results/lessons/l2_3/p11_toy.json) |
+
+Các facts paper có equation/section ở từng note; inference tách riêng. 202/202
+repo tests PASS không chứng nhận hypothesis, authorship hoặc human review.
+C7/EV-26 được thu hẹp ở supplement boundary: phản ví dụ state không bác mọi
+model bound. Formal Part A HOLD và missing prereading commit là deviation ghi
+thật, không sửa lịch sử; report tại results/lessons/part_a/report.md.
