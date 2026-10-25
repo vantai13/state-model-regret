@@ -1,0 +1,74 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-25",
+  "technical_status": "PASS_WITH_ACCESS_LIMITS",
+  "human_understanding": "NOT_ATTESTED",
+  "formal_lesson_gate": "HOLD",
+  "G_level": "G1",
+  "scope": "L2.4 Parts2–3 artifact execution, targeted AI reading, bounded snowball, exact metric illustrations; no Phase3 grid experiment.",
+  "named_sources_checked": 6,
+  "primary_paper_notes": 3,
+  "supplementary_sources": 3,
+  "new_primary_library_rows": 3,
+  "total_workbook_rows": 6,
+  "backward_references_screened": 15,
+  "forward_titles_screened": 100,
+  "forward_first_page_only": true,
+  "forward_new_proposals_pending": 3,
+  "new_library_rows_from_snowball": 0,
+  "metric_identity_cases": 625,
+  "metric_identity_violations": 0,
+  "legacy_strict_product_failures": 50,
+  "same_precision_recall_mean_regret_packet_s": [
+    "1/2",
+    "5"
+  ],
+  "regret_ratio": 10,
+  "local_links_checked": 138,
+  "broken_symlinks": 0,
+  "part_a_manifest_entries": 52,
+  "workbook_preservation_checks": {
+    "status": "PASS",
+    "existing_author_reading_rows_preserved": 3,
+    "existing_note_rows_preserved": 3,
+    "temporary_manual_progress_and_notes_survive": true,
+    "reading_only_record_removal_blocked": true,
+    "actual_workbook_unchanged_by_test": true
+  },
+  "contract_grid_claim_labels_and_prior_predictions_unchanged": true,
+  "archived_library_unchanged": true,
+  "pdfs_tracked_in_git": 0,
+  "pdfs_embedded_in_excel": 0,
+  "source_access_limitations": [
+    "UNEX metadata page inaccessible via web",
+    "P05 urllib403",
+    "P05 paper-pilot download403",
+    "P05 screenshots cache miss",
+    "NDT1 pdftotext emitted a font warning; target text and rendered figures readable"
+  ],
+  "not_verified": [
+    "Author L-self/understanding/read-back",
+    "P05 local PDF download and direct figure/TableIII visual check",
+    "Whole-paper proof audit/experiment replication",
+    "Novelty or corpus coverage",
+    "Phase3 grid regret/contrasts"
+  ],
+  "commands_executed": [
+    {
+      "command": ".venv/bin/python -B experiments/lessons/l2_4_metric_examples.py | tee results/lessons/l2_4/run.log",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/python -B tools/paper_library/build_notes.py | tee results/lessons/l2_4/workbook_build.log",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "command": "sha256sum -c results/lessons/part_a/SHA256SUMS",
+      "exit_code": 0
+    }
+  ]
+}

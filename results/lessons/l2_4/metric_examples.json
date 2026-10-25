@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "responsible": "Doan Van Tai",
+  "scope": "exact illustrative arithmetic; no Phase3 grid results",
+  "seed": null,
+  "deterministic": true,
+  "source_sha256": "9f89d6a7c995819105d003f9246b6b4264e7d22b3048fad14871299ac711aab3",
+  "tie_cases": 625,
+  "correct_identity_violations": 0,
+  "strict_gap_product_failures": 50,
+  "predicted_tie_counterexample": {
+    "true": [
+      12,
+      9
+    ],
+    "predicted": [
+      10,
+      10
+    ],
+    "regret": 3,
+    "unit": "ms"
+  },
+  "delay_examples": [
+    {
+      "twin": "Twin1",
+      "predicted_A": "10",
+      "predicted_B": "11",
+      "mae": "2",
+      "action": "A",
+      "regret": "3",
+      "unit": "ms"
+    },
+    {
+      "twin": "Twin2",
+      "predicted_A": "16",
+      "predicted_B": "13",
+      "mae": "4",
+      "action": "B",
+      "regret": "0",
+      "unit": "ms"
+    }
+  ],
+  "confusion_examples": [
+    {
+      "twin": "X",
+      "tp": 1,
+      "fp": 1,
+      "fn": 1,
+      "tn": 1,
+      "precision": "1/2",
+      "recall": "1/2",
+      "total_regret": "2",
+      "mean_regret": "1/2",
+      "unit": "packet*s"
+    },
+    {
+      "twin": "Y",
+      "tp": 1,
+      "fp": 1,
+      "fn": 1,
+      "tn": 1,
+      "precision": "1/2",
+      "recall": "1/2",
+      "total_regret": "20",
+      "mean_regret": "5",
+      "unit": "packet*s"
+    }
+  ],
+  "regret_ratio": "10"
+}

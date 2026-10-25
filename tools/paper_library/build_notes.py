@@ -76,7 +76,7 @@ def build(data):
             previous_notes[row[0]] = list(row)
         previous.close()
         # A catalog edit must not silently discard personal records on rebuild.
-        assert set(previous_notes) <= {d["id"] for d in data}, "Archive removed rows before rebuilding"
+        assert (set(previous_notes) | set(previous_reading)) <= {d["id"] for d in data}, "Archive removed rows before rebuilding"
 
     book = Workbook()
     book.properties.creator = book.properties.lastModifiedBy = "Doan Van Tai"
@@ -106,11 +106,12 @@ def build(data):
     guide = book.create_sheet("Huong_dan")
     guide.append(["Mục", "Cách dùng"])
     for row in [
-        ("Phạm vi", "3 nguồn giữ từ thư viện cũ; không phải danh sách đầy đủ về NDT, không là bài tập bắt buộc."),
+        ("Phạm vi", f"{len(data)} nguồn trong catalog hiện dùng; nguồn chính L2.4 ở đầu bảng. Không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết."),
+        ("L2.4", "Đọc chính NDT1 → P05 → P10. NMRG, P08, S07 chỉ tra bổ sung trong notes/literature/ndt_landscape.md, không thêm hàng đọc bắt buộc."),
         ("R32 / R34", "Nguồn gần trục state: feedback control và queue với thông tin trễ; khác bài toán routing của repo."),
         ("R51 = P03", "DT² là cầu nối phương pháp digital twin, không phải paper networking chuyên biệt."),
         ("Mức đọc", "Bạn cập nhật Danh_sach → Mức tôi đã đọc; mức AI riêng ở Ghi_chu_doc. Giữ nguyên record cũ, không tự tăng mức đọc."),
-        ("Ghi chú", "Ghi_chu_doc giữ nội dung trước dọn; các nhắc lesson/việc tiếp theo là lịch sử, không áp lịch học mới."),
+        ("Ghi chú", "Ghi_chu_doc giữ nội dung theo ID; các nhắc lịch lesson trong ghi chú cũ là lịch sử. Mức AI đọc luôn tách khỏi mức bạn đọc."),
         ("Tìm paper", "Dùng notes/literature/search_protocol.md; tác giả duyệt trước khi tải hoặc tạo note mới."),
         ("Lưu tạm", "archive/paper_comparison_part_a.xlsx giữ nguyên 21 bài và toàn bộ ghi chú trước dọn. Không phải yêu cầu đọc hết."),
         ("Nguồn lý thuyết", "SOB14, B82, P11 chỉ tra tên khái niệm khi cần; note/proof Part A vẫn ở notes/literature/."),

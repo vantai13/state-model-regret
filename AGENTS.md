@@ -35,3 +35,7 @@ Bảng hiện dùng: `papers/paper_comparison.xlsx`; dữ liệu: `papers/data/c
 `papers/archive/` là snapshot lịch sử; không tự đưa 21 bài hoặc 4 nhóm đọc cũ
 trở lại danh sách bắt buộc. Lưu tạm không đồng nghĩa nguồn đã bị bác bỏ.
 Note/proof Part A và kết quả thí nghiệm vẫn là evidence, phải giữ nguyên.
+
+Cập nhật25/10/2026: NDT1/P05/P10 được tác giả yêu cầu trong L2.4 và nằm đầu
+catalog; R32/R34/R51 là tham khảo cũ. NMRG/P08/S07 ở landscape để tra bổ sung.
+Ba đề xuất snowball chưa duyệt chỉ ở log, không tự tải hoặc thêm vào danh sách.

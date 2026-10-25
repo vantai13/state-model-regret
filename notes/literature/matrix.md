@@ -15,3 +15,11 @@ Người phụ trách: **Doan Van Tai** · 24/10/2026 · mọi effect là AI đ�
 DOI/URL, phiên bản, ngày, Fact/Claim/Evidence/Inference xem các note trong papers/;
 metadata đã kiểm nằm ở results/lessons/part_a/source_metadata.json.
 Khác estimand/mechanism/regime là việc cần đối chiếu, không tự là novelty.
+
+## L2.4 Part2–3 — cập nhật25/10/2026
+
+[Bảng đối chiếu NDT/networking](ndt_landscape.md#bảng-bản-đồ-nguồn--chỉ-kết-luận-trong-phạm-vi-đã-đọc)
+chứa NDT1/NMRG/P05/P10/P08/S07, input/action/metric, vị trí và mức đọc.
+NDT1/P05/P10/P08/NMRG có targeted AI reading; S07 abstract-only.
+P05 full text qua web, PDF local403 và hình/table chưa kiểm trực tiếp.
+Không dùng bảng này tự đổi nhãn PC2/PC5 hay nâng G-level.

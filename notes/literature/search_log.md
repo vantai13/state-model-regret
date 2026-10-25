@@ -94,3 +94,25 @@ Bảng chính chuyển thành `papers/paper_comparison.xlsx`. Dữ liệu cũ �
 lượt kiểm lịch sử phía trên. Snapshot 21 bài, CSV và 4 nhóm cũ ở `papers/archive/`.
 PDF/text và audit chưa tracked chuyển ra kho local; đường cũ/mới, checksum và
 lý do ở [manifest](../../papers/archive/cleanup_manifest.json).
+
+## L2.4 Part2–3 — 25/10/2026, AI thực hiện theo tài liệu tác giả
+
+Thẻ trước query: [search_card.md](../../results/lessons/l2_4/search_card.md).
+Lookup được ủy quyền từ hai lesson; không kế thừa số đếm hay mức đọc của mentor.
+Hai đợt nguồn có tên: NDT1/NMRG/P05, rồi P10/P08/S07. Không tải ứng viên snowball chưa duyệt.
+
+| Ngày | Loại | Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 2026-10-25 | lookup | Q2.2 / PC2,PC5 | NDT1 DOI10.1109/MCOM.001.2200012, arxiv2205.14206v2 | paper-search Crossref/download; web arxiv; paper-pilot pages2–7/render3,5 | 1 | 1 | T, input/optimizer/metric; bản v2 hash trùng PDF đã có ở reference, current dùng alias |
+| 2026-10-25 | lookup | Q2.2 / PC2,PC6 | NMRG current page và draft-13 | web Datatracker, §4/selected§5–6 | 1 | 1 |5yếu tố gồm Logic; real-time tùy use case; vẫn Internet-Draft |
+| 2026-10-25 | lookup | Q2.2 / PC2,PC5 | P05 DOI10.1109/TNSM.2026.3652800, Sapienza PDF | Crossref; web PDF §III–VI selected | 1 | 1 | Full text web đọc được; targeted; UNEX page không truy cập, không lấy đó làm nội dung |
+| 2026-10-25 | lookup | Q2.2 / PC2,PC5 | P05 local download và screenshot | urllib, paper-pilot inspect cùng URL; web screenshot PDF4/11 | 0 | 0 |2local attempts403;2screenshots cache miss; dừng tải, không ghi có PDF local hoặc đã nhìn TableIII |
+| 2026-10-25 | lookup | Q2.2 / PC2,PC5 | P10 arxiv2605.24662v2 | web abstract; paper-search download; paper-pilot pages3,5–8,11 | 1 | 1 | T; resync đổi inferred config, không chỉ state refresh; joint-rate khác selective risk |
+| 2026-10-25 | lookup | Q2.2 / PC2,PC5 | P08 arxiv2312.03374v1; DOI10.1109/MNET.2023.3332893 | web abstract; Crossref; download; paper-pilot pages3–5 | 1 | 1 | T§2–3 xác nhận taxonomy; issue2024 khác preprint2023; chưa đọc đầy đủ field trial |
+| 2026-10-25 | lookup | Q2.2 / PC5 | S07 arxiv2212.12070v3; DOI10.1109/TNET.2023.3269983 | web abstract; Crossref | 1 | 1 | Abstract-only; không tải PDF; MRE6,24% là số paper báo |
+| 2026-10-25 | backward | Q2.2 / PC2,PC5 | NDT1 PDF7 references1–15 | paper-pilot page text; thứ tự references trong PDF | 15 | 0 mới | Nhận diện NMRG predecessor đã có; các mục khác chưa kiểm nội dung, không gọi15bài đã đọc |
+| 2026-10-25 | forward | Q2.2 / PC2,PC5,PC6 | DOI10.1109/MCOM.001.2200012 citations | scholar-search Semantic Scholar, limit100 offset0, provider order | 100 | 0 thêm thư viện;3 đề xuất |100unique,next100; title-screen; chưa duyệt/đọc abstract ứng viên; dừng theo ngân sách |
+
+Từng record forward/backward, source metadata/access, metric toy và log ở
+[results/lessons/l2_4](../../results/lessons/l2_4/). Không chạy OpenAlex trong phiên
+này; không xác nhận số169/6 từ lesson. Không claim coverage đầy đủ hay Gate L2.8.

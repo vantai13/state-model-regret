@@ -1,35 +1,31 @@
-# Paper — mở bảng này trước
+# Paper — đọc L2.4 ở đây
 
-Người phụ trách: **Doan Van Tai** · dọn ngày **24/10/2026**.
+Người phụ trách: **Doan Van Tai** · cập nhật **25/10/2026**.
 
-**[Excel đang dùng](paper_comparison.xlsx)** chỉ giữ 3 nguồn gần đề tài từ thư viện cũ.
-Đây là bảng tham khảo, không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết.
+**[Excel đang dùng](paper_comparison.xlsx)**: 3 nguồn chính L2.4 ở đầu bảng,
+3 nguồn tham khảo cũ ở cuối. Chỉ thêm các nguồn tác giả đã yêu cầu trong hai part.
 
-| Mã | Vì sao giữ trong bảng chính? | Trạng thái hiện có |
+| Đọc chính | Dùng để hiểu gì? | Mức AI đã đọc / truy cập |
 |---|---|---|
-| R32 | VoI trong feedback control: gần trục thông tin state | Có PDF; AI đã đọc một số mục |
-| R34 | Điều khiển queue khi thông tin chiều dài queue bị trễ | Metadata; chưa có PDF |
-| R51 = P03 | DT²: cầu nối giữa model và chất lượng quyết định | Qua nguồn thứ cấp; chưa có PDF; **DT chung, không chuyên networking** |
+| NDT1 — Almasan2022 | Kiến trúc NDT và routing optimizer | Targeted; có PDF v2 local |
+| P05 — Polverini2026 | Action áp ngay, what-if trả feedback; chấm conflict | Targeted qua full text web; PDF local bị403 |
+| P10 — OpenTwin v2 | Calibration, resync, gate trước action | Targeted; có PDF v2 local; preprint |
 
-Excel có 3 tab: `Danh_sach`, `Ghi_chu_doc`, `Huong_dan`. Cập nhật mức bạn đọc
-ở `Danh_sach`; mức AI đọc và ghi chú nằm riêng. Ghi chú cũ giữ nguyên provenance.
+[Bản đồ, pipeline, metric và mức đọc](../notes/literature/ndt_landscape.md) có thêm
+NMRG/P08/S07 để tra bổ sung; không biến chúng thành 3 bài phải học hết mới được tiếp tục.
+R32/R34/R51 vẫn ở Excel để tham khảo trục state/queue/DT; DT² là phương pháp DT chung,
+không phải paper networking chuyên biệt. Mức bạn đọc được giữ riêng, chưa tự xác nhận.
 
-## Thư mục còn lại dùng làm gì?
-
-| Nơi | Dùng khi nào? |
+| Nơi | Chức năng |
 |---|---|
-| `PDF_local/` | Mở PDF thuộc bảng đang dùng; hiện chỉ có R32 |
-| `data/` | Catalog 3 bài và kết quả kiểm Excel; không cần mở khi học |
-| [archive/](archive/README.md) | Tra lại thư viện 21 bài, ghi chú và phân nhóm cũ |
+| `paper_comparison.xlsx` | Danh_sach, Ghi_chu_doc, Huong_dan; cập nhật mức bạn đọc theo ID |
+| `PDF_local/` | Mở PDF local; P08 là nguồn bổ sung, không phải hàng đọc bắt buộc |
+| `data/` | Catalog hiện dùng và kết quả kiểm; không cần mở khi học |
+| [archive/](archive/README.md) | Snapshot21 bài;18 bài đã cất không trở lại hàng đợi |
 
-**18 bài đã bỏ khỏi bảng chính và lưu tạm.** SOB14, B82, P11 chỉ tra tên khái niệm
-khi cần; các bài health economics, revenue management, weather, vehicle routing,
-sách và lý thuyết bổ sung được cất lại. Lưu tạm không có nghĩa là đã bác bỏ nguồn
-hay đã giải quyết rủi ro prior. Các note/proof Part A vẫn ở `notes/literature/`.
+SOB14/B82/P11 chỉ tra khái niệm khi cần; note/proof Part A vẫn được giữ.
+Ba ứng viên snowball mới chỉ nằm trong log chờ duyệt, chưa tải hoặc thêm vào Excel.
 
 Trước khi tìm/thêm bài: [quy tắc + checklist](../notes/literature/search_protocol.md).
-Không thêm hoặc tải paper mới trong lượt dọn này.
-
-Tái tạo Excel: `.venv/bin/python tools/paper_library/build_notes.py`.
-Builder giữ mức đọc và ghi chú theo ID; không tự tái tạo 4 nhóm cũ hay tải PDF.
-[Kiểm Excel](data/verification.json) · [Lịch sử di chuyển](archive/cleanup_manifest.json).
+Tái tạo: `.venv/bin/python -B tools/paper_library/build_notes.py`.
+[Kiểm Excel](data/verification.json) · [Nguồn L2.4](../results/lessons/l2_4/source_access.json).

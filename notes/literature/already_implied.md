@@ -23,3 +23,15 @@ chung từ ô00, không phải cận duy nhất. Không mở rộng sang model/b
 
 Không dùng p_sw band/candidate để chứng nhận strict gain; không gọi toy là
 Phase3 discovery; không gọi EVIU đã kiểm original source. L2.8 chưa chạy.
+
+## Framing đã có trong nguồn networking — 25/10/2026, AI targeted
+
+- [NDT1 §II-B/IV-B](papers/NDT1.md): dùng twin đánh giá cấu hình cho routing optimizer.
+- [P05 §III-A/V](papers/P05.md): what-if cho action/rerouting đổi tải đã có; workflow passive.
+- [P10 §III/V–VI](papers/P10.md): online calibration, drift-triggered resync và gate trước action đã có.
+- [P08 §2–3](https://arxiv.org/abs/2312.03374v1): parameter identification, device modeling,
+  status update là ba vấn đề riêng; AI đọc PDF3–5. Không nhận taxonomy này là mới.
+
+Đây là giới hạn wording/framing từ các mục đã đọc, không phải proof rằng prior đã
+trả lời đúng Γ hay controlled2×2 D20/D21. Xem [landscape](ndt_landscape.md);
+nhãn PC và formal Gate không đổi.
