@@ -107,8 +107,9 @@ def build(data):
     guide.append(["Mục", "Cách dùng"])
     for row in [
         ("Phạm vi", f"{len(data)} nguồn trong catalog hiện dùng; xem cột Vai trò hiện tại. Không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết."),
+        ("L2.8 Part2", "NDT26/WM26/AIS22 được duyệt; R04/R02/R01 được chỉ định. Cả6 AI-T, không L-self. WM26 có2×2repair; R04 sufficient diagnostic chưa khóa H1. A1–A3 bounded queries có checkpoint log nhưng thiếu raw từng rank; L2.9/Gate còn mở."),
         ("L2.7 Part B", "P12: VE Definition1/§3.1 AI-T. OεRE trong terms.md, không đổi contract; K5 chưa chọn. R43 chỉ tra bổ sung: abstract lượt này, old AI-T note có provenance. PartA còn P02 full text BLOCKED."),
-        ("L2.7 Part A", "R51=P03 → P07 → P02: fidelity, oracle và factorial. P03/P07 AI-T; P02 chỉ abstract, full text BLOCKED. PartB/P12 chưa thực hiện. Không tự cấp L-self/Gate."),
+        ("L2.7 Part A", "R51=P03 → P07 → P02: fidelity, oracle và factorial. P03/P07 AI-T; P02 chỉ abstract, full text BLOCKED. PartB/P12 đã có artifact riêng. Không tự cấp L-self/Gate."),
         ("L2.6 Part B", "P13 → S11: backlog/horizon và freshness → decision cost. Hai parts đã thực hiện kỹ thuật; tác giả L-self/Gate/A4/L2.9 còn mở. T-H1 chỉ giới hạn diễn giải, không đổi metric."),
         ("L2.6 Part A", "S11: bản đọc arxivv3, journal identity TIT2026 đã kiểm. K3 ở notes/literature/freshness_decision_value.md; ghi chú PartA cũ là lịch sử."),
         ("L2.5 Part2", "M00 → P04: herding theo tin cũ và fixed-M0 bias. Part2 đã kiểm kỹ thuật; tác giả L-self/Gate còn mở. P01 chỉ targeted screen, chưa cần đọc full."),

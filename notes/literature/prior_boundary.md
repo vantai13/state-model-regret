@@ -212,3 +212,32 @@ Giữ forecast/table PC đầu file và claims.md byte-unchanged. **Prior-cleara
 judgment cho claim bị ảnh hưởng HOLD** tới primary Part2/A1–A3/L2.9; không tự
 chọn KEEP/DROP/NARROW/PIVOT mới. GS<0⇒Γ>0 chỉ theo true-model VOI assumptions,
 không sufficient mechanism evidence. Không chọn/null-fit hoặc chạy Phase3.
+
+## L2.8 Part2 — primary re-solving và3nguồn được duyệt,26/10/2026
+
+Bảng forecast PC phía trên giữ nguyên. Primary targeted **AI-T** R01/R02/R04
+đã thực hiện; không còn HOLD vì chưa đọc hai bài này. Bản R01 là TR2006,
+chưa kiểm journal numbering; tác giả L-self chưa xác nhận.
+
+| ID | Đã biết | Primary evidence / giới hạn |
+|---|---|---|
+| K-RM1 | Cập nhật thông tin qua re-solving approximate allocation có thể giảm true expected revenue | R02 §5/Example1/PDF7; không do rounding, không tự là D20/Jensen hoặc D19Γ |
+| K-RM2 | Feasible old allocation và objective đúng true policy value cho non-deterioration | R01 TR Prop1/PDF10–11; chỉ allocation policy, không bid-price hoặc true MDP |
+| K-RM3 | SC+Π-accuracy⇒SI⇒non-deterioration; approximate bound cần thêm Eq9 | R04 §3/Def2–5/Props1–3/PDF8–10; Remark2: error terms thường cần policy evaluation |
+
+K-S9/K-S10 đã dùng trong freshness, không ghi đè bằng ID từ lesson gửi.
+R04→one-shot diagnostic và V1 kiểm được ở [Part2](literature_audit_part2.md);
+chưa chuyển thành H1 input-only, chưa chọn null hoặc freeze A05.
+
+NDT26 §IV–VI/PDF6–9 cho fidelity gate/utility regret trực tiếp trong Open RAN.
+WM26 §5/F.1/PDF5,22 có center×response **2×2repair**: Tier1 cho framing PC3/PC4;
+không nhận generic factorial repair là contribution. Axes/true-future oracles
+khác D20/D21/D15, khác biệt đó chưa đủ chứng minh contribution. AIS22 Def7/
+Theorem9/PDF15–18 cho prior model adequacy dưới partial observations của PC5.
+Cả3đã được tác giả duyệt, đọc AI-T; không tự gán L-self hoặc publication cho preprints.
+
+**PC3 formal judgment HOLD L2.9**, PC4 HOLD A05/L2.9; PC5 NARROW forecast
+cũ giữ nguyên, chưa có K5 outcome. Nguyên nhân hiện tại là cần chấm wording/
+prior boundary/null evidence, không phải R02/R04 full-text blocked. A1–A3 có
+bounded sessions nhưng thiếu per-rank raw log, không saturation/coverage proof.
+G1/HOLD Phase4 giữ nguyên. Không tiếp Phase3 ở lượt này.

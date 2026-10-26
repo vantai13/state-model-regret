@@ -23,3 +23,14 @@ Tier2 gần estimand/mechanism nhưng khác regime → ghi chỗ unclear;
 Tier3 chỉ context → log, không thêm reading list. Tối đa3Tier1 ưu tiên cho đợt
 này: R01/R02/R04 tác giả chỉ định; nguồn mới phát hiện chỉ đề xuất tối đa3,
 chờ duyệt trước download/note. Không tự đổi PC/Gate/null hoặc chạy Phase3.
+
+## Execution Part2 —26/10/2026
+
+[Ledger](../../results/lessons/l2_8/part2/search_calls.json): A1 44,A2 45,A3 60,
+A4variant2repeat20screening events. Dự đoán AI/exposed trước phiên ở
+[reading card](../../results/lessons/l2_8/part2/reading_card.md).
+A3 có WM26/Tier1framing thay dự đoán0Tier1. A1 NDT26/A2 AIS22 Tier2 được duyệt.
+Không gán toàncandidate counts khi raw rank-level không được giữ sau resume.
+A2forwardS2 vẫn429, A3q1Scholar vẫntimeout; provider fallbacks đã ghi riêng.
+Không đạt2×20 zero-new rule; dừng bounded scope/budget, không saturation.
+[Four conclusions, primary reading, HOLD](literature_audit_part2.md).

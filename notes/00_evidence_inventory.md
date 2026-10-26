@@ -217,3 +217,11 @@ Người phụ trách: **Doan Van Tai**. Không đổi EV numbering hoặc cấp
 Đây là observation/proof examples của repo, không chứng nhận PC5/PC3,
 Understanding/Gate hoặc full-study GO. Source/reading levels/seed N/A được ghi
 riêng trong report và config; không tự nâng evidence thành human-reviewed.
+
+## L2.8 Part2 —26/10/2026
+
+[Report](../results/lessons/l2_8/part2/report.md):6primary targeted AI-only sources,
+R02Example1 analytic18aggregatecases và V1diagnostic; PDFs ngoài Git có hashes.
+A1–A3/A4repeat call-level ledger169screen events; thiếu per-rank raw là limitation,
+không saturation/full search reproducibility. Formal L-self/Understanding/L2.9/
+A05/Gate còn mở; implementation verification không xác nhận hypothesis/novelty.

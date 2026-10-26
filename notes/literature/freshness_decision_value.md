@@ -11,7 +11,7 @@ Theo attachment hiện tại: **chỉ Part A**, P13/backlog–horizon để Part
 | AoI | A(t)=t−u(t), seconds hoặc slots | Bản tin mới nhất đã giao được sinh bao lâu rồi? | Không đo error hoặc decision loss |
 | Giảm bất định | Ví dụ H(mode trước)−H(mode sau), bit | Biết state chắc hơn bao nhiêu? | 1bit trong toy là Shannon entropy; không gán cùng đơn vị cho mọi VoI |
 | Giá trị quyết định, model đúng | GSgivenM1=L01−L11=min(EΔ+,EΔ−), packet·s | Biết current state giúp chọn action giảm true cost bao nhiêu? | Matched belief/law/objective, optimal action, nested information; T03 |
-| Giá trị state repair với M0 | GS=L00−L10, packet·s | Pipeline dùng conditional mean model được lợi/hại bao nhiêu? | Có thể âm; không áp dấu của Bayes-optimal VOI |
+| Giá trị state repair với M0 | GS=L00−L10, packet·s | Pipeline dùng conditional mean model được lợi/hại bao nhiêu? | Có thể âm; analog information-harm đã biết trong RM: K-RM1/R02 §5/PDF7 AI-T, L2.8 Part2. Không cùng intervention/cơ chế |
 
 V1: tiết lộ mode hi/lo equiprobable giảm **1bit**, nhưng GSgivenM1=0,
 GS=−1/4 vì M0 đảo action ở hi. Timestamp minh họa age1→0 là thiết kế teaching

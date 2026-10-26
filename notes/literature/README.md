@@ -13,6 +13,17 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.8 Part2 — primary và các prior gần đề tài
+
+[Đọc ngắn/crosswalk/bốn kết luận vùng](literature_audit_part2.md) ·
+[Report/commands](../../results/lessons/l2_8/part2/report.md).
+R01/R02/R04 primary AI-T; NDT26/WM26/AIS22 đã duyệt và targeted. Bắt đầu từ
+NDT26 cho networking; WM26 có2×2repair là framing prior mạnh. R04 conditions
+chưa là predictive H1. R02Example1 đã analytic replay, không Phase3.
+Excel19, giữ13progress/notes cũ. A1–A3 bounded sessions đã chạy nhưng raw từng
+rank không lưu được; ledger169screen events không là complete coverage.
+L-self/L2.9/A05/Gate còn mở; các snapshot Part1 bên dưới là lịch sử.
+
 ## L2.8 Part1 — audit theo claim
 
 [4session cards](audit_sessions.md) · [A4 actual screening/status](literature_audit_part1.md) ·

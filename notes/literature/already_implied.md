@@ -8,9 +8,9 @@ Người phụ trách: **Doan Van Tai** · 24/10/2026 · AI đề xuất; source
 | GSgivenM1 | EVPPI của current state conditional on y | G1–G4, đúng argmin và khả tích | SOB14 Method Eq4, AI T; T01/T03 | Có tên; ≥0 là hệ quả; >0 cần hai dấu gap strict có mass |
 | GMgivenS1 | E_D[VSS(x)] theo conditional mean-future problem | G2–G5, cùng cost/action set | T03 proof; B82 abstract A, không mượn bounds | Có tên theo định nghĩa; original full reading chưa đủ |
 | GM | Gain khi giữ belief state, thay mean rollout theo state bằng đúng expectation | G1/G3/G4 bảo đảm không âm | D10/D19; T01/T03, E0 | Không tự global VSS hoặc EVMI; tên literature còn phải tìm ở L2.8 |
-| GS | Giá trị sửa state với fixed approximate M0 | D20/D21, cùng D | T03/V1; exact toy E1 | Có thể âm; không áp VOI≥0 của Bayes đúng-model |
+| GS | Giá trị sửa state với fixed approximate M0 | D20/D21, cùng D | T03/V1; R02 §5/Example1/PDF7 AI-T là analog RM | Khả năng thông tin-driven update làm hại đã có; không đồng nhất intervention/cơ chế |
 | GSM=R00 | Headroom so với ô00 | Ô11 đúng oracle, cùng D/objective/actions | D15/D18/D19 | Bookkeeping, cận chung; chưa là practical feasible gain |
-| Gamma | GSgivenM1−GS = GMgivenS1−GM | D19 | Đại số; exact toy verification | Hai dấu không tự là mechanism; related conditional VOI cần L2.8 |
+| Gamma | GSgivenM1−GS = GMgivenS1−GM | D19 | Đại số; exact toy; R01/R02 RM analog, WM26 §5/PDF5 có2×2repair | Không nhận generic2×2/harm là mới; chưa xác nhận cùng D20/D21 estimand trong targeted priors |
 
 P11 §2.4 Eq2.7: EVPI(delta) là VOI theo belief, diễn giải upper bound cho EVMI;
 GM và GMgivenS1 không tự là đại lượng đó. “Input information so với model
@@ -22,7 +22,8 @@ true cost, nên GM (hoặc GMgivenS1) là cận model repair cùng thông tin. R
 chung từ ô00, không phải cận duy nhất. Không mở rộng sang model/belief sai.
 
 Không dùng p_sw band/candidate để chứng nhận strict gain; không gọi toy là
-Phase3 discovery; không gọi EVIU đã kiểm original source. L2.8 chưa chạy.
+Phase3 discovery; không gọi EVIU đã kiểm original source. Trạng thái L2.8 mới
+nhất ở phụ lục Part2 bên dưới; các section theo ngày giữ provenance lịch sử.
 
 ## Framing đã có trong nguồn networking — 25/10/2026, AI targeted
 
@@ -118,3 +119,19 @@ Current reading AI-A, archived R01/R04 AI-T có provenance riêng. Đây là pri
 GS<0 và true-model VOI≥0 thì Γ>0 theo D19/T03 là đại số, không discovery.
 Part1 chưa xác nhận prior đo đúngΓ hoặc không có nó; [A4/report và pending](literature_audit_part1.md).
 A1–A3/primary Part2/L2.9 còn mở; không tự đổi formal PC3/PC4/PC5 judgment.
+
+## L2.8 Part2 —26/10/2026
+
+Dạng “information update × approximate optimization” có analog RM cụ thể:
+R02 §5/Example1/PDF7 cho harm; R01 TR Prop1/PDF10–11 cho non-deterioration
+của stochastic allocation; R04 Def3–4/Prop2/PDF9 tách consistency/accuracy.
+Đó là prior về cấu trúc, chưa là cùng D19Γ hoặc cơ chế Jensen của queue.
+
+WM26 §5/PDF5 và F.1/PDF22 có cả2×2repair và comparison theo decision quality;
+NDT26 §IV–VI/PDF6–9 có NDT fidelity gate/utility regret; AIS22 Def7/Thm9/PDF15–18
+có joint information-state/model approximation và loss bounds. Tất cả AI-T.
+Không nhận generic2×2, “fidelity khác decision quality”, information-harm hay
+“model chỉ cần đủ cho decision” là mới. Phần chưa xác nhận trong targeted priors
+là cùng D20/D21 intervention, D15 non-clairvoyant oracle và D19Γ theo queue
+coordinates; **chưa xác nhận không đồng nghĩa novelty**.
+[Mapping/các giới hạn](literature_audit_part2.md); PC3/PC4 judgment vẫn HOLD L2.9/A05.

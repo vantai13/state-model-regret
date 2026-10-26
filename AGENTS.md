@@ -71,3 +71,13 @@ L2.8 Part1/26/10:4session cards, A4 bounded rerun có20+15GoogleScholar records,
 abstracts AI-A lượt này; R01/R04 archiveAI-T giữ riêng.3Tier2proposals chỉ ởlog,
 chờ duyệt PDF/note; Excel13nguồn/PC/contract giữ nguyên. A1–A3/primaryPart2/
 L2.9 và affected prior-clearance judgment HOLD; chưa đạt2×20 hoặc fullL2.8 PASS.
+
+L2.8 Part2/26/10: R01/R02/R04 current primary AI-T; R02 CiteSeerX PDF lấy được
+sau VPN retry, publisher vẫn403; R04 SC+Π-accuracy⇒SI, chỉ one-shot diagnostic,
+chưa khóa H1. K-RM1/2/3 tránh đè K-S9/10 freshness. NDT26/WM26/AIS22 tác giả
+“Duyệt cả3”, targetedAI-T; WM26 cóP/C/S/E2×2repair và true-future oracles,
+không nhận generic2×2/harm/fidelity≠decision quality là mới. Excel19, giữ13notes/
+progress cũ. A1 44/A2 45/A3 60/A4repeat20screen events; raw rank payload trước
+resume không lưu được, chỉcheckpoint ledger, không full search reproducibility.
+A3q1Scholar vẫntimeout/S11S2citations429 cảretry; fallbacks ghi riêng, không
+saturation. PC3formalL2.9/PC4A05/H1/null/L-self/Gate vẫn HOLD, không Phase3.

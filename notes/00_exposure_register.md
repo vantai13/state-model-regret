@@ -315,3 +315,11 @@ không đưa p_sw/λA riêng vào features. K5 cũ giữ nguyên, chưa chọn r
 R03/R04 membership là metadata, không là confirmation.
 [Artifact/source/hash](../results/lessons/l2_7/part_b/source_access.json),
 [queue](lessons/L3.3_equivalence_queue.md). Contract/thresholds/D25/G1 giữ nguyên.
+
+## L2.8 Part2 —26/10/2026
+
+Doan Van Tai phụ trách; AI đã exposed archived R01/R04/toy và lesson. Forecast
+A1–A3 lưu reading_card trước queries, không blind forecast tác giả. R02 mới primary
+đọc sau CiteSeerXretry; NDT26/WM26/AIS22 được tác giả duyệt trước PDF/note.
+WM26 có2×2repair là exposure phải giữ khi viết A05/L2.9. Diagnostic R04 dùng true
+costs; chưa chọn H1/null/threshold, không chạy grid/held-out. [Report](../results/lessons/l2_8/part2/report.md).

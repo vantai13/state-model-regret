@@ -23,6 +23,14 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.8 Part2,26/10/2026:** [Primary reading/crosswalk](notes/literature/literature_audit_part2.md),
+[report/commands](results/lessons/l2_8/part2/report.md). R01/R02/R04 và3nguồn mới
+NDT26/WM26/AIS22 được duyệt đã AI-T. WM26 có2×2repair; R04 cho sufficient
+diagnostic, chưa H1. Cooper Example1 tính lại revenue14.586589→14.079588,
+loss0.507000; V1 GS=−1/4. Excel19nguồn, giữ13notes/progress. A1–A3/A4repeat
+169screen events nhưng chỉcall-level checkpoints, thiếu raw từng rank;
+không saturation hoặc formal Gate/L2.9/Phase3. Các mục dưới là trạng thái lúc lưu.
+
 **L2.8 Part1,26/10/2026:** [4audit cards](notes/literature/audit_sessions.md) và
 [A4 screening/report](notes/literature/literature_audit_part1.md) đã lưu.
 Google Scholar20+15records; forwardR02 thêm20records,3Tier2proposals chờ duyệt.

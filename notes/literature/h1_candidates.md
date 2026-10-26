@@ -37,3 +37,17 @@ L2.7 PartA/26/10: Q-L27-01 đã chuyển thành
 [MT5 trong Phase4 queue](../phases/PHASE_4_methodology_threats.md); vẫn chờ A05
 chọn thiết kế null cụ thể. Các teaching tables ở L2.7 không được dùng tự khóa
 null, H1 hoặc giải thích mechanism của lưới. P12/OεRE thuộc PartB chưa làm.
+
+## H1-Q03 — R04 conditions → one-shot diagnostic, L2.8 Part2
+
+Provenance: R04 primary Def3–4/Prop2/PDF9 và AI/exposed mapping,26/10/2026.
+SC là old MP solution feasible, Π-accuracy là objective truthful cho policy.
+Plant không có cùng sequential MP, chỉ dịch sufficient comparison: old action
+khả thi và accurate old/new action-cost gap thì information repair không hại.
+Với δ=J−Jhat, true gain=predicted gain+δold−δnew; V1 hi cho1/2+0−1=−1/2.
+
+Đã kiểm frozen V1 và R02 Example1. **Chưa** có observable-only feature/certificate,
+chưa đánh giá/fit grid, chưa chọn null hoặc H1. R04 Remark2/PDF10 cảnh báo error
+terms cần policy evaluation; không dùng true outcomes để tự chứng nhận forecast.
+WM26 §5/F.1 có2×2repair, phải thừa nhận prior trước wording PC3/PC4 ở L2.9.
+[Crosswalk](literature_audit_part2.md); queue không phải A05 preregistration.

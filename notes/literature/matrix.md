@@ -104,3 +104,18 @@ Không tự gán PC5 đúng, chọn K5 hoặc nhận formal Gate. P02 full text 
 [Bài A4/Tier2proposal3nguồn](literature_audit_part1.md), [4cards](audit_sessions.md).
 A1–A3 chưa chạy; không biến35keyword+20forward screens thành fullL2.8 PASS.
 Không thêm paper/reading requirements vào Excel hoặc đổi PC/Gate.
+
+## L2.8 Part2 —26/10/2026, primary targeted
+
+| Nguồn | E/M/R overlap cần giữ | Phần thực đọc / kết luận |
+|---|---|---|
+| [R01](papers/R01.md) | Expected-revenue improvement; nested feasible allocation; RM multi-step | TR Prop1/PDF10–11 AI-T; objective truthful cho allocation, không toàn M1/bid-price |
+| [R02](papers/R02.md) | Information-driven approximate-policy harm; DLP; RM | §5/Example1/PDF7 AI-T,18aggregate-case replay; không D20 hoặc Gammafourcell |
+| [R04](papers/R04.md) | Sufficient improvement conditions; SC/Π-accuracy; RM/inventory | §3/Defs2–5/Props1–3/PDF8–10 AI-T; diagnostic≠predictive H1 |
+| [NDT26](papers/NDT26.md) | Utility regret; on-policy error gate; Open RAN | PDF1,5–9 AI-T; independent hidden-state×model repair chưa xác nhận; preprint |
+| [WM26](papers/WM26.md) | Physical ranking/elite error; P/C/S/E2×2; latent planning | PDF1,3–8,22–23,25,28 AI-T; true-future unequal-budget oracles, E không D15; preprint |
+| [AIS22](papers/AIS22.md) | Bounded policy loss; approximate compression/reward/transition; partial observations | Def3/7,Thm5/9/PDF6–8,15–18 AI-T; uniform assumptions, không D19/K5certification |
+
+Excel13→19, giữ toàn13progress/notes cũ;6nguồn được yêu cầu/duyệt, không đọc
+full bắt buộc. [Four region conclusions/limits](literature_audit_part2.md).
+Các status Part1 ở trên là snapshot lúc lưu, được cập nhật bởi mục này.

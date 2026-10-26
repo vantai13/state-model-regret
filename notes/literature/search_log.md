@@ -308,3 +308,60 @@ query2chỉ15, còn candidates và forwardcontinuation. Không dùng sample coun
 10/10/25/34 của tài liệu làm dữ liệu thực. Chưa xác nhận boundary/Γsameestimand
 ở sources đã screen; lookupabstract không là four-session audit hoặc novelty
 clearance. Full conditions/mapping của R01/R02/R04 còn mở trước L2.9.
+
+## L2.8 Part2 —26/10/2026, primary targeted và bounded A1–A3
+
+[Thẻ/câu hỏi PC3–PC5](audit_sessions.md), [forecast AI/exposed trước tìm](../../results/lessons/l2_8/part2/reading_card.md).
+PDF local/metadata kiểm trước; R01/R02/R04 do lesson chỉ định. Sau sàng,
+tác giả trả lời **“Duyệt cả3”** cho NDT26/WM26/AIS22, rồi mới tải/viết note.
+[Approval](../../results/lessons/l2_8/part2/author_approval.json).
+
+Bảng dưới là call-level checkpoints thực chạy, không payload từng rank. Các
+response trước resume không còn raw records trong working context; không
+fabricate169rows, không xác nhận rank-level reproducibility hoặc tổng unique
+candidate. Failed calls không là zero-result searches; fallback chưa screen
+không được tính vào169screen events. Mặc định max20, không year filter; query
+order/relevance của provider, forward filters/continuation như limitation.
+
+| Loại/call | Query/seed | Tool/provider | Trả / sàng | Chọn đọc mới / hạn chế |
+|---|---|---|---:|---|
+| keyword / A1_q1 | `routing state information model approximation interaction` | paper-search/Google Scholar | 20 / 20 | success; ; Mostly non-network routing/quantum/ML; two uncertain network titles, no complete abstract exclusions. |
+| keyword / A1_q2 | `network digital twin state fidelity model fidelity decision regret` | paper-search/Google Scholar | 19 / 19 | success; NDT26; Provider reported20;19unique records returned. Existing DT² also found; not20screened. |
+| keyword / A2_q1 | `age of information model mismatch value of information` | paper-search/Google Scholar | 20 / 20 | success; ; Poor query: ages/brain/education/cancer; not an informative AoI negative search. |
+| keyword / A2_q2 | `fresh state information approximate model control performance` | paper-search/Google Scholar | 0 / 0 | timeout; no result; ;  |
+| keyword / A3_q1 | `decision focused model partial observability model sufficiency` | paper-search/Google Scholar | 0 / 0 | timeout; no result; ;  |
+| keyword / A3_q2 | `approximate value equivalence information structure decision regret` | paper-search/Google Scholar | 0 / 0 | timeout; no result; ;  |
+| keyword / A4_repeat | `deterministic linear programming resolving revenue management information` | paper-search/Google Scholar | 0 / 0 | timeout; no result; ;  |
+| keyword / A2_q2_fallback | `fresh state information approximate model control performance` | paper-search/OpenAlex | 20 / 0 | success; ; Retrieved but not screened; superseded by successful Scholar VPN retry |
+| keyword / A3_q1_fallback | `decision focused model partial observability model sufficiency` | paper-search/OpenAlex | 20 / 20 | success; ; Used instead of repeatedly failed Scholar query |
+| keyword / A3_q2_fallback | `approximate value equivalence information structure decision regret` | paper-search/OpenAlex | 20 / 0 | success; ; Retrieved but not screened; superseded by successful Scholar VPN retry |
+| keyword / A4_repeat_fallback | `deterministic linear programming resolving revenue management information` | paper-search/OpenAlex | 20 / 0 | success; ; Retrieved but not screened; superseded by successful Scholar VPN retry |
+| keyword / A2_q2_vpn_retry | `fresh state information approximate model control performance` | paper-search/Google Scholar | 20 / 20 | success after VPN retry; AIS22; AIS22 selected; other approximate-info-state hits remain screen/unclear |
+| keyword / A3_q1_vpn_retry | `decision focused model partial observability model sufficiency` | paper-search/Google Scholar | 0 / 0 | timeout again; ; OpenAlex fallback used; no Scholar coverage for this variant |
+| keyword / A3_q2_vpn_retry | `approximate value equivalence information structure decision regret` | paper-search/Google Scholar | 20 / 20 | success after VPN retry; ; R45/NeurIPS2022 official abstract screened; existing archived seed, not one of new3PDF approvals |
+| keyword / A4_repeat_vpn_retry | `deterministic linear programming resolving revenue management information` | paper-search/Google Scholar | 20 / 20 | success after VPN retry; ; R01/Jasin-Kumar/RM family rediscovered; result-type replication, not exact ranking |
+| forward / A1_forward | `10.1109/90.917073` | paper-search/OpenAlex | 5 / 5 | success; ; title.search:model; most cited first;1page,max4requests,timeout30s; provider says complete within this narrow filter; not prediction/digital-twin union. Possible duplicate title. |
+| forward / A2_forward | `ARXIV:2504.19507` | scholar-search/Semantic Scholar | 0 / 0 | 429; ; API rate limit, not zero citations |
+| forward / A2_forward_vpn_retry | `ARXIV:2504.19507` | scholar-search/Semantic Scholar | 0 / 0 | 429 again; ; VPN did not resolve remote rate limit |
+| forward / A2_forward_fallback | `10.1109/TIT.2026.3663678` | paper-search/OpenAlex | 5 / 5 | success; ; Journal DOI seed instead of arxiv record; provider says5available; title/excerpt screen, two missing abstracts remain unclear. |
+| forward / A3_forward | `ARXIV:2011.03506` | scholar-search/Semantic Scholar | 20 / 20 | success; WM26; First page only,next20; not exhausted. Unverified other recent IDs are screen-only, not accepted official records. |
+
+**Selected-new unique=3:** NDT26/AIS22/WM26, đã duyệt/primary AI-T; không phải
+tổng candidate count hoặc3Tier1. R45 NeurIPS2022 và arxiv2605.01694 chỉ official
+abstract screen, không PDF/note; các ID khác chưa kiểm official giữ Unclear.
+R01 xuất hiện lại trong A4repeat, đủ loại kết quả RM, không chứng minh same ranks.
+169screen events=A1 44+A2 45+A3 60+A4repeat20, không cộng55Part1 thành lần đọc mới.
+
+| Lookup/read | Kết quả thực | Hạn chế |
+|---|---|---|
+| R01 DOI official Springer + DOI-only OA + localTR | Journal metadata2010/online2009; TR2006 AI-T Prop1/PDF10–11,selected§1–4/6–7 | DOI-only không có PDFURL; journal numbering chưa kiểm |
+| R04 official INFORMS + archived local PDF | Primary journal AI-T Def2–5/Props1–3/PDF8–10,selectedapplications; không download lại | Diagnostic chưa thành H1; không full paper |
+| R02 publisher/CiteSeerX/DOI-onlyOA, VPN retry | Publisher403; CiteSeerXretry PDF8pages thành công; §5/Example1/PDF7 AI-T | Initial timeout/Wayback429, OAlookup khôngPDFURL; không tuyên bố mọi route hết truy cập |
+| NDT26/WM26/AIS22 official abs/history + PDF sau duyệt | 3correct full PDFs đã tải, current hashes/pages; chỉ targeted reading | NDT26/WM26 preprints, không full reads/authorL-self; chưa chạy paper code |
+
+Dừng theo bounded scope/budget và đủ targeted answer, **không đạt saturation**;
+A1q2chỉ19, A2q1nhiễu, A3q1timeout cảretry, S11S2forward429 còn, A3forwardnext20.
+NDT/networking ưu tiên; ngoài ngành chỉ3namedRM và2approvedmethod sources theo
+PC cụ thể, không mở rộng thêm references vì cùng từ khóa. Three old Part1proposals
+vẫn chưa duyệt, không tải. [Sourceaccess/hashes](../../results/lessons/l2_8/part2/source_access.json),
+[primary crosswalk/region conclusions](literature_audit_part2.md). Không đổi nhãn PC/Gate.

@@ -2,9 +2,23 @@
 
 Người phụ trách: **Doan Van Tai** · cập nhật **26/10/2026**.
 
-**[Excel và tiến độ đọc](paper_comparison.xlsx)**: **P12 của L2.7 Part B** ở đầu bảng,
-tiếp theo R51=P03/P07/P02 của PartA và nguồn các lesson trước. Có13công trình,
-không phải yêu cầu đọc hết cùng lúc. P12/P03/P07 AI-T; **P02 full text BLOCKED**.
+**[Excel và tiến độ đọc](paper_comparison.xlsx)**: **19công trình**, gồm6nguồn
+L2.8 Part2 ở đầu và13record cũ giữ nguyên tiến độ/ghi chú. Không phải yêu cầu đọc
+hết cùng lúc. Ba nguồn mới đã được bạn duyệt; tất cả6 AI-T, chưa L-self.
+
+| Tra trước theo câu hỏi | Nguồn | Vai trò |
+|---|---|---|
+| NDT/networking gần đề tài | [NDT26](../notes/literature/papers/NDT26.md) | Open RAN, fidelity gate và utility regret; khác P10/OpenTwin |
+| Prior gần design2×2 | [WM26](../notes/literature/papers/WM26.md) | Center×response repair; true-future oracle, khác D20/D21 |
+| Model adequacy/PC5 | [AIS22](../notes/literature/papers/AIS22.md) | Partial observations và policy-loss bounds; đọc targeted, không83trang |
+| Điều kiện không hại | [R04](../notes/literature/papers/R04.md) | SC+Π-accuracy; có primary note mới, chưa khóa H1 |
+| Phản ví dụ có hại | [R02](../notes/literature/papers/R02.md) | Example1 đã tính lại; PDF đã lấy được sau VPN retry |
+| Proof monotonicity | [R01](../notes/literature/papers/R01.md) | Allocation policy, đọc TR2006; không bảo đảm mọi bid-price policy |
+
+[Bài Part2/bốn kết luận vùng](../notes/literature/literature_audit_part2.md) ·
+[Kết quả/commands](../results/lessons/l2_8/part2/report.md).
+NDT26/WM26 là **preprint**; AIS22 là journal. Tiến độ bạn đọc ở Danh_sach,
+mức AI ở Ghi_chu_doc. Bảng lesson cũ dưới đây để tra khi cần.
 
 | Khi nào | Nguồn | Dùng để hiểu gì? |
 |---|---|---|
@@ -31,7 +45,8 @@ P03 và R51 là **một bài**, không thêm hàng trùng. Mười mức đọc 
 nguyên; R51 AI note nâng từ thứ cấp lên T có snapshot trước/sau. Các notes khác
 giữ nguyên. Part A còn P02 full text; PartB/P12 nay có artifact ở trên, không tự cấp Gate.
 
-**P04 khác R04**: R04 là Secomandi2008 đã cất trong archive.
+**P04 khác R04**: R04 là Secomandi2008; nay có targeted note và current PDF link,
+bản gốc archive vẫn được giữ.
 P04 có PDF journal15trang local; AI đọc targeted, tác giả chưa được tự ghi đã đọc.
 
 [Bài L2.5 Part1 và các đính chính](../notes/literature/state_staleness.md) ·
