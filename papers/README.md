@@ -2,6 +2,11 @@
 
 Người phụ trách: **Doan Van Tai** · cập nhật **26/10/2026**.
 
+**Đợt duyệt 26/10:** thêm 4 hàng đầu bảng — [IA26](../notes/literature/papers/IA26.md),
+[DTS25](../notes/literature/papers/DTS25.md), [CEN26](../notes/literature/papers/CEN26.md),
+[CEH23](../notes/literature/papers/CEH23.md); Excel **23 nguồn**. PDF trong `PDF_local/`.
+Cột "Mức tôi đã đọc" để bạn tự chọn khi đọc.
+
 **Follow-up 26/10:** P02 có PDF VoR bạn tải (`PDF_local/P02_Poelman2023_TRC_VoR.pdf`),
 AI-T, chưa L-self; Excel vẫn 19 nguồn, chỉ dòng AI của P02 đổi (snapshot trong
 `results/lessons/l2_8/followup/snapshots/`). 3 đề xuất mới + 6 đề xuất cũ đã sàng

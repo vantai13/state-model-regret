@@ -51,3 +51,12 @@ chưa đánh giá/fit grid, chưa chọn null hoặc H1. R04 Remark2/PDF10 cản
 terms cần policy evaluation; không dùng true outcomes để tự chứng nhận forecast.
 WM26 §5/F.1 có2×2repair, phải thừa nhận prior trước wording PC3/PC4 ở L2.9.
 [Crosswalk](literature_audit_part2.md); queue không phải A05 preregistration.
+
+## H1-Q04 — độ phi tuyến của động học kỳ vọng và khoảng cách CE (26/10/2026)
+
+Nguồn: [CEH23](papers/CEH23.md) §6.1 Định lý 1–2 (tr21–22): khoảng cách CE–tối ưu bị chặn
+bởi O(√var) hoặc O(var) **khi động học affine trong kỳ vọng** (Assumption 5, tr6). Ứng viên
+(chưa khóa): G_M/Cref của repo lớn ở ô mà quỹ đạo hay chạm biên rỗng (phần phi affine của
+max(0,·)), nhỏ khi queue xa biên. Cần một đại lượng đo trước action (ví dụ xác suất chạm 0
+trong h theo belief) và phải vượt threshold null ở A05; không dùng held-out để chọn.
+Không đổi D25, PC4/PC5, metric hay threshold.

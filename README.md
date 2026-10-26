@@ -23,6 +23,10 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**Đợt duyệt 26/10:** bạn duyệt và tải 9 PDF; đọc targeted IA26, DTS25, CEN26, CEH23
+(AI-T/AI-F, chưa L-self) → Excel 23 nguồn. Các điều kiện "nhãn sẽ đổi nếu" của PC2/PC3/PC5/PC6
+đã kiểm: **không nhãn tạm nào đổi**; thêm H1-Q04. [Report](results/lessons/l2_8/approved_batch/report.md).
+
 **WM26 — tác giả đọc bản giải thích AI (26/10):** ghi nhận **L-2nd, author-attested**,
 chưa phải L-self; AI kiểm bản giải thích trên PDF (khớp, 2 ghi chú nhỏ) và đính chính lỗi
 "§9"→**§8** của chính AI. [Kiểm](results/lessons/l2_9/wm26_author_reading/check.md) ·

@@ -261,3 +261,7 @@ Không có network evidence; không có contrast/regret của ô lưới nào. C
 giải thích lại được?" sang "Có, author-attested ngày …" chỉ khi tác giả tự xác nhận (DL-032).
 
 **Bổ sung 26/10 (sau EV-45):** EV-43 ghi "F.1/§9" là **F.1/§8** (WM26). Tác giả đã đọc bản giải thích AI của WM26 → author-attested **L-2nd**; cột "Tác giả giải thích lại được?" của EV-43 vẫn "Chưa có record" cho primary. [Record](literature/author_reading_record.md).
+
+| EV | Item | Type | Tác giả giải thích lại được? | Mức đọc | Artifact |
+|---|---|---|---|---|---|
+| EV-46 | Đợt duyệt 26/10: IA26, DTS25, CEN26, CEH23 (tác giả duyệt và tải PDF); điều kiện "nhãn sẽ đổi nếu" của PC2/PC3/PC5/PC6 đã kiểm, nhãn tạm không đổi | L-2nd | Chưa có record | AI-T (DTS25 AI-F) | [report](../results/lessons/l2_8/approved_batch/report.md) |

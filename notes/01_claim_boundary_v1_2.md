@@ -114,3 +114,14 @@ không đổi contract/metric/thresholds. Mức đọc nguồn: AI-T/AI-A; **L-s
 Không có claim nào ở đây là kết quả lưới (chưa tính contrast/regret ở ô nào). G1 giữ nguyên.
 [DL-042](02_decision_log.md#dl-042--gate-l-phase-2-nhãn-main-rq-và-trạng-thái-gate-2026-10-26) ·
 [related work](literature/related_work_skeleton.md).
+
+### Bổ sung danh sách không được claim là mới — đợt đọc 26/10/2026
+
+| Không được claim là mới | Nguồn |
+|---|---|
+| Định giá thông tin theo khả năng dự đoán quyết định; ngưỡng đóng giữa thông tin mới-cục bộ và đầy đủ-trễ | IA26 §1, §3.4 (môi trường ngoại sinh) |
+| Chọn telemetry NDT theo giá trị quyết định (ở mức đề xuất) | DTS25 |
+| Đánh giá telemetry model bằng replay quyết định | CEN26 §IV |
+| Heuristic certainty equivalence gần tối ưu, cận ∝ √var hoặc var (dưới động học affine, reward trơn) | CEH23 §6.1 |
+
+Nhãn tạm PC1–PC6 và Main RQ không đổi ([chi tiết](literature/prior_boundary.md)). Mức đọc AI-T/AI-F.

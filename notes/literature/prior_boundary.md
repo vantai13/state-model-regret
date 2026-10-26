@@ -344,3 +344,20 @@ nhãn tạm ở trên cũng do AI chấm. Không tính thống kê. Chỉ so PC3
 ### Đính chính L2.9 (26/10/2026)
 
 Đính chính 26/10 (sau khi kiểm bản giải thích WM26 tác giả đã đọc): câu WM26 "the true-future oracles are diagnostic tools…" nằm ở **§8 (Limitations and Conclusion), trang PDF 9**, không phải "§9" như các dòng AI ở trên ghi; nội dung trích dẫn không đổi. [Chi tiết](../../results/lessons/l2_9/wm26_author_reading/check.md). Áp cho hồ sơ Part 1 (dòng PC3), bảng nhãn tạm và dòng PC3 8 cột ở trên.
+
+## Đợt đọc được duyệt (IA26, DTS25, CEN26, CEH23) — kiểm điều kiện "nhãn sẽ đổi nếu", 26/10/2026
+
+Mức đọc AI-T/AI-F, chưa L-self. Bảng forecast và các mục trên giữ nguyên.
+
+| Điều kiện đã ghi ở bảng nhãn tạm | Nguồn kiểm | Kết quả | Nhãn tạm |
+|---|---|---|---|
+| PC5: "2308.13166 cho vị trí ranh giới trong queue → DROP/PIVOT" | CEH23 §2 Assumption 5 tr6, §6.1 Định lý 1–2 tr21–22 | Cho cận tổng quát ∝ √var/var dưới động học **affine trong kỳ vọng** và reward trơn; queue phản xạ vi phạm; không cho vị trí ranh giới theo tọa độ queue | **NARROW giữ** |
+| PC3: "nguồn chờ duyệt cho dấu Γ tổng quát dưới CE → NARROW" | CEH23 §6, §8 | Không có contrast tương tác thông tin × CE; §8 chỉ nhắc re-solving không luôn có lợi (trích R02/R04, đã có K-RM) | **KEEP câu chữ giữ** |
+| PC6: "N1/N2 đã tách backlog/mode → DROP/PIVOT" | IA26 §1 tr3, §2.1, §3.4; DTS25 §2–4 | IA26: scope × freshness trong môi trường ngoại sinh, loại trừ controlled queueing; DTS25: ý tưởng, chưa đo. Không nguồn nào tách backlog/mode ẩn dưới fixed-M0 | **NARROW giữ** |
+| PC2 | IA26 Eq19–23; CEN26 §IV | Định giá thông tin hiện tại theo quyết định đã có (IA26, cùng nhóm K-S9/K-F1); đánh giá model bằng quyết định đã có (CEN26, cùng nhóm K-M1/K-M2); không ai đo GS−GM | **NARROW giữ** |
+| Main RQ | cả 4 | Không nguồn nào trùng cả E, M, R | **KEEP giữ** |
+
+Bổ sung "không được claim là mới": giá trị thông tin theo decision-relevant predictability và
+ngưỡng đóng độ tươi–phạm vi (IA26); chọn telemetry NDT theo giá trị quyết định như một đề xuất
+(DTS25); đánh giá telemetry model bằng replay quyết định (CEN26); heuristic CE gần tối ưu với cận
+∝ √var/var khi động học affine và trơn (CEH23). Ứng viên cơ chế: [H1-Q04](h1_candidates.md).

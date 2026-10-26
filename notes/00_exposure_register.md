@@ -354,3 +354,9 @@ AI soạn theo ủy quyền của Doan Van Tai. Phase 3 cần biết những gì
   Phase 2) và bị D25 cấm làm input; trong Phase 2 chỉ đọc **tọa độ và nhãn thiết kế**.
   **Chưa ai thấy J, margin, contrast hay regret của bất kỳ ô nào (main hay held-out)**:
   held-out vẫn **sạch về outcome**.
+
+## Đợt đọc được duyệt — 26/10/2026
+
+IA26, DTS25, CEN26, CEH23 được đọc thay tác giả (AI-T/AI-F); H1-Q04 (độ phi tuyến của động
+học kỳ vọng ↔ khoảng cách CE) thêm vào hàng đợi H1, chưa khóa. Không có outcome lưới hay
+held-out nào được xem; held-out vẫn sạch về outcome.

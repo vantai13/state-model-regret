@@ -107,6 +107,7 @@ def build(data):
     guide.append(["Mục", "Cách dùng"])
     for row in [
         ("Phạm vi", f"{len(data)} nguồn trong catalog hiện dùng; xem cột Vai trò hiện tại. Không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết."),
+        ("Đợt duyệt 26/10", "Bạn duyệt và tải: IA26, DTS25, CEN26, CEH23 thêm vào đầu bảng (23 nguồn). Mức đọc ở Ghi_chu_doc là mức đọc thay bạn (AI-T/AI-F); cột Mức tôi đã đọc vẫn để bạn tự chọn. R06, 2211.01961, 2605.24318, 2505.04879, 2601.23051 lưu PDF nhưng không thêm hàng."),
         ("L2.8 follow-up", "26/10: P02 nay có VoR do bạn tải; AI-T §1–5 + Bảng 2: bias một đại lượng mỗi lần, quét 1-D theo prediction/update horizon, không joint bias. Phiên tìm bổ sung lưu raw response; 3 đề xuất mới và 6 đề xuất cũ đã sàng abstract, chờ duyệt, chưa thêm hàng. Không L2.9/Gate."),
         ("L2.8 Part2", "NDT26/WM26/AIS22 được duyệt; R04/R02/R01 được chỉ định. Cả6 AI-T, không L-self. WM26 có2×2repair; R04 sufficient diagnostic chưa khóa H1. A1–A3 bounded queries có checkpoint log nhưng thiếu raw từng rank; L2.9/Gate còn mở."),
         ("L2.7 Part B", "P12: VE Definition1/§3.1 AI-T. OεRE trong terms.md, không đổi contract; K5 chưa chọn. R43 chỉ tra bổ sung: abstract lượt này, old AI-T note có provenance. PartA còn P02 full text BLOCKED."),

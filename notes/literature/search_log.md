@@ -400,3 +400,19 @@ Luật dừng 2×20 **không đạt ở vùng nào**: A1/A3 có candidate mới 
 query nhiễu và lượt <20; không saturation, không chứng minh bao phủ.
 Đề xuất tối đa 3: arXiv2609.06351, 10.1145/3769700.3771695, arXiv2608.01725;
 Levin HotSDN 2012 defer. Chờ tác giả duyệt trước PDF/note; không thêm Excel.
+
+## Đợt đọc được duyệt — 26/10/2026 (sau L2.9)
+
+Tác giả duyệt và tự tải PDF ([quyết định](../../results/lessons/l2_8/approved_batch/author_approval.json)).
+Không chạy query mới; đây là `lookup`/đọc nguồn có tên, không tính là khảo sát lĩnh vực.
+
+| Loại | Nguồn | Bản | Đọc | Kết quả / giới hạn |
+|---|---|---|---|---|
+| lookup+read | IA26 | arXiv 2609.06351v1, 44tr | AI-T §1–2.3, §3.4 | Môi trường ngoại sinh, loại trừ controlled queueing; regret so thông tin hiện tại đầy đủ |
+| lookup+read | DTS25 | CoNEXT'25 SW, 2tr | AI-F | Bài ý tưởng, chưa thí nghiệm |
+| lookup+read | CEN26 | arXiv 2608.01725v1, 11tr | AI-T §I, §III-D, §IV-A/D | Replay quyết định, reference hindsight |
+| lookup+read | CEH23 | arXiv 2308.13166v1, 69tr | AI-T §2, §5.1, §6.1–6.3, §8 | Cận CE ∝ √var/var cần động học affine; re-solving không luôn có lợi (trích R02/R04) |
+| lookup | R06, 2211.01961v2, 2605.24318v1, 2505.04879, 2601.23051v1 | PDF tác giả tải | không đọc thêm | Giữ mức hiện có theo quyết định tác giả |
+| lookup | MOR 2025.0898 | — | — | Không có PDF; để sau |
+
+Không thêm nguồn ngoài danh sách đã duyệt; không đạt/không tuyên bố saturation.

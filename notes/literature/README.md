@@ -13,6 +13,11 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## Đợt đọc được duyệt — IA26, DTS25, CEN26, CEH23 (26/10)
+
+[IA26](papers/IA26.md) · [DTS25](papers/DTS25.md) · [CEN26](papers/CEN26.md) · [CEH23](papers/CEH23.md) ·
+[kiểm điều kiện đổi nhãn](prior_boundary.md) · [H1-Q04](h1_candidates.md). Nhãn tạm không đổi.
+
 ## L2.9 Part 2 — nhãn tạm, related work, Gate L (26/10, AI ủy quyền)
 
 [Nhãn tạm + PC3 8 cột + K3](prior_boundary.md) · [related work](related_work_skeleton.md) ·

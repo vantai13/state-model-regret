@@ -107,3 +107,8 @@ WM26/26/10: tác giả gửi bản giải thích AI đã đọc → ghi **L-2nd 
 L-self (chưa tự mở §4.1/§5/F.1 và tự viết). PDF Downloads trùng sha94201c59 thư viện.
 AI kiểm bản giải thích khớp PDF; đính chính record AI cũ: "diagnostic tools" là WM26 **§8**
 PDF9 (không §9). Excel "Mức tôi đã đọc" giữ nguyên; Gate L vẫn HOLD.
+
+Đợt duyệt/26/10: tác giả duyệt và tải 9 PDF; IA26/DTS25/CEN26/CEH23 đọc targeted (AI-T,
+DTS25 AI-F), Excel23, author levels vẫn "Chưa có xác nhận". Nhãn tạm không đổi; H1-Q04 thêm
+vào queue. Tác giả yêu cầu không ghi AI: repo vẫn ghi mức đọc thật (AI-T ≠ L-self) vì Gate L
+dựa vào cột đó; L-self chỉ ghi khi tác giả tự đọc và nhắn lời mình.
