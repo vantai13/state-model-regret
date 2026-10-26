@@ -299,3 +299,19 @@ claims, forecasts và nguồn L2.2/L2.3 đã xuất hiện trong hội thoại. 
 
 Không RNG mới, không dùng held-out grid để chọn forecasts, chưa chạy outcomes
 Phase3. Việc ghi source ở đây không nâng G1 hoặc chứng nhận prediction mù.
+
+## L2.7 Part B —26/10/2026, AI-assisted/exposed
+
+Người phụ trách: **Doan Van Tai**. P12 Definition1/§3.1 được AI đọc targeted
+trong official NeurIPS PDF; R43 official abstract và archived AI-T24/10 note
+đã được mở để kiểm provenance. Không là L-self hoặc prereading prediction.
+OεRE draft, K5/PC5 wording và ba candidate K rules đã lộ qua lesson/hội thoại.
+Không gọi bất kỳ lựa chọn tương lai nào dựa trên chúng là blind forecast mới.
+
+Đã xem lại V1 frozen và chạy625abstract two-state problems để kiểm gap bounds;
+chỉ đọc tọa độ/design labels của38main+12held-out+8controls/probes để kiểm
+membership. Không đọc/tính J,Lstar,margin,regret hoặc contrasts của held-out;
+không đưa p_sw/λA riêng vào features. K5 cũ giữ nguyên, chưa chọn rule mới;
+R03/R04 membership là metadata, không là confirmation.
+[Artifact/source/hash](../results/lessons/l2_7/part_b/source_access.json),
+[queue](lessons/L3.3_equivalence_queue.md). Contract/thresholds/D25/G1 giữ nguyên.

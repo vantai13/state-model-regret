@@ -57,3 +57,11 @@ tác giả và9notes khác giữ nguyên, R51 AI note nâng mức có snapshot. 
 MT1…8 chỉ evidence/queue; K-M5 và MT2/6/7 còn primary P02 dependency. Không gán
 dấu Γ cho P02/P04 hoặc nhận factorial/decision regret là mới. MT5 chờ A05,
 PartB/P12/OεRE/L-self/Gate/A4/L2.8–2.9 còn mở; không tự chọn null hoặc chạy Phase3.
+
+Cập nhật L2.7 PartB,26/10/2026: P12 primary NeurIPS AI-T; R43 lượt này AI-A,
+archived AI-T24/10 có provenance riêng. OεRE đã có trong terms dưới dạng draft,
+không contract-adopted; numeric/CI label helpers chỉ teaching/reporting proposal.
+K5/S0 forecast giữ nguyên; rule κ≥2/q90/q90/h8 chỉ candidate L3.3, chưa chọn;
+held-out chỉ đọc tọa độ/design labels, không outcomes/p_sw/λA. Excel13nguồn,
+chỉ thêm P12, giữ12notes/progress cũ. PartB technical PASS không đóng toàn L2.7:
+P02 PartA vẫn full-text BLOCKED, L-self/Understanding/Gate/A4/A05/L2.8–2.9 còn mở.

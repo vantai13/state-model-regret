@@ -1,0 +1,191 @@
+{
+  "status": "PASS",
+  "check_count": 27,
+  "checks": [
+    "V1 S0 equivalence and S1 non-equivalence",
+    "S1 action mismatch can be regret equivalent",
+    "S1 expected bound does not require pointwise small errors",
+    "S1 cannot replace expected absolute error by absolute mean error",
+    "nonzero Gamma need not cross equivalence boundary",
+    "tie predicted gap zero selects Stay",
+    "true gap zero has zero loss despite different actions",
+    "same action does not require correct predicted costs",
+    "625 two-state problems verify both bounds including ties",
+    "numeric:lesson_pass",
+    "numeric:lesson_straddle",
+    "numeric:closed_boundary",
+    "numeric:zero_reference",
+    "numeric:uncertain_reference",
+    "numeric:budget_exceeded",
+    "numeric:gray_exact",
+    "CI:pass",
+    "CI:straddle",
+    "CI:touch_boundary",
+    "CI:positive_relevance",
+    "mean across K can mask failure",
+    "restricted VE permits different transition kernels",
+    "enlarging test functions can distinguish models",
+    "gamma0 cannot identify transition kernel",
+    "K list and kappa3 have no held-out member",
+    "coordinate kappa>=2 matches main4 and held-out2",
+    "metadata projection excludes private held-out outcome features"
+  ],
+  "V1": {
+    "Cref": "5/4",
+    "GM": "0",
+    "GMgivenS1": "1/4",
+    "GM_relative": "0",
+    "GMgivenS1_relative": "1/5"
+  },
+  "examples": {
+    "small_margin_exercise": {
+      "g": "99/200",
+      "h": "101/200",
+      "GM": "0",
+      "GMgivenS1": "1/200",
+      "Gamma": "1/200",
+      "S0_error": "1/100",
+      "S1_error": "1/100",
+      "Cref": "1999/200",
+      "GM_relative": "0",
+      "GMgivenS1_relative": "1/1999"
+    },
+    "rare_large_error": {
+      "g": "499/500",
+      "h": "1",
+      "GM": "0",
+      "GMgivenS1": "1/1000",
+      "Gamma": "1/1000",
+      "S0_error": "1/500",
+      "S1_error": "1/500",
+      "Cref": "9999/1000",
+      "GM_relative": "0",
+      "GMgivenS1_relative": "1/9999"
+    },
+    "cancelling_gap_errors": {
+      "g": "0",
+      "h": "0",
+      "GM": "0",
+      "GMgivenS1": "1/2",
+      "Gamma": "1/2",
+      "S0_error": "0",
+      "S1_error": "1",
+      "Cref": "39/4",
+      "GM_relative": "0",
+      "GMgivenS1_relative": "2/39"
+    },
+    "Gamma_nonzero_both_equivalent": {
+      "g": "0",
+      "h": "1/1000",
+      "GM": "0",
+      "GMgivenS1": "1/2000",
+      "Gamma": "1/2000",
+      "S0_error": "1/1000",
+      "S1_error": "1/1000",
+      "Cref": "19999/2000",
+      "GM_relative": "0",
+      "GMgivenS1_relative": "1/19999"
+    }
+  },
+  "common_bias": {
+    "true_costs": [
+      10,
+      9
+    ],
+    "model_costs": [
+      12,
+      11
+    ],
+    "true_gap": -1,
+    "model_gap": -1,
+    "regret": 0
+  },
+  "VE_example": {
+    "trueP": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "alternativeP": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "reward": [
+      1,
+      1
+    ],
+    "gamma": "1/2",
+    "restricted_v": [
+      0,
+      0
+    ],
+    "extra_v": [
+      0,
+      1
+    ],
+    "restricted_true": [
+      "1",
+      "1"
+    ],
+    "restricted_alt": [
+      "1",
+      "1"
+    ],
+    "expanded_true": [
+      "1",
+      "3/2"
+    ],
+    "expanded_alt": [
+      "3/2",
+      "1"
+    ]
+  },
+  "K_rule_membership": {
+    "listed_M19_M22": {
+      "main": [
+        "M19",
+        "M20",
+        "M21",
+        "M22"
+      ],
+      "heldout": []
+    },
+    "coordinate_kappa3": {
+      "main": [
+        "M19",
+        "M20",
+        "M21",
+        "M22"
+      ],
+      "heldout": []
+    },
+    "coordinate_kappa_ge2": {
+      "main": [
+        "M19",
+        "M20",
+        "M21",
+        "M22"
+      ],
+      "heldout": [
+        "R03",
+        "R04"
+      ]
+    }
+  },
+  "inputs": {
+    "results/lessons/l2_3/p11_toy.json": "a0b53447694d0bc51939df778141c5dd883d819f2f301ce4a7f39c87aa081dbc",
+    "notes/design/grid_v1_2.json": "7f7552f82926276ad9258a7b917832d29cfa3eba1d82dfdce636881838a21a56"
+  },
+  "source_sha256": "1dbe480b3fb8dfdd1c0108e0e9eb639fa14a86c0a86261be699f48486ffe4920"
+}

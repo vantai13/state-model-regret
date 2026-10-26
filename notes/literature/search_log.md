@@ -255,3 +255,31 @@ và figures P02 còn dependency mở của PartA; không tuyên bố PartA hoàn
 không cấp novelty clearance. [Access/errors/hashes](../../results/lessons/l2_7/part_a/source_access.json),
 [metadata](../../results/lessons/l2_7/part_a/source_metadata.json),
 [report](../../results/lessons/l2_7/part_a/report.md).
+
+## L2.7 Part B —26/10/2026, VE/AVE/OεRE
+
+[Thẻ phạm vi](../../results/lessons/l2_7/part_b/reading_card.md) lưu sau metadata
+lookup ban đầu, trước primary full text; không giả một pre-reading prediction.
+Câu hỏi PC5/PC3: OεRE có cùng estimand/quantifiers với VE/AVE không? P12/R43 là
+hai named sources tác giả yêu cầu; không mở lại reading list/archive.
+
+| Loại | Query/seed, tool, filters | Thực sàng | Giữ unique | Kết quả/hạn chế |
+|---|---|---:|---:|---|
+| lookup | P12 NeurIPS2020 exact URL + arxiv2011.03506 abs/history; web official open/click | 1work/2metadata versions | 1, placeholder trước đây | NeurIPS33; arxivv1 nộp06/11/2020, có comment NeurIPS-2020 (đính chính lesson). Bibtex link Internal Error, không tự xác nhận page range5541–5552 |
+| lookup | P12 official NeurIPS PDF; paper-pilot inspect, pdftotext-layout, render/view PDF3 | 1work | 0mới | Đọc AI-T §2/Eq2,§3/Def1–2,§3.1/Properties1–4 PDF2–3/đầu4; nhìn Definition1/Fig1.12trang đầy đủ downloaded, không full reading/proofs/experiments |
+| lookup | R43 NeurIPS2022 exact URL, web official abstract | 1work | 1, đã có archived note | AI-A lượt này, DOI10.52202/068431-2393 hiển thị trên page; không tải PDF. Đã kiểm archived note AI-T24/10 và hash, không giả primary đọc lại hoặc R43 chỉ từng đọc abstract |
+| lookup | `site.sas.com TOST alpha 0.05 90 confidence interval equivalence`; web search +2official SAS guide URLs | 1doc topic,2SAS links selected | 0paper | Official snippets có100(1−2α)% CI criterion; cả2full-page open timeout. Không coi toàn hits tìm kiếm là nguồn đã đọc |
+| lookup | TOSTER author docs tại official CRAN vignette, web open và same-page anchor | 1doc | 0paper | Đọc selected Introduction/ViewingResults/DescribingResults: NHST vs TOST,α.05,90%CI; không chạy package/test trên data. Dùng làm documentation, không thêm reading list |
+| keyword | `"decision equivalence" OR "regret equivalence" approximate model "information structure" OR "partial observability" model sufficiency for decisions`; web default relevance, không year/domain filter | **12result titles**, không phải12papers | 0 | Nhiều index/aggregation/person/download pages, query dài/Boolean cho dữ liệu nhiễu. Chỉ screen titles, không giữ paper mới, không tuyên bố loại paper bằng full text |
+
+[12titles/URLs thực trả](../../results/lessons/l2_7/part_b/keyword_screen.json),
+[primary versions/access/hash và archived R43 provenance](../../results/lessons/l2_7/part_b/source_access.json).
+P12/R43=2unique named works, chỉ P12 thêm current catalog12→13. Tối đa1PDFmới,
+không citations counts mới, không backwards/forward queries. P02 PartA không
+được truy cập lại và vẫn full-text BLOCKED. Metadata held-out chỉ dùng membership,
+không đánh giá outcomes hoặc dùng calibration/λA riêng làm model inputs.
+
+Dừng: đủ targeted Def1/properties/crosswalk cho PartB; keyword đúng1limited
+query theo lesson, **không đạt2queries×20 và không là A3/A4 audit**. Không chép
+“9titles” từ hướng dẫn, không inference “chưa ai làm”. Một log keyword nhiễu
+không cấp novelty clearance; L2.8/A4/L2.9 còn mở.

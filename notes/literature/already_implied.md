@@ -93,3 +93,16 @@ P02 abstract AI-A xác nhận sensitivity theo errors/horizon/update frequency;
 chưa kiểm §2–4, số liệu hoặc joint biases. K-M5 cụ thể còn pending, không gán
 Γ<0. Không lấy P04/Fig8 làm evidence Γ>0. Factorial là design có thể nằm trong
 sensitivity analysis; đo Γ chưa đủ xác nhận mechanism/novelty. [Bài và giới hạn](model_fidelity_methods.md).
+
+## L2.7 Part B —26/10/2026
+
+P12 §3/Def1/§3.1 AI-T cho model sufficiency theo policy/function tests; R43
+abstract mới và old AI-T provenance cho approximation tolerance/performance
+bounds. Không nhận ý tưởng “model chỉ cần đủ cho decision” hoặc đặt ε vào tên
+là mới. VE không tự là exact action-cost fidelity: đó chỉ là macro-step mapping
+cụ thể. Có pipeline index không đủ chứng minh OεRE khác mọi formulation AVE.
+
+PC5 hiện chỉ S0. Γ khác0 không tự đổi nhãn equivalence; “every cell in K” khác
+mean across K. Proof S1 cần Eabs(gap error), không bắt từng state error nhỏ.
+[OεRE](terms.md) là draft, chưa contract-adopted; [PC5](prior_boundary.md#l27-part-b--oεre-và-pc5-26102026)
+chờ A3/A4/L2.9/author Gate, không outcomes grid. PartA còn P02 full-text BLOCKED.

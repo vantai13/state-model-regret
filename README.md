@@ -23,6 +23,14 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.7 Part B,26/10/2026:** [VE/OεRE và bài tập](notes/literature/model_equivalence.md),
+[terms](notes/literature/terms.md), [P12](notes/literature/papers/P12.md), PC5/K-M6–7 và
+[L3.3/A05 queue](notes/lessons/L3.3_equivalence_queue.md) đã lưu. **27checks PASS**,
+625exact two-state cases; V1 model-gain/Cref0% dưới S0,20% dưới S1.
+Luật κ≥2,A/Bq90,h8 có4main+R03/R04 theo metadata; **chưa chọn K5, chưa test held-out**.
+[Report/commands/output](results/lessons/l2_7/part_b/report.md). PartB hoàn tất kỹ thuật;
+toàn L2.7 còn P02 full text/Understanding/L-self/Gate. Contract/grid/PC không đổi.
+
 **L2.7 Part A,26/10/2026:** [fidelity/oracle/factorial và bài tập](notes/literature/model_fidelity_methods.md),
 [MT1–MT8](notes/phases/PHASE_4_methodology_threats.md), K-M1–5 và Excel12nguồn đã lưu.
 **14checks exact PASS**, thêm256factorial+256oracle cases; RP/WS=3,5/2,5,

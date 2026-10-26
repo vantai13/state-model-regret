@@ -2,13 +2,15 @@
 
 Người phụ trách: **Doan Van Tai** · cập nhật **26/10/2026**.
 
-**[Excel và tiến độ đọc](paper_comparison.xlsx)**: **R51=P03/P07/P02 của L2.7 Part A**
-ở đầu bảng; nguồn L2.6/L2.5/L2.4 giữ phía sau. Có12công trình, không phải yêu cầu
-đọc hết cùng lúc. P03/P07 AI-T, **P02 chỉ abstract; full text BLOCKED**.
+**[Excel và tiến độ đọc](paper_comparison.xlsx)**: **P12 của L2.7 Part B** ở đầu bảng,
+tiếp theo R51=P03/P07/P02 của PartA và nguồn các lesson trước. Có13công trình,
+không phải yêu cầu đọc hết cùng lúc. P12/P03/P07 AI-T; **P02 full text BLOCKED**.
 
 | Khi nào | Nguồn | Dùng để hiểu gì? |
 |---|---|---|
-| Hiện tại: L2.7 Part A | **R51=P03 — DT²2026** | Fidelity khác decision quality; expected regret đã có; AI-T PMLR |
+| Hiện tại: L2.7 Part B | **P12 — Grimm et al.2020** | Value equivalence, khác OεRE theo pipeline; AI-T Definition1/§3.1 |
+| Tra bổ sung Part B | R43 — Approximate Value Equivalence2022 | Lượt này abstract; old AI-T note có provenance, không thêm hàng bắt buộc |
+| Cùng lesson: Part A | **R51=P03 — DT²2026** | Fidelity khác decision quality; expected regret đã có; AI-T PMLR |
 | Cùng part | **P07 — DOTE2023** | Networking TE tối ưu trực tiếp; hindsight oracle biết future demands; AI-T |
 | Cùng part, còn vướng truy cập | **P02 — Poelman2023** | Sensitivity theo errors/horizon/update; AI-A, §2–4/hình chưa kiểm |
 | Lesson trước: L2.6 Part B | **P13 — Mathijsen/Zwart2017** | Transient/horizon; journal36trang; cần phân biệt cost trung bình/cộng dồn |
@@ -20,9 +22,14 @@ Người phụ trách: **Doan Van Tai** · cập nhật **26/10/2026**.
 
 [Bài L2.7 ngắn](../notes/literature/model_fidelity_methods.md) ·
 [Report/commands](../results/lessons/l2_7/part_a/report.md).
+PartB: [bài ngắn](../notes/literature/model_equivalence.md) ·
+[P12](../notes/literature/papers/P12.md) · [R43](../notes/literature/papers/R43.md) ·
+[OεRE](../notes/literature/terms.md) · [report](../results/lessons/l2_7/part_b/report.md).
+Lượt PartB chỉ thêm P12 và giữ12notes/progress hiện có. Chưa chọn K5, chưa
+đóng human Gate; record PartA bên dưới là lịch sử lúc lưu.
 P03 và R51 là **một bài**, không thêm hàng trùng. Mười mức đọc tác giả giữ
 nguyên; R51 AI note nâng từ thứ cấp lên T có snapshot trước/sau. Các notes khác
-giữ nguyên. Part A còn P02 full text, PartB/P12 chưa làm; không tự cấp Gate.
+giữ nguyên. Part A còn P02 full text; PartB/P12 nay có artifact ở trên, không tự cấp Gate.
 
 **P04 khác R04**: R04 là Secomandi2008 đã cất trong archive.
 P04 có PDF journal15trang local; AI đọc targeted, tác giả chưa được tự ghi đã đọc.

@@ -203,3 +203,17 @@ repo tests PASS không chứng nhận hypothesis, authorship hoặc human review
 C7/EV-26 được thu hẹp ở supplement boundary: phản ví dụ state không bác mọi
 model bound. Formal Part A HOLD và missing prereading commit là deviation ghi
 thật, không sửa lịch sử; report tại results/lessons/part_a/report.md.
+
+## L2.7 Part B —26/10/2026, AI evidence bổ sung
+
+Người phụ trách: **Doan Van Tai**. Không đổi EV numbering hoặc cấp L-self.
+
+| Artifact | Evidence thực có | Giới hạn |
+|---|---|---|
+| [P12](literature/papers/P12.md) | AI targeted primary, NeurIPS2020 PDF2–3/đầu4, Eq2/Def1–2/Properties1–4; Definition/Fig1 đã nhìn | Không full proof/experiments; tác giả chưa xác nhận tự đọc |
+| [R43](literature/papers/R43.md) | AI-A official abstract lượt này; archived AI-T24/10 có hash/provenance riêng | Không tái kiểm primary definitions/bounds, không novelty clearance |
+| [OεRE/toy/report](../results/lessons/l2_7/part_b/report.md) | 27checks exact,625synthetic two-state cases; V1; coordinate-only K membership | Không plant outcomes/MC, không K5 confirmed hoặc contract amendment; P02 PartA còn blocked |
+
+Đây là observation/proof examples của repo, không chứng nhận PC5/PC3,
+Understanding/Gate hoặc full-study GO. Source/reading levels/seed N/A được ghi
+riêng trong report và config; không tự nâng evidence thành human-reviewed.

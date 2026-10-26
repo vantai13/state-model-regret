@@ -80,3 +80,15 @@ technical evidence, không đủ quyết định novelty/Gate hoặc đổi nhã
 [Đính chính và bài tập](model_fidelity_methods.md), [K-M1…5](prior_boundary.md#l27-part-a--trục-model-26102026),
 [MT1…8/HOLD](../phases/PHASE_4_methodology_threats.md). Excel thêm2hàng P07/P02,
 P03 dùng chung R51; giữ10author progress. Part A còn primary P02, Part B chưa làm.
+
+## L2.7 Part B —26/10/2026
+
+| Nguồn | Estimand / mechanism / regime | Evidence thực đọc / giới hạn |
+|---|---|---|
+| P12 | Equal Bellman updates trên Π,V/state space; restricted model learning/value-based planning | AI-T NeurIPS2020 PDF2–3/đầu4: Eq2,Def1–2,Properties1–4; [note](papers/P12.md). Không full proof/experiments, không trực tiếp normalized selected-policy regret |
+| R43 | Approximate VE/error tolerances và performance bounds | **Lượt này AI-A** official NeurIPS2022 abstract; archived AI-T24/10 selected definitions/proposition có provenance, chưa primary tái kiểm; [note](papers/R43.md) |
+
+[Terms/OεRE](terms.md), [bài tập](model_equivalence.md),
+[PC5/K-M6–7](prior_boundary.md#l27-part-b--oεre-và-pc5-26102026).
+Chỉ P12 thêm Excel12→13, giữ12notes/progress cũ; R43 tra bổ sung ngoài bảng.
+Không tự gán PC5 đúng, chọn K5 hoặc nhận formal Gate. P02 full text còn mở.

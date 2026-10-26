@@ -164,3 +164,38 @@ posterior/objective/actions. Khác setup không là novelty clearance.
 MT2/6/7 còn P02 full-text dependency, MT5 chờ A05 cụ thể hóa null. Không tự khóa
 null/H1, không đổi thresholds và chưa chạy grid. **L2.7 Part A chưa hoàn tất
 primary P02; Part B/P12/OεRE, L-self/Gate/A4/L2.8–2.9 còn mở.**
+
+## L2.7 Part B — OεRE và PC5,26/10/2026
+
+Bảng forecast đầu file và claims.md giữ nguyên; đây là **cập nhật evidence AI**,
+không sửa prediction đã exposed hoặc nhận PC5 được grid xác nhận.
+
+| ID | Đã có | Còn cần kiểm | Pipeline/miền | Trạng thái nhãn |
+|---|---|---|---|---|
+| PC5/C5 | P12 §3/Def1/§3.1 AI-T: decision-relevant model sufficiency; P03/P07 decision fidelity đã có. R43 official abstract lượt này: tolerance/performance bounds; archive có AI-T24/10, chưa tái kiểm primary definitions | Vị trí/điều kiện OεRE theo coordinates và thông tin; norm/quantifiers/representation của AVE có overlap đến đâu; không chỉ khác tên/domain | **S0**, GM/Cref≤.005 mọi K5=M19–M22; Q5=M01–M04 có ít nhất1ô≥.01. K/Q vẫn exploratory, không đổi hoặc mở rộng ở đây | Giữ NARROW forecast cũ; chưa chấm formal L2.9/novelty/Gate, không kết luận PC5 PASS |
+
+[OεRE trong terms](terms.md#oεre--operational-ε-regret-equivalence-l27-part-b)
+là định nghĩa vận hành nháp, không kết quả hoặc contract amendment. Exact error
+interval/denominator certification là reporting proposal; adopt cần DL/version.
+Một cell không được certified chưa tự bác uniform equivalence; need true value
+hoặc interval hoàn toàn ngoài biên. Không lấy mean across K thay “mọi cell”.
+
+| ID | Đã biết và phạm vi | Source/mức đọc |
+|---|---|---|
+| K-M6 | Restricted policy/function tests có thể giữ Bellman updates dù không khớp toàn dynamics | P12 Def1/PDF3, §3.1/Properties1–4 AI-T. Chỉ macro one-step/reward−J embedding mới cho mức(a) exact action-cost fidelity; không gán VE tổng quát bằng mức(a) |
+| K-M7 | Approximation tolerance cho VE và performance bounds đã có; không nhận “ε-equivalence dẫn tới decision quality” như khái niệm mới | R43 official abstract AI-A lượt này; archived AI-T24/10 tồn tại, provenance ở note/source_access. Không từ abstract xác nhận bound/formula đầy đủ |
+
+**PC3↔PC5:** Γ=GMgivenS1−GM; gains khác nhau có thể dẫn đến equivalence statuses
+khác nhau, nhưng Γ≠0 không đủ chứng minh boundary crossing. V1 có0%/20%, còn
+abstract example mới cho Γ≠0 mà cả hai cùng trong biên. Chưa chạy grid outcomes.
+
+[Queue L3.3/A05](../lessons/L3.3_equivalence_queue.md) so3candidate K rules:
+list/κ3 có4main+0held-out, κ≥2 có4main+R03/R04 theo metadata. **Chưa chọn rule**,
+không dùng held-out outcomes/p_sw/λA riêng làm inputs; R03/R04 chỉη.5. Không suy
+unique boundaryκ2–3 nếu thiếu monotonicity/controlled coordinates. D25/A05 giữ
+quyền freeze/test; không tự chuyển bước theo A06 trong lesson.
+
+Keyword query giới hạn đã sàng12result titles, đa phần index pages, giữ0;
+không phải12papers đọc, không đạt2×20 và không clearance A3/A4. L2.8/A4/L2.9,
+L-self/Understanding/Gate/A05 còn mở. PartB có artifacts kỹ thuật; **toàn L2.7
+vẫn còn primary P02 của PartA BLOCKED**. [Bài PartB](model_equivalence.md).

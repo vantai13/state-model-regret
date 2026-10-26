@@ -13,6 +13,16 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.7 Part B — value equivalence và OεRE
+
+[Bài ngắn/bài tập/đính chính](model_equivalence.md) · [P12](papers/P12.md) ·
+[R43](papers/R43.md) · [OεRE](terms.md) ·
+[L3.3/A05 queue](../lessons/L3.3_equivalence_queue.md) ·
+[report](../../results/lessons/l2_7/part_b/report.md).
+P12 AI-T; R43 official abstract lượt này và archived AI-T24/10 ghi tách riêng.
+27checks PASS/625exact cases; chỉ kiểm membership theo tọa độ held-out.
+PartB technical artifacts có, toàn L2.7 còn P02 full text/author Understanding/Gate.
+
 ## L2.7 Part A — trục model
 
 [Bài ngắn, bài tập và đính chính](model_fidelity_methods.md) ·
