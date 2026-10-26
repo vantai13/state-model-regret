@@ -23,6 +23,12 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.8 Part1,26/10/2026:** [4audit cards](notes/literature/audit_sessions.md) và
+[A4 screening/report](notes/literature/literature_audit_part1.md) đã lưu.
+Google Scholar20+15records; forwardR02 thêm20records,3Tier2proposals chờ duyệt.
+Official abstracts R01/R02/R04 AI-A; archiveAI-T được giữ riêng. A1–A3/primary
+Part2/L2.9 còn mở; chưa đạt stopping rule hoặc novelty clearance. Excel giữ13nguồn.
+
 **L2.7 Part B,26/10/2026:** [VE/OεRE và bài tập](notes/literature/model_equivalence.md),
 [terms](notes/literature/terms.md), [P12](notes/literature/papers/P12.md), PC5/K-M6–7 và
 [L3.3/A05 queue](notes/lessons/L3.3_equivalence_queue.md) đã lưu. **27checks PASS**,

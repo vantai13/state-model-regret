@@ -283,3 +283,28 @@ Dừng: đủ targeted Def1/properties/crosswalk cho PartB; keyword đúng1limit
 query theo lesson, **không đạt2queries×20 và không là A3/A4 audit**. Không chép
 “9titles” từ hướng dẫn, không inference “chưa ai làm”. Một log keyword nhiễu
 không cấp novelty clearance; L2.8/A4/L2.9 còn mở.
+
+## L2.8 Part1 —26/10/2026, A4 bounded audit
+
+[4session cards](audit_sessions.md) gắn PC3/PC4/PC5, trước rerun. Chỉ A4 chạy
+ở Part1; A1–A3 và primary deep reading thuộc bước tiếp theo/Part2.
+
+| Loại | Query/seed/tool/filter | Sàng thực | Giữ / hạn chế |
+|---|---|---:|---|
+| keyword | `certainty equivalence value of information negative value reoptimization`; paper-search sourcegoogle_scholar,max20,no year filter | 20titles+provider excerpts |0proposal;2hit unclear (ranks12/17), không full-text exclusions |
+| keyword | `deterministic linear programming resolving revenue management information`; cùng provider,max20,no year filter |15titles+excerpts |1new Tier2 proposal; provider chỉ trả15, không giả20 |
+| forward | R02 DOI10.1287/opre.50.4.720.2855; scholar-search SemanticScholar,limit20,offset0 |20titles/provider abstract excerpts |3Tier2 proposals,1đã có trong query2. next20,totalunknown.2calls cùng first page để lưu sau output quá lớn, chỉ20records được đếm |
+| lookup | R01/R02/R04 exactDOIs; Crossref + Springer/INFORMS official abstracts |3unique works |AI-A primary abstracts lượt này. R01/R04 archived AI-T24/10 được đọc để kiểm provenance, không fresh full text/L-self |
+| lookup | DOI10.1287/moor.2025.0898 Crossref + publisher; arxiv2308.13166/2211.01961 official abs |3proposed works |Metadata/abstract screen, không PDFs/notes/workbook rows. Online2026 cho DOI chứa2025; arxiv2211versionv2May2024 |
+
+55screen records không là55unique/full reads. [CSV từng rank/quyết định](../../results/lessons/l2_8/part1/screening.csv),
+[provider records](../../results/lessons/l2_8/part1/search_records.json),
+[archived primary-reading provenance](../../results/lessons/l2_8/part1/archive_provenance.json).
+Ba proposals Tier2, lý do/PC/officialIDs ở [bài Part1](literature_audit_part1.md);
+chờ tác giả duyệt trước download/note, không đề xuất thêm ở đợt này.
+
+Dừng theo Part1 scope/budget pass, **không đạt2×20 zero-new-candidate rule**:
+query2chỉ15, còn candidates và forwardcontinuation. Không dùng sample counts
+10/10/25/34 của tài liệu làm dữ liệu thực. Chưa xác nhận boundary/Γsameestimand
+ở sources đã screen; lookupabstract không là four-session audit hoặc novelty
+clearance. Full conditions/mapping của R01/R02/R04 còn mở trước L2.9.

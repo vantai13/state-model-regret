@@ -13,6 +13,14 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.8 Part1 — audit theo claim
+
+[4session cards](audit_sessions.md) · [A4 actual screening/status](literature_audit_part1.md) ·
+[55screen rows](../../results/lessons/l2_8/part1/screening.csv).
+Chỉ A4 rerun; current R01/R02/R04 official abstracts AI-A, archived AI-T riêng.
+A1–A3 và primary Part2 chưa làm; không đạt2×20, chưa clearance PC3/PC5.
+Không thêm PDF hoặc đổi Excel/PC/contract.
+
 ## L2.7 Part B — value equivalence và OεRE
 
 [Bài ngắn/bài tập/đính chính](model_equivalence.md) · [P12](papers/P12.md) ·

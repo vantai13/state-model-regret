@@ -106,3 +106,15 @@ PC5 hiện chỉ S0. Γ khác0 không tự đổi nhãn equivalence; “every ce
 mean across K. Proof S1 cần Eabs(gap error), không bắt từng state error nhỏ.
 [OεRE](terms.md) là draft, chưa contract-adopted; [PC5](prior_boundary.md#l27-part-b--oεre-và-pc5-26102026)
 chờ A3/A4/L2.9/author Gate, không outcomes grid. PartA còn P02 full-text BLOCKED.
+
+## L2.8 Part1 —26/10/2026
+
+Official abstract R02 báo updating allocations có thể làm giảm expected revenue;
+R01 báo non-deterioration cho corresponding simple-recourse allocation policy,
+nhưng không cho mọi bid-price policy; R04 báo sufficient re-solving conditions.
+Current reading AI-A, archived R01/R04 AI-T có provenance riêng. Đây là prior
+để kiểm, không coi re-solving là D20 hoặc stochastic approximation là exactM1.
+
+GS<0 và true-model VOI≥0 thì Γ>0 theo D19/T03 là đại số, không discovery.
+Part1 chưa xác nhận prior đo đúngΓ hoặc không có nó; [A4/report và pending](literature_audit_part1.md).
+A1–A3/primary Part2/L2.9 còn mở; không tự đổi formal PC3/PC4/PC5 judgment.

@@ -92,3 +92,15 @@ P03 dùng chung R51; giữ10author progress. Part A còn primary P02, Part B ch�
 [PC5/K-M6–7](prior_boundary.md#l27-part-b--oεre-và-pc5-26102026).
 Chỉ P12 thêm Excel12→13, giữ12notes/progress cũ; R43 tra bổ sung ngoài bảng.
 Không tự gán PC5 đúng, chọn K5 hoặc nhận formal Gate. P02 full text còn mở.
+
+## L2.8 Part1 — A4,26/10/2026
+
+| Nguồn | E/M/R cần đối chiếu | Reading/provenance và ảnh hưởng |
+|---|---|---|
+| R02 Cooper2002, DOI10.1287/opre.50.4.720.2855 | Expected revenue; cập nhật allocation trong stochastic sequential booking; deterministic optimization policy | **Current AI-A official abstract** có updating may lower expected revenue. Tier1 priority; không tự bằng GS hoặc controlledΓ |
+| R01 Chen/Homem-de-Mello2010, online2009, DOI10.1007/s10479-009-0603-7 | Re-solving simple-recourse approximation và policy class, multi-stage seat allocation | **Current AI-A official abstract**, archived AI-T24/10 inherited; robust corresponding allocation policy không tự là exactM1 hoặc mọi bid-price policy |
+| R04 Secomandi2008, DOI10.1287/msom.1070.0184 | Sufficient conditions for non-deteriorating control-algorithm re-solving; inventory/RM | **Current AI-A official abstract**, archived AI-T24/10 inherited; consistency/accuracy mapping cần primary Part2; không tự chọn null |
+
+[Bài A4/Tier2proposal3nguồn](literature_audit_part1.md), [4cards](audit_sessions.md).
+A1–A3 chưa chạy; không biến35keyword+20forward screens thành fullL2.8 PASS.
+Không thêm paper/reading requirements vào Excel hoặc đổi PC/Gate.

@@ -65,3 +65,9 @@ K5/S0 forecast giữ nguyên; rule κ≥2/q90/q90/h8 chỉ candidate L3.3, chưa
 held-out chỉ đọc tọa độ/design labels, không outcomes/p_sw/λA. Excel13nguồn,
 chỉ thêm P12, giữ12notes/progress cũ. PartB technical PASS không đóng toàn L2.7:
 P02 PartA vẫn full-text BLOCKED, L-self/Understanding/Gate/A4/A05/L2.8–2.9 còn mở.
+
+L2.8 Part1/26/10:4session cards, A4 bounded rerun có20+15GoogleScholar records,
+20forwardR02 (same first page gọi2lần, chỉ đếm20). R01/R02/R04 official
+abstracts AI-A lượt này; R01/R04 archiveAI-T giữ riêng.3Tier2proposals chỉ ởlog,
+chờ duyệt PDF/note; Excel13nguồn/PC/contract giữ nguyên. A1–A3/primaryPart2/
+L2.9 và affected prior-clearance judgment HOLD; chưa đạt2×20 hoặc fullL2.8 PASS.

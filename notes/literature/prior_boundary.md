@@ -199,3 +199,16 @@ Keyword query giới hạn đã sàng12result titles, đa phần index pages, gi
 không phải12papers đọc, không đạt2×20 và không clearance A3/A4. L2.8/A4/L2.9,
 L-self/Understanding/Gate/A05 còn mở. PartB có artifacts kỹ thuật; **toàn L2.7
 vẫn còn primary P02 của PartA BLOCKED**. [Bài PartB](model_equivalence.md).
+
+## L2.8 Part1 — A4 threat register,26/10/2026
+
+[4session cards và execution](literature_audit_part1.md). PC3/PC4 có Tier1 priority
+R02/R01/R04 do tác giả chỉ định; official abstracts hiện xác nhận re-solving
+và approximation là prior phải kiểm. Full policy/timeline/assumptions/mapping
+vẫn chưa verified lượt này; archived AI-T24/10 không là L-self hoặc fresh full
+read. Không biến “stochastic” thành exactM1 hoặc non-deterioration cho mọi policy.
+
+Giữ forecast/table PC đầu file và claims.md byte-unchanged. **Prior-clearance
+judgment cho claim bị ảnh hưởng HOLD** tới primary Part2/A1–A3/L2.9; không tự
+chọn KEEP/DROP/NARROW/PIVOT mới. GS<0⇒Γ>0 chỉ theo true-model VOI assumptions,
+không sufficient mechanism evidence. Không chọn/null-fit hoặc chạy Phase3.
