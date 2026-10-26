@@ -88,3 +88,10 @@ addendum, không gán Γ. Phiên tìm mới lưu raw HTTP+sha256: 157 record, 0T
 2×20 chưa đạt; P07 forward không chạy được. 6 đề xuất cũ+R06 sàng abstract; 3 đề xuất
 mới (2609.06351, 10.1145/3769700.3771695, 2608.01725) chờ duyệt. Excel19 giữ progress;
 audit L2.8Part2 cũ FAIL có chủ đích ở assert P02 row. Không L2.9/Gate/L-self/Phase3.
+
+L2.9 Part1/26/10: prior_boundary có hồ sơ 8 cột PC1–PC6/MainRQ, **cột nhãn để trống
+cho tác giả**; Gate L=HOLD. author_reading_record.md là mẫu L-self chưa điền: AI chỉ chép
+nguyên văn xác nhận của tác giả (cơ chế DL-032), không suy từ "Duyệt"/tải PDF/note AI.
+Nhãn tạm của mentor lưu riêng results/lessons/l2_9/part1/reviewer_view_AI_open_after_grading.md,
+không đưa vào dossier/DL. WM26 đọc lại AI-T: không thấy nhánh chỉ thông tin hiện tại.
+Không DL Gate L, không related work/closeout (Part2), không Phase3.

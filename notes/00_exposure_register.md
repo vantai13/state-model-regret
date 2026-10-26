@@ -330,3 +330,10 @@ AI đọc P02 VoR (Bảng 2 số trung bình delay/xe được chép vào note),
 9 bài đề xuất; các nội dung này nay exposed trước khi tác giả đọc. Không có outcome
 lưới/held-out nào được xem. PHASE_2 v2.0 (bản trong Downloads của tác giả, sha256
 `e09c4989…a6c647`) được AI đọc §5.4, §13–§17 để đối chiếu vai trò nguồn; không thực hiện L2.9.
+
+## L2.9 Part 1 —26/10/2026
+
+Lesson L2.9 Part 1 của mentor (AI) chứa nhãn tạm reviewer cho PC1–PC6/Main RQ trong
+khối thu gọn; nội dung lưu ở `results/lessons/l2_9/part1/reviewer_view_AI_open_after_grading.md`
+để giữ provenance. Hồ sơ trong prior_boundary không chép các nhãn đó. Tác giả có thể
+đã thấy khối này trước khi chấm: ghi lại khi chấm nếu đã mở (K3, PHASE_2 §14).

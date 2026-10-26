@@ -23,6 +23,11 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.9 Part1,26/10/2026:** [hồ sơ 8 cột PC1–PC6/Main RQ](notes/literature/prior_boundary.md)
+với **cột nhãn để trống cho tác giả**, trạng thái Gate L = **HOLD** (L1/L2/L6/L8 thiếu),
+[mẫu ghi L-self](notes/literature/author_reading_record.md) chưa điền, WM26 F.1 đọc lại
+(AI-T: không thấy nhánh chỉ dùng thông tin hiện tại). [Report](results/lessons/l2_9/part1/report.md).
+
 **L2.8 follow-up,26/10/2026:** P02 nay đọc được từ bản VoR bạn tải → AI-T §1–5/Bảng 2:
 bias một đại lượng mỗi lần, quét 1-D theo prediction/update horizon, không joint bias.
 Phiên tìm mới lưu raw HTTP + sha256 từng call: 157 record, không Tier1, 4 T2, chưa đạt

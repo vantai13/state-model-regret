@@ -254,3 +254,47 @@ Bảng forecast PC phía trên giữ nguyên; **không đổi nhãn PC, không c
 PHASE_2 v2.0 §5.4 ghi P02 là nguồn quyết định nhãn PC2; L-self của tác giả còn mở.
 Phiên tìm bổ sung (157 record, không Tier1, 4 T2) ở [search log](search_log.md) (mục "L2.8 follow-up");
 không đạt luật dừng 2×20. Ba đề xuất mới chờ duyệt, không ảnh hưởng nhãn trước khi đọc.
+
+## L2.9 Part 1 — hồ sơ 8 cột, nhãn chờ tác giả chấm (26/10/2026)
+
+Người phụ trách: **Doan Van Tai**. AI lập hồ sơ theo PHASE_2 v2.0 §14 (phần "AI có
+thể hỗ trợ": kiểm nguồn/mức đọc/nhất quán) và lesson L2.9 Part 1. **Cột Nhãn để
+trống**: tác giả chấm; không có nhãn nào ở đây là nhãn tạm hay Gate L. Repo tại
+`86ec878`. Mọi mức đọc dưới đây là **AI**; L-self của tác giả: 0/19 có record.
+Cột "Câu hỏi hậu quả" là câu hỏi để tác giả trả lời, không phải đáp án.
+
+| Claim (nguyên văn claims.md) | Closest prior (vị trí) | Prior đã chứng minh/đo | Khác biệt chính xác (E/M/R) | Câu hỏi hậu quả | Nguồn quyết định nhãn · mức đọc | Nhãn | Ngày/DL |
+|---|---|---|---|---|---|---|---|
+| **PC1** Dưới G1–G5 của T03, GSgivenM1 bằng EVPPI(x\|y), GMgivenS1 bằng trung bình VSS(x) | SOB14 Method Eq1–4; P11 §2.4; B82 (VSS); T03 v2; R01 Prop1 tương tự cấu trúc "chính sách cũ vẫn khả thi" (suy luận AI) | Định nghĩa EVPPI/VSS và dấu ≥0 dưới giả định; claim boundary v1.2 (Part A): EVPPI dưới G1–G4, VSS dưới G2–G5 | E trùng dưới giả định; M/R chỉ là ánh xạ sang plant | Nếu bỏ ánh xạ này, có prediction nào của đề tài đổi không? | §5.4: SOB14, P11 · AI-T. **L3: phép dẫn T03 do AI viết**, tác giả chưa tự dẫn | ⟨tác giả chấm⟩ | — |
+| **PC2** Trong K2=M09–M12, (GS−GM)/Cref≥.01 ở từng ô | P11 §2.4 Eq2.7–2.8; WM26 §5, F.1 Eq10, Table10–12; P02 VoR §3.3/Bảng2/§4 (K-M4, K-M5); P04 (K-S2). Chờ duyệt: N1 2609.06351, N2 10.1145/3769700.3771695 | So giá trị thông tin đầu vào với sửa discrepancy (P11); so ưu tiên repair C vs S theo chất lượng xếp hạng, oracle tương lai thật (WM26); xếp hạng độ nhạy từng đại lượng, update thường bù một phần (P02, bias một đại lượng mỗi lần) | E: GS−GM theo D19, regret so oracle D15 không biết w, chuẩn hoá Cref theo ô; M: D20 lộ state hiện tại (backlog+mode) vs D21 đổi biểu diễn randomness, θ đúng; R: hai path, một quyết định làm đổi tải, ô gần ranh giới | Bỏ "queue làm đổi tải + oracle không biết tương lai" thì PC2 còn prediction nào mà P11/WM26/P02 chưa cho? | §5.4: P11, P02, P04 · AI-T (P02 VoR từ 26/10, không còn cần phép thử kịch bản xấu nhất). Lesson thêm WM26 · AI-T | ⟨tác giả chấm⟩ | — |
+| **PC3** Trong K3={M19,M21}, Γ/Cref>.005 ở từng ô; khả năng giải thích/dự đoán ngoài discovery phải kiểm riêng với null | WM26 F.1 Eq10/Table11–12 (P/C/S/E); R02 §5 Ex1 (K-RM1); R04 §3 Def2–5/Prop1–3 (K-RM3); R01 Prop1, §4 Ex3 (K-RM2); P04 §V-A Fig8 (K-S5, định tính); AIS22 Def7/Thm9; R06 (abstract); P02 (sweep update×bias 1-D) | 2×2 sửa hai nguồn lỗi với oracle tương lai thật, so ưu tiên repair (WM26); thông tin làm hại approximate re-solving (R02) và điều kiện đủ không hại (R04; R01 cho allocation, không mọi bid-price) | E: Γ=L10+L01−L00−L11 theo ô; WM26 báo C−P, S−P, C−S, **không thấy** E−C−S+P trong trang đã đọc; C/S của WM26 nhập tương lai thật (F.1 PDF22), nhánh không-oracle là future work (§9 PDF9). M: lộ hidden state hiện tại × biểu diễn đúng randomness trên cùng posterior. R: một quyết định, queue làm đổi tải | Nếu D20 được thay bằng repair dùng tương lai thật như WM26, GS gồm cả EVPI tương lai: prediction nào về dấu Γ ở K3 sẽ đổi? | §5.4: R04, R06 "có thể PC3" · R04 AI-T, R06 AI-A; lesson thêm WM26, R02 · AI-T (WM26 đọc lại 26/10) | ⟨tác giả chấm⟩ | — |
+| **PC4** Queue-dynamics explanation dự đoán tốt hơn threshold null với cùng thông tin và budget | P04 §III (K-S2); M00 §3.4; P13 Thm1, Prop4 (K-H1, K-H2); H1-Q01…Q03; MT5; NDT26 §VI-D (τ chọn trên all evaluation runs); P02 §3.3.2 (K-M5) | Nhiều biến giải thích đã có: period so với holding time, moment bậc hai của workload ban đầu, SC+Π-accuracy, refresh bù lỗi lặp | Phụ thuộc H1/null/metric/split do A05 khóa (D25), hiện chưa có | Literature có thể quyết được câu này không, hay chỉ A05? | §5.4: P04, P13 · AI-T; không nguồn nào quyết định outcome | ⟨tác giả chấm⟩ | — |
+| **PC5** Trong K5=M19–M22, GM/Cref≤.005 ở mọi ô; trong Q5=M01–M04 có ít nhất một ô GM/Cref≥.01 | P12 Def1/§3.1 (K-M6); R43 (K-M7, AI-A lượt L2.7B); AIS22 Def7/Thm9; P03 Thm3.1. Chờ duyệt: 2308.13166 (cận CE ∝ variance), N3 2608.01725 | Model đủ cho quyết định không cần khớp toàn dynamics, kể cả partial observation; bound cho approximate VE | E: OεRE mức regret theo ô (draft terms.md), GM dưới S0; M: M0 mean rollout từng state vs M1; R: tọa độ κ/q/η của queue. K5/Q5 là nháp exploratory, luật K chưa chọn (L3.3 queue) | Có nói được gì về **vị trí** ranh giới K5/Q5 mà P12/AIS22 không nói? | §5.4: P03, P12 · AI-T; AIS22 AI-T | ⟨tác giả chấm⟩ | — |
+| **PC6** Trong K6={M17,M18}, fixed-M0 D22 split F=L00−Lcb0, V=Lcb0−L10 có V>0 và V>F | S11 §III/Eq10 (K-S9, K-F1); AoII (K-S10); R32 (A); P13 Thm1 (K-H1); P04 (K-S2). Chờ duyệt: N1, N2 | Độ tươi đánh giá theo cost quyết định; tuổi khác sai lệch; vai trò backlog ban đầu với cost cộng dồn | Tách backlog và mode ẩn dưới fixed-M0 (D22) trong plant làm đổi tải; V gồm thấy mode A+B, không phải lợi ích refresh backlog | Repo **chưa có** số nào về F/V: H1-Q01 chỉ là phương sai input không điều kiện, "không phải F của D22" (freshness_decision_value.md). Dự đoán V>F dựa trên gì? | §5.4: S11, P04, P13 · AI-T | ⟨tác giả chấm⟩ | — |
+| **Main RQ** (nguyên văn README) | WM26; K-RM1–3; NDT26; AIS22; P03; P04; S11; P13 | Xem các dòng trên | AI chưa thấy nguồn đã đọc nào trùng **cả** E, M, R | Luật PHASE_2 §15/MASTER PLAN: Main RQ KEEP trừ khi prior trùng cả ba trục | Tất cả AI-T; L-self 0 | ⟨tác giả chấm⟩ | — |
+
+### Trạng thái Gate L tại `86ec878` (PHASE_2 §15)
+
+| ĐK | Trạng thái | Thiếu gì |
+|---|---|---|
+| L1 | ❌ chưa có nhãn | Tác giả chấm bảng trên |
+| L2 | ❌ L-self 0/19; P02 nay AI-T VoR, WM26 đọc lại AI-T | [Mẫu ghi L-self](author_reading_record.md), tác giả tự điền |
+| L3 | ⚠️ code + mutant PASS; phép dẫn T03 do AI viết | Tác giả tự dẫn kín sách |
+| L4 | ✅ OεRE có trong terms.md (draft, chưa adopt contract) | — |
+| L5 | ⚠️ 4 phiên có log; Tier1 AI-T; Part2 thiếu raw từng rank (deviation); follow-up 157 record có raw, 0 Tier1; luật dừng 2×20 chưa đạt; forward P07 chưa chạy được | Ghi deviation ở DL Gate L |
+| L6 | ❌ | Part 2 |
+| L7 | ⚠️ có mục AI; chưa có mục "Ranh giới với prior (Phase 2)" trong claim boundary | Part 2 |
+| L8 | ❌ | Người đọc thật |
+
+Theo PHASE_2 §17: còn thiếu điều kiện validity ⇒ **HOLD**; đủ L1–L7 thiếu L8 ⇒ tối đa GO có điều kiện.
+
+### Tổng hợp "không được claim là mới" (gom từ các mục đã có, AI)
+
+EVPPI/VSS/VOI≥0 và Γ bookkeeping (Part A, T03); stale state làm hại routing và
+herding (K-S1…S3, P04/M00); độ tươi theo decision cost, tuổi khác sai lệch
+(K-S9…S11, K-F1); initial backlog/horizon ảnh hưởng cost cộng dồn (K-H1…H4);
+fidelity khác chất lượng quyết định, decision-focused model (K-M1…M3, P03, P07,
+NDT26); sensitivity theo bias/horizon/update (K-M4, K-M5, P02); model đủ cho quyết
+định và approximate VE (K-M6, K-M7, AIS22); thông tin làm hại approximate re-solving
+và điều kiện đủ không hại (K-RM1…RM3); bảng 2×2 sửa hai nguồn lỗi và so ưu tiên
+repair (WM26). Danh sách là chỉ mục, không phải nhãn; chi tiết và giới hạn ở các mục gốc.

@@ -13,6 +13,13 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.9 Part 1 — hồ sơ boundary, nhãn chờ tác giả (26/10)
+
+[Hồ sơ 8 cột + Gate L](prior_boundary.md) (mục cuối) · [mẫu L-self](author_reading_record.md) ·
+[kiểm lesson](../../results/lessons/l2_9/part1/lesson_check.md) ·
+[report](../../results/lessons/l2_9/part1/report.md). Không có nhãn PC nào được AI chấm;
+góc nhìn reviewer của mentor lưu riêng, mở sau khi tự chấm.
+
 ## L2.8 follow-up — P02 primary và phiên tìm có raw (26/10)
 
 [Note P02 AI-T](papers/P02.md) · [search log](search_log.md) ·

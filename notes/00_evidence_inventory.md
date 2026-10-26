@@ -232,3 +232,9 @@ A05/Gate còn mở; implementation verification không xác nhận hypothesis/no
 Git) AI-T §1–5 + Bảng 2; phiên tìm 157 record với raw HTTP body + sha256 từng call
 (kiểm lại được theo rank), không Tier1. Sàng abstract 6 đề xuất cũ + R06, 3 đề xuất mới
 chờ duyệt. Không L-self, không L2.9/Gate, không grid/held-out.
+
+## L2.9 Part 1 —26/10/2026
+
+[Report](../results/lessons/l2_9/part1/report.md): hồ sơ boundary 8 cột (AI lập, nhãn
+trống), WM26 §4–5/§9/F.1 đọc lại AI-T, kiểm lesson L2.9 so repo. Chưa có dòng
+author-attested L-self nào cho Phase 2; [mẫu ghi](literature/author_reading_record.md) chờ tác giả.
