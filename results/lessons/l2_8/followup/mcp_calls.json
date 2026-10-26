@@ -1,0 +1,15 @@
+{
+  "note": "MCP tool calls are not captured byte-exact by the capture script; this file records call, time and outcome as transcribed by the AI immediately after the call.",
+  "calls": [
+    {
+      "call_id": "FU_A3_anchor_P07_mcp",
+      "utc_approx": "2026-10-26T11:58Z",
+      "tool": "mcp scholar-search search_papers",
+      "query": "DOTE: Rethinking (Predictive) WAN Traffic Engineering",
+      "limit": 3,
+      "outcome": "3 records returned from source 'arxiv' (server fell back from Semantic Scholar): arXiv 2412.17248 (Taming Imbalance and Complexity in WAN TE), arXiv 2210.13763 (Teal), arXiv 2503.20314 (Wan video models). DOTE itself not returned.",
+      "screening": "lookup only; not counted as screening events",
+      "consequence": "P07 forward not executed: OpenAlex title lookup 0 records (FU_A3_anchor_P07), S2 search 429x3 (FU_A3_anchor_P07_s2), MCP fallback without DOTE. P03 alternative anchor has cited_by_count 0 in OpenAlex probe (W7165868403)."
+    }
+  ]
+}

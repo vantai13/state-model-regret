@@ -23,6 +23,12 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.8 follow-up,26/10/2026:** P02 nay đọc được từ bản VoR bạn tải → AI-T §1–5/Bảng 2:
+bias một đại lượng mỗi lần, quét 1-D theo prediction/update horizon, không joint bias.
+Phiên tìm mới lưu raw HTTP + sha256 từng call: 157 record, không Tier1, 4 T2, chưa đạt
+luật dừng. Sàng abstract 6 đề xuất cũ + R06; 3 đề xuất mới chờ duyệt. Không L2.9/Gate.
+[Report/commands](results/lessons/l2_8/followup/report.md) · [note P02](notes/literature/papers/P02.md).
+
 **L2.8 Part2,26/10/2026:** [Primary reading/crosswalk](notes/literature/literature_audit_part2.md),
 [report/commands](results/lessons/l2_8/part2/report.md). R01/R02/R04 và3nguồn mới
 NDT26/WM26/AIS22 được duyệt đã AI-T. WM26 có2×2repair; R04 cho sufficient

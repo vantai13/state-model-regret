@@ -241,3 +241,16 @@ cũ giữ nguyên, chưa có K5 outcome. Nguyên nhân hiện tại là cần ch
 prior boundary/null evidence, không phải R02/R04 full-text blocked. A1–A3 có
 bounded sessions nhưng thiếu per-rank raw log, không saturation/coverage proof.
 G1/HOLD Phase4 giữ nguyên. Không tiếp Phase3 ở lượt này.
+
+## L2.8 follow-up — P02 primary và phiên tìm bổ sung, 26/10/2026
+
+Bảng forecast PC phía trên giữ nguyên; **không đổi nhãn PC, không chấm L2.9**.
+
+| ID | Cập nhật evidence | Vị trí / giới hạn |
+|---|---|---|
+| K-M4 | Bias definitions/ranges và thiết kế đã kiểm: bias một đại lượng mỗi lần trên thế giới đã aggregation; quét 1-D theo prediction và update horizon; không joint bias | P02 VoR §2.2.4 tr10, §3.3.1 tr15, Bảng 2 tr16, §4 tr18; AI-T |
+| K-M5 | Từ candidate → **prior đã báo trong paper**: reinitialization thường xuyên bù một phần loss; state bias lớn (±50%) làm mất bù hoặc thêm loss | P02 §3.3.2 tr16, §4 tr18, §5 tr19; mô phỏng 10 seed, corridor 4 nút; metric delay/xe, không D19Γ |
+
+PHASE_2 v2.0 §5.4 ghi P02 là nguồn quyết định nhãn PC2; L-self của tác giả còn mở.
+Phiên tìm bổ sung (157 record, không Tier1, 4 T2) ở [search log](search_log.md) (mục "L2.8 follow-up");
+không đạt luật dừng 2×20. Ba đề xuất mới chờ duyệt, không ảnh hưởng nhãn trước khi đọc.

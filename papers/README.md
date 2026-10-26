@@ -2,6 +2,11 @@
 
 Người phụ trách: **Doan Van Tai** · cập nhật **26/10/2026**.
 
+**Follow-up 26/10:** P02 có PDF VoR bạn tải (`PDF_local/P02_Poelman2023_TRC_VoR.pdf`),
+AI-T, chưa L-self; Excel vẫn 19 nguồn, chỉ dòng AI của P02 đổi (snapshot trong
+`results/lessons/l2_8/followup/snapshots/`). 3 đề xuất mới + 6 đề xuất cũ đã sàng
+abstract, **chưa thêm hàng**: [bảng sàng](../results/lessons/l2_8/followup/proposals_screen.md).
+
 **[Excel và tiến độ đọc](paper_comparison.xlsx)**: **19công trình**, gồm6nguồn
 L2.8 Part2 ở đầu và13record cũ giữ nguyên tiến độ/ghi chú. Không phải yêu cầu đọc
 hết cùng lúc. Ba nguồn mới đã được bạn duyệt; tất cả6 AI-T, chưa L-self.
@@ -26,7 +31,7 @@ mức AI ở Ghi_chu_doc. Bảng lesson cũ dưới đây để tra khi cần.
 | Tra bổ sung Part B | R43 — Approximate Value Equivalence2022 | Lượt này abstract; old AI-T note có provenance, không thêm hàng bắt buộc |
 | Cùng lesson: Part A | **R51=P03 — DT²2026** | Fidelity khác decision quality; expected regret đã có; AI-T PMLR |
 | Cùng part | **P07 — DOTE2023** | Networking TE tối ưu trực tiếp; hindsight oracle biết future demands; AI-T |
-| Cùng part, còn vướng truy cập | **P02 — Poelman2023** | Sensitivity theo errors/horizon/update; AI-A, §2–4/hình chưa kiểm |
+| Cùng part (VoR có từ 26/10) | **P02 — Poelman2023** | Sensitivity theo errors/horizon/update; AI-T VoR §1–5/Bảng 2 (trước đó AI-A/BLOCKED) |
 | Lesson trước: L2.6 Part B | **P13 — Mathijsen/Zwart2017** | Transient/horizon; journal36trang; cần phân biệt cost trung bình/cộng dồn |
 | Cùng lesson: Part A | **S11 — Li et al.2026** | Goal-oriented sampling/remote decisions; đọc arxivv3, journal TIT2026 đã kiểm |
 | Lesson trước: L2.5 Part2 | **M00 — Mitzenmacher2000** | Herding do nhiều decision dùng tin cũ; bản đọc submission28trang |

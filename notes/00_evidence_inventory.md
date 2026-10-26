@@ -225,3 +225,10 @@ R02Example1 analytic18aggregatecases và V1diagnostic; PDFs ngoài Git có hashe
 A1–A3/A4repeat call-level ledger169screen events; thiếu per-rank raw là limitation,
 không saturation/full search reproducibility. Formal L-self/Understanding/L2.9/
 A05/Gate còn mở; implementation verification không xác nhận hypothesis/novelty.
+
+## L2.8 follow-up —26/10/2026
+
+[Report](../results/lessons/l2_8/followup/report.md): P02 VoR (tác giả tải, hash ngoài
+Git) AI-T §1–5 + Bảng 2; phiên tìm 157 record với raw HTTP body + sha256 từng call
+(kiểm lại được theo rank), không Tier1. Sàng abstract 6 đề xuất cũ + R06, 3 đề xuất mới
+chờ duyệt. Không L-self, không L2.9/Gate, không grid/held-out.

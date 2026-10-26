@@ -19,3 +19,18 @@ P03/P07 AI-T; P02 mới AI-A, các vị trí §2–4 từ lesson còn chờ ki�
 MT2/MT6/MT7 còn P02 dependency; K-M5 cũng chưa đủ primary evidence. Mỗi mục cần
 L-self/author review trước formal prereg. Không thay protocol/grid/threshold
 hoặc coi các dòng này là Gate PASS. [Bài L2.7](../literature/model_fidelity_methods.md).
+
+## Cập nhật P02 — L2.8 follow-up, 26/10/2026
+
+P02 nay **AI-T** trên VoR do tác giả tải ([note](../literature/papers/P02.md)); các
+dòng trên giữ làm lịch sử. Vẫn HOLD/AI-assisted, chưa L-self, không prereg.
+
+| ID | Evidence mới (vị trí VoR) | Hệ quả cho hàng đợi |
+|---|---|---|
+| MT1 | §3.3 tr15–17, Bảng 2 tr16: sweep bias × horizon/update theo delay/xe | Prior đã có bảng sensitivity theo điều kiện; giữ yêu cầu câu hỏi/estimand/điều kiện bác bỏ |
+| MT2 | §2.1 tr4, §2.2.4 tr10: reference biết demand cá nhân ghi sẵn, state đúng; §2.2.3 tr9–10: solver heuristic <1% so full B&B | Xác nhận comparator = "almost perfect" MPC, không phải oracle D15 hay hindsight optimum toàn episode; không so số |
+| MT6 | §3.3.2 tr16, §4 tr18: update ngắn bù một phần; state bias lớn làm mất bù | Đây là feedback lặp; vẫn không chuyển sang one-shot D20 |
+| MT7 | §3.3.1 tr15, §4 tr18: bias **một đại lượng mỗi lần**, không joint bias; nhưng mỗi bias quét 1-D với prediction và update horizon | Không viết "P02 không có tổ hợp nào"; viết chính xác: OAT theo đại lượng, crossed 1-D với horizon/update, không ô 00/10/01/11 của D19 |
+
+P02 dependency của MT2/MT6/MT7 đã có primary AI-T; còn tác giả L-self/review.
+[Follow-up report](../../results/lessons/l2_8/followup/report.md).

@@ -81,3 +81,10 @@ progress cũ. A1 44/A2 45/A3 60/A4repeat20screen events; raw rank payload trư�
 resume không lưu được, chỉcheckpoint ledger, không full search reproducibility.
 A3q1Scholar vẫntimeout/S11S2citations429 cảretry; fallbacks ghi riêng, không
 saturation. PC3formalL2.9/PC4A05/H1/null/L-self/Gate vẫn HOLD, không Phase3.
+
+L2.8 follow-up/26/10: P02 có VoR tác giả tải (CC BY, ngoài Git) → AI-T §1–5/Bảng2;
+bias OAT theo đại lượng, sweep1-D horizon/update, không joint bias; MT2/6/7,K-M4/5 có
+addendum, không gán Γ. Phiên tìm mới lưu raw HTTP+sha256: 157 record, 0Tier1/4T2,
+2×20 chưa đạt; P07 forward không chạy được. 6 đề xuất cũ+R06 sàng abstract; 3 đề xuất
+mới (2609.06351, 10.1145/3769700.3771695, 2608.01725) chờ duyệt. Excel19 giữ progress;
+audit L2.8Part2 cũ FAIL có chủ đích ở assert P02 row. Không L2.9/Gate/L-self/Phase3.

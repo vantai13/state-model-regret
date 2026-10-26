@@ -365,3 +365,38 @@ NDT/networking ưu tiên; ngoài ngành chỉ3namedRM và2approvedmethod sources
 PC cụ thể, không mở rộng thêm references vì cùng từ khóa. Three old Part1proposals
 vẫn chưa duyệt, không tải. [Sourceaccess/hashes](../../results/lessons/l2_8/part2/source_access.json),
 [primary crosswalk/region conclusions](literature_audit_part2.md). Không đổi nhãn PC/Gate.
+
+## L2.8 follow-up — 26/10/2026 (11:24–12:12Z), phiên mới có raw response
+
+Doan Van Tai phụ trách; AI chạy theo yêu cầu tác giả. **Không** chạy lại, sửa hay
+tái dựng 169 events Part2 ở trên. Thẻ phiên viết trước call:
+[session_card](../../results/lessons/l2_8/followup/session_card.md). Mỗi call lưu body
+HTTP nguyên vẹn + sha256 + giờ UTC ngay sau khi gọi
+([script](../../experiments/lessons/l2_8_followup_search.py),
+[calls.jsonl](../../results/lessons/l2_8/followup/calls.jsonl)); quyết định từng rank ở
+[screen/*.csv](../../results/lessons/l2_8/followup/screen/). ~15 request probe chỉ để
+xem số đếm/ID neo, không sàng, không tính.
+
+| Loại / call | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique mới | Lý do / hạn chế |
+|---|---|---|---:|---:|---|
+| keyword / FU_A1_v1 | `"stale" state "model mismatch" routing` | OpenAlex `search=` (gồm full text), relevance | 20 (tổng 77) | 0 | Nhiễu: 2/20 thuộc mạng; không là negative search có thông tin |
+| keyword / FU_A1_v2 | `network digital twin what-if accuracy routing decision` | S2 `/paper/search` | 0 | 0 | 429 ×3, không phải zero hits |
+| keyword / FU_A1_v2_oa | `network digital twin what-if decision` | OpenAlex title+abstract, relevance | 20 (269) | 1 T2 | NMF CoNEXT'25 SW; 1 known = snowball 2505.04879 |
+| forward / FU_A1_fwd | P04 `W2111010037` | OpenAlex `cites:`, publication_date desc | 20 (166) | 1 T2 | Levin HotSDN 2012; record citing mới nhất trong OpenAlex là 2022 |
+| keyword / FU_A2_v1 | `age of information model mismatch decision` | S2 search | 0 | 0 | 429 ×2 |
+| keyword / FU_A2_v1_oa | `age of information model mismatch` | OpenAlex title+abstract | 20 (1020) | 0 | **Nhiễu 20/20** (tách "age of information"), lặp lỗi A2_q1 Part2 |
+| keyword / FU_A2_v1b_oa | `"age of information" model mismatch` | OpenAlex title+abstract | 7 (7) | 0 | <20, chưa đạt luật 20 |
+| keyword / FU_A2_v2 | `"age of information" "certainty equivalence"` | OpenAlex `search=` | 20 (24) | 0 | 1 known (2403.11926 ~ R32); CE trong NCS phần lớn nghĩa #2 |
+| forward / FU_A2_fwd | S11 `ARXIV:2504.19507` | S2 citations | 1 | 0 | Thành công lần này; record duy nhất = bản journal của chính S11 |
+| forward / FU_A2_fwd_journal | S11 `DOI:10.1109/TIT.2026.3663678` | S2 citations | 9 (9) | 1 T2 | attempt1 429, attempt2 OK; arXiv2609.06351 |
+| keyword / FU_A3_v1 | `"decision-focused" network "traffic engineering"` | OpenAlex `search=` | 20 (22) | 1 T2 | CENTILE 2608.01725 |
+| keyword / FU_A3_v2 | `"decision-aware" "digital twin"` | OpenAlex `search=` | 20 (71) | 0 | 20/20 ngoài mạng |
+| forward / A3 (P07) | DOTE | OpenAlex title, S2 search, MCP scholar-search | 0 | 0 | **Không chạy được**: OpenAlex 0, S2 429 ×3, MCP trả 3 bài khác ([mcp_calls](../../results/lessons/l2_8/followup/mcp_calls.json)) |
+| lookup | R06 + 6 đề xuất chờ duyệt + 3 đề xuất mới | arXiv API, Crossref DOI/title | 11 records | — | Không tải PDF; [bảng sàng](../../results/lessons/l2_8/followup/proposals_screen.md) |
+
+**Tổng 157 record sàng** (A1 60, A2 57, A3 40): 4 candidate_T2 mới, 3 known, 1 trùng
+trong phiên, 55 T3 context, 5 unclear (thiếu abstract), 89 exclude. **Không Tier1.**
+Luật dừng 2×20 **không đạt ở vùng nào**: A1/A3 có candidate mới ở v2/v1, A2 có
+query nhiễu và lượt <20; không saturation, không chứng minh bao phủ.
+Đề xuất tối đa 3: arXiv2609.06351, 10.1145/3769700.3771695, arXiv2608.01725;
+Levin HotSDN 2012 defer. Chờ tác giả duyệt trước PDF/note; không thêm Excel.

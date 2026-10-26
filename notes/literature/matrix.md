@@ -75,7 +75,7 @@ technical evidence, không đủ quyết định novelty/Gate hoặc đổi nhã
 |---|---|---|
 | P03=R51 | Expected policy-value regret trong finite candidate set; learned twin/ranking loss; offline MDP | AI-T PMLR27trang: §2–3/6.1–6.2/7.1, A.1–2/B.3–4.3 chọn lọc; [note](papers/P03.md). MC500rollouts/policy, không hindsight; không D21 intervention |
 | P07 DOTE | Expected MLU/direct TE learning; repeated split ratios; evaluation ratio so future-demand oracle | AI-T USENIX §2.2–3.3/4.1–4.2; [note](papers/P07.md). Theory idealized, không guarantee DNN thực; không so số với D18 |
-| P02 | Sensitivity theo prediction errors/horizon/update frequency trong signal MPC | **AI-A official abstract**, full text BLOCKED; [note](papers/P02.md). Chưa xác nhận joint biases, recorded-future comparator hoặc dấu Γ |
+| P02 | Sensitivity theo prediction errors/horizon/update frequency trong signal MPC | Lúc lưu L2.7A: **AI-A**, full text BLOCKED. **Cập nhật 26/10 follow-up: AI-T VoR** §1–5/Bảng 2: bias một đại lượng mỗi lần, quét 1-D theo horizon/update, không joint bias; reference biết demand ghi sẵn (§2.2.4). Không gán dấu Γ; [note](papers/P02.md) |
 
 [Đính chính và bài tập](model_fidelity_methods.md), [K-M1…5](prior_boundary.md#l27-part-a--trục-model-26102026),
 [MT1…8/HOLD](../phases/PHASE_4_methodology_threats.md). Excel thêm2hàng P07/P02,

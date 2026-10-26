@@ -34,3 +34,11 @@ Không gán toàncandidate counts khi raw rank-level không được giữ sau r
 A2forwardS2 vẫn429, A3q1Scholar vẫntimeout; provider fallbacks đã ghi riêng.
 Không đạt2×20 zero-new rule; dừng bounded scope/budget, không saturation.
 [Four conclusions, primary reading, HOLD](literature_audit_part2.md).
+
+## Follow-up — 26/10/2026 (phiên mới, có raw)
+
+[Thẻ phiên](../../results/lessons/l2_8/followup/session_card.md) dùng biến thể query
+networking của PHASE_2 v2.0 §13 K2. 157 record sàng (A1 60, A2 57, A3 40), raw body
++ sha256 lưu ngay sau call; không Tier1, 4 T2; forward P07 không chạy được
+(OpenAlex thiếu record, S2 429). Luật dừng 2×20 **vẫn chưa đạt** ở vùng nào.
+[Search log](search_log.md), [report](../../results/lessons/l2_8/followup/report.md).

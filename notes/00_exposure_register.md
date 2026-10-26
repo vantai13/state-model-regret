@@ -323,3 +323,10 @@ A1–A3 lưu reading_card trước queries, không blind forecast tác giả. R0
 đọc sau CiteSeerXretry; NDT26/WM26/AIS22 được tác giả duyệt trước PDF/note.
 WM26 có2×2repair là exposure phải giữ khi viết A05/L2.9. Diagnostic R04 dùng true
 costs; chưa chọn H1/null/threshold, không chạy grid/held-out. [Report](../results/lessons/l2_8/part2/report.md).
+
+## L2.8 follow-up —26/10/2026
+
+AI đọc P02 VoR (Bảng 2 số trung bình delay/xe được chép vào note), abstract R06 và
+9 bài đề xuất; các nội dung này nay exposed trước khi tác giả đọc. Không có outcome
+lưới/held-out nào được xem. PHASE_2 v2.0 (bản trong Downloads của tác giả, sha256
+`e09c4989…a6c647`) được AI đọc §5.4, §13–§17 để đối chiếu vai trò nguồn; không thực hiện L2.9.

@@ -141,3 +141,10 @@ chưa tự thành contribution**; cần L2.9/A05 và kiểm evidence tiếp theo
 Technical reading/math artifacts đã có; **toàn L2.8 chưa PASS khoa học/formal**:
 per-rank log có giới hạn, author Understanding/L-self/review và L2.9 còn mở.
 G1/HOLD Phase4, contract, forecast, K5/null/H1 giữ nguyên.
+
+## Follow-up 26/10/2026
+
+P02 (dependency L2.7A) nay AI-T trên VoR; một phiên tìm mới có raw response bổ sung
+A1–A3 (157 record, không Tier1). Kết luận vùng ở §5 giữ nguyên phạm vi; phiên mới
+không đổi judgment PC3/PC4/PC5 và chưa đạt luật dừng.
+[Report follow-up](../../results/lessons/l2_8/followup/report.md).

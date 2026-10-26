@@ -13,6 +13,14 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.8 follow-up — P02 primary và phiên tìm có raw (26/10)
+
+[Note P02 AI-T](papers/P02.md) · [search log](search_log.md) ·
+[sàng đề xuất](../../results/lessons/l2_8/followup/proposals_screen.md) ·
+[report](../../results/lessons/l2_8/followup/report.md).
+P02 không còn BLOCKED; MT2/6/7, K-M4/K-M5 có addendum. 157 record mới, không Tier1;
+3 đề xuất chờ duyệt. Không chấm nhãn PC/L2.9, không L-self.
+
 ## L2.8 Part2 — primary và các prior gần đề tài
 
 [Đọc ngắn/crosswalk/bốn kết luận vùng](literature_audit_part2.md) ·

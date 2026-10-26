@@ -135,3 +135,6 @@ Không nhận generic2×2, “fidelity khác decision quality”, information-ha
 là cùng D20/D21 intervention, D15 non-clairvoyant oracle và D19Γ theo queue
 coordinates; **chưa xác nhận không đồng nghĩa novelty**.
 [Mapping/các giới hạn](literature_audit_part2.md); PC3/PC4 judgment vẫn HOLD L2.9/A05.
+
+Bổ sung 26/10 (L2.8 follow-up): P02 đã AI-T trên VoR; "PartA còn P02 full-text
+BLOCKED" ở trên là trạng thái lúc ghi. Không đổi ánh xạ contrast. [Note P02](papers/P02.md).

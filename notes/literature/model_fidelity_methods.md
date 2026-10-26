@@ -108,3 +108,8 @@ sensitivity analysis; tự có factorial không chứng minh contribution/mechan
 [K-M1…5](prior_boundary.md#l27-part-a--trục-model-26102026) ·
 [MT1…8 cho Phase4, HOLD](../phases/PHASE_4_methodology_threats.md) ·
 [Report và phép tính](../../results/lessons/l2_7/part_a/report.md).
+
+**Bổ sung 26/10 (L2.8 follow-up):** P02 full text nay đọc được qua VoR tác giả tải;
+AI-T §1–§5 và Bảng 2. Thiết kế: bias một đại lượng mỗi lần, quét 1-D theo
+prediction/update horizon, không joint bias; reference biết demand ghi sẵn.
+Các dòng P02 ở trên là record lúc BLOCKED. [Note P02](papers/P02.md).
