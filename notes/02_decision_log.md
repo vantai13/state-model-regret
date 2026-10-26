@@ -439,3 +439,28 @@ Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FA
   [closeout](phases/PHASE_2_closeout.md), [report](../results/lessons/l2_9/part2/report.md).
 
 - **Đính chính DL-042 (26/10/2026):** "§9 PDF9" ở mục Main RQ phải đọc là **§8 PDF9** (WM26 Limitations and Conclusion); quyết định không đổi. [Chi tiết](../results/lessons/l2_9/wm26_author_reading/check.md).
+
+### DL-043 — Gate L: GO có điều kiện (2026-10-26)
+
+- **Người phụ trách / quyết định:** Doan Van Tai, yêu cầu "mở tất cả cái chặn… tiếp theo tôi sẽ
+  sang phase 3". Tác giả xác nhận trực tiếp (author-attested, cơ chế DL-032) đã tự đọc ngoài vở
+  WM26 §4.1/§5/F.1, R02 §5, R04 §3, P11 §2.4, P02 §2.2.4/§3.3/Bảng 2, S11 §III Eq10, P12 Def1/§3.1,
+  đã **tự dẫn T03**, và **xác nhận nhãn tạm**; chưa có người đọc thật. Lời giải nằm trong vở,
+  không có artifact trong repo, không kiểm độc lập. [Xác nhận nguyên văn](../results/lessons/l2_9/gate_l/author_attestation.json).
+- **Main RQ: KEEP.** Nhãn chính thức: PC1 DROP (framing), PC2 NARROW, PC3 KEEP câu chữ/framing
+  NARROW, PC4 HOLD (A05), PC5 NARROW, PC6 NARROW ([prior_boundary](literature/prior_boundary.md)).
+- **Gate L: GO có điều kiện.** L1 ✅ (author-attested) · L2 ✅ bộ tối thiểu author-attested; SOB14/
+  P04/P13/P03/R06 giữ AI-T với lập luận bền nhãn · L3 ✅ (author-attested) · L4 ✅ · L5 ⚠️ deviation
+  (Part2 thiếu raw từng rank; follow-up có raw; luật dừng chưa đạt; forward P07 chưa chạy) ·
+  L6 ✅ (DL này) · L7 ✅ · **L8 ❌** → theo PHASE_2 §15/§17 tối đa GO có điều kiện. Thay HOLD của DL-042.
+- **Điều kiện kèm theo:** (1) một người thật đọc prior boundary + related work (L8, [gói](meetings/phase2_reader_packet.md));
+  (2) tác giả tự viết hai mục đầu của [PHASE_2_closeout](phases/PHASE_2_closeout.md) và có thể chép
+  lời giải ngoài vở vào [author_reading_record](literature/author_reading_record.md);
+  (3) bản journal R01 (Springer) và R34 (IEEE TAC 1995) khi lấy được — không chặn.
+- **Hệ quả cho Phase 3:** mở. L3.3 prediction card được commit (chỉ chứa phần claim còn đứng,
+  theo danh sách "không được claim là mới"); **A01 chỉ sau khi L3.3 đã commit** (M01/M09/M22 nằm
+  trong vùng K2/K5/Q5); A05 khóa H1/null/metric/split trước held-out (D25); pattern mới từ A04 theo
+  luật post-discovery. Điều kiện Phase 1 còn nguyên: gửi heads-up/memo GVHD **trước A04** (V9);
+  **HOLD Phase 4** tới khi có người đọc độc lập (P0-V10).
+- **Không thay đổi:** contract v1.2, lưới, thresholds, D25, held-out, G1, bảng forecast PC.
+- **Tag:** `phase-2-closeout` gắn trên commit ghi DL này.

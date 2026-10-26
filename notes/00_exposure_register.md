@@ -363,3 +363,9 @@ held-out nào được xem; held-out vẫn sạch về outcome.
 
 Bổ sung 26/10 (tối): R34 bản CDC 1992 (JSEQ, trễ k) và ví dụ tính tay T03 đã được AI đọc/dựng;
 không có outcome lưới hay held-out nào được xem.
+
+## Gate L GO có điều kiện — 26/10/2026 (DL-043)
+
+Tác giả đã thấy nhãn tạm (AI) và khối reviewer của mentor trước khi xác nhận nhãn; không có dự
+đoán mù của tác giả cho Phase 2. Trước Phase 3: chưa ai thấy J, margin, contrast hay regret của
+bất kỳ ô nào; held-out sạch về outcome. Prediction card L3.3 phải viết trước A01.

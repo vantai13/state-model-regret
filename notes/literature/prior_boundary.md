@@ -371,3 +371,27 @@ Mức đọc AI-T; chưa L-self. Nhãn tạm (AI theo ủy quyền) giữ nguyê
 | S11 journal TIT2026 | §III/Eq10, §VII-D/Theorem 9/Cor 2/Appendix O khớp arXiv v3 | Nguồn quyết định PC6 nay có bản journal; PC6 **NARROW giữ** |
 | R01 (eCommons) | Cùng bản TR 2006; số mục journal chưa kiểm | Không đổi; K-RM2 vẫn trích theo TR |
 | R34 bản CDC 1992 (2 trang) | Routing vào hai queue với queue length trễ k: JSEQ tối ưu khi k=1, **không tối ưu khi k≥2** (Định lý 2.1.2, tr997–998) | Thêm vào "không được claim là mới": *quyết định theo kỳ vọng của state cũ không còn tối ưu khi thông tin đủ cũ* (pending TAC 1995). Không có trục model hay Γ → PC2/PC6 **NARROW giữ**, PC3 **KEEP câu chữ giữ**, Main RQ **KEEP giữ** |
+
+## Gate L — nhãn được tác giả xác nhận (26/10/2026)
+
+Doan Van Tai xác nhận trực tiếp "Xác nhận nhãn tạm" (author-attested, DL-032/DL-043;
+[xác nhận](../../results/lessons/l2_9/gate_l/author_attestation.json)). Đây là **nhãn chính thức
+của Gate L (GO có điều kiện)**; lý do và "sẽ đổi nếu" giữ như bảng nhãn tạm ở trên.
+
+| Claim | Nhãn | Nguồn quyết định nhãn đã tự đọc (author-attested) |
+|---|---|---|
+| PC1 | DROP như contribution; giữ framing | T03 tự dẫn; P11 §2.4 |
+| PC2 | NARROW | P11 §2.4; P02 §2.2.4/§3.3/Bảng 2; WM26 §5/F.1 |
+| PC3 | KEEP câu chữ; framing NARROW | WM26 §4.1/§5/F.1; R02 §5; R04 §3 |
+| PC4 | HOLD (chờ A05) | R04 §3 |
+| PC5 | NARROW | P12 Def1/§3.1 |
+| PC6 | NARROW | S11 §III Eq10 |
+| Main RQ | KEEP | các nguồn trên |
+
+**Nguồn §5.4 còn AI-T — lập luận bền nhãn theo kịch bản xấu nhất (AI soạn; tác giả đã xác nhận nhãn):**
+SOB14 (PC1): dù nói gì thêm, PC1 vẫn là identity → DROP không đổi. P04 (PC2/PC4/PC6): mô phỏng
+QoS routing 2001 với stale link-state, không có trục model hay oracle D15 → không thể đẩy PC2/PC6
+khỏi NARROW, không quyết định PC4. P13 (PC4/PC6): transient Lévy queue, không có trục thông tin →
+không đổi PC4 (HOLD) hay PC6. P03 (PC5): xếp hạng policy offline RL, không cho vị trí ranh giới
+theo tọa độ queue → PC5 vẫn NARROW. R06 (PC3): cận suboptimality của CE nghĩa #2, không có contrast
+thông tin × biểu diễn ngẫu nhiên → PC3 câu chữ không đổi.

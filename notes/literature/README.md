@@ -13,6 +13,11 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## Gate L — GO có điều kiện (26/10, DL-043)
+
+Nhãn chính thức ở [prior_boundary](prior_boundary.md) (mục "Gate L — nhãn được tác giả xác nhận");
+L-self author-attested ở [author_reading_record](author_reading_record.md). Còn: người đọc thật (L8).
+
 ## Đợt đọc được duyệt — IA26, DTS25, CEN26, CEH23 (26/10)
 
 [IA26](papers/IA26.md) · [DTS25](papers/DTS25.md) · [CEN26](papers/CEN26.md) · [CEH23](papers/CEH23.md) ·

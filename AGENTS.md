@@ -117,3 +117,8 @@ Bản chính thức/26/10 tối: S11 journal khớp số mục; R01 eCommons = T
 10.1007/s10479-009-0603-7); R34 nhận bản CDC1992 2tr (cần TAC 10.1109/9.402238). Có
 author_reading_pack + T03_worked_example (EVPPI 1/9, E[VSS] 2/9) để tác giả tự làm; tác giả
 yêu cầu AI đóng vai tự đọc/tự dẫn/tự chấm — không ghi được thành L-self/L3; nhãn tạm giữ.
+
+Gate L/26/10 (DL-043): **GO có điều kiện**, tag phase-2-closeout. Tác giả author-attested
+(ngoài vở, DL-032) đã tự đọc WM26/R02/R04/P11/P02/S11/P12, tự dẫn T03, xác nhận nhãn; Excel 6
+nguồn = "Mục liên quan". Còn: L8 người đọc thật; hai mục đầu closeout. Phase 3 mở: L3.3 commit
+trước A01; A05 khóa trước held-out; memo GVHD trước A04; HOLD Phase4 tới P0-V10.

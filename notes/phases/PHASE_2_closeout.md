@@ -1,8 +1,8 @@
-# Phase 2 Closeout — HOLD
+# Phase 2 Closeout — GO có điều kiện
 
-> Ngày: 26/10/2026 · Người phụ trách: **Doan Van Tai** · Contract: `contract-v1.2` · Tag: **chưa gắn** (`phase-2-closeout` chỉ gắn khi GO hoặc GO có điều kiện)
+> Ngày: 26/10/2026 · Người phụ trách: **Doan Van Tai** · Contract: `contract-v1.2` · Tag: `phase-2-closeout`
 >
-> **Provenance.** Toàn bộ file do AI (Claude) soạn **theo ủy quyền tác giả** ("đóng vai tác giả và thực hiện mọi thứ cần tác giả thực hiện", 26/10/2026). Theo PHASE_2 §20, hai mục đầu phải do tác giả tự viết: chúng vẫn **chưa có**; bên dưới mỗi mục chỉ là bản nháp AI được rào riêng, **không** là bằng chứng "tác giả đã học được". Nhãn và quyết định Gate là AI chọn theo ủy quyền, áp luật PHASE_2 §15–§17.
+> **Provenance.** Toàn bộ file do AI (Claude) soạn **theo ủy quyền tác giả** ("đóng vai tác giả và thực hiện mọi thứ cần tác giả thực hiện", 26/10/2026). Theo PHASE_2 §20, hai mục đầu phải do tác giả tự viết: chúng vẫn **chưa có**; bên dưới mỗi mục chỉ là bản nháp AI được rào riêng, **không** là bằng chứng "tác giả đã học được". Nhãn và quyết định Gate là AI chọn theo ủy quyền, áp luật PHASE_2 §15–§17. **Cập nhật 26/10:** tác giả xác nhận trực tiếp (author-attested) đã tự đọc bộ nguồn tối thiểu, tự dẫn T03 và xác nhận nhãn → Gate L **GO có điều kiện** (DL-043). Bản HOLD trước đó xem lịch sử git (commit `b0b7df0`).
 
 ## What I understood
 
@@ -32,7 +32,7 @@
 
 ## Evidence created
 
-Toàn bộ là **AI-only** (AI-T/AI-A); **L-self 0/19**, chưa có dòng author-attested nào cho Phase 2. Chi tiết EV-37…EV-45 trong [evidence inventory](../00_evidence_inventory.md).
+Note nguồn là AI-T/AI-A; **cập nhật 26/10:** tác giả author-attested L-self cho WM26, R02, R04, P11, P02, S11, P12 và tự dẫn T03 (lời giải ngoài vở). Chi tiết EV-37…EV-45 trong [evidence inventory](../00_evidence_inventory.md).
 
 - Note nguồn AI-T: NDT1, NMRG-13, P05, P10, P04, M00, P01, S11, AoII, P13, P03, P07, P12, AIS22, R01, R02, R04, NDT26, WM26, **P02 (VoR, 26/10)**; AI-A: R43, B82, R06.
 - [Bản đồ NDT](../literature/ndt_landscape.md); [OεRE draft](../literature/terms.md); [MT1–MT8](PHASE_4_methodology_threats.md); [prior boundary + nhãn tạm](../literature/prior_boundary.md); [related work](../literature/related_work_skeleton.md).
@@ -60,7 +60,7 @@ Toàn bộ là **AI-only** (AI-T/AI-A); **L-self 0/19**, chưa có dòng author-
 
 ## What I am allowed to claim
 
-Theo [claim boundary — Ranh giới với prior (Phase 2)](../01_claim_boundary_v1_2.md#ranh-giới-với-prior-phase-2--26102026); mỗi dòng là nhãn **tạm**, nguồn quyết định nhãn chỉ AI-T:
+Theo [claim boundary — Ranh giới với prior (Phase 2)](../01_claim_boundary_v1_2.md#ranh-giới-với-prior-phase-2--26102026); mỗi dòng là nhãn **tạm** lúc soạn, nay **chính thức** theo DL-043 (tác giả xác nhận; nguồn bộ tối thiểu author-attested):
 
 | Claim | Nhãn tạm | Nguồn quyết định nhãn · mức |
 |---|---|---|
@@ -80,19 +80,24 @@ G_{S|M1} ≥ 0 hay EVPPI/VSS là phát hiện; "fidelity khác quyết định" 
 
 | Điều kiện (§15) | Trạng thái |
 |---|---|
-| L1 nhãn đủ cột | ⚠️ Có nhãn tạm do AI chấm theo ủy quyền; tác giả chưa tự chấm |
-| L2 L-self nguồn quyết định nhãn | ❌ 0/19 |
-| L3 phép dẫn hai identity | ⚠️ Code + mutant PASS; phép dẫn T03 do AI viết |
+| L1 nhãn đủ cột | ✅ Tác giả xác nhận nhãn (author-attested 26/10) |
+| L2 L-self nguồn quyết định nhãn | ✅ WM26, R02, R04, P11, P02, S11, P12 author-attested (ngoài vở); SOB14/P04/P13/P03/R06 giữ AI-T với lập luận bền nhãn |
+| L3 phép dẫn hai identity | ✅ Tác giả tự dẫn T03 (author-attested); code + mutant PASS |
 | L4 OεRE trong terms.md | ✅ (draft) |
 | L5 bốn phiên audit có log, Tier1 đọc T | ⚠️ Deviation: Part2 không lưu log từng rank; follow-up có raw; luật dừng chưa đạt |
-| L6 Main RQ có nhãn trong DL | ✅ DL-042 |
-| L7 claim boundary, inventory, exposure | ✅ cập nhật 26/10 |
-| L8 người thật đọc | ❌ ([gói cho người đọc](../meetings/phase2_reader_packet.md), chưa có ai đọc) |
+| L6 Main RQ có nhãn trong DL | ✅ DL-042, DL-043 |
+| L7 claim boundary, inventory, exposure | ✅ |
+| L8 người thật đọc | ❌ ([gói cho người đọc](../meetings/phase2_reader_packet.md)) |
 
-**Quyết định (AI theo ủy quyền tác giả, 26/10/2026): HOLD.** Không phải lựa chọn mà là hệ quả của PHASE_2 §17: còn thiếu điều kiện validity (L2, L3; L8 khuyến nghị). Điều kiện để đổi: tác giả tự chấm hoặc xác nhận nhãn; L-self bộ tối thiểu (WM26 trước); tự dẫn T03; một người đọc thật (để lên GO có điều kiện). Không gắn tag.
+**Quyết định của tác giả (26/10/2026): GO có điều kiện** (DL-043; thiếu L8 nên tối đa GO có
+điều kiện). Điều kiện: (1) một người thật đọc prior boundary + related work; (2) tác giả tự viết
+hai mục đầu của file này; (3) bản journal R01/R34 khi lấy được (không chặn). Các xác nhận là
+author-attested — lời giải nằm trong vở, chưa kiểm độc lập.
 
 ## Next phase
 
 Prior boundary đi vào L3.3 (prediction card chỉ chứa phần claim còn đứng, **commit sau** khi có nhãn do tác giả xác nhận và L-self WM26) và A05 (cần OεRE, danh sách "đã biết", nhãn PC4/PC5 chính thức). Được học Phase 3 ngay. Literature tiếp tục ở audit targeted (khi có mechanism mới ở Phase 3/6), pre-claim (sau Phase 5–6) và final novelty audit (Phase 9). HOLD Phase 4 (P0-V10) và G1 giữ nguyên.
 
 **Đính chính 26/10:** "§4–5/§9/F.1" trong bảng Risks là §4–5/**§8**/F.1 của WM26. Tác giả đã đọc bản giải thích AI của WM26 (L-2nd, [record](../literature/author_reading_record.md)); L-self primary vẫn chưa có, Gate L vẫn HOLD.
+
+**Cập nhật 26/10 (DL-043):** Gate L chuyển từ HOLD sang **GO có điều kiện**; Phase 3 mở theo điều kiện ở DL-043.

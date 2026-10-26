@@ -125,3 +125,9 @@ Không có claim nào ở đây là kết quả lưới (chưa tính contrast/re
 | Heuristic certainty equivalence gần tối ưu, cận ∝ √var hoặc var (dưới động học affine, reward trơn) | CEH23 §6.1 |
 
 Nhãn tạm PC1–PC6 và Main RQ không đổi ([chi tiết](literature/prior_boundary.md)). Mức đọc AI-T/AI-F.
+
+### Gate L — 26/10/2026 (DL-043)
+
+Tác giả xác nhận nhãn (author-attested) → các nhãn ở bảng "Được claim (tạm)" trên nay là **nhãn
+chính thức Phase 2**, Gate L **GO có điều kiện** (thiếu người đọc thật L8). Danh sách "không được
+claim là mới" giữ nguyên và áp cho prediction card L3.3. G1 giữ nguyên; chưa có claim kết quả lưới.

@@ -23,6 +23,12 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**Phase 2 — Gate L: GO có điều kiện (26/10/2026, [DL-043](notes/02_decision_log.md), tag `phase-2-closeout`).**
+Main RQ **KEEP**; PC1 DROP (framing), PC2/PC5/PC6 NARROW, PC3 KEEP câu chữ, PC4 HOLD (A05).
+Tác giả author-attested đã tự đọc 7 nguồn quyết định nhãn, tự dẫn T03, xác nhận nhãn. Điều kiện:
+một người đọc thật (L8); tác giả tự viết hai mục đầu [closeout](notes/phases/PHASE_2_closeout.md).
+**Phase 3 mở:** commit L3.3 trước A01; memo GVHD trước A04; HOLD Phase 4 tới P0-V10.
+
 **Bản chính thức + hỗ trợ tự đọc (26/10 tối):** S11 journal TIT2026 khớp số mục; file R01 là
 TR 2006 (cần bản Springer) và R34 là bản CDC 1992 2 trang (cần TAC 1995). Có
 [gói tự đọc](notes/literature/author_reading_pack.md) và [ví dụ tính tay T03](notes/theory/T03_worked_example.md);
