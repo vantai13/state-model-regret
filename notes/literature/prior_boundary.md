@@ -340,3 +340,7 @@ nhãn tạm ở trên cũng do AI chấm. Không tính thống kê. Chỉ so PC3
 | PC3 | KEEP, độ chắc thấp | KEEP câu chữ, framing NARROW | Thẻ AI trước phiên A3 ghi "0 Tier1" (`l2_8/part2/reading_card.md`), kết quả có **WM26** Tier1; A4 cho K-RM1–3; WM26 đọc lại: oracle tương lai thật | Prior gần nhất cho tương tác thông tin × model nằm ở ML world model và revenue management, không ở networking; phiên tìm theo tên khái niệm nên chạy sớm |
 | PC5 | NARROW | NARROW | AIS22 (A2, Tier2) cho adequacy dưới partial observation; P12 Def1 là VE theo tập policy/hàm test | "Đủ cho quyết định" có prior rộng hơn dự báo; phần còn lại chỉ đứng nếu nói được **vị trí** theo tọa độ |
 | PC6 | NARROW | NARROW | S11 có nguồn bị action điều khiển (§III PDF5); H1-Q01 "không phải F của D22" | Repo không có số F/V; không suy độ lớn F từ phương sai input |
+
+### Đính chính L2.9 (26/10/2026)
+
+Đính chính 26/10 (sau khi kiểm bản giải thích WM26 tác giả đã đọc): câu WM26 "the true-future oracles are diagnostic tools…" nằm ở **§8 (Limitations and Conclusion), trang PDF 9**, không phải "§9" như các dòng AI ở trên ghi; nội dung trích dẫn không đổi. [Chi tiết](../../results/lessons/l2_9/wm26_author_reading/check.md). Áp cho hồ sơ Part 1 (dòng PC3), bảng nhãn tạm và dòng PC3 8 cột ở trên.

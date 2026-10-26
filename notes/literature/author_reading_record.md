@@ -23,7 +23,7 @@ Vị trí cần đọc lấy từ lesson; bản đọc/hash ở `results/lessons
 
 | # | ID | Phần nên đọc | Claim | Bản có sẵn (local) | Ngày | § thực đọc | 2–3 câu tác giả tự viết | Khác note AI ở đâu | Xác nhận (author-attested) |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | WM26 | §5; F.1 Eq10, Table10 (PDF4–5, 22–23); §9 PDF9 | PC3, PC2 | `PDF_local/WM26.pdf` (arXiv v1) | | | | | |
+| 1 | WM26 | §4.1, §5; F.1 Eq10, Table10 (PDF4–5, 22–23); §8 PDF9 | PC3, PC2 | `PDF_local/WM26.pdf` (arXiv v1) | | | | | |
 | 2 | R02 | §5 Example1; đối chiếu `results/lessons/l2_8/part2/cooper_example1.csv` | PC3 | `PDF_local/R02_Cooper2002.pdf` | | | | | |
 | 3 | R04 | §3 Def2–4, Prop1–2, Remark2 | PC4, PC3 | `PDF_local/R04_Secomandi2008.pdf` | | | | | |
 | 4 | P11 | §2.4 Eq2.7–2.8 | PC2 (§5.4: PC1, PC2) | archive Part A | | | | | |
@@ -37,5 +37,13 @@ P03 (PC5), **P02 (PC2, nay có VoR `PDF_local/P02_Poelman2023_TRC_VoR.pdf`)**, R
 
 ## Record đã có
 
-Chưa có dòng nào (26/10/2026). `author_approval.json` của L2.8 Part2 ("Duyệt cả 3")
-là quyết định duyệt đọc, **không** phải L-self.
+| Ngày | Nguồn | Tác giả nói (nguyên văn) | Mức ghi nhận | Ghi chú |
+|---|---|---|---|---|
+| 26/10/2026 | WM26 (bản giải thích AI, dựa trên arXiv v1 sha256 `94201c59…`) | "đây là những gì tôi đã đọc và đưa AI thuật lại" | **L-2nd, author-attested**: tác giả đã đọc bản giải thích AI | **Chưa phải L-self primary** (chưa có record tự mở §4.1/§5/F.1 và tự viết). [Bản đã đọc](../../results/lessons/l2_9/wm26_author_reading/explainer_as_read.md) · [AI kiểm bản giải thích](../../results/lessons/l2_9/wm26_author_reading/check.md) |
+
+Để dòng WM26 thành L-self: tác giả tự mở §4.1, §5, F.1 và trả lời không nhìn tài liệu ba
+câu do chính bản giải thích gợi ý — (1) center của WM26 khác mean rollout của M0 thế nào;
+(2) repair C/S có biết endpoint tương lai thật không; (3) vì sao P/C/S/E không đo cùng Γ —
+rồi ghi câu trả lời bằng lời mình vào bảng trên.
+
+`author_approval.json` của L2.8 Part2 ("Duyệt cả 3") là quyết định duyệt đọc, **không** phải L-self.

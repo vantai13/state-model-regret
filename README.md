@@ -23,6 +23,11 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**WM26 — tác giả đọc bản giải thích AI (26/10):** ghi nhận **L-2nd, author-attested**,
+chưa phải L-self; AI kiểm bản giải thích trên PDF (khớp, 2 ghi chú nhỏ) và đính chính lỗi
+"§9"→**§8** của chính AI. [Kiểm](results/lessons/l2_9/wm26_author_reading/check.md) ·
+[record](notes/literature/author_reading_record.md). Gate L vẫn HOLD.
+
 **L2.9 Part2,26/10/2026 (AI theo ủy quyền tác giả):** nhãn tạm Main RQ **KEEP**; PC1 DROP,
 PC2/PC5/PC6 NARROW, PC3 KEEP câu chữ (framing NARROW), PC4 HOLD; **Gate L = HOLD**
 ([DL-042](notes/02_decision_log.md)) vì L-self 0/19, T03 chưa tự dẫn, chưa có người đọc thật.

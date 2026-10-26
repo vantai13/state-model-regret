@@ -437,3 +437,5 @@ Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FA
   [claim boundary Phase 2](01_claim_boundary_v1_2.md#ranh-giới-với-prior-phase-2--26102026),
   [literature_audit_part2](literature/literature_audit_part2.md), [search_log](literature/search_log.md),
   [closeout](phases/PHASE_2_closeout.md), [report](../results/lessons/l2_9/part2/report.md).
+
+- **Đính chính DL-042 (26/10/2026):** "§9 PDF9" ở mục Main RQ phải đọc là **§8 PDF9** (WM26 Limitations and Conclusion); quyết định không đổi. [Chi tiết](../results/lessons/l2_9/wm26_author_reading/check.md).

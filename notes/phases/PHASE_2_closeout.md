@@ -94,3 +94,5 @@ G_{S|M1} ≥ 0 hay EVPPI/VSS là phát hiện; "fidelity khác quyết định" 
 ## Next phase
 
 Prior boundary đi vào L3.3 (prediction card chỉ chứa phần claim còn đứng, **commit sau** khi có nhãn do tác giả xác nhận và L-self WM26) và A05 (cần OεRE, danh sách "đã biết", nhãn PC4/PC5 chính thức). Được học Phase 3 ngay. Literature tiếp tục ở audit targeted (khi có mechanism mới ở Phase 3/6), pre-claim (sau Phase 5–6) và final novelty audit (Phase 9). HOLD Phase 4 (P0-V10) và G1 giữ nguyên.
+
+**Đính chính 26/10:** "§4–5/§9/F.1" trong bảng Risks là §4–5/**§8**/F.1 của WM26. Tác giả đã đọc bản giải thích AI của WM26 (L-2nd, [record](../literature/author_reading_record.md)); L-self primary vẫn chưa có, Gate L vẫn HOLD.

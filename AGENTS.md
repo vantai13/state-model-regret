@@ -102,3 +102,8 @@ PC2/5/6 NARROW, PC3 KEEP câu chữ/framing NARROW, PC4 HOLD; DL-042 Gate L **HO
 exposure Phase2, PHASE_2_closeout (2 mục tác giả vẫn trống, **chưa tag**). Không ghi
 AI-work là tác giả làm; L-self/T03 kín sách/L8 chỉ tác giả/người thật tạo được.
 Không commit L3.3 trước nhãn do tác giả xác nhận + L-self WM26; không Phase3 runs.
+
+WM26/26/10: tác giả gửi bản giải thích AI đã đọc → ghi **L-2nd author-attested**, không
+L-self (chưa tự mở §4.1/§5/F.1 và tự viết). PDF Downloads trùng sha94201c59 thư viện.
+AI kiểm bản giải thích khớp PDF; đính chính record AI cũ: "diagnostic tools" là WM26 **§8**
+PDF9 (không §9). Excel "Mức tôi đã đọc" giữ nguyên; Gate L vẫn HOLD.

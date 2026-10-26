@@ -259,3 +259,5 @@ việc AI làm "đóng vai tác giả" **không** được tính là tác giả 
 
 Không có network evidence; không có contrast/regret của ô lưới nào. Chuyển cột "Tác giả
 giải thích lại được?" sang "Có, author-attested ngày …" chỉ khi tác giả tự xác nhận (DL-032).
+
+**Bổ sung 26/10 (sau EV-45):** EV-43 ghi "F.1/§9" là **F.1/§8** (WM26). Tác giả đã đọc bản giải thích AI của WM26 → author-attested **L-2nd**; cột "Tác giả giải thích lại được?" của EV-43 vẫn "Chưa có record" cho primary. [Record](literature/author_reading_record.md).
