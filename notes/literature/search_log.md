@@ -116,3 +116,20 @@ Hai đợt nguồn có tên: NDT1/NMRG/P05, rồi P10/P08/S07. Không tải ứn
 Từng record forward/backward, source metadata/access, metric toy và log ở
 [results/lessons/l2_4](../../results/lessons/l2_4/). Không chạy OpenAlex trong phiên
 này; không xác nhận số169/6 từ lesson. Không claim coverage đầy đủ hay Gate L2.8.
+
+## L2.5 Part1 — 26/10/2026, lookup nguồn tác giả yêu cầu
+
+[Thẻ đọc trước lookup](../../results/lessons/l2_5/reading_card.md).
+Câu hỏi: stale link-state × tải × routing và cost metric đã có gì; phục vụ PC2/PC3/PC4/PC6.
+
+| Ngày | Loại | Q / PC | Query / seed | Tool / phạm vi | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 2026-10-26 | lookup | L2.5 / PC2,PC3,PC4,PC6 | DOI10.1109/90.917073 | paper-search Crossref | 1 | 1 | ToN9(2):162–176,2001; journal khác predecessor ICNP1998 |
+| 2026-10-26 | lookup | Cùng nguồn P04 | Princeton qosroute.pdf | web open | 0 | 0 mới |403; không coi lỗi truy cập là không có paper |
+| 2026-10-26 | lookup | Cùng nguồn P04 | Michigan author PDF shaikh2001impact.pdf | web + paper-pilot inspect, page text và render | 1 | 0 mới |15trang; targeted §I–III/IV-A/V-A/VI, render PDF3/4/6/12; cùng paper đã giữ |
+
+Một paper mới trong bảng, không phải ba paper. Không query discovery, không tìm
+M00/P01 hoặc đọc Part2. Dừng khi đủ câu hỏi của thẻ; không claim coverage L2.8.
+PDF local/checksum ở [source_access.json](../../results/lessons/l2_5/source_access.json);
+đã sửa số trang14→15 và cách đọc Fig8b (setup failures, pruning ON).
+Không thêm dự đoán mù sau exposure từ attachment; không tự cấp L-self hoặc nhãn Gate.

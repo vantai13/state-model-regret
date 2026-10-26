@@ -1,0 +1,104 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-26",
+  "technical_status": "PASS",
+  "scope": "L2.5 Part1 only: primary targeted reading, source/contract crosswalk, deterministic lesson examples. Not a P04 replication or Phase3 grid experiment.",
+  "named_sources_targeted": 1,
+  "paper_id": "P04",
+  "pages": 15,
+  "known_prior_points": 5,
+  "new_library_rows": 1,
+  "total_workbook_rows": 7,
+  "toy_checks": 22,
+  "same_number_of_requests_per_policy": 10,
+  "blocked_counts": {
+    "T1": 0,
+    "T2": 0,
+    "T3": 0,
+    "T4": 0,
+    "T5": 1,
+    "T6": 0,
+    "T7": 1,
+    "T8": 2,
+    "T9": 3,
+    "T10": 4,
+    "round_robin": 1
+  },
+  "blocked_fraction_selected": {
+    "T1": "0",
+    "T5": "1/10",
+    "T10": "2/5",
+    "round_robin": "1/10"
+  },
+  "holding_down_counterexample": {
+    "threshold": "1/5",
+    "hold_down": 5,
+    "residual_at_time1": "2/5"
+  },
+  "sustained_oscillation_demonstrated": false,
+  "illustration_extended_horizon": {
+    "period": 10,
+    "policy": "snapshot_widest",
+    "requests": 40,
+    "accepted": 10,
+    "attempts_A": 10,
+    "attempts_B": 10,
+    "routing_failures": 20,
+    "setup_failures": 10,
+    "blocked": 30,
+    "blocked_fraction": "3/4",
+    "remaining_A": 0,
+    "remaining_B": 0,
+    "route_switches": 1
+  },
+  "exact_deterministic": true,
+  "seed": null,
+  "confidence_interval": "N/A; deterministic illustrative trace, not stochastic workload estimate",
+  "independent_artifact_checks": {
+    "status": "PASS",
+    "csv_trace_rows_independently_replayed": 110,
+    "summary_rows": 11,
+    "preserved_existing_author_reading_rows": 6,
+    "preserved_existing_note_rows": 6,
+    "P04_actual_pdf_pages": 15,
+    "pdf_hash_matches": true,
+    "all_csv_use_lf": true,
+    "backup": "/home/vantai/papers/state-model-regret/archive/2026-10-26_before_l2_5"
+  },
+  "local_links_checked": 161,
+  "broken_symlinks": 0,
+  "part_a_manifest_entries": 52,
+  "archived_sources_and_L2_4_outputs_unchanged": true,
+  "contract_grid_claims_predictions_prior_boundary_unchanged": true,
+  "paper_access_error_resolved": "Princeton web403; author PDF at Michigan retrieved successfully; required figures/formulas visually inspected.",
+  "human_understanding": "NOT_ATTESTED",
+  "author_L_self": "NOT_ATTESTED",
+  "full_L2_5_gate": "NOT_CLOSED",
+  "G_level": "G1",
+  "not_performed": [
+    "L2.5 Part2",
+    "M00/P01 lookup/reading",
+    "P04 experiment replication or curve digitization",
+    "Novelty/coverage audit",
+    "Phase3 grid regret/contrasts",
+    "Human self-reading/read-back or Gate approval"
+  ],
+  "commands_executed": [
+    {
+      "command": ".venv/bin/python -B experiments/lessons/l2_5_stale_routing.py | tee results/lessons/l2_5/run.log",
+      "exit_code": 0
+    },
+    {
+      "command": ".venv/bin/python -B tools/paper_library/build_notes.py | tee results/lessons/l2_5/workbook_build.log",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    },
+    {
+      "command": "sha256sum -c results/lessons/part_a/SHA256SUMS",
+      "exit_code": 0
+    }
+  ]
+}

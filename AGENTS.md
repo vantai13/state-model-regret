@@ -39,3 +39,8 @@ Note/proof Part A và kết quả thí nghiệm vẫn là evidence, phải giữ
 Cập nhật25/10/2026: NDT1/P05/P10 được tác giả yêu cầu trong L2.4 và nằm đầu
 catalog; R32/R34/R51 là tham khảo cũ. NMRG/P08/S07 ở landscape để tra bổ sung.
 Ba đề xuất snowball chưa duyệt chỉ ở log, không tự tải hoặc thêm vào danh sách.
+
+Cập nhật26/10/2026: P04 (Shaikh/Rexford/Shin2001, khác R04) là nguồn chính
+L2.5 Part1, ở đầu Excel. M00/P01 và L2.5 Part2 chưa thực hiện.
+Các toy L2.5 là connection-admission minh họa, không phải replication P04
+hoặc kết quả lưới/expected regret của contract.

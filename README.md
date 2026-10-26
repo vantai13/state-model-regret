@@ -20,8 +20,14 @@ L-self/proof kín sách/đọc lại và review người thật chưa có record
 hạn chế full-text. Đây là verification toy, chưa chạy contrast lưới Phase3,
 chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 
-**Paper đang dùng:** [Excel: 3 nguồn chính L2.4 và 3 tham khảo](papers/paper_comparison.xlsx)
+**Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
+
+**L2.5 Part1, 26/10/2026:** đã lưu [note/bảng dịch stale state và đính chính lesson](notes/literature/state_staleness.md),
+[P04 journal15trang](notes/literature/papers/P04.md), code/CSV minh họa và log.
+22kiểm PASS: cùng10yêu cầu, blocked T1/T5/T10/round-robin =0/1/4/1;
+T6=0 cho thấy toy hữu hạn không đơn điệu theo T. Đây không là replication P04
+hoặc lưới Phase3. Part2 và L-self chưa thực hiện; G1/contract/Gate giữ nguyên.
 
 **L2.4 Part2–3, 25/10/2026:** đã lưu [bản đồ NDT, pipeline, metric và giới hạn claim](notes/literature/ndt_landscape.md),
 notes NDT1/P05/P10 và snowball thật (15 references,100 citing titles;3 đề xuất chưa duyệt).

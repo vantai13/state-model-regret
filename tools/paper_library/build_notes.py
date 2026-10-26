@@ -106,8 +106,9 @@ def build(data):
     guide = book.create_sheet("Huong_dan")
     guide.append(["Mục", "Cách dùng"])
     for row in [
-        ("Phạm vi", f"{len(data)} nguồn trong catalog hiện dùng; nguồn chính L2.4 ở đầu bảng. Không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết."),
-        ("L2.4", "Đọc chính NDT1 → P05 → P10. NMRG, P08, S07 chỉ tra bổ sung trong notes/literature/ndt_landscape.md, không thêm hàng đọc bắt buộc."),
+        ("Phạm vi", f"{len(data)} nguồn trong catalog hiện dùng; xem cột Vai trò hiện tại. Không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết."),
+        ("L2.5 Part1", "P04 ở đầu bảng: stale link-state, blocking và cost levels. M00/P01/Part2 chưa thực hiện; không tự ghi tác giả đã đọc."),
+        ("L2.4", "Nguồn lesson trước: NDT1 → P05 → P10. NMRG, P08, S07 tra bổ sung trong notes/literature/ndt_landscape.md."),
         ("R32 / R34", "Nguồn gần trục state: feedback control và queue với thông tin trễ; khác bài toán routing của repo."),
         ("R51 = P03", "DT² là cầu nối phương pháp digital twin, không phải paper networking chuyên biệt."),
         ("Mức đọc", "Bạn cập nhật Danh_sach → Mức tôi đã đọc; mức AI riêng ở Ghi_chu_doc. Giữ nguyên record cũ, không tự tăng mức đọc."),

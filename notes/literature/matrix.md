@@ -23,3 +23,11 @@ chứa NDT1/NMRG/P05/P10/P08/S07, input/action/metric, vị trí và mức đọ
 NDT1/P05/P10/P08/NMRG có targeted AI reading; S07 abstract-only.
 P05 full text qua web, PDF local403 và hình/table chưa kiểm trực tiếp.
 Không dùng bảng này tự đổi nhãn PC2/PC5 hay nâng G-level.
+
+## L2.5 Part1 — 26/10/2026
+
+[P04 / crosswalk](state_staleness.md) thêm prior trực tiếp cho PC2/PC3/PC4/PC6.
+Metric: connection blocking/overhead; nhiều connection; cost-level heuristic
+không tự là repair D20/D21. §V-A/Fig8 là dependence định tính; không tính Γ.
+Mức đọc AI-T, nhìn Fig1/Fig8 và công thức; tác giả chưa xác nhận L-self.
+Không đổi nhãn PC hoặc estimand của repo.

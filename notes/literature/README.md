@@ -13,6 +13,12 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.5 Part1 — stale state trong QoS routing
+
+Mở [state_staleness.md](state_staleness.md) và [note P04](papers/P04.md):5dòng prior,
+bảng dịch sang contract, Fig8 và các điều cần sửa, toy T1…T10 và trigger counterexample.
+Đã đọc primary PDF targeted; chưa là L-self hoặc hoàn tất Part2/Gate.
+
 ## L2.4 Part 2–3 — NDT/networking
 
 Mở [ndt_landscape.md](ndt_landscape.md): pipeline, bảng biến, metric,6nguồn,

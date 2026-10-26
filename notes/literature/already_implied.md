@@ -35,3 +35,16 @@ Phase3 discovery; không gọi EVIU đã kiểm original source. L2.8 chưa ch�
 Đây là giới hạn wording/framing từ các mục đã đọc, không phải proof rằng prior đã
 trả lời đúng Γ hay controlled2×2 D20/D21. Xem [landscape](ndt_landscape.md);
 nhãn PC và formal Gate không đổi.
+
+## Trục state networking — P04, 26/10/2026, AI targeted
+
+Năm điểm phải đặt sau prior, không tự nhận là ý mới:
+
+1. Routing failure tại nguồn khác setup failure có signaling/reservation overhead (§II-C, tr164–165).
+2. Periodic staleness có thể gây flapping/tăng blocking; có thể thua load-independent routing trong một số traffic/topology, không phải mọi mạng (§III-A/IV-A, tr166–167,171).
+3. Tác động phụ thuộc holding times, burstiness, bandwidth và topology (§III, tr168–170).
+4. Trigger có thể đổi failure mix mà tổng blocking thay đổi ít trong các cấu hình đã xét; hold-down lớn vẫn có hại (§III-B, tr168–170).
+5. Lợi ích cost granularity phụ thuộc update policy (§V-A, tr172–173, Fig8); không chứng nhận Γ của D19.
+
+[Note primary P04](papers/P04.md) · [đối chiếu và giới hạn](state_staleness.md).
+Đây là giới hạn wording; chưa thay quyết định PC3 hay null/H1 của A05.
