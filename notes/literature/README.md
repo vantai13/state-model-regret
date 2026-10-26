@@ -13,11 +13,19 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.5 Part2 — herding khác approximate-model harm
+
+Mở [information_harm.md](information_harm.md): V1 tính độc lập và bài tập hi={2,5},
+toy4servers, đính chính cơ chế, [K-S1…8 và A4](prior_boundary.md#trục-state--l25-part2-26102026).
+[M00](papers/M00.md) AI-T trên submission; [P01](papers/P01.md) targeted screen,
+skip full read có lý do. [Báo cáo/kiểm](../../results/lessons/l2_5/part2/report.md).
+Part1+Part2 đã có artifact kỹ thuật; tác giả Understanding/L-self/Gate chưa xác nhận.
+
 ## L2.5 Part1 — stale state trong QoS routing
 
 Mở [state_staleness.md](state_staleness.md) và [note P04](papers/P04.md):5dòng prior,
 bảng dịch sang contract, Fig8 và các điều cần sửa, toy T1…T10 và trigger counterexample.
-Đã đọc primary PDF targeted; chưa là L-self hoặc hoàn tất Part2/Gate.
+Đã đọc primary PDF targeted; chưa là L-self hoặc formal Gate.
 
 ## L2.4 Part 2–3 — NDT/networking
 

@@ -23,11 +23,19 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.5 Part2, 26/10/2026:** đã kiểm [hai cơ chế, V1 và bài tập hi={2,5}](notes/literature/information_harm.md),
+[M00](notes/literature/papers/M00.md)/[P01 screen](notes/literature/papers/P01.md),
+K-S1…8 và hàng đợi A4; **44checks PASS**. V1 GS=−1/4,Γ=1/4;
+bài tập cả4L=5/4 và contrasts=0 dù M0 vẫn bias Stay1/2.
+[Báo cáo, commands, CSV và giới hạn](results/lessons/l2_5/part2/report.md).
+AI-T, chưa L-self/Gate hoặc Phase3; không đổi G1/contract/HOLD Phase4.
+
 **L2.5 Part1, 26/10/2026:** đã lưu [note/bảng dịch stale state và đính chính lesson](notes/literature/state_staleness.md),
 [P04 journal15trang](notes/literature/papers/P04.md), code/CSV minh họa và log.
 22kiểm PASS: cùng10yêu cầu, blocked T1/T5/T10/round-robin =0/1/4/1;
 T6=0 cho thấy toy hữu hạn không đơn điệu theo T. Đây không là replication P04
-hoặc lưới Phase3. Part2 và L-self chưa thực hiện; G1/contract/Gate giữ nguyên.
+hoặc lưới Phase3. Trạng thái lúc lưu Part1: Part2 và L-self chưa thực hiện;
+Part2 đã được bổ sung ở trên, L-self/Gate còn mở.
 
 **L2.4 Part2–3, 25/10/2026:** đã lưu [bản đồ NDT, pipeline, metric và giới hạn claim](notes/literature/ndt_landscape.md),
 notes NDT1/P05/P10 và snowball thật (15 references,100 citing titles;3 đề xuất chưa duyệt).

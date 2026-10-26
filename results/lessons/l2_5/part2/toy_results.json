@@ -1,0 +1,245 @@
+{
+  "status": "PASS",
+  "cases": {
+    "V1": {
+      "J": {
+        "hi": {
+          "St": "3",
+          "Sw": "5/2"
+        },
+        "lo": {
+          "St": "3/2",
+          "Sw": "0"
+        }
+      },
+      "J0": {
+        "hi": {
+          "St": "2",
+          "Sw": "5/2"
+        },
+        "lo": {
+          "St": "3/2",
+          "Sw": "0"
+        }
+      },
+      "S0_forecasts": {
+        "M0": {
+          "St": "7/4",
+          "Sw": "5/4"
+        },
+        "M1": {
+          "St": "9/4",
+          "Sw": "5/4"
+        }
+      },
+      "actions": {
+        "00": "Sw",
+        "01": "Sw",
+        "10": {
+          "hi": "St",
+          "lo": "Sw"
+        },
+        "11": {
+          "hi": "Sw",
+          "lo": "Sw"
+        }
+      },
+      "L": {
+        "00": "5/4",
+        "01": "5/4",
+        "10": "3/2",
+        "11": "5/4"
+      },
+      "con": {
+        "GS": "-1/4",
+        "GM": "0",
+        "GSM": "0",
+        "Gam": "1/4",
+        "GSgM1": "0",
+        "GMgS1": "1/4"
+      },
+      "Jensen_bias": {
+        "hi": {
+          "St": "1",
+          "Sw": "0"
+        },
+        "lo": {
+          "St": "0",
+          "Sw": "0"
+        }
+      },
+      "oracle_cost": "5/4",
+      "regret": {
+        "00": "0",
+        "01": "0",
+        "10": "1/4",
+        "11": "0"
+      }
+    },
+    "hi_2_5": {
+      "J": {
+        "hi": {
+          "St": "5/2",
+          "Sw": "5/2"
+        },
+        "lo": {
+          "St": "3/2",
+          "Sw": "0"
+        }
+      },
+      "J0": {
+        "hi": {
+          "St": "2",
+          "Sw": "5/2"
+        },
+        "lo": {
+          "St": "3/2",
+          "Sw": "0"
+        }
+      },
+      "S0_forecasts": {
+        "M0": {
+          "St": "7/4",
+          "Sw": "5/4"
+        },
+        "M1": {
+          "St": "2",
+          "Sw": "5/4"
+        }
+      },
+      "actions": {
+        "00": "Sw",
+        "01": "Sw",
+        "10": {
+          "hi": "St",
+          "lo": "Sw"
+        },
+        "11": {
+          "hi": "St",
+          "lo": "Sw"
+        }
+      },
+      "L": {
+        "00": "5/4",
+        "01": "5/4",
+        "10": "5/4",
+        "11": "5/4"
+      },
+      "con": {
+        "GS": "0",
+        "GM": "0",
+        "GSM": "0",
+        "Gam": "0",
+        "GSgM1": "0",
+        "GMgS1": "0"
+      },
+      "Jensen_bias": {
+        "hi": {
+          "St": "1/2",
+          "Sw": "0"
+        },
+        "lo": {
+          "St": "0",
+          "Sw": "0"
+        }
+      },
+      "oracle_cost": "5/4",
+      "regret": {
+        "00": "0",
+        "01": "0",
+        "10": "0",
+        "11": "0"
+      }
+    }
+  },
+  "checks": [
+    "V1: Jensen fixed-action lower bound",
+    "V1: true-law information value",
+    "V1: interaction identity",
+    "V1: nonnegative oracle regret",
+    "hi_2_5: Jensen fixed-action lower bound",
+    "hi_2_5: true-law information value",
+    "hi_2_5: interaction identity",
+    "hi_2_5: nonnegative oracle regret",
+    "V1: L2.2 helper J",
+    "V1: frozen L2.3 J",
+    "V1: L2.2 helper J0",
+    "V1: frozen L2.3 J0",
+    "V1: L2.2 helper actions",
+    "V1: frozen L2.3 actions",
+    "V1: L2.2 helper L",
+    "V1: frozen L2.3 L",
+    "V1: L2.2 helper con",
+    "V1: frozen L2.3 con",
+    "hi_2_5: L2.2 helper J",
+    "hi_2_5: L2.2 helper J0",
+    "hi_2_5: L2.2 helper actions",
+    "hi_2_5: L2.2 helper L",
+    "hi_2_5: L2.2 helper con",
+    "V1 negative GS",
+    "hi_2_5 all four costs",
+    "hi_2_5 true tie -> Stay",
+    "hi_2_5 model still biased",
+    "d2 without replacement probabilities",
+    "stale_shortest: probability mass",
+    "stale_shortest: expected loads",
+    "stale_shortest: conservation 17 jobs",
+    "stale_shortest: max of mean <= mean of max",
+    "random: probability mass",
+    "random: expected loads",
+    "random: conservation 17 jobs",
+    "random: max of mean <= mean of max",
+    "stale_d2: probability mass",
+    "stale_d2: expected loads",
+    "stale_d2: conservation 17 jobs",
+    "stale_d2: max of mean <= mean of max",
+    "fresh_shortest: probability mass",
+    "fresh_shortest: expected loads",
+    "fresh_shortest: conservation 17 jobs",
+    "fresh_shortest: max of mean <= mean of max"
+  ],
+  "check_count": 44,
+  "servers": [
+    {
+      "policy": "stale_shortest",
+      "Eq1": "8",
+      "Eq2": "3",
+      "Eq3": "3",
+      "Eq4": "3",
+      "max_Eq": "8",
+      "E_max_q": "8",
+      "terminal_states": 1
+    },
+    {
+      "policy": "random",
+      "Eq1": "2",
+      "Eq2": "5",
+      "Eq3": "5",
+      "Eq4": "5",
+      "max_Eq": "5",
+      "E_max_q": "409001/65536",
+      "terminal_states": 165
+    },
+    {
+      "policy": "stale_d2",
+      "Eq1": "4",
+      "Eq2": "13/3",
+      "Eq3": "13/3",
+      "Eq4": "13/3",
+      "max_Eq": "13/3",
+      "E_max_q": "3177203/559872",
+      "terminal_states": 165
+    },
+    {
+      "policy": "fresh_shortest",
+      "Eq1": "5",
+      "Eq2": "4",
+      "Eq3": "4",
+      "Eq4": "4",
+      "max_Eq": "5",
+      "E_max_q": "5",
+      "terminal_states": 1
+    }
+  ],
+  "source_sha256": "49d604a6515bf951da7c18e9b4a35dd6339b92e77a491479aa63e74fe3d0542d"
+}

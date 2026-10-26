@@ -48,3 +48,13 @@ Năm điểm phải đặt sau prior, không tự nhận là ý mới:
 
 [Note primary P04](papers/P04.md) · [đối chiếu và giới hạn](state_staleness.md).
 Đây là giới hạn wording; chưa thay quyết định PC3 hay null/H1 của A05.
+
+## L2.5 Part2 — 26/10/2026
+
+[K-S1…8](prior_boundary.md#trục-state--l25-part2-26102026) gom prior có điều kiện.
+M00 §3.4/§4 cho policy×delay/randomness, không chứng minh “thêm thông tin tối ưu
+làm hại”. P01 Def2/§2.5 dùng cumulative regret so OWR genie, không D18.
+R04 re-solving là prior cụ thể chờ A4; đã có archived AI-T provenance, chưa clearance.
+Không nhận fixed-M0 negative GS hay Γ>0 như discovery từ toy. Γ=GSgivenM1−GS
+làm dấu Γ>0 tự theo khi GS<0 và true-model info gain không âm; cần kiểm action
+flips/model bias độc lập trước diễn giải mechanism. Tác giả L-self vẫn pending.

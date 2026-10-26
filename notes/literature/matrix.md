@@ -31,3 +31,14 @@ Metric: connection blocking/overhead; nhiều connection; cost-level heuristic
 không tự là repair D20/D21. §V-A/Fig8 là dependence định tính; không tính Γ.
 Mức đọc AI-T, nhìn Fig1/Fig8 và công thức; tác giả chưa xác nhận L-self.
 Không đổi nhãn PC hoặc estimand của repo.
+
+## L2.5 Part2 — 26/10/2026
+
+| ID | Estimand / mechanism / regime | Phạm vi và vai trò |
+|---|---|---|
+| M00 | Equilibrium sojourn, repeated dispatch dùng stale board, many-server queues | AI-T abstract/§2/§3.1/§3.4/selected§4–5/§7, submission28trang; [note](papers/M00.md) |
+| P01 | Cumulative queue regret so OWR genie biết rates; parameter learning; partial/delayed queues ở Fig2 | AI-T Def1–2/§2.2–2.5/Fig2 PDF3–4; [screen rồi skip full read](papers/P01.md), không thêm hàng bắt buộc |
+| R04 | Control re-solving / certainty-equivalent approximation | Chỉ kiểm provenance archived AI-T note; primary mapping chờ A4, không mới đọc lại |
+
+[K-S1…8 và draft khác biệt](prior_boundary.md#trục-state--l25-part2-26102026),
+[mechanism/toy và đính chính lesson](information_harm.md). Không đổi nhãn PC/Gate.

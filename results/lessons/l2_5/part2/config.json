@@ -1,0 +1,53 @@
+{
+  "responsible": "Doan Van Tai",
+  "arithmetic": "fractions.Fraction",
+  "seed": null,
+  "scope": "exposed teaching verification, not contract-v1.2 or M00 replication",
+  "queue": {
+    "capacity": 3,
+    "managed_load": 2,
+    "q0": [
+      0,
+      0
+    ],
+    "dt_seconds": 1,
+    "horizon_slots": 1,
+    "A": [
+      2,
+      3
+    ],
+    "B_hi_cases": [
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        5
+      ]
+    ],
+    "B_lo": [
+      0,
+      1
+    ],
+    "prior_hi": "1/2",
+    "outcome_probability": "1/4 conditional on mode",
+    "unit": "packet*s",
+    "tie": "Stay",
+    "S0": "cost average over conditional mean rollouts"
+  },
+  "servers": {
+    "q0": [
+      0,
+      3,
+      3,
+      3
+    ],
+    "jobs": 8,
+    "service": 0,
+    "stale_board": "fixed",
+    "d2": "uniform unordered pair without replacement; random tie",
+    "fresh_tie": "lowest server index",
+    "unit": "jobs, not response time"
+  }
+}

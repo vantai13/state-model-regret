@@ -34,3 +34,52 @@ prediction commit trước L2.2. Không sửa timestamp hoặc lịch sử để
 pre-reading commit là deviation không thể khôi phục. B82 full reading và MAB11
 §2 còn hạn chế truy cập; không dùng chúng để claim bounds. Không cấp phép freeze
 L3.3 bằng một technical PASS. G1 và HOLD Phase4 giữ nguyên; L2.4 được học tiếp.
+
+## Trục state — L2.5 Part2, 26/10/2026
+
+Phụ lục này giữ nguyên bảng PC/forecast phía trên. **AI đề xuất; chờ L-self,
+A4/L2.8 và L2.9**, không là quyết định novelty/Gate. Vị trí M00 theo submission
+28trang; vị trí P04 theo journal15trang. [Bài Part2](information_harm.md).
+
+| ID | Đã biết / điều kiện cần giữ | Evidence và mức đọc |
+|---|---|---|
+| K-S1 | Stale link-state có thể tăng blocking/flapping trong cấu hình nhất định; không là định luật blocking tăng với T ở mọi mạng | P04 §III-A/IV-A, tr166–167,171/Fig1; AI-T |
+| K-S2 | Tác hại phụ thuộc period so với traffic/holding times; không suy T càng lớn luôn càng tệ hay holding time=Tmode | P04 §III, tr168–170/Fig2–3,6; M00 §3.4 PDF10–12; AI-T |
+| K-S3 | Nhiều quyết định theo cùng tin cũ có thể dồn tải và thua random/load-independent; một dispatcher lặp decisions cũng có thể làm vậy | P04 §III-A/IV-A; M00 §3.4 PDF12; AI-T. Không phản bác VOI tối ưu |
+| K-S4 | Random small-choice và random age có thể phá đồng bộ, hữu ích trong các regime được xét; không luôn d2 tối ưu | M00 §3.4 PDF10–12, §4 PDF15/19–21, §7 PDF25; AI-T |
+| K-S5 | Lợi ích cost granularity phụ thuộc update policy; đây là prior định tính, không phải clean2×2 hay Γ | P04 §V-A tr172–173/Fig8:8a total blocking, pruningOFF;8b setup failures, pruningON; AI-T |
+| K-S6 | Age khác error; threshold/period bị tác động bởi hold-down/refresh. Trigger không bảo đảm error cứng dưới threshold | P04 §II-D tr165/§III-B tr168–170; AI-T; counterexample Part1 |
+| K-S7 | Lợi ích partial/delayed queue info phụ thuộc load và policy/baseline; không có threshold .8/.9 phổ quát | P01 §2.5/Fig2 PDF4, Def2/Eq3 PDF3; **AI-T**, không abstract-only |
+| K-S8 | Optimal true-model policy với matched law/objective và thông tin lồng nhau có thể bỏ qua info; GSgivenM1≥0. Không quy về “iff một người” | T03 G1–G4 và proof; exact toy kiểm, AI-only; original reading limits PartA giữ nguyên |
+
+K-S1…8 là giới hạn câu chữ, không tự làm mọi kết quả của RQ thành đã biết.
+Prediction card/A05 không nhận “refresh hữu ích”, “age so timescale matters” hoặc
+VOI≥0 là contribution; κ/age-only H1 còn phải vượt null theo đúng D25.
+K-S5 cần tác giả tự kiểm §V-A/Fig8 trước dùng viết PC3. Không chọn H1/null mới ở đây.
+
+### Ba câu khác biệt — bản nháp AI, chờ A4/L2.9
+
+1. Trong các phần networking đã đọc, P04/M00 cho thấy nhiều quyết định dùng tin
+   cũ có thể làm hại routing/load balancing, với hiệu ứng tùy timescale, policy
+   và cost granularity; chúng đã có mô hình và action làm đổi tải.
+2. D20 của repo làm tươi backlog và lộ mode cho một action giữ suốt h, được định
+   giá bằng expected regret so oracle không biết tương lai, đặt cạnh D21 sửa
+   mean-rollout thành exact expectation trên cùng posterior/law/protocol.
+3. Phần cần kiểm là dấu/điều kiện của fixed-M0 GS, GS−GM và Γ trong thiết kế đó;
+   chưa xác nhận chúng được đo đúng như vậy ở các section đã đọc, và V1 chỉ là
+   ví dụ tồn tại, không chứng minh mới hoặc chứng minh cơ chế trên lưới.
+
+### Hàng đợi A4 — R04 đã có provenance, chưa được clearance
+
+**Câu hỏi:** khi re-solve một certainty-equivalent model với thông tin mới, hiệu
+năng thật có thể giảm dưới những điều kiện nào; chúng tương ứng GS ở D20/D21
+đến đâu? Kiểm định nghĩa, policy class, timeline, model consistency và objective,
+không chỉ tên thuật ngữ. Chưa nhận GS<0 là phát hiện mới, chưa đổi PC/Gate.
+
+R04 = Secomandi2008, *An Analysis of the Control-Algorithm Re-solving Issue in
+Inventory and Revenue Management*, DOI10.1287/msom.1070.0184, đã có **AI-T note
+24/10** trong archive local. Lượt này chỉ kiểm record đó: §1.1–1.2/§2.5–2.6/
+§3/§4.1.5 được record đánh dấu targeted, không coi là một lần đọc primary mới.
+Không phục hồi thư viện ngoài ngành hoặc đưa R04 vào hàng đợi bắt buộc.
+Provenance/path/checksum ở [source_access.json](../../results/lessons/l2_5/part2/source_access.json).
+Phần scientific dependency A4/L2.9 còn mở; không tự tạo L-self từ note AI cũ.

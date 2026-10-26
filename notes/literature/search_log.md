@@ -133,3 +133,30 @@ M00/P01 hoặc đọc Part2. Dừng khi đủ câu hỏi của thẻ; không cla
 PDF local/checksum ở [source_access.json](../../results/lessons/l2_5/source_access.json);
 đã sửa số trang14→15 và cách đọc Fig8b (setup failures, pruning ON).
 Không thêm dự đoán mù sau exposure từ attachment; không tự cấp L-self hoặc nhãn Gate.
+
+## L2.5 Part2 — 26/10/2026, hai nguồn được tác giả yêu cầu
+
+[Thẻ đọc trước lookup](../../results/lessons/l2_5/part2/reading_card.md).
+Câu hỏi: M00 herding khác V1 fixed-M0 harm thế nào; P01 regret và §2.5 có cùng
+E/M/R với D18–D21 không? PC2/PC3/PC4/PC6, không đổi nhãn hoặc research goal.
+
+| Ngày | Loại | Seed/query | Tool / phạm vi | Đã sàng | Giữ unique | Kết quả / lỗi / dừng |
+|---|---|---|---|---:|---:|---|
+| 2026-10-26 | lookup | M00 DOI10.1109/71.824633 | paper-search Crossref exact DOI | 1 | 1 | TPDS11(1):6–20,2000; không lẫn predecessor PODC1997 |
+| 2026-10-26 | lookup | M00 oldinfo-jver-submit.pdf Harvard | web open; paper-pilot inspect/get pages1–3/render4,10,11,12; pdftotext-layout selected pages | 1 | 0 mới | Submission28trang; MCP text cũ bị tách chữ, dùng layout+web/render; T abstract/§2/§3.1/§3.4/selected§3.6/§4–5/§7 |
+| 2026-10-26 | lookup | P01 arxiv2106.04707v1 | web open abs/v1 | 0 | 0 | Cache miss; không coi là thiếu paper |
+| 2026-10-26 | lookup | Cùng P01 arxiv2106.04707v1 | paper-search download_with_fallback(source=arxiv,use_scihub=false); paper-pilot pages1,3,4/render3,4; pdftotext | 1 | 1 |32trang; targeted Def1–2/§2.2–2.5/Fig2; skip full read, note bổ sung ngoài bảng chính; pdfinfo cảnh báo xref, vẫn extract/render được |
+
+**Hai unique papers** giữ làm evidence tra, trong đó chỉ **M00** thêm catalog
+(7→8); P01 không thành yêu cầu đọc full. Không keyword/forward/backward search,
+không số đếm coverage. Không chạy Crossref cho P01: lần sai “dental cleaning”
+trong mentor **không phải thao tác của phiên này**, không sao chép thành log.
+R04 chỉ kiểm archived AI-T note/path/checksum có sẵn, không query/download hoặc
+đọc lại primary. Không phục hồi18nguồn hoặc tải3 snowball chưa duyệt.
+
+Dừng: đã đủ mô hình/cơ chế, regret definition và điều kiện của Fig2 để trả thẻ;
+không cần proofs P01, full VoR M00 hoặc discovery rộng. AI-T tách mức tác giả;
+publication identity M00 đã kiểm, nội dung VoR chưa đối chiếu; status công bố
+chính thức P01 chưa kiểm (v1 có DOI placeholder). Không dùng lookup làm survey.
+[Access/checksums](../../results/lessons/l2_5/part2/source_access.json),
+[technical report](../../results/lessons/l2_5/part2/report.md). Gate/L-self/A4 còn mở.
