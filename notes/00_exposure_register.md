@@ -337,3 +337,20 @@ Lesson L2.9 Part 1 của mentor (AI) chứa nhãn tạm reviewer cho PC1–PC6/M
 khối thu gọn; nội dung lưu ở `results/lessons/l2_9/part1/reviewer_view_AI_open_after_grading.md`
 để giữ provenance. Hồ sơ trong prior_boundary không chép các nhãn đó. Tác giả có thể
 đã thấy khối này trước khi chấm: ghi lại khi chấm nếu đã mở (K3, PHASE_2 §14).
+
+## Phase 2 — tổng hợp exposure trước Phase 3 (L2.9 Part 2, 26/10/2026)
+
+AI soạn theo ủy quyền của Doan Van Tai. Phase 3 cần biết những gì đã lộ:
+
+- **Forecast nhãn PC** đã lộ trước khi lưu (DL-040); nhãn tạm L2.9 do AI chấm **sau khi
+  thấy** nhãn tạm của mentor; không có dự đoán mù của tác giả cho Phase 2.
+- **Luật K5 ứng viên** (list/κ3, κ≥2, q90/h8…) đã lộ **chỉ ở mức tọa độ** (L3.3 queue);
+  chưa chọn luật, chưa có outcome.
+- **H1-Q01…Q03** đã lộ (heuristic, chưa khóa H1/null; H1-Q01 không phải F của D22).
+- **R02 Example1** (loss 0.507) và **chẩn đoán một bước dịch từ R04** đã lộ, chạy trên toy V1
+  (GS=−1/4), không phải ô lưới.
+- **P02 Bảng 2** và kết quả WM26 (F.1) đã được AI đọc và chép vào note.
+- **Held-out R01–R12:** p_sw, λA, nhãn và budget đã lộ từ lúc khóa lưới (DL-039, không phải
+  Phase 2) và bị D25 cấm làm input; trong Phase 2 chỉ đọc **tọa độ và nhãn thiết kế**.
+  **Chưa ai thấy J, margin, contrast hay regret của bất kỳ ô nào (main hay held-out)**:
+  held-out vẫn **sạch về outcome**.

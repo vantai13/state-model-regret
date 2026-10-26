@@ -75,3 +75,42 @@ mode/F/V/Γ của grid vẫn chờ chạy đúng protocol và audit L2.8/L2.9.
 
 [Note P13](literature/papers/P13.md) · [phép tính/crosswalk](literature/horizon_transient.md)
 · [DL-041](02_decision_log.md#dl-041--l26-part-b-prior-và-interpretation-threat-2026-10-26).
+
+## Ranh giới với prior (Phase 2) — 26/10/2026
+
+AI (Claude) soạn theo ủy quyền của Doan Van Tai ("đóng vai tác giả"), tổng hợp các dòng
+K đã có trong [prior_boundary](literature/prior_boundary.md); không thêm nội dung mới,
+không đổi contract/metric/thresholds. Mức đọc nguồn: AI-T/AI-A; **L-self 0/19**.
+
+### Không được claim là mới
+
+| Không được claim là mới | Dòng K / nguồn |
+|---|---|
+| G_{S\|M1}=EVPPI, G_{M\|S1}=E[VSS], dấu ≥0; Γ dạng bookkeeping; tách giá trị thông tin đầu vào với giá trị học discrepancy | PC1, T03 v2, K-S8, SOB14, B82, P11 |
+| State cũ có thể làm routing kém; tác hại phụ thuộc age so với timescale; age khác error | K-S1, K-S2, K-S6 |
+| Dồn tải theo tin cũ (nhiều quyết định hoặc một dispatcher lặp); chọn ngẫu nhiên ít ứng viên phá đồng bộ | K-S3, K-S4 |
+| Lợi ích thông tin queue phụ thuộc load/policy/baseline; độ mịn cost tương tác định tính với update policy | K-S7, K-S5 |
+| Đo độ tươi theo cost quyết định; tuổi khác sai lệch; cost phẳng theo sampling budget | K-S9…K-S11, K-F1…K-F3 |
+| Trạng thái ban đầu quan trọng với cost cộng dồn; trung bình khác cộng dồn; bỏ cost sau horizon có hệ quả | K-H1…K-H4, T-H1 |
+| Fidelity mô phỏng khác chất lượng quyết định; chấm twin bằng decision regret | K-M1, K-M2, NDT26 |
+| Tối ưu trực tiếp objective TE; sensitivity theo từng nguồn lỗi và theo horizon/update | K-M3, K-M4, K-M5, P02 |
+| Model chỉ cần đủ cho quyết định, kể cả dưới partial observation; dung sai approximate VE | K-M6, K-M7, AIS22 |
+| Thông tin mới có thể làm hại một chính sách xấp xỉ; điều kiện đủ để không hại | K-RM1…K-RM3 |
+| Bảng 2×2 sửa hai nguồn lỗi; so thứ tự ưu tiên repair | WM26 F.1 |
+| NDT what-if đánh giá action; gate theo fidelity; resync/recalibrate | NDT1, P05, NDT26, P10 |
+
+### Được claim (tạm, nhãn AI chấm theo ủy quyền; chưa Gate L)
+
+| Claim | Nhãn tạm | Dạng được claim |
+|---|---|---|
+| PC1 | DROP như contribution | Chỉ dùng làm framing/ánh xạ có giả định |
+| PC2 | NARROW | Đặc trưng theo ô của (GS−GM)/Cref ở K2 dưới D20/D21, oracle không biết w, plant queue làm đổi tải; không claim câu hỏi "repair nào đáng hơn" |
+| PC3 | KEEP câu chữ, framing NARROW | Γ/Cref>.005 ở từng ô K3 theo D19; không claim thông tin làm hại, 2×2 repair hay fidelity≠quyết định là mới; khác WM26 ở lượng thông tin của repair |
+| PC4 | HOLD | Chưa claim; chờ A05 khóa H1/null |
+| PC5 | NARROW | Vị trí ranh giới OεRE dưới S0 trên tọa độ queue (K5/Q5), luật K chưa chọn |
+| PC6 | NARROW | Tách backlog/mode ẩn dưới fixed-M0 ở K6; không claim giá trị độ tươi theo quyết định |
+| Main RQ | KEEP | Chưa xác nhận prior trùng cả E, M, R từ các nguồn đã đọc |
+
+Không có claim nào ở đây là kết quả lưới (chưa tính contrast/regret ở ô nào). G1 giữ nguyên.
+[DL-042](02_decision_log.md#dl-042--gate-l-phase-2-nhãn-main-rq-và-trạng-thái-gate-2026-10-26) ·
+[related work](literature/related_work_skeleton.md).

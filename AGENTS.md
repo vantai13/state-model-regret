@@ -95,3 +95,10 @@ nguyên văn xác nhận của tác giả (cơ chế DL-032), không suy từ "D
 Nhãn tạm của mentor lưu riêng results/lessons/l2_9/part1/reviewer_view_AI_open_after_grading.md,
 không đưa vào dossier/DL. WM26 đọc lại AI-T: không thấy nhánh chỉ thông tin hiện tại.
 Không DL Gate L, không related work/closeout (Part2), không Phase3.
+
+L2.9 Part2/26/10 (AI theo ủy quyền "đóng vai tác giả"): nhãn tạm MainRQ KEEP; PC1 DROP,
+PC2/5/6 NARROW, PC3 KEEP câu chữ/framing NARROW, PC4 HOLD; DL-042 Gate L **HOLD**
+(L2 0/19, L3 AI, L8 ❌); related_work_skeleton, claim boundary Phase2, EV-37…45,
+exposure Phase2, PHASE_2_closeout (2 mục tác giả vẫn trống, **chưa tag**). Không ghi
+AI-work là tác giả làm; L-self/T03 kín sách/L8 chỉ tác giả/người thật tạo được.
+Không commit L3.3 trước nhãn do tác giả xác nhận + L-self WM26; không Phase3 runs.

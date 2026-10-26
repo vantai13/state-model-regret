@@ -405,3 +405,35 @@ Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FA
   scientific dependency A4/L2.9, human L-self và formal Gate còn mở.
 - **Artifact:** [report](../results/lessons/l2_6/part_b/report.md),
   [P13](literature/papers/P13.md), [boundary T-H1](01_claim_boundary_v1_2.md#t-h1--giới-hạn-diễn-giải-do-horizon-hữu-hạn-26102026).
+
+### DL-042 — Gate L (Phase 2): nhãn Main RQ và trạng thái Gate (2026-10-26)
+
+- **Người phụ trách / quyết định:** Doan Van Tai. **AI (Claude) soạn và chọn nhãn tạm
+  theo ủy quyền tác giả** ("đóng vai tác giả và thực hiện mọi thứ cần tác giả thực hiện",
+  hội thoại 26/10). Tác giả chưa tự chấm, chưa tự đọc nguồn quyết định nhãn; AI đã thấy
+  nhãn tạm của mentor trước khi chấm (exposure).
+- **Main RQ:** **KEEP** — chưa thấy nguồn đã đọc trùng cả E, M, R; nguồn gần nhất WM26
+  dùng repair nhập tương lai thật (F.1 Eq10 PDF22, §9 PDF9), khác D20/D15 và khác regime.
+- **Nhãn claim (tạm, AI ủy quyền):** PC1 DROP (giữ framing), PC2 NARROW, PC3 KEEP câu chữ
+  / framing NARROW, PC4 HOLD (chờ A05), PC5 NARROW, PC6 NARROW. Chi tiết và "sẽ đổi nếu":
+  [prior_boundary](literature/prior_boundary.md#l29--nhãn-tạm-do-ai-chấm-theo-ủy-quyền-tác-giả-26102026).
+- **Gate L: HOLD.** L1 ⚠️ (nhãn tạm do AI ủy quyền, tác giả chưa tự chấm) · L2 ❌
+  (L-self 0/19) · L3 ⚠️ (code/mutant PASS, phép dẫn T03 do AI) · L4 ✅ (OεRE draft) ·
+  L5 ⚠️ (4 phiên có log; Tier1 AI-T; **deviation:** Part2 không lưu log từng rank,
+  follow-up 157 record có raw; luật dừng 2×20 chưa đạt; forward P07 chưa chạy được) ·
+  L6 ✅ (DL này) · L7 ✅ (claim boundary, inventory EV-37…45, exposure cập nhật 26/10) · L8 ❌.
+  HOLD là hệ quả của luật PHASE_2 §17 (thiếu điều kiện validity), không phải lựa chọn.
+- **Điều kiện để đổi trạng thái:** tác giả tự chấm hoặc xác nhận nhãn; L-self tối thiểu
+  WM26 §5/F.1, R02 §5, R04 §3, P11 §2.4, P02 §2.2.4/§3.3, S11 §III, P12 Def1 (ghi vào
+  [author_reading_record](literature/author_reading_record.md)); tác giả tự dẫn T03 kín
+  sách; một người thật đọc prior boundary (L8) để có thể lên GO có điều kiện.
+- **Hệ quả cho Phase 3:** được học Phase 3 và viết **nháp** prediction card; **không commit
+  L3.3** trước khi có nhãn do tác giả xác nhận và L-self WM26; prereg A05 cần nhãn PC4/PC5
+  chính thức; mọi pattern từ A04 theo luật post-discovery. Không gắn tag `phase-2-closeout`.
+- **Không thay đổi:** contract v1.2, lưới, thresholds, D25, held-out, G1, HOLD Phase 4,
+  bảng forecast PC (byte-unchanged).
+- **Evidence:** [prior_boundary](literature/prior_boundary.md),
+  [related work](literature/related_work_skeleton.md),
+  [claim boundary Phase 2](01_claim_boundary_v1_2.md#ranh-giới-với-prior-phase-2--26102026),
+  [literature_audit_part2](literature/literature_audit_part2.md), [search_log](literature/search_log.md),
+  [closeout](phases/PHASE_2_closeout.md), [report](../results/lessons/l2_9/part2/report.md).

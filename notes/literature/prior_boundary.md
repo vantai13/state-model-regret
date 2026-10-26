@@ -298,3 +298,45 @@ NDT26); sensitivity theo bias/horizon/update (K-M4, K-M5, P02); model đủ cho 
 định và approximate VE (K-M6, K-M7, AIS22); thông tin làm hại approximate re-solving
 và điều kiện đủ không hại (K-RM1…RM3); bảng 2×2 sửa hai nguồn lỗi và so ưu tiên
 repair (WM26). Danh sách là chỉ mục, không phải nhãn; chi tiết và giới hạn ở các mục gốc.
+
+## L2.9 — nhãn tạm do AI chấm theo ủy quyền tác giả (26/10/2026)
+
+**Provenance:** Doan Van Tai yêu cầu AI "đóng vai tác giả và thực hiện mọi thứ cần
+tác giả thực hiện" (hội thoại 26/10). Nhãn dưới đây do **AI (Claude) chấm thay theo ủy
+quyền**, dựa trên evidence AI-T; **không phải tác giả tự chấm**. Cột `⟨tác giả chấm⟩` ở
+hồ sơ Part 1 phía trên giữ trống cho bản tự chấm. AI chấm **sau khi đã thấy** nhãn tạm
+của mentor (exposure), nên đây không phải chấm mù. Nhãn **tạm**, không phải Gate L chính thức.
+
+| Claim | Nhãn tạm | Lý do một câu | Nhãn sẽ đổi nếu | Để thành chính thức |
+|---|---|---|---|---|
+| PC1 | **DROP** như contribution; giữ làm framing | Identity dưới giả định ghi rõ, prior trực tiếp SOB14 Eq1–4/B82 (claim boundary v1.2, Part A) | Phép dẫn T03 sai ở một giả định G1–G5 (khi đó là sửa ánh xạ, không thành contribution) | L3: tác giả tự dẫn T03 kín sách |
+| PC2 | **NARROW** | Câu hỏi "repair nào đáng hơn" đã có prior (P11 §2.4 Eq2.7–2.8; WM26 F.1; P02 §3.3.4: "state is still the most important quantity"); chỉ còn đặc trưng theo ô của GS−GM dưới D20/D21 trong plant queue | L-self thấy prior đã đo GS−GM với oracle không biết tương lai trong queue làm đổi tải → DROP | L-self P11, P02 (nguồn §5.4), WM26 |
+| PC3 | **KEEP ở câu chữ**; framing **NARROW** | Không nguồn đã đọc trùng cả E (Γ D19, oracle không biết w), M (lộ hidden state hiện tại × biểu diễn randomness trên cùng posterior), R (một quyết định làm đổi tải); WM26 dùng oracle tương lai thật (F.1 PDF22, §9 PDF9) và chỉ báo C−P, S−P, C−S | L-self WM26 thấy nhánh chỉ dùng thông tin hiện tại hoặc contrast tương tác cùng D19 → NARROW/PIVOT; một nguồn chờ duyệt (vd. 2308.13166) cho dấu Γ tổng quát dưới CE → NARROW và thành prediction cho H1 | L-self WM26 §5/F.1, R02 §5, R04 §3 |
+| PC4 | **HOLD** | Literature không quyết được; cần H1/null/metric/split khóa ở A05 (D25), phải vượt K-S2, K-H1, K-H2, H1-Q03, MT5 | Prereg A05 tồn tại | A05 |
+| PC5 | **NARROW** | "Model đủ cho quyết định" có prior (P12 Def1; R43; AIS22 Def7/Thm9; P03 Thm3.1); còn vị trí ranh giới OεRE dưới S0 trên tọa độ queue và sự phụ thuộc vào mức thông tin; luật K5 chưa chọn | Nguồn chờ duyệt (2308.13166) hoặc nguồn khác cho vị trí ranh giới trong queue → DROP/PIVOT | L-self P12, AIS22; chọn luật K ở L3.3 |
+| PC6 | **NARROW** | Độ tươi theo cost quyết định (S11 §III/Eq10, nguồn bị action điều khiển), tuổi khác sai lệch (AoII), vai trò backlog ban đầu (P13 Thm1) đã có; còn tách backlog và mode ẩn dưới fixed-M0; repo chưa có số F/V nên V>F là dự đoán rủi ro | N1/N2 (chờ duyệt) đã tách thành phần backlog/mode như vậy → DROP/PIVOT | L-self S11 §III, P13 Thm1 |
+| **Main RQ** | **KEEP** | Chưa thấy nguồn đã đọc trùng cả E, M, R; gần nhất WM26 khác lượng thông tin của repair (tương lai thật so với state hiện tại), khác oracle, khác regime | Một nguồn trùng cả ba trục | L2, L8 |
+
+### Dòng boundary đầy đủ cho PC3 (bài tập 2, AI theo ủy quyền)
+
+| Cột | Nội dung |
+|---|---|
+| Claim | Trong K3={M19,M21}, Γ/Cref>.005 ở từng ô; khả năng giải thích/dự đoán ngoài discovery phải kiểm riêng với null |
+| Closest prior | WM26 §4.1/§5 PDF4–5, F.1 Eq10/Table10–12 PDF22–23, §9 PDF9 |
+| Prior đã chứng minh/đo | Trên pool candidate cố định, thay center bằng trung bình endpoint thật (C) hoặc responses bằng responses thật (S); báo C−P, S−P, C−S; S cho lựa chọn tốt hơn C ở 16/16 cấu hình (mean) dù center chiếm >½ MSE ở 14/16 (F.1 PDF23) |
+| Khác biệt chính xác | **E:** Γ=L10+L01−L00−L11 theo ô, regret so oracle không biết w; WM26 không báo E−C−S+P trong trang đã đọc. **M:** D20 lộ state hiện tại (backlog, mode ẩn); D21 đổi biểu diễn randomness với θ đúng, không chèn tương lai thật. **R:** một quyết định nhị phân làm đổi tải trong plant queue; WM26 là latent world model với pool CEM |
+| Vì sao tạo kiến thức | Dưới M1, repair lộ w cho loss E_D E_w[min_a C(a,w)] = L* − E_D[EVPI_w(x)], nên "state repair" kiểu WM26 có gain lớn hơn G_{S\|M1} của D20 đúng bằng E_D[EVPI_w] ≥ 0 (đẳng thức, AI suy luận; kiểm số học ở audit L2.9 Part 2). Vì vậy Γ theo D19 **không suy được** từ C−P, S−P, C−S của WM26; dấu Γ ở K3 là câu hỏi riêng. Đề xuất cho L3.3/A05 (chưa adopt): báo kèm E_D[EVPI_w] ở các ô K3 để thấy phần thông tin tương lai bị loại khỏi estimand |
+| Mức đọc nguồn quyết định | WM26 AI-T (đọc lại 26/10); R02, R04 AI-T; L-self 0 |
+| Nhãn | KEEP ở câu chữ; framing NARROW (không claim: thông tin có thể làm hại, 2×2 repair, fidelity khác quyết định) |
+| Ngày/DL | 26/10/2026 · DL-042 |
+
+### K3 — so dự báo đã lộ với nhãn tạm (bài học, không phải calibration)
+
+Bảng dự báo (`prior_predictions.md`) là AI-assisted và đã lộ trước khi lưu (DL-040);
+nhãn tạm ở trên cũng do AI chấm. Không tính thống kê. Chỉ so PC3/PC5/PC6.
+
+| Claim | Dự báo đã lộ | Nhãn tạm (AI ủy quyền) | Điều đã đổi suy nghĩ (nguồn) | Bài học |
+|---|---|---|---|---|
+| PC3 | KEEP, độ chắc thấp | KEEP câu chữ, framing NARROW | Thẻ AI trước phiên A3 ghi "0 Tier1" (`l2_8/part2/reading_card.md`), kết quả có **WM26** Tier1; A4 cho K-RM1–3; WM26 đọc lại: oracle tương lai thật | Prior gần nhất cho tương tác thông tin × model nằm ở ML world model và revenue management, không ở networking; phiên tìm theo tên khái niệm nên chạy sớm |
+| PC5 | NARROW | NARROW | AIS22 (A2, Tier2) cho adequacy dưới partial observation; P12 Def1 là VE theo tập policy/hàm test | "Đủ cho quyết định" có prior rộng hơn dự báo; phần còn lại chỉ đứng nếu nói được **vị trí** theo tọa độ |
+| PC6 | NARROW | NARROW | S11 có nguồn bị action điều khiển (§III PDF5); H1-Q01 "không phải F của D22" | Repo không có số F/V; không suy độ lớn F từ phương sai input |

@@ -13,6 +13,12 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.9 Part 2 — nhãn tạm, related work, Gate L (26/10, AI ủy quyền)
+
+[Nhãn tạm + PC3 8 cột + K3](prior_boundary.md) · [related work](related_work_skeleton.md) ·
+[DL-042](../02_decision_log.md) · [closeout](../phases/PHASE_2_closeout.md).
+Gate L **HOLD**; nhãn do AI chấm thay theo ủy quyền, tác giả chưa tự chấm/đọc.
+
 ## L2.9 Part 1 — hồ sơ boundary, nhãn chờ tác giả (26/10)
 
 [Hồ sơ 8 cột + Gate L](prior_boundary.md) (mục cuối) · [mẫu L-self](author_reading_record.md) ·

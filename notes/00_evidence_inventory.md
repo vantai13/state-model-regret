@@ -238,3 +238,24 @@ chờ duyệt. Không L-self, không L2.9/Gate, không grid/held-out.
 [Report](../results/lessons/l2_9/part1/report.md): hồ sơ boundary 8 cột (AI lập, nhãn
 trống), WM26 §4–5/§9/F.1 đọc lại AI-T, kiểm lesson L2.9 so repo. Chưa có dòng
 author-attested L-self nào cho Phase 2; [mẫu ghi](literature/author_reading_record.md) chờ tác giả.
+
+## Phase 2 — EV-37…EV-45 (L2.9 Part 2, 26/10/2026)
+
+AI (Claude) lập theo ủy quyền của Doan Van Tai. Không đánh số lại EV-01…EV-36.
+**"Tác giả giải thích lại được?" ghi thật:** chưa có record author-attested nào cho Phase 2;
+việc AI làm "đóng vai tác giả" **không** được tính là tác giả giải thích/đọc.
+
+| EV | Item | Type | Tác giả giải thích lại được? | Mức đọc | Artifact |
+|---|---|---|---|---|---|
+| EV-37 | Bản đồ NDT: NDT1, NMRG-13, P05, P10; pipeline, metric "twin tốt"; 625 kiểm cost/tie | L-2nd + E1 toy | Chưa có record | AI-T (P05 qua web PDF) | [ndt_landscape](literature/ndt_landscape.md), [L2.4](../results/lessons/l2_4/) |
+| EV-38 | State cũ: P04, M00, P01; K-S1…S8; toy T1…T10, V1, hi={2,5}; 22 + 44 kiểm | L-2nd + E0/E1 | Chưa có record | AI-T | [state_staleness](literature/state_staleness.md), [information_harm](literature/information_harm.md) |
+| EV-39 | Độ tươi và horizon: S11 (TIT2026), AoII, P13 journal; K-S9…11, K-F1…3, K-H1…4, T-H1; 293 + 122 kiểm | L-2nd + E0/E1 | Chưa có record | AI-T | [freshness](literature/freshness_decision_value.md), [horizon](literature/horizon_transient.md) |
+| EV-40 | Trục model: P03, P07, P12, R43; MT1…8; OεRE draft; 14 + 27 kiểm | L-2nd + E0/E1 | Chưa có record | AI-T (R43 AI-A) | [model_fidelity](literature/model_fidelity_methods.md), [model_equivalence](literature/model_equivalence.md), [terms](literature/terms.md) |
+| EV-41 | P02 VoR: bias một đại lượng mỗi lần, quét 1-D horizon/update, Bảng 2 | L-2nd (nguồn quyết định PC2) | Chưa có record | AI-T (VoR do tác giả tải) | [P02](literature/papers/P02.md) |
+| EV-42 | Re-solving: R01 (TR), R02, R04; K-RM1…3; Cooper Example1 loss 0.507000431 (18 case, Decimal) | L-2nd + E0 analytic replay | Chưa có record | AI-T | [audit Part2](literature/literature_audit_part2.md), [CSV](../results/lessons/l2_8/part2/cooper_example1.csv) |
+| EV-43 | NDT26, WM26 (đọc lại F.1/§9 ngày 26/10), AIS22 — tác giả "Duyệt cả 3" (không phải L-self) | L-2nd | Chưa có record | AI-T | [WM26](literature/papers/WM26.md), [NDT26](literature/papers/NDT26.md), [AIS22](literature/papers/AIS22.md) |
+| EV-44 | Audit có giới hạn: Part1 55 + Part2 169 events (thiếu raw từng rank), follow-up 157 record có raw; 0 Tier1 ở follow-up; luật dừng chưa đạt | Documentary/search log | Chưa có record | — | [search_log](literature/search_log.md), [follow-up](../results/lessons/l2_8/followup/report.md) |
+| EV-45 | Prior boundary 8 cột, nhãn tạm (AI ủy quyền), related work, DL-042 Gate L HOLD | Judgment (AI ủy quyền) | Chưa có record — tác giả chưa tự chấm | — | [prior_boundary](literature/prior_boundary.md), [related work](literature/related_work_skeleton.md), [DL-042](02_decision_log.md) |
+
+Không có network evidence; không có contrast/regret của ô lưới nào. Chuyển cột "Tác giả
+giải thích lại được?" sang "Có, author-attested ngày …" chỉ khi tác giả tự xác nhận (DL-032).
