@@ -199,3 +199,33 @@ không kết luận thiếu prior. Dừng theo phạm vi Part A: formulation/def
 information + misspecified`, `age of information + model uncertainty`, `certainty
 equivalence + stale` (chưa chạy ba query này trong phiên).
 AI-T khác L-self; scientific dependency A4/L2.9 và formal Gate còn mở.
+
+## L2.6 Part B — 26/10/2026, tiếp tục sau một lần gián đoạn
+
+[Thẻ trước lookup](../../results/lessons/l2_6/part_b/reading_card.md).
+Câu hỏi PC3/PC4/PC6: P13 transient/continuous staffing có ngụ ý gì cho horizon,
+backlog và approximation trong binary routing? Chỉ một paper tác giả yêu cầu.
+
+| Loại | Seed / tool / phạm vi | Thực sàng | Giữ không trùng | Kết quả / hạn chế |
+|---|---|---:|---:|---|
+| lookup | DOI10.1007/s11134-016-9511-0; paper-search Crossref, exact DOI | 1 paper,2calls | 1 |Một call trước gián đoạn, một lặp sau resume để lưu metadata; cùng paper, không hai kết quả độc lập |
+| lookup | CWI25530/25530.pdf; web + paper-pilot inspect, pdftotext-layout | 1 | 0 mới |Journal VoR36trang,269–304; downloaded1PDF. Targeted §2/Thm1/§4/selected§5–6; không full proof/replication |
+| lookup | Journal figure/equation checks; paper-pilot render PDF7/8/14/15/16/18/20/21 | 1 | 0 mới |Đã nhìn Eq2.4/2.7, Thm1, Prop4–5; Fig4–6,Tables1–2/4; terminal paragraph §6 tr289 |
+| lookup | RePEc exact P13 URL do lesson cung cấp; web open2calls | 1 | 0 mới |Metadata/abstract khớp; restricted label của RePEc không phủ nhận OA journal PDF tại CWI |
+| lookup | arxiv1604.05231 abs/history + HTMLv1; web open/find Eq2.10,Prop3–4 | 1 version | 0 mới |Đối chiếu numbering và terminal discussion; không tải PDF arxiv, không coi version là paper mới |
+
+Một unique primary paper, chỉ P13 thêm catalog9→10. Không keyword/backward/
+forward queries, không mở lại18nguồn archive, không chạm candidate snowball
+chưa duyệt. S11/AoII và K-F levels kế thừa record PartA, không giả một lượt đọc mới.
+
+**Sửa sau primary reading:** ΩT định nghĩa Eq2.7, không Eq3.5; terminal-horizon
+explanation là journal§6/tr289 (arxiv§5.3). P13 finite-h optimizer domain μ≥0,
+khác fixed stable μ của theorem. §5.1 in u3=3 trong M/M/1 example không khớp
+central-moment definition (tính riêng được6); không dùng dòng đó để replication.
+Không suy ON overload là global instability hoặc S1 tự quadratic trên finite support.
+
+Dừng: đủ model/objective/statements/version/evidence/terminal paragraph và
+đối chiếu cần cho PartB; không đọc proofs/appendices, không mở rộng literature.
+Lookup không là audit/novelty clearance. [Metadata thao tác](../../results/lessons/l2_6/part_b/lookup_records.json),
+[PDF hash/phạm vi](../../results/lessons/l2_6/part_b/source_access.json),
+[report](../../results/lessons/l2_6/part_b/report.md). AI-T khác L-self; Gate còn mở.

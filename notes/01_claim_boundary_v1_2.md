@@ -49,3 +49,29 @@ và [prior boundary](literature/prior_boundary.md) là reference, không L-self.
   luận GSgivenM1>0 từ nhãn thiết kế đơn độc. D22 fixed-M0 không tự là EVPPI.
 - Số 21.952 toy và 17 kiểm P11 không phải output lưới v1.2, network evidence
   hoặc novelty. Predictions là AI-assisted exposed; formal Gate còn HOLD.
+
+## T-H1 — giới hạn diễn giải do horizon hữu hạn, 26/10/2026
+
+AI soạn theo yêu cầu L2.6 Part B; đây là **interpretation threat**, không đổi
+objective, contract, thresholds hoặc estimand.
+
+D13 **đã tính** endpoint occupancy, bao gồm Δt·(qA,H+qB,H) và các packet còn
+tồn trong horizon. Nó không có một terminal surcharge bổ sung hoặc cost sau h.
+Regret/contrasts chỉ định giá window [t0,t0+h]; action để lại backlog có thể
+có hậu quả ngoài window chưa được tính. Không diễn giải kết quả như long-run
+network loss hoặc total cost cho tới khi mọi packet được phục vụ xong.
+
+P13 journal [§6/tr289](https://ir.cwi.nl/pub/25530/25530.pdf) bàn end-of-period
+effect như một explanation có thể; arxivv1 đặt đoạn đó ở §5.3. Không dùng việc
+source nói tới congestion còn lại để khẳng định D13 bỏ toàn bộ backlog qH.
+Chưa có terminal-cost sensitivity experiment và không tự thêm vào protocol.
+
+Các giới hạn literature đi kèm: P13 Theorem1 cần Lévy/moment/stability conditions;
+Prop5 nói normalized cost với continuous capacity choice. S1 quadratic-loss
+illustration còn cần smooth density và small constant gap bias, không có từ
+riêng p_sw band/finite posterior. Không nhận “initial state matters”, average
+so cumulative, VOI≥0 hoặc Γ bookkeeping là contribution. Mọi hypothesis về
+mode/F/V/Γ của grid vẫn chờ chạy đúng protocol và audit L2.8/L2.9.
+
+[Note P13](literature/papers/P13.md) · [phép tính/crosswalk](literature/horizon_transient.md)
+· [DL-041](02_decision_log.md#dl-041--l26-part-b-prior-và-interpretation-threat-2026-10-26).

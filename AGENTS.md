@@ -44,4 +44,8 @@ Cập nhật26/10/2026: L2.5 Part1/Part2 đã hoàn tất kỹ thuật, P04 khá
 toy admission/bốn server/V1 không phải replication paper hoặc lưới v1.2.
 L2.6 Part A có S11 ở đầu Excel, journal identity TIT2026 đã kiểm nhưng bản đọc
 là arxivv3. K3/heuristic H1 chỉ là AI-assisted evidence/queue, không khóa H1.
-P13/Part B và tác giả L-self/Gate còn mở; không tự đổi nhãn PC hoặc chạy Phase3.
+L2.6 Part B/P13 nay có artifact kỹ thuật, journal CWI36trang; Eq2.7 định nghĩa
+ΩT, Prop4–5/tr282 và terminal discussion §6/tr289 khác arxivv1 numbering.
+T-H1: D13 đã chứa dt·qH, chỉ không có terminal surcharge/cost sau h; không đổi
+metric. H1-Q02 và Q-L27-01 chỉ là queue, tác giả L-self/Gate/A4/L2.9 còn mở;
+không tự đổi nhãn PC, khóa H1 hoặc chạy Phase3.

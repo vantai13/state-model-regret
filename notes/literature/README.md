@@ -13,13 +13,22 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.6 Part B — backlog/horizon, P13
+
+[Bài giải và crosswalk](horizon_transient.md) · [P13 journal](papers/P13.md) ·
+[report/checklist](../../results/lessons/l2_6/part_b/report.md) ·
+[T-H1](../01_claim_boundary_v1_2.md#t-h1--giới-hạn-diễn-giải-do-horizon-hữu-hạn-26102026).
+122checks exact PASS, đọc targeted và kiểm numbering journal/arxiv. Cả2parts có
+artifact kỹ thuật; tác giả L-self/Understanding/Gate và audit A4/L2.9 còn mở.
+
 ## L2.6 Part A — AoI và giá trị quyết định
 
 [Bài ngắn + K3](freshness_decision_value.md) · [S11](papers/S11.md) ·
 [heuristic queue H1, chưa khóa](h1_candidates.md) ·
 [kết quả và checklist](../../results/lessons/l2_6/part_a/report.md).
 Đã kiểm S11 arxivv3 và journal identity TIT2026, phân biệt age/uncertainty/value,
-tính mode/variance và bài tập gap. Chỉ Part A; P13/Part B, tác giả L-self/Gate còn mở.
+tính mode/variance và bài tập gap. Record PartA giữ nguyên; PartB được bổ sung
+ở trên, tác giả L-self/Gate còn mở.
 
 ## L2.5 Part2 — herding khác approximate-model harm
 

@@ -68,3 +68,15 @@ S11 §VII-D/Theorem9/Cor2 cho plateau theo allowed sampling budget, statement
 đã đọc targeted, proof chưa kiểm. [K-S9…11](prior_boundary.md#freshness-và-decision-value--l26-part-a-26102026).
 Không gọi freshness-aware decision value là contribution. Không từ các phần
 đã đọc hoặc hai query screening suy ra GS/Γ với approximate response model mới.
+
+## L2.6 Part B — 26/10/2026
+
+P13 journal Theorem1/Prop4–5 cho prior về initial second moment, horizon và
+stationary approximation trong continuous capacity/average cost problem.
+Nhân T đổi remainder/bound; không tự là D21 gain trên binary routing.
+End-of-period discussion ở §6/tr289 hỗ trợ giới hạn diễn giải T-H1; D13 đã
+có qH, chỉ bỏ additional terminal surcharge/future cost. ON overload không tự
+mất ổn định trung bình; M0 không chính xác là constant-drift Lévy fluid.
+Step/quadratic comparisons cần đúng gap distribution/bias assumptions; hai
+dấu Γ trong abstract no-queue tables không chứng minh mechanism của plant.
+[Các điều đã biết và phạm vi](prior_boundary.md#l26-part-b--horizon-và-transient-26102026).

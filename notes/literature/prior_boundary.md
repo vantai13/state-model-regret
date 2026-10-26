@@ -107,3 +107,37 @@ clearance GS/Γ; A4/L2.8 tiếp tục câu hỏi freshness×model mismatch theo 
 PC6/K6 giữ nguyên forecast; [H1-Q01](h1_candidates.md) chỉ ghi heuristic input
 variance có provenance AI/exposed. Chưa có queue posterior errors/F/V trên lưới;
 không kết luận dự đoán PC6 đúng hoặc sai. P13/Part B chưa thực hiện.
+
+## L2.6 Part B — horizon và transient, 26/10/2026
+
+Các trạng thái Part A ở trên là record lúc lưu; Part B nay đã thực hiện kỹ thuật.
+Không sửa bảng PC/forecast hoặc biến các AI notes thành L-self.
+
+| ID | Prior có điều kiện, không nhận là mới | Nguồn / mức đọc |
+|---|---|---|
+| K-F1 | Đánh giá freshness theo downstream decision/control cost đã có | S11 §III/Eq10 AI-T, K-S9/record PartA giữ nguyên |
+| K-F2 | Optimal cost có thể phẳng theo allowed sampling-rate budget trên threshold; không phải mọi packet thêm đều vô hại | S11 §VII-D/Theorem9/Cor2, **AI-T statement**, không AI-A; proof chưa kiểm |
+| K-F3 | AoII kết hợp time và error penalty, không chỉ age packet | AoII §II/Eq3–9 **AI-T** của PartA, không metadata-only |
+| K-H1 | Với fixed μ>λ và đúng Lévy/moment assumptions: cumulative correction=A+O(1/T), A=[EQ0²−EQ∞²]/[2(μ−λ)], có thể dương/âm/0 | P13 Theorem1/tr276 + Eq2.7/tr275, AI-T statement + phép nhân T của dự án |
+| K-H2 | Second moment của initial workload đi vào leading shift μ*T−μ*∞ bậc1/T | P13 journal Prop4/Eq4.4/tr282, AI-T; không tự là routing gap formula |
+| K-H3 | Steady-state optimizer mất O(1/T²) dưới normalized finite-horizon objective; nhân T cho cumulative bound O(1/T) | P13 journal Prop5/tr282, AI-T statement; không mang bound sang binary D21 |
+| K-H4 | Bỏ cost sau finite horizon có thể ảnh hưởng capacity choice và để lại congestion; đây là explanation paper đề xuất | P13 **journal §6/tr289**, không §5.3 journal; AI-T |
+
+[Note P13](papers/P13.md) ghi version/numbering/assumptions và lỗi số học cần
+tránh chép. [Bài PartB](horizon_transient.md) kiểm25/100, endpoint quadrature,
+continuous/density/finite-support examples. Chưa có J/regret/contrasts trên grid.
+
+**PC3/PC4:** “S0 step còn S1 quadratic” chỉ đúng thêm giả định về density/bias;
+finite posterior cũng có jumps. Γ có thể khác0 trên abstract tables không queue,
+nhưng bias examples không là D21 và chưa giải thích real-grid mechanism.
+Q-L27-01 chờ L2.7/A05; không tự thêm baseline hoặc đổi null.
+
+**PC6:** P13 có prior về initial workload/horizon, không trực tiếp mô hình R2
+memory/hidden modes hoặc tách F/V. Main B có mean9/9.5<capacity10 dù ON14>10;
+không lấy ON overload làm proof instability. Khác Lévy assumption vẫn chặn
+transfer theorem; khác assumptions riêng nó không chứng minh novelty.
+
+[H1-Q02](h1_candidates.md) chỉ lưu B-only long-h second-moment heuristic;
+finite-h8, queueA và mode effects còn thiếu. [T-H1](../01_claim_boundary_v1_2.md#t-h1--giới-hạn-diễn-giải-do-horizon-hữu-hạn-26102026)
+đã bổ sung trước diễn giải regret; giữ D13 không đổi. L2.6 có artifacts kỹ thuật
+cho cả2parts; **Understanding/L-self/Gate/A4/L2.9 còn mở**, G1/HOLD Phase4 giữ nguyên.

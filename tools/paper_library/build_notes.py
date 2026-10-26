@@ -107,7 +107,8 @@ def build(data):
     guide.append(["Mục", "Cách dùng"])
     for row in [
         ("Phạm vi", f"{len(data)} nguồn trong catalog hiện dùng; xem cột Vai trò hiện tại. Không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết."),
-        ("L2.6 Part A", "S11 hiện tại: freshness → decision cost; bản đọc arxivv3, journal identity TIT2026 đã kiểm. K3 ở notes/literature/freshness_decision_value.md; P13/Part B, tác giả L-self/Gate còn mở."),
+        ("L2.6 Part B", "P13 → S11: backlog/horizon và freshness → decision cost. Hai parts đã thực hiện kỹ thuật; tác giả L-self/Gate/A4/L2.9 còn mở. T-H1 chỉ giới hạn diễn giải, không đổi metric."),
+        ("L2.6 Part A", "S11: bản đọc arxivv3, journal identity TIT2026 đã kiểm. K3 ở notes/literature/freshness_decision_value.md; ghi chú PartA cũ là lịch sử."),
         ("L2.5 Part2", "M00 → P04: herding theo tin cũ và fixed-M0 bias. Part2 đã kiểm kỹ thuật; tác giả L-self/Gate còn mở. P01 chỉ targeted screen, chưa cần đọc full."),
         ("L2.5 Part1", "P04: stale link-state, blocking và cost levels; Fig8 không phải clean2×2. Mức tác giả đọc cập nhật riêng, không tự nâng theo AI."),
         ("L2.4", "Nguồn lesson trước: NDT1 → P05 → P10. NMRG, P08, S07 tra bổ sung trong notes/literature/ndt_landscape.md."),

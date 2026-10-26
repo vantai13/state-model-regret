@@ -387,3 +387,21 @@ Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FA
 - **Evidence:** [report](../results/lessons/part_a/report.md),
   [prior boundary](literature/prior_boundary.md),
   [artifact audit](../results/lessons/part_a/artifact_audit.json).
+
+### DL-041 — L2.6 Part B: prior và interpretation threat (2026-10-26)
+
+- **Người phụ trách:** Doan Van Tai. AI triển khai theo attachment được yêu cầu;
+  không ghi tác giả đã tự đọc P13 hoặc qua Understanding/Gate.
+- **Decision:** lưu note P13 journal/numbering, phép nhân T và examples;
+  append T-H1 để diễn giải đúng D13, không sửa cost/horizon/law/thresholds.
+- **Evidence:** bản journal CWI36trang, Eq2.4/2.7, Theorem1, Prop4–5,
+  §5.1–5.3 và §6/tr289 targeted. Arxivv1 chỉ kiểm numbering/đoạn tương ứng.
+  122exact teaching checks PASS; không P13 replication hoặc grid outcomes.
+- **Corrections:** ON overload không tự global instability; D13 có endpoint qH;
+  S1 quadratic cần density/bias assumptions; M0 fluid-like time-varying không
+  đồng nhất constant-drift Lévy. K-F levels kế thừa PartA, không downgrade/mạo nhận.
+- **Consequence:** K-F1…3/K-H1…4 và H1-Q02 được ghi trước A05; chưa chọn H1.
+  Q-L27-01 về decision geometry/Γ chuyển L2.7. G1/HOLD Phase4 giữ nguyên;
+  scientific dependency A4/L2.9, human L-self và formal Gate còn mở.
+- **Artifact:** [report](../results/lessons/l2_6/part_b/report.md),
+  [P13](literature/papers/P13.md), [boundary T-H1](01_claim_boundary_v1_2.md#t-h1--giới-hạn-diễn-giải-do-horizon-hữu-hạn-26102026).

@@ -15,3 +15,20 @@ không xem held-out outcomes để chọn candidate. A4/L2.8/L2.9 còn mở.
 
 [Bài và công thức](freshness_decision_value.md) ·
 [Kết quả heuristic, không kết quả hypothesis](../../results/lessons/l2_6/part_a/mode_and_input_variance.csv).
+
+## H1-Q02 — initial second moment và tốc độ xả, L2.6 Part B
+
+Provenance: attachment PartB/mục10 và phép đối chiếu P13; **AI/exposed**, không
+forecast mù. Với B-only constant-drift fluid, r>u>0 và horizon đủ dài:
+E[qB²]/2·(1/(r−u)−1/r)=E[qB²]/(2r)·η/(1−η), với r2 thì u2η.
+Đã kiểm đại số, E[q²]=(Eq)²+Var(q) và finite-h examples.
+
+Chưa có full two-queue gap, mode-memory posterior, F/V hoặc predictive result.
+Ví dụ qB10,η.75: long-h coefficient75 nhưng B-only difference ở h8 là39packet·s.
+Không dùng coefficient làm GS hoặc input giả kết quả grid. Không chọn feature,
+fit model, đổi null/threshold hay xem held-out để quyết định ở lượt này.
+
+**Q-L27-01:** decision geometry/finite support/state-dependent gap bias có thể
+góp phần vào Γ thế nào? Abstract tables không queue cho Γ=1/5 hoặc−1/2;
+chúng không phải D21 plant. Cần tách explanation này trước gán Γ cho network
+mechanism ở L2.7/A05. [Bài/các giả định](horizon_transient.md).

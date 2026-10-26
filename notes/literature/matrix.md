@@ -56,3 +56,15 @@ Không đổi nhãn PC hoặc estimand của repo.
 [K3 và các đính chính](freshness_decision_value.md), [H1 queue](h1_candidates.md).
 “Cột M1” chỉ là analogy về known-law, không đồng nhất objective hoặc policy set.
 Chỉ S11 thêm Excel hiện dùng; bốn nguồn còn lại tra bổ sung, không tạo reading list mới.
+
+## L2.6 Part B — 26/10/2026
+
+| Nguồn | Estimand / mechanism / regime | Đã đọc / phạm vi transfer |
+|---|---|---|
+| P13 | Average workload+capacity cost; stationary→transient approximation; one Lévy queue/continuous capacity | AI-T CWI journal36trang: Eq2.4/2.7, Theorem1, Prop4–5, §5–selected§6; [note](papers/P13.md). Không cùng D21/model input hoặc binary regret |
+
+[K-F1…3/K-H1…4](prior_boundary.md#l26-part-b--horizon-và-transient-26102026),
+[fluid/gap/finite-support examples](horizon_transient.md),
+[boundary T-H1](../01_claim_boundary_v1_2.md#t-h1--giới-hạn-diễn-giải-do-horizon-hữu-hạn-26102026).
+Chỉ P13 thêm bảng;9notes/progress cũ giữ nguyên. Các record PartA/PartB là
+technical evidence, không đủ quyết định novelty/Gate hoặc đổi nhãn PC.

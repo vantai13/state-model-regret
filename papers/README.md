@@ -2,12 +2,13 @@
 
 Người phụ trách: **Doan Van Tai** · cập nhật **26/10/2026**.
 
-**[Excel và tiến độ đọc](paper_comparison.xlsx)**: **S11 của L2.6 Part A** ở đầu bảng;
-nguồn L2.5/L2.4 và3 tham khảo cũ giữ phía sau. Không phải9 bài phải học hết cùng lúc.
+**[Excel và tiến độ đọc](paper_comparison.xlsx)**: **P13/S11 của L2.6** ở đầu bảng;
+nguồn L2.5/L2.4 và3 tham khảo cũ giữ phía sau. Không phải10 bài phải học hết cùng lúc.
 
 | Khi nào | Nguồn | Dùng để hiểu gì? |
 |---|---|---|
-| Hiện tại: L2.6 Part A | **S11 — Li et al.2026** | Goal-oriented sampling/remote decisions; đọc arxivv3, journal TIT2026 đã kiểm |
+| Hiện tại: L2.6 Part B | **P13 — Mathijsen/Zwart2017** | Transient/horizon; journal36trang; cần phân biệt cost trung bình/cộng dồn |
+| Cùng lesson: Part A | **S11 — Li et al.2026** | Goal-oriented sampling/remote decisions; đọc arxivv3, journal TIT2026 đã kiểm |
 | Lesson trước: L2.5 Part2 | **M00 — Mitzenmacher2000** | Herding do nhiều decision dùng tin cũ; bản đọc submission28trang |
 | Cùng lesson: Part1 | **P04 — Shaikh/Rexford/Shin2001** | Stale link-state, routing, blocking; §V-A/Fig8 |
 | Lesson trước: L2.4 | NDT1 / P05 / P10 | NDT pipeline, what-if feedback và gate |
@@ -29,7 +30,9 @@ P05 full text đọc qua web; PDF local vẫn403. OpenTwin v2 vẫn ghi preprint
 [Bài L2.6/K3](../notes/literature/freshness_decision_value.md) ·
 [Note S11 và DOI đúng](../notes/literature/papers/S11.md).
 Kaul/AoII/AY19 là tra bổ sung trong K3; không thêm thành hàng bắt buộc.
-R32 có sẵn, giữ tiến độ; P13/Part B chưa thực hiện. Mức AI đọc khác mức bạn đọc.
+R32 có sẵn, giữ tiến độ. [P13/Part B](../notes/literature/horizon_transient.md)
+đã thực hiện kỹ thuật; [note P13](../notes/literature/papers/P13.md) ghi đúng
+version/numbering. Mức AI đọc khác mức bạn đọc; không tự cấp Gate.
 
 | Nơi | Chức năng |
 |---|---|
