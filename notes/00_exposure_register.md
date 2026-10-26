@@ -360,3 +360,6 @@ AI soạn theo ủy quyền của Doan Van Tai. Phase 3 cần biết những gì
 IA26, DTS25, CEN26, CEH23 được đọc thay tác giả (AI-T/AI-F); H1-Q04 (độ phi tuyến của động
 học kỳ vọng ↔ khoảng cách CE) thêm vào hàng đợi H1, chưa khóa. Không có outcome lưới hay
 held-out nào được xem; held-out vẫn sạch về outcome.
+
+Bổ sung 26/10 (tối): R34 bản CDC 1992 (JSEQ, trễ k) và ví dụ tính tay T03 đã được AI đọc/dựng;
+không có outcome lưới hay held-out nào được xem.

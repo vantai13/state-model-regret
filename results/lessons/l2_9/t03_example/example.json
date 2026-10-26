@@ -1,0 +1,54 @@
+{
+  "params": {
+    "K": 1,
+    "b": 1,
+    "w2": 4,
+    "u": 1,
+    "c": 4,
+    "P_qB0": "1/3",
+    "P_w2": "2/3"
+  },
+  "J_true": {
+    "Stay|qB=0": "1",
+    "Stay|qB=1": "1",
+    "Switch|qB=0": "2/3",
+    "Switch|qB=1": "4/3"
+  },
+  "J_meanrollout_M0": {
+    "Stay|qB=0": "1",
+    "Stay|qB=1": "1",
+    "Switch|qB=0": "0",
+    "Switch|qB=1": "2/3"
+  },
+  "actions": {
+    "a11": {
+      "0": "Switch",
+      "1": "Stay"
+    },
+    "a10": {
+      "0": "Switch",
+      "1": "Switch"
+    },
+    "a01": "Stay",
+    "a00": "Switch"
+  },
+  "L": {
+    "L00": "10/9",
+    "L01": "1",
+    "L10": "10/9",
+    "L11": "8/9"
+  },
+  "GS_given_M1": "1/9",
+  "EVPPI": "1/9",
+  "GM_given_S1": "2/9",
+  "E_VSS": "2/9",
+  "VSS": {
+    "0": "0",
+    "1": "1/3"
+  },
+  "GS": "0",
+  "GM": "1/9",
+  "Gamma": "1/9",
+  "exact_ties": false,
+  "identity_checks_cases": 30000
+}

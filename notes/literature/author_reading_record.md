@@ -47,3 +47,6 @@ câu do chính bản giải thích gợi ý — (1) center của WM26 khác mean
 rồi ghi câu trả lời bằng lời mình vào bảng trên.
 
 `author_approval.json` của L2.8 Part2 ("Duyệt cả 3") là quyết định duyệt đọc, **không** phải L-self.
+
+Gói hướng dẫn tự đọc từng nguồn (trang cần mở + câu tự trả lời): [author_reading_pack](author_reading_pack.md).
+Ví dụ tính tay hỗ trợ tự dẫn T03: [T03_worked_example](../theory/T03_worked_example.md).

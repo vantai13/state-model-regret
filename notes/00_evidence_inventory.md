@@ -265,3 +265,4 @@ giải thích lại được?" sang "Có, author-attested ngày …" chỉ khi t
 | EV | Item | Type | Tác giả giải thích lại được? | Mức đọc | Artifact |
 |---|---|---|---|---|---|
 | EV-46 | Đợt duyệt 26/10: IA26, DTS25, CEN26, CEH23 (tác giả duyệt và tải PDF); điều kiện "nhãn sẽ đổi nếu" của PC2/PC3/PC5/PC6 đã kiểm, nhãn tạm không đổi | L-2nd | Chưa có record | AI-T (DTS25 AI-F) | [report](../results/lessons/l2_8/approved_batch/report.md) |
+| EV-47 | Đối chiếu bản chính thức: S11 journal (khớp), R01 eCommons = TR (journal chưa có), R34 bản CDC 1992 (TAC chưa có); ví dụ tính tay T03 (EVPPI=1/9, E[VSS]=2/9, không hòa) | L-2nd + E0 ví dụ | Chưa có record | AI-T | [report](../results/lessons/l2_9/journal_check/report.md) |

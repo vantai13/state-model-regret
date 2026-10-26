@@ -416,3 +416,11 @@ Không chạy query mới; đây là `lookup`/đọc nguồn có tên, không t�
 | lookup | MOR 2025.0898 | — | — | Không có PDF; để sau |
 
 Không thêm nguồn ngoài danh sách đã duyệt; không đạt/không tuyên bố saturation.
+
+## Đối chiếu bản chính thức — 26/10/2026 (tối)
+
+| Loại | Nguồn | File tác giả tải | Kết quả |
+|---|---|---|---|
+| lookup | S11 journal | IEEE TIT 72(4) tr2237, 40tr | Đúng bản; số mục khớp arXiv v3 |
+| lookup | R01 journal | eCommons "6-2010", 29tr | **Không phải journal**: bìa kho + TR 2006 trùng nội dung; cần bản Springer |
+| lookup | R34 | CDC 1992, 2tr scan | **Không phải TAC 1995**; đọc 2 trang làm prior tạm; cần bản TAC |

@@ -361,3 +361,13 @@ Bổ sung "không được claim là mới": giá trị thông tin theo decision
 ngưỡng đóng độ tươi–phạm vi (IA26); chọn telemetry NDT theo giá trị quyết định như một đề xuất
 (DTS25); đánh giá telemetry model bằng replay quyết định (CEN26); heuristic CE gần tối ưu với cận
 ∝ √var/var khi động học affine và trơn (CEH23). Ứng viên cơ chế: [H1-Q04](h1_candidates.md).
+
+## Kiểm bản chính thức S11, R01 và bản CDC của R34 — rà lại nhãn tạm (26/10/2026)
+
+Mức đọc AI-T; chưa L-self. Nhãn tạm (AI theo ủy quyền) giữ nguyên; các dòng trên không sửa.
+
+| Nguồn | Kết quả kiểm | Ảnh hưởng |
+|---|---|---|
+| S11 journal TIT2026 | §III/Eq10, §VII-D/Theorem 9/Cor 2/Appendix O khớp arXiv v3 | Nguồn quyết định PC6 nay có bản journal; PC6 **NARROW giữ** |
+| R01 (eCommons) | Cùng bản TR 2006; số mục journal chưa kiểm | Không đổi; K-RM2 vẫn trích theo TR |
+| R34 bản CDC 1992 (2 trang) | Routing vào hai queue với queue length trễ k: JSEQ tối ưu khi k=1, **không tối ưu khi k≥2** (Định lý 2.1.2, tr997–998) | Thêm vào "không được claim là mới": *quyết định theo kỳ vọng của state cũ không còn tối ưu khi thông tin đủ cũ* (pending TAC 1995). Không có trục model hay Γ → PC2/PC6 **NARROW giữ**, PC3 **KEEP câu chữ giữ**, Main RQ **KEEP giữ** |

@@ -112,3 +112,8 @@ PDF9 (không §9). Excel "Mức tôi đã đọc" giữ nguyên; Gate L vẫn HO
 DTS25 AI-F), Excel23, author levels vẫn "Chưa có xác nhận". Nhãn tạm không đổi; H1-Q04 thêm
 vào queue. Tác giả yêu cầu không ghi AI: repo vẫn ghi mức đọc thật (AI-T ≠ L-self) vì Gate L
 dựa vào cột đó; L-self chỉ ghi khi tác giả tự đọc và nhắn lời mình.
+
+Bản chính thức/26/10 tối: S11 journal khớp số mục; R01 eCommons = TR2006 (cần Springer
+10.1007/s10479-009-0603-7); R34 nhận bản CDC1992 2tr (cần TAC 10.1109/9.402238). Có
+author_reading_pack + T03_worked_example (EVPPI 1/9, E[VSS] 2/9) để tác giả tự làm; tác giả
+yêu cầu AI đóng vai tự đọc/tự dẫn/tự chấm — không ghi được thành L-self/L3; nhãn tạm giữ.
