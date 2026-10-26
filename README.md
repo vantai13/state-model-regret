@@ -23,6 +23,13 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.7 Part A,26/10/2026:** [fidelity/oracle/factorial và bài tập](notes/literature/model_fidelity_methods.md),
+[MT1–MT8](notes/phases/PHASE_4_methodology_threats.md), K-M1–5 và Excel12nguồn đã lưu.
+**14checks exact PASS**, thêm256factorial+256oracle cases; RP/WS=3,5/2,5,
+future EVPI1; V1Γ=1/4. P03=R51/P07 AI-T, **P02 chỉ abstract: full text BLOCKED**.
+[Report/commands/output và việc còn mở](results/lessons/l2_7/part_a/report.md).
+Part A còn dependency P02; PartB/P12, L-self/Gate/A4/A05/L2.8–2.9 chưa đóng.
+
 **L2.6 Part B, 26/10/2026:** [P13 journal](notes/literature/papers/P13.md),
 [horizon/transient/crosswalk](notes/literature/horizon_transient.md), K-F/K-H,
 H1-Q02 và T-H1 đã lưu. **122checks PASS**: fluid25 tại h10/100, q0gấp2 cho100;

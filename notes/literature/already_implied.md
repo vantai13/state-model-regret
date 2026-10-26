@@ -80,3 +80,16 @@ mất ổn định trung bình; M0 không chính xác là constant-drift Lévy f
 Step/quadratic comparisons cần đúng gap distribution/bias assumptions; hai
 dấu Γ trong abstract no-queue tables không chứng minh mechanism của plant.
 [Các điều đã biết và phạm vi](prior_boundary.md#l26-part-b--horizon-và-transient-26102026).
+
+## L2.7 Part A — 26/10/2026
+
+P03=R51 đã có expected-return decision regret trong candidate policy selection
+(§2/§6.2/B.4.2, AI-T), không được nhận metric này hoặc fidelity≠decision-quality
+là mới. Theorem3.1 là **tồn tại** với assumptions, Theorem3.3 thêm local improvement.
+P07 đưa direct decision-aligned optimization vào WAN TE (§2.2–3.2 AI-T), có
+hindsight oracle (§4.1); không dùng optimality ratio so với regret/Cref của repo.
+
+P02 abstract AI-A xác nhận sensitivity theo errors/horizon/update frequency;
+chưa kiểm §2–4, số liệu hoặc joint biases. K-M5 cụ thể còn pending, không gán
+Γ<0. Không lấy P04/Fig8 làm evidence Γ>0. Factorial là design có thể nằm trong
+sensitivity analysis; đo Γ chưa đủ xác nhận mechanism/novelty. [Bài và giới hạn](model_fidelity_methods.md).

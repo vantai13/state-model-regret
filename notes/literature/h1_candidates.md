@@ -32,3 +32,8 @@ fit model, đổi null/threshold hay xem held-out để quyết định ở lư�
 góp phần vào Γ thế nào? Abstract tables không queue cho Γ=1/5 hoặc−1/2;
 chúng không phải D21 plant. Cần tách explanation này trước gán Γ cho network
 mechanism ở L2.7/A05. [Bài/các giả định](horizon_transient.md).
+
+L2.7 PartA/26/10: Q-L27-01 đã chuyển thành
+[MT5 trong Phase4 queue](../phases/PHASE_4_methodology_threats.md); vẫn chờ A05
+chọn thiết kế null cụ thể. Các teaching tables ở L2.7 không được dùng tự khóa
+null, H1 hoặc giải thích mechanism của lưới. P12/OεRE thuộc PartB chưa làm.

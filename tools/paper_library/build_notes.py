@@ -107,13 +107,14 @@ def build(data):
     guide.append(["Mục", "Cách dùng"])
     for row in [
         ("Phạm vi", f"{len(data)} nguồn trong catalog hiện dùng; xem cột Vai trò hiện tại. Không phải danh sách đầy đủ về NDT hay bài tập phải đọc hết."),
+        ("L2.7 Part A", "R51=P03 → P07 → P02: fidelity, oracle và factorial. P03/P07 AI-T; P02 chỉ abstract, full text BLOCKED. PartB/P12 chưa thực hiện. Không tự cấp L-self/Gate."),
         ("L2.6 Part B", "P13 → S11: backlog/horizon và freshness → decision cost. Hai parts đã thực hiện kỹ thuật; tác giả L-self/Gate/A4/L2.9 còn mở. T-H1 chỉ giới hạn diễn giải, không đổi metric."),
         ("L2.6 Part A", "S11: bản đọc arxivv3, journal identity TIT2026 đã kiểm. K3 ở notes/literature/freshness_decision_value.md; ghi chú PartA cũ là lịch sử."),
         ("L2.5 Part2", "M00 → P04: herding theo tin cũ và fixed-M0 bias. Part2 đã kiểm kỹ thuật; tác giả L-self/Gate còn mở. P01 chỉ targeted screen, chưa cần đọc full."),
         ("L2.5 Part1", "P04: stale link-state, blocking và cost levels; Fig8 không phải clean2×2. Mức tác giả đọc cập nhật riêng, không tự nâng theo AI."),
         ("L2.4", "Nguồn lesson trước: NDT1 → P05 → P10. NMRG, P08, S07 tra bổ sung trong notes/literature/ndt_landscape.md."),
         ("R32 / R34", "Nguồn gần trục state: feedback control và queue với thông tin trễ; khác bài toán routing của repo."),
-        ("R51 = P03", "DT² là cầu nối phương pháp digital twin, không phải paper networking chuyên biệt."),
+        ("R51 = P03", "Một công trình DT², một hàng R51. Đã nâng AI note từ thứ cấp sang targeted PMLR; bản cũ có backup. DOTE/P07 là networking; P02 là nguồn phương pháp được chỉ định."),
         ("Mức đọc", "Bạn cập nhật Danh_sach → Mức tôi đã đọc; mức AI riêng ở Ghi_chu_doc. Giữ nguyên record cũ, không tự tăng mức đọc."),
         ("Ghi chú", "Ghi_chu_doc giữ nội dung theo ID; các nhắc lịch lesson trong ghi chú cũ là lịch sử. Mức AI đọc luôn tách khỏi mức bạn đọc."),
         ("Tìm paper", "Dùng notes/literature/search_protocol.md; tác giả duyệt trước khi tải hoặc tạo note mới."),

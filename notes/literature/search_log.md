@@ -229,3 +229,29 @@ Dừng: đủ model/objective/statements/version/evidence/terminal paragraph và
 Lookup không là audit/novelty clearance. [Metadata thao tác](../../results/lessons/l2_6/part_b/lookup_records.json),
 [PDF hash/phạm vi](../../results/lessons/l2_6/part_b/source_access.json),
 [report](../../results/lessons/l2_6/part_b/report.md). AI-T khác L-self; Gate còn mở.
+
+## L2.7 Part A — 26/10/2026, lookup ba nguồn được chỉ định
+
+[Thẻ trước lookup](../../results/lessons/l2_7/part_a/reading_card.md).
+PC2/PC3/PC4/PC5: fidelity vs policy choice, comparator information và khả năng
+nhận diện interaction. Chỉ P03/P07/P02; P12 thuộc PartB, không tải/đọc lượt này.
+
+| Loại | Query / seed / tool / phạm vi | Thực sàng | Giữ unique | Kết quả / hạn chế |
+|---|---|---:|---:|---|
+| lookup | P03 exact PMLR amad26a + arxiv2606.25923 abs/history; web official open; paper-pilot inspect; pdftotext-layout | 1công trình,2versions đối chiếu metadata | 1, đã có R51 | PMLR27trang, AI-T §2–3/6.1–6.2/7.1 và appendix chọn lọc. Hai bản tải local qua context gián đoạn, cùng hash/cùng paper; không thêm P03 trùng R51 |
+| lookup | P07 USENIX/perry + arxiv2303.00735v1; web official; inspect; pdftotext-layout | 1công trình | 1mới | NSDI PDF26trang gồmcover; AI-T §2.2–3.3/4.1–4.2. arxivv1 hiện có đúng tên DOTE: đính chính lesson về alias tên khác |
+| lookup | P03/P07 targeted figure/formula check; paper-pilot render + view_image | 2công trình | 0mới | Nhìn P03 PDF3/7 Theorem/Fig4; P07 PDF4/9 Fig2/Fig3/oracle. Không full read hoặc replication |
+| lookup | P02 DOI10.1016/j.trc.2023.104174, paper-search Crossref; web official portal abstract | 1công trình | 1mới | Title/authors/TR-C153:104174/2023 khớp; citations4/Crossref ngày26/10. AI-A official abstract; record có VoR20trang CC BY, không coi record là full text |
+| lookup | `site.repository.tudelft.nl "Structure-free model-based predictive signal control"`; web search, exact-title known-item, không year filter | 3official records/paths của cùng paper | 0mới | Chỉ repository record, alternate repository PDF, research portal được sàng; không đếm toàn bộ search hits là paper đã sàng hoặc đọc |
+| lookup | P02 file TU Delft do lesson đưa; web + inspect(pdf_url,doi) + curlHEAD25s | 1công trình | 0mới | Web Internal Error; observed inspect retry tools/call timeout300s; curl exit28/timeout25s. Earlier pre-resume attempt output không còn, không tự ghi thành công |
+| lookup | P02 alternate repository file, Pure PDF, research portal PDF và publisher; web/inspect/curl | 1công trình | 0mới | Timeout/403; full text chưa đọc. DOI-only inspect/Unpaywall: No PDF URL available. API/islandora alternate URLs cũng inaccessible |
+| lookup | P02 paper-search download_with_fallback, sourceCrossref, **use_scihub=false** | 1requested paper; không tự sàng3tool candidates | 0mới | Download failed; tool báo3candidate PDFs không khớp, Unpaywall không có OA URL hoặc thiếu email. Không dùng chúng làm evidence, không suy paper không OA |
+
+**Số không trùng:**3nguồn được chỉ định,1đã có +2thêm catalog10→12;2AI-T,
+1AI-A/BLOCKED. Không keyword field survey, backward/forward hay snowball.
+Dừng: P03/P07 trả lời đủ câu hỏi targeted; P02 official/OA routes thất bại sau
+các attempt đã lưu, không mở rộng literature hoặc lặp tải vô hạn. Full §2–4
+và figures P02 còn dependency mở của PartA; không tuyên bố PartA hoàn tất hết,
+không cấp novelty clearance. [Access/errors/hashes](../../results/lessons/l2_7/part_a/source_access.json),
+[metadata](../../results/lessons/l2_7/part_a/source_metadata.json),
+[report](../../results/lessons/l2_7/part_a/report.md).

@@ -13,6 +13,15 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.7 Part A — trục model
+
+[Bài ngắn, bài tập và đính chính](model_fidelity_methods.md) ·
+[P03=R51](papers/P03.md) · [P07/DOTE](papers/P07.md) · [P02](papers/P02.md) ·
+[MT1–MT8/HOLD](../phases/PHASE_4_methodology_threats.md) ·
+[report](../../results/lessons/l2_7/part_a/report.md).
+14checks exact PASS,2sweeps×256cases. P03/P07 AI-T; P02 AI-A, full text BLOCKED.
+Part A chưa hoàn tất phần primary P02; PartB/P12/OεRE và human Gate còn mở.
+
 ## L2.6 Part B — backlog/horizon, P13
 
 [Bài giải và crosswalk](horizon_transient.md) · [P13 journal](papers/P13.md) ·

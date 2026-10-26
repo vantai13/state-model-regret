@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-26",
+  "responsible": "Doan Van Tai",
+  "authorization": "3 named sources explicitly requested in L2.7 PartA attachment; P12 PartB excluded",
+  "sources": [
+    {
+      "id": "P03",
+      "alias": "R51",
+      "pdf_path": "/home/vantai/papers/state-model-regret/current/P03_DT2_PMLR2026.pdf",
+      "resolved_path": "/home/vantai/papers/paper-pilot/downloads/p03-dt2-pmlr2026-pdf-p03-dt2-pmlr2026-pdf-20261026-085623.pdf",
+      "sha256": "0eeefa24013f8f5018ffcb3ec01212b43754b425448b38be9aef8b83a052df53",
+      "pdf_pages": 27,
+      "version": "official PMLR proceedings",
+      "AI_level": "T",
+      "author_level": "Chưa có xác nhận",
+      "sections": "§2–3,§6.1–6.2 selected text,§7.1; A.1–A.2,B.3–B.4.3",
+      "text_pages": [
+        2,
+        3,
+        6,
+        7,
+        8,
+        9,
+        14,
+        16,
+        17
+      ],
+      "rendered_pages": [
+        {
+          "page": 3,
+          "path": "/home/vantai/papers/paper-pilot/renders/p03-dt2-pmlr2026-pdf-p03-dt2-pmlr2026-pdf-20261026-085623-page-003.png",
+          "sha256": "d4d285e42db3039514747353f0073da69de19fe8c2567361619bb1e32ef976ce"
+        },
+        {
+          "page": 7,
+          "path": "/home/vantai/papers/paper-pilot/renders/p03-dt2-pmlr2026-pdf-p03-dt2-pmlr2026-pdf-20261026-085623-page-007.png",
+          "sha256": "de523e138306cdcc3e9725c4f7b84664139cd687246ea4c5750a770ec5fddbae"
+        }
+      ],
+      "url": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/amad26a/amad26a.pdf"
+    },
+    {
+      "id": "P07",
+      "alias": null,
+      "pdf_path": "/home/vantai/papers/state-model-regret/current/P07_DOTE_NSDI2023.pdf",
+      "resolved_path": "/home/vantai/papers/paper-pilot/downloads/p07-dote-nsdi2023-pdf-p07-dote-nsdi2023-pdf-20261026-085622.pdf",
+      "sha256": "eff2a872f5971f724845bd61c6297750b840c392c79048ed5e5dc9ccb438617b",
+      "pdf_pages": 26,
+      "version": "USENIX proceedings + cover",
+      "AI_level": "T",
+      "author_level": "Chưa có xác nhận",
+      "sections": "abstract;§2.2–2.4,§3.1–3.3,§4.1–4.2",
+      "text_pages": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10
+      ],
+      "rendered_pages": [
+        {
+          "page": 4,
+          "path": "/home/vantai/papers/paper-pilot/renders/p07-dote-nsdi2023-pdf-p07-dote-nsdi2023-pdf-20261026-085622-page-004.png",
+          "sha256": "115bf11f577416ab50c63aaefa2b78c97ef097eb75d6bc244575620c41fab324"
+        },
+        {
+          "page": 9,
+          "path": "/home/vantai/papers/paper-pilot/renders/p07-dote-nsdi2023-pdf-p07-dote-nsdi2023-pdf-20261026-085622-page-009.png",
+          "sha256": "5e224bbd0096a8d030efbf0514ed1fd150e072ef2be65788eb2437fee48b57f6"
+        }
+      ],
+      "url": "https://www.usenix.org/system/files/nsdi23-perry.pdf"
+    }
+  ],
+  "P02": {
+    "doi": "10.1016/j.trc.2023.104174",
+    "AI_level": "A",
+    "author_level": "Chưa có xác nhận",
+    "full_text_status": "BLOCKED",
+    "pdf_path": null,
+    "sections_read": "official abstract only",
+    "pending": "§2.1/2.2.4/3.1–3.3/4/captions; design and numerical claims unverified"
+  },
+  "attempts": [
+    {
+      "id": "P03/P07",
+      "tool": "web official pages; paper-pilot inspect; pdftotext -layout; paper-pilot render + view_image",
+      "result": "2 unique full PDFs; two downloaded copies each across interrupted context, same-paper dedup; targeted reading only"
+    },
+    {
+      "id": "P02",
+      "tool": "web open",
+      "url": "https://repository.tudelft.nl/file/File_6a0e3dd5-b076-42da-9f74-30eed3391870",
+      "result": "Internal Error; no text"
+    },
+    {
+      "id": "P02",
+      "tool": "paper-pilot inspect(pdf_url,doi)",
+      "url": "same TU file",
+      "result": "observed retry: tools/call timeout after300s; earlier pre-resume attempt result unavailable"
+    },
+    {
+      "id": "P02",
+      "tool": "curl -IL --max-time25",
+      "url": "same TU file",
+      "result": "exit28, connection timeout25s"
+    },
+    {
+      "id": "P02",
+      "tool": "web exact-title lookup restricted TU Delft",
+      "query": "site.repository.tudelft.nl \"Structure-free model-based predictive signal control\"",
+      "result": "screened3 official records/paths of same work: repository record, repository alternate PDF, research portal;1 unique work, no new discovery"
+    },
+    {
+      "id": "P02",
+      "tool": "web open",
+      "url": "https://repository.tudelft.nl/file/File_61650448-90f6-4435-b60a-56dbc7097948",
+      "result": "400 Timeout fetching; ?download=1 variant inaccessible"
+    },
+    {
+      "id": "P02",
+      "tool": "web + paper-pilot inspect",
+      "url": "https://pure.tudelft.nl/ws/portalfiles/portal/155299860/1_s2.0_S0968090X23001638_main.pdf",
+      "result": "web timeout; inspect failed to download, no detail returned"
+    },
+    {
+      "id": "P02",
+      "tool": "web official research portal",
+      "url": "https://research.tudelft.nl/en/publications/structure-free-model-based-predictive-signal-control-a-sensitivit/",
+      "result": "metadata and full abstract readable; AI-A, not full text"
+    },
+    {
+      "id": "P02",
+      "tool": "web click + curl -L --fail --max-time30",
+      "url": "https://research.tudelft.nl/files/155299860/1_s2.0_S0968090X23001638_main.pdf",
+      "result": "403; curl exit22"
+    },
+    {
+      "id": "P02",
+      "tool": "web publisher open",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0968090X23001638",
+      "result": "403 Forbidden"
+    },
+    {
+      "id": "P02",
+      "tool": "paper-pilot DOI-only inspect (Unpaywall)",
+      "doi": "10.1016/j.trc.2023.104174",
+      "result": "Failed: No PDF URL available for this record"
+    },
+    {
+      "id": "P02",
+      "tool": "web official alternate routes",
+      "urls": [
+        "https://api.elsevier.com/content/article/pii/S0968090X23001638?httpAccept=text/xml",
+        "https://repository.tudelft.nl/islandora/object/uuid:baa80dcc-2dcc-4f3b-ab6c-b4937cc9d398/datastream/OBJ/download"
+      ],
+      "result": "both inaccessible"
+    },
+    {
+      "id": "P02",
+      "tool": "paper-search download_with_fallback",
+      "use_scihub": false,
+      "result": "Download failed. CrossRef no direct PDF; provider reports3 candidate PDFs did not match; Unpaywall no OA URL or email missing. No candidates manually counted/read; no illegitimate fallback."
+    }
+  ],
+  "stop": "Named-item lookup complete for P03/P07; P02 official/OA routes exhausted for this session. No keyword field survey, no novelty clearance."
+}

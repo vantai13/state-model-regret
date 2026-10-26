@@ -141,3 +141,26 @@ transfer theorem; khác assumptions riêng nó không chứng minh novelty.
 finite-h8, queueA và mode effects còn thiếu. [T-H1](../01_claim_boundary_v1_2.md#t-h1--giới-hạn-diễn-giải-do-horizon-hữu-hạn-26102026)
 đã bổ sung trước diễn giải regret; giữ D13 không đổi. L2.6 có artifacts kỹ thuật
 cho cả2parts; **Understanding/L-self/Gate/A4/L2.9 còn mở**, G1/HOLD Phase4 giữ nguyên.
+
+## L2.7 Part A — trục model,26/10/2026
+
+AI-only. Không sửa bảng PC/forecast hoặc đổi Gate. [Bài và đính chính](model_fidelity_methods.md).
+
+| ID | Prior / phạm vi câu được nói | Nguồn và mức thực đọc |
+|---|---|---|
+| K-M1 | Simulation fidelity khác decision quality: dưới assumptions của Theorem3.1, **tồn tại reward/Π** khiến model simulation-optimal xếp sai; không có kết luận tần suất | P03=R51 §3/PDF3, A.1/PDF14, §6.1/PDF6–7 AI-T; P07 §2.2/4.2 AI-T |
+| K-M2 | Đánh giá twin bằng expected-return decision regret đã có trong finite policy set; true values được ước lượng MC, không hindsight selection | P03 §2/Eq1–4, §6.2/PDF7–8, B.4.2/PDF17 AI-T;500rollouts/policy |
+| K-M3 | Tối ưu trực tiếp TE objective từ historical demands, bỏ explicit demand-prediction stage, đã có trong networking | P07 §2.2–3.2/printed1558–1562 AI-T; không phải không dùng model/DNN |
+| K-M4 | Sensitivity theo aggregation/model/input biases, prediction horizon và update frequency đã có | P02 **official abstract AI-A** xác nhận phạm vi chung; bias definitions/ranges/combined designs ở full text chưa kiểm |
+| K-M5 | Frequent updates dampen prediction errors là prior được abstract báo; reinitialization bù model/demand và thất bại khi state biased là **candidate chưa xác nhận** | P02 abstract AI-A; §4 từ lesson chỉ là vị trí cần đọc, chưa AI-T hoặc measured Γ |
+
+**Không suy dấu Γ từ P02/P04.** Factorial có thể nằm trong một sensitivity
+study; ba ô OAT từ một anchor không xác định interaction khi thiếu assumptions.
+GS/GM là simple effects tại baseline; cost cross-difference=−Γ. P03 có partial
+observation, nhưng các section đã đọc chưa xác nhận controlled D20×D21 cùng
+posterior/objective/actions. Khác setup không là novelty clearance.
+
+[MT1…8](../phases/PHASE_4_methodology_threats.md) là queue HOLD trước Phase4;
+MT2/6/7 còn P02 full-text dependency, MT5 chờ A05 cụ thể hóa null. Không tự khóa
+null/H1, không đổi thresholds và chưa chạy grid. **L2.7 Part A chưa hoàn tất
+primary P02; Part B/P12/OεRE, L-self/Gate/A4/L2.8–2.9 còn mở.**

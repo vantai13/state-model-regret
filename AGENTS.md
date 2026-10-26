@@ -49,3 +49,11 @@ L2.6 Part B/P13 nay có artifact kỹ thuật, journal CWI36trang; Eq2.7 định
 T-H1: D13 đã chứa dt·qH, chỉ không có terminal surcharge/cost sau h; không đổi
 metric. H1-Q02 và Q-L27-01 chỉ là queue, tác giả L-self/Gate/A4/L2.9 còn mở;
 không tự đổi nhãn PC, khóa H1 hoặc chạy Phase3.
+
+Cập nhật L2.7 PartA,26/10/2026: P03=R51 dùng chung một record, P03/P07 AI-T;
+P02 mới official abstract AI-A, full text timeout/403/OA fallback thất bại.
+Không ghi P02 đã T hoặc L2.7 PartA hoàn tất toàn bộ. Excel12nguồn;10tiến độ
+tác giả và9notes khác giữ nguyên, R51 AI note nâng mức có snapshot. K-M1…5/
+MT1…8 chỉ evidence/queue; K-M5 và MT2/6/7 còn primary P02 dependency. Không gán
+dấu Γ cho P02/P04 hoặc nhận factorial/decision regret là mới. MT5 chờ A05,
+PartB/P12/OεRE/L-self/Gate/A4/L2.8–2.9 còn mở; không tự chọn null hoặc chạy Phase3.

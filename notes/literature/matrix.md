@@ -68,3 +68,15 @@ Chỉ S11 thêm Excel hiện dùng; bốn nguồn còn lại tra bổ sung, khô
 [boundary T-H1](../01_claim_boundary_v1_2.md#t-h1--giới-hạn-diễn-giải-do-horizon-hữu-hạn-26102026).
 Chỉ P13 thêm bảng;9notes/progress cũ giữ nguyên. Các record PartA/PartB là
 technical evidence, không đủ quyết định novelty/Gate hoặc đổi nhãn PC.
+
+## L2.7 Part A — 26/10/2026
+
+| Nguồn | Estimand / mechanism / regime | Evidence thực đọc và giới hạn |
+|---|---|---|
+| P03=R51 | Expected policy-value regret trong finite candidate set; learned twin/ranking loss; offline MDP | AI-T PMLR27trang: §2–3/6.1–6.2/7.1, A.1–2/B.3–4.3 chọn lọc; [note](papers/P03.md). MC500rollouts/policy, không hindsight; không D21 intervention |
+| P07 DOTE | Expected MLU/direct TE learning; repeated split ratios; evaluation ratio so future-demand oracle | AI-T USENIX §2.2–3.3/4.1–4.2; [note](papers/P07.md). Theory idealized, không guarantee DNN thực; không so số với D18 |
+| P02 | Sensitivity theo prediction errors/horizon/update frequency trong signal MPC | **AI-A official abstract**, full text BLOCKED; [note](papers/P02.md). Chưa xác nhận joint biases, recorded-future comparator hoặc dấu Γ |
+
+[Đính chính và bài tập](model_fidelity_methods.md), [K-M1…5](prior_boundary.md#l27-part-a--trục-model-26102026),
+[MT1…8/HOLD](../phases/PHASE_4_methodology_threats.md). Excel thêm2hàng P07/P02,
+P03 dùng chung R51; giữ10author progress. Part A còn primary P02, Part B chưa làm.

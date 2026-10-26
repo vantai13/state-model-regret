@@ -1,0 +1,147 @@
+{
+  "status": "PASS",
+  "check_count": 14,
+  "checks": [
+    "lesson/Stay: hindsight decomposition",
+    "lesson/Switch: hindsight decomposition",
+    "exercise/Stay: hindsight decomposition",
+    "exercise/Switch: hindsight decomposition",
+    "lesson golden",
+    "exercise golden",
+    "V1 cost versus regret",
+    "V1 contrasts match frozen evidence",
+    "V1 additive error",
+    "V1 averaged effects",
+    "additive exercise",
+    "same three observed corners do not identify Gamma",
+    "256 factorial tables: identities and sign convention",
+    "256 two-future problems: oracle ordering and decomposition"
+  ],
+  "oracle_examples": {
+    "lesson": {
+      "costs": [
+        [
+          2,
+          6
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "action": "Switch",
+      "expected": [
+        "4",
+        "7/2"
+      ],
+      "RP": "7/2",
+      "WS": "5/2",
+      "future_EVPI": "1"
+    },
+    "exercise": {
+      "costs": [
+        [
+          2,
+          6
+        ],
+        [
+          6,
+          3
+        ]
+      ],
+      "action": "Stay",
+      "expected": [
+        "4",
+        "9/2"
+      ],
+      "RP": "4",
+      "WS": "5/2",
+      "future_EVPI": "3/2"
+    }
+  },
+  "factorial_examples": {
+    "V1": {
+      "L00": "5/4",
+      "L10": "3/2",
+      "L01": "5/4",
+      "L11": "5/4",
+      "GS": "-1/4",
+      "GM": "0",
+      "GSM": "0",
+      "GSgivenM1": "0",
+      "GMgivenS1": "1/4",
+      "Gamma": "1/4",
+      "averaged_state_effect": "-1/8",
+      "averaged_model_effect": "1/8",
+      "cost_interaction": "-1/4",
+      "additive_prediction_L00": "3/2",
+      "additive_prediction_error": "1/4"
+    },
+    "additive_exercise": {
+      "L00": "4",
+      "L10": "3",
+      "L01": "2",
+      "L11": "1",
+      "GS": "1",
+      "GM": "2",
+      "GSM": "3",
+      "GSgivenM1": "1",
+      "GMgivenS1": "2",
+      "Gamma": "0",
+      "averaged_state_effect": "1",
+      "averaged_model_effect": "2",
+      "cost_interaction": "0",
+      "additive_prediction_L00": "4",
+      "additive_prediction_error": "0"
+    },
+    "same_OAT_Gamma0": {
+      "L00": "3/2",
+      "L10": "3/2",
+      "L01": "5/4",
+      "L11": "5/4",
+      "GS": "0",
+      "GM": "1/4",
+      "GSM": "1/4",
+      "GSgivenM1": "0",
+      "GMgivenS1": "1/4",
+      "Gamma": "0",
+      "averaged_state_effect": "0",
+      "averaged_model_effect": "1/4",
+      "cost_interaction": "0",
+      "additive_prediction_L00": "3/2",
+      "additive_prediction_error": "0"
+    },
+    "same_OAT_Gamma_negative": {
+      "L00": "7/4",
+      "L10": "3/2",
+      "L01": "5/4",
+      "L11": "5/4",
+      "GS": "1/4",
+      "GM": "1/2",
+      "GSM": "1/2",
+      "GSgivenM1": "0",
+      "GMgivenS1": "1/4",
+      "Gamma": "-1/4",
+      "averaged_state_effect": "1/8",
+      "averaged_model_effect": "3/8",
+      "cost_interaction": "1/4",
+      "additive_prediction_L00": "3/2",
+      "additive_prediction_error": "-1/4"
+    }
+  },
+  "V1_regret": {
+    "00": "0",
+    "01": "0",
+    "10": "1/4",
+    "11": "0"
+  },
+  "exhaustive_cases": {
+    "factorial": 256,
+    "oracle": 256
+  },
+  "input": {
+    "path": "results/lessons/l2_3/p11_toy.json",
+    "sha256": "a0b53447694d0bc51939df778141c5dd883d819f2f301ce4a7f39c87aa081dbc"
+  },
+  "source_sha256": "69e9b8cf38bad10c99bc5283acefa9fa935df2770abbe0b30a10cb89fbab9776"
+}

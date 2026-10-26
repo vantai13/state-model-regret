@@ -76,7 +76,7 @@ mapping phù hợp; tên phần mềm không tự quyết định hệ là twin 
 | So baseline | Delay cải thiện so shortest path | NDT1 Fig.4 T | Chưa là khoảng cách tới oracle D15 |
 | Verdict precision/recall | Phân loại conflict/safety | P05 §VI T qua text | Không cân mỗi lỗi bằng cost gap |
 | So perfect foresight | Năng lượng giữ được so oracle thấy outcome action | P10 §VIII-E T | Đối chứng khác oracle không biết w |
-| Expected decision regret | J(chosen)−min J, cùng x/law | Contract D14–D18 | Chưa có output Phase3; không tự là metric mới |
+| Expected decision regret | Cost: J(chosen)−min J; reward: max J−J(chosen) | P03=R51 §2/Eq1–4, §6.2/PDF7, B.4.2/PDF17; contract D14–D18 | **L2.7 đính chính:** P03 đã chấm twin bằng expected-return regret trong tập policies, true values MC500rollouts; khác exact oracle của repo. Metric này không mới; chưa có output Phase3 |
 
 S07 [abstract v3](https://arxiv.org/abs/2212.12070v3) báo MRE delay6,24% trên1.000 mẫu;
 đây là số paper báo, không phải repo tái lập. Không đổi số đó thành MAPE hay regret.
