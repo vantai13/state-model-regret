@@ -58,3 +58,13 @@ R04 re-solving là prior cụ thể chờ A4; đã có archived AI-T provenance,
 Không nhận fixed-M0 negative GS hay Γ>0 như discovery từ toy. Γ=GSgivenM1−GS
 làm dấu Γ>0 tự theo khi GS<0 và true-model info gain không âm; cần kiểm action
 flips/model bias độc lập trước diễn giải mechanism. Tác giả L-self vẫn pending.
+
+## L2.6 Part A — 26/10/2026
+
+Đo freshness bằng downstream action/control cost đã có ở S11 §III và R32
+abstract; AoII còn kết hợp time/error (§II/Eq3–9), AY19 dùng quadratic-error
+uncertainty reduction (§2.4), không đồng nhất tất cả với Shannon bit hay D18.
+S11 §VII-D/Theorem9/Cor2 cho plateau theo allowed sampling budget, statement
+đã đọc targeted, proof chưa kiểm. [K-S9…11](prior_boundary.md#freshness-và-decision-value--l26-part-a-26102026).
+Không gọi freshness-aware decision value là contribution. Không từ các phần
+đã đọc hoặc hai query screening suy ra GS/Γ với approximate response model mới.

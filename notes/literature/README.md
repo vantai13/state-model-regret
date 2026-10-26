@@ -13,6 +13,14 @@ Provenance: AI triển khai theo ủy quyền của tác giả. Nguồn được
 L-self của tác giả. Ngày này là ngày lưu artifact và tái kiểm; không phải ngày dự
 đoán mù. Contract v1.2, Main RQ, lưới, thresholds và held-out không đổi.
 
+## L2.6 Part A — AoI và giá trị quyết định
+
+[Bài ngắn + K3](freshness_decision_value.md) · [S11](papers/S11.md) ·
+[heuristic queue H1, chưa khóa](h1_candidates.md) ·
+[kết quả và checklist](../../results/lessons/l2_6/part_a/report.md).
+Đã kiểm S11 arxivv3 và journal identity TIT2026, phân biệt age/uncertainty/value,
+tính mode/variance và bài tập gap. Chỉ Part A; P13/Part B, tác giả L-self/Gate còn mở.
+
 ## L2.5 Part2 — herding khác approximate-model harm
 
 Mở [information_harm.md](information_harm.md): V1 tính độc lập và bài tập hi={2,5},

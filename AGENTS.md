@@ -40,7 +40,8 @@ Cập nhật25/10/2026: NDT1/P05/P10 được tác giả yêu cầu trong L2.4 v
 catalog; R32/R34/R51 là tham khảo cũ. NMRG/P08/S07 ở landscape để tra bổ sung.
 Ba đề xuất snowball chưa duyệt chỉ ở log, không tự tải hoặc thêm vào danh sách.
 
-Cập nhật26/10/2026: P04 (Shaikh/Rexford/Shin2001, khác R04) là nguồn chính
-L2.5 Part1, ở đầu Excel. M00/P01 và L2.5 Part2 chưa thực hiện.
-Các toy L2.5 là connection-admission minh họa, không phải replication P04
-hoặc kết quả lưới/expected regret của contract.
+Cập nhật26/10/2026: L2.5 Part1/Part2 đã hoàn tất kỹ thuật, P04 khác R04;
+toy admission/bốn server/V1 không phải replication paper hoặc lưới v1.2.
+L2.6 Part A có S11 ở đầu Excel, journal identity TIT2026 đã kiểm nhưng bản đọc
+là arxivv3. K3/heuristic H1 chỉ là AI-assisted evidence/queue, không khóa H1.
+P13/Part B và tác giả L-self/Gate còn mở; không tự đổi nhãn PC hoặc chạy Phase3.

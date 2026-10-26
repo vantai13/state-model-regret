@@ -160,3 +160,42 @@ publication identity M00 đã kiểm, nội dung VoR chưa đối chiếu; statu
 chính thức P01 chưa kiểm (v1 có DOI placeholder). Không dùng lookup làm survey.
 [Access/checksums](../../results/lessons/l2_5/part2/source_access.json),
 [technical report](../../results/lessons/l2_5/part2/report.md). Gate/L-self/A4 còn mở.
+
+## L2.6 Part A — 26/10/2026
+
+[Thẻ trước lookup/query](../../results/lessons/l2_6/part_a/reading_card.md).
+Câu hỏi PC2/PC3/PC4/PC6: AoI/error/uncertainty/decision value khác nhau thế nào;
+S11 có dùng action feedback và có đúng controlled repair D21 không? Không đổi PC.
+Tác giả đã yêu cầu5nguồn có tên: đợt1 S11/Kaul/AoII, đợt2 AY19/R32; R32 có sẵn.
+
+| Loại | Seed/query / tool | Thực sàng | Giữ không trùng | Kết quả / giới hạn |
+|---|---|---:|---:|---|
+| lookup | S11 arxiv2504.19507v3, web abs/HTML + paper-search arxiv download | 1 | 1 |42trang; AI-T §§I–III/PDF1–7, §VII-C–D/PDF17; render5/6/7/17. PDF ngoài Git |
+| lookup | DOI10.1109/TWC.2025.3593377, paper-search Crossref | 1 | 0 |Đúng là bài spinal codes khác, không dùng DOI này cho S11 |
+| lookup | Crossref title `From Freshness to Effectiveness Goal-Oriented Sampling for Remote Decision Making`, max3; exact DOI TIT; đối chiếu arxiv journal ref | 3+1 records | 0 mới |Match DOI10.1109/TIT.2026.3663678, TIT72(4):2237–2276,2026. Sửa kết luận preprint-only của mentor; nội dung vẫn đọc v3, chưa VoR comparison |
+| lookup | Kaul DOI10.1109/INFCOM.2012.6195689, Crossref; IEEE6195689 | 1 | 1 |Metadata khớp; direct IEEE bot challenge |
+| lookup | Web title `Real-time status: How often should one update` Kaul Yates abstract; mở Rutgers | 2 primary records | 0 mới |Chỉ sàng IEEE/indexed abstract và Rutgers cùng bài, không xem toàn kết quả search là paper reviews. AI-A, không PDF |
+| lookup | AoII title `The Age of Incorrect Information A New Performance Metric for Status Updates Maatouk 2020`, Crossref max3 | 3 | 1 |Match DOI10.1109/TNET.2020.3005549; hai metadata còn lại không phải target |
+| lookup | Web title `The Age of Incorrect Information` Maatouk arxiv; mở1907.06604v2 HTML | 2 arxiv titles | 0 mới |1907.06604 đúng target;2012.13214 là bài khác, không theo. AI-T §II/Eq3–9 để sửa K3, không metadata-only cho definition |
+| lookup | AY19 arxiv1903.05356v1 abs/HTML; Crossref exact-title max2 | 1+2 records | 1 |ICCPS2019, DOI10.1145/3302509.3311050; AI-T §2.2 Assumptions1,4/§2.4 Eq13–19; không gán quadratic error thành bit |
+| lookup | R32 DOI10.1109/TAC.2021.3113472 Crossref; arxiv1812.07534v2 abstract; kiểm PDF local | 1 | 0 mới |Issue2022,67(7):3730–3737; lượt này A; targeted workbook record cũ giữ nguyên, không tải lại |
+| keyword | scholar-search search_papers: `"age of information" "model mismatch" remote control`, limit10, không năm/venue, provider order | 10 titles | 0 mới |Result source fields là arxiv, nhiều title lạc remote sensing; chưa xác minh backend/query semantics, không gọi đây là S2 coverage |
+| keyword | web fallback: `"age of information" ("model mismatch" OR misspecified) control`, không năm/venue, thứ tự provider | 18 titles | 0 mới |Title-screen, có records trùng/secondary.1candidate metadata treo A4, chưa primary content review/download/note |
+
+5nguồn có tên được đối chiếu (kể cả R32 đã có); **chỉ S11 thêm catalog 8→9** và
+chỉ1PDF mới. Kaul/AoII/AY19 là tra bổ sung trong K3.10+18 là **28title records**,
+không phải28unique full/abstract reviews; không chép query hay “khoảng10” của mentor.
+
+**A4 metadata queue:** title *Robustness Analysis of Networked Control Systems
+with Aging Status*, URL https://ieeexplore.ieee.org/document/9162929, từ fallback.
+Chưa xác minh DOI/model assumptions hoặc xem primary nội dung; có thể cần kiểm
+robustness/mismatch, chưa đề xuất thêm thành bài bắt buộc. Không tải hoặc tạo note.
+Các kết quả khác không được dùng làm evidence về estimand D19/D21.
+
+Raw selected metadata/28title records ở [lookup_records.json](../../results/lessons/l2_6/part_a/lookup_records.json).
+Không forward/backward search trong phiên này, không đạt luật hai query×20,
+không kết luận thiếu prior. Dừng theo phạm vi Part A: formulation/definition đã
+đủ, thuật toán/proofs/Part B không cần ở đây. A4 tiếp tục các query `value of
+information + misspecified`, `age of information + model uncertainty`, `certainty
+equivalence + stale` (chưa chạy ba query này trong phiên).
+AI-T khác L-self; scientific dependency A4/L2.9 và formal Gate còn mở.

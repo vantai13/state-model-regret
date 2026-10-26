@@ -42,3 +42,17 @@ Không đổi nhãn PC hoặc estimand của repo.
 
 [K-S1…8 và draft khác biệt](prior_boundary.md#trục-state--l25-part2-26102026),
 [mechanism/toy và đính chính lesson](information_harm.md). Không đổi nhãn PC/Gate.
+
+## L2.6 Part A — 26/10/2026
+
+| Nguồn | Estimand / mechanism / regime | Evidence thực đọc / giới hạn |
+|---|---|---|
+| S11 | Long-run average cost, sampling/action feedback, known-kernel controlled finite MDP | AI-T v3 §§I–III/PDF1–7, §VII-C–D/PDF17; [note](papers/S11.md). Journal TIT2026 đã xác minh; VoR full text chưa đối chiếu |
+| Kaul2012 | Time-average AoI / FCFS generation-rate tradeoff | AI-A abstract IEEE/kho Rutgers; không proof hoặc full PDF |
+| AoII2020 | Time dissatisfaction × error penalty, remote estimation | AI-T arxiv1907.06604v2 §II/Eq3–9; không đọc optimization proofs |
+| AY19 | Link-specific uncertainty reduction, quadratic state-estimation errors, NCS scheduling | AI-T arxiv1903.05356v1 §2.2 assumptions1,4 / §2.4 Eq13–19; không phải Shannon bit |
+| R32 | Rate–regulation tradeoff, value-function variation | Lượt này AI-A arxiv1812.07534v2 abstract + metadata; giữ record T cũ, không tái tuyên bố full read |
+
+[K3 và các đính chính](freshness_decision_value.md), [H1 queue](h1_candidates.md).
+“Cột M1” chỉ là analogy về known-law, không đồng nhất objective hoặc policy set.
+Chỉ S11 thêm Excel hiện dùng; bốn nguồn còn lại tra bổ sung, không tạo reading list mới.

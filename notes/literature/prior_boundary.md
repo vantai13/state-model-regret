@@ -83,3 +83,27 @@ Inventory and Revenue Management*, DOI10.1287/msom.1070.0184, đã có **AI-T no
 Không phục hồi thư viện ngoài ngành hoặc đưa R04 vào hàng đợi bắt buộc.
 Provenance/path/checksum ở [source_access.json](../../results/lessons/l2_5/part2/source_access.json).
 Phần scientific dependency A4/L2.9 còn mở; không tự tạo L-self từ note AI cũ.
+
+## Freshness và decision value — L2.6 Part A, 26/10/2026
+
+AI-only, không đổi bảng PC, forecasts, D25 hoặc Gate. [K3 và phép tính](freshness_decision_value.md).
+
+| ID | Đã có / giới hạn claim | Nguồn và phạm vi đọc |
+|---|---|---|
+| K-S9 | Độ tươi phải được đối chiếu với downstream decision/control cost; đây không phải ý mới | S11 §III/Eq10 PDF5–7 AI-T; R32 abstract AI-A; AY19 §2.4/Eq13–19 AI-T |
+| K-S10 | Kết hợp thời gian sai và information-error penalty đã có AoII; không chỉ đo tuổi packet hoặc tự bằng decision regret | Maatouk et al.2020, arxiv1907.06604v2 §II/Eq3–9 AI-T; journal DOI10.1109/TNET.2020.3005549 |
+| K-S11 | Trong formulation của S11, optimal average cost có vùng phẳng theo **allowed rate budget** trên threshold; không nói mọi policy gửi thêm đều vô hại | S11 v3 §VII-D/PDF17/Theorem9/Cor2, AI-T statement; proof AppendixO chưa đọc |
+
+**Đính chính metadata:** S11 có journal identity IEEE TIT72(4):2237–2276,2026,
+DOI10.1109/TIT.2026.3663678 đã kiểm Crossref/arXiv. DOI TWC related sai vẫn
+được log để tránh dùng nhầm; bản thực đọc là arxivv3, chưa đối chiếu toàn VoR.
+R32 là issue2022, không lấy2021 trong DOI làm issue year.
+
+“Cột M1” của S11 chỉ là tương đồng known-law assumption; S11 có action feedback
+và approximate LP solver §VII-C. Không suy cả field chưa xét approximate models,
+hoặc estimand của S11 bằng GSgivenM1. Keyword screening của lượt này không đủ
+clearance GS/Γ; A4/L2.8 tiếp tục câu hỏi freshness×model mismatch theo E/M/R.
+
+PC6/K6 giữ nguyên forecast; [H1-Q01](h1_candidates.md) chỉ ghi heuristic input
+variance có provenance AI/exposed. Chưa có queue posterior errors/F/V trên lưới;
+không kết luận dự đoán PC6 đúng hoặc sai. P13/Part B chưa thực hiện.

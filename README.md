@@ -23,6 +23,13 @@ chưa freeze L3.3, không nâng G1 hoặc mở HOLD Phase4.
 **Paper đang dùng:** [Excel và tiến độ đọc](papers/paper_comparison.xlsx)
 · [Thư viện và hướng dẫn](papers/README.md). PDF lưu cục bộ, không đưa vào Git.
 
+**L2.6 Part A, 26/10/2026:** đã lưu [AoI, K3, mode/variance và decision value](notes/literature/freshness_decision_value.md),
+[note S11](notes/literature/papers/S11.md) với journal identity **TIT2026** đúng,
+[heuristic queue H1](notes/literature/h1_candidates.md) chưa khóa.
+**293checks PASS**,125binary cases; bài tập đổi gap cho value1/4packet·s.
+[Report/commands/output](results/lessons/l2_6/part_a/report.md).
+Chỉ Part A; P13/Part B, tác giả L-self và formal Gate còn mở. Không chạy lưới/Phase3.
+
 **L2.5 Part2, 26/10/2026:** đã kiểm [hai cơ chế, V1 và bài tập hi={2,5}](notes/literature/information_harm.md),
 [M00](notes/literature/papers/M00.md)/[P01 screen](notes/literature/papers/P01.md),
 K-S1…8 và hàng đợi A4; **44checks PASS**. V1 GS=−1/4,Γ=1/4;
