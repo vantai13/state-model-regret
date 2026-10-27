@@ -2,15 +2,17 @@
 
 Người phụ trách: **Doan Van Tai** · 27/10/2026 · contract v1.2.
 
-**Ownership: OPEN.** Chưa có T05 do tác giả tự viết hoặc xác nhận author-attested
-cho các hàm mới. Phần dưới là tài liệu AI hỗ trợ theo lesson được cung cấp; không
-tính là bài kín sách. Engine mới giữ ở `experiments/A00_engine/` theo Part4 §4/X.3 #2.
+**Văn bản T05 tác giả: chưa có trong repo. Read-back engine/T05: AUTHOR-ATTESTED
+27/10/2026 (L3.3, DL-048).** Tác giả trả lời “Đã tự hoàn thành cả hai ngoài repo”
+cho câu hỏi read-back already_implied kín sách và engine/T05; [nguyên văn](../../results/lessons/l3_3/author_attestation.json).
+Không có transcript hoặc phép dẫn mới được gửi; không đổi phần AI hỗ trợ dưới đây
+thành bài tác giả viết. Engine mới vẫn ở `experiments/A00_engine/`; phiên L3.3 không promote.
 
 ## Phần tác giả tự viết / xác nhận
 
 ⟨Chưa có: phép dẫn separability, idle identity, Jensen, T01 và L10.⟩
 
-⟨Chưa có: read-back từng hàm bằng lời tác giả, hoặc author attestation cụ thể.⟩
+⟨Read-back engine/T05 author-attested theo DL-048; chưa chép lời tác giả vào repo.⟩
 
 ## Phép dẫn làm việc — AI hỗ trợ
 

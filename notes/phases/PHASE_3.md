@@ -118,3 +118,17 @@ thay card L3.3, T05/ownership hoặc các điều kiện runner (V9/A01). Held-o
 A05-T và commit A05-F sạch; tên path minh họa được ghi trong engine guard.
 Các invariant báo cáo không thay checker độc lập; E3/E6 không là D7 H=1 known-mode states.
 EVPI_w/flip mass 2D để sau. Bước tiếp: L3.3; A01 vẫn chưa chạy.
+
+## 11. L3.3 / A03 — prediction card (27/10/2026)
+
+[Card v1](PHASE_3_prediction_card.md) có14sanity,4forecast,1luật K5; [receipt](PHASE_3_prediction_card.lock.json)
+ghi card commit/SHA-256, tag `a03-card-v1` trên commit receipt tiếp theo. Tác giả chọn
+K5 danh sách và luật κ≥2/q90/q90/h8; read-back already_implied/engine T05 author-attested
+(DL-048). Cơ chế chưa có: dùng lựa chọn “forecast không cơ chế”, không tự gán route.
+P1 sanity, P4 deferred; optionalP2/P3 coordinate extensions chưa adopt. K5 rule carry
+mọi trạng thái main chưa bị bác, kể cả unknown, nguyên văn sang A05-F; báo k/m, m=1.
+
+324 tests PASS,11/11 mutant bị bắt,4000ledger0vi phạm. [Report](../../results/lessons/l3_3/report.md).
+Guard đổi đúng card path, từ chối DRAFT, kiểm SHA/commit/tag trước mọi D/cost work.
+Sửa signed-ratio enclosure, giữ εE/εR và claims.md byte. Review là AI tự kiểm, không
+independent review/novelty hoặc fixed-grid feasibility. Không A01/A04/A05 hoặc src promotion.

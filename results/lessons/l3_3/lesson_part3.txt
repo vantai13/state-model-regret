@@ -1,0 +1,349 @@
+# LESSON 3.3 — Part 3: Viết và khóa card
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.3 Prediction card (A03)
+  Part 1  một prediction là gì; chấm thế nào                ✔
+  Part 2  vật lý của prediction: dạng tương đương, con đường  ✔
+  Part 3  ← YOU ARE HERE: quyết định từng PC · luật K5 · mức luật · template · 6 kiểm · commit
+  ──────────────
+  Lesson Gate của cả L3.3 (ở cuối) → L3.4 A01
+```
+
+Mình đã đối chiếu những thông tin sau với repo:
+- Tọa độ của các ô held-out. Mình chỉ đọc κ, quantile, η, $h$ và mục tiêu; **không** đọc $p_{\text{sw}}$ hay λA.
+- Mục "không được claim là mới" của claim boundary.
+- Phần A05-F trong PHASE_3 (L3.6), để xem prediction mức luật của card được mang sang như thế nào.
+
+## 2. Part 3 trả lời câu hỏi gì?
+
+> Với mỗi PC: giữ, sửa hay bỏ, và theo tiêu chí nào? Chọn luật K5 ra sao? File card trông thế nào? Commit như thế nào để thứ tự và nội dung **chứng minh được** về sau?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Đây là lúc tất cả những gì học ở L3.1 Part 2 và L3.3 Part 1–2 biến thành **một artifact có hash**. Nếu khóa sai cách (ghi đè sau A01, không ghi hash, chọn mang sang held-out *sau* khi thấy A04), thì toàn bộ nhãn `[PREREG-CARD]` ở A04 và một phần A05-T mất giá trị bằng chứng. Các con số vẫn đúng; chỉ có giá trị bằng chứng là mất.
+
+**Tầng thực hành.** Sau Part 3, bạn có khung file card, checklist sáu kiểm, và quy trình commit gồm hai commit, hai hash.
+
+## 4. Liên hệ với Main RQ
+
+```text
+card (commit) ──► A01 được phép chạy (guard kiểm card đã commit)
+      │
+      ├─ mức danh sách ──► A04 chấm: [PREREG-CARD] ──► RQ1 trên đúng các ô đó
+      └─ mức luật ──────► A05-F mang nguyên văn ──► A05-T ──► RQ2 "held-out"
+```
+
+---
+
+## 5. Bước 7: quyết định cho từng PC
+
+### 5.1. Tiêu chí
+
+| Quyết định | Khi nào | Bắt buộc ghi |
+|---|---|---|
+| **Giữ** | Qua sáu kiểm (§8); có cơ chế, hoặc ghi rõ "forecast không cơ chế" | Trích nguyên văn từ `claims.md` |
+| **Sửa** | Có lý do **cơ chế**, không phải lý do "trông dễ đứng hơn" | Diff so với `claims.md` + lý do + nhãn provenance |
+| **Bỏ** | Là identity, là điều thiết kế bảo đảm, hoặc trùng prior mà không có khác biệt E/M/R | Lý do |
+
+**Sửa lúc này là hợp lệ**, vì chưa ai thấy outcome. Có hai giới hạn:
+
+1. Đừng sửa miền dựa trên pattern $p_{\text{sw}}$ hay λA. Đó là thông tin thiết kế đã được luật neo điều chỉnh (Part 1, §7.2c). Một lý do kiểu "bỏ M20 vì $p_{\text{sw}}$ của nó lệch" là chọn theo thiết kế, không theo cơ chế.
+2. Đừng đổi các ngưỡng 0,01 và 0,005. Đó là $\varepsilon_R$ và $\varepsilon_E$ của D23 và D24. Muốn đổi thì phải đổi contract.
+
+`claims.md` **giữ nguyên từng byte**. Card chỉ *trích* nó, nên ai cũng so được card với bản nháp ngày 24/10.
+
+### 5.2. Tình trạng hiện tại của từng PC
+
+Mình chỉ ra hệ quả của từng lựa chọn; **bạn quyết**.
+
+| PC | Đi đâu | Lựa chọn cần quyết | Hệ quả |
+|---|---|---|---|
+| PC1 | **Danh sách sanity**, không vào phần prediction | Không cần quyết: Part 1 đã xếp nó là identity | Giữ framing EVPPI/VSS ở phần mở đầu card |
+| PC2 | Prediction P2 | Giữ K2 = M09–M12? Báo kèm $G_{S\mid M_1}$ và $G_{M\mid S_1}$ (Part 2, §7.1)? | Có cơ chế thì P2 dạy được điều gì đó, kể cả khi không đứng |
+| PC3 | Prediction P3 | **(a)** Giữ câu chữ, thêm dòng "con đường dự đoán" và chấm cơ chế riêng. **(b)** Viết lại claim thành "$\Gamma/C_{\text{ref}}>0{,}005$ **và** $G_S\ge0$" | (a) giữ liên tục với `claims.md` và thêm thông tin. (b) đổi claim, nên cần diff. *Gợi ý:* (a), vì tách verdict claim khỏi verdict cơ chế cho bạn **nhiều** thông tin hơn |
+| PC4 | **Không vào card** | — | Cần null $H_0$, mà null được khóa ở A05-F (D25). Card chỉ ghi một dòng "PC4 → A05-F" |
+| PC5 | Prediction P5, hai vế | Chọn luật K5 (§6); con đường cho vế K5: (i), (ii) hay (iii)? | Chấm từng vế và chấm phép AND (Part 1, §7.4) |
+| PC6 | Prediction P6 | Con đường a hay b? Có thêm điều kiện $G_S>0$ không? | **Không kiểm được ngoài mẫu**, vì không có ô held-out nào có κ = 3 và B q50. Ghi rõ điều này |
+
+**Nếu bạn chưa viết được cơ chế cho một PC.** Có hai lựa chọn trung thực:
+- Giữ PC đó với nhãn **"forecast không cơ chế"**. Nó vẫn được chấm, nhưng dù đứng cũng không hỗ trợ cơ chế nào.
+- Bỏ PC đó, kèm lý do.
+
+Lựa chọn duy nhất **không** hợp lệ là để AI viết cơ chế rồi ghi "tác giả viết".
+
+---
+
+## 6. Bước 8–9: luật K5 và prediction mức luật
+
+### 6.1. Ba ứng viên cho K5
+
+Đây là các ứng viên ghi trong `L3.3_equivalence_queue.md`. Mình đã đối chiếu tọa độ held-out.
+
+| Luật | Ô chính | Ô held-out | Nếu đứng thì được nói gì | Giới hạn |
+|---|---|---|---|---|
+| Danh sách {M19, …, M22} | M19–M22 | — | Đúng bốn ô đó, trong mô hình | Không có kiểm ngoài mẫu |
+| κ = 3, A/B q90, $h$ = 8 s | M19–M22 | — | Như trên, nhưng viết theo tọa độ | Như trên |
+| **κ ≥ 2**, A/B q90, $h$ = 8 s | M19–M22 | **R03, R04** (κ = 2, η = 0,5, mục tiêu 0,3/0,7) | Luật đứng ở κ = 2 và κ = 3 trên các ô đã kiểm | Ngoại suy theo κ. Ở κ = 2 chỉ có η = 0,5. Một ô trượt chỉ bác luật, không xác định ranh giới |
+
+**Gợi ý của plan (bạn quyết):** khai báo **cả hai mức**, cả hai khóa ngay bây giờ:
+- mức danh sách trên M19–M22, chấm ở A04;
+- mức luật "κ ≥ 2, A/B q90, $h$ = 8 s", gồm M19–M22 cộng R03 và R04, chuyển sang A05-F.
+
+**Luật bao gồm cả ô chính.** "Mọi ô thỏa tọa độ" nghĩa là M19–M22 là một phần của phép kiểm luật. Nếu vế danh sách đã không đứng ở A04, luật đã bị bác, và không cần mở held-out cho nó nữa.
+
+### 6.2. Prediction mức luật cho các PC khác (tùy chọn)
+
+| PC | Luật | Ô held-out khớp | Loại ngoại suy |
+|---|---|---|---|
+| PC2 | κ = 1, A q90, B q50, $h$ = 8 s, η ∈ [0,5; 0,75] | R07, R08 (η = 0,625) | **Nội suy** theo η |
+| PC3 | κ ≥ 2, A/B q90, $h$ = 8 s, **mục tiêu** 0,3 | R03 | Ngoại suy theo κ |
+| PC6 | — | Không có ô nào | Ghi "không kiểm được ngoài mẫu" |
+
+**Một chi tiết về D25.** Luật được dùng "mục tiêu 0,3", vì mục tiêu là tọa độ thiết kế, có cho *mọi* ô. Luật **không** được dùng $p_{\text{sw}}$ *thực* hay λA của ô held-out. D25 cấm điều đó, trừ khi đại lượng được định nghĩa cho mọi ô và có DL đọc D25 ở A05-F.
+
+### 6.3. Hai loại "trước": một điểm plan nên nói rõ
+
+> **Plan hiện ghi:** prediction mức luật "chuyển sang A05-F". A05-F (L3.6) sẽ "chọn 1–3 prediction chính" từ card, từ A04 và từ hàng đợi H1.
+> **Rủi ro:** A05-F diễn ra **sau** A04. Nếu lúc đó bạn được tự chọn mang luật nào của card sang held-out, bạn sẽ chọn sau khi đã thấy ô chính. Đó lại là forking paths (L3.1, Part 2).
+> **Tôi đề xuất ghi ngay trong card:**
+> 1. *"Mọi prediction mức luật trong card mà phần ô chính **chưa bị bác** ở A04 sẽ được đưa **nguyên văn** vào A05-F. A05-T báo cả số lượng: k/m luật được mang sang."*
+> 2. Chúng không tính vào giới hạn "1–3 prediction chính" của A05-F, hoặc A05-F phải đặt giới hạn có tính đến chúng.
+> 3. Phân biệt hai nhãn:
+>    - **"khóa trước A04"**: luật trong card, mang sang không sửa;
+>    - **"khóa sau A04, trước A05-T"**: luật mới hoặc đã sửa ở A05-F.
+>
+>    Cả hai đều là kiểm ngoài mẫu hợp lệ. Loại thứ nhất mạnh hơn, vì luật không được khớp với cả kết quả của ô chính.
+
+---
+
+## 7. Bước 10: khung file card
+
+Theo plan, đường dẫn là `notes/phases/PHASE_3_prediction_card.md`. Guard ở L3.2 Part 4 mình dùng tên tạm, nên khi cài phải sửa hằng `CARD` cho khớp.
+
+````markdown
+# Phase 3 — Prediction card (A03)
+
+Người phụ trách: Doan Van Tai · <ngày> · contract-v1.2 · grid_v1_2.json
+Trạng thái exposure lúc viết: chưa ai thấy J, margin, gap, contrast hay regret của bất kỳ ô nào
+(main, held-out, control, probe). Phiên soạn: không chạy engine trên ô lưới nào.
+AI tham gia: <không / có — phần nào, nhãn ở từng mục>
+Quy tắc sửa: KHÔNG ghi đè. Thay đổi sau commit chỉ được THÊM ở mục "Bổ sung sau A01",
+kèm một dòng exposure, và không được chấm như dự đoán trước dữ liệu.
+
+## 1. Danh sách sanity — KHÔNG phải prediction
+| # | Câu | Nguồn E0 | Dùng làm kiểm ở |
+(13–14 dòng: L3.3 Part 1 §7.2a, Part 2 §7.2; PC1 nằm ở đây)
+
+## 2. Luật chấm (áp cho mọi P_k)
+- Ba trạng thái theo khoảng [Ĝ−e, Ĝ+e]; e = e_num THỰC từ engine, không dùng ngân sách D24.
+- Tỉ số G/Cref: khoảng [(Ĝ−e_G)/(Ĉ+e_C), (Ĝ+e_G)/(Ĉ−e_C)].
+- "≤", "≥" là biên đóng; ">", "<" là biên mở.
+- Gộp: "mọi ô" / "có ít nhất một ô" (bảng Part 1 §7.4). Claim ghép: chấm TỪNG VẾ và phép AND.
+- Ô HOLD (khối lượng chưa chứng nhận > 0,01) → chưa phân giải.
+- Ô vượt dung sai làm mịn giữa (2·dt cuối, dt cuối) → chưa phân giải (chưa hội tụ).
+  Trong dung sai nhưng nhãn khác nhau → cờ "nhạy với dt"; chấm ở dt cuối.
+- Cref = 0 → loại nhãn tương đối theo D23, ghi lý do.
+- [nếu dùng] Chấm cơ chế: "đúng con đường" / "khác con đường" theo đại lượng phụ đã khai.
+
+## 3. Prediction
+### P2 … ### P3 … ### P5 … ### P6 …   (template ở dưới, mỗi P một khối)
+
+## 4. Luật K5 và prediction mức luật
+- Mức danh sách: …        - Mức luật: … · ô held-out khớp: … → A05-F
+- Cam kết mang sang A05-F: (đề xuất §6.3)
+
+## 5. Hệ quả chung
+- K3 ⊂ K5: Γ ≤ G_{M|S1} ≤ Γ + 0,005 Cref; E|e_M| > 0,005 Cref ở M19, M21.
+- Bảng 2×2 tưởng tượng thỏa mọi P cùng lúc: <ghi một bảng>.
+
+## 6. Không có trong card
+- PC1 → mục 1 (sanity). PC4 → A05-F (cần null theo D25).
+
+## 7. Ghi chú reviewer
+<ai đọc, ngày, câu hỏi, đã sửa gì trước commit>
+
+## Bổ sung sau A01   (để trống lúc commit)
+````
+
+**Một khối P, ví dụ P5.** Mình chỉ điền những gì có sẵn trong repo; các phần ⟨…⟩ là của bạn.
+
+```text
+P5 — Ranh giới "M0 đủ cho quyết định" dưới S0
+Nguồn:              PC5 trong claims.md · thay đổi: không (chỉ thêm chấm từng vế, con đường)
+Miền (danh sách):   vế K5 = M19–M22 ("mọi ô") · vế Q5 = M01–M04 ("có ít nhất một ô")
+Luật tọa độ:        ⟨chọn ở §6.1⟩ · ô held-out khớp: ⟨R03, R04 → A05-F / không có⟩
+Đại lượng:          G_M/Cref · dạng tương đương: G_M = |EΔ|·1[a00≠a01] ≤ |bias| (T01)
+Dự đoán:            K5: G_M/Cref ≤ 0,005 ở từng ô · Q5: ≥ 0,01 ở ít nhất một ô
+Con đường dự đoán:  K5: ⟨(i) bias nhỏ / (ii) margin che / (iii) |EΔ| nhỏ⟩ · Q5: lật và |bias| ≥ 0,01 Cref
+Đại lượng phụ:      bias, EΔ, a00, a01 (contract §7 đã yêu cầu A04 báo)
+Cơ chế (1–3 câu):   ⟨tác giả viết⟩
+Bác bỏ nếu:         có ô K5 với khoảng nằm trọn trên 0,005; hoặc cả bốn ô Q5 có khoảng nằm trọn dưới 0,01
+Luật chấm:          mục 2 của card; chấm vế K5, vế Q5, rồi AND
+Không-mới gần nhất: K-M6, K-M7 ("model chỉ cần đủ cho quyết định"; AIS22, P12) · khác ở: ⟨E/M/R — dùng cột
+                    "Dạng được claim" của claim boundary: "vị trí ranh giới dưới S0 trên tọa độ queue"⟩
+Hệ quả chung:       với P3 ở M19, M21 (mục 5)
+Provenance:         miền: AI soạn 24/10 (claims.md), tác giả duyệt <ngày> · cơ chế: ⟨tác giả viết⟩
+Loại:               [PREREG-CARD] — chấm ở A04 trên đúng danh sách ô; khái quát hóa cần A05-T
+```
+
+**Nhãn provenance theo từng mục, không phải cho cả file.** Một card có thể có danh sách sanity do AI gom và bạn duyệt, miền do AI chọn ngày 24/10, còn cơ chế do bạn viết. Ghi đúng từng mục cho người đọc biết phần nào là của bạn. Đây cũng là chỗ reviewer sẽ hỏi trước tiên.
+
+---
+
+## 8. Bước 11: sáu kiểm trước khi commit
+
+| # | Kiểm | Cách làm | Ví dụ một lần trượt |
+|---|---|---|---|
+| 1 | **Có thể sai không?** | Viết ra một bảng A04 tưởng tượng làm nó sai | Không viết được bảng nào → đó là identity |
+| 2 | **Chỉ dùng tọa độ đã khai báo?** | Rà phần cơ chế: không được có $p_{\text{sw}}$ thực hay λA như một nguyên nhân | "Vì λA của M17 thấp nên…" |
+| 3 | **Có quan sát bác bỏ cụ thể?** | Dòng "Bác bỏ nếu" phải chỉ được ô nào, đại lượng nào, khoảng nằm phía nào | "Nếu kết quả không như kỳ vọng" |
+| 4 | **Không phải điều prior đã đặt tên?** | Dòng "Không-mới gần nhất" có trục E/M/R khác biệt | "$\Gamma>0$ vì thông tin làm hại $M_0$" mà không nói khác K-RM1 ở đâu |
+| 5 | **Không phải identity?** | Đối chiếu danh sách sanity | Dòng 13 đội lốt P3 |
+| 6 | **Nhất quán qua identity?** | Dựng được bảng 2×2 thỏa mọi P cùng lúc | Không dựng được → các P mâu thuẫn |
+
+**Thêm hai điều kiện:** read-back `already_implied.md` đã xong (điều kiện của PHASE_2 §5.2), và mỗi mục có nhãn provenance.
+
+**Ai làm reviewer.** AI có thể đọc và hỏi sáu câu trên. Nhưng nếu AI đã soạn một phần card, một reviewer AI khác vẫn có thể chung điểm mù (buồng vang, L3.1 Part 2). Thứ tự ưu tiên:
+1. một người thật, có thể là người đọc ở L3.1 Part 3;
+2. một phiên AI **mới**, chỉ được đưa card cùng sáu câu hỏi;
+3. tự kiểm.
+
+Ghi lại reviewer là ai ở mục 7 của card.
+
+---
+
+## 9. Bước 12: commit, hai hash, hai commit
+
+```bash
+# Điều kiện: chưa chạy engine trên ô lưới nào; read-back already_implied đã xong; sáu kiểm đạt.
+
+# Commit 1 — chỉ file card
+git add notes/phases/PHASE_3_prediction_card.md
+git commit -m "A03: prediction card, viết khi chưa thấy J/margin/contrast của ô nào"
+git rev-parse HEAD                                        # (a) commit hash: bằng chứng THỨ TỰ
+sha256sum notes/phases/PHASE_3_prediction_card.md         # (b) content hash: bằng chứng NỘI DUNG
+
+# Commit 2 — ghi (a), (b) vào exposure register; thêm dòng trỏ trong L3.3_equivalence_queue.md
+git commit -am "Exposure: hash của prediction card A03"
+git tag -a a03-card-v1 -m "Prediction card A03; trước mọi lần chạy A01"   # không bao giờ dùng -f
+git push origin <branch> --tags                           # sớm: một mốc thời gian nằm ngoài máy bạn
+```
+
+**Vì sao cần hai hash:**
+- **Commit hash** chứng minh *thứ tự*: card nằm trong lịch sử trước mọi commit kết quả của A01.
+- **Content hash (SHA-256 của file)** chứng minh *nội dung*: script chấm ở L3.5 tính lại SHA-256 của file và dừng nếu khác với giá trị trong register. Nhờ vậy card không thể bị sửa âm thầm mà không bị phát hiện.
+
+**Vì sao cần hai commit.** Một commit không thể chứa hash của chính nó, vì hash phụ thuộc vào nội dung commit. Vì vậy register phải được ghi trong commit thứ hai.
+
+**Dòng exposure mẫu:**
+
+```text
+| A03 card | commit <a> · sha256 <b> · tag a03-card-v1 | Viết khi chưa thấy J, margin, gap, contrast,
+  regret của bất kỳ ô nào. AI tham gia: <…>. Phiên soạn không chạy engine trên ô lưới. |
+```
+
+**Sau commit:**
+- Guard của A01 (L3.2 Part 4, §12) giờ sẽ thấy card đã được commit.
+- Mọi thay đổi chỉ được *thêm* vào mục "Bổ sung sau A01".
+- Không dùng `git commit --amend` lên commit card, không rebase qua nó, không force-push.
+
+---
+
+## 10. Trước khi chạy: card có thể cho ra những kết quả nào
+
+Plan yêu cầu nghĩ trước *mọi* kết quả có thể xảy ra, để không kể chuyện sau khi thấy số. Với đề xuất "con đường", mỗi P có bốn khả năng:
+
+| Claim | Cơ chế | Được nói | Học được gì |
+|---|---|---|---|
+| Đứng | Đúng con đường | "P đứng trên các ô X theo con đường đã khai báo" | Cơ chế **chưa bị bác**, chưa được chứng minh (cần knockout ở Phase 6) |
+| Đứng | **Khác** con đường | "P đứng, nhưng theo con đường khác dự đoán" | Con số đúng nhưng lý do sai. Đây là thông tin quan trọng nhất cần ghi |
+| Không đứng | — | "P không đứng ở ô Y" | Cơ chế bạn nghĩ **không chi phối** ô đó. Đây là một kết quả, không phải thất bại |
+| Chưa phân giải | — | "P chưa phân giải ở k ô" | Cần độ chính xác cao hơn. Nếu nhiều ô → inconclusive, không phải support |
+
+## 11. 🔗 Liên hệ với repo cũ
+
+- **Ở L0.1 (ngày 07/10)** bạn đã có `L0.1_predictions_before_audit.md`. Ở đó P1 và P2 được ghi rõ là *"đã bị lộ… ghi là hậu nghiệm, không giả làm dự đoán trước chạy"*. Đó chính là thói quen card cần: một dòng thời điểm và giới hạn cho mỗi dự đoán. Bạn đã làm đúng việc này từ Phase 0.
+- **`claims.md` (24/10)** bị deviation vì forecast lộ trước khi lưu và không có tag trước khi đọc (DL-040). Card là lần làm lại cho sạch, gồm commit, hai hash và tag.
+- **Các tag** `phase-*-closeout` và `contract-v1.2` đã dùng `git tag -a` và không bao giờ `-f` (PHASE_0 closeout ghi rõ luật này). Tag `a03-card-v1` theo đúng tiền lệ đó.
+
+## 12. Được nói gì và không được nói gì
+
+| Được nói (sau A04, nếu đứng) | Không được nói |
+|---|---|
+| "P5, vế K5 [PREREG-CARD, khóa trước A04, `a03-card-v1`]: đứng ở 4/4 ô" | "Đã dự đoán đúng", nếu phần cơ chế do AI viết mà không ghi nhãn |
+| "Luật K5 κ ≥ 2 đứng trên M19–M22, R03, R04 [khóa trước A04, kiểm ở A05-T]" | "Đúng với mọi κ ≥ 2" |
+| "P6 không kiểm được ngoài mẫu" | Im lặng về điều đó |
+| "3/3 luật mức luật được mang sang A05-F" | Chỉ báo những luật đã mang sang |
+
+## 13. Reviewer có thể hỏi
+
+1. *"Card do ai viết?"* → Trả lời được bằng nhãn provenance theo từng mục.
+2. *"Làm sao tôi biết card không bị sửa sau A01?"* → Commit hash, SHA-256 trong register, tag, và script chấm kiểm hash.
+3. *"Anh có chọn luật nào để đem sang held-out sau khi thấy A04 không?"* → Trả lời được *nếu* card có cam kết ở §6.3.
+4. *"P6 có kiểm ngoài mẫu không?"* → Không. Card nói trước điều đó.
+
+## 14. ⚠️ Bẫy người mới
+
+- Commit card và register trong *cùng* một commit, rồi ghi hash "từ trí nhớ".
+- Ghi hash commit nhưng quên SHA-256, nên script chấm không kiểm được nội dung.
+- Sửa một lỗi chính tả trong card sau khi đã chạy A01 bằng `--amend`.
+- Để trống nhãn provenance, hoặc ghi một nhãn chung cho cả file.
+- Chỉ mang sang A05-F những luật "trông có vẻ sẽ đứng".
+- Đưa PC4 vào card khi null chưa được khóa.
+- Không ghi P6 là "không kiểm được ngoài mẫu".
+- Chạy "thử" A01 trên M01 khi card mới ở dạng nháp.
+
+## 15. 🧠 Tư duy researcher
+
+> Một bản preregistration chỉ mạnh bằng **mắt xích yếu nhất** của nó: nội dung, thứ tự, hoặc quyền lựa chọn còn để lại cho sau này.
+
+Hash bảo vệ nội dung. Commit bảo vệ thứ tự. Riêng quyền lựa chọn (mang luật nào sang, chấm ô sát ngưỡng thế nào, dùng dt nào) thì chỉ được bảo vệ khi bạn **viết nó ra trước**.
+
+## 16. Bài tập nên làm (khuyến nghị)
+
+1. Điền khối P5 ở §7 với phần cơ chế của bạn (từ bảng câu hỏi ở Part 2, §7.6), rồi tự chạy sáu kiểm.
+2. Viết câu cam kết ở §6.3 bằng lời của bạn, và quyết định có đưa nó vào card không.
+3. Dựng một bảng 2×2 tưởng tượng thỏa *cùng lúc* P2 (ở một ô K2), P3 và P5 (ở M19). Lưu ý: K2 và K3 là các ô khác nhau, nên đây là hai bảng.
+
+## 17. Tự kiểm tra (tùy chọn)
+
+1. Vì sao register phải được ghi trong commit thứ hai?
+2. Commit hash và SHA-256 của file mỗi cái chứng minh điều gì?
+3. Vì sao mang luật sang A05-F *sau* A04 là một forking path, và câu cam kết nào chặn được nó?
+4. Một luật mức luật có phần ô chính "không đứng" ở A04. Có cần mở held-out cho nó không? Vì sao?
+5. Reviewer hỏi: "P3 đứng nhưng $G_S<0$. Anh kết luận gì?"
+
+---
+
+## 18. Lesson Gate: toàn bộ L3.3
+
+**Hiểu:**
+- Ba loại câu: identity, prediction, mô tả hậu nghiệm. Identity "sai" là bug, prediction sai là kết quả.
+- Bốn phần của một prediction; ba cách một câu bị rỗng; độ rủi ro của prediction.
+- Danh sách ô khác luật tọa độ.
+- Luật chấm ba trạng thái, gồm: chấm từng vế, khoảng của tỉ số, ô chưa hội tụ theo dt.
+- Dạng tương đương của từng PC; cặp cận $\lvert\mathbb E e_M\rvert$ và $\mathbb E\lvert e_M\rvert$; các con đường; hệ quả chung K3 ⊂ K5.
+- Quyết định cho từng PC; luật K5 ở hai mức; hai loại "trước"; khung card; sáu kiểm; hai hash và hai commit.
+
+**Nên làm khi triển khai thật:**
+- Read-back `already_implied.md`.
+- Trả lời các câu hỏi cơ chế (Part 2, §7.6).
+- Quyết định cho từng PC và luật K5.
+- Viết card theo khung trên.
+- Reviewer pass, ưu tiên người thật hoặc một phiên AI mới.
+- Commit card, ghi hai hash vào register, tạo tag, push.
+
+**Phụ thuộc khoa học:**
+- Card phải được commit **trước mọi lần chạy A01** (DL-043).
+- Card phải có luật chấm và con đường *trước khi* có dữ liệu. Nếu không, nhãn `[PREREG-CARD]` ở A04 chỉ còn là đối chiếu, không phải kiểm.
+- Cam kết mang luật sang A05-F phải nằm trong card. Nếu không, kiểm ngoài mẫu ở A05-T bị chất vấn là đã chọn.
+
+**Track thực thi:** A01 chỉ được chạy khi:
+- card đã commit và hash nằm trong register;
+- read-back đã xong;
+- mỗi prediction đã qua sáu kiểm;
+- engine của L3.2 đã qua mọi test, mutant và read-back.
+
+**Học tiếp được không?** **Có.** L3.4 (A01: null controls, ô kiểm âm, chọn dt cuối) là bước tiếp theo, và cũng là lần đầu tiên engine chạm vào ô lưới. Mình dừng ở đây.

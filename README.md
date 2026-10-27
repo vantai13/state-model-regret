@@ -3,12 +3,13 @@
 Tác giả: **Doan Van Tai**.
 
 **Trạng thái 27/10/2026:** Phase 2 đóng **GO có điều kiện** (DL-043, tag
-`phase-2-closeout`); Phase 3 mở. L3.1 Part3 và L3.2 hoàn tất kiểm kỹ thuật (DL-044–046).
+`phase-2-closeout`); Phase 3 mở. A03/L3.3 đã khóa card trước A01 (DL-047–049).
 Contract khóa tại `contract-v1.2`: 38 main, 12 held-out, 6 controls, 2 probes;
 calibration M01/M09/M22. Chưa chạy A01/A04/A05; chưa tính regret/contrast trên lưới.
-Kiểm L3.2: **300/300 tests PASS** (baseline 228; thêm 72), **11/11 mutant bị bắt**.
-Engine mới ở experiments, chờ T05 tác giả; 32 D-only comparisons có sai lệch **0**.
-[Report và số đo L3.2](results/lessons/l3_2/report.md) · [L3.1](results/lessons/l3_1/part3/report.md).
+Kiểm L3.3: **324/324 tests PASS** (baseline 300; thêm 24), **11/11 mutant bị bắt**;
+4.000 ledger không vi phạm cận statewise model error. Card có 4 forecast không cơ chế và 1 luật K5.
+[Card](notes/phases/PHASE_3_prediction_card.md) · [report L3.3](results/lessons/l3_3/report.md) ·
+[L3.2](results/lessons/l3_2/report.md). Read-back đã author-attested; engine vẫn ở experiments.
 
 ```text
 Bản hiện hành (27/10/2026):
@@ -19,7 +20,8 @@ Bản hiện hành (27/10/2026):
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md
   Experiments:    notes/03_experiment_index.md (A01 | A04 | A05-F | A05-T)
   D v1.2:         src/smr/cells.py (nguồn experiments giữ nguyên)
-  Engine L3.2:    experiments/A00_engine/ (T05 tác giả OPEN, chưa promote)
+  Engine L3.2:    experiments/A00_engine/ (read-back author-attested, chưa promote)
+  Prediction:     notes/phases/PHASE_3_prediction_card.md (a03-card-v1)
   KHÔNG hiện hành: definitions v0/v1/v1.1; src/smr/design.py (plant L1.8C)
 ```
 
@@ -28,7 +30,7 @@ Bản hiện hành (27/10/2026):
 [experiment index](notes/03_experiment_index.md) · [progress log lịch sử](notes/00_progress_log.md).
 Claim boundary/brief hiện hành có addendum Phase 2 sau tag; D1–D25 và lưới giữ nguyên.
 
-**Điều kiện:** L3.3 commit trước mọi A01; V9 chưa gửi, giữ điều kiện nên **A04 chờ**;
+**Điều kiện:** A03 card và receipt phải qua kiểm Git/hash trước mọi A01; V9 chưa gửi nên **A04 chờ**;
 A05-F khóa trước A05-T; **HOLD Phase 4 tới P0-V10**. Người đọc P0-V10/L8 và các mục
 tác giả tự viết còn mở. [Gói cho người đọc](notes/meetings/phase2_reader_packet.md).
 Không dùng nháp heads-up 23/10 nguyên trạng (đã lỗi thời). Main RQ/contract/G1 giữ nguyên.

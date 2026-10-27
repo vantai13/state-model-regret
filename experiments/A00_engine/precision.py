@@ -159,7 +159,8 @@ def enclose(A, B, nominal):
     errors['Gamma'] = sum(Lerr[k] for k in ('00', '01', '10', '11'))
     maxI = sum(max(abs(array(s.dh) - array(s.d))) for s in (A, B)) + abs(LD(nominal['bias']))
     errors.update(E_delta=ed, E_delta_hat=eh, bias=ed + eh, E_pos=ed + ec, E_neg=ec,
-                  C_ref=Lerr['11'], E_abs_I_delta=2 * (ed + eh) + dprob * maxI)
+                  C_ref=Lerr['11'], E_abs_I_delta=2 * (ed + eh) + dprob * maxI,
+                  E_abs_e_M=ed + eh + dprob * sum(max(abs(array(s.dh) - array(s.d))) for s in (A, B)))
     p_low = max(LD(0), oracle['certain_mass'] - dprob - arithmetic(A, B))
     p_high = min(LD(1), oracle['possible_mass'] + dprob + arithmetic(A, B))
     errors['p_sw'] = max(LD(nominal['p_sw']) - p_low, p_high - LD(nominal['p_sw']))

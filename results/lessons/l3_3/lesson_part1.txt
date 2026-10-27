@@ -1,0 +1,321 @@
+# LESSON 3.3 — Prediction card: khóa các claim còn đứng trước khi thấy dữ liệu (A03)
+
+## Kiểm tra trước khi dạy
+
+L3.3 trong PHASE_3 v2.0 vẫn khớp với trạng thái hiện tại của repo:
+- `claims.md` vẫn có đúng bảng PC1–PC6 của ngày 24/10.
+- `L3.3_equivalence_queue.md` ghi ba luật K5 ứng viên, **chưa chọn** luật nào.
+- Exposure register ghi: **chưa ai thấy $J$, margin hay contrast** của bất kỳ ô nào.
+
+Mình đã đối chiếu tọa độ của các ô held-out mà plan nhắc tới. Mình chỉ đọc κ, quantile, η, $h$ và mục tiêu $p_{\text{sw}}$. Mình **không** đọc $p_{\text{sw}}$ thực hay λA của held-out, vì D25 cấm dùng chúng làm input. Kết quả:
+- R03, R04: κ = 2, q90/q90, η = 0,5, $h$ = 8 s.
+- R07, R08: κ = 1, A q90, B q50, η = 0,625.
+
+Cả hai khớp với plan.
+
+## Lesson map
+
+| Part | Nội dung |
+|---|---|
+| **1** (hôm nay) | **Một prediction là gì**: phân biệt identity, prediction và mô tả hậu nghiệm; bốn phần của một prediction; ba cách một câu bị "rỗng"; danh sách ô và luật tọa độ; luật chấm ba trạng thái khi có sai số số |
+| 2 | **"Vật lý" của prediction**: dịch từng PC sang dạng identity; hệ quả chung giữa các PC; đường đại số "$\Gamma>0$ vì $G_S<0$"; hai phía của Switch và Jensen gap; lập luận cơ chế trên toy |
+| 3 | **Viết và khóa**: quyết định cho từng PC; chọn luật K5; prediction mức luật cho held-out; template; sáu kiểm; commit, exposure, provenance |
+
+**Phụ thuộc thực thi:** card phải được commit **trước mọi lần chạy A01** (DL-043). Việc học các Part không bị chặn bởi điều này.
+
+---
+
+# LESSON 3.3 — Part 1: Một prediction là gì, và chấm nó thế nào
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.1 re-entry ✔ ── L3.2 engine ✔ (học xong; chưa thực thi)
+                         │
+L3.3 prediction card (A03)
+   Part 1 ← YOU ARE HERE: một câu thế nào thì là prediction; chấm thế nào
+   Part 2   vật lý của prediction
+   Part 3   viết và khóa
+                         │  (commit card)
+L3.4 A01 ── L3.5 A04 (chấm card) ── L3.6 A05-F ── L3.7 A05-T
+```
+
+## 2. Part 1 trả lời câu hỏi gì?
+
+> Một câu phải có những gì thì mới được gọi là **prediction**, để khi bảng A04 ra, câu đó **có thể sai**? Và khi con số exact vẫn đi kèm một khoảng sai số nhỏ, bạn chấm "đứng", "không đứng" hay "chưa phân giải" theo luật nào?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** RQ2 hỏi về sức giải thích của một null *được khai báo trước* và sức dự báo trên ô *held-out*. Sức dự báo chỉ đo được khi dự đoán được viết ra trước dữ liệu. Part 1 giảm hai rủi ro:
+- **SR2 (obviousness):** kết quả bị coi là hiển nhiên.
+- **kill-K8:** card chỉ tái hiện identity hoặc điều prior đã nói.
+
+**Tầng thực hành.** Sau Part 1, bạn phân loại được một câu bất kỳ là identity, điều đã biết, điều thiết kế bảo đảm, hay prediction. Bạn cũng viết được luật chấm, và luật đó phải nằm trong card *trước khi* có dữ liệu.
+
+**Nếu bỏ qua.** Giả sử card có câu "$G_{S\mid M_1}\ge0$ ở mọi ô". A04 chấm ra "đứng 38/38". Reviewer hỏi: *"Anh vừa dự đoán một định lý à?"* Card trông thành công nhưng không chứa thông tin nào. Trường hợp ngược lại cũng tệ: không có luật chấm cho ô sát ngưỡng, thì lúc chấm bạn sẽ có quyền "chọn". Đó chính là forking paths ở L3.1, Part 2.
+
+## 4. Liên hệ với Main RQ
+
+```text
+Câu trong card ──khóa trước──► A04 chấm [PREREG-CARD] trên đúng danh sách ô
+                                   │
+               mức luật ──────────► A05-F đóng băng ──► A05-T trên held-out
+                                   │
+                    RQ1 (đặc trưng gain) · RQ2 ("pre-specified", "held-out")
+```
+
+Đây là liên hệ **trực tiếp**. Card là nơi RQ2 bắt đầu có thể được trả lời.
+
+## 5. Ôn nhanh
+
+- **Từ L3.1, Part 2:** khi luật được chọn *sau khi* nhìn dữ liệu thì việc nó khớp không còn là bằng chứng. Ví dụ 8 ô: 1/256 nếu khóa trước, so với 1/8 nếu chọn sau. Exposure chia ba mức: thiết kế, văn bản dự đoán, outcome.
+- **Từ L3.2, Part 1:** bổ đề T01 nói $G_M$ chỉ nhận giá trị 0 hoặc $\lvert\mathbb E\Delta\rvert$; $G_{S\mid M_1}=\min(\mathbb E\Delta^+,\mathbb E\Delta^-)$.
+- **Từ L3.2, Part 3:** các đại lượng phụ thuộc $M_0$ nhảy bậc, nên nhạy với sai số số.
+
+## 6. Mental model: ba loại câu
+
+| | Có thể sai trong mô hình đã khai báo? | Viết lúc nào | Nếu "đúng" thì nói lên điều gì |
+|---|---|---|---|
+| **Identity** | Không | Bất kỳ lúc nào | Không gì về thế giới. Chỉ là phép kiểm bug |
+| **Prediction** | **Có** | **Trước** dữ liệu | Cơ chế của bạn chưa bị bác *trên miền đã khai báo* |
+| **Mô tả hậu nghiệm** | Không áp dụng, vì được viết để khớp | Sau dữ liệu | Gợi ý cho một prediction *mới*, cần kiểm ở chỗ khác |
+
+**Phân biệt quan trọng nhất của Part 1:**
+
+> Nếu một **identity** "sai" trên dữ liệu, đó là **bug**: dừng lại và debug.
+> Nếu một **prediction** sai, đó là **kết quả**: ghi lại và học từ nó.
+
+Vì vậy hai loại câu này phải nằm ở hai nơi khác nhau. Identity đi vào danh sách sanity, trở thành phép kiểm ở A01 và A04. Prediction đi vào card. Trộn hai thứ thì sẽ có lúc bạn "debug" một kết quả thật, hoặc "học" từ một bug.
+
+---
+
+## 7. Các khái niệm
+
+### 7.1. Bốn phần của một prediction
+
+Một prediction hợp lệ có đủ bốn phần, và cả bốn được viết **trước** dữ liệu:
+
+| Phần | Câu hỏi nó trả lời | Thiếu nó thì sao |
+|---|---|---|
+| **Miền** | Những ô nào? | Không biết chấm ở đâu, nên chấm lúc nào cũng "chọn" được |
+| **Đại lượng + hướng hoặc vị trí** | Đo cái gì, lớn hơn hay nhỏ hơn ngưỡng nào? | Không có gì để so |
+| **Cơ chế** | Vì sao bạn nghĩ vậy? | Đứng hay không đứng đều không dạy được gì |
+| **Quan sát bác bỏ** | Bảng A04 trông thế nào thì câu này sai? | Câu không thể sai |
+
+**Ví dụ: từ một câu mơ hồ đến một câu đủ bốn phần, trên toy E3** (không phải dự đoán cho lưới):
+
+- ❌ *"Model repair quan trọng hơn khi traffic bursty."* Không có miền, không có đại lượng, không có ngưỡng. Gần như không thể sai.
+- ✅ **P-toy.**
+  - *Miền:* toy một slot E3, trung bình nền B cố định 3,5.
+  - *Đại lượng:* action của $M_0$ so với action đúng.
+  - *Dự đoán:* $M_0$ chọn sai khi nền B đủ biến động để B rỗng một phần thời gian dưới Stay.
+  - *Cơ chế:* đường trung bình của B không bao giờ rỗng, nên $M_0$ không thấy capacity bỏ phí của B.
+  - *Bác bỏ nếu:* ở biến thể ít biến động (nền B là 3 hoặc 4), $M_0$ vẫn chọn sai.
+
+Với các số đã tính ở L3.2 Part 2 (§7.7), P-toy đứng.
+
+**Đối chiếu với `claims.md`.** Bảng PC có bốn cột: ID, claim có phạm vi, loại, "khi nào không đứng". Như vậy đã có **miền, đại lượng, hướng và quan sát bác bỏ**. Cột còn thiếu là **cơ chế**. Đó là phần chính mà card bổ sung, và cũng là phần "của bạn".
+
+### 7.2. Ba cách một câu bị "rỗng"
+
+Một câu có đủ bốn phần vẫn có thể không chứa thông tin, theo ba cách sau.
+
+**(a) Identity trong mô hình: danh sách sanity.** Đây là những câu không thể sai một khi mô hình đã khai báo. Chúng đi vào A01 và A04 như phép kiểm bug, không đi vào card.
+
+| # | Câu | Nguồn (tầng E0) |
+|---|---|---|
+| 1 | $R_{11}=0$; $L_{11}\le L_{sm}$ với mọi $sm$ | D15, D18 |
+| 2 | $G_{SM},\,G_{S\mid M_1},\,G_{M\mid S_1},\,G_M\ge0$ | contract v1.2 §7; T01 |
+| 3 | $G_{S\mid M_1}=\min(\mathbb E\Delta^+,\mathbb E\Delta^-)$ = EVPPI (PC1) | T01, T03 |
+| 4 | $G_{M\mid S_1}=\mathbb E_D[\text{VSS}(x)]$ dưới G2–G5 | T03 |
+| 5 | $G_M=\lvert\mathbb E\Delta\rvert\,\mathbf 1[a_{00}\ne a_{01}]\le\lvert\text{bias}\rvert$ | T01 |
+| 6 | $\Gamma=G_{S\mid M_1}-G_S=G_{M\mid S_1}-G_M$ | D19 (đại số) |
+| 7 | $F+V=G_S$ | D22 (đại số) |
+| 8 | Sáu contrast bằng 0 ở ô SD và ô conservation | contract v1.2 §8; DL-030 |
+| 9 | $G_{S\mid M_1}=0$ ở ô WD (mọi $\Delta\le0$) | T01. Lưu ý: $G_M$ ở đây có thể > 0, nên ô WD không phải zero control |
+| 10 | $\hat J_{M_0}\le J$ (Jensen) | contract v0 §7(h), EV-33 |
+| 11 | Regret bằng $\lvert\Delta\rvert$ nhân với việc lật quyết định (F5) | L1.4, L1.5 |
+| 12 | Trung bình của $I_\Delta$ bằng 0 | L1.5 |
+| 13 | $G_S<0$ thì $\Gamma>0$ | D19 + dòng 2. Claim boundary đã ghi: "là đại số, không discovery" |
+
+Dòng 13 sẽ quan trọng ở Part 2, vì PC3 là một câu về $\Gamma>0$.
+
+**(b) Điều prior đã đặt tên: danh sách "không-mới".** Một câu có thể sai được, nhưng literature đã nói nó rồi. Kiểm nó vẫn có ích, vì đó là một sanity ở tầng mạng. Có điều nó không thể là contribution. Bạn có hai nguồn cần đối chiếu:
+- **`already_implied.md`**, sáu dòng. Ví dụ: $G_{S\mid M_1}$ đã có tên là EVPPI. Bảng 2×2 của $\Gamma$ là đại số, và việc sửa hai nguồn lỗi trong một bảng 2×2 đã có ở WM26. $G_S$ có thể âm thì đã có analog ở revenue management (R02).
+- **Mục "Không được claim là mới"** trong claim boundary, gồm các dòng K. Ví dụ: state cũ làm routing kém (K-S1); fidelity khác chất lượng quyết định (K-M1); thông tin mới có thể làm hại một chính sách xấp xỉ (K-RM1–3).
+
+Mình không tóm thay bạn sáu dòng của `already_implied.md`. Việc tự viết lại chúng bằng lời của bạn, không nhìn file, là **điều kiện commit card** (PHASE_2 §5.2).
+
+**(c) Điều thiết kế bảo đảm.** Loại này dễ lọt nhất, vì trông như một prediction thật.
+
+- *Ví dụ 1:* "$p_{\text{sw}}\approx0{,}3$ ở các ô có mục tiêu 0,3". Luật neo đã chỉnh λA đúng để điều này xảy ra.
+- *Ví dụ 2, khó thấy hơn:* "$G_{S\mid M_1}>0$ ở mọi ô chính".
+  - $G_{S\mid M_1}>0$ khi và chỉ khi cả $P(\Delta<0)$ lẫn $P(\Delta>0)$ đều dương.
+  - Luật neo đặt $p_{\text{sw}}=P(\Delta<0)$ trong khoảng [0,24; 0,83] ở mọi ô chính.
+  - Vì vậy câu này gần như đã được thiết kế bảo đảm. Nó chỉ sai nếu khối lượng hòa chính xác ($\Delta=0$) chiếm hết phần còn lại.
+  - Ngược lại, câu "$G_{S\mid M_1}/C_{\text{ref}}\ge1\%$" **không** được thiết kế bảo đảm, vì luật neo chỉ khống chế *tỉ lệ*, không khống chế *độ lớn*.
+
+**Một câu hỏi để đo độ rủi ro.** Khi đã loại ba kiểu trên, hãy hỏi: *"Nếu cơ chế của tôi sai, tôi có lý do gì để nghĩ kết quả sẽ khác không?"* Nếu câu trả lời là không, prediction có rủi ro thấp, và việc nó đứng gần như không phải bằng chứng.
+
+Ví dụ: một câu chỉ nói "$G_M\approx0$" có thể đứng chỉ vì việc lật quyết định vốn hiếm (T01), bất kể cơ chế là gì. PC5 ghép vế "gần 0 ở K5" với vế "**khác 0** ở Q5". Một *tương phản giữa hai vùng* rủi ro hơn nhiều so với từng vế đứng riêng. Part 2 sẽ đào sâu điểm này.
+
+### 7.3. Danh sách ô và luật tọa độ
+
+**So sánh đời thường.** "Ba bạn An, Bình, Chi sẽ qua môn" kiểm được trên đúng ba người. "Mọi bạn ngồi bàn đầu sẽ qua môn" nói về cả những người bạn chưa gặp.
+
+| | Danh sách ô | Luật tọa độ |
+|---|---|---|
+| Ví dụ (K5) | {M19, M20, M21, M22} | "κ ≥ 2, A/B q90, $h$ = 8 s" |
+| Ô chính khớp | M19–M22 | M19–M22 |
+| Ô held-out khớp | Không có | **R03, R04** (κ = 2, η = 0,5) |
+| Chấm ở đâu | A04 | A04 cho phần ô chính, A05-T cho R03 và R04 (qua A05-F) |
+| Đứng thì được nói gì | "Đúng trên bốn ô đó, trong mô hình" | "Luật đứng trên các ô đã kiểm, kể cả ô chưa dùng" |
+| Không được nói gì | Bất kỳ điều gì về κ ngoài bốn ô đó | "Đúng ở mọi κ ≥ 2". Ở κ = 2 chỉ có η = 0,5; và khớp trên lưới hữu hạn không chứng minh cả vùng liên tục |
+
+**Ba ý cần giữ:**
+1. Một danh sách được khóa trước A04 cho một phép kiểm **hợp lệ trên đúng danh sách đó**. Kiểm này không yếu. Nó chỉ *hẹp*.
+2. Muốn nói về luật thì phải kiểm trên ô **chưa dùng**. Trong thiết kế của bạn, chỉ A05-T làm được điều đó.
+3. Nếu một ô held-out trượt, điều đó chỉ bác **luật**. Nó không cho biết ranh giới nằm giữa κ = 2 và κ = 3, vì λA được neo theo lát và các tọa độ khác cũng đổi theo (L3.1, Part 1).
+
+### 7.4. Luật chấm ba trạng thái
+
+**Trực giác.** Số exact vẫn có một khoảng sai số số rất nhỏ (L3.2, Part 3). Nếu khoảng đó cắt qua ngưỡng, bạn **chưa biết** câu đúng hay sai. Gọi trường hợp đó là "sai" là nói quá; gọi là "đúng" cũng vậy.
+
+**Định nghĩa cho từng ô.** Với khoảng $[\hat G-e,\ \hat G+e]$:
+
+| Trạng thái | Điều kiện |
+|---|---|
+| **Đứng** | Khoảng nằm trọn phía đúng của ngưỡng. Ngưỡng "≤" và "≥" là biên đóng; ngưỡng ">" và "<" là biên mở |
+| **Không đứng** | Khoảng nằm trọn phía sai |
+| **Chưa phân giải** | Khoảng cắt ngưỡng, **hoặc** ô bị HOLD vì khối lượng chưa chứng nhận > 0,01 |
+
+**Ví dụ** với $C_{\text{ref}}=100$ và ngưỡng 0,5 (tức 0,5% $C_{\text{ref}}$), dạng "≤":
+- $\hat G=0{,}45$, $e=0{,}03$: khoảng [0,42; 0,48] nằm dưới 0,5 → **đứng**.
+- $\hat G=0{,}49$, $e=0{,}03$: khoảng [0,46; 0,52] cắt 0,5 → **chưa phân giải**. Phải tăng độ chính xác hoặc HOLD ô đó.
+
+**Gộp nhiều ô.** Quy tắc gộp tương ứng với logic ba giá trị của Kleene:
+
+| Dạng prediction | Đứng khi | Không đứng khi | Còn lại |
+|---|---|---|---|
+| "Mọi ô" (như AND) | Mọi ô đứng | **Có ít nhất một** ô không đứng | Chưa phân giải |
+| "Có ít nhất một ô" (như OR) | **Có ít nhất một** ô đứng | Mọi ô không đứng | Chưa phân giải |
+
+Cách gộp này bảo đảm một ô chưa phân giải *không bao giờ* tự quyết định kết luận.
+
+Nếu $C_{\text{ref}}=0$, theo D23 ta loại nhãn tương đối và ghi lý do.
+
+**Ba điểm plan chưa nói rõ, mình đề xuất đưa vào luật chấm của card:**
+
+> **(1) Chấm từng vế của một claim ghép.**
+> **Plan hiện** chấm PC5 như một khối.
+> **Tôi đề xuất** chấm vế K5 ("mọi ô ≤ 0,005"), vế Q5 ("ít nhất một ô ≥ 0,01") và phép AND của hai vế **riêng biệt**.
+> **Vì sao:** hai vế kiểm hai phần khác nhau của cơ chế. Nếu chỉ báo kết quả gộp, khi "không đứng" bạn không biết vế nào sai.
+
+> **(2) Khoảng của tỉ số.** Ngưỡng nằm trên $G/C_{\text{ref}}$, mà $C_{\text{ref}}=L_{11}$ cũng có sai số $e_C$. Với $\hat C>e_C$, khoảng là
+> $$\Big[\tfrac{\hat G-e_G}{\hat C+e_C},\ \tfrac{\hat G+e_G}{\hat C-e_C}\Big].$$
+> Ví dụ $\hat G=0{,}45$, $e_G=0{,}03$, $\hat C=100$, $e_C=0{,}25$ cho khoảng [0,00419; 0,00481]. Vẫn đứng. Ảnh hưởng thường rất nhỏ, nhưng **cách tính phải được viết trước**.
+
+> **(3) Ô chưa hội tụ theo dt.** A04 báo chênh lệch giữa 2·dt cuối và dt cuối, và gắn cờ ô nào vượt dung sai làm mịn (0,25% $C_{\text{ref}}$). Luật chấm hiện chưa nói ô bị cờ thì chấm thế nào.
+> **Tôi đề xuất:**
+> - Ô vượt dung sai làm mịn: **chưa phân giải (chưa hội tụ)**.
+> - Ô trong dung sai: chấm ở dt cuối. Nếu nhãn ở hai mức khác nhau, gắn cờ "nhạy với dt".
+>
+> **Vì sao:** nếu không viết trước, lúc chấm bạn sẽ được tự chọn mức dt cho kết quả đẹp hơn.
+
+**Một hệ quả nên biết trước.** Theo D24, ngân sách sai số số là $0{,}0025\,C_{\text{ref}}$, tức bằng **một nửa** ngưỡng $\varepsilon_E=0{,}005$. Nếu $e$ thực sự chạm ngân sách, mọi ô có $G/C_{\text{ref}}$ trong khoảng [0,0025; 0,0075] đều chưa phân giải. Vì vậy luật phải dùng **$e$ thực** do engine trả về, không dùng ngân sách. Ngân sách là trần, không phải sai số.
+
+---
+
+## 8. Assumptions của Part 1
+
+| Assumption | Nó giúp gì | Nếu sai thì sao |
+|---|---|---|
+| Mọi prediction là phát biểu **trong mô hình** (plant v1.2, contract v1.2) | Bác bỏ được bằng engine exact | Không câu nào trong card nói được về mạng thật. Đó là việc của Phase 4 trở đi |
+| Chấm ở dt cuối, sau khi A01 chọn dt | Một estimand xác định | Nếu dt không hội tụ, áp đề xuất (3) |
+| Danh sách sanity đúng với mô hình đã khai báo | Tách được bug khỏi kết quả | Nếu một dòng sanity sai về mặt toán, bạn sẽ "debug" nhầm. Vì vậy mỗi dòng cần nguồn ở tầng E0 |
+
+## 9. 🔗 Liên hệ với repo cũ
+
+- **`claims.md` ngày 24/10** là lần thử preregistration đầu tiên. Nó có deviation về provenance: forecast được AI hỗ trợ và bị lộ trước khi lưu (DL-040). Tuy vậy nó vẫn được viết **trước outcome**. Card là cơ hội làm lại cho sạch: cùng nội dung, nhưng có cơ chế, luật chấm và nhãn provenance đúng.
+- **Danh sách sanity** chính là các identity ở L1.5 mà bạn đã dùng làm phép kiểm. Ở L1.5 chúng bắt được bug thật (một checker dùng chung helper). Vai trò của chúng không đổi: **phát hiện bug, không phải bằng chứng**.
+- **Các RQ ở thế hệ 2** có dạng so sánh phương pháp, kiểu "uncertainty-aware có tốt hơn threshold không". *Đây là suy luận của mình, bạn nên đối chiếu lại:* khi kết quả âm, dạng câu hỏi đó không để chỗ cho câu "cơ chế nào đã vắng mặt". Thêm phần cơ chế vào mỗi prediction là để một kết quả âm cũng dạy được điều gì đó.
+
+## 10. Được nói gì và không được nói gì
+
+| Được nói (sau A04) | Không được nói |
+|---|---|
+| "P5 [PREREG-CARD]: vế K5 đứng ở 4/4 ô theo luật chấm commit ở `<hash>`" | "Mô hình đơn giản đủ dùng khi κ cao" |
+| "Vế Q5 chưa phân giải: 1 ô cắt ngưỡng, 3 ô không đứng" | "Vế Q5 sai" |
+| "Danh sách sanity giữ ở mọi ô" | "Sanity giữ, vậy kết quả đáng tin". Sanity chỉ cho thấy không có bug *loại đó* |
+| "Cơ chế X **chưa bị bác** trên các ô này" | "Cơ chế X được chứng minh". Cơ chế cần knockout (Phase 6) |
+
+## 11. Reviewer có thể hỏi
+
+1. *"Card có câu nào là định lý không?"* → Part 1 cho bạn danh sách sanity để tự kiểm trước.
+2. *"Anh chọn K dựa trên cái gì?"* → Dựa trên tọa độ thiết kế, trước mọi outcome. Nhưng các K do **AI chọn** trong hội thoại (`claims.md` ghi rõ), nên card phải ghi đúng nhãn provenance. Chưa trả lời được "vì sao chọn đúng các ô này". Phần đó cần cơ chế ở Part 2.
+3. *"'Chưa phân giải' có phải là cách né bác bỏ không?"* → Không, *nếu* luật được viết trước và bạn báo **số lượng** ô chưa phân giải. Quá nhiều ô chưa phân giải là kết quả inconclusive, không phải support.
+4. *"Bốn ô thì nói được gì về κ?"* → Không nói được gì ngoài bốn ô đó. Muốn nói về luật cần A05-T.
+
+## 12. ⚠️ Bẫy người mới
+
+- Đưa dòng 13 của danh sách sanity ("$G_S<0$ thì $\Gamma>0$") vào card như một dự đoán.
+- Viết "$G_{S\mid M_1}>0$ ở mọi ô chính", tức một câu thiết kế bảo đảm đội lốt prediction.
+- Dùng pattern $p_{\text{sw}}$ hay λA đã công khai làm "cơ chế". Đó là đại lượng thiết kế, đã được luật neo điều chỉnh.
+- Chấm PC5 như một khối rồi không biết vế nào sai.
+- Viết luật chấm dựa trên ngân sách sai số thay vì $e$ thực.
+- Cho rằng danh sách ô là "yếu" và muốn nâng nó lên luật *sau* khi thấy A04.
+- Coi việc một identity "đứng" là một kết quả.
+
+## 13. 🧠 Tư duy researcher
+
+> Trước khi viết một prediction, hãy hỏi: *"Thế giới nào làm câu này sai, và thế giới đó có nằm trong mô hình của tôi không?"* Nếu không có thế giới nào như vậy, đó là identity. Nếu có nhưng bạn không có lý do nghĩ nó khác thế giới "cơ chế đúng", thì prediction có rủi ro thấp.
+
+Giá trị của một prediction không nằm ở chỗ nó đúng. Nó nằm ở chỗ nó **có thể đã sai**, và **lý do** nó có thể sai gắn với cơ chế mà bạn muốn kiểm.
+
+## 14. Bài tập nên làm (khuyến nghị)
+
+**Phân loại bảy câu.** Mỗi câu thuộc một loại: identity / điều prior đã nói / thiết kế bảo đảm / prediction / câu chưa đủ bốn phần.
+
+1. "$G_{S\mid M_1}\ge G_S$ ở mọi ô có $G_S<0$."
+2. "$G_{S\mid M_1}>0$ ở mọi ô chính."
+3. "Ở M09–M12, $(G_S-G_M)/C_{\text{ref}}\ge0{,}01$ ở từng ô."
+4. "Thông tin state mới có thể làm hại một controller dùng $M_0$."
+5. "$G_M\le\lvert\text{bias}\rvert$ ở mọi ô."
+6. "Model repair quan trọng hơn khi traffic bursty."
+7. "$\Gamma>0$ ở mọi ô có $G_S<0$."
+
+<details><summary>Gợi ý</summary>
+
+1. Identity: $G_{S\mid M_1}\ge0>G_S$.
+2. Thiết kế (gần như) bảo đảm, qua luật neo $p_{\text{sw}}$.
+3. Prediction (PC2), nhưng còn thiếu cơ chế.
+4. Điều prior đã nói (K-RM1). Trong mô hình nó cũng có thể xảy ra (toy E5 ở L3.2).
+5. Identity (T01).
+6. Chưa đủ bốn phần.
+7. Identity (đại số D19 và $G_{S\mid M_1}\ge0$).
+</details>
+
+**Read-back `already_implied.md`.** Viết sáu câu bằng lời của bạn, không nhìn file. Đây là điều kiện commit card.
+
+## 15. Tự kiểm tra (tùy chọn)
+
+1. Vì sao một identity "sai" trên dữ liệu là bug, còn một prediction sai là kết quả?
+2. Vì sao "$G_{S\mid M_1}>0$" gần như được thiết kế bảo đảm, còn "$G_{S\mid M_1}/C_{\text{ref}}\ge1\%$" thì không?
+3. Một prediction "mọi ô" có 3 ô đứng và 1 ô chưa phân giải. Kết luận là gì? Nếu là prediction "có ít nhất một ô" thì sao?
+4. Vì sao ngân sách $0{,}0025\,C_{\text{ref}}$ không được dùng làm $e$ khi chấm?
+5. Reviewer: "Danh sách bốn ô là quá hẹp, sao không viết luật cho mạnh hơn?" Bạn trả lời thế nào, và cái giá của việc viết luật là gì?
+
+## 16. Trạng thái của Part 1
+
+- **Hiểu:**
+  - Ba loại câu, và vì sao identity với prediction phải nằm ở hai nơi.
+  - Bốn phần của một prediction; `claims.md` đang thiếu phần cơ chế.
+  - Ba cách một câu bị rỗng, kèm câu hỏi đo độ rủi ro.
+  - Danh sách ô khác luật tọa độ.
+  - Luật chấm ba trạng thái và cách gộp theo Kleene; ba đề xuất: chấm từng vế, khoảng của tỉ số, ô chưa hội tụ theo dt.
+- **Nên làm khi triển khai thật:**
+  - Read-back sáu dòng của `already_implied.md`.
+  - Lập danh sách sanity (13 dòng ở §7.2(a) là điểm xuất phát) để dùng làm phép kiểm ở A01 và A04.
+  - Viết luật chấm vào card, kèm ba đề xuất trên nếu bạn đồng ý.
+- **Phụ thuộc khoa học:** luật chấm phải nằm trong card **trước** A01. Nếu không, mọi phép chấm ở A04 có thể bị chất vấn là đã chọn sau khi nhìn.
+- **Học tiếp được không?** **Có.** Part 2 là phần "vật lý" của prediction: dịch từng PC sang dạng identity, tìm hệ quả chung, và có công cụ để tự lập luận cơ chế. Mình sẽ dạy công cụ và thử chúng trên toy. Phần cơ chế cho từng tập ô của lưới vẫn để bạn tự viết. Mình dừng ở đây.

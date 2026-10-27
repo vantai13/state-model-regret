@@ -99,6 +99,9 @@ def aggregate(A, B):
     result['R'] = {k: value - L['11'] for k, value in L.items()}
     eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
     eB = tuple(h - d for h, d in zip(B.dh, B.d))
+    modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+    _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+    result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
     _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
     result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
     levels = (F(1, 2), F(9, 10), F(99, 100))
@@ -112,6 +115,8 @@ def aggregate(A, B):
             raise ArithmeticError('independent T01 positive/negative-parts check failed')
         if not 0 <= G['G_M'] <= abs(result['bias']):
             raise ArithmeticError('T01 bias bound failed')
+        if not 0 <= G['G_M_S1'] <= result['E_abs_e_M']:
+            raise ArithmeticError('statewise model-error bound failed')
     return result
 
 

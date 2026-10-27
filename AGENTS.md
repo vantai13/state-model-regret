@@ -137,3 +137,14 @@ E3/E6 là arrival-law toys, không D7 H=1 known-mode; pseudocode idle/guard đã
 Adapter58metadata,32D-only comparisons8IDs×A/B×ref1/2 khớp,không heldoutD/gridoutcomes.
 Src/kernel/contract/PC/threshold giữ; EVPI_w/flip2D để sau; L3.3 chưa commit,
 T05/ownership/P0-V10/L8 OPEN, V9 chưa gửi/A04 chờ, Phase4 HOLD.
+
+L3.3/A03/27/10 (DL-047–049): tác giả chọn K5 cả danh sách+luậtκ≥2/q90/q90/h8,
+attest tự hoàn thành already_implied kín sách + engine/T05 read-back ngoài repo (nguyên văn lưu).
+Card notes/phases/PHASE_3_prediction_card.md có14sanity/4forecast không cơ chế/1luật K5;
+giữ byte claims.md; P1sanity/P4A05-F, optionalP2/P3rules chưaadopt, P6không OOS.
+324fulltests/29card+guard PASS,11/11mutant KILLED,4000ledger0vi phạm/0mismatch.
+Signed ratio dùng4corners, Cref0excluded,dt/HOLDunknown,Kleene từngvế. Guard kiểm card+
+lockSHA/2commit/tag,không cho DRAFT; card fullSHA thay đổi thì dừng, không amend/force.
+K5carry mọi rule chưa refute kể cả unknown, nguyênvăn sangA05-F,m=1; H1/null/split chưa khóa.
+Không grid outcomes/Dmới (regressionD-only/screenM31cũ ghi riêng),không A01/A04/A05/src promotion.
+T05chưa văn bản tác giả; P0-V10/L8/V9 và Phase4HOLD giữ; không nhận author-owned mechanism/novelty.

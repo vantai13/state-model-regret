@@ -21,3 +21,8 @@ Mọi lần chạy ghi commit card/code, config/seed (hoặc deterministic), exp
 
 L3.2: [engine thực nghiệm](../experiments/A00_engine/) đã kiểm toy/D-only, chờ T05
 tác giả để promote. [Verification](../results/lessons/l3_2/report.md) không là outcome A01/A04.
+
+A03/L3.3: [card](phases/PHASE_3_prediction_card.md) đã freeze (14sanity,4forecast,
+1luật K5), [receipt](phases/PHASE_3_prediction_card.lock.json); engine/already_implied
+read-back author-attested. Trước A01 phải verify card commit/SHA/receipt/tag. A05-F
+carry nguyên văn luật K5 chưa bị bác (m=1); chưa H1/null/fit/split hoặc A05 freeze.

@@ -17,8 +17,9 @@ OUT = ROOT / 'results/lessons/l3_2/mutants'
 CORE = 'experiments/A00_engine/factorial_core.py'
 
 
-def main():
-    OUT.mkdir(parents=True, exist_ok=True)
+def main(output=OUT):
+    out = Path(output).resolve()
+    out.mkdir(parents=True, exist_ok=True)
     ledger_tests = ['tests/test_engine_core.py', 'tests/test_engine_extended.py']
     cut = '_cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)'
     specs = [
@@ -64,11 +65,11 @@ def main():
             target.write_text(original.replace(old, new, 1))
             for cache in list(temp.rglob('__pycache__')):
                 shutil.rmtree(cache)
-            xml = OUT / f'{mid}.xml'
+            xml = out / f'{mid}.xml'
             command = [sys.executable, '-m', 'pytest', '-q', '--import-mode=importlib',
                        f'--junitxml={xml}', *selection]
             run = subprocess.run(command, cwd=temp, env=env, capture_output=True, text=True)
-            (OUT / f'{mid}.log').write_text(run.stdout + run.stderr)
+            (out / f'{mid}.log').write_text(run.stdout + run.stderr)
             target.write_text(original)
             cases = list(ET.parse(xml).getroot().iter('testcase')) if xml.exists() else []
             failed = [c.attrib['name'] for c in cases if c.find('failure') is not None]
@@ -80,10 +81,13 @@ def main():
                           equivalent_in_fraction=(mid == 'M4'))
             results.append(result)
             print(mid, result['status'], len(failed), flush=True)
-    (OUT / 'summary.json').write_text(json.dumps(results, ensure_ascii=False, indent=2) + '\n')
+    (out / 'summary.json').write_text(json.dumps(results, ensure_ascii=False, indent=2) + '\n')
     if not all(r['status'] == 'KILLED' for r in results):
         raise SystemExit('mutant survived or infrastructure failed; see logs')
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--out', type=Path, default=OUT)
+    main(parser.parse_args().out)

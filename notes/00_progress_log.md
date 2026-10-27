@@ -7,6 +7,12 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3.3 / A03 — 27/10/2026
+
+Card4forecast không cơ chế/14sanity/1luật K5, tác giả chọn hai mức K5 và author-attested
+hai read-back;324tests PASS,11/11mutant KILLED,4000ledger0vi phạm. Commit card riêng,
+receipt/tag theo sau; không A01/gridoutcomes/Dmới ngoài regression cũ. [Report](../results/lessons/l3_3/report.md).
+
 ## L3.2 — 27/10/2026
 
 Engine exact thực nghiệm: 72 tests mới/300 toàn repo PASS; 11/11 mutant bị bắt;

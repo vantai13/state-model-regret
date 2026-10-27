@@ -5,6 +5,7 @@ import subprocess
 import pytest
 
 from experiments.A00_engine.guard import CARD, FREEZE, GRID_PATH, guard
+from tests.card_git_fixture import make_card, make_lock
 
 
 def git(repo, *args):
@@ -14,6 +15,12 @@ def git(repo, *args):
 def commit(repo, name):
     git(repo, 'add', '.')
     git(repo, '-c', 'user.name=Doan Van Tai', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', name)
+    from experiments.A03_card.provenance import LOCK
+    if (repo / LOCK).exists():
+        if subprocess.run(['git', '-C', str(repo), 'rev-parse', '--verify', 'refs/tags/fixture-a03'],
+                          capture_output=True).returncode:
+            git(repo, '-c', 'user.name=Doan Van Tai', '-c', 'user.email=fixture@example.invalid',
+                'tag', '-a', 'fixture-a03', '-m', 'Synthetic receipt tag')
 
 
 @pytest.fixture
@@ -38,14 +45,15 @@ def test_card_must_be_clean_and_in_HEAD(isolated_repo):
     repo = isolated_repo
     with pytest.raises(PermissionError):
         guard('M01', allow_grid=True, purpose='A01', repo=repo)
-    path = repo / CARD
-    path.parent.mkdir(parents=True)
-    path.write_text('Synthetic test card\n')
+    path = make_card(repo)
     with pytest.raises(PermissionError):
         guard('M01', allow_grid=True, purpose='A01', repo=repo)
     commit(repo, 'fixture card')
+    card_commit = git(repo, 'rev-parse', 'HEAD')
+    make_lock(repo, card_commit)
+    commit(repo, 'fixture receipt')
     receipt = guard('M01', allow_grid=True, purpose='A01', repo=repo)
-    assert receipt['prediction_card_commit'] == git(repo, 'rev-parse', 'HEAD')
+    assert receipt['prediction_card_commit'] == card_commit
     path.write_text('dirty fixture\n')
     with pytest.raises(PermissionError):
         guard('M01', allow_grid=True, purpose='A01', repo=repo)
@@ -53,14 +61,15 @@ def test_card_must_be_clean_and_in_HEAD(isolated_repo):
 
 def test_heldout_needs_freeze_not_only_boolean_flag(isolated_repo):
     repo = isolated_repo
-    card = repo / CARD
-    card.parent.mkdir(parents=True)
-    card.write_text('Fixture card\n')
+    card = make_card(repo)
     commit(repo, 'fixture card')
+    make_lock(repo, git(repo, 'rev-parse', 'HEAD'))
+    commit(repo, 'fixture receipt')
     for flags in ({}, {'allow_grid': True, 'purpose': 'A01', 'allow_heldout': True},
                   {'allow_grid': True, 'purpose': 'A05-T', 'allow_heldout': True}):
         with pytest.raises(PermissionError):
             guard('R01', repo=repo, **flags)
+    (repo / FREEZE).parent.mkdir(parents=True, exist_ok=True)
     (repo / FREEZE).write_text('Fixture A05-F\n')
     commit(repo, 'fixture freeze')
     r = guard('R01', allow_grid=True, allow_heldout=True, purpose='A05-T', repo=repo)

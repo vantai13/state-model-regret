@@ -540,3 +540,69 @@ và [verification](../results/lessons/l3_2/verification.json) là output thực 
 - **Gate giữ nguyên:** L3.3 chưa commit; không A01/A04/A05. V9 chưa gửi nên A04 chờ;
   P0-V10/L8 OPEN, Phase4 HOLD. Engine guard không thay điều kiện của runner hoặc semantic
   review card. Có thể học/soạn L3.3; không nhận Understanding/ownership PASS.
+
+### DL-047 — L3.3: phạm vi soạn card trước chạy và các quyết định còn chờ (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. Đọc ba phần lesson, đối chiếu claims/contract/DL-043.
+[Config](../results/lessons/l3_3/config.json), [đáp án toy đã exposed ghi trước code](../results/lessons/l3_3/expected_before_code.json).
+
+- Giữ nguyên byte claims.md, already_implied.md, contract/grid/thresholds/nhãn Phase2.
+  P2/P3/P5/P6 giữ forecast cũ trên đúng danh sách; P1 vào sanity, P4 chờ A05-F.
+  Chưa có cơ chế do tác giả viết: dùng nhãn **forecast không cơ chế**, không giả tác giả viết.
+- Đã hỏi tác giả lựa chọn K5 và read-back already_implied/T05; chưa có câu trả lời tại
+  thời điểm ghi DL này. Chuẩn bị card **DRAFT, chưa freeze**, không tạo tag/receipt A03
+  chính thức hoặc ghi author-attested từ yêu cầu “tiếp tục”. Các luật mở rộng chỉ là candidates.
+- Sửa enclosure G/Cref: khi C_low>0 lấy min/max **bốn** thương. Công thức hai đầu
+  trong lesson không đúng cho numerator âm. Không đổi ngưỡng; denominator cắt 0 → chưa phân giải.
+  Chấm theo e_num thực, tách vế/Kleene; HOLD numeric/dt → chưa phân giải; không dùng empty-set
+  vacuous truth để gọi một prediction “đứng”. Cref=0 loại relative label, giữ trong báo cáo.
+- Bổ sung diagnostic E|e_M| và sanity G_M|S1≤E|e_M|; chỉ chạy toy (4.000 ledger,
+  E8, persistence). Membership chỉ đọc whitelist tọa độ/target thiết kế, không p_sw thực
+  hoặc lambdaA held-out. Không dựng D mới, không chạy J/gap/contrast grid; regression cũ
+  vẫn có D-only và screen M31 đã exposed, phải ghi riêng.
+- Guard phải trỏ đúng card path trong lesson, từ chối DRAFT và kiểm card commit + SHA-256
+  trong receipt commit tiếp theo trước A01. Hai commit/tag/push chỉ thực hiện khi điều kiện
+  freeze thực sự có record. Engine/T05, V9/A04, P0-V10/Phase4 giữ nguyên.
+
+### DL-048 — L3.3: tác giả chọn K5 và xác nhận hai read-back (2026-10-27)
+
+Doan Van Tai trả lời trực tiếp: **“Cả danh sách và luật κ≥2, q90/q90, h=8”**;
+và với câu hỏi already_implied kín sách + engine/T05 read-back: **“Đã tự hoàn thành
+cả hai ngoài repo”**. [Câu hỏi và trả lời nguyên văn](../results/lessons/l3_3/author_attestation.json).
+Ghi author-attested theo DL-032; không independently verified, không có transcript
+hoặc lời giải mới của tác giả trong repo. Không suy rằng tác giả viết phần AI hỗ trợ.
+
+- K5 khóa hai mức: danh sách M19–M22 và luật κ≥2, A/B q90, h=8, η∈{.5,.75},
+  target thiết kế∈{.3,.7}; main M19–M22, held-out R03/R04 (chỉ η=.5).
+- Giữ nguyên câu forecast PC2/3/5/6; dùng lựa chọn hợp lệ “forecast không cơ chế”
+  của Part3 §5.2, không tự chọn con đường A/B/i/ii/iii/a/b thay tác giả. Chỉ được
+  claim verdict contrast; route diagnostics sau này là mô tả, không support mechanism.
+- Chỉ luật K5 được adopt mức ngoài mẫu trong lượt này. PC2/PC3 coordinate extensions
+  là tùy chọn của lesson, giữ ở candidate record, không tự mở rộng claim do tác giả xác nhận.
+- Hai read-back chuyển AUTHOR-ATTESTED; T05 chưa có văn bản tự viết trong repo.
+  Chưa promote engine hoặc chạy A01. Sau các checks PASS được thực hiện quy trình
+  commit chỉ card → commit receipt/exposure → tag/push theo Part3 §9; không amend/force.
+
+
+### DL-049 — A03: card v1, nội dung và thứ tự trước A01 (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. Tác giả chọn K5 và xác nhận read-back ở DL-048.
+Card commit **chỉ một file**: `b05ed70bd4e93544bccefc975cdc452ad40d1380`; SHA-256 `14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639`.
+Receipt/exposure được ghi ở commit kế tiếp, tag có chú thích `a03-card-v1` trên commit receipt;
+không amend/rebase/force. Kiểm Git sau đăng ký được lưu riêng, không chèn hash commit vào chính nó.
+
+- 14 sanity,4forecast P2/P3/P5/P6,1luật K5; giữ nguyên claims/miền/ngưỡng chính, PC1 sanity/PC4A05-F.
+  Không cơ chế do tác giả viết: ghi forecast không cơ chế; không chọn route thay tác giả.
+- K5 hai mức được chọn trước outcome; vế Q5 chỉ witness main M01–M04, không mở rộng Q-held-out.
+  Carry mọi luật chưa bị bác nguyên văn, kể cả unknown; không tiêu vào quota1–3 luật H1/null mới.
+  Optional P2/P3 rules không adopt; P6 không có kiểm ngoài mẫu.
+- Luật chấm ba trạng thái theo e_num thực, signed ratio4corners, Cref0excluded/cắt0unknown,
+  đóng/mở đúng toán, Kleene từng vế, dt/HOLD; thiếu precision evidence không được autoPASS.
+- Technical checks:29tests card+guard (5 cũ+24mới),324full PASS;11/11mutant KILLED;
+  4000ledger có0vi phạm/0sai khác với enumeration. Sáu kiểm là AI self-check có giới hạn scope/
+  algebra, không independent review, novelty audit hoặc chứng nhận feasibility đúng tham số grid.
+- Guard trỏ đúng card và kiểm full SHA/card commit/receipt commit khác nhau/tag có chú thích
+  cùng dependencies sạch. A05-T vẫn cần A05-F committed. Thay đổi card sau khóa làm guard/grader dừng.
+- Chưa A01/A04/A05; V9/A04, P0-V10/L8/Phase4 và nhãn PC/G1 giữ nguyên. T05 read-back author-attested,
+  chưa có văn bản tác giả mới trong repo; phiên này không promote engine vào src.
+[Report](../results/lessons/l3_3/report.md) · [receipt](phases/PHASE_3_prediction_card.lock.json).

@@ -405,3 +405,23 @@ Vì thế không nhận toàn phiên là “không dựng D grid”; ngoại l�
 Mutation chạy trong temporary copy, chỉ toy/D-only và git fixture, không thay source gốc.
 L3.3 chưa commit; không khóa K5/H1/null/split, không A01/A04/A05, không thay nhãn PC/G1.
 [Config/seeds](../results/lessons/l3_2/config.json) · [report](../results/lessons/l3_2/report.md).
+
+
+## L3.3 / A03 — 27/10/2026
+
+Doan Van Tai phụ trách. Tác giả chọn hai mức K5 và trực tiếp xác nhận đã tự hoàn thành
+read-back already_implied kín sách + engine/T05 ngoài repo (author-attested, DL-048;
+[nguyên văn](../results/lessons/l3_3/author_attestation.json)). Không có transcript/mới,
+không ghi phần AI hỗ trợ thành tác giả viết. Reviewer là AI tự kiểm cùng phiên, không độc lập.
+
+| Artifact | Commit / content / tag | Exposure tại lúc viết |
+|---|---|---|
+| A03 card | commit `b05ed70bd4e93544bccefc975cdc452ad40d1380` · sha256 `14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639` · tag `a03-card-v1` | AI-assisted forecasts đã exposed24/10; không J, độ lớn gap, margin, contrast hoặc regret grid trong record hiện có. Dấu gap đã exposed qua screen thiết kế; không nhận “chưa thấy gap” phủ nhận sign exposure. |
+
+Chỉ toy outcomes (E8,16 mode-persistence rows,4000 synthetic ledgers và các witness/countermodel),
+metadata whitelist50 main/held-out records. Không đọc actual p_sw/lambdaA held-out làm features,
+không dựng D mới hoặc gọi engine trên grid trong phần L3.3. Full regression vẫn rerun D-only
+và design screen M31 cũ; không gọi toàn phiên là “chỉ toy”. Giữ nguyên claims.md từng byte.
+P2/P3/P5/P6 là forecast không cơ chế; PC1 sanity, PC4 deferred. Mở rộng K5 có quyết định
+trước outcome; optionalP2/P3 chưa adopt. Không chọn H1/null/K5 theo kết quả. Không A01/A04/A05.
+[Card](phases/PHASE_3_prediction_card.md) · [receipt](phases/PHASE_3_prediction_card.lock.json).

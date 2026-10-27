@@ -1,0 +1,319 @@
+# LESSON 3.3 — Part 2: "Vật lý" của prediction
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.3 Prediction card (A03)
+  Part 1  một prediction là gì; chấm thế nào                         ✔
+  Part 2  ← YOU ARE HERE: PC đòi hỏi gì ở tầng sổ cái · các "con đường" · công cụ cơ chế
+  Part 3  viết và khóa card
+```
+
+Mọi con số trong Part 2 đều tính bằng phân số trên toy, dùng engine nháp của L3.2. Gồm:
+- E2, E5, E7 (đã gặp);
+- E8 (mới);
+- toy độ bền mode (mới);
+- 4000 sổ cái ngẫu nhiên để kiểm một cận mới.
+
+Không có phép tính nào chạm vào ô lưới.
+
+## 2. Part 2 trả lời câu hỏi gì?
+
+> Mỗi PC thật sự đòi hỏi gì ở tầng sổ cái? Nó có thể "đứng" theo **những con đường nào**? Và làm sao lập luận cơ chế mà không nhìn vào lưới?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** `claims.md` thiếu cột cơ chế (Part 1). Có một rủi ro khó thấy hơn thế: một PC có thể **đứng vì một lý do khác** với lý do bạn nghĩ. Khi đó, A04 ghi "đứng" nhưng cơ chế của bạn chưa hề được kiểm.
+
+**Ví dụ nếu bỏ qua.** PC3 đứng ở M19 và bạn viết "sửa state và sửa model bổ trợ nhau". Reviewer chỉ ra $G_S<0$ ở ô đó, nên $\Gamma>0$ là hệ quả *đại số*. Đó là dòng 13 của danh sách sanity, và claim boundary đã ghi "không phải discovery". Câu của bạn đúng về con số nhưng sai về ý nghĩa.
+
+**Tầng thực hành.** Sau Part 2, với mỗi PC bạn sẽ có: dạng tương đương, danh sách con đường, đại lượng phụ để phân biệt các con đường, và một bộ câu hỏi cơ chế để tự trả lời.
+
+## 4. Liên hệ với Main RQ
+
+RQ1 hỏi hai repair "differ and interact" ra sao. "Differ" tương ứng PC2, "interact" tương ứng PC3. Part 2 cho thấy **cùng một giá trị** của $\Gamma$ có thể mang hai nghĩa khoa học khác nhau. Card phải nói trước bạn đang kiểm nghĩa nào. Đây là liên hệ **trực tiếp**.
+
+## 5. Ôn nhanh
+
+- **L3.2 Part 1:** sổ cái; $G_M=\lvert\mathbb E\Delta\rvert\,\mathbf 1[a_{00}\ne a_{01}]\le\lvert\text{bias}\rvert$; regret của $S_1M_0$ bằng $\lvert\Delta\rvert$ ở những state bị lật (F5).
+- **L3.2 Part 2:** $\Delta=\delta_A+\delta_B$, với $\delta_A\ge0\ge\delta_B$. Sai số gap của $M_0$ là $e_M=\widehat\Delta-\Delta$, đến hoàn toàn từ Jensen gap $j_l(a)=W^{M_1}_l(a)-W^{M_0}_l(a)\ge0$.
+- **Ký hiệu trong Part 2:** $\text{bias}=\mathbb E_D[e_M]$.
+
+## 6. Mental model: ba tầng
+
+```text
+Tầng 1  CONTRAST (nơi PC sống)        G_S, G_M, Γ, F, V ... so với ngưỡng
+           ▲ nhiều con đường dẫn tới cùng một kết quả
+Tầng 2  SỔ CÁI (nơi con đường sống)   dấu G_S · bias · |EΔ| · E|e_M| · độ trải của Δ quanh 0
+           ▲
+Tầng 3  VẬT LÝ (nơi cơ chế sống)      δ_A, δ_B, j_A, j_B theo tọa độ κ, quantile, η, h
+```
+
+Một prediction có ý nghĩa phải đi đủ ba tầng: **cơ chế (tầng 3) → con đường (tầng 2) → kết quả (tầng 1)**. `claims.md` hiện chỉ có tầng 1.
+
+---
+
+## 7. Các khái niệm
+
+### 7.1. Dịch từng PC sang dạng tương đương
+
+| PC | Câu gốc | Dạng tương đương | Nó thật sự đòi hỏi |
+|---|---|---|---|
+| PC2 | $(G_S-G_M)/C_{\text{ref}}\ge0{,}01$ ở từng ô K2 | $=L_{01}-L_{10}$ $=G_{S\mid M_1}-G_{M\mid S_1}$ | Pipeline "chỉ sửa state" thắng pipeline "chỉ sửa model" ít nhất 1%. Theo cách nhìn neo vào oracle: **giá trị thông tin state (khi model đúng) vượt giá trị model đúng (khi biết state)** |
+| PC3 | $\Gamma/C_{\text{ref}}>0{,}005$ ở từng ô K3 | $=G_{S\mid M_1}-G_S$ $=G_{M\mid S_1}-G_M$ | Sửa state có giá trị *hơn* khi model đúng; tương đương, sửa model có giá trị *hơn* khi state đúng |
+| PC5 | K5: $G_M/C_{\text{ref}}\le0{,}005$ ở mọi ô; Q5: ít nhất một ô $\ge0{,}01$ | T01: $G_M=\lvert\mathbb E\Delta\rvert\,\mathbf 1[\text{lật}]\le\lvert\text{bias}\rvert$ | K5: hoặc không lật, hoặc $\lvert\mathbb E\Delta\rvert$ rất nhỏ. Q5: phải lật **và** $\lvert\text{bias}\rvert\ge\lvert\mathbb E\Delta\rvert\ge0{,}01\,C_{\text{ref}}$ |
+| PC6 | $V>0$ và $V>F$ ở từng ô K6 | $F+V=G_S$ | $V>G_S/2$ và $V>0$ |
+
+**Một điều mới ở dòng PC2: PC2 không cần $L_{00}$.**
+- $G_S-G_M=(L_{00}-L_{10})-(L_{00}-L_{01})=L_{01}-L_{10}$.
+- Trừ cùng $L_{11}$ vào hai vế ta được $G_{S\mid M_1}-G_{M\mid S_1}$.
+- Kiểm trên toy: E2 cho $0{,}5-0=0{,}5$ ✓; E7 cho $0{,}75-0{,}125=0{,}625$ ✓.
+
+Hệ quả: PC2 là một so sánh **trực tiếp giữa hai repair đơn lẻ**. Nó không phụ thuộc vào việc pipeline gốc $S_0M_0$ tệ đến đâu.
+
+### 7.2. Hai cận "chị em": sai số model ở cấp ô và ở cấp state
+
+T01 cho cận ở **cấp ô**: $G_M\le\lvert\mathbb E\,e_M\rvert$, tức trị tuyệt đối của *trung bình* sai số.
+
+Có một cận tương tự ở **cấp state**:
+$$G_{M\mid S_1}\ \le\ \mathbb E\,\lvert e_M\rvert,\qquad\text{tức trung bình của trị tuyệt đối sai số}.$$
+
+**Chứng minh trong ba dòng:**
+1. Theo F5, $G_{M\mid S_1}=\mathbb E\big[\lvert\Delta\rvert\cdot\mathbf 1[\text{lật tại }x]\big]$.
+2. Tại một state bị lật, $\Delta$ và $\widehat\Delta$ nằm ở hai phía của số 0, nên $\lvert\Delta\rvert\le\lvert\widehat\Delta-\Delta\rvert=\lvert e_M\rvert$.
+3. Lấy kỳ vọng hai vế, rồi bỏ chỉ thị (vì $\lvert e_M\rvert\ge0$).
+
+**Kiểm trên toy:**
+- E7: $\mathbb E\lvert e_M\rvert=1{,}125\ge G_{M\mid S_1}=0{,}125$ ✓, và $\lvert\text{bias}\rvert=0{,}125\ge G_M=0$ ✓.
+- 4000 sổ cái ngẫu nhiên: **0 vi phạm**.
+
+**Ý nghĩa.** Vì $\lvert\mathbb E e\rvert\le\mathbb E\lvert e\rvert$ (lại là Jensen, vì hàm trị tuyệt đối lồi), khoảng cách giữa hai cận cho biết **sai số triệt tiêu nhau đến mức nào khi lấy trung bình**.
+- $S_0$ chỉ "nhìn thấy" sai số trung bình.
+- $S_1$ phải chịu sai số tại từng state.
+
+Đây là ngôn ngữ để nói về $\Gamma=G_{M\mid S_1}-G_M$:
+- Sai số có thể đổi dấu giữa các state và triệt tiêu trong trung bình.
+- Hoặc sai số lớn nhưng bị margin che ở cấp ô.
+
+> **Đề xuất:** thêm $G_{M\mid S_1}\le\mathbb E\lvert e_M\rvert$ vào danh sách sanity (dòng 14, loại 2). Thêm $\mathbb E\lvert e_M\rvert$ vào output của engine. Đại lượng này tính được một chiều vì $e_M=e_A+e_B$ tách được.
+
+### 7.3. "Con đường": cùng một kết quả, nhiều lý do
+
+| PC | Con đường | Ở tầng sổ cái | Nghĩa khoa học |
+|---|---|---|---|
+| **PC3** | **A** | $G_S<0$ | Đưa state cho $M_0$ **làm hại**. $\Gamma>0$ là hệ quả đại số (sanity 13). Hiện tượng "thông tin làm hại chính sách xấp xỉ" đã có trong prior (K-RM1) |
+| | **B** | $0\le G_S<G_{S\mid M_1}-0{,}005\,C_{\text{ref}}$ | Sửa state **có ích** dưới cả hai model, nhưng ích hơn khi model đúng |
+| **PC5**, vế K5 | (i) | $\lvert\text{bias}\rvert$ nhỏ | $M_0$ gần đúng *ở cấp ô* |
+| | (ii) | $\lvert\mathbb E\Delta\rvert>\lvert\text{bias}\rvert$, cùng dấu | $M_0$ sai, nhưng margin che (ô X ở L3.2) |
+| | (iii) | Có lật nhưng $\lvert\mathbb E\Delta\rvert\le0{,}005\,C_{\text{ref}}$ | Lật ở một ô gần như hòa, nên lật không tốn kém |
+| **PC5**, vế Q5 | Một con đường | Lật **và** $\lvert\text{bias}\rvert\ge\lvert\mathbb E\Delta\rvert\ge0{,}01\,C_{\text{ref}}$ | Cụ thể nhất, nên rủi ro nhất (Part 1) |
+| **PC6** | **a** | $G_S>0$, $V>G_S/2$ | Thấy mode mang hơn nửa giá trị của việc sửa state |
+| | **b** | $G_S\le0$, $V>0$ | Chỉ refresh backlog thì **có hại** ($F<0$), còn thấy mode thì có ích. Khi đó $V>F$ đúng *một cách tầm thường* |
+
+**Toy E8.** Đây là số minh họa ở tầng sổ cái; dấu thỏa $\delta_A\ge0\ge\delta_B$ cho cả hai model. E8 cô lập con đường A của PC3 và con đường b của PC6:
+
+| Phía A (½ mỗi state) | $\delta_A$ | $\hat\delta_A$ | | Phía B (½ mỗi state, cùng $q_B=0$) | $\delta_B$ | $\hat\delta_B$ |
+|---|---:|---:|---|---|---:|---:|
+| $a_1$ ($q_A=1$) | 0 | 0 | | $b_1$ (OFF) | −1,5 | −0,5 |
+| $a_2$ ($q_A=4$) | 0,5 | 1,25 | | $b_2$ (ON) | −3 | −1,5 |
+
+**Bước 1: quyết định theo từng cặp.** Mọi cặp đều có $\Delta<0$, nên oracle luôn Switch. Riêng ở $a_2b_1$: $\Delta=-1$ nhưng $\widehat\Delta=+0{,}75$, nên $S_1M_0$ chọn Stay. Đó là một lần lật.
+
+**Bước 2: các contrast.** Mình tính bằng engine nháp với $K=0$:
+- $G_{S\mid M_1}=0$: ô có dạng WD, vì mọi $\Delta\le0$.
+- $G_S=-0{,}25$; $G_{M\mid S_1}=0{,}25$; $G_M=0$.
+- $\Gamma=+0{,}25$.
+- $F=-0{,}875$; $V=+0{,}625$.
+
+**Đọc kết quả.**
+- $\Gamma>0$ ở một ô mà **thông tin state hoàn toàn vô giá trị khi model đúng**. Câu "sửa state đáng giá hơn khi model đúng" vẫn đúng về con số ($0>-0{,}25$), nhưng nội dung thật là "$M_0$ dùng state thật thì tệ hơn".
+- $V>F$ đúng, nhưng chỉ vì $F$ âm. Cụ thể, D22 biết $q_A=4$ nên chọn Stay ở $a_2$, và trả giá ở cả hai mode.
+- Lưu ý: E8 có $p_{\text{sw}}=1$, tức nằm ngoài dải của lưới. Mình chọn nó vì nó *cô lập* con đường rõ nhất. Trên lưới, con đường A vẫn có thể xảy ra với $G_{S\mid M_1}>0$.
+
+**So sánh với E7.** E7 có $G_S=0{,}625>0$ và $\Gamma=0{,}125$, tức con đường B. E7 có $V=0{,}25<F=0{,}375$, nên một câu kiểu PC6 sẽ *không đứng* ở E7.
+
+### 7.4. Hệ quả chung: K3 nằm trong K5
+
+Trong tất cả các tập ô, chỉ có một chỗ chồng nhau: K3 = {M19, M21} ⊂ K5 = M19–M22. K2, Q5 và K6 không chồng với tập nào.
+
+**Dẫn ra hệ quả.** Ở M19 và M21, nếu PC3 và PC5 cùng đứng:
+- Từ $\Gamma=G_{M\mid S_1}-G_M$ và $0\le G_M\le0{,}005\,C_{\text{ref}}$:
+$$\Gamma\le G_{M\mid S_1}\le\Gamma+0{,}005\,C_{\text{ref}}.$$
+- Kết hợp với cận ở §7.2:
+$$\mathbb E\lvert e_M\rvert\ \ge\ G_{M\mid S_1}\ >\ 0{,}005\,C_{\text{ref}}.$$
+
+**Nói bằng lời:** ở hai ô này, $M_0$ phải sai đáng kể **tại từng state** (đủ để lật các quyết định có $\lvert\Delta\rvert$ không nhỏ), trong khi quyết định cấp ô của $S_0$ vẫn được bảo vệ, nhờ sai số triệt tiêu trong trung bình hoặc nhờ margin.
+
+Đây là *điều hai PC cùng đòi hỏi*. Nó chưa phải cơ chế: vì sao $\kappa=3$ và q90/q90 lại tạo ra tình huống đó là phần bạn phải viết.
+
+**Kiểm nhất quán bằng một "bảng tưởng tượng".** Hãy dựng một bảng 2×2 thỏa mọi PC cùng lúc. Ví dụ với $C_{\text{ref}}=L_{11}=100$: $L_{10}=101$, $L_{01}=101{,}8$, $L_{00}=102$. Khi đó:
+- $G_M=0{,}2$ (≤ 0,5 ✓);
+- $\Gamma=0{,}8$ (> 0,5 ✓);
+- $G_{M\mid S_1}=1$; $G_S=1$; $G_{S\mid M_1}=1{,}8$.
+
+Bảng tồn tại, nên hai PC không mâu thuẫn. Nếu bạn không dựng được bảng nào, phải sửa card *trước* khi commit.
+
+### 7.5. Công cụ lập luận cơ chế (tầng 3)
+
+**(a) Bảng Jensen gap bốn ô.**
+$$e_M=\big[j_A(\text{St})-j_A(\text{Sw})\big]+\big[j_B(\text{St})-j_B(\text{Sw})\big].$$
+- $e_M>0$ nghĩa là $M_0$ bi quan về Switch. Điều này xảy ra khi capacity bỏ phí bị "giấu" chủ yếu ở **B dưới Stay**, như trong E3.
+- $e_M<0$ nghĩa là $M_0$ lạc quan về Switch. Điều này xảy ra khi phần bị giấu chủ yếu ở **A dưới Switch**, như trong E6.
+
+**(b) Lá chắn margin (T01).** Cùng một bias, ô có $\lvert\mathbb E\Delta\rvert$ lớn thì không lật. Ở cấp state, cùng lý lẽ đó áp cho $\lvert\Delta(x)\rvert$.
+
+**(c) Lập luận cực trị.** Đẩy một tọa độ đến giới hạn để tìm một điểm chắc chắn. Ví dụ: nếu mode **không bao giờ đổi**, đường trung bình có điều kiện chính là đường thật, nên $j=0$ và $e_M=0$.
+
+**(d) Thử trên toy, và ghi lại conjecture bị bác.** Dưới đây là một toy về độ bền mode, tính bằng phân số.
+- Plant: A có nền tất định 2,5, nên $j_A=0$. B có OFF/ON là 1/6 (trung bình 3,5), giữ mode mỗi slot với xác suất $s$.
+- $c=3$, $u=2$, $H=3$, hai queue rỗng lúc đầu. Mode ban đầu của B là một phần của state.
+
+| $s$ | mode B | $\Delta$ | $\widehat\Delta$ | $e_M$ | $j_B(\text{St})$ | $j_B(\text{Sw})$ | oracle / $S_1M_0$ |
+|---|---|---:|---:|---:|---:|---:|---|
+| 1/2 | OFF | −5,5 | −3 | 2,5 | 2,5 | 0 | Sw / Sw |
+| 1/2 | ON | 2,75 | 3 | 0,25 | 0,25 | 0 | St / St |
+| 3/4 | OFF | −7,125 | −4,625 | **2,5** | 2,5 | 0 | Sw / Sw |
+| 9/10 | OFF | −8,22 | −7,1 | 1,12 | 1,12 | 0 | Sw / Sw |
+| 1 | OFF | −9 | −9 | **0** | 0 | 0 | Sw / Sw |
+| 1 | ON | 3 | 3 | 0 | 0 | 0 | St / St |
+
+**Hai conjecture bị bác:**
+- **C1: "$e_M$ lớn thì $M_0$ chọn sai."** Sai. $e_M=2{,}5$ nhưng không có lần lật nào, vì $\lvert\Delta\rvert\ge2{,}75$ che hết.
+- **C2: "$\lvert e_M\rvert$ giảm chặt khi mode bền hơn."** Sai. Ở OFF, $e_M$ phẳng từ $s$ = 1/2 đến 3/4, rồi mới giảm.
+
+**Điều toy xác nhận:** điểm cực trị $s=1$ cho $e_M=0$. Và trong toy này $e_M\ge0$, vì capacity bỏ phí bị giấu nằm ở B dưới Stay.
+
+**Toy này không phải cơ chế cho K5.** Ba khoảng cách lớn: $H=3$ slot so với 960 slot; "giữ mode mỗi slot" so với $\kappa$ = $T_{\text{mode}}$/age; và λA không đổi theo $s$, trong khi trên lưới λA được neo theo lát. Nếu bạn muốn đi theo hướng này, phải tự lấp ba khoảng cách đó.
+
+Script để tự chạy thêm toy (sẽ đặt ở `experiments/A03_card/toy_checks.py`):
+
+```python
+"""Toy checks cho L3.3 — KHÔNG gọi engine trên ô M, R, N, P nào.
+
+Scientific purpose: kiểm xem một cơ chế viết bằng lời có đúng dấu trên hệ tí hon.
+Output: Δ, Δ̂, e_M, j theo từng state toy. Invariant: W^M0 <= W^M1 (j >= 0).
+"""
+from fractions import Fraction as F
+from smr.idle_gap import weighted_idle as W1, mean_weighted_idle as W0
+
+def state_row(qA, mA, RA, PA, qB, mB, RB, PB, c, u, H):
+    side = {}
+    for name, q, m, R, P, u_st, u_sw in (('A', qA, mA, RA, PA, u, 0), ('B', qB, mB, RB, PB, 0, u)):
+        w1 = {'St': W1(q, m, R, u_st, c, H, P), 'Sw': W1(q, m, R, u_sw, c, H, P)}
+        w0 = {'St': W0(q, m, R, u_st, c, H, P), 'Sw': W0(q, m, R, u_sw, c, H, P)}
+        j = {a: w1[a] - w0[a] for a in w1}
+        assert min(j.values()) >= 0, 'Jensen bị vi phạm: bug'
+        side[name] = dict(d=w1['Sw'] - w1['St'], dh=w0['Sw'] - w0['St'], j=j)
+    d, dh = side['A']['d'] + side['B']['d'], side['A']['dh'] + side['B']['dh']
+    return dict(Delta=d, Delta_hat=dh, e_M=dh - d, jA=side['A']['j'], jB=side['B']['j'],
+                oracle='Sw' if d < 0 else 'St', S1M0='Sw' if dh < 0 else 'St')
+
+# Ví dụ: toy độ bền mode ở trên, s = 3/4, B đang OFF
+s = F(3, 4)
+PB = {'off': {'off': s, 'on': 1 - s}, 'on': {'on': s, 'off': 1 - s}}
+print(state_row(0, 'x', {'x': F(5, 2)}, {'x': {'x': 1}}, 0, 'off', {'off': 1, 'on': 6}, PB, 3, 2, 3))
+```
+
+**(e) Tọa độ thật của từng tập ô.** Lưới không giữ các yếu tố khác cố định (L3.1, Part 1). Khi lập luận cho một tập, hãy đọc **dòng thật** của nó trong `grid_v1_2.md`. Ví dụ, cả hai ô của K6 (M17, M18) đều bị kẹp ở đáy thang λA (`floor`), nên $p_{\text{sw}}$ của chúng là 0,745 và 0,796, cao hơn mục tiêu 0,7. Đây là thông tin thiết kế đã công khai, được phép đọc.
+
+### 7.6. Câu hỏi cơ chế dành cho bạn
+
+Mình không trả lời các câu này. Đây là phần "tác giả viết" của card.
+
+| PC | Câu hỏi |
+|---|---|
+| PC2 (M09–M12: κ = 1, A q90, B q50) | Vì sao ở κ = 1, việc không biết state lại làm $\Delta$ trải rộng quanh 0 (tức $G_{S\mid M_1}$ lớn), còn $M_0$ tại state thật lại ít lật (tức $G_{M\mid S_1}$ nhỏ)? λA đổi giữa bốn ô; cơ chế của bạn có cần λA không? |
+| PC3 (M19, M21) | Bạn dự đoán con đường A hay B? Nếu là B: vì sao $G_S\ge0$? Kết hợp với PC5: vì sao $\mathbb E\lvert e_M\rvert$ lớn mà quyết định cấp ô vẫn được bảo vệ? |
+| PC5 | Vế K5 đi theo con đường (i), (ii) hay (iii)? Vế Q5 (κ = 0,3): ở phía nào ($j_A$ hay $j_B$) và dưới action nào thì capacity bỏ phí bị giấu đủ lớn để lật $S_0$? |
+| PC6 (M17, M18) | Con đường a hay b? Vì sao thấy mode lại quan trọng hơn thấy backlog mới ở κ = 3 và B q50? Hai ô `floor` có ảnh hưởng gì đến lập luận của bạn không? |
+
+---
+
+## 8. Đề xuất chỉnh plan
+
+> **Plan hiện ghi** (Khái niệm 3) cột "Điều nó thật sự đòi hỏi" cho từng PC, và template có dòng "Cơ chế (1–3 câu)".
+> **Tôi đề xuất** thêm hai dòng vào template, và tách verdict của claim khỏi verdict của cơ chế:
+> ```text
+> Con đường dự đoán:       [ví dụ PC3: B — G_S ≥ 0; PC6: a — G_S > 0]
+> Đại lượng phụ phân biệt: [dấu G_S · bias · |EΔ| · E|e_M| · F] — đều có hoặc thêm được vào output A04
+> Chấm:                    claim (đứng/không đứng/chưa phân giải) + cơ chế (đúng con đường / khác con đường)
+> ```
+> **Vì sao:** E8 cho thấy PC3 và PC6 có thể đứng theo con đường đại số hoặc con đường tầm thường. Nếu không khai báo trước, kết quả "đứng" không kiểm được cơ chế. Chi phí gần như bằng 0: contract v1.2 §7 đã yêu cầu A04 báo $\mathbb E\Delta$, bias và $\mathbb E\Delta^\pm$. Chỉ cần thêm $\mathbb E\lvert e_M\rvert$ và dấu của $G_S$.
+
+## 9. Assumptions
+
+| Assumption | Nó giúp gì | Nếu sai thì sao |
+|---|---|---|
+| Phân tích con đường là đại số chính xác trong mô hình | Con đường là *suy ra*, không cần đoán | Không sai được trong mô hình. Nếu thấy sai, đó là bug |
+| Toy giữ được dấu của cơ chế | Kiểm nhanh lập luận bằng lời | Toy có thể bỏ mất hiệu ứng của horizon dài hoặc của λA được neo. Toy đứng **không** chứng minh cơ chế trên lưới; toy sai thì chỉ bác conjecture *trên toy* |
+| Mỗi tập ô có một con đường chung | Viết được một cơ chế cho cả tập | Nếu các ô trong một tập đi theo các con đường khác nhau, cơ chế phải nói rõ điều đó, hoặc tập ô quá rộng |
+
+## 10. 🔗 Liên hệ với repo cũ
+
+- **Ngưỡng tĩnh ở thế hệ 2** ("chỉ Switch nếu lợi ích dự đoán vượt ngưỡng") thực chất là một **lá chắn margin nhân tạo**: nó ngăn sai số dự đoán nhỏ lật quyết định. T01 cho thấy trong thiết kế hiện tại, margin $\lvert\mathbb E\Delta\rvert$ *của chính bài toán* đóng vai trò đó cho $S_0$. Toy độ bền mode (C1 bị bác) cho cùng một bài học: sai số dự đoán lớn chưa có nghĩa là quyết định sai.
+- **$I_\Delta$ ở L1.5** đo độ biến thiên của $e_M$ quanh trung bình. Cặp cận $\lvert\mathbb E e_M\rvert$ và $\mathbb E\lvert e_M\rvert$ ở §7.2 là cách nói về cùng hiện tượng, nhưng gắn trực tiếp vào $G_M$ và $G_{M\mid S_1}$.
+- **Trong preferences của bạn có ví dụ** "uncertainty ≠ error". Ở đây có một cặp tương tự: **sai số dự đoán ≠ regret quyết định**. Phần nằm giữa hai thứ đó chính là margin.
+
+## 11. Được nói gì và không được nói gì
+
+| Được nói (nếu đứng) | Không được nói |
+|---|---|
+| "PC3 đứng ở M19 theo con đường B ($G_S\ge0$), đúng như card dự đoán" | "State và model bổ trợ nhau", khi $G_S<0$ |
+| "Vế K5 đứng; bias/$C_{\text{ref}}$ < 0,005, đúng con đường (i)" | "$M_0$ chính xác ở K5", khi thực ra là con đường (ii), margin che |
+| "$V>F$ và $G_S>0$: thấy mode mang hơn nửa giá trị sửa state" | "Mode quan trọng hơn backlog", khi $F<0$ |
+| "Trên toy, conjecture C1 và C2 bị bác" | "Trên lưới, $e_M$ lớn không gây lật" |
+
+## 12. Reviewer có thể hỏi
+
+1. *"$\Gamma>0$ của anh có phải chỉ vì $G_S<0$?"* → **Trả lời được**, nếu card khai báo con đường và A04 báo dấu của $G_S$.
+2. *"$F$ âm thì 'V chiếm hơn nửa' nghĩa là gì?"* → Trả lời được bằng con đường a/b.
+3. *"$G_M\approx0$ là vì model tốt hay vì margin lớn?"* → Trả lời được bằng bias và $\lvert\mathbb E\Delta\rvert$.
+4. *"Toy của anh có chuyển sang lưới được không?"* → **Không tự động.** Ba khoảng cách ở §7.5(d).
+
+## 13. ⚠️ Bẫy người mới
+
+- Đọc "$\Gamma>0$" thành "bổ trợ" mà không xem dấu của $G_S$.
+- Đọc "$V>F$" thành "mode chiếm hơn nửa" mà không kiểm $G_S>0$.
+- Đọc "$G_M\approx0$" thành "$M_0$ chính xác".
+- Dự đoán một xu hướng *đơn điệu* theo một tọa độ. Toy đã cho thấy có đoạn phẳng.
+- Dùng toy để "chứng minh" cơ chế cho một ô lưới.
+- Viết cơ chế cho một tập ô mà không đọc dòng thật của các ô đó (λA, `floor`).
+- Để AI trả lời các câu ở §7.6 rồi ghi "tác giả viết".
+
+## 14. 🧠 Tư duy researcher
+
+> Một kết quả có thể đúng vì nhiều lý do. Một prediction tốt nói trước **lý do nào**, và chỉ ra trước **đại lượng nào** sẽ phân biệt các lý do đó.
+
+Đó là khác biệt giữa "dự đoán đúng con số" và "dự đoán đúng cơ chế". Chỉ loại thứ hai mới dạy bạn điều gì đó về hệ thống.
+
+## 15. Bài tập nên làm (khuyến nghị)
+
+1. Tự chứng minh $G_{M\mid S_1}\le\mathbb E\lvert e_M\rvert$ mà không nhìn §7.2.
+2. Với E7: mỗi câu kiểu PC3 và PC6 đứng hay không, và theo con đường nào?
+3. Viết lại câu "$\Gamma>0$ ở E8" bằng lời mà một reviewer sẽ chấp nhận.
+4. Chạy `toy_checks.py` với một conjecture **của bạn**, ví dụ về phía A (cho A có hai mode). Ghi lại nó đứng hay bị bác.
+5. Trả lời bảng ở §7.6. Đây là bản nháp phần cơ chế của card.
+
+## 16. Tự kiểm tra (tùy chọn)
+
+1. Vì sao PC2 không cần $L_{00}$?
+2. Ba con đường của vế K5 trong PC5 là gì? Đại lượng nào của A04 phân biệt chúng?
+3. Vì sao $G_M$ bị chặn bởi $\lvert\mathbb E e_M\rvert$, còn $G_{M\mid S_1}$ bị chặn bởi $\mathbb E\lvert e_M\rvert$?
+4. Trong E8, vì sao $\Gamma>0$ dù $G_{S\mid M_1}=0$?
+5. Trong toy độ bền mode, vì sao $e_M=2{,}5$ mà không có lần lật nào?
+
+## 17. Trạng thái của Part 2
+
+- **Hiểu:**
+  - Ba tầng: contrast, sổ cái, vật lý.
+  - Dạng tương đương của từng PC; PC2 bằng $L_{01}-L_{10}$.
+  - Cặp cận $\lvert\mathbb E e_M\rvert$ và $\mathbb E\lvert e_M\rvert$.
+  - Các con đường của PC3, PC5 và PC6; E8.
+  - Hệ quả chung K3 ⊂ K5; kiểm bằng bảng tưởng tượng.
+  - Năm công cụ cơ chế; hai conjecture bị bác trên toy.
+- **Nên làm khi triển khai thật:**
+  - Trả lời §7.6 bằng lời của bạn.
+  - Chạy ít nhất một toy với conjecture của chính bạn.
+  - Nếu đồng ý với §8: thêm hai dòng con đường vào template, và thêm $\mathbb E\lvert e_M\rvert$ cùng dấu $G_S$ vào output A04.
+- **Phụ thuộc khoa học:** nếu card không khai báo con đường, một PC "đứng" ở A04 chỉ được báo ở tầng contrast. Mọi câu về cơ chế khi đó trở thành mô tả hậu nghiệm.
+- **Học tiếp được không?** **Có.** Part 3: quyết định giữ, sửa hay bỏ từng PC; chọn luật K5; prediction mức luật cho held-out; template đầy đủ; sáu kiểm; và commit, exposure, provenance. Mình dừng ở đây.

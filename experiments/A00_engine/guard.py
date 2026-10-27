@@ -8,8 +8,8 @@ import subprocess
 from pathlib import Path
 
 from experiments.A00_engine.cells_adapter import ROOT, GRID_PATH
+from experiments.A03_card.provenance import CARD, LOCK, verify_receipt
 
-CARD = 'notes/lessons/L3.3_prediction_card.md'
 FREEZE = 'notes/lessons/A05_F_preregistration.md'
 
 
@@ -31,7 +31,7 @@ def _committed(path, repo):
 
 
 def guard(cell_id, *, allow_grid=False, allow_heldout=False, purpose=None,
-          repo=ROOT, grid_path=GRID_PATH, card_path=CARD, freeze_path=FREEZE):
+          repo=ROOT, grid_path=GRID_PATH, card_path=CARD, freeze_path=FREEZE, lock_path=LOCK):
     grid = json.loads(Path(grid_path).read_text())
     ids = {r['id'] for k in ('main', 'heldout', 'controls', 'probes') for r in grid[k]}
     if cell_id not in ids:
@@ -48,12 +48,13 @@ def guard(cell_id, *, allow_grid=False, allow_heldout=False, purpose=None,
         nonmain = {r['id'] for k in ('controls', 'probes') for r in grid[k]}
         if cell_id not in calibration | nonmain:
             raise PermissionError('A01 cannot calibrate on non-calibration main cells')
-    card = _committed(card_path, repo)
+    receipt = verify_receipt(repo, card_path=card_path, lock_path=lock_path)
+    card = receipt['prediction_card_commit']
     freeze = None
     if cell_id in heldout:
         freeze = _committed(freeze_path, repo)
         if subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', card, freeze],
                           capture_output=True).returncode != 0:
             raise PermissionError('prediction card changed after A05-F; freeze must be renewed')
-    return {'scope': 'grid', 'prediction_card_commit': card, 'freeze_commit': freeze,
+    return {'scope': 'grid', **receipt, 'freeze_commit': freeze,
             'code_commit': _git(repo, 'rev-parse', 'HEAD'), 'purpose': purpose}

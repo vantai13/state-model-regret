@@ -1,0 +1,42 @@
+....F...F...F.                                                           [100%]
+=================================== FAILURES ===================================
+_______________________ test_cell_level_tie_goes_to_stay _______________________
+
+    def test_cell_level_tie_goes_to_stay():         # E_D δ̂ = 0 đúng bằng 0, nhưng E_D Δ = -1
+        r = aggregate(side([1], [1], [1]), side([1], [-2], [-1]))
+>       assert (r['a00'], r['L']['00']) == (0, 0)
+E       assert (1, Fraction(-1, 1)) == (0, 0)
+E         
+E         At index 0 diff: 1 != 0
+E         Use -v to get more diff
+
+tests/test_engine_core.py:52: AssertionError
+___________________________ test_brute_force_random ____________________________
+
+    def test_brute_force_random():                  # loại 3: dạng tách = liệt kê, 300 ô ngẫu nhiên
+        rng = random.Random(20261027)
+        for _ in range(300):
+            A, B = _random_side(rng, 'A', rng.randint(1, 5)), _random_side(rng, 'B', rng.randint(1, 5))
+            r, b = aggregate(A, B), brute(A, B)
+>           assert r['L'] == b['L'] and r['p_sw'] == b['p_sw']
+E           AssertionError: assert ({'00': Fracti...n(95, 4), ...} == {'00': Fracti...n(95, 4), ...}
+E             
+E             Omitting 4 identical items, use -vv to show
+E             Differing items:
+E             {'00': Fraction(95, 4)} != {'00': Fraction(24, 1)}
+E             Use -v to get more diff)
+
+tests/test_engine_core.py:82: AssertionError
+___________________ test_WD_is_not_necessarily_zero_control ____________________
+
+    def test_WD_is_not_necessarily_zero_control():
+        r = aggregate(side([1], [0], [0]), side([1], [-1], [0]))
+>       assert r['G']['G_S_M1'] == 0 and r['G']['G_M'] == 1
+E       assert (Fraction(0, 1) == 0 and Fraction(0, 1) == 1)
+
+tests/test_engine_extended.py:44: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_engine_core.py::test_cell_level_tie_goes_to_stay - assert (...
+FAILED tests/test_engine_core.py::test_brute_force_random - AssertionError: a...
+FAILED tests/test_engine_extended.py::test_WD_is_not_necessarily_zero_control
+3 failed, 11 passed in 0.35s
