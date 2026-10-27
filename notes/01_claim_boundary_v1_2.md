@@ -131,3 +131,28 @@ Nhãn tạm PC1–PC6 và Main RQ không đổi ([chi tiết](literature/prior_b
 Tác giả xác nhận nhãn (author-attested) → các nhãn ở bảng "Được claim (tạm)" trên nay là **nhãn
 chính thức Phase 2**, Gate L **GO có điều kiện** (thiếu người đọc thật L8). Danh sách "không được
 claim là mới" giữ nguyên và áp cho prediction card L3.3. G1 giữ nguyên; chưa có claim kết quả lưới.
+
+
+### Kết quả card A04 — run27/10, tổng kết28/10/2026 (DL-056)
+
+Đây là **kết quả trên danh sách khóa**, không sửa nhãn prior của Phase2,
+không sửa claims.md/card hoặc nhận contribution/novelty mới.
+
+| Claim | Kết quả được phép báo | Giới hạn |
+|---|---|---|
+| PC2/P2 | Không đứng tại K2;M09/M10 bác ngưỡng1%,M11/M12 đạt | Không đổi ALL thành majority |
+| PC3/P3 | Không đứng tại K3;Γ củaM19/M21 dưới.5% | Γ dương không đủ dự đoán strict>.5%;không cơ chế |
+| PC5/P5 | K5đạt4/4≤.5%;Q5cóM01/M03≥1%;P5đứng | Chỉ các ô này,D/plant/dt;K5carry m=1 nguyên văn,chưa ngoài mẫu |
+| PC6/P6 | Không đứng;V vàV−F âm ởM17/M18 | V không là giá trị refreshbacklog riêng |
+| PC4 | VẫnHOLD;H0/H1/fit/split/metric chưa khóa | C1hậu discovery không xác nhận queue mechanism |
+
+Không claim chưa phân giải/excluded ở card;không route/mechanism preregister.
+Candidate C1:κ=1,h8 có16/16ôGMnominal0;interpolationR05–R08 chỉ đề cử A05-F,
+chưa predictionfrozen. Năm phát biểu đã xét có cả phản ví dụ,không giấu mẫu số.
+Ba miềncheap kill không đạt ALL,khôngNARROW theo cheap kill. Không thay RQ/G1.
+
+Kết quả định giá cửa sổ[t0,t0+h],khônglong-run loss. Cùngđộkhó nhưngkhácλA;
+D-specific/near-boundary/ψrange/h2κ.3/floor/ĐK1 giữ nguyên. Held-outcost/contrast
+chưa mở;publicdesignmetadataexposure được ghi riêng. Humanreading/Phase4giữmở.
+[Note](lessons/L3.5_A04_note.md) · [scores](../results/A04/20261027_01/card_scores.csv) ·
+[candidate và prior screen](../results/lessons/l3_5/patterns.md).

@@ -1,0 +1,903 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-27",
+  "reviewer": "Independent AI session, not a human or supervisor review",
+  "grader_results_seen": false,
+  "engine_run": false,
+  "heldout_seen": false,
+  "scope": {
+    "M09": "P2",
+    "M17": "P6"
+  },
+  "method": "Exact Fraction arithmetic from raw decimal endpoints; Decimal only for outward-rounded display",
+  "script_sha256": "bdc4470bb267057130ead1a51ac445f86d72d7a6c879a7339b32dbf0939b286a",
+  "inputs_sha256": {
+    "notes/phases/PHASE_3_prediction_card.md": "14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639",
+    "results/A04/20261027_01/raw/M09_m1.json": "b37702e4e96d06322282ea745fee509df8d79f62b35628311c61fe3afd322997",
+    "results/A04/20261027_01/raw/M09_m2.json": "4b40aa5ff597df86d13569e1810ccc6786f4c2e86742b9ba6d578523297d9294",
+    "results/A04/20261027_01/raw/M17_m1.json": "dd187cdaddbdfd6cd37cca933b83e336a758341fb2ca835176e44735aaafc3c5",
+    "results/A04/20261027_01/raw/M17_m2.json": "7226b43ae3f91f238222975cd14c8ead9ffc962aa1ea1c9672a37f07b393fad1"
+  },
+  "cells": {
+    "M09": {
+      "numeric": [
+        {
+          "status": "BOUNDED",
+          "numeric_budget_met_reported": true,
+          "unresolved_mass": {
+            "oracle": "0",
+            "M0": "0",
+            "D22": "0"
+          },
+          "Cref_equals_L11_and_context": true,
+          "actual_e_num_enclosure_checks": {
+            "L00": true,
+            "L01": true,
+            "L10": true,
+            "L11": true,
+            "Lcb0": true,
+            "G_S": true,
+            "G_M": true,
+            "G_SM": true,
+            "Gamma": true,
+            "G_S_M1": true,
+            "G_M_S1": true,
+            "F": true,
+            "V": true,
+            "C_ref": true
+          },
+          "max_actual_e_num_checked": "2060325730554367/20000000000000000000000000",
+          "C_ref": {
+            "exact": [
+              "7449665950598363/100000000000000",
+              "7449665950602841/100000000000000"
+            ],
+            "decimal_outward": [
+              "74.496659505983630000",
+              "74.496659506028410000"
+            ]
+          },
+          "passed": true,
+          "limitation": "Budget attainment consumes the raw Boolean; the card does not specify the engine budget formula."
+        },
+        {
+          "status": "BOUNDED",
+          "numeric_budget_met_reported": true,
+          "unresolved_mass": {
+            "oracle": "0",
+            "M0": "0",
+            "D22": "0"
+          },
+          "Cref_equals_L11_and_context": true,
+          "actual_e_num_enclosure_checks": {
+            "L00": true,
+            "L01": true,
+            "L10": true,
+            "L11": true,
+            "Lcb0": true,
+            "G_S": true,
+            "G_M": true,
+            "G_SM": true,
+            "Gamma": true,
+            "G_S_M1": true,
+            "G_M_S1": true,
+            "F": true,
+            "V": true,
+            "C_ref": true
+          },
+          "max_actual_e_num_checked": "604002721795949/2000000000000000000000000",
+          "C_ref": {
+            "exact": [
+              "1488888036927117/20000000000000",
+              "3722220092322267/50000000000000"
+            ],
+            "decimal_outward": [
+              "74.444401846355850000",
+              "74.444401846445340000"
+            ]
+          },
+          "passed": true,
+          "limitation": "Budget attainment consumes the raw Boolean; the card does not specify the engine budget formula."
+        }
+      ],
+      "pair": {
+        "coarse_dt_s": "1/120",
+        "fine_dt_s": "1/240",
+        "adjacent": true,
+        "tolerance_exact": "1488888036927117/8000000000000000",
+        "tolerance_decimal": "0.186111004615889625",
+        "contrasts": {
+          "G_S": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-33192935378211/5000000000000000",
+                "-13277173631851/2000000000000000"
+              ],
+              "decimal_outward": [
+                "-0.006638587075642200",
+                "-0.006638586815925500"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "13277173631851/2000000000000000",
+                "33192935378211/5000000000000000"
+              ],
+              "decimal_outward": [
+                "0.006638586815925500",
+                "0.006638587075642200"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "3128191533569517/372483297530142050",
+                "1564095767001362/186241648764959075"
+              ],
+              "decimal_outward": [
+                "0.008398206186188463",
+                "0.008398206187356536"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "3094998598624513/372222009232226700",
+                "6189997198979779/744444018463558500"
+              ],
+              "decimal_outward": [
+                "0.008314926366145009",
+                "0.008314926368479899"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_M": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-3979226081952253/31250000000000000000000000",
+                "3979226081952253/31250000000000000000000000"
+              ],
+              "decimal_outward": [
+                "-1.27335235E-10",
+                "1.27335235E-10"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "0",
+                "3979226081952253/31250000000000000000000000"
+              ],
+              "decimal_outward": [
+                "0E-18",
+                "1.27335235E-10"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "-5307258049844857/9312082438247953750000000000",
+                "5307258049844857/9312082438247953750000000000"
+              ],
+              "decimal_outward": [
+                "-5.69933E-13",
+                "5.69933E-13"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "-9962109181187/8737605850511250000000000",
+                "9962109181187/8737605850511250000000000"
+              ],
+              "decimal_outward": [
+                "-1.140142E-12",
+                "1.140142E-12"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_SM": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-54941600576137/10000000000000000",
+                "-54941598017411/10000000000000000"
+              ],
+              "decimal_outward": [
+                "-0.005494160057613700",
+                "-0.005494159801741100"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "54941598017411/10000000000000000",
+                "54941600576137/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.005494159801741100",
+                "0.005494160057613700"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "1552497952216801/106423799294326300",
+                "2716871416592757/186241648764959075"
+              ],
+              "decimal_outward": [
+                "0.014587883185068438",
+                "0.014587883186222791"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "10812544065794891/744444018464453400",
+                "2703136016875049/186111004615889625"
+              ],
+              "decimal_outward": [
+                "0.014524321235191953",
+                "0.014524321237500123"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_S_M1": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-10988320126567/2000000000000000",
+                "-27470798980357/5000000000000000"
+              ],
+              "decimal_outward": [
+                "-0.005494160063283500",
+                "-0.005494159796071400"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "27470798980357/5000000000000000",
+                "10988320126567/2000000000000000"
+              ],
+              "decimal_outward": [
+                "0.005494159796071400",
+                "0.005494160063283500"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "2716871416374757/186241648765071025",
+                "2173497133277921/148993319011967260"
+              ],
+              "decimal_outward": [
+                "0.014587883185043499",
+                "0.014587883186247728"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "1081254406575677/74444401846445340",
+                "5406272033769157/372222009231779250"
+              ],
+              "decimal_outward": [
+                "0.014524321235140745",
+                "0.014524321237551326"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_M_S1": {
+            "fine_minus_coarse": {
+              "exact": [
+                "22888537599559/20000000000000000",
+                "114442715223489/100000000000000000"
+              ],
+              "decimal_outward": [
+                "0.001144426879977950",
+                "0.001144427152234890"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "22888537599559/20000000000000000",
+                "114442715223489/100000000000000000"
+              ],
+              "decimal_outward": [
+                "0.001144426879977950",
+                "0.001144427152234890"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "46111025979181647/7449665950602841000",
+                "1152775649706497/186241648764959075"
+              ],
+              "decimal_outward": [
+                "0.006189676998261949",
+                "0.006189676999484280"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "1849018747050307/297777607385781360",
+                "1926061195600214/310185007693149375"
+              ],
+              "decimal_outward": [
+                "0.006209394867810990",
+                "0.006209394870256176"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "Gamma": {
+            "fine_minus_coarse": {
+              "exact": [
+                "11444267526427/10000000000000000",
+                "114442727957007/100000000000000000"
+              ],
+              "decimal_outward": [
+                "0.001144426752642700",
+                "0.001144427279570070"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "11444267526427/10000000000000000",
+                "114442727957007/100000000000000000"
+              ],
+              "decimal_outward": [
+                "0.001144426752642700",
+                "0.001144427279570070"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "46111025974935843/7449665950602841000",
+                "4611102599250569/744966595059836300"
+              ],
+              "decimal_outward": [
+                "0.006189676997692017",
+                "0.006189677000054213"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "385212238898083/62037001538704450",
+                "308169791352619/49629601230903900"
+              ],
+              "decimal_outward": [
+                "0.006209394866670849",
+                "0.006209394871396317"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          }
+        },
+        "passed": true
+      },
+      "coarse": {
+        "numerator": {
+          "exact": [
+            "31281915335601/50000000000000",
+            "62563830680243/100000000000000"
+          ],
+          "decimal_outward": [
+            "0.625638306712020000",
+            "0.625638306802430000"
+          ]
+        },
+        "C_ref": {
+          "exact": [
+            "7449665950598363/100000000000000",
+            "7449665950602841/100000000000000"
+          ],
+          "decimal_outward": [
+            "74.496659505983630000",
+            "74.496659506028410000"
+          ]
+        },
+        "ratio": {
+          "exact": [
+            "8937690095886/1064237992943263",
+            "62563830680243/7449665950598363"
+          ],
+          "decimal_outward": [
+            "0.008398206186163181",
+            "0.008398206187381842"
+          ]
+        },
+        "corners_exact": [
+          "62563830671202/7449665950598363",
+          "8937690095886/1064237992943263",
+          "62563830680243/7449665950598363",
+          "62563830680243/7449665950602841"
+        ],
+        "threshold": "1/100",
+        "label": "DOES_NOT_STAND"
+      },
+      "fine": {
+        "numerator": {
+          "exact": [
+            "30949985986053/50000000000000",
+            "3094998599509/5000000000000"
+          ],
+          "decimal_outward": [
+            "0.618999719721060000",
+            "0.618999719901800000"
+          ]
+        },
+        "C_ref": {
+          "exact": [
+            "1488888036927117/20000000000000",
+            "3722220092322267/50000000000000"
+          ],
+          "decimal_outward": [
+            "74.444401846355850000",
+            "74.444401846445340000"
+          ]
+        },
+        "ratio": {
+          "exact": [
+            "10316661995351/1240740030774089",
+            "12379994398036/1488888036927117"
+          ],
+          "decimal_outward": [
+            "0.008314926366093392",
+            "0.008314926368531241"
+          ]
+        },
+        "corners_exact": [
+          "20633323990702/2481480061545195",
+          "10316661995351/1240740030774089",
+          "12379994398036/1488888036927117",
+          "30949985995090/3722220092322267"
+        ],
+        "threshold": "1/100",
+        "label": "DOES_NOT_STAND"
+      },
+      "eligible": true,
+      "final_label": "DOES_NOT_STAND",
+      "dt_sensitive_label": false
+    },
+    "M17": {
+      "numeric": [
+        {
+          "status": "BOUNDED",
+          "numeric_budget_met_reported": true,
+          "unresolved_mass": {
+            "oracle": "0",
+            "M0": "0",
+            "D22": "0"
+          },
+          "Cref_equals_L11_and_context": true,
+          "actual_e_num_enclosure_checks": {
+            "L00": true,
+            "L01": true,
+            "L10": true,
+            "L11": true,
+            "Lcb0": true,
+            "G_S": true,
+            "G_M": true,
+            "G_SM": true,
+            "Gamma": true,
+            "G_S_M1": true,
+            "G_M_S1": true,
+            "F": true,
+            "V": true,
+            "C_ref": true
+          },
+          "max_actual_e_num_checked": "10971036556721727/100000000000000000000000000",
+          "C_ref": {
+            "exact": [
+              "227284448842961/1000000000000",
+              "2272844488430157/10000000000000"
+            ],
+            "decimal_outward": [
+              "227.284448842961000000",
+              "227.284448843015700000"
+            ]
+          },
+          "passed": true,
+          "limitation": "Budget attainment consumes the raw Boolean; the card does not specify the engine budget formula."
+        },
+        {
+          "status": "BOUNDED",
+          "numeric_budget_met_reported": true,
+          "unresolved_mass": {
+            "oracle": "0",
+            "M0": "0",
+            "D22": "0"
+          },
+          "Cref_equals_L11_and_context": true,
+          "actual_e_num_enclosure_checks": {
+            "L00": true,
+            "L01": true,
+            "L10": true,
+            "L11": true,
+            "Lcb0": true,
+            "G_S": true,
+            "G_M": true,
+            "G_SM": true,
+            "Gamma": true,
+            "G_S_M1": true,
+            "G_M_S1": true,
+            "F": true,
+            "V": true,
+            "C_ref": true
+          },
+          "max_actual_e_num_checked": "1097757641177497/5000000000000000000000000",
+          "C_ref": {
+            "exact": [
+              "2273040771215559/10000000000000",
+              "2273040771216653/10000000000000"
+            ],
+            "decimal_outward": [
+              "227.304077121555900000",
+              "227.304077121665300000"
+            ]
+          },
+          "passed": true,
+          "limitation": "Budget attainment consumes the raw Boolean; the card does not specify the engine budget formula."
+        }
+      ],
+      "pair": {
+        "coarse_dt_s": "1/120",
+        "fine_dt_s": "1/240",
+        "adjacent": true,
+        "tolerance_exact": "2273040771215559/4000000000000000",
+        "tolerance_decimal": "0.568260192803889750",
+        "contrasts": {
+          "G_S": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-38951890202257/10000000000000000",
+                "-38951886892271/10000000000000000"
+              ],
+              "decimal_outward": [
+                "-0.003895189020225700",
+                "-0.003895188689227100"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "38951886892271/10000000000000000",
+                "38951890202257/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.003895188689227100",
+                "0.003895189020225700"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "8471618338369903/1136422244215078500",
+                "16943236677842781/2272844488429610000"
+              ],
+              "decimal_outward": [
+                "0.007454639665401137",
+                "0.007454639665888216"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "4226071196910131/568260192804163250",
+                "1126952319323169/151536051414370600"
+              ],
+              "decimal_outward": [
+                "0.007436859471109463",
+                "0.007436859472083994"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_M": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-2044557203416819/12500000000000000000000000",
+                "2044557203416819/12500000000000000000000000"
+              ],
+              "decimal_outward": [
+                "-1.63564577E-10",
+                "1.63564577E-10"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "0",
+                "2044557203416819/12500000000000000000000000"
+              ],
+              "decimal_outward": [
+                "0E-18",
+                "1.63564577E-10"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "-5448434166589249/22728444884296100000000000000",
+                "5448434166589249/22728444884296100000000000000"
+              ],
+              "decimal_outward": [
+                "-2.39719E-13",
+                "2.39719E-13"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "-10908023460745303/22730407712155590000000000000",
+                "10908023460745303/22730407712155590000000000000"
+              ],
+              "decimal_outward": [
+                "-4.79887E-13",
+                "4.79887E-13"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_SM": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-35367327665367/10000000000000000",
+                "-17683662195043/5000000000000000"
+              ],
+              "decimal_outward": [
+                "-0.003536732766536700",
+                "-0.003536732439008600"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "17683662195043/5000000000000000",
+                "35367327665367/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.003536732439008600",
+                "0.003536732766536700"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "189143602337242/18940370736917975",
+                "22697232281560287/2272844488429610000"
+              ],
+              "decimal_outward": [
+                "0.009986267162583530",
+                "0.009986267163066058"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "566546623847373/56826019280416325",
+                "11330932478039477/1136520385607779500"
+              ],
+              "decimal_outward": [
+                "0.009969845345873438",
+                "0.009969845346839080"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_S_M1": {
+            "fine_minus_coarse": {
+              "exact": [
+                "-35367327665367/10000000000000000",
+                "-17683662195043/5000000000000000"
+              ],
+              "decimal_outward": [
+                "-0.003536732766536700",
+                "-0.003536732439008600"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "17683662195043/5000000000000000",
+                "35367327665367/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.003536732439008600",
+                "0.003536732766536700"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "189143602337242/18940370736917975",
+                "22697232281560287/2272844488429610000"
+              ],
+              "decimal_outward": [
+                "0.009986267162583530",
+                "0.009986267163066058"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "566546623847373/56826019280416325",
+                "11330932478039477/1136520385607779500"
+              ],
+              "decimal_outward": [
+                "0.009969845345873438",
+                "0.009969845346839080"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "G_M_S1": {
+            "fine_minus_coarse": {
+              "exact": [
+                "3584560862563/10000000000000000",
+                "3584564176513/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.000358456086256300",
+                "0.000358456417651300"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "3584560862563/10000000000000000",
+                "3584564176513/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.000358456086256300",
+                "0.000358456417651300"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "1438498900792777/568211122107539250",
+                "5753995604275631/2272844488429610000"
+              ],
+              "decimal_outward": [
+                "0.002531627496936829",
+                "0.002531627497423405"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "2878790082569097/1136520385608326500",
+                "5757580167347621/2273040771215559000"
+              ],
+              "decimal_outward": [
+                "0.002532985874272914",
+                "0.002532985875246148"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          },
+          "Gamma": {
+            "fine_minus_coarse": {
+              "exact": [
+                "3584559226917/10000000000000000",
+                "3584565812159/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.000358455922691700",
+                "0.000358456581215900"
+              ]
+            },
+            "absolute_difference": {
+              "exact": [
+                "3584559226917/10000000000000000",
+                "3584565812159/10000000000000000"
+              ],
+              "decimal_outward": [
+                "0.000358455922691700",
+                "0.000358456581215900"
+              ]
+            },
+            "coarse_ratio": {
+              "exact": [
+                "20189458254829/7974892941860200",
+                "2876997802410237/1136422244214805000"
+              ],
+              "decimal_outward": [
+                "0.002531627496697111",
+                "0.002531627497663123"
+              ]
+            },
+            "fine_ratio": {
+              "exact": [
+                "5757580164047391/2273040771216653000",
+                "719697521054803/284130096401944875"
+              ],
+              "decimal_outward": [
+                "0.002532985873793027",
+                "0.002532985875726035"
+              ]
+            },
+            "absolute_difference_pass": true,
+            "sign_flip_beyond_band_possible": false,
+            "passed": true
+          }
+        },
+        "passed": true
+      },
+      "coarse": {
+        "F": {
+          "exact": [
+            "2093138032033257/1000000000000000",
+            "20931380321791773/10000000000000000"
+          ],
+          "decimal_outward": [
+            "2.093138032033257000",
+            "2.093138032179177300"
+          ]
+        },
+        "V": {
+          "exact": [
+            "-19940718222535597/50000000000000000",
+            "-3988143643034639/10000000000000000"
+          ],
+          "decimal_outward": [
+            "-0.398814364450711940",
+            "-0.398814364303463900"
+          ]
+        },
+        "V_minus_F": {
+          "exact": [
+            "-62298809915747231/25000000000000000",
+            "-24919523963367209/10000000000000000"
+          ],
+          "decimal_outward": [
+            "-2.491952396629889240",
+            "-2.491952396336720900"
+          ]
+        },
+        "V_gt_zero_label": "DOES_NOT_STAND",
+        "V_minus_F_gt_zero_label": "DOES_NOT_STAND",
+        "label": "DOES_NOT_STAND"
+      },
+      "fine": {
+        "F": {
+          "exact": [
+            "20931195021828763/10000000000000000",
+            "2093119502515009/1000000000000000"
+          ],
+          "decimal_outward": [
+            "2.093119502182876300",
+            "2.093119502515009000"
+          ]
+        },
+        "V": {
+          "exact": [
+            "-4026910236418757/10000000000000000",
+            "-4026910233072037/10000000000000000"
+          ],
+          "decimal_outward": [
+            "-0.402691023641875700",
+            "-0.402691023307203700"
+          ]
+        },
+        "V_minus_F": {
+          "exact": [
+            "-24958105261568847/10000000000000000",
+            "-15598815784313/6250000000000"
+          ],
+          "decimal_outward": [
+            "-2.495810526156884700",
+            "-2.495810525490080000"
+          ]
+        },
+        "V_gt_zero_label": "DOES_NOT_STAND",
+        "V_minus_F_gt_zero_label": "DOES_NOT_STAND",
+        "label": "DOES_NOT_STAND"
+      },
+      "eligible": true,
+      "final_label": "DOES_NOT_STAND",
+      "dt_sensitive_label": false
+    }
+  }
+}

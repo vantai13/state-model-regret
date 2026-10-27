@@ -783,3 +783,30 @@ GM luôn thuộc{0,|EΔ|}: đây vốn là hệ quả T01. Không tự thêm ref
 - Exposure kế hoạch ghi cả public held-out design metadata vừa hiện khi đọc
   bảng cũ; không D/cost/gap-magnitude/contrast held-out mới. A05-T chưa mở.
 - Không tự đóng human-reader, Understanding, author-writing hoặc Phase4.
+
+### DL-056 — Kết quả A04 và hoàn tất kỹ thuật L3.5 (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. Run27/10, tổng kết28/10; kết quả giữ nguyên.
+- Prereg56c4141,receipt0eb42f2 trước outcomes; score checkpoint7005a3b trước discovery.
+  Card A03 không đổi. V9 WAIVED_BY_AUTHOR DL-054, không memo gửi/GVHD phản hồi.
+- 92/92cell-level BOUNDED;46/46pairs đạt,0HOLD/cờdt;60zeroD19+6zeroWD;
+  348tests PASS;6calibration records tính lại trùng A01. Review phiênAI độc lập
+  M09/P2 và M17/P6 khớp; không thay human L8/P0-V10.
+- P2 không đứng(2/4);P3 không đứng(0/2);P5 đứng(K4/4,Q2/4witness);P6 không đứng(0/2).
+  Không claim unresolved/excluded, không cơ chế preregister. Không sửa threshold/miền.
+- Cheap kill:0/3miền đạt điều kiện; **không NARROW theo cheap kill**.16ô có upper
+  R00/Cref<1% được báo nhưng không chọn lại miền để dừng.
+- Discovery:5phát biểu đã xét,1candidate C1 (κ1,h8;16/16ô GMnominal0) đề cử xem
+  ở A05-F. Chưa xác nhận interpolation/queue mechanism;null/fit/split/metric chưa khóa.
+- K5rule chưa bị bác,carry **nguyên văn,m=1** theo A03;Q-witness chỉM01–M04.
+  CandidateC1 hậu discovery không thay/mở rộng K5 và không tự là A05prediction.
+- Tìm có mục tiêu:20title/snippet,1proposal mới (arXiv2511.19961v2;
+  DOI10.1109/MWC.2026.3712294),khôngPDF/note mới. Không novelty/saturation.
+- Exposure:toàn38main+8controls/probes đã xem cả2dt;public held-out design
+  metadata hiện khi đọc bảngcũ được ghi thật,không dùng làmfeatures;khôngD/J/
+  gap-magnitude/regret/contrast held-out mới. A05-T chưa mở.
+- L3.5 hoàn tất **kỹ thuật**; tiếp theo L3.6/A05-F. Không tự đóng Understanding,
+  T05author-writing,L8/P0-V10 hoặc Phase4. A04_execution_gate.json giữ byte
+  snapshot trước run; A04_completion.json là trạng thái sau run.
+- Evidence: notes/lessons/L3.5_A04_note.md;results/lessons/l3_5/report.md;
+  results/A04/20261027_01/. Không claim runtime/CI/statistical inference ngoài scope.

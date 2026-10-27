@@ -169,3 +169,18 @@ Gate record notes/phases/A04_execution_gate.json, notes/lessons/L3.5_preflight.m
 A05-F/held-out,L8/P0-V10,T05author-writing/Phase4HOLD giữ. Review nhìn remotef72306f
 nên324tests/20ktoy chỉ reviewer-reported; localA01 guards/51hash kiểm lại.
 Ref4/FV/flipmass/cheapkill proposals chưa tựadopt; không áp kill cho identityT01.
+
+
+L3.5/A04 — run 27/10, tổng kết 28/10 (DL-055–056): prereg56c4141,
+receipt0eb42f2, score7005a3b trước discovery.92/92 BOUNDED,46pairs PASS,
+0HOLD/cờdt;348tests PASS;hai ô review bằng phiên AI riêng khớp,không human review.
+Card nguyên byte:P5 đứng(K4/4,Q2witness),P2/P3/P6 không đứng.0/3 miền cheap kill;
+5 phát biểu đã xét,1candidate C1(κ1,h8,16ô GMzero) post-discovery,chưa freeze.
+K5 carry nguyên văn m=1;H0/H1/metric/fit/split chưa khóa. Report:
+results/lessons/l3_5/report.md;note:notes/lessons/L3.5_A04_note.md.
+A04_completion.json là trạng thái sau run;gateDL054 giữ snapshot trước run.
+Đã ghi public held-out λA/p_sw metadata hiện khi mở bảng cũ,không dùng features;
+không D/J/gap-magnitude/regret/contrast held-out mới. Literature20records,
+1proposal2511.19961v2 DOI10.1109/MWC.2026.3712294 chưa PDF/note,catalog giữ23;
+không novelty. L3.6 mở;không A05-T/Phase4. L8/P0-V10/T05author-writing/
+Understanding không tự đóng. MemoV9 chưa gửi,waivedDL054.

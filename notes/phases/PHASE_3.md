@@ -28,7 +28,7 @@ Theo DL-044, cập nhật riêng V9 bằng **DL-054**:
 
 1. **V9: WAIVED_BY_AUTHOR.** Tác giả yêu cầu bỏ chặn để triển khai L3.5; memo vẫn chưa gửi,
    không ghi GVHD đã phản hồi. [Gate record](A04_execution_gate.json) và DL-054 ghi rủi ro
-   tính lại A04 nếu hướng đề tài thay đổi. Còn hoàn tất prereg/exposure/runner trước run.
+   tính lại A04 nếu hướng đề tài thay đổi. A04 đã hoàn tất theo DL-056; gate JSON là snapshot trước run, completion ghi trạng thái mới.
 2. **Người đọc: P0-V10 và L8 OPEN.** Có [gói 30–45 phút](../meetings/phase2_reader_packet.md), chưa có buổi đọc.
 3. **Tự viết: OPEN.** Lý do DL-038 và §1–2 của closeout Phase 1/2 vẫn chờ lời tác giả; không chặn việc học/thực thi Phase 3.
 4. **Provenance:** commit L3.3 trước mọi A01; khóa A05-F trước A05-T; discovery A04 không trở thành confirmation; giữ exposure thật.
@@ -40,9 +40,9 @@ Theo DL-044, cập nhật riêng V9 bằng **DL-054**:
 - **L3.3 → A01:** card chứa claim còn đứng, sau nhãn tác giả xác nhận + L-self WM26
   (đã author-attested ở DL-043), và được commit trước lần chạy A01 đầu tiên.
 - **A01:** PASS theo DL-053; M01/M09/M22 đủ ref1–16, dt cuối1/240 s; C1–C6 PASS.
-- **A04:** A01 PASS; DL-054 đã gỡ riêng V9 theo yêu cầu tác giả. Trước run phải có
-  prereg/exposure và kiểm runner/card/dt;38 main + controls, báo đầy đủ tọa độ dẫn xuất
-  và p_sw thực. Chưa chạy A04 trong nhiệm vụ đổi gate này.
+- **A04:** hoàn tất kỹ thuật DL-056;38main+8controls/probes×2dt=92BOUNDED,46pairs đạt.
+  P5 đứng;P2/P3/P6 không đứng. Prereg/receipt trước run,score commit trước discovery;
+  [note](../lessons/L3.5_A04_note.md), [completion](A04_completion.json).
 - **A05-F:** khóa H1/null/metric/biên/split theo D25, cùng quyền thông tin/ngân sách fit;
   nên có người đọc trước bước này. **A05-T:** chỉ sau freeze, dùng R01–R12.
 - **Phase 4:** HOLD tới P0-V10. L8 và P0-V10 có thể dùng chung một buổi nếu đủ phạm vi.
@@ -171,3 +171,19 @@ không rerun336tests hoặc20.000toy của reviewer trong nhiệm vụ này.
 liệt kê phần triển khai/prereg còn lại; không đồng nghĩa đã chạy38ô hoặc chấm card.
 Ref4/FV/flip mass/cheap-kill miền là đầu vào cần chốt trước run, không sửa card
 theo nhận xét. A05-F/held-out và Phase4/P0-V10 tiếp tục theo các gate cũ.
+
+## 14. L3.5 / A04 — tổng kết28/10/2026 (DL-056)
+
+Run27/10: prereg56c4141,receipt0eb42f2,score7005a3b trước discovery.348tests PASS;
+92/92BOUNDED,46/46cặp đạt;khôngHOLD/cờdt. Card không đổi: P5đứng (K4/4,Q2/4witness),
+P2/P3/P6không đứng,không cơ chế preregister. Hai ô kiểm bằng phiênAI riêng khớp.
+Ba hình,margin/D22/R04 diagnostics đầy đủ;5phát biểu xét,1candidateC1 hậu discovery.
+0/3miền cheap kill;không NARROW theo cheap kill. K5carry nguyên văn m=1 sangA05-F;
+C1 đề cử riêng,không tựfreeze H1/null/metric/fit/split. L3.6 bắt đầu được.
+
+[Note A04](../lessons/L3.5_A04_note.md) · [report](../../results/lessons/l3_5/report.md) ·
+[handoff](../../results/A04/20261027_01/carry_to_A05_F.json).
+Gate record DL-054 là snapshot trước run,không sửa vì nằm trong receipt;
+[A04_completion.json](A04_completion.json) là trạng thái kết quả hiện tại.
+KhôngD/J/gap-magnitude/regret/contrast held-out mới. Đã ghi public design metadata
+λA/p_sw hiển thị khi đọc bảngcũ;không dùng làmfeatures. Human gates/Phase4 giữ nguyên.

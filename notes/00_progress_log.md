@@ -7,6 +7,18 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3.5 / A04 — run27/10, tổng kết28/10/2026 (DL-055–056)
+
+Prereg56c4141,receipt0eb42f2,score checkpoint7005a3b trước discovery.38main+8ô kiểm/
+đầu dò ×ref1/ref2=92BOUNDED;46pairs đạt;60zeroD19+6zeroWD;khôngHOLD/cờdt.
+348tests PASS;hai ô review bằng phiênAI riêng khớp,không human/GVHD review.
+P2:2/4 nên không đứng;P3:0/2 không đứng;P5:K4/4,Q2witness nên đứng;P6:0/2 không đứng.
+5phát biểu đã xét,1candidateC1 post-discovery;0/3miền cheap kill. K5carry m=1 giữ nguyên.
+Không thay card/lưới/engine/dt;khôngD/cost/contrast held-out mới. Đã ghi exposure public
+held-out design metadata do đọc bảng cũ;không dùng làmfeature. Literature20records,
+1proposal mới chưa tải/đọc full text;khôngnovelty. L3.6 mở,khôngA05freeze/Phase4.
+[Note](lessons/L3.5_A04_note.md) · [Report](../results/lessons/l3_5/report.md).
+
 ## Sau A01 / DL-054 — 27/10/2026
 
 Theo yêu cầu trực tiếp của tác giả, điều kiện gửi memo trước A04 chuyển sang

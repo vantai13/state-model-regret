@@ -2,21 +2,26 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Trạng thái 27/10/2026:** Phase 2 đóng **GO có điều kiện** (DL-043, tag
-`phase-2-closeout`); Phase 3 mở. A03/L3.3 đã khóa card trước A01 (DL-047–049).
-Contract khóa tại `contract-v1.2`: 38 main, 12 held-out, 6 controls, 2 probes;
-calibration M01/M09/M22. **A01 PASS, dt cuối=1/240 s (ref2)** theo DL-053:
-9/9 p_sw tái lập, C1–C6 PASS, 15/15 cell-level BOUNDED, 12/12 cặp làm mịn đạt tới ref16.
-**336 tests PASS; 11/11 mutant bị bắt**. Run01 FAIL N01 đã được sửa bằng certificate;
-giữ failed/partial runs. Chưa A04/A05; outcome calibration đã exposed, held-out chưa chạy.
-Card có 4 forecast không cơ chế và 1 luật K5, không chấm card trong A01.
-[Report A01](results/lessons/l3_4/report.md) · [dt/metrics](results/lessons/l3_4/verification.json) ·
-[CSV](results/A01/20261027_03/refinement.csv).
-[Card](notes/phases/PHASE_3_prediction_card.md) · [report L3.3](results/lessons/l3_3/report.md) ·
-[L3.2](results/lessons/l3_2/report.md). Read-back đã author-attested; engine vẫn ở experiments.
+**Trạng thái 28/10/2026:** Phase 2 GO có điều kiện (DL-043); Phase 3 đã hoàn tất
+kỹ thuật **L3.5/A04**. Contract `contract-v1.2` và prediction card `a03-card-v1`
+giữ nguyên. **A04: 92/92 cell-level BOUNDED, 46/46 cặp dt đạt**, không HOLD/cờ dt;
+348 tests PASS. Primary dt=1/240 s theo DL-053, pair1/120→1/240 cho từng ô.
+
+**Card: P5 đứng; P2, P3, P6 không đứng.** K5 đạt4/4; Q5 có2/4 witness. Chấm và
+commit `7005a3b` trước discovery, kiểm tay độc lập hai ô khớp. Không xác nhận cơ chế.
+Đã xét5 phát biểu, giữ1 candidate C1 sau discovery; cả3 miền không bị cheap kill.
+K5 carry nguyên văn m=1 sang **L3.6/A05-F**, chưa khóa H0/H1 và chưa chạy held-out.
+
+[Note A04](notes/lessons/L3.5_A04_note.md) · [report đầy đủ](results/lessons/l3_5/report.md) ·
+[kiểm chứng](results/lessons/l3_5/verification.json) · [38 ô cuối](results/A04/20261027_01/main_final.csv) ·
+[card scores](results/A04/20261027_01/card_scores.csv).
+[A01](results/lessons/l3_4/report.md) vẫn PASS: dt1/240, giữ các failed/partial artifacts;
+11/11 mutants là kiểm lịch sử A01, không chạy lại trong A04.
+[Card](notes/phases/PHASE_3_prediction_card.md) · [L3.3](results/lessons/l3_3/report.md) ·
+[L3.2](results/lessons/l3_2/report.md). Engine vẫn ở experiments, chưa promote.
 
 ```text
-Bản hiện hành (27/10/2026):
+Bản hiện hành (28/10/2026):
   Contract:       notes/01_definitions_v1_2.md (tag contract-v1.2, D1–D25)
   Brief / Claims: notes/00_research_brief_v1_2.md · notes/01_claim_boundary_v1_2.md
   Lưới:           notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
@@ -32,12 +37,12 @@ Bản hiện hành (27/10/2026):
 [Contract](notes/01_definitions_v1_2.md) · [brief](notes/00_research_brief_v1_2.md) ·
 [claim boundary](notes/01_claim_boundary_v1_2.md) · [Phase 3 và phân loại artifact](notes/phases/PHASE_3.md) ·
 [experiment index](notes/03_experiment_index.md) · [progress log lịch sử](notes/00_progress_log.md).
-Claim boundary/brief hiện hành có addendum Phase 2 sau tag; D1–D25 và lưới giữ nguyên.
+Claim boundary có addendum Phase 2 và kết quả A04 sau tag; D1–D25 và lưới giữ nguyên.
 
 **Điều kiện:** A03/A01 prereg đã khóa trước run; A04 dùng dt1/240 và kiểm cặp1/120→1/240 từng ô.
 **V9 đã được tác giả miễn làm điều kiện tiên quyết theo DL-054 (`WAIVED_BY_AUTHOR`)**;
-memo chưa gửi, chưa có phản hồi GVHD thật. Có thể triển khai L3.5; trước run A04
-vẫn cần prereg/exposure committed và runner/tests được kiểm.
+memo chưa gửi, chưa có phản hồi GVHD thật. Prereg/exposure, runner/tests và A04 đã hoàn tất.
+[Completion A04](notes/phases/A04_completion.json) ghi trạng thái sau run; gate record là snapshot trước run.
 [Gate record](notes/phases/A04_execution_gate.json) · [preflight L3.5](notes/lessons/L3.5_preflight.md).
 A05-F khóa trước A05-T; **HOLD Phase 4 tới P0-V10**. Người đọc P0-V10/L8 và các mục
 tác giả tự viết còn mở. [Gói cho người đọc](notes/meetings/phase2_reader_packet.md).

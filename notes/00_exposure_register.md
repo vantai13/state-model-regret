@@ -491,3 +491,27 @@ regret/contrast held-out. Không ghi blanket “chưa thấy metadata held-out�
 Full regression tái kiểm D-only/screen đã public; chưa outcome A04 mới.
 Run dự kiến `20261027_01`: 38main+8controls/probes, ref1/ref2; validity trước,
 score commit trước discovery. Timestamps và SHA thực sẽ nằm trong manifest.
+
+## A04 thực chạy và discovery — run27/10, tổng kết28/10/2026
+
+Doan Van Tai phụ trách. Prereg56c4141/receipt0eb42f2; run20261027_01 bắt đầu
+2026-10-27T16:17:22.192539+00:00, kết thúc2026-10-27T16:17:53.051031+00:00.92lượt đủ38main+8controls/probes×ref1/ref2.
+Đã đọc validity trước;score commit7005a3b trước mở cells.csv/discovery. Raw/intervals/
+D22/R04/quantile và sáu contrast của mọi ô này đã được tính,xem và báo. Không
+chọn lọc ô thuận lợi,không overwrite hoặc đổi thresholds để cứu P2/P3/P6.
+
+Từ sau checkpoint: phân tích bảng,hìnhH1–H3,ba miềncheap kill,5phát biểu ghi đầy
+đủ trong patterns.md/190rows;giữ1candidateC1 hậu discovery. Không forecast mới
+được chấm cùng A03. Tọa độ R03–R08 được đối chiếu eligibility/carry;khôngD/outcome.
+Public held-out λA/p_sw cũ đã hiện ở bước đọcgrid.md như mục prereg ghi,không
+nhận chưa thấymetadata và không dùng chúng làmfeaturesH0/H1. Held-out J/gap magnitude/
+regret/contrast vẫn chưa tính/xem;không mởA05-T.
+
+Phiên reviewAI riêng chỉ xem card+bốnraw củaM09/M17 ởhai dt,không nhãn grader
+trước khi tính;2/2khớp. Không human/GVHDreview hoặc readback author-attested mới.
+Đã dùng skillpaper-research,sàng20title/snippet/2keywordqueries sau outcomes,
+lookupprimary2nguồn:arXivabstracts,crossrefmetadata;khôngPDF/fulltext/newpaper-note.
+1proposal chờduyệt;catalog/author progress không đổi. Tìm kiếm này là post-discovery.
+
+[Note A04](lessons/L3.5_A04_note.md) · [manifest](../results/A04/20261027_01/manifest.json) ·
+[scores](../results/A04/20261027_01/card_scores.json) · [pattern log](../results/lessons/l3_5/patterns.md).

@@ -424,3 +424,27 @@ Không thêm nguồn ngoài danh sách đã duyệt; không đạt/không tuyên
 | lookup | S11 journal | IEEE TIT 72(4) tr2237, 40tr | Đúng bản; số mục khớp arXiv v3 |
 | lookup | R01 journal | eCommons "6-2010", 29tr | **Không phải journal**: bìa kho + TR 2006 trùng nội dung; cần bản Springer |
 | lookup | R34 | CDC 1992, 2tr scan | **Không phải TAC 1995**; đọc 2 trang làm prior tạm; cần bản TAC |
+
+## L3.5 A04 — targeted post-discovery,27/10/2026
+
+Người phụ trách:Doan Van Tai; skill paper-research. Thẻ trước call:
+[session_card](../../results/lessons/l3_5/literature/session_card.md).
+Câu hỏi PC5/PC3/PC4: quyết định đổi/gain nhỏ và threshold geometry có prior nào,
+không dùng search để sửa card. Kiểm23catalog records trước; score đã commit7005a3b.
+
+| Loại | Query/seed | Tool/filter | Đã sàng | Giữ unique mới | Hạn chế |
+|---|---|---|---:|---:|---|
+| keyword | `"network digital twin" "decision" "model accuracy"` | paper-search/search_papers GoogleScholar,10,relevance,no year filter |10title/snippet|1proposal|1known=P10; contexts/defer ghi từng rank|
+| keyword | `routing "decision-focused" prediction error` | như trên |10title/snippet|0proposal|nhiễu vehicle/logistics/flood/medical;1concept abstract check, không negative field evidence|
+| lookup | target Tao/Xu/You exact title | web search12links, arXiv2511.19961v2, Crossref exact-title1record |1targetwork|—|IEEEpageblocked; rawweblookupphụ không archive; không tính12links thành12papers|
+| lookup | DOI10.1109/MWC.2026.3715457 | Crossref DOI |1metadata|0|secondary DOI sai: là PhotonicADC; bỏ, không gán cho target|
+| lookup | 2606.21773v1 | official arXiv abstract |1known-from-query|0proposal|conceptual outside-domain; khôngPDF/fulltext/newnote|
+
+Tổng keyword20records;1proposal mới Tao/Xu/You, **DOI đúng10.1109/MWC.2026.3712294**,
+Crossref IEEEWirelessCommunications33(5):20–26,2026-10-01; arXivv2 abstract-only.
+Chờ duyệt trướcPDF/note mới, không thêmExcel/catalog/authorprogress. Không hỏi duyệt
+để làm chặn A04 vì metadata screen đã đủ phạm vi hiện tại. Không đổi PC/Gate/novelty.
+[20 quyết định](../../results/lessons/l3_5/literature/screen.csv),
+[tóm tắt/giới hạn](../../results/lessons/l3_5/literature/screening_summary.md),
+[raw+hash](../../results/lessons/l3_5/literature/raw_hashes.json).
+Dừng sau2queriesbounded, trước6phút; không2×20/saturation.0download,0newpaper-note.
