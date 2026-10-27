@@ -35,7 +35,10 @@ Bản hiện hành (27/10/2026):
 Claim boundary/brief hiện hành có addendum Phase 2 sau tag; D1–D25 và lưới giữ nguyên.
 
 **Điều kiện:** A03/A01 prereg đã khóa trước run; A04 dùng dt1/240 và kiểm cặp1/120→1/240 từng ô.
-V9 chưa gửi nên **A04 chờ**;
+**V9 đã được tác giả miễn làm điều kiện tiên quyết theo DL-054 (`WAIVED_BY_AUTHOR`)**;
+memo chưa gửi, chưa có phản hồi GVHD thật. Có thể triển khai L3.5; trước run A04
+vẫn cần prereg/exposure committed và runner/tests được kiểm.
+[Gate record](notes/phases/A04_execution_gate.json) · [preflight L3.5](notes/lessons/L3.5_preflight.md).
 A05-F khóa trước A05-T; **HOLD Phase 4 tới P0-V10**. Người đọc P0-V10/L8 và các mục
 tác giả tự viết còn mở. [Gói cho người đọc](notes/meetings/phase2_reader_packet.md).
 Không dùng nháp heads-up 23/10 nguyên trạng (đã lỗi thời). Main RQ/contract/G1 giữ nguyên.

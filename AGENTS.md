@@ -158,3 +158,14 @@ Run03 code60a1032 PASS: p_sw9/9bitwise, C1–C6 PASS (60C5zero+6WDzero),15/15BOU
 đã exposed, không chấm card/H1/null hoặc D/outcomes held-out mới. A04 vẫn chờV9
 chưa gửi; A04 cần kiểmpair1/120→1/240 từng ô. T05author-writing/L8/P0-V10/Phase4
 không tự đóng. Report results/lessons/l3_4/report.md, data results/A01/20261027_03/.
+
+DL-054/27-10: tác giả yêu cầu bỏ chặn để triển khaiL3.5. **P1-V9=WAIVED_BY_AUTHOR**,
+miễn điều kiện gửi memo trướcA04; supersede điều kiện(c) DL-044 cho bước tiếp.
+Memo chưa gửi, không GVHD_APPROVED/human review; giữ nguồn mock review nguyên byte
+ở notes/reviews/2026-10-27_pre_A04/. Không đổi attribution thành GVHD thật.
+Rủi ro tính lại/redesign sau outcome được ghi DL-054, không sửa card/thước cũ.
+A04 chưa chạy; còn prereg/exposure/runner/toy checks, dt1/240+pair1/120→1/240.
+Gate record notes/phases/A04_execution_gate.json, notes/lessons/L3.5_preflight.md.
+A05-F/held-out,L8/P0-V10,T05author-writing/Phase4HOLD giữ. Review nhìn remotef72306f
+nên324tests/20ktoy chỉ reviewer-reported; localA01 guards/51hash kiểm lại.
+Ref4/FV/flipmass/cheapkill proposals chưa tựadopt; không áp kill cho identityT01.

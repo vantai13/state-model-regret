@@ -1,0 +1,439 @@
+Tôi sẽ đọc repo ở chế độ chỉ đọc, đối chiếu artifact của A01 và trạng thái gate, rồi in toàn bộ báo cáo review ra đây. Tôi sẽ không tạo file hay sửa gì trong repo.
+
+# AI mock GVHD review — `state-model-regret`, Phase 3 sau A01 (27/10/2026)
+
+> **Phạm vi của báo cáo này.** Đây là review mô phỏng do AI (Claude) viết. Nó **không** phải review độc lập, không phải phản hồi của GVHD thật, và không tính cho V9, L8 hay P0-V10. Mọi verdict chỉ là khuyến nghị khoa học. Nó không đổi gate, contract, card, nhãn PC hay G-level. Tôi không tạo file, không sửa và không push gì lên repo hay remote.
+
+---
+
+## 1. Executive assessment
+
+**Tôi đọc được gì.** Tôi **không** truy cập được workspace local của bạn. Tôi chỉ đọc bản public trên GitHub, HEAD `f72306f` (27/10, 21:04 +07). Bản đó dừng ở A03 (card đã khóa) và **không chứa A01**: không có DL-050–053, `results/A01/` hay `results/lessons/l3_4/`. Vì vậy mọi số A01 trong báo cáo này là **số bạn cung cấp, tôi chưa kiểm**.
+
+**Hiện ở đâu.** Card A03 đã khóa và tôi xác minh được độc lập (hash, commit, tag, không sửa sau freeze). Theo bạn báo, A01 đã xong và chọn dt = 1/240 s. Bước tiếp theo là chuẩn bị A04, và A04 đang chờ V9.
+
+**Mạnh nhất.** Kỷ luật đo lường. Ở mọi điểm tôi kiểm, engine khớp contract: M0 theo D10, chi phí theo D13 (có q_H), oracle không biết tương lai, D22, prior tính lại theo dt. Luật chấm card bảo thủ và khóa trước dữ liệu. Clone sạch chạy **324/324 test PASS**.
+
+**Yếu nhất.** Có hai điểm.
+1. **Rủi ro diễn giải "tương tác".** Trong thiết kế một observation mỗi ô, nếu model sai không làm lật quyết định của ô (a00 = a01) thì Γ = G_M|S1 ≥ 0 **tự động**. Γ > 0 ở những ô đó không phải bằng chứng "hai repair bổ trợ nhau". Repo đã có các mảnh của nhận xét này nhưng chưa biến nó thành luật đọc cho A04.
+2. **Chưa có người thật nào kiểm khung nghiên cứu.** Forecast do AI chọn và không có cơ chế; P0-V10 và L8 còn mở; V9 chưa gửi.
+
+**Việc ưu tiên.**
+1. Viết prereg A04 với 5 bổ sung (mục 10).
+2. Tác giả chốt V9. Tôi khuyến nghị (a) và có kèm nháp memo ở mục 12.
+3. Push A01 lên remote để thứ tự commit kiểm được từ bên ngoài.
+
+---
+
+## 2. Review scope
+
+| Hạng mục | Trạng thái |
+|---|---|
+| Workspace local `/home/vantai/state-model-regret` | **Không truy cập được** (phiên này không nối với máy bạn). Không thấy branch hay dirty files local |
+| Snapshot thực sự review | Clone public, branch `main`, HEAD `f72306f` "A03: record post-freeze Git checks…". Clone vẫn sạch sau khi chạy test |
+| A01 (DL-050–053, `experiments/A01_null_refinement/`, `results/A01/20261027_03/`, `results/lessons/l3_4/`) | **Không có trên remote → chưa đọc, chưa kiểm** |
+| Tài liệu đã đọc | AGENTS.md, README, PHASE_3.md (bản repo), experiment index, DL-038–049, exposure register (từ dòng 260), contract/brief/claim boundary v1.2, grid json/md, protocol v1.2, card và lock, T01, T05, PHASE_1_closeout, reader packet, search_protocol, claims.md, prior_boundary (phần nhãn), MT5 |
+| Code đã đọc | A00: `factorial_core`, `physical`, `precision`, `evaluate`, `guard`, `cells_adapter`. A03: `grading`, `grade_card`, `membership`, `provenance`. `src/smr/cells.py`, `gap_screen.py`, `native/idle_backward.cpp`. Tests: `engine_checker`, `test_engine_physics` |
+| Hash/Git đã đối chiếu | SHA-256 của card = lock (`14021a83…`). Commit freeze `b05ed70` chỉ chứa 1 file. Tag annotated `a03-card-v1` → `bcd1941`. Card không có commit nào sau freeze. SHA của claims/grid/attestation khớp metadata card. Grid/contract/protocol không đổi kể từ tag `contract-v1.2` |
+| Lệnh đã chạy | `pytest` toàn repo: **324 passed (68,5 s)**. Tính lại membership K5/P2/P3 từ tọa độ. Một script tạm ngoài repo kiểm 20.000 bảng toy bằng `aggregate` của repo |
+| Không chạy | Engine trên bất kỳ ô grid nào; mutation tests; A01; tìm literature mới (protocol yêu cầu ghi log vào repo, mà tôi không được sửa repo) |
+| Plan đính kèm | PHASE_3 v2.0, MASTER PLAN v1.0, Final Review: đọc như bối cảnh. Repo ghi rõ v2.0 không phải bản đã adopt, nên tôi không dùng nó để thay quyết định của repo |
+
+---
+
+## 3. Reconstruction: RQ → milestone → evidence
+
+**Main RQ hỏi điều gì chưa biết?** Với quyết định reroute làm đổi tải, sửa thông tin state hiện tại và sửa mô hình phản ứng giảm expected regret bao nhiêu, ở đâu, và phụ thuộc nhau ra sao. Câu hỏi khó nhất là: pattern nào **vượt quá** hình học ngưỡng argmin.
+
+| Khái niệm | Định nghĩa hiện hành (contract v1.2) |
+|---|---|
+| S0 | Posterior Bayes **chính xác** (b = D) của (qA, mA, qB, mB) tại t0, dựng từ **một** snapshot backlog cũ 1 s, không thấy mode. M0 và M1 dùng chung belief này, nên S0 chỉ có **một action cho cả ô** |
+| S1 | Biết backlog **và** mode hiện tại của cả hai queue (state oracle chẩn đoán) |
+| M0 | Với từng state trong belief: rollout recurrence bằng đường tải trung bình có điều kiện theo mode hiện tại, rồi lấy trung bình cost theo belief (D10) |
+| M1 | Expected cost đúng theo luật chuyển mode, cùng θ (chỉ khác ở cách biểu diễn ngẫu nhiên) |
+| Oracle | argmin của J thật, biết x và luật, không biết realization w (D15) |
+| Regret, contrast | r = J(chọn) − J(a\*); L_sm = E_D J(chọn); G_S, G_M, G_SM, Γ, G_S\|M1, G_M\|S1 theo D19 |
+| Cost D13 | Δt·Σ_{k=1..H}(qA,k + qB,k): có q_H, không có phụ phí sau h |
+
+**A01 làm gì.**
+- Input: engine A00, card đã khóa, 3 ô calibration (M01/M09/M22) và các ô kiểm âm/đầu dò.
+- Output: dt cuối, các control bằng 0, bảng làm mịn.
+- Uncertainty được giảm: **"cây thước có đo đúng và đủ mịn không?"**
+
+**Loại evidence.** Numerical verification **trong mô hình**. Đây chưa phải evidence về RQ, chưa phải discovery hay confirmation.
+
+**Bước tới.** A04 tạo evidence mới: bản đồ contrast đầu tiên trên 38 ô và phần chấm card. Trước khi chạy cần hai thứ: prereg A04 và quyết định V9.
+
+| Trục đánh giá | Kết luận |
+|---|---|
+| Validity của cách làm | Engine và card tại `f72306f`: **Strong** (đọc code, chạy test, khớp hash). A01: **chưa đủ evidence** (không thấy artifact) |
+| Outcome | **Not applicable**: A01 là verification, chưa có kết quả về RQ |
+| Mức trưởng thành | **G1 → G1** (định nghĩa ở MASTER PLAN I.5). Verification không nâng G-level |
+
+---
+
+## 4. Findings
+
+| ID | Kết luận ngắn | Loại | Severity | Confidence | Xử lý trước |
+|---|---|---|---|---|---|
+| R1 | Không kiểm được A01 từ remote | Missing evidence | Medium | High | Trước khi dùng A01 làm căn cứ cho người khác |
+| R2 | Γ ≥ 0 tự động khi a00 = a01 (thiết kế một-observation) | Confirmed (tính chất toán; luật đọc chưa có) | **High** (với claim "interact") | High | Prereg A04 và A05-F |
+| R3 | Kiểm dt theo ô ở A04 chỉ dùng cặp thô nhất (1/120, 1/240) | Plausible risk | Medium | Medium | Prereg A04 |
+| R4 | P6: luật certify dt không phủ F, V; K6 là hai ô floor | Confirmed (khoảng trống trong luật đã khóa) | Low–Medium | High | Báo cáo A04 |
+| R5 | Chưa tính flip mass P(a10 ≠ a11) | Missing evidence | Medium | High | Prereg A04 |
+| R6 | Cheap kill theo R00 chưa có định nghĩa miền | Missing evidence | Medium | High | Prereg A04 |
+| R7 | Kiểm độc lập kernel ở quy mô lưới còn hẹp | Plausible risk | Low–Medium | Medium | Không chặn; E01 Phase 4 |
+| R8 | Guard không mã hóa V9/dt; sửa card làm guard dừng | Plausible risk | Low | High | Runner A04 |
+| R9 | Chưa có người thật đọc khung; forecast do AI chọn, không cơ chế | Plausible risk | **High** (hướng khoa học) | High | Trước A05-F |
+| R10 | Ô calibration thuộc miền card đã lộ trước A04 | Missing record | Low | High | Prereg A04 |
+
+**R1 — Không kiểm được A01 từ remote.**
+- *Evidence:* `git ls-remote` cho main = `f72306f`. Các thư mục A01 không tồn tại. Decision log dừng ở DL-049. README dòng 8 ghi "Chưa chạy A01/A04/A05".
+- *Ảnh hưởng:* mọi câu về A01 trong báo cáo này. Người thứ ba cũng chưa kiểm được thứ tự card → prereg A01 → run A01. Card đã có "remote anchor" công khai; A01 thì chưa.
+- *Khi có artifact, cần kiểm sáu điểm:*
+  1. thứ tự commit;
+  2. luật chọn dt có xét đủ suffix tới ref16 và dùng e_num của cả hai mức không;
+  3. ở C3, "ô 11" không còn là oracle D15, nên C_ref và R11 phải tham chiếu đúng;
+  4. test luật hòa phải kiểm **action** (vì ở hòa, cost hai action như nhau);
+  5. nguyên nhân run01 FAIL ở N01 và commit sửa;
+  6. file card không bị sửa sau A01.
+
+**R2 — Tính chất cấu trúc của Γ** (quan trọng nhất cho cách đọc A04).
+- *Toán:*
+  - a00, a01 là hằng trong ô (T01; `factorial_core.py` dòng 87).
+  - Nếu a00 = a01 thì L00 = L01, nên G_M = 0.
+  - Khi đó Γ = G_M|S1 − G_M = G_M|S1 = L10 − L11 ≥ 0, vì L11 là min.
+  - Γ < 0 chỉ xảy ra khi a00 ≠ a01 **và** |EΔ| > G_M|S1.
+- *Evidence:* đây là hệ quả trực tiếp của D19 và sanity #2, #5, #6 trong card (dòng 132–136). Tôi kiểm trên 20.000 bảng toy tổng hợp bằng chính `aggregate` của repo:
+  - 9.991 ca a00 = a01, **0 vi phạm**;
+  - cả 3.754 ca Γ < 0 đều có a00 ≠ a01.
+
+  Đây là kiểm toán học trên toy. Nó không nói gì về tần suất trên lưới.
+- *Repo đã biết gì:* sanity #13 ("GS < 0 ⇒ Γ > 0 là đại số") và T01 (G_M từng khúc). Nhưng tôi grep không thấy câu "a00 = a01 ⇒ Γ = G_M|S1" được ghi thành luật đọc.
+- *Ảnh hưởng:*
+  - P3: nếu a00 = a01 ở M19/M21, P3 tương đương với G_M|S1/Cref > 0,005.
+  - Câu chuyện "interact" của RQ.
+  - H0 ở A05-F (MT5) phải tái tạo được cấu trúc này, nếu không H1 sẽ thắng dễ.
+- *Sửa tối thiểu:* prereg A04 phân loại từng ô theo (a00 = a01?). Engine đã trả a00 và a01. Báo Γ kèm nhãn lớp, và cấm gọi Γ > 0 ở lớp a00 = a01 là "bổ trợ".
+
+**R3 — Kiểm dt theo ô chỉ dùng cặp thô nhất.**
+- *Evidence:*
+  - Card §2 (dòng 169–173) khóa cặp (2·dt_final, dt_final). Với dt_final = ref2, cặp này là (ref1, ref2), tức là cặp thô nhất.
+  - Calibration chỉ gồm 3 ô lõi có h = 8 s. Tám ô h = 2 s (H_coarse = 240) và tám ô A q50 không có ô nào đại diện.
+  - PHASE_3 v2.0 L3.4 tự minh họa trường hợp cặp thô đạt nhưng cặp mịn hơn hỏng vì a00 lật.
+- *Chi phí:* theo budget thiết kế trong grid json, ref4 cho cả 38 ô ≈ 5,9×10¹⁰ updates. Con số này chỉ bằng khoảng **3/10** khối lượng A01 đã chạy trên 3 ô (≈ 2,0×10¹¹).
+- *Sửa:* chạy thêm ref4 cho mọi ô chính, chỉ như kiểm mô tả. Verdict card giữ nguyên, vì luật card đã khóa và đã bảo thủ: không certify được thì UNRESOLVED. Gắn cờ "nhạy dt ngoài cặp đã certify" nếu cặp (ref2, ref4) vượt dung sai hoặc a00 đổi.
+
+**R4 — P6.**
+- *Evidence:*
+  - `grading.py` dòng 13: `CONTRASTS` chỉ gồm 6 contrast D19.
+  - Dòng 106: `refinement()` chỉ lặp qua `CONTRASTS`.
+  - Dòng 147–148: P6 lại dùng V và V − F.
+  - K6 = {M17, M18} là hai ô `floor`: M17 có λA = 6, tức tải OFF của A bằng 0 (`grid_v1_2.md` dòng 29–30).
+- *Hệ quả:* chỉ G_S = F + V được kiểm theo dt, F và V riêng lẻ thì không. Kết luận P6 chỉ nói về vùng biên tham số.
+- *Sửa:* không sửa card. Báo F và V ở các mức như diagnostic có nhãn post-freeze, kèm caveat về ô floor.
+
+**R5 — Flip mass.**
+- *Evidence:* `evaluate.py` dòng 28 ghi `not_computed: ['future_EVPI','flip_mass_2D']`. Plan (PHASE_3 v2.0 L3.5, MASTER PLAN IX.3) cần tỉ lệ đổi quyết định để phân biệt "nhiều lần lật rẻ" với "ít lần lật đắt" (MT5).
+- *Sửa:* quyết định trong prereg, **trước** khi nhìn bảng: hoặc implement (đếm 2D bằng sort + cây Fenwick, kiểm bằng brute trên toy), hoặc khai báo không có và giới hạn diễn giải tương ứng.
+
+**R6 — Cheap kill theo R00.**
+- *Evidence:* DL-025 (dòng 241) giữ quy tắc này (DL-006 / contract v0 §7(f)). Quy tắc nói "trên một miền", nhưng chưa có miền nào được định nghĩa cho lưới v1.2.
+- *Sửa:* prereg A04 định nghĩa miền, ví dụ nhóm core / spoke_A50 / spoke_h2 × κ. Nếu không định nghĩa trước thì không được dùng hồi tố.
+
+**R7 — Kiểm kernel ở quy mô lưới.**
+- *Evidence:*
+  - Phép tái lập p_sw và screen thiết kế cùng gọi `smr.gap_screen.backward` (`reformulate_grid.py` dòng 10).
+  - Kiểm Fraction độc lập chỉ chạy trên plant H ≤ 3 (`test_engine_physics.py` dòng 70), cộng một test conservation với H = 960.
+- *Hệ quả:* "9/9 p_sw khớp" là kiểm integration (D, adapter, increments, H, dấu). Nó chưa phải kiểm độc lập cho kernel ở H = 1920.
+- *Xử lý:* chấp nhận được cho A04, vì E01 ở Phase 4 sẽ so Monte Carlo với exact. Nếu muốn sớm hơn: spot-check trên một plant tổng hợp có tham số giống lưới, không dùng ô grid.
+
+**R8 — An toàn thực thi.**
+- *Evidence:*
+  - `guard.py` dòng 33–60 không kiểm V9, prereg A04 hay ref theo DL-053.
+  - `provenance.py` dòng 41–51 bắt card phải trùng SHA trong lock, trong khi card có mục "Bổ sung sau A01" (dòng 319–321).
+- *Hệ quả:* nếu ghi chú A01 vào chính file card thì guard và grader đều dừng. Đây là **fail-closed** (gặp điều kiện sai thì dừng, không chạy tiếp sai), nên không làm hỏng validity, nhưng dễ gây rối.
+- *Sửa:* ghi chú A01 vào DL hoặc exposure register, không sửa file card. Runner A04 nên kiểm thêm: có bản ghi V9 (hoặc DL đổi V9), prereg A04 đã commit, và ref ∈ {1, 2}.
+
+**R9 — Rủi ro con người và ownership (ER2/ER3).**
+- *Evidence:*
+  - claims.md dòng 16: "Các K là nháp exploratory do AI chọn".
+  - Card dòng 116–120: mọi dự đoán là forecast không cơ chế. Dòng 309: reviewer là AI tự kiểm.
+  - Reader packet ghi "CHƯA CÓ AI ĐỌC".
+  - Brief, claim boundary và protocol đều ghi "AI soạn, tác giả chưa viết lại".
+- *Ảnh hưởng:* không ai có quyền phản đối đã kiểm khung nghiên cứu: objective, phạm vi model repair, cách đọc "interact". Card đứng hay không đứng chỉ cho kết quả mô tả, không cho cơ chế.
+- *Sửa:* V9 theo hướng (a), và một buổi đọc chung P0-V10 + L8 trước A05-F.
+
+**R10 — Exposure của ô calibration.**
+- *Evidence:* DL-043 dòng 460–462: M01 ∈ Q5, M09 ∈ K2, M22 ∈ K5.
+- *Validity:* vẫn đúng, vì card khóa trước A01.
+- *Cần ghi:* trong prereg A04, rằng verdict card ở ba ô này đã quan sát được từ A01, và prereg được viết sau khi đã thấy chúng.
+
+---
+
+## 5. Assumption, measurement/oracle/baseline/fairness và identification
+
+**Trả lời các câu audit bạn liệt kê:**
+
+| Câu hỏi | Kết quả | Căn cứ |
+|---|---|---|
+| M0 là trung bình cost của mean rollout từng state (D10), hay rollout từ mean-state? | ✅ Đúng D10 | `physical.py` dòng 77–86: rollout vector hóa theo từng (q, mode), dùng đường trung bình có điều kiện mode; trung bình theo D ở `factorial_core` dòng 86–87 |
+| Belief dùng chung; S1 nhận đúng (q, m)? | ✅ | a00 dùng Σp·δ̂, a01 dùng Σp·δ, cùng p; L10 và L11 dùng giá trị từng state |
+| D22 có phải full state repair không? | ✅ Không phải | Gộp mode theo D(m\|q), F + V = G_S. Ghi chú: posterior mode trong D22 điều kiện theo **cả** y cũ, vì D đã điều kiện theo y |
+| Có rò rỉ thông tin tương lai cho oracle? | ✅ Không thấy | L11 dùng dấu của Δ = kỳ vọng qua DP theo luật mode, không dùng realization |
+| D13 có q_H, không cộng phần sau h? | ✅ | Trọng số idle H−k và phần tuyến tính H·q0 cho đúng Σ_{k=1..H} q_k (`physical.py` 87–89) |
+| Prior dựng lại theo dt, y giữ giá trị vật lý? | ✅ | `cells.py`: `law_for(…, ref)`, index = y/unit với y lấy ở dt thô; tau = 120·ref; `r2_keep` theo dt |
+| Có neo lại λA hoặc đổi quantile khi làm mịn? | ✅ Không | λA, y, H_coarse đọc cố định từ grid json |
+| H của A04 lấy theo từng ô? | ✅ ở engine | H = H_coarse·ref (`physical.py` dòng 129): 1920 cho ô h = 8 s, 480 cho ô h = 2 s. Runner A04 chưa có, phải truyền cell ID chứ không truyền H |
+| Identity là sanity, kiểm độc lập hay tautology? | Phân loại | "oracle là min" và "G_S\|M1 = min(E⁺, E⁻)" trong `aggregate` (111–119) tính từ cùng Ed, neg, nên là tautology: chỉ bắt lỗi sổ sách. Brute checker và Fraction refs là kiểm độc lập thật, nhưng chỉ trên toy. Theo mô tả của bạn, C4 (toy aggregation) không chứng minh kernel ở quy mô lưới |
+| C3 (đặt M1 := M0) | ❓ Chưa kiểm | Về nguyên tắc, các identity của C3 là kiểm đường nối (wiring), không phải kiểm vật lý; C_ref phải là oracle thật |
+| Luật hòa | ✅ ở engine | `<` chặt, hòa thì Stay. ❓ Chưa thấy test của A01 kiểm action ở điểm hòa |
+| C5 / C6 | ✅ thiết kế khớp | 60 = 5 ô × 6 contrast × 2 mức; 6 = 3 ô WD × 2 mức, và ở WD chỉ đòi G_S\|M1 = 0 |
+| Card: ngưỡng đóng/mở, Cref = 0, tỉ số có dấu, unknown/HOLD | ✅ | `judge` 44–54, `ratio` (bốn góc) 37–41, `point_claim` 130–149, `numerical_hold` 84–89. Cặp kiểm dt dùng e_num của cả hai mức và cận dưới Cref ở mức mịn |
+| Claim có bị đổi sau exposure? | ✅ Không (trên remote) | Card không có commit sau `b05ed70`; claims.md giữ nguyên byte từ 24/10 |
+
+**Bảng giả định chính:**
+
+| Giả định | Hỗ trợ | Nếu sai | Kiểm phân biệt tối thiểu | Claim phải thu hẹp |
+|---|---|---|---|---|
+| Fluid ON/OFF: trong một mode tải là hằng, ngẫu nhiên chỉ đến từ chuyển mode | Giả định | Ngẫu nhiên trong mode làm Jensen gap ở biên rỗng lớn hơn | Packet DES ở Phase 7 | "Model repair" chỉ là biểu diễn ngẫu nhiên của chuyển mode |
+| Nền A/B độc lập, hai path rời | Giả định; cần cho D = D_A×D_B | Mất tính tách được | Thêm shared link ở Phase 7 | Không claim gì về bottleneck chung |
+| θ đúng; không có sai tham số hay sai cấu trúc (D21) | Lựa chọn của contract | Sai số NDT thực tế thường là calibration | Cần contract mới | Không nói về calibration |
+| Một observation mỗi ô (T01 dòng 15) | Thiết kế | Không có kỳ vọng theo phân phối y vận hành | Thiết kế mixture theo y | Regret ở đây có điều kiện theo một y |
+| Lưới neo ở p_sw 0,3/0,7, λA thay theo lát | Thiết kế (DL-038) | Xu hướng giữa các lát bị confound | So **trong cùng lát** (cặp 0,3 và 0,7) | Không claim hiệu ứng riêng của một trục |
+| S0 là posterior Bayes chính xác | Thiết kế (D9) | S0 thực tế thô hơn | Estimator khả thi ở Phase 8 | G_S = giá trị của state hiện tại so với **cách dùng tối ưu** snapshot cũ |
+| Action tức thời, không feedback kiểu TCP | Giả định | Độ trễ có thể xóa giá trị của state | Kiểm timing ở Phase 8 | Không claim vận hành |
+| Thang thời gian: μ = 10 packet/s, age 1 s, T_mode 0,3–3 s | Chưa có nguồn vận hành (P0-V9) | Queue thật xả trong ms thì regime này không liên quan | E09 ở Phase 8 | Kết quả chỉ nói qua các tỉ số κ, η, r_h |
+
+**Baseline và tính công bằng.**
+- Oracle S1M1 là benchmark lý tưởng, đúng vai trò; nó không cần cùng thông tin với S0.
+- M0 load-aware và S0 Bayes chính xác giúp tránh strawman.
+- Baseline đơn giản (hysteresis, age-aware heuristic) thuộc Phase 4 (E03), không thuộc Phase 3.
+
+**Identification.**
+- Trong một ô: sạch. Cùng D, cùng cost, cùng oracle; S và M đổi độc lập; S không dùng M.
+- Giữa các ô: bị confound bởi luật neo λA. Repo đã ghi điều này (§8 của contract).
+
+---
+
+## 6. Chất lượng kết quả và uncertainty
+
+- **Numerical error (theo số bạn báo, tôi chưa kiểm):**
+  - max e_num/Cref_lower ≈ 2,5×10⁻⁵, so với budget 2,5×10⁻³: dư khoảng 100 lần.
+  - unresolved mass ≈ 1,7×10⁻⁵, so với ngưỡng 0,01: dư khoảng 580 lần.
+
+  Nếu được xác nhận, sai số số học không phải vấn đề ở mức ref2.
+- **dt sensitivity:** 4 cặp × 3 ô đều PASS. 35 ô còn lại ở A04 chỉ có 1 cặp (xem R3). PASS ở các mức hữu hạn không chứng minh giới hạn khi dt → 0.
+- **Uncertainty về model/giả định:** lớn và chưa được kiểm ở phase này (để Phase 7).
+- **Chọn mẫu trong thiết kế:** ô được chọn gần ranh giới quyết định, nên không đại diện tần suất.
+- **Ngoài miền:** ψ ∈ [−0,2; 0,05]; h = 2 s chỉ có ở κ = 0,3.
+- **Không cần seed, CI hay p-value:** đây là kỳ vọng exact trên luật hữu hạn, không lấy mẫu. Rủi ro "đa so sánh" của A04 nằm ở chỗ có quá nhiều đường phân tích có thể chọn sau khi thấy dữ liệu (38 ô × nhiều contrast). Cách xử lý là card đã khóa cộng tối đa 0–3 pattern post-discovery, không phải p-value.
+- **Mẫu số:** Cref = L\* chứa cả phần occupancy mà không quyết định nào thay đổi được. Vì vậy ở ô tải nền cao, tỉ số G/Cref tự nhỏ đi. Quy ước này đã khóa (D23). Có thể báo thêm G/R00 (phần headroom mà mỗi repair lấy lại được) như **mô tả**, không đổi nhãn.
+- **Số 0 ở control là đáp án đúng**, không phải "tín hiệu yếu". Test PASS cũng không xác nhận RQ, realism hay novelty.
+
+---
+
+## 7. Giải thích thay thế, trạng thái cơ chế, phép kiểm phân biệt
+
+Chưa có A04, nên các dòng dưới là **rủi ro cần khai báo trước**, không phải pattern đã thấy.
+
+| # | Giải thích thay thế cho pattern A04 | Đe dọa | Phép kiểm phân biệt (khai báo trong prereg) |
+|---|---|---|---|
+| 1 | Hình học ngưỡng cấp ô (a00/a01) quyết định G_M và Γ | Cao | Phân lớp a00 = a01 (R2); H0 ở A05-F phải tái tạo cấu trúc này |
+| 2 | Confound do neo λA giữa các lát | Cao | So trong cùng lát (cặp 0,3 và 0,7); báo λA, ψ, p_sw thực |
+| 3 | Mẫu số L\* | Trung bình | Báo packet·s tuyệt đối và G/R00 (mô tả) |
+| 4 | Phân phối margin (nhiều state sát hòa) | Trung bình | Quantile \|Δ\| (đã có) và flip mass (R5) |
+| 5 | Hiệu ứng biên của horizon hữu hạn | Trung bình (với pattern theo h) | Câu T-H1; nhớ h = 2 s chỉ có ở κ = 0,3 |
+| 6 | Ô floor (A OFF = 0) | Thấp–trung bình | Nhãn floor cho M11, M17, M18 |
+| 7 | Nhạy dt ngoài cặp đã certify | Thấp–trung bình | ref4 (R3) |
+
+**Trạng thái cơ chế.**
+- Chưa có cơ chế nào được preregister. Card ghi rõ "forecast không cơ chế", và tôi đánh giá đúng như vậy, không đòi card chứng minh điều nó không claim.
+- Hệ quả: A04 chỉ có thể cho **mô tả**. Toàn bộ RQ2 dồn vào A05-F/T. Mọi giải thích viết sau A04 là candidate post-hoc.
+
+---
+
+## 8. Literature/novelty, realism, claim được phép, giá trị khoa học
+
+**Novelty.**
+- Tôi không search thêm, vì không ghi được log vào repo theo `search_protocol`. Tôi dựa vào prior boundary trong repo: mức đọc AI-T, cộng author-attested cho bộ tối thiểu ở DL-043. Tôi chưa tự kiểm lại các nguồn gốc.
+- Danh sách "không được claim là mới" đã phủ: EVPPI/VSS, Γ dạng bookkeeping, 2×2 repair (WM26), thông tin làm hại chính sách xấp xỉ, stale-state routing.
+- Theo record của repo, khác biệt còn lại so với WM26 là: repair của WM26 nhập tương lai thật, còn ở đây repair chỉ dùng state hiện tại và oracle không biết tương lai. Tôi chưa xác nhận điều này từ bản gốc.
+- Hệ quả của R2: "Γ > 0 ở K3" tự nó là đóng góp yếu. Đóng góp ứng viên mạnh hơn sẽ là một trong hai:
+  1. luật K5 (equivalence boundary) đứng được ngoài mẫu;
+  2. H1 thắng một H0 **đã tái tạo được hình học ngưỡng** trên held-out.
+
+**Realism.** Mô hình lý tưởng hóa có chủ đích, kiểm ở Phase 7–8. Ở Phase 3, chỉ được nói "trong mô hình".
+
+| Được claim bây giờ (sau khi A01 được xác minh) | Chưa được claim |
+|---|---|
+| Trong plant v1.2, ở dt = 1/240 s, engine cho đúng các số 0 bắt buộc, và sáu contrast trên M01/M09/M22 ổn định trong dung sai 0,25% Cref qua các mức tới dt/16 | Giá trị hay ý nghĩa của G trên lưới; "bổ trợ" hay "thay thế" theo nghĩa cơ chế; hiệu ứng riêng của κ/quantile/η; tần suất; mạng thật; novelty; giới hạn khi dt → 0; long-run loss |
+
+| Artifact | Phân loại | Lý do |
+|---|---|---|
+| Engine exact và enclosures | Essential | A04, A05-T và E01 phụ thuộc vào nó |
+| A01 (control + làm mịn) | Essential | Thước đo phải đúng trước khi đo |
+| Freeze card, lock, tag, guard | Essential | Là bằng chứng thứ tự trước dữ liệu |
+| Luật chấm ba trạng thái | Important | Chặn việc quyết định tùy tiện ở ô sát ngưỡng |
+| Mutation tests, 4.000 ledger | Important | Vệ sinh verification |
+| 14 dòng sanity | Optional | Có giá trị giảng dạy |
+| Các khối "Cập nhật…" dày ký hiệu trong README/AGENTS | Overbuilt cho người đọc | Làm khó buổi đọc L8/P0-V10 và cho GVHD |
+
+---
+
+## 9. Reviewer attacks và strengths
+
+**Năm câu tấn công mạnh nhất:**
+1. *"Tương tác của anh chủ yếu là hình học ngưỡng."* Mỗi ô có một observation nên S0 chỉ có một action, G_M ∈ {0, |EΔ|}, và Γ = G_M|S1 ≥ 0 mỗi khi a00 = a01 (R2).
+2. *"Model fidelity bị vận hành hóa quá hẹp."* Chỉ đổi cách biểu diễn ngẫu nhiên với θ đúng, trong một queue fluid hai mode. Thêm vào đó WM26 đã có 2×2 repair. Kết quả này nói gì cho đầu tư vào mô hình NDT?
+3. *"Thang thời gian có thật không?"* μ = 10 packet/s, age 1 s, mode 0,3–3 s, h = 8 s. Queue thật có tồn tại đủ lâu để telemetry 1 s còn quan trọng không? (SR6)
+4. *"Kết luận tổng quát là gì?"* Lưới neo gần ranh giới, λA đổi theo lát, kết quả có điều kiện theo một y. Không có kỳ vọng theo phân phối observation.
+5. *"Ai đã kiểm khung này?"* Forecast do AI chọn và không cơ chế; mọi review đến nay đều là AI; người đọc thật chưa có.
+
+**Năm điểm mạnh có căn cứ:**
+1. **Preregistration kiểm được.** Card SHA khớp lock; commit freeze chỉ có 1 file; có tag annotated; claims.md giữ nguyên byte từ 24/10.
+2. **Engine khớp contract** ở D10, D13, D15, D22 và prior theo dt (đã đọc code).
+3. **Numerics và chấm điểm bảo thủ.** Có khoảng sai số; vùng chưa phân giải thì UNRESOLVED/HOLD; tỉ số tính bằng bốn góc; ngưỡng đóng/mở đúng toán.
+4. **Exposure trung thực.** Thừa nhận đã lộ dấu của gap qua screen thiết kế; tách rõ phần AI và phần tác giả; giữ lại các lần chạy lỗi (theo bạn báo).
+5. **Tái lập được.** Clone sạch chạy 324/324 test; brute checker không import core; có reference bằng Fraction.
+
+---
+
+## 10. Năm việc ưu tiên
+
+| # | Loại | Việc | Evidence tối thiểu cần có | Chi phí | Điều kiện |
+|---|---|---|---|---|---|
+| 1 | Fix now | Prereg A04: luật đọc Γ theo lớp a00 = a01; báo nhãn lớp ở từng ô | Một mục trong prereg và một cột trong bảng | Rất thấp | Làm ngay; không cần chờ V9 |
+| 2 | Fix now | Prereg A04: ref4 mô tả cho mọi ô (R3); F/V theo dt cho M17/M18 (R4); quyết định flip mass (R5); định nghĩa miền cheap kill (R6); ghi exposure của ô calibration (R10) | Các mục prereg; test trên toy nếu implement flip mass | Thấp (flip mass: trung bình) | Trước khi chạy A04 |
+| 3 | Fix now (tác giả quyết) | Chốt V9 (a)/(b)/(c) | Một DL ghi trạng thái | Thấp | Chỉ tác giả |
+| 4 | Before claim | Push A01; push prereg A04 trước khi chạy | Remote cho thấy thứ tự commit | Rất thấp | Tác giả quyết |
+| 5 | Before claim | Buổi đọc P0-V10 + L8 trước A05-F; H0 tái tạo hình học ngưỡng | Record buổi đọc theo packet; spec H0 | Trung bình | Sau A04, trước A05-F |
+
+*Nice to improve:* mô tả theo cặp trong cùng lát; G/R00 mô tả; spot-check kernel trên plant tổng hợp; runner A04 kiểm thêm V9/ref; một trang trạng thái viết bằng lời thường.
+
+---
+
+## 11. Hai verdict tách riêng
+
+**A. Khuyến nghị khoa học: GO WITH CAUTION cho A04.**
+- Chuẩn bị ngay. Chạy khi gate của tác giả cho phép, với 5 bổ sung prereg ở mục 10.
+- Phase 4: HOLD EXPENSIVE WORK (giữ nguyên).
+- Không NARROW, REFORMULATE hay PIVOT lúc này: chưa có outcome nào để căn cứ.
+- **Chưa đánh giá được** chất lượng thực tế của A01.
+
+**B. Trạng thái thực thi theo repo** (DL-043/044 và snapshot của bạn):
+
+| Bước | Trạng thái |
+|---|---|
+| Prereg/exposure A04, code runner, test trên toy | **Làm được ngay** (đây là điều kiện chưa soạn, không phải gate) |
+| Chạy A04 | **Chờ V9**: điều kiện (c) đang có hiệu lực theo DL-044. Verdict GO ở trên **không** gỡ V9 |
+| T05 phần tác giả | Còn mở; chỉ chặn việc promote engine vào `src/`, không chặn A04 theo quyết định hiện hành |
+| L8 | Còn mở; nên làm trước A05-F, không chặn A04 |
+| P0-V10 | Chặn thực thi Phase 4 |
+| A05-F → A05-T | Sau A04; held-out chỉ mở một lần |
+
+**V9: ba lựa chọn, tác giả quyết.**
+- **(a) Gửi memo.** Đáp ứng đúng chữ của V9 (gửi/nhận, ghi ngày và phiên bản; *không cần* GVHD đồng ý). Giữ được cơ hội nhận góp ý trước khi có kết quả, và giảm một phần ER3. Chờ phản hồi là tùy chọn, không phải yêu cầu. Trong lúc chờ vẫn soạn prereg A04 song song.
+- **(b) Ghi DL sửa điều kiện.** Chạy A04 được ngay. Phải ghi rõ việc chấp nhận rủi ro: nếu GVHD đổi D13/D20/D21 hoặc luật lưới, mọi thiết kế lại sẽ là *sau outcome*, và card chỉ chấm được theo estimand cũ. Chi phí CPU khi tính lại thấp (A04 ở ref1 + ref2 ≈ 9% khối lượng A01), nên **chi phí thật là chi phí khoa học**, không phải tính toán. AI review không thay được human review.
+- **(c) Giữ nguyên.** Không có rủi ro, nhưng dễ đứng yên lâu.
+
+**Khuyến nghị của tôi: (a)**, vì nó rẻ nhất mà bảo vệ được cả card lẫn A04.
+
+**Kill criteria.**
+- *Đã khóa trước:* K1–K11 (MASTER PLAN XV / Final Review §19); cheap kill theo R00 (DL-006, giữ ở DL-025). A01 không chạm tới tiêu chí nào. Ở A04, K8 ("chỉ tái hiện identity hoặc prior") là tiêu chí cần để ý nhất, nhất là sau R2.
+- *Tôi đề xuất mới, không áp hồi tố, chỉ dùng được nếu tác giả khai báo trước trong prereg:*
+  1. Nếu hầu hết các ô có Γ > 0 thuộc lớp a00 = a01, A04 ghi "nhất quán với hình học ngưỡng" và không claim "bổ trợ".
+  2. Nếu G_M chỉ có dạng 0/|EΔ| ở mọi ô, cân nhắc REFORMULATE sang thiết kế mixture theo y (contract v1.3, kèm DL).
+
+---
+
+## 12. Nháp memo — CHƯA GỬI (từ Doan Van Tai)
+
+> Các số A01 trong memo là số bạn cung cấp; tôi chưa kiểm. Những chỗ ⟨…⟩ là để bạn tự điền.
+
+**Tiêu đề:** Heads-up trước khi chạy A04 (38 ô) — xin góp ý về thước đo và phạm vi
+
+Kính gửi thầy/cô ⟨tên⟩,
+
+Em gửi tóm tắt trạng thái đề tài trước bước tính lớn đầu tiên (A04). Em mong nhận góp ý **trước khi có kết quả**, vì đổi thước đo sau khi đã thấy kết quả sẽ phải tính lại và làm mất giá trị các dự đoán em đã khóa.
+
+1. **Câu hỏi.** Với quyết định reroute làm đổi tải, cải thiện thông tin trạng thái hiện tại và cải thiện mô hình phản ứng giảm expected regret khác nhau và phụ thuộc nhau thế nào?
+2. **Mô hình (contract v1.2, khóa 23/10).**
+   - Hai path rời, mỗi path một queue (μ = 10 packet/s), tải nền ON/OFF.
+   - Một quyết định Stay/Switch, chuyển lượng u sang B.
+   - Chi phí = occupancy cộng dồn (packet·s) trong h = 8 s (2 s ở một nhánh), không tính phần sau h.
+   - Oracle biết state và quy luật, không biết tương lai.
+   - State repair: từ posterior dựng trên snapshot backlog cũ 1 s → biết backlog và mode hiện tại. Model repair: từ mean rollout có điều kiện → đúng quy luật ngẫu nhiên (cùng tham số).
+   - Lưới 38 ô neo để oracle chọn Switch khoảng 30%/70% ("cùng độ khó", không cùng tải). 12 ô held-out chỉ dùng một lần ở A05.
+3. **Đã làm.**
+   - Engine exact và 336 test PASS.
+   - Card dự đoán khóa và công khai **trước** A01 (commit b05ed70, tag a03-card-v1): 4 dự đoán trên danh sách ô và 1 luật ngoài mẫu.
+   - A01 trên 3 ô calibration: các control bắt buộc bằng 0 đều đúng 0; sáu contrast ổn định trong 0,25% Cref tới dt/16; chọn dt = 1/240 s; sai số số học ≤ 2,5×10⁻⁵ Cref. Lần chạy đầu lỗi ở ô N01, em đã giữ log và sửa (⟨nguyên nhân⟩).
+4. **Kế hoạch A04.**
+   - Tính 38 ô chính và các ô kiểm âm ở dt = 1/240 s, kiểm lại ở 1/120 s ⟨và 1/480 s⟩.
+   - Chấm card bằng luật đã khóa trước.
+   - Phần còn lại là discovery, tối đa 3 pattern ứng viên, không mở rộng lưới, không đụng held-out.
+5. **Giới hạn em đã biết.**
+   - Plant lý tưởng; kết quả có điều kiện theo một observation và gần ranh giới quyết định.
+   - Chưa kiểm thang thời gian thực tế; gap vẫn là candidate (G1).
+   - Phần lớn code và văn bản có AI hỗ trợ; chưa có người thật nào đọc contract.
+6. **Ba câu em cần thầy/cô góp ý trước khi chạy:**
+   - (a) Occupancy cộng dồn trong cửa sổ cố định, chuẩn hóa theo L\* của ô, ngưỡng 1%: có chấp nhận được làm thước chính không?
+   - (b) "Model fidelity" ở đây chỉ là biểu diễn ngẫu nhiên với tham số đúng. Như vậy đã đủ cho đề tài chưa, hay cần thêm sai tham số (phải làm contract mới trước A04)?
+   - (c) Vì mỗi ô chỉ có một observation, tương tác Γ ≥ 0 tự động khi model sai không làm lật quyết định của ô. Em định báo Γ kèm phân loại này và để câu hỏi cơ chế cho A05. Cách đóng khung này có ổn không?
+
+Nếu cần đổi điểm nào, em mong nhận phản hồi trước ⟨ngày⟩. Em sẽ ⟨chạy A04 sau ngày đó / chờ phản hồi⟩ và ghi quyết định vào decision log.
+
+Em cảm ơn thầy/cô. — Doan Van Tai
+
+---
+
+## 13. Giải thích dễ hiểu cho bạn
+
+**Bạn vừa làm gì?** A01 giống như **cân thử một cái cân trước khi cân hàng**. Có ba phép thử:
+1. Không đặt gì lên cân thì cân phải chỉ đúng 0. Đây là các ô kiểm âm: ô SD/conservation phải ra sáu contrast bằng 0 chính xác.
+2. Đổi sang vạch chia mịn hơn thì số đọc không được đổi quá mức cho phép. Đây là bước làm mịn dt.
+3. Sai số của phép đọc phải nhỏ hơn rất nhiều so với điều mình muốn phân biệt. Đây là e_num.
+
+**Thế nào là tốt hay tệ ở milestone này?**
+- Tốt: cả ba phép thử đạt, và các lần chạy lỗi được giữ lại.
+- Tệ: control khác 0; contrast đổi theo dt; hoặc chọn dt vì nó làm card "đứng".
+
+Theo số bạn báo, A01 thuộc loại tốt. Nhưng A01 **chưa nói gì về RQ**.
+
+**Điều cần nhớ nhất khi đọc A04 — một ví dụ số.** Giả sử ở một ô có L00 = L01 = 104 (cả hai model, với state cũ, đều chọn Stay cho cả ô), L10 = 101, L11 = 100.
+- G_M = 104 − 104 = 0.
+- G_M|S1 = 101 − 100 = 1.
+- Γ = 101 + 104 − 104 − 100 = 1.
+
+Γ = 1 > 0 trông giống "hai repair bổ trợ nhau". Thật ra nó chỉ phản ánh một điều: với state cũ, sửa model không đổi được quyết định của ô. Đó là hệ quả của thiết kế một observation mỗi ô, chưa phải cơ chế.
+
+**Đã biết và chưa biết.**
+- Đã biết (khi A01 được xác minh): cây thước đúng trên 3 ô.
+- Chưa biết: độ lớn của G trên 38 ô; pattern có vượt hình học ngưỡng không; điều gì xảy ra trong mạng thật.
+
+**Bước tiếp theo:** viết prereg A04 với 5 bổ sung, và tự chốt V9.
+
+**Ba câu tự kiểm** (tôi không ghi là bạn đã trả lời):
+1. Vì sao a00 = a01 kéo theo Γ = G_M|S1 ≥ 0? Khi nào Γ mới có thể âm?
+2. Vì sao cặp (1/120, 1/240) PASS ở một ô chưa đủ để nói contrast đã hội tụ, nhưng vẫn không làm sai cách chấm card?
+3. V9 bảo vệ evidence nào? Vì sao "đã gửi memo" khác "GVHD đã đồng ý"?
+
+---
+
+```text
+Milestone/Phase reviewed: Phase 3 — A03 (card, đã xác minh) và A01 (theo số tác giả báo, chưa xác minh); chuẩn bị A04
+Snapshot và phạm vi đã kiểm: clone public main f72306f (27/10 21:04 +07), sạch; không có workspace local; A01 không có trên remote
+Validity: Strong (engine A00 + card A03 tại f72306f) / Chưa đủ evidence (A01)
+Outcome quality: Evidence loại numerical verification + preregistration trong mô hình; outcome về RQ: Not applicable
+Scientific progress: Medium — giảm được uncertainty về đo lường (nếu A01 xác nhận); chưa có evidence về RQ
+Gap maturity before/after: G1 → G1 (MASTER PLAN I.5; verification không nâng mức)
+Main strength: Kỷ luật đo — engine khớp contract ở mọi điểm đã kiểm; card khóa có hash/tag kiểm được; chấm bảo thủ
+Main weakness: Khung nghiên cứu chưa được người thật kiểm; forecast do AI chọn, không cơ chế
+Biggest open risk: Pattern Γ/G_M của A04 bị hình học ngưỡng cấp ô (a00 = a01 ⇒ Γ = G_M|S1 ≥ 0) giải thích gần hết
+Scientific recommendation: GO WITH CAUTION cho A04 (5 bổ sung prereg); HOLD EXPENSIVE WORK Phase 4
+Actual execution gate status: A04 chờ V9 (điều kiện (c), DL-044); prereg/exposure làm được ngay; P0-V10 chặn Phase 4; L8 mở
+Việc làm được ngay: soạn prereg A04 (luật Γ, ref4, F/V, flip mass, miền cheap kill, exposure calibration); push A01 nếu bạn đồng ý
+Quyết định cần tác giả/GVHD thật: V9 (a)/(b)/(c); GVHD: thước đo D13/εR, phạm vi model repair D21, cách đóng khung "interact"
+Điều quan trọng nhất tác giả cần hiểu: A01 chỉ chứng minh cây thước đúng; trong thiết kế một-observation, Γ > 0 không tự là bằng chứng hai repair bổ trợ nhau
+```

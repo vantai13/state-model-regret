@@ -721,3 +721,46 @@ không gồm preflight/debug/retries. Run01FAIL/run02INTERRUPTED giữ nguyên.
 A04/A05 chưa chạy, card forecasts chưa chấm; không H1/null/A05-F hoặc held-out outcomes.
 V9 **chưa gửi, A04 chờ**, L8/P0-V10 và T05 author-writing giữ OPEN. L3.4 hoàn thành
 kỹ thuật, không tự xác nhận tác giả đã làm tự kiểm/Understanding.
+
+### DL-054 — Tác giả gỡ V9 bằng waiver trước L3.5/A04 (2026-10-27)
+
+**Người phụ trách/quyết định: Doan Van Tai.** Yêu cầu trực tiếp hiện tại:
+“sửa lại mở để tôi có thể chạy lesson 5 đi”. Thực hiện phần yêu cầu bỏ chặn bằng
+**quyết định tác giả miễn điều kiện gửi heads-up/memo trước A04**, tương ứng
+phương án(b) đã nêu trong Phase3. Quyết định này thay điều kiện(c) của DL-044
+cho các bước tiếp theo; không viết lại lịch sử DL-043/044.
+
+**Trạng thái: `WAIVED_BY_AUTHOR`, không phải `GVHD_APPROVED` hoặc `SENT`.**
+Memo chưa gửi, không có phản hồi GVHD thật được ghi nhận. Bản nhận xét tác giả
+cung cấp là review mô phỏng do AI, được lưu nguyên byte/disclaimer ở
+[review_original.txt](reviews/2026-10-27_pre_A04/review_original.txt) và có
+[provenance](reviews/2026-10-27_pre_A04/provenance.json). Không đổi nguồn thành
+GVHD hoặc tạo bằng chứng human review. Việc ghi waiver không là xác nhận mới
+về tác giả đã đọc kín sách, tự hiểu hoặc GVHD đã đồng ý.
+
+**Rủi ro chấp nhận cùng yêu cầu tiếp tục của tác giả:** A04 có thể được triển khai theo
+contract hiện hành trước khi có góp ý GVHD. Nếu GVHD yêu cầu đổi RQ/D13/D20/D21,
+miền lưới hoặc điều kiện đánh giá sau A04, phải giữ kết quả cũ theo estimand cũ,
+ghi rõ thời điểm đã thấy outcome, tạo design/amendment mới có lý do và tính lại
+phần chịu ảnh hưởng. Không sửa card/ngưỡng sau outcome để làm kết quả thuận lợi;
+prereg/card cũ không thành preregistration cho estimand mới. Chi phí tính lại
+không khôi phục tính mù hoặc quyền nhận novelty/confirmation.
+
+**Phạm vi gỡ chặn:** chỉ P1-V9 trước A04. P0-V9 về timescale không bị đổi.
+L3.5 được tiếp tục triển khai; vẫn phải hoàn thành/commit prereg A04, ghi exposure,
+kiểm runner/card/dt trên synthetic/toy trước run. A01/dt1/240s và bắt buộc kiểm
+pair1/120→1/240 từng ô giữ nguyên. H phụ thuộc h của từng ô.
+A05-F vẫn khóa trước held-out; L8/P0-V10/T05 author-writing giữ OPEN; Phase4
+HOLD tới P0-V10. Không có A04/held-out run trong nhiệm vụ này.
+
+**Đối chiếu review:** reviewer chỉ thấy publicf72306f nên324tests và20.000toy
+là reviewer-reported, chưa được replay trong phiên tiếp nhận. Local source60a1032/
+closeoutb9a176c có A01; guards và51artifact hashes được kiểm lại, CSV selector
+cần giữ ref2. [Intake](reviews/2026-10-27_pre_A04/intake.md) tách findings khỏi đề
+xuất chưa adopt. Γ=GM_S1−GM là identity; dấu Γ không tự chứng minh cơ chế, nhưng
+không phủ nhận nghĩa superadditivity theo D19. Không adopt tiêu chí kill chỉ vì
+GM luôn thuộc{0,|EΔ|}: đây vốn là hệ quả T01. Không tự thêm ref4/flip mass hoặc
+đổi cách chấm P6/H0 chỉ dựa vào review.
+
+[Gate record đọc được bằng máy](phases/A04_execution_gate.json) ·
+[preflight L3.5](lessons/L3.5_preflight.md).

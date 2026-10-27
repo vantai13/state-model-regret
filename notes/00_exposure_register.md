@@ -453,3 +453,28 @@ L8/P0-V10/T05 author-writing không tự đóng. [Report](../results/lessons/l3_
 [manifest](../results/A01/20261027_03/manifest.json),
 [failed run](../results/A01/20261027_01/run_status.json),
 [interrupted run](../results/A01/20261027_02/run_status.json).
+
+## Tiếp nhận review trước A04 / DL-054 — 27/10/2026
+
+Tác giả cung cấp bản AI mock review chỉ truy cập remotef72306f; bản gốc/provenance
+ở `notes/reviews/2026-10-27_pre_A04/`. Đã đọc các gợi ý phân lớp a00=a01, ref4,
+F/V dt diagnostics, flip mass, miền cheap-kill và các alternative explanations.
+Đây là exposure về luật đọc/giả thuyết và đề xuất trước A04, sau khi đã thấy
+calibration A01. Không coi chúng là cơ chế blind hoặc yêu cầu đã adopt.
+
+Đã kiểm lại nguồn A01 local/card/hash/51artifacts và nhận xét đại số trên ledger
+toy; không chạy D/cost/contrast mới trên main/held-out. Không replay20.000toy
+reviewer báo;336tests/11mutants là evidence cũ của A01. Không chấm card A04.
+
+DL-054 ghi waiver của tác giả cho điều kiện chờ memo trước A04. Memo chưa gửi,
+không có phản hồi GVHD thật/human validation mới. Human-reading/Phase4 giữ nguyên.
+
+## DỰ THẢO exposure A04 — CHƯA CHẠY
+
+Phạm vi dự kiến:38main và controls theo prereg sẽ được chốt; không R01–R12.
+M01/M09/M22 mọi ref1–16 đã exposed trong A01;35main khác chưa có A01 outcomes.
+Primary dt dự kiến1/240s, kiểm pair1/120→1/240 từng ô; các diagnostics bổ sung
+phải được chốt trước computation liên quan. Không gọi phần discovery là held-out
+confirmation. Trước run cần thêm prereg commit/source/config/hash và run-id thực;
+sau run mới ghi các outcomes thực tế đã thấy, kể cả FAIL/HOLD. Không điền trước
+kết quả cho38ô hoặc ngầm nhận draft này là đã chạy A04.

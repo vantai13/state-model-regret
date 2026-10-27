@@ -7,7 +7,7 @@ Người phụ trách: **Doan Van Tai** · cập nhật 27/10/2026.
 | Experiment | Câu hỏi | Tầng evidence | Trạng thái / điều kiện | Cấu hình / nơi quyết |
 |---|---|---|---|---|
 | A01 | dt nào làm sáu contrast ổn định, controls đúng zero? | E0/E1 numerical verification trong plant | **PASS**, dt=1/240 s (ref2), DL-053; giữ run01 FAIL/run02 INTERRUPTED | [Prereg](../experiments/A01_null_refinement/prereg.md), [report](../results/lessons/l3_4/report.md), [CSV](../results/A01/20261027_03/refinement.csv) |
-| A04 | State/model repairs khác và tương tác thế nào trên lưới neo? | Discovery trong plant, không network evidence | **CHƯA CHẠY**; sau A01, V9 chưa đạt nên chờ | D18–D22; 38 main + controls; [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27) |
+| A04 | State/model repairs khác và tương tác thế nào trên lưới neo? | Discovery trong plant, không network evidence | **CHƯA CHẠY**; V9 **WAIVED_BY_AUTHOR** DL-054; còn chuẩn bị prereg/exposure/runner/tests | D18–D22; 38 main + controls; [gate](phases/A04_execution_gate.json), [L3.5 preflight](lessons/L3.5_preflight.md) |
 | A05-F | Khóa H0/H1 và phép đánh giá nào trước held-out? | Freeze/provenance, chưa là kết quả thực nghiệm | **CHƯA KHÓA**; sau discovery, nên có người đọc trước freeze | D25; chưa có card freeze được adopt |
 | A05-T | H1 khác threshold null thế nào trên held-out? | Confirmation trong plant theo freeze | **CHƯA CHẠY**; sau A05-F | D25; R01–R12, không calibration/discovery |
 
@@ -30,3 +30,8 @@ carry nguyên văn luật K5 chưa bị bác (m=1); chưa H1/null/fit/split ho�
 
 A01 đủ ref1/2/4/8/16, mọi cặp đạt; A04 vẫn phải kiểm riêng cặp1/120→1/240
 trên từng ô. 336tests/11mutant PASS; verification không xác nhận continuum/network/RQ.
+
+DL-054 thay điều kiện chờ memo của DL-044 bằng waiver do tác giả yêu cầu; không
+ghi V9 human-fulfilled. [Review tiếp nhận](reviews/2026-10-27_pre_A04/intake.md)
+chỉ là input tham khảo, không phải GVHD đã kiểm A01. Các đề xuất mới cần được
+chốt trong prereg; không tự thay card, metric, ngưỡng hoặc mở held-out.

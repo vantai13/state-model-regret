@@ -7,6 +7,15 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## Sau A01 / DL-054 — 27/10/2026
+
+Theo yêu cầu trực tiếp của tác giả, điều kiện gửi memo trước A04 chuyển sang
+**WAIVED_BY_AUTHOR**. Memo chưa gửi, không ghi GVHD thật đã phản hồi. Review mô
+phỏng được lưu nguyên nguồn với phạm vi remotef72306f; intake đối chiếu A01 local.
+Có thể triển khai L3.5; còn prereg/exposure/runner/tests trước run38ô. Không A04/
+held-out outcome mới; L8/P0-V10/T05 author-writing/Phase4 HOLD giữ nguyên.
+[Gate](phases/A04_execution_gate.json) · [preflight](lessons/L3.5_preflight.md).
+
 ## L3.4 / A01 — 27/10/2026
 
 Prereg/receipt trước outcome; giữ run01 FAIL N01 và run02 INTERRUPTED. Sửa symbolic

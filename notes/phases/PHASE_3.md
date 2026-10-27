@@ -11,7 +11,7 @@ bản plan đầy đủ được lesson nhắc tới không có trong repo hoặ
 | Ký hiệu | Nghĩa | Nơi quyết |
 |---|---|---|
 | P0-V9 | Timescale có nguồn hoặc ghi chưa có nguồn | PHASE_0_closeout, giữ nguyên |
-| P1-V9 (V9 ở Phase 3) | GVHD nhận heads-up và memo trước A04 | DL-043, DL-044 |
+| P1-V9 (V9 ở Phase 3) | Điều kiện heads-up/memo trước A04 được tác giả **waive**; memo chưa gửi | DL-054 thay điều kiện chờ ở DL-043/044 |
 | P0-V10 | Người thật đọc contract **v1.2**, brief và claim boundary hiện hành | HOLD thực thi Phase 4 |
 | L8 | Người thật đọc prior boundary, related work và giới hạn claim | Điều kiện Gate L |
 
@@ -24,9 +24,11 @@ PASS: chưa có record tác giả tự kiểm Part 1–3 trong phiên này.
 
 ## 2. Bốn dòng mở Phase 3
 
-Theo [DL-044](../02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27):
+Theo DL-044, cập nhật riêng V9 bằng **DL-054**:
 
-1. **V9: chưa gửi; giữ điều kiện (c), A04 chờ.** Không chọn thay điều kiện bằng AI review/read-back.
+1. **V9: WAIVED_BY_AUTHOR.** Tác giả yêu cầu bỏ chặn để triển khai L3.5; memo vẫn chưa gửi,
+   không ghi GVHD đã phản hồi. [Gate record](A04_execution_gate.json) và DL-054 ghi rủi ro
+   tính lại A04 nếu hướng đề tài thay đổi. Còn hoàn tất prereg/exposure/runner trước run.
 2. **Người đọc: P0-V10 và L8 OPEN.** Có [gói 30–45 phút](../meetings/phase2_reader_packet.md), chưa có buổi đọc.
 3. **Tự viết: OPEN.** Lý do DL-038 và §1–2 của closeout Phase 1/2 vẫn chờ lời tác giả; không chặn việc học/thực thi Phase 3.
 4. **Provenance:** commit L3.3 trước mọi A01; khóa A05-F trước A05-T; discovery A04 không trở thành confirmation; giữ exposure thật.
@@ -38,8 +40,9 @@ Theo [DL-044](../02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-m�
 - **L3.3 → A01:** card chứa claim còn đứng, sau nhãn tác giả xác nhận + L-self WM26
   (đã author-attested ở DL-043), và được commit trước lần chạy A01 đầu tiên.
 - **A01:** PASS theo DL-053; M01/M09/M22 đủ ref1–16, dt cuối1/240 s; C1–C6 PASS.
-- **A04:** sau A01 và sau record V9 đạt hoặc DL sửa điều kiện được tác giả quyết định;
-  38 main + controls, báo đầy đủ tọa độ dẫn xuất và p_sw thực.
+- **A04:** A01 PASS; DL-054 đã gỡ riêng V9 theo yêu cầu tác giả. Trước run phải có
+  prereg/exposure và kiểm runner/card/dt;38 main + controls, báo đầy đủ tọa độ dẫn xuất
+  và p_sw thực. Chưa chạy A04 trong nhiệm vụ đổi gate này.
 - **A05-F:** khóa H1/null/metric/biên/split theo D25, cùng quyền thông tin/ngân sách fit;
   nên có người đọc trước bước này. **A05-T:** chỉ sau freeze, dùng R01–R12.
 - **Phase 4:** HOLD tới P0-V10. L8 và P0-V10 có thể dùng chung một buổi nếu đủ phạm vi.
@@ -50,8 +53,10 @@ Theo [DL-044](../02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-m�
 đánh giá; phải chạy/tính lại và mất giá trị prediction theo thiết kế cũ. Đổi εR
 chủ yếu đổi nhãn, rẻ hơn nhưng vẫn phải ghi sensitivity/post hoc, không sửa
 ngưỡng đã khóa để làm kết quả thuận lợi. Read-back với bạn học giảm ER3, không
-loại rủi ro GVHD muốn đổi hướng. Nếu sau này chọn sửa V9, DL phải ghi rõ chấp
-nhận rủi ro phải tính lại A04 khi hướng đề tài đổi. Chưa có quyết định đó.
+loại rủi ro GVHD muốn đổi hướng. **DL-054 đã ghi quyết định tác giả tiếp tục trước
+khi gửi memo**, cùng rủi ro phải tính lại khi hướng thay đổi. Kết quả cũ chỉ có
+giá trị theo estimand cũ; giữ provenance/post-outcome status của mọi redesign.
+Waiver không phải human review và không đóng L8/P0-V10.
 
 ## 5. Người đọc và giới hạn evidence
 
@@ -152,3 +157,17 @@ DL-053 khóa dt cho các bước sau, không xác nhận continuum hoặc35 ô c
 A04 **chưa chạy, V9 chưa gửi**; khi đủ gate cần kiểm pair1/120→1/240 từng ô.
 Không chấm forecasts/H1/null/held-out trong A01; exposure calibration cập nhật.
 Không tự ghi Understanding PASS; T05 author-writing/L8/P0-V10 vẫn mở.
+
+## 13. Sau review mô phỏng — DL-054 (27/10/2026)
+
+Tác giả cung cấp bản review chỉ xem remotef72306f (không có A01) và yêu cầu bỏ
+chặn để triển khai L3.5. [Nguồn/provenance](../reviews/2026-10-27_pre_A04/provenance.json)
+giữ đúng tác giả/phạm vi của review; không chuyển thành phản hồi GVHD thật.
+[Intake](../reviews/2026-10-27_pre_A04/intake.md) phân biệt nhận xét đúng, điểm đã
+được A01 local xử lý và đề xuất chưa adopt. 51artifact hashes/guards được kiểm lại,
+không rerun336tests hoặc20.000toy của reviewer trong nhiệm vụ này.
+
+**V9 WAIVED_BY_AUTHOR** mở việc tiếp tục L3.5. [Preflight](../lessons/L3.5_preflight.md)
+liệt kê phần triển khai/prereg còn lại; không đồng nghĩa đã chạy38ô hoặc chấm card.
+Ref4/FV/flip mass/cheap-kill miền là đầu vào cần chốt trước run, không sửa card
+theo nhận xét. A05-F/held-out và Phase4/P0-V10 tiếp tục theo các gate cũ.
