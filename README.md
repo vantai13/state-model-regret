@@ -3,12 +3,12 @@
 Tác giả: **Doan Van Tai**.
 
 **Trạng thái 27/10/2026:** Phase 2 đóng **GO có điều kiện** (DL-043, tag
-`phase-2-closeout`); Phase 3 mở, đã triển khai phần kỹ thuật L3.1 Part 3 (DL-044).
+`phase-2-closeout`); Phase 3 mở. L3.1 Part3 và L3.2 hoàn tất kiểm kỹ thuật (DL-044–046).
 Contract khóa tại `contract-v1.2`: 38 main, 12 held-out, 6 controls, 2 probes;
 calibration M01/M09/M22. Chưa chạy A01/A04/A05; chưa tính regret/contrast trên lưới.
-Kiểm phiên này: **228/228 tests PASS** (baseline 202; thêm 26), 24 trường hợp D
-khớp reference với sai lệch probability lớn nhất **0**.
-[Report và số đo](results/lessons/l3_1/part3/report.md).
+Kiểm L3.2: **300/300 tests PASS** (baseline 228; thêm 72), **11/11 mutant bị bắt**.
+Engine mới ở experiments, chờ T05 tác giả; 32 D-only comparisons có sai lệch **0**.
+[Report và số đo L3.2](results/lessons/l3_2/report.md) · [L3.1](results/lessons/l3_1/part3/report.md).
 
 ```text
 Bản hiện hành (27/10/2026):
@@ -19,6 +19,7 @@ Bản hiện hành (27/10/2026):
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md
   Experiments:    notes/03_experiment_index.md (A01 | A04 | A05-F | A05-T)
   D v1.2:         src/smr/cells.py (nguồn experiments giữ nguyên)
+  Engine L3.2:    experiments/A00_engine/ (T05 tác giả OPEN, chưa promote)
   KHÔNG hiện hành: definitions v0/v1/v1.1; src/smr/design.py (plant L1.8C)
 ```
 

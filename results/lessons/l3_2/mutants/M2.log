@@ -1,0 +1,17 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________________________ test_D10_mean_of_rollouts ___________________________
+
+    def test_D10_mean_of_rollouts():                 # belief q_B ∈ {0,4}: E δ̂ = -1/4 (rollout từ q=2 sẽ cho +1/4)
+        B, _ = toy_side([(h, 0, 'x'), (h, 4, 'x')], {'x': 2}, {'x': {'x': 1}}, 3, 0, 2, 1)
+        r = aggregate(side([1], ['1/4'], ['1/4']), B)
+>       assert (r['E_delta_hat'], r['a00']) == (F(-1, 4), 1)
+E       assert (Fraction(1, 4), 0) == (Fraction(-1, 4), 1)
+E         
+E         At index 0 diff: Fraction(1, 4) != Fraction(-1, 4)
+E         Use -v to get more diff
+
+tests/test_engine_core.py:57: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_engine_core.py::test_D10_mean_of_rollouts - assert (Fractio...
+1 failed in 0.17s

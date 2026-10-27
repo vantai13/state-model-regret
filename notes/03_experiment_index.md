@@ -18,3 +18,6 @@ Phiên L3.1 Part 3 chỉ kiểm migration D; [output riêng](../results/lessons/
 
 Output A01/A04/A05-F/A05-T: **chưa tạo**. Chỉ thêm link kết quả khi thực sự chạy.
 Mọi lần chạy ghi commit card/code, config/seed (hoặc deterministic), exposure và output.
+
+L3.2: [engine thực nghiệm](../experiments/A00_engine/) đã kiểm toy/D-only, chờ T05
+tác giả để promote. [Verification](../results/lessons/l3_2/report.md) không là outcome A01/A04.

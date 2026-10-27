@@ -7,6 +7,13 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3.2 — 27/10/2026
+
+Engine exact thực nghiệm: 72 tests mới/300 toàn repo PASS; 11/11 mutant bị bắt;
+golden canonical/E2/E5/E7/L1.5/L1.8B đã kiểm. 32 D-only migration cases khớp,
+không grid outcomes. T05 tác giả OPEN, chưa promote vào src; L3.3 chưa commit,
+V9/A04 và P0-V10/Phase4 giữ nguyên. [Report](../results/lessons/l3_2/report.md).
+
 ---
 
 # State × Model — giá trị cải thiện quyết định routing

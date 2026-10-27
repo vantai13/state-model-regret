@@ -1,0 +1,75 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-27",
+  "base_commit": "f465db1d27109b5a6d91af0aa340cf933a032abe",
+  "sources": [
+    {
+      "file": "lesson_part1.txt",
+      "raw_sha256": "8a950155b0db9f59a094cb7811b79edd2d6b99d40d9ee5c3769130f02e3640f0",
+      "stored_sha256": "a588409bc8075cd224529cf62344603b8a22a1b4b523a743c8d01e5d826ef173",
+      "normalization": "CRLF to LF"
+    },
+    {
+      "file": "lesson_part2.txt",
+      "raw_sha256": "53cc4fa6265fdbc19046f0fbfd577c570d2599b940fb5f385a8fe022c1106f3e",
+      "stored_sha256": "6c0fec4ad1b949ae8d387ca20732d7778a41342f90d686c0750282fd40ad9b25",
+      "normalization": "CRLF to LF"
+    },
+    {
+      "file": "lesson_part3.txt",
+      "raw_sha256": "938ded2c0fc5c751f7995a9825143e71dbf368d4c36dc95f2767226d849be84d",
+      "stored_sha256": "a2880b10b2dfcea2dcc8ad0c55c631ed60232819a369f7d8e4f055244a576b39",
+      "normalization": "CRLF to LF"
+    },
+    {
+      "file": "lesson_part4.txt",
+      "raw_sha256": "7ba52dc42e15d0b5ad2fca124e2f4650e5e5ac8dcc5f27ccf6bcbeed9dac3404",
+      "stored_sha256": "4b8fb52706fc916b64bb40b8430f088754d2b7b48da461a6abf74c883497a20f",
+      "normalization": "CRLF to LF"
+    }
+  ],
+  "baseline_tests": 228,
+  "scope": "toy outcomes plus explicit D-only migration; no grid outcomes",
+  "seed_ledger": 20261027,
+  "ledger_cases": 300,
+  "seed_physics": 20261028,
+  "physics_cases": 400,
+  "seed_intervals": 20261029,
+  "interval_trials": 2000,
+  "L18_refinements": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "migration_ids": [
+    "M01",
+    "M09",
+    "M22",
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "W01"
+  ],
+  "migration_refs": [
+    1,
+    2
+  ],
+  "quantiles": [
+    "1/2",
+    "9/10",
+    "99/100"
+  ],
+  "T05_author_status": "OPEN",
+  "L33_committed": false,
+  "migration_comparisons": 32,
+  "count_correction": "8 IDs x 2 queues x 2 refs = 32, not the 48 initially written; coordinates/refs unchanged",
+  "seed_joint_intervals": 20261030,
+  "joint_interval_trials": 40,
+  "additional_control": "u_stay==u_switch exact zero certificate, added after first 71/299 PASS run"
+}

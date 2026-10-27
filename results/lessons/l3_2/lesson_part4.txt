@@ -1,0 +1,616 @@
+# LESSON 3.2 — Part 4: Code và test, từ hợp đồng hàm đến mutant
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.2 Engine exact
+  Part 1  tầng sổ sách                          ✔
+  Part 2  tầng vật lý cho một state             ✔
+  Part 3  ghép cả ô, D22, sai số số             ✔
+  Part 4  ← YOU ARE HERE: hợp đồng hàm → test viết trước → code → mutant → migration → guard
+  ──────────────────────────────
+  Lesson Gate của cả L3.2 (ở cuối)
+```
+
+Mình đã viết tầng sổ sách và phần vật lý cho toy trong thư mục nháp, rồi chạy thật:
+- **9/9 test xanh.**
+- **7/7 mutant** ở tầng sổ sách đều bị bắt.
+- Golden của Phase 1 được **dựng lại từ vật lý**, dùng các hàm Fraction có sẵn trong repo.
+
+Mình **không** chạy hàm nào trên ô lưới. Phần migration và guard dưới đây chỉ in ra để bạn đọc, chưa chạy.
+
+## 2. Part 4 trả lời câu hỏi gì?
+
+> Làm sao viết engine để **trước khi chĩa nó vào ô lưới**, bạn có bằng chứng rằng nó đo đúng estimand D18–D19? Và test nào bắt được loại lỗi nào?
+
+## 3. Tại sao cần
+
+- **Tầng nghiên cứu.** Rủi ro ER5 (bug nằm trong chính oracle) và SR3 (đổi $M$ mà lén đổi luôn $S$). Engine này còn là **đáp án** cho simulator Monte Carlo ở Phase 4 (E01). Nếu đáp án sai, Phase 4 sẽ "verify" một simulator sai.
+- **Repo đã có tiền lệ.** Ở L1.4, mutant đổi nhãn S/M lọt qua 11 test đầu. Ở L1.5, một checker dùng chung helper với code được kiểm nên bỏ sót lỗi bỏ trọng số.
+- **Tầng thực hành.** Sau Part 4, bạn có một bản mẫu chạy được cho tầng sổ sách, một bộ test có lý do cho từng test, và danh sách việc còn lại để có engine cho ô thật.
+
+## 4. Mental model: kiến trúc
+
+```text
+          ┌─────────────── TẦNG VẬT LÝ (theo từng queue) ───────────────┐
+ toy plant│ toy_physics.toy_side   (Fraction, hàm tham chiếu của repo)  │
+ ô lưới   │ factorial.side_table   (queue_D + kernel native + M0 mean)  │
+          └───────────────────────────┬─────────────────────────────────┘
+                                      ▼   giao diện chung: Side(p, δ, δ̂, J_St, nhóm backlog)
+          ┌────────────── TẦNG SỔ SÁCH: factorial_core.aggregate ───────┐
+          │ sắp xếp–cộng dồn → L00, L01, L10, L11, L_cb0 → contrast     │
+          └───────────────────────────┬─────────────────────────────────┘
+                                      ▼
+          CHECKER ĐỘC LẬP: engine_checker.brute (liệt kê mọi cặp, KHÔNG import core)
+                         + smr.single_observation.statistics (có sẵn)
+```
+
+**Ý chính của kiến trúc là có một giao diện chung `Side` giữa hai tầng.** Nhờ đó, toy và ô thật đi qua **cùng một hàm** `aggregate`. Khi golden Phase 1 đúng, nó kiểm đúng đoạn code sau này sẽ chạy trên lưới. Spec L1.6 đặt yêu cầu "forward solver Phase 3 phải tái lập toàn bộ golden", và kiến trúc này đáp ứng yêu cầu đó.
+
+**Code đặt ở đâu.** Điều kiện X.3 #2 nói: chưa có T05 do tác giả viết thì chưa đưa code vào `src/`.
+
+```text
+experiments/A00_engine/          ← tạm thời (X.3 #2), nhãn "chưa chạy ô lưới"
+├── factorial_core.py            tầng sổ sách
+└── toy_physics.py               vật lý cho toy
+src/smr/cells.py                 (sau) load_cell + queue_law, chuyển từ queue_D
+src/smr/factorial.py             (sau) side_table thật + evaluate_cell + guard
+tests/
+├── engine_checker.py            brute — KHÔNG import factorial_core
+├── test_engine_*.py
+└── test_cells_migration.py
+```
+
+## 5. Hợp đồng hàm
+
+Bảng dưới là bản đã chỉnh từ plan. Các thay đổi có lý do ở §13.
+
+| Hàm | Tồn tại để kiểm | Nhận | Trả | Bắt buộc đúng (raise nếu sai) |
+|---|---|---|---|---|
+| `Side.check` | Vật lý đưa lên có hợp lệ không | một bảng | — | $\sum p=1$, $p>0$ trên support; $\delta_A,\hat\delta_A\ge0$; $\delta_B,\hat\delta_B\le0$ |
+| `_cut_sum` | Ghép không cần tích (Part 3 §7.3) | key, val, p của hai phía | khối lượng, giá trị | Bằng kết quả liệt kê |
+| `aggregate` | Estimand D18–D19 + D22 | `Side` A, `Side` B | các $L$, contrast, $a_{00}$, $a_{01}$, $\mathbb E\Delta$, bias, $\mathbb E\Delta^\pm$, $p_{\text{sw}}$ | Loại 2: $L_{11}\le L_{sm}$; loại 3: $G_{S\mid M_1}=\min(\mathbb E\Delta^\pm)$ |
+| `toy_side` | Golden từ vật lý | plant toy | `Side` | Jensen $W^{M_0}\le W^{M_1}$ |
+| `side_table` *(sau)* | Vật lý cho ô thật | ô, phía, ref | `Side` + cận sai số | Dấu, Jensen, certificate bằng 0, cận $D$ |
+| `evaluate_cell` *(sau)* | Toàn bộ, kèm $e_{\text{num}}$ | ô, ref, cờ | bảng A04 | Guard (§12) |
+
+## 6. Test viết trước code: ghi kết quả mong đợi trước khi chạy
+
+| Test | Loại | Kết quả mong đợi | Nguồn |
+|---|---|---|---|
+| Golden chuẩn, dựng lại từ vật lý | Golden | $L$ = (59/8, 57/8, 25/4, 25/4); $G_S$ = 9/8, $G_M$ = 1/4, $\Gamma$ = −1/4, $G_{S\mid M_1}$ = 7/8, $G_{M\mid S_1}$ = 0; F = 3/8, V = 3/4 | `golden_phase1.py` (L1.3–L1.6, T01) |
+| E7 | Golden | $L$ = (−1/4, −1/4, −7/8, −1, −5/8); F = 3/8, V = 1/4, $p_{\text{sw}}$ = 1/2 | Part 3 |
+| Hòa theo state (E4) | Golden | $p_{\text{sw}}$ = 1/2 | Part 3 |
+| Hòa cấp ô | Golden | $\mathbb E\widehat\Delta=0$ thì $a_{00}$ = Stay | Mới |
+| D10 | Golden | belief $q_B\in\{0;4\}$: $\mathbb E\widehat\Delta=-1/4$, Switch. Rollout từ $q=2$ sẽ cho +1/4 | Part 2 §7.5 |
+| Đẳng thức capacity bỏ phí | Loại 3 | $\Delta J$ (từ `value_backward`) bằng $\delta_A+\delta_B$ (từ `weighted_idle`) | Part 2 §7.2 |
+| Checker của repo | Loại 3 | `single_observation.statistics` đồng ý về $G_M$ và $G_{S\mid M_1}$ | T01 |
+| Metamorphic | Tính chất | Đổi chỗ $\hat\delta$ giữa hai state cùng xác suất: $L_{00}$ **không đổi**, $L_{10}$ **đổi** | D9 (quyền thông tin) |
+| 300 ô ngẫu nhiên | Loại 3 + 2 | Dạng tách bằng kết quả liệt kê; $L_{11}$ nhỏ nhất; T01 (b), (c) | — |
+
+**Test metamorphic là gì.** Ta biến đổi input theo một cách mà lý thuyết nói output *không được đổi* (hoặc *phải đổi*), rồi kiểm. Test này không cần biết đáp án đúng. Ở đây nó kiểm quyền thông tin: $S_0$ chỉ được nhìn thấy trung bình.
+
+## 7. Pseudocode
+
+```text
+aggregate(A, B):
+  K   ← E_A[J_St] + E_B[J_St]                      # không ghép
+  EΔ  ← E_A[δ] + E_B[δ];  EΔ̂ ← E_A[δ̂] + E_B[δ̂]     # không ghép
+  a00 ← [EΔ̂ < 0];  a01 ← [EΔ < 0]                   # một action cho cả ô
+  (p_sw, −EΔ⁻) ← cut_sum(key=δ,  val=δ)             # oracle
+  sw10         ← cut_sum(key=δ̂, val=δ)              # quyết theo δ̂, chấm bằng δ
+  gộp mode trong cùng backlog → (P, δ̄, δ̂̄) mỗi phía
+  swcb         ← cut_sum(key=δ̂̄, val=δ̄)             # D22
+  L ← {00: K+a00·EΔ, 01: K+a01·EΔ, 10: K+sw10, 11: K−EΔ⁻, cb0: K+swcb}
+```
+
+## 8. Code
+
+Mình chạy đúng bản dưới đây trong thư mục nháp. Khi đưa vào repo, bạn chỉ cần đổi các dòng `import` theo layout ở §4 (repo đã có `pythonpath = ["src", "."]`).
+
+### 8.1. `factorial_core.py`: tầng sổ sách
+
+```python
+"""Tầng sổ sách của engine exact (L3.2): ghép hai bảng một phía thành bốn L.
+
+Scientific purpose: tính L00, L01, L10, L11, L_cb0 (D22) và sáu contrast D19
+    từ hai bảng tách được, KHÔNG dựng tích D_A x D_B.
+Used by: evaluate_cell (A01, A04, A05-T); test golden Phase 1, E2, E7.
+Metric: packet·s. Bản này dùng Fraction (chính xác) cho toy và golden.
+"""
+from bisect import bisect_left
+from dataclasses import dataclass
+from fractions import Fraction as F
+
+
+@dataclass(frozen=True)
+class Side:
+    """Bảng một phía. Mỗi dòng là một state x_l = (q_l, m_l) của queue l."""
+    p: tuple      # D_l(x_l)
+    d: tuple      # δ_l: thành phần gap thật (M1)
+    dh: tuple     # δ̂_l: thành phần gap theo M0
+    jst: tuple    # J_l(Stay; x_l) thật
+    group: tuple  # mã backlog q_l, dùng cho D22 (giấu mode)
+
+    def check(self, which):
+        n = len(self.p)
+        if not all(len(v) == n for v in (self.d, self.dh, self.jst, self.group)):
+            raise ValueError('cột lệch độ dài')
+        if any(x <= 0 for x in self.p) or sum(self.p) != 1:
+            raise ValueError('D_l phải dương trên support và cộng bằng 1')
+        sign = (lambda v: v >= 0) if which == 'A' else (lambda v: v <= 0)
+        if not all(sign(v) for v in self.d + self.dh):
+            raise ValueError(f'vi phạm dấu δ_{which} (Part 2 §7.3)')
+
+
+def _cut_sum(A_key, A_val, A_p, B_key, B_val, B_p):
+    """Σ_a p_a Σ_{b: keyA+keyB<0} p_b (valA+valB), và khối lượng tương ứng.
+
+    Sắp B theo KEY (cái dùng để quyết định), cộng dồn VAL (cái dùng để chấm).
+    Bất đẳng thức chặt: hòa thì Stay (D16).
+    """
+    order = sorted(range(len(B_key)), key=lambda i: B_key[i])
+    keys = [B_key[i] for i in order]
+    cum_p, cum_pv = [F(0)], [F(0)]
+    for i in order:
+        cum_p.append(cum_p[-1] + B_p[i])
+        cum_pv.append(cum_pv[-1] + B_p[i] * B_val[i])
+    mass = value = F(0)
+    for ka, va, pa in zip(A_key, A_val, A_p):
+        k = bisect_left(keys, -ka)              # số phần tử < -ka
+        mass += pa * cum_p[k]
+        value += pa * (va * cum_p[k] + cum_pv[k])
+    return mass, value
+
+
+def _by_backlog(s):
+    """Gộp mode trong cùng backlog: posterior D(m|q), trung bình δ và δ̂ (D22, D10)."""
+    acc = {}
+    for p, d, dh, g in zip(s.p, s.d, s.dh, s.group):
+        P, Sd, Sdh = acc.get(g, (F(0), F(0), F(0)))
+        acc[g] = (P + p, Sd + p * d, Sdh + p * dh)
+    P = tuple(v[0] for v in acc.values())
+    return P, tuple(v[1] / v[0] for v in acc.values()), tuple(v[2] / v[0] for v in acc.values())
+
+
+def aggregate(A, B):
+    A.check('A'); B.check('B')
+    E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+    K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+    Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+    a00, a01 = int(Edh < 0), int(Ed < 0)           # S0: MỘT action cho cả ô (T01)
+    p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ<0)] = -EΔ⁻
+    _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+    PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+    _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+    L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+    G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+             Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+             G_S_M1=L['01'] - L['11'], G_M_S1=L['10'] - L['11'],
+             F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+    return dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                E_pos=Ed - neg, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+```
+
+**Đọc theo khối:**
+- **`Side.check`.** Nếu vật lý đưa lên một $\delta_A$ âm, ta dừng ngay *trước* khi ghép. Bug vật lý không được lặn vào tầng sổ sách.
+- **`_cut_sum`.** Đây là toàn bộ Part 3 §7.3 trong khoảng 15 dòng. Một hàm duy nhất phục vụ ba việc: $p_{\text{sw}}$ và $L_{11}$ (khi key = val = $\delta$), $L_{10}$ (key = $\hat\delta$, val = $\delta$), và D22 (bảng đã gộp mode). Ít code thì ít chỗ cho bug, nhưng một bug ở đây sẽ lan ra mọi nơi. Vì vậy hàm này cần được kiểm bằng liệt kê.
+- **`_by_backlog`.** Lấy trung bình $\hat\delta$ theo mode là hợp lệ **vì có D10**. Nếu $M_0$ rollout từ state trung bình, dòng này sẽ sai.
+- **`aggregate`.** $a_{00}$ và $a_{01}$ chỉ đọc *trung bình*. Đó là quyền thông tin của $S_0$, được viết thẳng vào code.
+
+### 8.2. `engine_checker.py`: checker độc lập
+
+```python
+"""Checker độc lập: liệt kê mọi cặp (x_A, x_B). KHÔNG import factorial_core."""
+from fractions import Fraction as F
+from itertools import product
+
+
+def brute(A, B):
+    rows = []
+    for (pa, da, ha, ja, ga), (pb, db, hb, jb, gb) in product(
+            zip(A.p, A.d, A.dh, A.jst, A.group), zip(B.p, B.d, B.dh, B.jst, B.group)):
+        rows.append(dict(p=pa * pb, st=ja + jb, sw=ja + jb + da + db, dh=ha + hb, gA=ga, gB=gb))
+    Ed = sum(r['p'] * (r['sw'] - r['st']) for r in rows)
+    Edh = sum(r['p'] * r['dh'] for r in rows)
+    pick = lambda r, switch: r['sw'] if switch else r['st']
+    L00 = sum(r['p'] * pick(r, Edh < 0) for r in rows)
+    L01 = sum(r['p'] * pick(r, Ed < 0) for r in rows)
+    L10 = sum(r['p'] * pick(r, r['dh'] < 0) for r in rows)
+    L11 = sum(r['p'] * min(r['st'], r['sw']) for r in rows)
+    groups = {}
+    for r in rows:                                   # D22 theo định nghĩa: posterior trên nhóm (qA,qB)
+        g = groups.setdefault((r['gA'], r['gB']), [])
+        g.append(r)
+    Lcb = F(0)
+    for g in groups.values():
+        P = sum(r['p'] for r in g)
+        switch = sum(r['p'] * r['dh'] for r in g) / P < 0
+        Lcb += sum(r['p'] * pick(r, switch) for r in g)
+    return dict(L={'00': L00, '01': L01, '10': L10, '11': L11, 'cb0': Lcb},
+                p_sw=sum(r['p'] for r in rows if r['sw'] < r['st']), rows=rows)
+```
+
+**Vì sao checker phải viết khác hẳn.** Checker đi theo *định nghĩa*, không theo *thuật toán*:
+- dựng sổ cái đầy đủ;
+- chọn action bằng cách so `sw` với `st`;
+- D22 lấy posterior trên **nhóm cặp** $(q_A,q_B)$.
+
+Core thì đi theo con đường hoàn toàn khác: sắp xếp, cộng dồn, gộp từng phía. Hai con đường chung một bug là điều rất khó xảy ra. Đây là bài học trực tiếp từ L1.5.
+
+### 8.3. `toy_physics.py`: vật lý cho toy, chỉ dùng hàm có sẵn của repo
+
+```python
+"""Tầng vật lý cho plant TOY, chỉ dùng hàm tham chiếu Fraction đã có trong repo.
+
+Scientific purpose: dựng bảng Side từ một plant nhỏ để engine tái lập golden Phase 1.
+Không dùng cho ô lưới (ô lưới đi qua cells.py + kernel native).
+"""
+from fractions import Fraction as F
+from smr.exact import value_backward
+from smr.idle_gap import weighted_idle, mean_weighted_idle
+from experiments.A00_engine.factorial_core import Side
+
+
+def toy_side(states, rates, P, c, u_stay, u_switch, H, dt=F(1)):
+    """states: list of (prob, q, mode). Trả Side và (J_Sw thật) để kiểm chéo."""
+    cols = dict(p=[], d=[], dh=[], jst=[], group=[]); jsw = []
+    for p, q, m in states:
+        w1 = {a: weighted_idle(q, m, rates, x, c, H, P, dt) for a, x in (('St', u_stay), ('Sw', u_switch))}
+        w0 = {a: mean_weighted_idle(q, m, rates, x, c, H, P, dt) for a, x in (('St', u_stay), ('Sw', u_switch))}
+        if not all(w0[a] <= w1[a] for a in w1):
+            raise AssertionError('Jensen: W^M0 <= W^M1 bị vi phạm')
+        cols['p'].append(F(p)); cols['d'].append(w1['Sw'] - w1['St']); cols['dh'].append(w0['Sw'] - w0['St'])
+        cols['jst'].append(value_backward(u_stay, H, c, rates, P, [q], dt)[q, m]); cols['group'].append(q)
+        jsw.append(value_backward(u_switch, H, c, rates, P, [q], dt)[q, m])
+    return Side(**{k: tuple(v) for k, v in cols.items()}), tuple(jsw)
+```
+
+Hàm này **không viết vật lý mới**. Nó chỉ ghép ba hàm tham chiếu đã được test ở Phase 1:
+- `value_backward` (cost cộng dồn);
+- `weighted_idle` (capacity bỏ phí theo $M_1$);
+- `mean_weighted_idle` (đường trung bình $M_0$).
+
+$J(\text{Sw})$ được tính riêng để làm kiểm chéo loại 3.
+
+### 8.4. Test
+
+```python
+import random
+from fractions import Fraction as F
+from experiments.A00_engine.factorial_core import Side, aggregate
+from experiments.A00_engine.toy_physics import toy_side
+from engine_checker import brute
+from smr.single_observation import statistics
+import golden_phase1 as g
+
+h = F(1, 2)
+def side(p, d, dh, jst=None, group=None):
+    n = len(p); return Side(tuple(map(F, p)), tuple(map(F, d)), tuple(map(F, dh)),
+                            tuple(map(F, jst or [0] * n)), tuple(group or range(n)))
+
+def canonical():
+    """Ví dụ chuẩn Phase 1: H=2, c=3, u=2, A nền 1, B on/off 5/0, keep 1/2, D đều trên 4 state."""
+    keep = {'on': {'on': h, 'off': h}, 'off': {'on': h, 'off': h}}
+    A, jswA = toy_side([(1, 2, 'x')], {'x': 1}, {'x': {'x': 1}}, 3, 2, 0, 2)
+    B, jswB = toy_side([(F(1, 4), q, m) for q in (2, 0) for m in ('on', 'off')],
+                       {'on': 5, 'off': 0}, keep, 3, 0, 2, 2)
+    return A, B, jswA, jswB
+
+E7 = (side([h, h], [1, 3], ['1/2', '3/2'], group=[1, 4]),
+      side([h, h], [-4, '-1/2'], [-2, '-3/4'], group=[0, 0]))
+
+def test_idle_identity_cross_check():          # loại 3: hai đường tính độc lập
+    A, B, jswA, jswB = canonical()
+    for i, (jb, sb) in enumerate(zip(B.jst, jswB)):
+        assert (jswA[0] + sb) - (A.jst[0] + jb) == A.d[0] + B.d[i]
+
+def test_canonical_golden_from_physics():       # golden Phase 1, dựng lại từ vật lý
+    r = aggregate(*canonical()[:2])
+    assert r['L'] == {**{k: v for k, v in g.FACTORIAL_MEANS.items()}, 'cb0': r['L']['cb0']}
+    G = r['G']
+    assert (G['G_S'], G['G_M'], G['Gamma'], G['G_S_M1'], G['G_M_S1']) == (F(9, 8), F(1, 4), F(-1, 4), F(7, 8), 0)
+    assert (G['F'], G['V']) == (F(3, 8), F(3, 4))  # L1.6: freshness + mode visibility
+
+def test_E7_golden():
+    r = aggregate(*E7)                          # jst = 0 nên K = 0
+    assert [r['L'][k] for k in ('00', '01', '10', '11', 'cb0')] == [F(-1, 4), F(-1, 4), F(-7, 8), -1, F(-5, 8)]
+    assert (r['G']['F'], r['G']['V'], r['p_sw']) == (F(3, 8), F(1, 4), h)
+
+def test_tie_goes_to_stay():                    # E4: một state có Δ = 0
+    r = aggregate(side([h, h], [1, 3], [1, 3]), side([h, h], [-4, -1], [-4, -1]))
+    assert r['p_sw'] == h
+
+def test_cell_level_tie_goes_to_stay():         # E_D δ̂ = 0 đúng bằng 0, nhưng E_D Δ = -1
+    r = aggregate(side([1], [1], [1]), side([1], [-2], [-1]))
+    assert (r['a00'], r['L']['00']) == (0, 0)
+
+def test_D10_mean_of_rollouts():                 # belief q_B ∈ {0,4}: E δ̂ = -1/4 (rollout từ q=2 sẽ cho +1/4)
+    B, _ = toy_side([(h, 0, 'x'), (h, 4, 'x')], {'x': 2}, {'x': {'x': 1}}, 3, 0, 2, 1)
+    r = aggregate(side([1], ['1/4'], ['1/4']), B)
+    assert (r['E_delta_hat'], r['a00']) == (F(-1, 4), 1)
+
+def test_T01_checker_agrees():                  # checker độc lập của repo, cấp ô
+    A, B = canonical()[:2]; b = brute(A, B)
+    rows = [(r['p'], r['st'], r['sw'], 0, r['dh']) for r in b['rows']]   # M0: chỉ hiệu số có nghĩa
+    s, r = statistics(rows), aggregate(A, B)
+    assert (s['L00'] - s['L01'], s['G_S_given_M1']) == (r['G']['G_M'], r['G']['G_S_M1'])
+
+def test_metamorphic_S0_sees_only_mean():       # đổi chỗ δ̂ giữa hai state cùng xác suất
+    A, B = E7; r1 = aggregate(A, B)
+    B2 = Side(B.p, B.d, B.dh[::-1], B.jst, B.group); r2 = aggregate(A, B2)
+    assert r1['L']['00'] == r2['L']['00'] and r1['L']['10'] != r2['L']['10']
+
+def _random_side(rng, which, n):
+    w = [rng.randint(1, 4) for _ in range(n)]; p = [F(x, sum(w)) for x in w]
+    s = 1 if which == 'A' else -1
+    v = lambda: s * F(rng.randint(0, 8), rng.choice([1, 2, 4]))
+    return Side(tuple(p), tuple(v() for _ in p), tuple(v() for _ in p),
+                tuple(F(rng.randint(0, 20)) for _ in p), tuple(rng.randint(0, 2) for _ in p))
+
+def test_brute_force_random():                  # loại 3: dạng tách = liệt kê, 300 ô ngẫu nhiên
+    rng = random.Random(20261027)
+    for _ in range(300):
+        A, B = _random_side(rng, 'A', rng.randint(1, 5)), _random_side(rng, 'B', rng.randint(1, 5))
+        r, b = aggregate(A, B), brute(A, B)
+        assert r['L'] == b['L'] and r['p_sw'] == b['p_sw']
+        assert r['L']['11'] <= min(r['L'][k] for k in ('00', '01', '10', 'cb0'))   # loại 2
+        assert r['G']['G_S_M1'] == min(r['E_pos'], r['E_neg'])                       # T01 (c)
+        assert r['G']['G_M'] <= abs(r['bias'])                                       # T01 (b)
+```
+
+**Kết quả chạy:** `9 passed`.
+
+Golden chuẩn được dựng lại **từ vật lý**, không phải từ con số đã ghi sẵn. Nó khớp với:
+- `FACTORIAL_MEANS`, gồm $L_{11}$ = 25/4 = 6,25, chính là oracle của L1.3;
+- cả năm contrast;
+- phép tách của L1.6 (F = 3/8, V = 3/4).
+
+Từ đó cũng suy ra regret của luật "luôn Stay" là 9/8 và của "luôn Switch" là 7/8, khớp L1.3.
+
+## 9. Mutation testing: bằng chứng rằng test có răng
+
+**Cách làm.** Sửa đúng một chỗ trong `factorial_core.py`, chạy lại toàn bộ test, rồi ghi lại test nào đỏ.
+
+| Mutant | Bị bắt bởi |
+|---|---|
+| M1 đổi nhãn S/M | E7, canonical, checker T01, brute, metamorphic |
+| M3 $S_0$ nhận state thật | E7, canonical, checker T01, brute, metamorphic |
+| M5a hòa thì Switch (theo state) | hòa E4, brute |
+| M5b hòa thì Switch (cấp ô) | **chỉ** brute *(trước khi có test hòa cấp ô)* → brute, hòa cấp ô |
+| M8 D22 dùng mode thật | E7, canonical, brute |
+| M9 $L_{10}$ sắp theo $\delta$ thay vì $\hat\delta$ | E7, brute, metamorphic, **nhưng không bị canonical bắt** |
+| M10 $L_{10}$ chấm bằng $\hat\delta$ | E7, canonical, brute, metamorphic |
+
+**Ba bài học từ bảng này:**
+
+1. **Golden chuẩn không bắt được M9.** Ví dụ chuẩn có $G_{M\mid S_1}=0$, nên ở đó $L_{10}=L_{11}$ dù bạn sắp theo cái gì. Một golden chỉ bắt được những lỗi làm *nó* thay đổi. Đó là lý do cần thêm E7, vì E7 có $G_{M\mid S_1}\ne0$.
+2. **Trong lần chạy đầu, M5b chỉ bị liệt kê ngẫu nhiên bắt.** Mình đã thêm một golden có $\mathbb E\widehat\Delta=0$ *chính xác*. Đừng để một luật của contract (D16) chỉ được bảo vệ bằng một seed ngẫu nhiên.
+3. **Mutant ở tầng vật lý cần test ở tầng vật lý:**
+   - **M2: rollout từ state trung bình.** Kiến trúc `Side` đã loại bỏ lỗi này ở tầng sổ sách, vì $a_{00}$ luôn được tính từ $\mathbb E_D[\hat\delta]$. Lỗi chỉ có thể quay lại nếu ai đó tính dự đoán của $S_0$ bằng một đường riêng "cho nhanh". Golden D10 ở trên chặn trường hợp đó: đúng thì ra −1/4 (Switch), sai thì ra +1/4 (Stay).
+   - **M4: lấy gap bằng hiệu hai cost.** Trong số học chính xác, cách này cho **đúng cùng kết quả**. Đây gọi là *mutant tương đương* (equivalent mutant): không test Fraction nào bắt được nó. Nó chỉ lộ ra khi tính bằng float. Mình đã chạy một ô conservation tất định với $dt$ = 1/120 và $H$ = 960:
+
+     | Backlog ban đầu | Hiệu hai cost | Qua capacity bỏ phí |
+     |---|---:|---:|
+     | 5 (có rỗng) | +3,653 | +3,653 (gap thật, hai cách khớp) |
+     | 500 (không rỗng) | **−2,2·10⁻¹⁰** | **0** |
+     | 5·10⁵ | **+2,2·10⁻⁷** | **0** |
+
+     Một gap âm giả sẽ được đọc là "Switch tốt hơn một chút". Test bắt M4 phải là: *ô conservation thì gap phải `== 0` tuyệt đối, tính bằng float*. `gap_from_idle` đã raise khi điều này sai.
+   - **M6 (không tính lại prior theo dt)** và **M7 (dùng $C_{\text{ref}}$ của mức dt khác)** nằm ở tầng `cells` và `evaluate_cell`. Test migration ở §11 bắt M6. Test chạy toy ở hai mức ref với $C_{\text{ref}}$ khác nhau thì bắt M7.
+
+## 10. Bản float có khoảng: hiện thực hóa đề xuất §8b của Part 3
+
+Ô thật dùng float, nên mỗi key có sai số. Ta cắt hai lần: một lần ở "chắc chắn Switch", một lần ở "có thể Switch". Phần nằm giữa hai lần cắt là phần chưa phân giải, và ta tính được cận ảnh hưởng của nó:
+
+```python
+import numpy as np
+
+def cut_with_bound(A_key, A_val, A_p, B_key, B_val, B_p, e_key):
+    """Như _cut_sum nhưng key có sai số ±e_key (đã cộng cả hai phía).
+
+    Trả: value (cắt tại giá trị danh nghĩa), khối lượng chưa phân giải,
+    và cận ảnh hưởng Σ p·|Δ| trên các cặp chưa phân giải (Part 3 §8b).
+    """
+    o = np.argsort(B_key, kind='stable'); keys = B_key[o]
+    cp  = np.r_[0.0, np.cumsum(B_p[o])]
+    cpv = np.r_[0.0, np.cumsum(B_p[o] * B_val[o])]
+    cpa = np.r_[0.0, np.cumsum(B_p[o] * np.abs(B_val[o]))]
+    k  = np.searchsorted(keys, -A_key,         side='left')   # danh nghĩa
+    lo = np.searchsorted(keys, -A_key - e_key, side='left')   # chắc chắn Switch
+    hi = np.searchsorted(keys, -A_key + e_key, side='left')   # có thể Switch
+    value = np.sum(A_p * (A_val * cp[k] + cpv[k]))
+    band = cp[hi] - cp[lo]
+    unresolved = np.sum(A_p * band)
+    impact = np.sum(A_p * (np.abs(A_val) * band + (cpa[hi] - cpa[lo])))
+    return value, unresolved, impact
+```
+
+**Cận ảnh hưởng.** Nhờ bất đẳng thức tam giác, $\lvert\delta_A+\delta_B\rvert\le\lvert\delta_A\rvert+\lvert\delta_B\rvert$. Vì vậy chỉ cần thêm **một** mảng cộng dồn $p\lvert\delta_B\rvert$.
+
+**Đã kiểm.** Trên 2000 toy ngẫu nhiên, mình xê dịch key trong khoảng ±e. Độ lệch của `value` không bao giờ vượt `impact`, ngoại trừ phần làm tròn cỡ 4·10⁻¹⁶. Bản này dùng cho $L_{10}$ và $L_{\text{cb}0}$. Với $L_{11}$ thì không cần, vì $\min$ liên tục (Part 3 §7.7).
+
+## 11. Việc còn lại để có engine cho ô thật (pseudocode, chưa chạy)
+
+### 11.1. `side_table(cell, which, ref)`
+
+```text
+D, support, e_D   ← queue_law(cell, which, ref)                 # = queue_D, chuyển nguyên văn
+W1(St), W1(Sw), e ← backward kernel, như component() trong reformulate_grid.py
+                    (component chỉ trả HIỆU; ở đây giữ cả W1(St) để tính J_St)
+W0(St), W0(Sw)    ← đường trung bình, vector hóa trên mọi q của support, cho mỗi mode m:
+                    μ_k(m) = λ̄ ± a·r^k,  r = 2·keep − 1,  a = (rate_ON − rate_OFF)/2
+                    q ← max(0, q + (μ_k + u_l − 10)·dt);  idle_k = max(0, 10dt − q − (μ_k+u_l)dt)
+J_St(q,m)         ← dt·[H·q + Σ_k (H−k)(μ_k(m) + u_l − 10)·dt] + W1(St)
+kiểm: dấu δ; W0 ≤ W1; certificate bằng 0; trên toy: J_St khớp value_backward (loại 3)
+```
+
+- Công thức $J_{\text{St}}$ chính là "phần tuyến tính + capacity bỏ phí" của Part 2 §7.2. Mình đã kiểm tay trên state (0, off) của ví dụ chuẩn: ra $J=1$, khớp `value_backward`.
+- **Đừng hardcode ±6.** Ô N01 có A tất định với `ratesA = (4, 4)`, tức biên độ bằng 0.
+
+### 11.2. Migration (Bước 8): coi chừng ba schema
+
+Mình đã đọc `grid_v1_2.json` và thấy **ba dạng record khác nhau**:
+
+| Nhóm | Có trường | Không có |
+|---|---|---|
+| 38 ô chính, 12 held-out | `lambdaA`, `u`, `role` | `ratesA` |
+| 6 ô control | `ratesA` (N01 là `['4','4']`), `role` | `lambdaA`, **`u`** (phải lấy $u=2\eta$; S01 có η = 3/2 nên u = 3) |
+| 2 đầu dò P01, P02 | `lambdaA`, `u` | **`role`** |
+
+Một adapter tự động suy `ratesA = λA ± 6` cho mọi ô sẽ **âm thầm đổi plant của N01**. Khi đó kiểm "sáu contrast bằng 0" của N01 có thể vẫn đạt, nhưng đạt vì một lý do sai. Test migration:
+
+```python
+# tests/test_cells_migration.py — mức D, KHÔNG tính J. Ghi exposure "chỉ D" khi chạy.
+import json, numpy as np
+from fractions import Fraction as F
+from smr.cells import load_cell, queue_law
+from experiments.lessons.run_v1_1_a2 import queue_D
+from experiments.explore.reformulate_grid import make_cell
+
+def test_adapter_schemas():
+    N01 = load_cell('N01')
+    assert N01['ratesA'] == (F(4), F(4)) and N01['u'] == F(1)
+    assert load_cell('S01')['u'] == F(3)
+
+def test_queue_law_matches_provenance():
+    for cid in ('M01', 'M09', 'M22', 'N01', 'N02', 'N03', 'N04', 'W01'):
+        cell = load_cell(cid)
+        for which in 'AB':
+            for ref in (1, 2):
+                new, old = queue_law(cell, which, ref), queue_D(cell, which, ref)
+                assert new[0] == old[0]                                  # unit
+                assert np.array_equal(new[1], old[1])                     # mass, bit-for-bit
+                assert np.array_equal(new[2], old[2]) and new[3] == old[3]
+```
+
+Cần thêm một test nữa: với các ô chính, `load_cell(id)` phải trùng với `make_cell(slice, λA)` của protocol v1.2 ở các trường mà `queue_D` dùng.
+
+## 12. Guard: hiện thực hóa thứ tự commit của L3.1, Part 2
+
+```python
+GRID = json.load(open('notes/design/grid_v1_2.json'))
+GRID_IDS = {c['id'] for k in ('main', 'heldout', 'controls', 'probes') for c in GRID[k]}
+HELDOUT_IDS = {c['id'] for c in GRID['heldout']}
+CARD = 'notes/lessons/L3.3_prediction_card.md'      # tên tạm để minh họa
+
+def _committed(path):
+    head = subprocess.run(['git', 'log', '-1', '--format=%H', '--', path],
+                          capture_output=True, text=True, check=True).stdout.strip()
+    dirty = subprocess.run(['git', 'status', '--porcelain', '--', path],
+                           capture_output=True, text=True, check=True).stdout.strip()
+    if not head or dirty:
+        raise PermissionError(f'{path} chưa commit hoặc đang sửa dở')
+    return head
+
+def guard(cell_id, *, allow_grid=False, allow_heldout=False):
+    if cell_id not in GRID_IDS:
+        return None                                   # toy: tự do
+    if not allow_grid:
+        raise PermissionError(f'{cell_id} là ô lưới: cần --allow-grid (chỉ runner A01/A04/A05-T)')
+    if cell_id in HELDOUT_IDS and not allow_heldout:
+        raise PermissionError(f'{cell_id} là held-out: chỉ A05-T, sau khi A05-F đã commit')
+    return _committed(CARD)                           # ghi hash này vào mọi output
+```
+
+Hai chỗ khác với plan, kèm lý do:
+- **Guard theo id, không theo `role`.** P01 và P02 không có trường `role`, nên guard theo role sẽ để lọt hai đầu dò.
+- **Held-out có cờ riêng.** Runner của A01 cần `--allow-grid`, nhưng không bao giờ được chạm R01–R12.
+
+## 13. Những chỗ mình đề xuất chỉnh plan
+
+| Plan hiện ghi | Đề xuất | Vì sao |
+|---|---|---|
+| `evaluate_cell` trả "khối lượng lật $P(a_{10}\ne a_{11})$" | Đánh dấu **Later**, không chặn A01 | Đây là bài toán đếm **hai chiều** ($\hat\delta_A+\hat\delta_B<0$ **và** $\delta_A+\delta_B\ge0$), một lần sắp không làm được. Cài sau bằng quét + cây Fenwick, $O(N\log N)$, kiểm bằng liệt kê. Trên E7, $P(\text{lật})=P(\widehat\Delta<0)+P(\Delta<0)-2P(\text{cả hai})=3/4+1/2-1=1/4$. Part 3 mình xếp nó chung nhóm "cần ghép"; chính xác hơn là ghép *hai chiều* |
+| Ba hàm `queue_components`, `stay_linear`, `evaluate_cell` | Thêm giao diện **`Side`** giữa vật lý và sổ sách | Toy và ô thật đi qua cùng một `aggregate`, nên golden Phase 1 kiểm đúng code sẽ chạy trên lưới |
+| Golden: chỉ danh sách Phase 1 | Thêm E7, hòa cấp ô, D10 | Canonical không bắt M9; trước khi thêm, M5b chỉ bị bắt nhờ seed ngẫu nhiên |
+| Mutant "trừ hai cost" | Test bằng **float**, ở ô conservation | Đây là mutant tương đương trong số học chính xác |
+| Migration: so `queue_D` | Thêm test adapter cho **ba schema** | N01 có `ratesA` riêng, control không có `u`, đầu dò không có `role` |
+| Guard: cờ `--allow-grid` | Theo id, và held-out có cờ riêng | Như §12 |
+
+Ngoài ra, các golden L1.5 ($I_\Delta$) và L1.8B (chuỗi $G_S$) **chưa** được tái lập: `aggregate` chưa tính $\mathbb E\lvert I_\Delta\rvert$ (một chiều, cùng kernel), và L1.8B cần plant slot của L1.8. Đây là việc còn lại.
+
+## 14. 🔗 Liên hệ với repo cũ
+
+- **Dùng lại nguyên văn (Keep):** `exact.value_backward`, `idle_gap.weighted_idle`, `mean_weighted_idle`, `resolve_sign`, `single_observation.statistics`, kernel `idle_backward.cpp`. Phase 1 đã làm phần khó nhất. Part 4 chủ yếu là *ghép* và *kiểm*.
+- **Chuyển nguyên văn (Rebuild):** `queue_D` và phần tính $\delta$ của `component()`. Đoạn kiểm sau `assert np.min(value) >= -error` trong `component` chính là bất biến dấu ở Part 2.
+- **So với thế hệ 2:** engine Lindley trong `f04b_des_gap.py` là Monte Carlo. Engine này là exact và sẽ thành *đáp án* cho Monte Carlo ở Phase 4. Vai trò đã đảo ngược.
+
+## 15. Được nói gì và không được nói gì
+
+| Được nói (khi đã làm xong) | Không được nói |
+|---|---|
+| "Engine tái lập mọi golden Phase 1 và bắt mọi mutant đã liệt kê" | "Engine đúng", vì mutant chỉ kiểm những lỗi mình nghĩ ra |
+| "Tầng sổ sách bằng liệt kê trên 300 ô toy" | "Đúng trên lưới", vì toy nhỏ hơn và không có lỗi float |
+| "Chưa có kết quả nào của ô lưới" | Bất kỳ con số $J$ nào của ô M, R, N, P |
+
+## 16. Reviewer có thể hỏi
+
+1. *"Làm sao anh biết test của anh có kiểm được gì?"* → **Trả lời được**: bảng mutant ở §9, kèm phân loại test (loại 1/2/3).
+2. *"Checker và engine có chung bug không?"* → Trả lời được: hai con đường khác nhau, và checker không import core.
+3. *"Engine có đúng với float ở backlog lớn không?"* → **Một phần**: certificate cộng thêm bản có khoảng. Lỗi float trên ô thật chỉ lộ ở A01.
+
+## 17. ⚠️ Bẫy người mới
+
+- Thấy "test xanh" là coi như xong. Chưa có mutant thì không biết test có răng hay không.
+- Viết checker bằng cách copy core rồi "sửa một chút".
+- Chỉ dùng golden đối xứng hoặc golden có $G_{M\mid S_1}=0$.
+- Để một luật của contract chỉ được bảo vệ bằng test ngẫu nhiên.
+- Kiểm mutant "trừ hai cost" bằng Fraction.
+- Guard theo `role`.
+- Hardcode ±6 trong công thức trung bình.
+- "Thử `side_table` trên M01 cho chắc." Đó là exposure. Hãy thử trên toy.
+
+## 18. 🧠 Tư duy researcher
+
+> **Một test có giá trị khi tồn tại một bug cụ thể làm nó đỏ.** Trước khi viết test, hãy tự hỏi: "test này bắt lỗi nào?" Nếu không trả lời được, test đó chỉ là trang trí.
+
+Mutation testing biến câu hỏi đó thành một phép đo, thay vì để nó là cảm giác.
+
+## 19. Bài tập để nhớ lâu (khuyến nghị)
+
+Read-back: với mỗi hàm, trả lời một câu bằng lời của bạn. Đây cũng là nội dung của T05 (X.3 #2).
+- `_cut_sum`: vì sao `bisect_left` chứ không phải `bisect_right`?
+- `_by_backlog`: contract nào cho phép lấy trung bình $\hat\delta$?
+- `aggregate`: dòng nào hiện thực hóa quyền thông tin của $S_0$?
+- `brute`: vì sao nó không được import `factorial_core`?
+- `toy_side`: test nào dùng `jsw` của nó, và kiểm điều gì?
+
+## 20. Tự kiểm tra (tùy chọn)
+
+1. Vì sao canonical không bắt được M9?
+2. Mutant tương đương là gì? Cho một ví dụ trong engine này.
+3. Test metamorphic ở §8.4 kiểm quyền thông tin nào, và vì sao nó không cần biết đáp án?
+4. Vì sao khối lượng lật không tính được bằng một lần sắp?
+5. Reviewer: "Golden đều là toy, sao tin được engine trên lưới?" Phần nào trả lời được, phần nào phải chờ A01?
+
+---
+
+## 21. Lesson Gate: toàn bộ L3.2
+
+**Hiểu:**
+- Engine có hai tầng, nối bằng một giao diện chung.
+- Bổ đề T01 và bốn công thức $L$.
+- Separability, đẳng thức capacity bỏ phí, Jensen.
+- Sắp xếp–cộng dồn, D22 và vai trò của D10.
+- Ba nguồn sai số; khoảng thay cho kẹp; đại lượng nào nhảy bậc.
+- Phân loại test; mutant; mutant tương đương.
+- Ranh giới của engine v1: không có EVPI$_w$, khối lượng lật để sau.
+
+**Nên làm khi triển khai thật:**
+- T05 do tác giả viết. Sau đó chuyển code từ `experiments/A00_engine/` vào `src/`.
+- `side_table` thật; migration theo ba schema; bản float có khoảng.
+- $\mathbb E\lvert I_\Delta\rvert$ và các quantile.
+- Golden L1.5 và L1.8B.
+- Guard.
+- Một DL "engine exact v1: chứng nhận gì, không chứng nhận gì", kèm một dòng exposure.
+
+**Phụ thuộc khoa học** (trước khi chạy engine trên ô lưới):
+- mọi test mới xanh, và cả 202 test cũ vẫn xanh;
+- mọi mutant bị bắt;
+- tác giả giải thích được từng hàm, hoặc ghi author-attested;
+- **card L3.3 đã commit.**
+
+**Exposure:** trong toàn bộ L3.2, AI chỉ chạy toy. Không dựng $D$, không tính $J$, gap hay contrast của bất kỳ ô lưới nào. Bản chạy được của code trên nằm ở `/tmp/claude-0/-home-claude/a0c17a7c-ba48-509d-9c45-296a96c868e8/scratchpad/engine/`, chưa đưa vào repo.
+
+**Học tiếp được không?** **Có.** L3.3 (prediction card) là bước tiếp theo, và cũng là điều kiện cuối cùng trước A01. Mình dừng ở đây.

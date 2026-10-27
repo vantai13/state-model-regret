@@ -385,3 +385,23 @@ held-out, và tái tính screen M31 cũ. Không dựng D/không chạy outcome h
 A01/A04/A05-F/A05-T chưa chạy. L3.3 chưa khóa; K5/null/H1 không được chọn.
 [Config và nguồn](../results/lessons/l3_1/part3/config.json) ·
 [report](../results/lessons/l3_1/part3/report.md).
+
+## L3.2 Parts 1–4 — 27/10/2026
+
+Doan Van Tai phụ trách; AI đọc bốn lesson và triển khai engine ở experiments/A00_engine.
+E1/E2/E3/E5/E6/E7/golden Phase1 và cơ chế Jensen đã exposed trong lesson trước khi lưu
+expected_before_code; không là blind prediction hoặc tác giả tự trả lời kín sách.
+T05 do AI hỗ trợ có phần tác giả còn trống, không có author attestation mới.
+
+J/gap/contrast mới chỉ tính trên synthetic toys: canonical, E2/E5/E7, các plant ngẫu nhiên,
+teaching cell L1.8B. E3/E6 được ghi là arrival-law toys ngoài D7; không đổi mode timing D7.
+Không chạy engine J/gap/contrast trên bất kỳ ô M/R/N/P/W/S nào của grid v1.2.
+Migration Part4 §11 chạy **D-only** trên M01/M09/M22/N01/N02/N03/N04/W01, hai queue,
+ref1/2 (32 trường hợp khác nhau; cả test và replay); so unit/mass/support/error với queue_D
+gốc. Adapter đọc metadata cả58 records; không dùng p_sw/λA riêng held-out làm features.
+Không dựng D held-out. Full regression còn rerun D-only L3.1 và screen M31 đã exposed.
+Vì thế không nhận toàn phiên là “không dựng D grid”; ngoại lệ D-only được DL-045 ghi trước.
+
+Mutation chạy trong temporary copy, chỉ toy/D-only và git fixture, không thay source gốc.
+L3.3 chưa commit; không khóa K5/H1/null/split, không A01/A04/A05, không thay nhãn PC/G1.
+[Config/seeds](../results/lessons/l3_2/config.json) · [report](../results/lessons/l3_2/report.md).

@@ -1,0 +1,320 @@
+# LESSON 3.2 — Engine exact cho bốn ô
+
+## Kiểm tra trước khi dạy
+
+L3.2 trong PHASE_3 v2.0 vẫn khớp với repo. Cụ thể:
+- Kernel đã verify có mặt: `gap_screen.py`, `idle_backward.cpp`, `idle_gap.py`, `single_observation.py`, …
+- Chưa có `factorial.py` hay `cells.py`.
+- Hàm dựng $D$ của v1.2 vẫn nằm trong `experiments/` (`queue_D`).
+
+Mình đã tính lại ví dụ E2 của plan bằng phân số. Mình cũng chạy E2 qua checker có sẵn trong repo (`single_observation.statistics`). Cả hai cách cho cùng kết quả.
+
+## Lesson map
+
+L3.2 lớn. Mình chia theo **tầng** của engine:
+
+| Part | Nội dung | Cần queue không? |
+|---|---|---|
+| **1** (hôm nay) | **Tầng sổ sách**: từ "sổ cái theo từng state" đến bốn giá trị $L$ và sáu contrast (bổ đề T01) | Không |
+| 2 | **Tầng vật lý**: tính $\Delta(x)$ và $\widehat\Delta_{M_0}(x)$ cho *một* state. Gồm separability, đẳng thức capacity bỏ phí, Jensen | Có |
+| 3 | **Ghép cả ô**: sắp xếp và cộng dồn trên $D_A\times D_B$ (công thức $L_{10}$), pipeline D22, sai số số, phần engine v1 không làm | Có |
+| 4 | **Code**: hợp đồng hàm, các loại test (golden, brute force, mutant), migrate `queue_D`, kỷ luật exposure | — |
+
+Về việc học: không Part nào bị chặn. Về việc thực thi: engine chỉ được chạy trên ô của lưới khi test đã xanh và card đã commit.
+
+---
+
+# LESSON 3.2 — Part 1: Tầng sổ sách — từ sổ cái đến sáu contrast
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.2 Engine exact
+  Part 1 ← YOU ARE HERE: sổ cái theo state → L00, L01, L10, L11 → 6 contrast
+  Part 2   vật lý: Δ(x), Δ̂(x) cho một state
+  Part 3   ghép cả ô trên D_A × D_B, sai số số
+  Part 4   code và test
+```
+
+## 2. Part 1 trả lời câu hỏi gì?
+
+> Giả sử với mỗi state thật $x$ trong một ô, ta đã biết cost thật của hai action và cost mà $M_0$ dự đoán. Làm sao từ đó ra **đúng** bốn giá trị $L$ và sáu contrast? Và chúng có những tính chất gì mà ta biết trước, không cần tính?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Sáu contrast chính là cách RQ đo hai chữ "differ" và "interact". Nếu tầng sổ sách sai, ví dụ đổi nhãn S/M hoặc cho $S_0$ nhìn state thật, thì mọi con số của A04 trả lời một câu hỏi khác. Lỗi này gọi là **identification**: phép đo không đo đúng đại lượng mình định đo (rủi ro SR3).
+
+**Tầng thực hành.** Sau Part 1, bạn tự tính được bảng 2×2 cho một ô tí hon bằng tay. Bạn cũng biết những bất biến nào mà engine *bắt buộc* phải thỏa.
+
+**Nếu bỏ qua.** Trong Phase 1, ở L1.4, một mutant đổi nhãn S/M đã lọt qua 11 test đầu tiên. Chỉ một ví dụ golden bất đối xứng mới bắt được nó. Nếu không hiểu tầng sổ sách, bạn không biết phải viết loại test nào để bắt lỗi kiểu này.
+
+## 4. Liên hệ với Main RQ
+
+```text
+Sổ cái theo state  →  4 giá trị L  →  6 contrast  →  "differ" (G_S vs G_M)
+                                                     "interact" (Γ)
+                                                  →  bằng chứng E1 của A04 cho RQ1 và RQ2
+```
+
+Liên hệ ở đây là **trực tiếp**. Part 1 *chính là* định nghĩa vận hành của câu trả lời cho RQ trong mô hình.
+
+## 5. Nền toán cần cho Part 1
+
+| Mức | Nội dung |
+|---|---|
+| **Cần ngay** | Kỳ vọng trên phân phối rời rạc; hàm chỉ thị $\mathbf 1[\cdot]$; $\max$ và $\min$ |
+| Học trong lúc làm | Ba đẳng thức nhỏ: $\Delta=\Delta^+-\Delta^-$; $\min(a,b)=a-(a-b)^+$; $\lvert\Delta\rvert=\Delta^++\Delta^-$ |
+| Chưa cần | Queueing, Jensen (sang Part 2), xác suất có điều kiện của chuỗi Markov |
+
+Ký hiệu cho phần dương và phần âm của một số: $\Delta^+=\max(\Delta,0)$ và $\Delta^-=\max(-\Delta,0)$. Ví dụ: với $\Delta=-3$ thì $\Delta^+=0$, $\Delta^-=3$; với $\Delta=+1$ thì $\Delta^+=1$, $\Delta^-=0$.
+
+## 6. Mental model: engine có hai tầng
+
+```text
+          TẦNG VẬT LÝ (Part 2–3)                       TẦNG SỔ SÁCH (Part 1)
+  plant, D, queue, Jensen, slot dt           ┌────────────────────────────────────┐
+  ─────────────────────────────►  SỔ CÁI  ──►│ 4 luật quyết định → L00..L11 → 6 G │
+                                 theo state  └────────────────────────────────────┘
+```
+
+Hãy hình dung một kế toán. Tầng vật lý là việc lập từng *hóa đơn*, mỗi hóa đơn cho một state. Tầng sổ sách là việc lập *bảng cân đối* cho cả ô.
+
+Tách hai tầng như vậy có lợi ở chỗ: tầng sổ sách **kiểm được hoàn toàn bằng ví dụ tay**, không cần queue. Một khi tầng này đúng, mọi sai sót còn lại chắc chắn nằm ở tầng vật lý.
+
+---
+
+## 7. Các khái niệm
+
+### 7.1. Sổ cái (ledger) theo state
+
+Ôn lại từ L3.1: một ô có *một* ảnh chụp $y$. Phân phối $D$ gồm mọi state thật $x$ khớp với ảnh chụp đó. Sổ cái là một bảng, mỗi dòng ứng với một state:
+
+| Cột | Ký hiệu | Đơn vị | Ai được dùng để **quyết định** |
+|---|---|---|---|
+| Xác suất | $D(x)$ | — | $S_0$ (làm belief), evaluator |
+| Cost thật của Stay | $J(\text{St};x)$ | packet·s | $M_1$ |
+| Cost thật của Switch | $J(\text{Sw};x)$ | packet·s | $M_1$ |
+| Cost $M_0$ dự đoán | $\hat J(\text{St};x)$, $\hat J(\text{Sw};x)$ | packet·s | $M_0$ |
+| Gap thật | $\Delta(x)=J(\text{Sw};x)-J(\text{St};x)$ | packet·s | (dẫn xuất) |
+| Gap theo $M_0$ | $\widehat\Delta(x)=\hat J(\text{Sw};x)-\hat J(\text{St};x)$ | packet·s | (dẫn xuất) |
+
+**Luật vàng của tầng sổ sách:** *quyết định* dùng thông tin của pipeline, còn *cost để chấm* thì **luôn** là cost thật. Một pipeline có thể "nghĩ" Switch rẻ hơn, nhưng nó phải trả cost thật của Switch.
+
+### 7.2. Bốn pipeline là bốn luật quyết định trên cùng một sổ cái
+
+Mọi pipeline đều dùng luật: Switch khi và chỉ khi gap mà nó thấy là âm; nếu gap bằng 0 thì Stay (D16). Chỗ khác nhau là gap mà mỗi pipeline *thấy*:
+
+```text
+                   M0 (rollout trung bình)            M1 (law đúng)
+               ┌──────────────────────────────┬──────────────────────────────┐
+ S0 (chỉ có y) │ 00: MỘT action cho cả ô       │ 01: MỘT action cho cả ô       │
+               │     Switch ⇔ E_D[Δ̂] < 0       │     Switch ⇔ E_D[Δ] < 0       │
+               ├──────────────────────────────┼──────────────────────────────┤
+ S1 (biết x)   │ 10: action theo TỪNG state    │ 11: action theo TỪNG state    │
+               │     Switch ⇔ Δ̂(x) < 0         │     Switch ⇔ Δ(x) < 0 = ORACLE│
+               └──────────────────────────────┴──────────────────────────────┘
+```
+
+**Vì sao $S_0$ chỉ có một action cho cả ô?** Controller $S_0$ chỉ thấy $y$, mà $y$ giống nhau cho mọi state trong ô. Vì vậy belief của nó luôn là $b=D$, kỳ vọng nó tính luôn ra cùng một số, và quyết định của nó cũng luôn như nhau. Note T01 gọi đây là một **conditional experiment**: thí nghiệm có điều kiện trên một observation cố định. Controller không phản ứng với nhiều observation khác nhau trong cùng một ô.
+
+**Một chi tiết của D10 mà Part 4 sẽ kiểm bằng mutant.** $M_0$ lấy *trung bình của các cost rollout*, mỗi rollout xuất phát từ một state trong belief. Nó **không** rollout từ *state trung bình*. Hai cách này cho kết quả khác nhau vì queue phi tuyến. Lý do cụ thể sẽ rõ ở Part 2.
+
+### 7.3. Từ sổ cái ra bốn giá trị $L$
+
+**Câu hỏi:** cost kỳ vọng thật của mỗi pipeline là bao nhiêu?
+
+**Bước 1.** Với một quyết định $d(x)\in\{0=\text{Stay},\,1=\text{Switch}\}$, cost thật là
+$$J(\text{chọn};x)=J(\text{St};x)+d(x)\,\Delta(x).$$
+Lý do: nếu Stay thì cộng 0; nếu Switch thì cộng phần chênh $\Delta$.
+
+**Bước 2.** Lấy kỳ vọng theo $D$. Kỳ vọng tuyến tính, nên
+$$L=\mathbb E_D[J(\text{St})]+\mathbb E_D[d\,\Delta].$$
+
+**Bước 3.** Thay luật quyết định của từng pipeline vào:
+
+| Ô | $d(x)$ | $L$ |
+|---|---|---|
+| 00 | $a_{00}$ (hằng) | $\mathbb E J(\text{St})+a_{00}\,\mathbb E\Delta$ |
+| 01 | $a_{01}$ (hằng) | $\mathbb E J(\text{St})+a_{01}\,\mathbb E\Delta$ |
+| 10 | $\mathbf 1[\widehat\Delta(x)<0]$ | $\mathbb E J(\text{St})+\mathbb E\big[\mathbf 1[\widehat\Delta<0]\,\Delta\big]$ |
+| 11 | $\mathbf 1[\Delta(x)<0]$ | $\mathbb E J(\text{St})-\mathbb E\Delta^-$ |
+
+Dòng 11 đúng vì $\mathbf 1[\Delta<0]\cdot\Delta=-\Delta^-$.
+
+**Nhận xét quan trọng nhất của Part 1.** Cả bốn giá trị $L$ có chung số hạng $\mathbb E J(\text{St})$. Khi lấy hiệu để tính contrast, số hạng này **triệt tiêu**. Vậy:
+
+> Sáu contrast chỉ phụ thuộc vào cặp $(\Delta,\widehat\Delta)$ dưới $D$. Mức cost tuyệt đối chỉ cần để chuẩn hóa (qua $C_{\text{ref}}$).
+
+Nhận xét này sẽ quay lại ở A05-F. Ở đó, cả $H_0$ lẫn $H_1$ thực chất phải dự báo **phân phối chung của $(\Delta,\widehat\Delta)$**.
+
+### 7.4. Sáu contrast viết theo sổ cái
+
+Lấy hiệu từng cặp ở bảng trên:
+
+| Contrast | Định nghĩa | Dạng theo sổ cái | Ý nghĩa bằng lời |
+|---|---|---|---|
+| $G_M$ | $L_{00}-L_{01}$ | $(a_{00}-a_{01})\,\mathbb E\Delta$ | Model repair, khi chỉ có ảnh chụp cũ |
+| $G_{S\mid M_1}$ | $L_{01}-L_{11}$ | $\min(\mathbb E\Delta^+,\ \mathbb E\Delta^-)$ | State repair, khi model đã đúng (EVPPI) |
+| $G_{M\mid S_1}$ | $L_{10}-L_{11}$ | $\mathbb E\big[\lvert\Delta\rvert\cdot\mathbf 1[S_1M_0\text{ chọn khác oracle}]\big]$ | Model repair, khi đã biết state |
+| $G_S$ | $L_{00}-L_{10}$ | $a_{00}\mathbb E\Delta-\mathbb E[\mathbf 1[\widehat\Delta<0]\Delta]$ | State repair, khi model còn thô |
+| $G_{SM}=R_{00}$ | $L_{00}-L_{11}$ | $a_{00}\mathbb E\Delta+\mathbb E\Delta^-$ | Toàn bộ headroom |
+| $\Gamma$ | $L_{10}+L_{01}-L_{00}-L_{11}$ | $G_{M\mid S_1}-G_M=G_{S\mid M_1}-G_S$ | Giá trị của một repair đổi bao nhiêu khi repair kia đã có |
+
+Dòng $G_{M\mid S_1}$ chính là **đồng nhất thức regret F5** của Phase 1, lấy trung bình trên cả ô. Cách đọc: mỗi state mà $S_1M_0$ chọn khác oracle mất đúng $\lvert\Delta(x)\rvert$, ngoài ra không mất gì.
+
+### 7.5. Bổ đề T01, dẫn từng bước
+
+Đặt $g=\mathbb E_D\Delta$ (gap trung bình thật), $\hat g=\mathbb E_D\widehat\Delta$ (gap trung bình theo $M_0$), và $\text{bias}=\hat g-g$.
+
+**(a) $G_M$ chỉ nhận một trong hai giá trị: 0 hoặc $\lvert g\rvert$.** Ta có $G_M=(a_{00}-a_{01})\,g$.
+- Nếu hai action giống nhau thì $G_M=0$.
+- Nếu $a_{00}$ = Stay và $a_{01}$ = Switch: lúc này $g<0$, nên $G_M=-g=\lvert g\rvert$.
+- Nếu ngược lại, $a_{00}$ = Switch và $a_{01}$ = Stay: lúc này $g\ge0$, nên $G_M=g=\lvert g\rvert$.
+
+**(b) $G_M\le\lvert\text{bias}\rvert$.** Khi hai action khác nhau, $\hat g$ và $g$ nằm ở hai phía của số 0. Khoảng cách giữa chúng vì vậy ít nhất bằng khoảng cách từ $g$ tới 0:
+$$\lvert\hat g-g\rvert\ \ge\ \lvert g\rvert=G_M.$$
+
+**(c) $G_{S\mid M_1}=\min(\mathbb E\Delta^+,\mathbb E\Delta^-)$.** Ta có $L_{01}-L_{11}=a_{01}g+\mathbb E\Delta^-$, và $g=\mathbb E\Delta^+-\mathbb E\Delta^-$.
+- Nếu $a_{01}$ = Stay, tức $g\ge0$: hiệu bằng $\mathbb E\Delta^-$, và đây là số nhỏ hơn trong hai số.
+- Nếu $a_{01}$ = Switch, tức $g<0$: hiệu bằng $g+\mathbb E\Delta^-=\mathbb E\Delta^+$, và đây là số nhỏ hơn.
+
+**Ví dụ E2** (hai state, mỗi state xác suất ½; các con số chỉ là sổ cái minh họa):
+
+| State | $J(\text{St})$ | $J(\text{Sw})$ | $\Delta$ | $\hat J(\text{St})$ | $\hat J(\text{Sw})$ | $\widehat\Delta$ |
+|---|---:|---:|---:|---:|---:|---:|
+| $x_1$ | 10 | 7 | −3 | 8 | 7 | −1 |
+| $x_2$ | 10 | 11 | +1 | 8 | 10 | +2 |
+
+Tính từng phần:
+- $g=-1$ nên $a_{01}$ = Switch. $\hat g=+0{,}5$ nên $a_{00}$ = Stay. $\text{bias}=1{,}5$.
+- $L_{00}=10$, $L_{01}=9$.
+- $L_{10}=8{,}5$, vì $M_0$ với state thật chọn đúng ở cả hai state. $L_{11}=8{,}5$.
+- $G_M=1=\lvert g\rvert\le1{,}5$ ✓.
+- $\mathbb E\Delta^+=0{,}5$, $\mathbb E\Delta^-=1{,}5$, nên $G_{S\mid M_1}=0{,}5$ ✓.
+- $G_S=1{,}5$; $G_{M\mid S_1}=0$; $\Gamma=-1$.
+
+Checker `single_observation.statistics` của repo cho đúng các số này.
+
+**Đọc bổ đề T01 như một nhà nghiên cứu.**
+- **Margin là lá chắn.** Cùng một bias, ô có $\lvert g\rvert$ lớn sẽ không bị lật quyết định. Đó là ô X và ô Y trong PHASE_3.
+- **$G_M$ là hàm bậc thang.** Khi tham số đổi dần, $G_M$ nhảy từ 0 lên $\lvert g\rvert$ đúng lúc $\hat g$ đi qua số 0. Vì vậy hình vẽ $G_M$ ở A04 không được đọc như một xu hướng trơn.
+- **$G_{S\mid M_1}>0$** khi và chỉ khi trong ô có *cả* state nghiêng về Switch *lẫn* state nghiêng về Stay. Đây là lý do lưới phải neo $p_{\text{sw}}$ (L3.1, Part 1).
+
+### 7.6. $G_S$ có thể âm, và hệ quả cho $\Gamma$
+
+**Thử đoán trước khi đọc tiếp.** Đưa state thật cho một model thô có thể làm *tệ hơn* không?
+
+**Ví dụ E5** (hai state, mỗi state xác suất ½):
+
+| State | $J(\text{St})$ | $J(\text{Sw})$ | $\Delta$ | $\hat J(\text{St})$ | $\hat J(\text{Sw})$ | $\widehat\Delta$ |
+|---|---:|---:|---:|---:|---:|---:|
+| $x_1$ | 10 | 9 | −1 | 8 | 9 | +1 |
+| $x_2$ | 10 | 12 | +2 | 10 | 9,5 | −0,5 |
+
+Tính từng phần:
+- $g=+0{,}5$ nên $a_{01}$ = Stay. $\hat g=+0{,}25$ nên $a_{00}$ = Stay. Suy ra $L_{00}=L_{01}=10$ và $G_M=0$.
+- $S_1M_0$ chọn **sai ở cả hai state**: Stay ở $x_1$, Switch ở $x_2$. Vậy $L_{10}=(10+12)/2=11$.
+- $L_{11}=(9+10)/2=9{,}5$.
+- **$G_S=10-11=-1<0$.**
+- $G_{M\mid S_1}=1\cdot\tfrac12+2\cdot\tfrac12=1{,}5$, và $\Gamma=1{,}5-0=1{,}5$.
+
+**Ý nghĩa.** Ở ô này, model chỉ đáng sửa khi state đã được sửa. Khi $G_M=0$, toàn bộ giá trị của model repair lộ ra dưới dạng interaction: $\Gamma=G_{M\mid S_1}$.
+
+Bạn đã gặp $G_S<0$ ở golden L1.4. E5 cho thấy hiện tượng này vẫn xảy ra trong thiết kế một-observation.
+
+**Điều này *không* mâu thuẫn với "thông tin miễn phí không làm hại".** Câu đó chỉ đúng cho một policy *tối ưu theo model đúng* (K-S8, T03). $S_1M_0$ dùng một model sai.
+
+Lưu ý: E5 là toy, không phải dự đoán cho lưới.
+
+### 7.7. $C_{\text{ref}}$, headroom và regret
+
+- $C_{\text{ref}}=L_*=L_{11}$, tính **theo từng ô và cùng mức dt** với các contrast (D23). Nếu lấy $C_{\text{ref}}$ ở dt này để chia contrast ở dt khác, nhãn tương đối sai.
+- $R_{00}=G_{SM}$ là *toàn bộ* phần cost có thể lấy lại. Không repair nào, oracle hay khả thi, vượt được nó. Đây là cơ sở của cheap kill theo headroom ở L3.5.
+- Vì cả bốn ô dùng **cùng một benchmark**, hiệu giữa các $L$ bằng đúng hiệu giữa các regret $R$. Contrast vì vậy *chính là* chênh lệch regret mà RQ nói tới.
+
+---
+
+## 8. Một chỗ plan nên nói rõ hơn
+
+> **Plan hiện nói** $G_M$ "chỉ nhận 0 hoặc $\lvert\mathbb E\Delta\rvert$" và yêu cầu A04 báo kèm $\mathbb E\Delta$ cùng bias.
+> **Tôi đề xuất thêm một câu đọc** khi viết note cho A04: *mọi contrast là có điều kiện trên **một** observation $y$*. Đó là kỳ vọng trên $D$ khi đã biết $y$, **không** phải kỳ vọng trên các observation khác nhau trong vận hành.
+> **Vì sao:** trong vận hành, controller nhận nhiều $y$ khác nhau, và hành động của $S_0$ đổi theo $y$. Note T01 trong repo đã viết: $L_{sm}=\sum_y p(y)\,L_{sm}(y)$. Khi đó $G_M$ vận hành là **tổng có trọng số của nhiều hàm bậc thang**, nên trơn hơn. Ví dụ minh họa: một ô có $G_M=0$, một ô có $G_M=1{,}2$, mỗi $y$ xác suất ½, thì $G_M$ vận hành bằng 0,6.
+> **Hệ quả:** "bậc thang" là tính chất của *thiết kế* một-observation, không phải của mạng. Hai quantile q50 và q90 cũng không đủ để dựng phân phối trên $y$ (note T01 đã ghi).
+
+## 9. Assumptions của tầng sổ sách
+
+| Assumption | Nó giúp tách riêng cái gì | Nếu bị phá thì sao |
+|---|---|---|
+| Action nhị phân, hòa thì Stay | Regret chỉ phụ thuộc dấu của gap; dùng được F5 | Với ≥ 3 action, $G_M$ không còn dạng "0 hoặc $\lvert g\rvert$" |
+| $b=D$ chính xác (posterior Bayes đúng, D9) | $S_0$ là phiên bản mạnh nhất về thông tin khi chỉ có ảnh chụp cũ | Nếu belief sai, $G_S$ trộn thêm lỗi của estimator; khi đó cần gọi là "pipeline repair" |
+| $M_0$ và $M_1$ có cùng θ (D21) | Model repair chỉ đổi cách biểu diễn tính ngẫu nhiên | Repair θ là một estimand khác (EVMI, P11) |
+| Một observation mỗi ô | Bổ đề T01 đơn giản và kiểm được | Xem mục 8 |
+
+## 10. 🔗 Liên hệ với repo cũ
+
+- **Thế hệ 2** so sánh các **luật quyết định** khác nhau trên cùng đầu vào: ngưỡng tĩnh so với luật có dùng bất định.
+- **Thế hệ 3** làm ngược lại: **giữ cố định luật quyết định** (argmin, hòa thì Stay) và thay đổi **đầu vào của nó** (state, model). Tầng sổ sách ở Part 1 chính là phần "giữ cố định".
+- Twin cũ dùng posterior Gauss gần đúng. $S_0$ bây giờ là posterior chính xác. Vì vậy, nếu $S_0$ kém $S_1$, nguyên nhân không phải do estimator làm ẩu.
+- Bạn đã gặp $G_S<0$ trong running example của MASTER PLAN ($G_S=-0{,}25$) và trong golden L1.4. Part 1 cho thấy hiện tượng này còn đứng trong thiết kế mới.
+
+## 11. Làm sao biết tầng sổ sách đúng
+
+- **Golden tính tay:** E2, E5, và canonical của T01 ($L_{00}=59/8$, $L_{01}=57/8$, $G_M=1/4$, $G_{S\mid M_1}=7/8$).
+- **Checker độc lập:** `single_observation.statistics` nhận sổ cái dạng phân số và tự `assert` hai dạng của T01. Theo luật đã nêu ở L1.5, checker và engine **không được dùng chung helper**.
+- **Bất biến bắt buộc:** $L_{11}\le L_{sm}$ với mọi ô; $R_{11}=0$; $G_{SM},G_{S\mid M_1},G_{M\mid S_1},G_M\ge0$; $\Gamma=G_{S\mid M_1}-G_S=G_{M\mid S_1}-G_M$; $G_M\le\lvert\text{bias}\rvert$.
+- **Mutant đổi nhãn S/M:** E2 bất đối xứng ($G_S=1{,}5$, $G_M=1$), nên nếu đổi nhãn thì test chắc chắn đỏ. Đây là lý do golden *phải* bất đối xứng.
+
+## 12. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "Trong một ô, $G_M$ bằng $\lvert\mathbb E\Delta\rvert$ vì $M_0$ lật quyết định của $S_0$" | "$G_M$ tăng dần theo η", vì $G_M$ là hàm bậc thang theo tham số |
+| "$G_S<0$ ở ô X: đưa state cho $M_0$ làm hại" | "Thông tin hiện tại có hại", nói chung |
+| "$\Gamma>0$: giá trị của model repair lớn hơn khi state đã được sửa" | "State và model bổ trợ nhau về cơ chế" |
+
+## 13. Reviewer có thể hỏi
+
+1. *"Sao $S_0$ chỉ có một action? Có phải controller của anh quá ngây thơ?"* → **Trả lời được.** Nó là posterior Bayes chính xác; một action là hệ quả của một observation, không phải do thiết kế yếu.
+2. *"$G_M$ của anh nhảy bậc như vậy có thật không, hay chỉ là thiết kế?"* → Trả lời được ở mục 8: đó là thiết kế, và trong vận hành $G_M$ sẽ trơn hơn.
+3. *"$\Gamma\ne0$ có nghĩa hai lỗi tương tác vật lý?"* → **Chưa.** Phản ví dụ F4 của Phase 1 cho thấy chỉ riêng ngưỡng argmin đã đủ tạo ra $\Gamma\ne0$. Phân biệt với cơ chế là việc của A05.
+
+## 14. ⚠️ Bẫy người mới
+
+- Dùng $\hat J$ của $M_0$ để *chấm* cost. Cost chấm luôn là cost thật.
+- Viết $L_{00}=\mathbb E_D[J(\text{action theo }\widehat\Delta(x))]$. Như vậy là cho $S_0$ quyết định theo từng state, tức là cho nó nhìn state thật.
+- Nghĩ $p_{\text{sw}}<0{,}5$ thì $a_{01}$ = Stay. Thực tế $a_{01}$ theo **dấu** của $\mathbb E\Delta$, mà dấu này phụ thuộc cả độ lớn.
+- Viết golden đối xứng giữa S và M. Khi đó mutant đổi nhãn không bị bắt.
+- Coi hai mức $C_{\text{ref}}$ ở hai mức dt khác nhau là "cùng một thước".
+
+## 15. 🧠 Tư duy researcher
+
+> Trước khi viết engine, hãy tìm phần của bài toán **không phụ thuộc vào vật lý**, rồi kiểm phần đó thật chặt bằng ví dụ tay.
+
+Khi tầng sổ sách đã đúng, mọi kết quả lạ ở A04 chỉ có thể đến từ tầng vật lý, hoặc là kết quả thật. Không gian chỗ có thể chứa bug thu hẹp đi một nửa.
+
+## 16. Bài tập nên làm (khuyến nghị)
+
+- Tự tính lại E5 trên giấy. Sau đó đổi $\hat J(\text{Sw};x_2)$ từ 9,5 thành 10,5 và đoán trước $G_S$, $G_M$, $\Gamma$ đổi thế nào.
+- Viết lại phép dẫn (c) $G_{S\mid M_1}=\min(\mathbb E\Delta^+,\mathbb E\Delta^-)$ mà không nhìn tài liệu. Đây là bước 4 của L3.2 Part A trong plan, tức là một phần của điều kiện X.3 #2 trước khi đưa code vào `src/smr/`.
+
+## 17. Tự kiểm tra (tùy chọn)
+
+1. Vì sao $\mathbb E J(\text{St})$ không xuất hiện trong bất kỳ contrast nào?
+2. Vì sao $G_{M\mid S_1}$ có thể dương lớn trong khi $G_M=0$?
+3. Một ô có $g=-0{,}2$ và bias $=+0{,}1$. Tính $G_M$.
+4. Tìm một sổ cái hai state có $G_{S\mid M_1}=0$ nhưng $G_M>0$. Ô đó thuộc loại ô nào trong lưới?
+5. Reviewer hỏi: "Bảng 2×2 của anh khác gì EVPPI và VSS?" Phần nào của Part 1 đã có tên trong literature?
+
+<details><summary>Gợi ý câu 3 và 4</summary>
+
+Câu 3: $\hat g=-0{,}1<0$ nên $a_{00}$ = Switch, và $a_{01}$ = Switch, nên $G_M=0$. Margin đã che được bias.
+
+Câu 4: mọi state đều có $\Delta\le0$ (ô WD), và $M_0$ không thấy được lợi ích, tức $\hat g\ge0$. Ví dụ: $\Delta=(-1,-1)$, $\widehat\Delta=(0,0)$. Khi đó $G_{S\mid M_1}=0$ và $G_M=1$. Đây là lý do control C6 ở A01 nói rằng ô WD **không phải** zero control.
+</details>
+
+## 18. Trạng thái của Part 1
+
+- **Hiểu:** hai tầng của engine; sổ cái và luật vàng (quyết định theo thông tin của pipeline, chấm bằng cost thật); bốn công thức $L$; sáu contrast theo sổ cái; bổ đề T01; $G_S$ có thể âm; contrast có điều kiện trên một $y$.
+- **Nên làm khi triển khai thật:** viết E2 và E5 thành golden bất đối xứng; giữ checker độc lập với engine.
+- **Phụ thuộc khoa học:** chưa claim gì. Tầng sổ sách đúng là *điều kiện cần* để mọi con số của A04 đo đúng estimand.
+- **Học tiếp được không?** **Có.** Part 2 sẽ chuyển sang tầng vật lý: làm sao có $\Delta(x)$ và $\widehat\Delta(x)$ cho *một* state của plant hai queue. Mình dừng ở đây.

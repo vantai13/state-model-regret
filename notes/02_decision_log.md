@@ -490,3 +490,53 @@ cung cấp; không có xác nhận mới về tự viết, người đọc hay g
   engine L3.2 hoặc tính outcome Phase 3. Contract/grid/thresholds/nhãn PC/G1 giữ nguyên.
 - **Evidence:** [lesson và report thực chạy](../results/lessons/l3_1/part3/report.md).
   Mục tự viết không chặn bước thực thi; chưa có evidence để gắn Understanding PASS.
+
+### DL-045 — L3.2: phạm vi trước chạy, precision và ownership (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. Triển khai bốn phần lesson được cung cấp.
+Ghi trước các lần chạy mới: [config](../results/lessons/l3_2/config.json),
+[kết quả mong đợi trước code](../results/lessons/l3_2/expected_before_code.json).
+
+- Engine mới ở `experiments/A00_engine/`: chưa có T05 do tác giả viết/author-attested
+  nên chưa promote vào `src/` (Part4 §4/X.3 #2). `src/smr/cells.py` đã tồn tại từ L3.1;
+  giữ nguyên body và provenance. T05 AI hỗ trợ không tính là lời giải của tác giả.
+- Chỉ chạy J/gap/contrast trên toy. Bước migration theo Part4 §11 là ngoại lệ **D-only**:
+  M01/M09/M22/N01/N02/N03/N04/W01 × A/B × ref1/2 = **32** đối chiếu (đính chính lỗi
+  đếm 48 trong bản nháp, không đổi danh sách hoặc mức ref); adapter 58 record chỉ
+  metadata. Regression cũ gồm D-only của L3.1 và screen M31 đã exposed. Không chạy engine
+  trên M/R/N/P; không dựng D held-out; không A01/A04/A05 hoặc chọn H1/null/K5.
+- Precision báo riêng oracle Δ, M0 Δ-hat, D22; hai nhánh M0 kèm cận ảnh hưởng phần chưa
+  phân giải. E[Δ-hat] chưa phân giải thì trả cả hai L00 khả dĩ và HOLD, không kẹp dấu.
+  Báo cận từng đại lượng; dt-discretization để A01, không gọi numeric bound là CI.
+- Phân biệt identity đại số, bất đẳng thức có thể bị bug phá, và kiểm chéo độc lập.
+  Checker brute không import core. Mutant subtraction tương đương ở Fraction, cần
+  float conservation để bắt; không nhận số mutant/test từ lesson là số đã chạy phiên này.
+- Sửa pseudocode idle: tính idle từ backlog **trước** update; float cut phải cộng sai số
+  value/probability/rounding; guard held-out phải kiểm commit A05-F thật, không chỉ cờ.
+  Đây là sửa implementation/verification, không đổi contract, threshold hoặc estimand.
+- Guard theo grid ID; card L3.3 sạch và nằm trong HEAD trước mọi grid evaluation;
+  held-out cần A05-F committed + purpose A05-T. V9/A04, P0-V10/Phase4 giữ nguyên.
+
+### DL-046 — Engine exact v1: phạm vi đã kiểm và việc chưa xác nhận (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. Theo DL-045, engine mới được giữ ở experiments/A00_engine;
+`src/smr/cells.py`, kernel và các reference trước đó nguyên byte. [Report](../results/lessons/l3_2/report.md)
+và [verification](../results/lessons/l3_2/verification.json) là output thực của phiên.
+
+- **Technical verification PASS:** 72 tests mới, 300 toàn repo; failures/errors/skips=0.
+  300 ledger và 400 physical toys đối chiếu đường độc lập; 2.000 perturbation trials,
+  40 joint probability/value/conditional-posterior trials; 11/11 mutant KILLED bằng
+  test-call failure, không dùng collection/setup error. M4 được bắt bằng float conservation.
+- **Đã tái lập:** golden canonical/E2/E5/E7, L1.5 E|I_delta|, D22 fixed-M0, chuỗi L1.8B
+  8 mức ref1…128 qua cùng aggregate; adapter58 records, 32 D-only comparisons đúng unit/mass/
+  support/error. Canonical GS=9/8, GM=1/4, Γ=−1/4, F=3/8,V=3/4; E7 Γ=1/8,E|I|=9/8.
+- **Numeric:** trả cận từng L/R/contrast, oracle/M0/D22 unresolved riêng, M0/D22 impact,
+  hai L00 khả dĩ khi gh unresolved và quantile intervals. Bound có điều kiện theo cận input,
+  kernel và arithmetic finite; test containment không là proof độc lập toàn bộ floating system.
+  Không coi e_num là CI, không đổi epsilon hoặc dùng nhãn điểm thay khoảng.
+- **Không xác nhận:** grid outcomes/feasibility/dt, hypothesis, novelty/network validity,
+  tác giả đã tự giải thích code. E3/E6 là arrival-law toys ngoài D7, không hợp thức bằng đổi D7.
+  EVPI_w và flip mass 2D chưa tính. Chưa có T05 tác giả/attestation nên **chưa promote src**.
+- **Gate giữ nguyên:** L3.3 chưa commit; không A01/A04/A05. V9 chưa gửi nên A04 chờ;
+  P0-V10/L8 OPEN, Phase4 HOLD. Engine guard không thay điều kiện của runner hoặc semantic
+  review card. Có thể học/soạn L3.3; không nhận Understanding/ownership PASS.

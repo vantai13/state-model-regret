@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.170" timestamp="2026-10-27T18:30:35.833452+07:00" hostname="vantai"><testcase classname="tests.test_engine_core" name="test_D10_mean_of_rollouts" time="0.003"><failure message="assert (Fraction(1, 4), 0) == (Fraction(-1, 4), 1)&#10;  &#10;  At index 0 diff: Fraction(1, 4) != Fraction(-1, 4)&#10;  Use -v to get more diff">def test_D10_mean_of_rollouts():                 # belief q_B ∈ {0,4}: E δ̂ = -1/4 (rollout từ q=2 sẽ cho +1/4)
+        B, _ = toy_side([(h, 0, 'x'), (h, 4, 'x')], {'x': 2}, {'x': {'x': 1}}, 3, 0, 2, 1)
+        r = aggregate(side([1], ['1/4'], ['1/4']), B)
+&gt;       assert (r['E_delta_hat'], r['a00']) == (F(-1, 4), 1)
+E       assert (Fraction(1, 4), 0) == (Fraction(-1, 4), 1)
+E         
+E         At index 0 diff: Fraction(1, 4) != Fraction(-1, 4)
+E         Use -v to get more diff
+
+tests/test_engine_core.py:57: AssertionError</failure></testcase></testsuite></testsuites>

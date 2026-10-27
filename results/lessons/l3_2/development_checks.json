@@ -1,0 +1,32 @@
+{
+  "initial_core_tests": 14,
+  "initial_core_status": "PASS",
+  "initial_native_float_tests": {
+    "passed": 5,
+    "failed": 4,
+    "causes": [
+      "Fraction/longdouble mixed zero initializers",
+      "Fraction/longdouble mixed comparisons in bounds",
+      "incorrect expected gap for optional E6 B=1.5 exercise; corrected to -1/2"
+    ],
+    "resolved": true
+  },
+  "lesson_corrections": [
+    "idle uses q before update",
+    "E3/E6 arrival-law toys are not D7 known-mode one-slot states",
+    "held-out guard checks A05-F commit",
+    "input probability/value/posterior and rounding bounds added to float cut",
+    "D-only comparison count corrected 48 -> 32"
+  ],
+  "first_complete_pass": {
+    "engine_tests": 71,
+    "full_tests": 299,
+    "mutants_killed": 11
+  },
+  "last_added_check": "exact certificate for equal managed actions, including zero-managed negative control",
+  "whitespace_check": {
+    "initial": "FAIL: raw pytest failure tracebacks have trailing spaces",
+    "resolution": "Keep logs/XML byte-for-byte; .gitattributes suppresses blank-at-eol only for mutant output patterns",
+    "source_checks": "unchanged"
+  }
+}

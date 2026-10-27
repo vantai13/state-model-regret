@@ -1,0 +1,309 @@
+# LESSON 3.2 — Part 2: Tầng vật lý — tính $\Delta(x)$ và $\widehat\Delta(x)$ cho một state
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.2 Engine exact
+  Part 1  tầng sổ sách: sổ cái → L → 6 contrast                 ✔
+  Part 2  ← YOU ARE HERE: tầng vật lý cho MỘT state x
+  Part 3  ghép cả ô trên D_A × D_B, sai số số
+  Part 4  code và test
+```
+
+Mọi con số trong Part 2 mình đã tính lại bằng phân số: E1, E3 và các biến thể của nó, E6 (ví dụ mới), công thức tổng capacity bỏ phí trên ví dụ L1.2, và ví dụ "trung bình rollout khác rollout trung bình".
+
+## 2. Part 2 trả lời câu hỏi gì?
+
+> Cho một state thật $x=(q_A,m_A,q_B,m_B)$, làm sao tính **chính xác** $J(\text{St};x)$, $J(\text{Sw};x)$ dưới law đúng ($M_1$) và $\hat J$ dưới $M_0$? Hai model khác nhau ở *đúng chỗ nào*?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Part 1 kiểm tầng sổ sách bằng sổ cái viết tay. Nhưng sổ cái thật do tầng vật lý tạo ra. Lỗi ở tầng này *không* làm test sổ sách đỏ. Part 2 cũng trả lời câu hỏi cốt lõi của RQ trong contract này: "model fidelity" thực chất là sửa cái gì.
+
+**Tầng thực hành.** Sau Part 2, bạn tự dẫn được ba điều. Đây cũng chính là điều kiện X.3 #2 trước khi đưa code vào `src/`:
+1. Separability: chi phí tách được thành phần của A và phần của B.
+2. Đẳng thức capacity bỏ phí: hai action chỉ khác nhau ở phần capacity bị bỏ phí.
+3. Bất đẳng thức Jensen: $M_0$ luôn ước lượng thấp cost.
+
+**Nếu bỏ qua.** Có hai lỗi dễ mắc:
+- Tính $\Delta$ bằng cách trừ hai cost lớn (vài trăm packet·s ở κ = 3) để lấy một gap nhỏ. Phép trừ này làm mất chữ số, đúng ở vùng gần điểm hòa, tức là vùng lưới đã cố ý chọn.
+- Cài $M_0$ bằng cách rollout từ "state trung bình". Khi đó $G_M$ trộn lẫn cả lỗi của estimator, và estimand không còn là D21.
+
+## 4. Liên hệ với Main RQ
+
+Chữ *"action-response model fidelity"* trong RQ, khi đặt vào contract v1.2, có nghĩa cụ thể:
+
+```text
+M0 → M1  =  thay "đường trung bình" bằng "law ngẫu nhiên đúng", cùng θ (D21)
+          =  (Part 2 chứng minh) chỉ đổi phần CAPACITY BỎ PHÍ kỳ vọng
+          →  G_M, G_{M|S1}, Γ đều đo giá trị của việc nhìn thấy capacity bỏ phí ngẫu nhiên
+```
+
+Liên hệ này là **trực tiếp**. Part 2 cho biết "model repair" trong RQ của bạn thực chất đang sửa cái gì.
+
+## 5. Nền toán cần cho Part 2
+
+| Mức | Nội dung |
+|---|---|
+| **Cần ngay** | Recurrence của queue; $[z]^+=z+[-z]^+$; đổi thứ tự tổng; kỳ vọng tuyến tính |
+| **Cần ngay (mini-lesson ở mục 7.6)** | Hàm lồi (convex), bất đẳng thức Jensen |
+| Học trong lúc làm | Chuỗi Markov hai trạng thái: kỳ vọng có điều kiện sau $k$ slot |
+| Chưa cần | Lý thuyết phản xạ Skorokhod, phân phối dừng, chứng chỉ phổ (T02/T04) |
+
+## 6. Mental model: hai cái xô, một gáo nước di chuyển
+
+```text
+  nền A (ON/OFF) ──┐                         nền B (ON/OFF) ──┐
+  + u nếu Stay ────┤                         + u nếu Switch ──┤
+                   ▼                                          ▼
+               ┌──────┐                                   ┌──────┐
+               │ xô A │ vòi xả 10/s                       │ xô B │ vòi xả 10/s
+               └──────┘                                   └──────┘
+  Khi xô rỗng, phần vòi xả không dùng hết sẽ MẤT luôn (capacity bỏ phí)
+```
+
+- **Stay hay Switch không tạo thêm nước.** Action chỉ quyết định gáo $u$ đổ vào xô nào.
+- Hệ quả: tổng lượng nước *đổ vào* hai xô giống hệt nhau dưới cả hai action.
+- Khác biệt duy nhất là **vòi xả nào phải chạy không**.
+
+---
+
+## 7. Các khái niệm
+
+### 7.1. Separability: cost tách thành phần A cộng phần B
+
+**Bước 1: hai queue không ảnh hưởng nhau.** Recurrence của queue A chỉ chứa $q_A$, nền A và $u_A(a)$. Recurrence của B chỉ chứa $q_B$, nền B và $u_B(a)$. Action đi vào mỗi queue chỉ qua lượng $u$ thêm vào. Điều này dựa trên các giả định:
+- D3: hai path rời nhau;
+- D4: nền A và nền B độc lập;
+- D5: action chuyển đúng $u$.
+
+**Bước 2: cost cộng được (D13).** Do đó
+$$J(a;x)=J_A(a;q_A,m_A)+J_B(a;q_B,m_B).$$
+
+**Bước 3: phân phối của state cũng tách được (D12).** $D=D_A\times D_B$. Part 3 sẽ dùng điều này để tránh phải dựng bảng tích Descartes.
+
+**Hệ quả kỹ thuật.** Thay vì quy hoạch động (DP) trên không gian hai chiều $(q_A,q_B)$, engine chạy hai DP một chiều. Đây là lý do engine khả thi. Nếu Phase 7 thêm một link chung giữa hai path, tính chất này mất và engine phải viết lại.
+
+### 7.2. Đẳng thức capacity bỏ phí (idle identity)
+
+**Câu hỏi:** cost của hai action khác nhau qua kênh nào?
+
+**Bước 1: viết queue thành "phần tuyến tính + phần bỏ phí".** Gọi $A_k$ là lượng đến trong slot $k$ và $c$ là lượng phục vụ được trong một slot. Với $q_{k+1}=[q_k+A_k-c]^+$, dùng $[z]^+=z+[-z]^+$:
+$$q_{k+1}=q_k+A_k-c+I_k,\qquad I_k=[\,c-q_k-A_k\,]^+.$$
+$I_k$ là capacity bị bỏ phí trong slot $k$. Cộng dồn lại:
+$$q_n=q_0+\underbrace{\textstyle\sum_{k<n}(A_k-c)}_{S_n:\ \text{tuyến tính}}+\underbrace{\textstyle\sum_{k<n}I_k}_{U_n:\ \text{bỏ phí tích lũy}}.$$
+
+**Bước 2: đổi thứ tự tổng.** Cost theo D13 là $C=\Delta t\sum_{n=1}^{H}q_n$, nên phần bỏ phí đóng góp
+$$\sum_{n=1}^{H}U_n=\sum_{k=0}^{H-1}(H-k)\,I_k.$$
+Vì sao? $I_k$ nằm trong $U_n$ với mọi $n=k+1,\dots,H$, tức là $H-k$ lần. Kiểm với $H=3$: $U_1+U_2+U_3=3I_0+2I_1+I_2$ ✓.
+
+**Bước 3: phần tuyến tính triệt tiêu giữa hai action.** Cộng hai queue lại, trên **cùng một tương lai $w$**:
+$$S_{A,n}+S_{B,n}=\sum_{k<n}\big(b_{A,k}+b_{B,k}+u-c_A-c_B\big).$$
+Biểu thức này *không phụ thuộc* $u$ nằm ở A hay ở B. Vì vậy:
+$$\boxed{\,C(\text{Sw},w)-C(\text{St},w)=\Delta t\sum_{k=0}^{H-1}(H-k)\,\big[I_k(\text{Sw},w)-I_k(\text{St},w)\big]\,}$$
+Kết quả này đúng **trên từng đường đi tương lai**, nên lấy kỳ vọng vẫn đúng.
+
+**Ý nghĩa của từng phần:**
+- *Hai action chỉ khác nhau ở capacity bị bỏ phí.*
+- Trọng số $H-k$ nói rằng **bỏ phí càng sớm càng đắt**. Phần việc không được phục vụ ở slot $k$ sẽ nằm lại trong queue suốt phần còn lại của horizon.
+- Trường hợp cực đoan: nếu không queue nào rỗng dưới cả hai action, vế phải bằng 0, nên $\Delta=0$ trên mọi đường đi. Đó chính là **ô conservation** (ô bảo toàn).
+
+**Ví dụ E1** ($H=2$, $c_A=c_B=3$, $u=2$, nền A luôn 1, nền B là 0 hoặc 2, $q_A=2$, $q_B=0$):
+
+| | Tính trực tiếp | Qua capacity bỏ phí có trọng số |
+|---|---:|---:|
+| Stay | $J=4$ | $W=6$ |
+| Switch | $J=5/4$ | $W=13/4$ |
+| Gap | $5/4-4=-11/4$ | $13/4-6=-11/4$ ✓ |
+
+**Một dạng đóng để nhớ.** Capacity bỏ phí tích lũy bằng độ sâu mà "đường tuyến tính" rơi xuống dưới 0:
+$$U_n=\max\Big(0,\ -q_0-\min_{1\le m\le n}S_m\Big).$$
+Kiểm trên ví dụ L1.2 ($q_0=4$, $c=3$, lượng đến $[2,5,1,0,0,6]$): $S$ đi qua $-1,+1,-1,-4,-7,-4$, giá trị nhỏ nhất là $-7$, nên $U_6=-4+7=3$. Kết quả khớp với 3 đơn vị bỏ phí đã tính tay ở Phase 1.
+
+**Vì sao engine tính gap theo cách này** thay vì lấy $J(\text{Sw})-J(\text{St})$:
+- $W$ nhỏ hơn cost rất nhiều, nên tránh được việc trừ hai số lớn gần bằng nhau.
+- Nó cho các **certificate** chính xác (mục 7.3).
+
+### 7.3. Dấu của từng phía, và các certificate
+
+**Tính đơn điệu (monotonicity).** Nếu một queue nhận *ít* lượng đến hơn ở mọi slot thì backlog của nó *không lớn hơn* ở mọi slot (quy nạp trên recurrence). Do đó $I_k=[c-q_k-A_k]^+$ *không nhỏ hơn*.
+
+Đặt $\delta_l=W_l(\text{Sw})-W_l(\text{St})$ là thành phần gap của queue $l$:
+- A mất $u$ khi Switch, nên A bỏ phí ít nhất bằng trước: **$\delta_A\ge0$**. Đây là "phí" của Switch.
+- B nhận thêm $u$, nên B bỏ phí không nhiều hơn trước: **$\delta_B\le0$**. Đây là "lợi" của Switch.
+- $\Delta=\delta_A+\delta_B$.
+
+**Lưu ý:** $J_A(\text{Sw})-J_A(\text{St})$ thường *âm* (A nhẹ đi), nên nó **khác** $\delta_A$. Phần tuyến tính chỉ triệt tiêu khi cộng *cả hai* queue.
+
+**Certificate rút ra trực tiếp** (`dominance.py`):
+
+| Điều kiện | Hệ quả | Nhãn |
+|---|---|---|
+| B không thể rỗng dưới Stay (nên cũng không rỗng dưới Switch) | $\delta_B=0$, nên $\Delta=\delta_A\ge0$ | SD1 (Stay áp đảo) |
+| A không thể rỗng dưới Switch | $\delta_A=0$, nên $\Delta=\delta_B\le0$ | WD1 (Switch áp đảo yếu) |
+| Cả hai điều kiện trên | $\Delta=0$ trên mọi đường đi | Conservation |
+
+Kernel native có một chú thích nhỏ: *"Above t·max_drain value is exactly zero"*. Nghĩa là nếu backlog lớn hơn lượng tối đa có thể xả trong $t$ slot còn lại, queue không thể rỗng, nên phần bỏ phí bằng **đúng 0**. Đây là lý do ở ô conservation, sáu contrast phải bằng 0 *chính xác*, không chỉ "gần 0".
+
+### 7.4. $M_1$ tính gì: quy hoạch động ngược
+
+Đặt $V_t(q,m)$ = capacity bỏ phí có trọng số kỳ vọng khi còn $t$ slot, xuất phát từ backlog $q$ và mode $m$. Gọi $a_m$ là thay đổi ròng của backlog trong một slot ở mode $m$, tức là lượng đến trừ capacity. Gọi $P(m\to n)$ là xác suất chuyển mode. Khi đó:
+$$V_t(q,m)=t\cdot[-q-a_m]^+\;+\;\sum_{n}P(m\to n)\,V_{t-1}\big([q+a_m]^+,\,n\big),\qquad V_0\equiv0.$$
+
+Đọc từng số hạng:
+- Số hạng đầu: phần bỏ phí ở slot hiện tại, nhân trọng số $t$ (chính là $H-k$).
+- Số hạng sau: kỳ vọng của phần còn lại, lấy trên mode của slot kế tiếp.
+- Mode ở slot 0 là một phần của state (D7).
+
+**Vì sao chạy ngược (backward).** Một lượt DP cho ra $V_H(q,m)$ với **mọi** backlog ban đầu cùng lúc. Trong khi đó $D$ có hàng nghìn state. Phiên bản Python `idle_gap.weighted_idle` chạy xuôi, đẩy khối lượng xác suất từ *một* state ban đầu. Bản này chậm, nhưng dùng phân số, nên làm **bản tham chiếu** để kiểm kernel native.
+
+**Lưới đơn vị.** Backlog nằm trên lưới các bội số của một đơn vị nhỏ, chọn sao cho mỗi slot thay đổi một số nguyên đơn vị. Ví dụ: nền B dưới Stay ở $dt=1/120$ s thay đổi $+1$ hoặc $-2$ đơn vị $1/30$ packet. Vì vậy $y_B$ của M01 là $29/30$ packet.
+
+### 7.5. $M_0$ tính gì: đường trung bình, và vì sao phải "trung bình các rollout"
+
+**Đường trung bình.** $M_0$ thay nền ngẫu nhiên bằng kỳ vọng có điều kiện theo mode hiện tại. Với chuỗi ON/OFF đối xứng của v1.2, nền B đang OFF có:
+$$\mathbb E[b_B(t)\mid\text{OFF lúc }0]=8-6\,e^{-2t/T_{\text{mode}}}\quad\text{(packet/s)}.$$
+Ví dụ: ở κ = 1 ($T_{\text{mode}}=1$ s), sau 1 s giá trị này là $8-6e^{-2}\approx7{,}2$.
+- $M_0$ thấy một đường **trơn** đi từ 2 lên 8.
+- Thực tế là một **bậc thang**: nền ở mức 2, rồi nhảy hẳn lên 14, rồi rơi về 2.
+
+$M_0$ là load-aware (đường trung bình có cộng $u$ vào đúng queue) và có clipping ở 0. Nó chỉ bỏ qua *tính ngẫu nhiên* của nền.
+
+**D10: trung bình các rollout, không phải rollout của trung bình.** $M_0$ rollout từ *từng* state trong belief, rồi mới lấy trung bình. Ví dụ với $c=3$, lượng đến 2, belief là $q\in\{0,4\}$ mỗi giá trị xác suất ½:
+- Trung bình các rollout: capacity bỏ phí $=\tfrac12(1+0)=\tfrac12$.
+- Rollout từ state trung bình $q=2$: capacity bỏ phí $=0$.
+
+Hai cách cho kết quả khác nhau. Nếu cài theo cách thứ hai, $M_0$ còn làm mờ cả *belief*. $G_M$ khi đó trộn lỗi của estimator vào, và không còn là "chỉ đổi cách biểu diễn tính ngẫu nhiên" (D21). Part 4 sẽ có một mutant cho đúng lỗi này.
+
+**Hai model khác nhau chỉ ở phần bỏ phí.** Cả $M_0$ lẫn $M_1$ dùng cùng θ, nên cùng kỳ vọng lượng đến. Theo mục 7.2, phần tuyến tính của chúng bằng nhau. Vì vậy:
+$$J(a;x)-\hat J(a;x)=W^{M_1}(a;x)-W^{M_0}(a;x).$$
+
+> Kênh **duy nhất** để $M_0$ sai là capacity bỏ phí.
+
+### 7.6. Jensen: $M_0$ luôn ước lượng thấp cost
+
+**Mini-lesson: hàm lồi.** Một hàm là lồi (convex) nếu đồ thị của nó "cong lên", tức là đoạn thẳng nối hai điểm bất kỳ trên đồ thị nằm *trên* đồ thị. Ví dụ quen thuộc nhất: $\max(0,z)$. **Bất đẳng thức Jensen** nói rằng với hàm lồi $f$: $\mathbb E[f(X)]\ge f(\mathbb E X)$.
+Ví dụ: $X=\pm1$ mỗi giá trị xác suất ½. Khi đó $\mathbb E[\max(0,X)]=\tfrac12$, còn $\max(0,\mathbb EX)=0$.
+
+**Áp vào queue.** Theo dạng đóng ở mục 7.2, $U_n$ là *max của các hàm tuyến tính* theo vector lượng đến $(A_0,\dots,A_{H-1})$. Max của các hàm tuyến tính là một hàm lồi. Do đó $W=\sum_nU_n$ cũng lồi. Đường trung bình của $M_0$ chính là $W$ tính tại vector lượng đến trung bình. Vậy:
+$$W^{M_0}(a;x)=W\big(\mathbb E[A\mid x]\big)\ \le\ \mathbb E\big[W(A)\mid x\big]=W^{M_1}(a;x).$$
+Suy ra $\hat J\le J$ với mọi state và mọi action. Đây là bất biến của engine; vi phạm tức là có bug.
+
+### 7.7. Nhưng sai số của **gap** có thể có cả hai dấu
+
+Gọi $j_l(a)=W_l^{M_1}(a)-W_l^{M_0}(a)\ge0$ là "phần bỏ phí mà $M_0$ không thấy" ở queue $l$ dưới action $a$. Khi đó:
+$$e_M=\widehat\Delta-\Delta=-\big[j_A(\text{Sw})-j_A(\text{St})\big]-\big[j_B(\text{Sw})-j_B(\text{St})\big].$$
+
+Hai ví dụ một slot, hai queue rỗng lúc đầu, $c=3$, $u=2$:
+
+| | **E3**: A ổn định {2, 3}, B bursty {1, 6} | **E6**: A bursty {1, 5}, B cố định 2,5 |
+|---|---|---|
+| Gap thật $\Delta$ | **−0,5** → Switch đúng | **+0,5** → Stay đúng |
+| $\widehat\Delta_{M_0}$ | **+0,5** → chọn Stay (sai) | **−0,5** → chọn Switch (sai) |
+| Phía nào có phần bỏ phí bị "giấu" | B dưới Stay: $j_B(\text{St})=1$, $j_B(\text{Sw})=0$ | A dưới Switch: $j_A(\text{St})=0$, $j_A(\text{Sw})=1$ |
+| $e_M$ | $+1$: $M_0$ thấy Switch *tệ hơn* thực tế | $-1$: $M_0$ thấy Switch *tốt hơn* thực tế |
+
+**Giải thích bằng lời:**
+- **E3.** Dưới Stay, B *thỉnh thoảng* rỗng và capacity của B bị phí. Switch lấp đúng những lúc trống đó. Đường trung bình của B ($3{,}5>3$) không bao giờ rỗng, nên $M_0$ không thấy lợi ích này và **nghiêng về Stay**.
+- **E6.** Dưới Switch, A mất $u$ và *thỉnh thoảng* rỗng, nên capacity của A bị phí. Đường trung bình của A ($3=c$) không thấy điều đó, nên $M_0$ không thấy cái giá này và **nghiêng về Switch**.
+
+> $M_0$ mù với capacity bỏ phí ngẫu nhiên. Phía nào bị giấu nhiều hơn thì $M_0$ lệch về phía đó.
+
+**Cùng trung bình, khác biến động** (E3, giữ nguyên mọi thứ, nền B luôn có trung bình 3,5):
+
+| Nền B | {3, 4} | {2, 5} | {1, 6} | {0, 7} |
+|---|---:|---:|---:|---:|
+| $\Delta$ thật | +0,5 | 0 | −0,5 | −0,5 |
+| $\widehat\Delta_{M_0}$ | +0,5 | +0,5 | +0,5 | +0,5 |
+
+$M_0$ không đổi dù thế giới đổi. Thứ $M_0$ bỏ lỡ là **biến động ở phía có thể rỗng**, không phải tải trung bình.
+
+Đây là từ vựng cơ chế để bạn viết phần "cơ chế" của card ở L3.3. Đây **không** phải dự đoán cho ô nào của lưới.
+
+---
+
+## 8. Assumptions của tầng vật lý
+
+| Assumption | Nó giúp tách riêng cái gì | Nếu bị phá thì claim nào bị ảnh hưởng |
+|---|---|---|
+| Buffer vô hạn (D6) | Phi tuyến duy nhất là clipping ở 0, nên idle identity áp dụng được | Drop ở biên đầy là một cơ chế Jensen thứ hai (Phase 7) |
+| Nền ngoại sinh (AS1) | Cùng $w$ dùng được cho cả Stay và Switch; phần tuyến tính triệt tiêu trên từng đường đi | Với TCP, lượng đến phụ thuộc action, nên bước 3 của mục 7.2 sai |
+| Hai path rời nhau (D3) | Separability | Có link chung thì cần DP hai chiều |
+| Action có hiệu lực ngay (AS4) | Gap chỉ là phần bỏ phí từ slot 0 | Có độ trễ thì phải đưa động học trong thời gian chờ vào cùng cửa sổ |
+| Cùng θ (D21) | $M_0$ và $M_1$ có cùng phần tuyến tính | Repair θ sẽ đổi cả phần tuyến tính, tức là một estimand khác |
+
+## 9. 🔗 Liên hệ với repo cũ
+
+- **Twin của thế hệ 2** dùng đường cong delay M/D/1/K *dừng*, áp lên tải dự báo. File `t03b_jensen_demo.py` minh họa Jensen trên **độ cong của đường cong delay theo tải**.
+- **Bây giờ**, Jensen tác động qua **clipping ở biên rỗng trong một horizon hữu hạn**. Đây là cơ chế *transient* (tạm thời), có nhớ backlog. Twin cũ không có cả hai thứ này.
+- Hai loại Jensen này khác nhau, nên đừng mang trực giác "delay lồi theo tải" sang đây.
+- Engine Lindley của `f04b_des_gap.py` có thể được viết lại ở Phase 7 để làm packet DES độc lập (nhãn REBUILD). Phase 3 không dùng nó.
+- **Bổ sung cho Part 3 của L3.1:** ở $dt=1/120$ s, bước $-2/+1$ của `design.py` *đúng* với queue B dưới Stay. Cái sai nằm ở A (v1 không có mode) và ở $D$. Một module **đúng một phần** còn nguy hiểm hơn một module sai hoàn toàn, vì test của nó trên B có thể xanh.
+
+## 10. Làm sao biết tầng vật lý đúng
+
+| Kiểm | Bắt được lỗi gì |
+|---|---|
+| Gap qua idle identity bằng gap tính trực tiếp từ cost, trên toy (E1, E3, E6) | Sai trọng số $H-k$; quên phần tuyến tính |
+| Liệt kê hết (brute force) trên plant tí hon ngẫu nhiên | Lỗi separability, lỗi chuyển mode |
+| $\delta_A\ge0\ge\delta_B$; $W^{M_0}\le W^{M_1}$ với mọi state và action | Đổi chiều $u$; $M_0$ dùng nhầm law |
+| Certificate: ở ô conservation, gap phải `== 0`; ở SD, gap $\ge0$; ở WD, gap $\le0$ (`gap_from_idle` raise lỗi nếu vi phạm) | Kẹp số, làm tròn |
+| Python `weighted_idle` (phân số) khớp kernel native | Lỗi trong C++ |
+| Mutant "rollout từ state trung bình" phải làm test đỏ | Vi phạm D10 |
+
+Trong phiên soạn PHASE_3, ba tính chất đầu đã được kiểm bằng liệt kê trên 400 plant ngẫu nhiên, không có vi phạm. Đó là script riêng, không thay cho test của L3.2.
+
+## 11. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "Trong contract v1.2, model repair chỉ sửa phần capacity bỏ phí ngẫu nhiên mà đường trung bình không thấy" | "Model repair sửa mọi sai số dự báo của twin" |
+| "Ở toy E3, $M_0$ nghiêng về Stay vì B bursty dưới Stay" | "Ở ô B q50, $M_0$ sẽ nghiêng về Stay", vì đó là dự đoán, phải nằm trong card |
+| "$M_0$ luôn ước lượng thấp cost" | "$M_0$ luôn chọn Stay quá nhiều" |
+
+## 12. Reviewer có thể hỏi
+
+1. *"Model repair của anh có tầm thường không, khi θ đã đúng?"* → Part 2 trả lời *nó đo cái gì* (giá trị của việc nhìn thấy capacity bỏ phí ngẫu nhiên). Câu "có đáng không" thì Part 2 **chưa** trả lời; đó là việc của A04 và Phase 8.
+2. *"Kết quả còn đúng không nếu có drop hoặc TCP?"* → **Không.** Mục 8 chỉ ra chính xác bước nào gãy.
+3. *"Sao biết sai số của $M_0$ không chỉ là do rời rạc hóa?"* → Chưa trả lời ở đây. Đó là việc của A01 (làm mịn).
+
+## 13. ⚠️ Bẫy người mới
+
+- Lấy $J_A(\text{Sw})-J_A(\text{St})$ và gọi đó là "phí của A". Đúng phải là $\delta_A$, tức phần bỏ phí.
+- Nghĩ rằng vì $M_0$ ước lượng thấp cost nên $M_0$ luôn nghiêng về một action. E3 và E6 lệch theo hai hướng ngược nhau.
+- Đọc "B quá tải trung bình" thành "B không bao giờ rỗng". Ở E3, B có trung bình 3,5 > 3 nhưng vẫn rỗng một nửa thời gian.
+- Dùng trực giác "Jensen trên đường cong delay" của twin cũ.
+- Cho $M_0$ dùng một law khác $M_1$ "cho thực tế hơn". Làm vậy là repair θ, không còn là D21.
+
+## 14. 🧠 Tư duy researcher
+
+> Trước khi đo "model tốt hơn giúp bao nhiêu", hãy chứng minh **model tốt hơn khác model cũ ở đúng kênh nào**.
+
+Ở đây, kênh đó hẹp đến mức chỉ có một phần: capacity bỏ phí ngẫu nhiên. Điều này giúp bạn đặt dự đoán sắc nét hơn ("ở đâu có biên rỗng ngẫu nhiên"). Nó cũng nhắc bạn giới hạn câu claim lại ("không nói gì về repair θ hay về drop").
+
+## 15. Bài tập nên làm (khuyến nghị)
+
+- Tự dẫn lại Bước 1–3 của mục 7.2 trên giấy, rồi kiểm bằng E1. Đây là Bước 2 của L3.2 Part A trong plan.
+- Trong E6, đổi nền B từ 2,5 thành 1,5. Đoán trước dấu của $\Delta$ và của $\widehat\Delta$, rồi tính.
+
+## 16. Tự kiểm tra (tùy chọn)
+
+1. Vì sao phần tuyến tính triệt tiêu giữa Stay và Switch *trên từng đường đi*, chứ không chỉ trung bình?
+2. Vì sao trọng số là $H-k$ chứ không phải $k$?
+3. Vì sao ở ô conservation, sáu contrast phải bằng 0 *chính xác*?
+4. Cho một ví dụ mà $W^{M_0}=W^{M_1}$ với cả hai action. Ở ví dụ đó $G_M$ bằng bao nhiêu?
+5. Reviewer hỏi: "Nếu thêm finite buffer thì $M_0$ còn ước lượng thấp cost không?" Bạn trả lời gì, và chỗ nào bạn chưa chắc?
+
+## 17. Trạng thái của Part 2
+
+- **Hiểu:**
+  - Separability và các giả định nó cần.
+  - Idle identity và trọng số $H-k$.
+  - Dấu $\delta_A\ge0\ge\delta_B$ và các certificate SD, WD, conservation.
+  - DP ngược của $M_1$.
+  - Đường trung bình của $M_0$ và quy tắc D10.
+  - Jensen: $M_0$ ước lượng thấp cost.
+  - Sai số của gap có thể có cả hai dấu, tùy phía nào có phần bỏ phí bị giấu.
+- **Nên làm khi triển khai thật:** viết T05 với phép dẫn của mục 7.1, 7.2 và 7.6. Đưa E1, E3, E6 thành test so sánh "gap qua idle" với "gap qua cost".
+- **Phụ thuộc khoa học:** mọi gap trên lưới phải được tính qua idle identity và có certificate. Nếu không, các nhãn gần điểm hòa không đáng tin.
+- **Học tiếp được không?** **Có.** Part 3 ghép các giá trị theo từng state thành các giá trị $L$ của cả ô trên $D_A\times D_B$ mà không dựng bảng tích, xử lý sai số số và khối lượng chưa chứng nhận, và nói rõ engine v1 *không* tính gì. Mình dừng ở đây.

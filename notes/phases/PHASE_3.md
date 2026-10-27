@@ -104,3 +104,17 @@ D tách A/B trên M01/M09/M22 và N01 ở ref 1/2/4, invariant N01; không dựn
 [verification.json](../../results/lessons/l3_1/part3/verification.json).
 Part 3 không đo hypothesis: không có baseline/new-method regret hoặc confidence interval.
 Chỉ báo số kiểm migration, sai lệch numerical và regression tests thực chạy.
+
+## 10. L3.2 — engine exact v1 thực nghiệm (27/10/2026)
+
+Theo DL-045/046, [engine](../../experiments/A00_engine/) có core Side/aggregate,
+vật lý native/mean-path, D22, numeric enclosures và guard. [T05](../theory/T05_exact_engine.md)
+vẫn **OPEN ở phần tác giả**: code mới giữ trong experiments, chưa promote vào src.
+Technical verification: **72 tests mới, 300 toàn repo PASS; 11/11 mutant bị bắt**.
+[Báo cáo và số đo](../../results/lessons/l3_2/report.md). Không nhận Understanding PASS.
+
+Chỉ toy outcomes và D-only migration đã khai báo; không outcome grid. Cờ allow-grid không
+thay card L3.3, T05/ownership hoặc các điều kiện runner (V9/A01). Held-out cần purpose
+A05-T và commit A05-F sạch; tên path minh họa được ghi trong engine guard.
+Các invariant báo cáo không thay checker độc lập; E3/E6 không là D7 H=1 known-mode states.
+EVPI_w/flip mass 2D để sau. Bước tiếp: L3.3; A01 vẫn chưa chạy.

@@ -1,0 +1,325 @@
+# LESSON 3.2 — Part 3: Ghép cả ô trên $D_A\times D_B$, pipeline D22, sai số số
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.2 Engine exact
+  Part 1  tầng sổ sách: sổ cái → L → 6 contrast                     ✔
+  Part 2  tầng vật lý: δ_A, δ_B cho một state                       ✔
+  Part 3  ← YOU ARE HERE: ghép mọi state của ô · D22 · sai số số · engine v1 không tính gì
+  Part 4  code và test
+```
+
+Mọi con số trong Part 3 mình đã tính lại bằng phân số trên các toy E4 và E7 (E7 là ví dụ mới), theo hai cách: liệt kê toàn bộ và sắp xếp–cộng dồn. Mình **không** dựng $D$ và không chạy engine trên bất kỳ ô lưới nào.
+
+## 2. Part 3 trả lời câu hỏi gì?
+
+> Part 2 cho ta $\delta_A(x_A)$ và $\delta_B(x_B)$ của từng phía. Sổ cái thật thì có $N_A\times N_B$ dòng. Làm sao tính đúng bốn $L$, pipeline D22 và các chẩn đoán **mà không dựng sổ cái đó**? Và khi số là float, lúc nào ta được tin dấu của nó?
+
+## 3. Tại sao cần
+
+- **Tầng nghiên cứu.** Vật lý đúng mà ghép sai thì vẫn đo sai estimand. Lưới v1.2 lại cố ý đặt mọi ô gần ranh giới quyết định (L3.1, Part 1), nên rất nhiều state có gap gần 0. Đó đúng là vùng mà sai số số có thể đổi nhãn. PC6 cũng cần F và V từ D22.
+- **Tầng thực hành.** Sau Part 3, bạn tự tính được $L_{10}$ bằng tay theo cách sắp xếp, biết contrast nào nhạy với sai số số, và biết đọc chữ "chưa phân giải".
+- **Nếu bỏ qua, có ba lỗi dễ gặp:**
+  1. Dựng tích Descartes $D_A\times D_B$: tốn bộ nhớ, và D12 không cho phép.
+  2. Cắt sai một dấu, dùng ≤ thay cho <: đó là đổi luật hòa một cách âm thầm.
+  3. "Kẹp" một gap âm rất nhỏ về Stay: oracle không còn là oracle nữa.
+
+## 4. Liên hệ với Main RQ
+
+```text
+Part 3 → evaluate_cell → bảng A04 (E1) + cột F, V cho PC6 + e_num cho luật chấm 3 trạng thái (L3.3)
+       → câu claim nào được phép viết
+```
+
+Part 3 liên hệ **trực tiếp** với việc tạo ra con số, và **trực tiếp** với quyền gán nhãn cho con số đó.
+
+## 5. Nền toán cần cho Part 3
+
+| Mức | Nội dung |
+|---|---|
+| **Cần ngay** | Kỳ vọng trên tích độc lập: $\mathbb E[f(X+Y)]=\sum_x p(x)\sum_y q(y)\,f(x+y)$; tính phân phối (tách $c\cdot\sum$); sắp xếp, tổng cộng dồn; khoảng sai số |
+| Học trong lúc làm | Hàm **liên tục** và hàm **nhảy bậc**: cần để hiểu contrast nào nhạy với sai số |
+| Chưa cần | Phân tích sai số làm tròn chi tiết; chứng chỉ phổ của $D$ (T02, T04) |
+
+## 6. Mental model
+
+```text
+Part 2 cho mỗi phía một BẢNG NHỎ:
+  phía A: (D_A, δ_A, δ̂_A) cho mỗi x_A          phía B: (D_B, δ_B, δ̂_B) cho mỗi x_B
+                       \                              /
+                 Part 3: GHÉP mà không nhân hai bảng với nhau
+                 Câu hỏi: "với mỗi x_A, bao nhiêu khối lượng của B đủ để lật dấu?"
+                                       ↓
+           L00, L01, L10, L11, L_cb0, các chẩn đoán, tất cả kèm khoảng sai số
+```
+
+**So sánh đời thường.** Có hai lớp, mỗi học sinh có một điểm. Bạn muốn biết bao nhiêu cặp (một học sinh lớp A, một học sinh lớp B) có tổng điểm âm. Không cần liệt kê mọi cặp. Chỉ cần sắp lớp B theo điểm, rồi với mỗi học sinh lớp A, tìm vị trí cắt trên danh sách đã sắp.
+
+---
+
+## 7. Các khái niệm
+
+### 7.1. Khi nào phải ghép, khi nào không
+
+Ta có $\Delta(x)=\delta_A(x_A)+\delta_B(x_B)$ (Part 2) và $D=D_A\times D_B$ (D12). Sổ cái đầy đủ có $N_A\cdot N_B$ dòng.
+
+Để thấy kích thước: giả sử mỗi phía có $10^4$ state (đây là số minh họa, không phải số đo của ô nào). Khi đó có $10^8$ cặp. Sắp xếp rồi cộng dồn chỉ tốn cỡ $(N_A+N_B)\log N_B$ phép tính.
+
+Không phải đại lượng nào cũng cần ghép:
+
+| Đại lượng | Cần ghép hai phía? | Vì sao |
+|---|---|---|
+| $\mathbb E\Delta$, $\mathbb E\widehat\Delta$, nên cả $a_{00}$, $a_{01}$ | **Không** | Kỳ vọng tuyến tính: $\mathbb E\Delta=\mathbb E\delta_A+\mathbb E\delta_B$ |
+| $\mathbb E_DJ(\text{St})$ | **Không** | Tổng tách được: $\mathbb E J_A(\text{St})+\mathbb E J_B(\text{St})$ |
+| $L_{10}$, $L_{11}$ (qua $\mathbb E\Delta^-$), $p_{\text{sw}}$, $L_{\text{cb}0}$, $\mathbb E\lvert I_\Delta\rvert$, khối lượng lật | **Có** | Phụ thuộc **dấu** của $\Delta(x)$ hoặc $\widehat\Delta(x)$ *theo từng cặp* |
+
+### 7.2. Toy E7: một ô hai phía
+
+Đây là số minh họa ở tầng sổ cái. Dấu thỏa $\delta_A\ge0\ge\delta_B$ cho cả hai model, nhưng các số không được dẫn từ plant.
+
+| Phía A (mỗi state ½) | $\delta_A$ | $\hat\delta_A$ | | Phía B (mỗi state ½) | $\delta_B$ | $\hat\delta_B$ |
+|---|---:|---:|---|---|---:|---:|
+| $a_1$ ($q_A=1$) | 1 | 0,5 | | $b_1$ ($q_B=0$, OFF) | −4 | −2 |
+| $a_2$ ($q_A=4$) | 3 | 1,5 | | $b_2$ ($q_B=0$, ON) | −0,5 | −0,75 |
+
+Liệt kê toàn bộ để có đáp án đối chiếu:
+
+| Cặp | $\Delta$ | $\widehat\Delta$ | $a_{10}$ | $a_{11}$ (oracle) |
+|---|---:|---:|---|---|
+| $a_1b_1$ | −3 | −1,5 | Sw | Sw |
+| $a_1b_2$ | +0,5 | −0,25 | Sw | **St** ← lật |
+| $a_2b_1$ | −1 | −0,5 | Sw | Sw |
+| $a_2b_2$ | +2,5 | +0,75 | St | St |
+
+Đặt $K=\mathbb E_DJ(\text{St})$.
+- $\mathbb E\Delta=-0{,}25$ nên $a_{01}$ = Sw. $\mathbb E\widehat\Delta=-0{,}375$ nên $a_{00}$ = Sw.
+- Bốn giá trị $L$: $L_{00}=L_{01}=K-0{,}25$; $L_{10}=K-0{,}875$; $L_{11}=K-1$.
+- Sáu contrast: $G_S=0{,}625$; $G_M=0$; $G_{SM}=0{,}75$; $\Gamma=0{,}125$; $G_{S\mid M_1}=0{,}75$; $G_{M\mid S_1}=0{,}125$.
+- Kiểm bằng bổ đề T01: $\min(\mathbb E\Delta^+,\mathbb E\Delta^-)=\min(0{,}75;\,1)=0{,}75$ ✓.
+
+### 7.3. Sắp xếp và cộng dồn
+
+**Bắt đầu từ công thức của Part 1.** $L_{10}=K+\mathbb E\big[\mathbf 1[\widehat\Delta<0]\,\Delta\big]$. Viết tách theo hai phía:
+$$L_{10}=K+\sum_{x_A}D_A(x_A)\!\!\sum_{x_B:\ \hat\delta_B(x_B)<-\hat\delta_A(x_A)}\!\!D_B(x_B)\big[\delta_A(x_A)+\delta_B(x_B)\big].$$
+
+**Bước 1: tách tổng bên trong.** $\delta_A(x_A)$ là hằng khi ta cộng theo $x_B$, nên đưa được ra ngoài:
+$$\text{tổng trong}=\delta_A(x_A)\cdot\underbrace{\textstyle\sum D_B}_{\text{trên tập cắt}}+\underbrace{\textstyle\sum D_B\,\delta_B}_{\text{trên tập cắt}}.$$
+Nghĩa là chỉ cần **hai mảng cộng dồn** trên phía B, sau khi đã sắp B theo $\hat\delta_B$.
+
+**Bước 2: chạy trên E7.** Sắp B theo $\hat\delta_B$: $b_1$ (−2) rồi $b_2$ (−0,75). Hai mảng cộng dồn:
+- `cumD` = [0; 0,5; 1]
+- `cumDδ` = [0; −2; −2,25]
+
+| $x_A$ | Ngưỡng $-\hat\delta_A$ | Số phần tử $<$ ngưỡng | Đóng góp |
+|---|---:|---:|---:|
+| $a_1$ | −0,5 | 2 | $\tfrac12[1\cdot1+(-2{,}25)]=-0{,}625$ |
+| $a_2$ | −1,5 | 1 | $\tfrac12[3\cdot\tfrac12+(-2)]=-0{,}25$ |
+
+Cộng hai đóng góp được $-0{,}875$, khớp với kết quả liệt kê ✓.
+
+**Ba chi tiết quyết định đúng hay sai:**
+
+1. **Sắp theo cái dùng để quyết định, cộng cái dùng để chấm.** Mảng được sắp theo $\hat\delta_B$, nhưng giá trị cộng dồn là $\delta_B$ thật. Đây chính là "luật vàng" của Part 1 dưới dạng thuật toán. Nếu sắp theo $\delta_B$, bạn sẽ ra $L_{11}$ chứ không phải $L_{10}$.
+2. **Dùng bất đẳng thức chặt.** Vị trí cắt là số phần tử *nhỏ hơn hẳn* ngưỡng (`bisect_left`, hay `searchsorted(side='left')`). Khi hòa thì chọn Stay. Dùng ≤ chính là mutant "đổi luật hòa".
+3. **$L_{11}$ và $p_{\text{sw}}$ dùng cùng cách**, nhưng sắp theo $\delta_B$ thật. Trên E7: $p_{\text{sw}}=\tfrac12\cdot\tfrac12+\tfrac12\cdot\tfrac12=\tfrac12$, và $\mathbb E\Delta^-=1$, khớp với liệt kê.
+
+### 7.4. $C_{\text{ref}}$ cần cost tuyệt đối, nhưng không cần ghép
+
+$C_{\text{ref}}=L_{11}=K-\mathbb E\Delta^-$.
+
+$K$ tách được thành tổng hai phía. Mỗi $J_l(\text{St};x_l)$ gồm *phần tuyến tính* (backlog ban đầu và tải trung bình có điều kiện theo mode) cộng *capacity bỏ phí có trọng số* (Part 2, §7.2). Gap thì không cần $K$, nhưng nhãn tương đối thì cần.
+
+$C_{\text{ref}}$ phải tính ở **cùng mức dt** với contrast mà nó dùng để chuẩn hóa. Nếu lấy $C_{\text{ref}}$ ở mức dt khác, đó là một mutant.
+
+### 7.5. Pipeline D22: tách $G_S$ thành F và V
+
+**Nhắc lại D22.** Pipeline này biết backlog **hiện tại** của cả hai queue, nhưng **không** biết mode. Nó dùng posterior đúng và giữ $M_0$ cố định.
+
+**Pipeline quyết định thế nào.** Với mỗi cặp $(q_A,q_B)$, gap mà $M_0$ dự đoán, lấy trung bình trên belief về mode, là:
+$$\bar{\hat\delta}_A(q_A)+\bar{\hat\delta}_B(q_B),\qquad \bar{\hat\delta}_l(q_l)=\sum_m D_l(m\mid q_l)\,\hat\delta_l(q_l,m).$$
+
+**Vì sao được lấy trung bình $\hat\delta$ như vậy.** Theo D10, $M_0$ là *trung bình cost của các rollout*, nên nó tuyến tính theo belief. Nếu $M_0$ rollout từ state trung bình (D10 cấm cách này), bước trung bình trên không còn đúng, và D22 sẽ cần rollout riêng. Đây là chỗ Part 2 nối với Part 3.
+
+**Cost được chấm.** Là cost thật $\bar\delta_A(q_A)+\bar\delta_B(q_B)$. Sau đó dùng đúng cách sắp xếp–cộng dồn như trên, áp lên bảng đã gộp mode.
+
+**Chạy trên E7.**
+- D22 thấy $q_B=0$ ở cả $b_1$ và $b_2$, nên $\bar{\hat\delta}_B=(-2-0{,}75)/2=-1{,}375$ và $\bar\delta_B=-2{,}25$.
+- $a_1$: $0{,}5-1{,}375<0$ nên Switch, và trả cost thật $1-2{,}25=-1{,}25$.
+- $a_2$: $1{,}5-1{,}375=+0{,}125$ nên Stay, cost thêm bằng 0.
+- Suy ra $L_{\text{cb}0}=K-0{,}625$.
+- $F=L_{00}-L_{\text{cb}0}=0{,}375$; $V=L_{\text{cb}0}-L_{10}=0{,}25$; $F+V=0{,}625=G_S$ ✓.
+
+**Đọc kết quả bằng lời.**
+- $S_0$ Switch ở mọi state. Khi biết backlog hiện tại $q_A=4$, pipeline tránh được Switch ở $a_2$, nơi Switch trung bình là lỗ. Đó là **F**.
+- Khi thấy thêm mode OFF của B, pipeline nhận ra Switch ở $a_2b_1$ thực ra là lời. Đó là **V**.
+
+**Hai lưu ý khi diễn giải:**
+- F và V **phụ thuộc thứ tự**: contract định nghĩa "backlog trước, mode sau". Đi theo thứ tự ngược có thể cho kết quả tách khác. Vì vậy, đọc F là "giá trị của backlog *khi mode còn ẩn*", không phải "giá trị của backlog" nói chung.
+- F có thể âm, giống như $G_S$.
+
+### 7.6. Chẩn đoán đi kèm: tách "bao nhiêu lần" khỏi "mỗi lần bao nhiêu"
+
+Từ Part 1: $G_{M\mid S_1}=\mathbb E\big[\lvert\Delta\rvert\cdot\mathbf 1[a_{10}\ne a_{11}]\big]$.
+
+Một giá trị $G_{M\mid S_1}$ nhỏ có thể có hai nghĩa: model *ít khi* chọn sai, hoặc nó chọn sai *chỉ ở chỗ $\lvert\Delta\rvert$ nhỏ*. Vì vậy engine báo kèm **khối lượng lật** $P(a_{10}\ne a_{11})$ và các quantile của $\lvert\Delta\rvert$. Trên E7, chỉ lật ở $a_1b_2$: khối lượng ¼, $\lvert\Delta\rvert=0{,}5$, nên $G_{M\mid S_1}=0{,}125$ ✓.
+
+**$I_\Delta$ (từ L1.5)** đo việc sai số dự đoán $e_M=\widehat\Delta-\Delta$ thay đổi theo state đến mức nào.
+- Trên E7: $e_M=(1{,}5;\,-0{,}75;\,0{,}5;\,-1{,}75)$. Trung bình bằng $-0{,}125$, chính là bias. $\mathbb E\lvert I_\Delta\rvert=1{,}125$.
+- Sai số dự đoán biến động rất mạnh, trong khi $\Gamma$ chỉ bằng 0,125.
+- Kết luận: tương tác ở tầng dự đoán **không phải** là tương tác ở tầng quyết định.
+- Vì $e_M=e_A+e_B$ tách được, $\mathbb E\lvert I_\Delta\rvert$ cũng tính bằng cùng cách sắp xếp.
+
+### 7.7. Sai số số
+
+**Ba nguồn sai số, đừng trộn với nhau:**
+
+| Nguồn | Đến từ đâu | Cận | Ghi chú |
+|---|---|---|---|
+| $D$ | Spectral, Lyapunov (D12) | law ≤ 1e−10, posterior ≤ 1e−8 | $\lvert L-\tilde L\rvert\le\lVert D-\tilde D\rVert_1\cdot\max\lvert f\rvert$ |
+| Làm tròn trong DP | Kernel float64 hoặc long double | Cận tiên nghiệm trong `gap_screen.backward`. Trong đơn vị lưới, cận tăng cỡ $H^3$ | Đây là cận xấu nhất, không phải sai số thực |
+| Rời rạc hóa theo dt | Không phải sai số số | A01 xử lý | Engine tính *đúng* mô hình slot ở một mức dt |
+
+Ngân sách sai số: $e_{\text{num}}\le0{,}0025\,C_{\text{ref}}$ (D24).
+
+**Dấu được xác định bằng khoảng, không bằng độ nhỏ.** Hàm `idle_gap.resolve_sign` đã có sẵn trong repo:
+- khoảng $[g-e,\,g+e]$ nằm hẳn bên phải 0 (≥ 0): Stay;
+- nằm hẳn bên trái 0 (< 0): Switch;
+- cắt qua 0: **chưa phân giải**, phải tăng độ chính xác hoặc HOLD.
+
+Ngoại lệ duy nhất là **hòa đã chứng nhận**: ở ô conservation, certificate cho $\Delta\equiv0$, nên Stay theo D16. Đây là một *phép chứng minh*, không phải một con số nhỏ.
+
+**Vì sao không được kẹp.** Giả sử một state có xác suất 0,1, với $\Delta=-10^{-12}$ và $\widehat\Delta=-2$.
+- Nếu oracle bị kẹp về Stay, trong khi $S_1M_0$ chọn Switch, thì $G_{M\mid S_1}=0{,}1\cdot(-10^{-12})<0$. Regret âm, nghĩa là oracle không còn là cực tiểu.
+- Độ lớn sai lệch rất nhỏ. Nhưng hệ quả không nhỏ:
+  1. Bất biến $G\ge0$ phải nới ra thành một dung sai, và dung sai đó che luôn các bug nhỏ có thật.
+  2. Câu "sáu contrast bằng 0 *chính xác*" ở ô kiểm âm dựa vào certificate. Nó không thể dựa vào chuyện "số đủ nhỏ".
+  3. $p_{\text{sw}}$ bị đếm sai.
+
+**Insight quan trọng nhất của Part 3: đại lượng nào nhạy với sai số.**
+
+| Đại lượng | Dấu quyết định nằm ở | Liên tục theo input? | Nếu dấu chưa phân giải, sai tối đa |
+|---|---|---|---|
+| $L_{11}=K-\mathbb E\Delta^-$ | $\Delta(x)$ | **Liên tục**, vì $\min$ liên tục | ≤ $e$ |
+| $L_{01}=K+\min(0,\mathbb E\Delta)$ | $\mathbb E\Delta$ | **Liên tục** | ≤ $e$ |
+| $L_{00}=K+a_{00}\,\mathbb E\Delta$ | $\mathbb E\widehat\Delta$ | **Nhảy**, bước nhảy cỡ $\lvert\mathbb E\Delta\rvert$ | $\lvert\mathbb E\Delta\rvert$ |
+| $L_{10}$ | $\widehat\Delta(x)$ | **Nhảy**, cỡ $D(x)\lvert\Delta(x)\rvert$ ở mỗi state | $\sum_{x\text{ chưa phân giải}}D(x)\lvert\Delta(x)\rvert$ |
+| $L_{\text{cb}0}$ | $\bar{\hat\delta}$ | **Nhảy** | Tương tự $L_{10}$ |
+
+**Vì sao lại như vậy.** Một pipeline quyết định theo *cost thật*, khi gặp một state gần hòa, chọn bên nào cũng mất gần như nhau. Sai số ở đó vô hại. Một pipeline quyết định theo *$M_0$* thì khác: điểm hòa của $\widehat\Delta$ có thể trùng với chỗ $\lvert\Delta\rvert$ lớn, vì đó chính là chỗ $M_0$ sai.
+
+**Hệ quả.** $G_{S\mid M_1}$ bền vững với sai số số. Ngược lại, $G_S$, $G_M$, $G_{M\mid S_1}$, $\Gamma$, F và V là những đại lượng mỏng manh.
+
+**Nhãn điểm khác nhãn theo khoảng.** Hàm `thresholds.verdict` trong repo chỉ gán nhãn theo *điểm*. Ví dụ: $G/C_{\text{ref}}=0{,}0049$ và $e_{\text{num}}/C_{\text{ref}}=0{,}0025$.
+- Khoảng là $[0{,}0024;\,0{,}0074]$, cắt qua $\varepsilon_E=0{,}005$.
+- Nhãn điểm sẽ ghi `equivalent_point`, nhưng thực ra ô này **chưa phân giải**.
+
+Luật chấm ba trạng thái sẽ được khóa ở L3.3. Engine chỉ cần trả $e_{\text{num}}$ cho *từng* đại lượng để luật đó dùng được.
+
+### 7.8. Những gì engine v1 không tính
+
+**$\mathbb E_D[\text{EVPI}_w]$: giá trị của một oracle biết cả tương lai.**
+
+Toy một state. Mỗi đường đi có gap thực hiện riêng: $d_A\in\{0;2\}$, $d_B\in\{-2;0\}$, độc lập, mỗi giá trị xác suất ½. Dấu thỏa $d_A\ge0\ge d_B$ trên từng đường đi.
+- Trung bình: $\delta_A=1$, $\delta_B=-1$, nên $\Delta=0$. Oracle D15 chọn Stay (hòa), và ai biết $x$ cũng có regret bằng 0.
+- Theo từng đường đi: $d\in\{-2;0;0;+2\}$. Một oracle biết $w$ sẽ Switch đúng ở đường có $d=-2$. Khi đó $\mathbb E\min(0,d)=-0{,}5$, nên $\text{EVPI}_w(x)=0{,}5$.
+
+**Vì sao sắp xếp–cộng dồn không dùng được ở đây.** Đại lượng này cần *phân phối* của $d_A$ và $d_B$ cho từng state, chứ không chỉ một con số trung bình. Plan ghi rằng tính khả thi "chưa kiểm bằng code". Mình đồng ý là trở ngại có thật, còn khả thi hay không thì chưa biết.
+
+**Vì sao không tính là đúng, không phải thiếu sót.** Repair của WM26 nhập tương lai thật vào, nên gain của họ *chứa* phần EVPI này. D15 và D18 loại phần đó ra. Engine v1 vì vậy đo một estimand khác một cách *có chủ đích*, đúng với ranh giới PC3 của Phase 2. Nếu muốn báo kèm EVPI$_w$, cần một thiết kế riêng và một DL.
+
+Engine v1 cũng **không** chạy trên plant khác v1.2 (shared link, finite buffer).
+
+---
+
+## 8. Hai đề xuất chỉnh plan
+
+**(a) Plan ghi** $F+V=G_S$ và $\Gamma=G_{S\mid M_1}-G_S=G_{M\mid S_1}-G_M$ là invariant, vi phạm thì raise.
+**Tôi đề xuất** không tính chúng là bằng chứng verification.
+**Vì sao:** đây là **đồng nhất thức đại số**. Chúng đúng với *bất kỳ* bốn số $L$ nào, kể cả bốn số sai. Chúng chỉ bắt được lỗi gõ khi báo cáo. Nên chia các phép kiểm thành ba loại:
+
+| Loại | Ví dụ | Bắt được gì |
+|---|---|---|
+| 1. Đồng nhất thức theo định nghĩa | $F+V=G_S$; hai dạng của $\Gamma$ | Lỗi ghi hoặc báo cáo |
+| 2. Bất đẳng thức toán mà bug có thể làm vỡ | $L_{11}\le L_{sm}$; $G_{M\mid S_1}\ge0$; $\delta_A\ge0\ge\delta_B$; $W^{M_0}\le W^{M_1}$ | Sắp sai, cắt sai, đổi chiều $u$, nhầm law |
+| 3. Kiểm chéo giữa hai đường tính độc lập | $\mathbb E\Delta^+-\mathbb E\Delta^-$ (qua sắp xếp) so với $\mathbb E\delta_A+\mathbb E\delta_B$ (không ghép); sắp xếp so với liệt kê; native so với Python phân số; engine so với `single_observation.statistics` | Hầu hết lỗi ghép |
+
+Vẫn nên giữ loại 1 vì nó rẻ. Nhưng câu "mọi bất biến giữ" ở Gate chỉ nên đếm loại 2 và loại 3.
+
+**(b) Plan ghi** "khối lượng chưa chứng nhận" là một con số duy nhất: lớn hơn 0,01 thì tăng độ chính xác.
+**Tôi đề xuất** báo khối lượng này **riêng** cho $\Delta$ (oracle, $p_{\text{sw}}$), cho $\widehat\Delta$ (pipeline 10) và cho $\bar{\hat\delta}$ (D22). Với hai pipeline theo $M_0$, báo thêm cận ảnh hưởng $\sum D(x)\lvert\Delta(x)\rvert$ trên các state chưa phân giải. Ở cấp ô, nếu $\mathbb E\widehat\Delta$ chưa phân giải, báo **cả hai** giá trị khả dĩ của $L_{00}$ và HOLD các contrast phụ thuộc $M_0$.
+**Vì sao:** theo bảng ở §7.7, một khối lượng nhỏ nhưng có $\lvert\Delta\rvert$ lớn vẫn có thể làm $G_S$ lệch cỡ $\varepsilon_R$. Ngược lại, một khối lượng lớn mà $\lvert\Delta\rvert\approx0$ thì vô hại. `precision_summary` hiện chỉ nhận một loại gap, nên chỉ cần gọi nhiều lần. Đây là *luật phân tích*, không đổi contract. Nên ghi một DL trước A01.
+
+## 9. Assumptions
+
+| Assumption | Nó giúp tách riêng cái gì | Nếu bị phá thì sao |
+|---|---|---|
+| $D=D_A\times D_B$ (D12, dựa trên nền độc lập D4) | Ghép bằng sắp xếp thay vì dựng tích | Nền tương quan (Phase 7): cần $D$ chung, và cách ghép đổi |
+| Belief bằng $D$ (D9) | $S_0$ và evaluator dùng cùng mảng | Nếu khác, $G_S$ trộn cả lỗi của estimator |
+| Cận sai số là cận xấu nhất | Không bao giờ chắc chắn sai | Cái giá: nhiều ô "chưa phân giải" hơn cần thiết. Đây là đánh đổi nên nêu rõ |
+
+## 10. 🔗 Liên hệ với repo cũ
+
+- **`gap_screen.probability_interval`** là hàm bạn đã dùng để dựng lưới v1.2. Nó chính là sắp xếp–cộng dồn cho $p_{\text{sw}}$, kèm bước giao khoảng sai số với dấu đã chứng minh ($W_A\ge0$, $W_B\le0$). Nó gọi `less_mass` hai lần: một lần cho "chắc chắn Switch" ($p_{\text{low}}$), một lần cho "có thể Switch" ($p_{\text{high}}$). Phần chênh lệch giữa hai lần là khối lượng chưa phân giải. Engine mở rộng đúng ý tưởng này sang $L_{10}$, $L_{11}$, D22 và $\mathbb E\lvert I_\Delta\rvert$.
+- **`resolve_sign` và `precision_summary`** đã cài sẵn luật "không kẹp". Dùng lại được (Keep).
+- **Ở thế hệ 2**, "bất định" nghĩa là khoảng tin cậy (CI) từ nhiều seed Monte Carlo. Bây giờ không có lấy mẫu nữa, nên bất định còn lại chỉ là **sai số số có cận**. $e_{\text{num}}$ không phải CI. Ở Phase 3 cũng không có khái niệm "power".
+
+## 11. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "Ô X ở dt Y: $G_S=\dots\pm e_{\text{num}}$" | Báo $G_S$ mà không kèm $e_{\text{num}}$, ở ô gần ranh giới |
+| "$V>F$ ở ô X, theo thứ tự D22 (backlog trước, mode sau)" | "Biết mode quan trọng hơn biết backlog" nói chung |
+| "Ô X chưa phân giải về số" | "Ô X không đứng" |
+
+## 12. Reviewer có thể hỏi
+
+1. *"Gap cỡ $10^{-12}$ thì anh tin dấu kiểu gì?"* → **Trả lời được**: dùng khoảng, certificate, và HOLD.
+2. *"F và V có phụ thuộc thứ tự không?"* → Nêu được là có. Contract chưa định nghĩa thứ tự ngược.
+3. *"Một oracle biết tương lai có đổi kết luận không?"* → Engine v1 không đo; đó là estimand khác (WM26). Lớn đến mức nào thì **chưa trả lời được**.
+4. *"Kiểm của anh có kiểm được gì không, hay toàn đồng nhất thức?"* → §8a.
+
+## 13. ⚠️ Bẫy người mới
+
+- Sắp theo $\delta_B$ thay vì $\hat\delta_B$ khi tính $L_{10}$: kết quả ra $L_{11}$.
+- Dùng ≤ thay cho <.
+- Dựng tích Descartes "cho chắc".
+- Thấy $F+V=G_S$ đúng rồi tin code đúng.
+- Coi $e_{\text{num}}$ là CI.
+- Đọc F như "giá trị của backlog" tuyệt đối.
+- Dựng $D$ của một ô lưới chỉ để "xem support lớn cỡ nào" ngoài bước 8 đã lên kế hoạch, mà không ghi exposure.
+
+## 14. 🧠 Tư duy researcher
+
+> Với mỗi con số bạn báo, hãy hỏi: *nó có liên tục theo một input mà tôi chỉ biết gần đúng không?* Chỗ nào nhảy bậc là chỗ một sai số nhỏ có thể biến thành một kết luận sai.
+
+Và một câu khác: *một phép kiểm chỉ có giá trị nếu tồn tại một bug khiến nó đỏ.*
+
+## 15. Bài tập nên làm (khuyến nghị)
+
+- Tính $L_{11}$ và $p_{\text{sw}}$ của E7 bằng sắp xếp–cộng dồn (sắp theo $\delta_B$), rồi so với bảng liệt kê.
+- Đổi $\hat\delta_B(b_2)$ từ −0,75 thành −0,4. Đoán trước xem $L_{00}$, $L_{01}$, $L_{10}$, $L_{11}$, $L_{\text{cb}0}$ cái nào đổi, rồi mới tính.
+
+<details><summary>Đáp án bài 2 (đã kiểm bằng phân số)</summary>
+
+Chỉ $L_{10}$ đổi, thành $K-1$, vì $S_1M_0$ giờ chọn trùng oracle ở mọi cặp. Hệ quả: $G_{M\mid S_1}=0$, $\Gamma=0$, $G_S=0{,}75$. D22 không đổi, vì $\bar{\hat\delta}_B=-1{,}2$ vẫn cho Switch ở $a_1$ và Stay ở $a_2$. Do đó $F=0{,}375$ giữ nguyên, còn $V$ tăng lên $0{,}375$. $a_{00}$ vẫn là Switch, vì $\mathbb E\widehat\Delta=-0{,}2$.
+</details>
+
+## 16. Tự kiểm tra (tùy chọn)
+
+1. Đại lượng nào cần ghép hai phía, đại lượng nào không? Vì sao $\mathbb E\Delta$ không cần?
+2. Khi tính $L_{10}$, bạn sắp theo gì và cộng gì? Nếu đổi chỗ hai thứ đó, bạn tính ra đại lượng nào?
+3. Vì sao D10 là điều kiện để tính D22 bằng sắp xếp?
+4. Vì sao $G_{S\mid M_1}$ bền với sai số số hơn $G_S$?
+5. Reviewer nói: "$F+V=G_S$ ở mọi ô, vậy code đúng." Bạn phản biện thế nào?
+
+## 17. Trạng thái của Part 3
+
+- **Hiểu:** đại lượng nào cần ghép; sắp xếp–cộng dồn (sắp theo cái quyết định, cộng cái chấm, dùng < chặt); $C_{\text{ref}}$ tách được; D22 và vai trò của D10; khối lượng lật và $I_\Delta$; ba nguồn sai số; khoảng và certificate thay cho việc kẹp; đại lượng liên tục và đại lượng nhảy bậc; EVPI$_w$ nằm ngoài estimand.
+- **Nên làm khi triển khai thật:**
+  - Đưa E7 vào golden: liệt kê bằng sắp xếp; D22 cho $F=3/8$, $V=1/4$. Golden L1.6 (0,375 + 0,75) vẫn giữ.
+  - Phân loại bất biến theo §8a.
+  - Ghi một DL cho luật khối lượng chưa phân giải ở §8b, trước A01.
+- **Phụ thuộc khoa học:** mọi nhãn ở A04 và mọi phép chấm card cần $e_{\text{num}}$ cho từng đại lượng. Các contrast phụ thuộc $M_0$ cần cận ảnh hưởng của phần chưa phân giải.
+- **Exposure, nếu bạn muốn ghi vào register:** trong L3.2 Part 1–3, AI chỉ chạy toy (E1–E7 và ví dụ forking paths 8 ô). Không dựng $D$, không tính $J$, gap hay contrast của bất kỳ ô M, R, N hay P nào.
+- **Học tiếp được không?** **Có.** Part 4 là phần code và test: hợp đồng hàm, golden, liệt kê, mutant, migrate `queue_D`, cờ `--allow-grid`. Mình dừng ở đây.

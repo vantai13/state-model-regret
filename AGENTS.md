@@ -129,3 +129,11 @@ P0-V10 đọc v1.2/brief/claims hiện hành, L8 OPEN; hai nghĩa V9 tách riên
 cells.py rebuild4hàm từ experiments, nguồn giữ byte;38main constructors và24D comparisons
 khớp,228testsPASS. Chỉ kiểm D, không engineL3.2/outcomes/held-outD; L3.3 chưa khóa.
 Không nhận Understanding/ownership PASS hoặc người đọc đã xem; HOLD Phase4 giữ nguyên.
+
+L3.2 Parts1–4/27/10 (DL-045–046): engine mới ở experiments/A00_engine, KHÔNG src
+vì T05 tác giả/attestation chưa có. 72tests mới/300full PASS,11/11mutant KILLED;
+canonical/E2/E5/E7/L1.5/L1.8B tái lập; bounds tách oracle/M0/D22 và impact.
+E3/E6 là arrival-law toys, không D7 H=1 known-mode; pseudocode idle/guard đã sửa.
+Adapter58metadata,32D-only comparisons8IDs×A/B×ref1/2 khớp,không heldoutD/gridoutcomes.
+Src/kernel/contract/PC/threshold giữ; EVPI_w/flip2D để sau; L3.3 chưa commit,
+T05/ownership/P0-V10/L8 OPEN, V9 chưa gửi/A04 chờ, Phase4 HOLD.
