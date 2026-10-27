@@ -1,0 +1,67 @@
+Part0 M01 ref=1: match=True
+Part0 M01 ref=2: match=True
+Part0 M01 ref=4: match=True
+Part0 M09 ref=1: match=True
+Part0 M09 ref=2: match=True
+Part0 M09 ref=4: match=True
+Part0 M22 ref=1: match=True
+Part0 M22 ref=2: match=True
+Part0 M22 ref=4: match=True
+PartA M01 ref=1: C1,C2,C3 PASS; V=0.03356770902247159
+PartA M01 ref=2: C1,C2,C3 PASS; V=0.03193976180329494
+PartA M09 ref=1: C1,C2,C3 PASS; V=-0.0817596237152137
+PartA M09 ref=2: C1,C2,C3 PASS; V=0.042411039062913033
+PartA M22 ref=1: C1,C2,C3 PASS; V=0.0
+PartA M22 ref=2: C1,C2,C3 PASS; V=0.0
+PartA N01 ref=1: C5 PASS
+PartA N01 ref=2: C5 PASS
+PartA N02 ref=1: C5 PASS
+PartA N02 ref=2: C5 PASS
+PartA N03 ref=1: C5 PASS
+PartA N03 ref=2: C5 PASS
+PartA N04 ref=1: C5 PASS
+PartA N04 ref=2: C5 PASS
+PartA P01 ref=1: C5 PASS
+PartA P01 ref=2: C5 PASS
+PartA W01 ref=1: C6 PASS
+PartA W01 ref=2: C6 PASS
+PartA S01 ref=1: C6 PASS
+PartA S01 ref=2: C6 PASS
+PartA P02 ref=1: C6 PASS
+PartA P02 ref=2: C6 PASS
+PartB START M01 m=1
+PartB M01 m=1: BOUNDED; max_e=0.000865859; unresolved=1.71586e-05; 2.1s
+PartB START M01 m=2
+PartB M01 m=2: BOUNDED; max_e=0.000788961; unresolved=1.56432e-05; 11.4s
+PartB START M01 m=4
+PartB M01 m=4: BOUNDED; max_e=0.000209152; unresolved=4.14827e-06; 55.7s
+PartB START M01 m=8
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/A01_null_refinement/run.py", line 241, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/A01_null_refinement/run.py", line 231, in main
+    selection = run_partB(out, cfg)
+  File "/home/vantai/state-model-regret/experiments/A01_null_refinement/run.py", line 185, in run_partB
+    r = evaluate_sides(A, B, refinement=m, dt=F(1, 120 * m))
+  File "/home/vantai/state-model-regret/experiments/A00_engine/evaluate.py", line 17, in evaluate_sides
+    result.update(enclose(A, B, result))
+                  ~~~~~~~^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/A00_engine/precision.py", line 155, in enclose
+    groupedA, groupedB = group_side(A), group_side(B)
+                         ~~~~~~~~~~^^^
+  File "/home/vantai/state-model-regret/experiments/A00_engine/precision.py", line 127, in group_side
+    P = sum(array(s.p)[i] for i in indices)
+  File "/home/vantai/state-model-regret/experiments/A00_engine/precision.py", line 127, in <genexpr>
+    P = sum(array(s.p)[i] for i in indices)
+            ~~~~~^^^^^
+  File "/home/vantai/state-model-regret/experiments/A00_engine/precision.py", line 21, in array
+    return np.asarray([convert(v) for v in x], dtype=LD)
+                       ~~~~~~~^^^
+  File "/home/vantai/state-model-regret/experiments/A00_engine/precision.py", line 18, in convert
+    return LD(str(v.numerator)) / LD(str(v.denominator)) if isinstance(v, Rational) else LD(v)
+                                                            ~~~~~~~~~~^^^^^^^^^^^^^
+  File "<frozen abc>", line 119, in __instancecheck__
+KeyboardInterrupt

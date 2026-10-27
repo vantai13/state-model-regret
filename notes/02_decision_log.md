@@ -667,3 +667,19 @@ plant/control/metric/levels/tol/card/prereg giữ nguyên. Receipt mới ghi sou
 và previous receipt, commit trước retry; receipt gốc giữ ở failed run. Full rerun
 Part0→A→B, chỉ tớiB nếu controlsPASS. Exposure M01/M09/M22 ref1/2 và N01/ref1
 đã có; failed artifacts được giữ, không xóa/làm lại thành PASS.
+
+### DL-052 — A01 performance correction, không đổi luật nghiên cứu (2026-10-27)
+
+Run02 code `c5fd6b0`: Part0/A PASS; B hoàn thành M01/ref1,2,4 BOUNDED.
+Tạm dừng khi M01/ref8 đang ở precision.group_side, giữ console/JSON và đánh dấu
+INTERRUPTED; chưa có output hoàn chỉnh ref8. Profiling traceback chỉ ra loop
+chuyển **toàn bộ** array(s.p) lại cho từng phần tử của mỗi group → O(n²) conversions.
+Hoist immutable conversion ra ngoài loop, giữ nguyên từng số và thứ tự cộng;
+không thay toán/cận/precision hoặc dữ liệu. Bổ sung --workers1..6 cho các level
+độc lập; tính **đủ15** tasks, sắp xếp CSV theo cell/ref, selector sau khi đủ bảng.
+Per-cell/level resource caps không đổi; không adaptive levels/early stop.
+
+Commit receipt source mới trước run03. Run03 tính lại Part0/A bằng cùng engine
+mới, không mượn controls khác source; tính lại đủ PartB, không dùng cached output
+cũ để né kiểm. Run01 FAIL và run02 INTERRUPTED giữ nguyên. C5/C6 thresholds/card/
+prereg không sửa. Không thêm mức ngoài1,2,4,8,16 hoặc outcome held-out/A04.

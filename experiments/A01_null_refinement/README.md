@@ -5,7 +5,7 @@ Hai commit riêng cho prereg và receipt; không ghi commit hash vào chính fil
 Chạy từ repo root sau khi đã commit source/config:
 
 ```bash
-.venv/bin/python -u -m experiments.A01_null_refinement.run --run-id <unique-id> --allow-grid
+.venv/bin/python -u -m experiments.A01_null_refinement.run --run-id <unique-id> --allow-grid --workers 6
 .venv/bin/python -m experiments.A01_null_refinement.selection results/A01/<unique-id>/refinement.csv
 ```
 

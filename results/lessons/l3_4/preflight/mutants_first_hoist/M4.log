@@ -1,0 +1,137 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______________ test_float_conservation_is_exact_at_large_backlog _______________
+
+    def test_float_conservation_is_exact_at_large_backlog():
+        for q in (500, 500000):
+            mass = np.zeros((q + 1, 2), dtype=np.longdouble)
+            mass[q] = [.5, .5]
+            for stay, switch in ((F(2), F(0)), (F(0), F(2))):
+>               s, _ = side_from_law(F(1), mass, rates=(F(1), F(1)), u_stay=stay, u_switch=switch,
+                                      capacity=F(3), H=960, dt=F(1, 120), keep=F(3, 4), extended=False)
+
+tests/test_engine_physics.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+unit = Fraction(1, 1)
+mass = array([[0. , 0. ],
+       [0. , 0. ],
+       [0. , 0. ],
+       ...,
+       [0. , 0. ],
+       [0. , 0. ],
+       [0.5, 0.5]], shape=(501, 2), dtype=float128)
+rates = (Fraction(1, 1), Fraction(1, 1)), u_stay = Fraction(2, 1)
+u_switch = Fraction(0, 1), capacity = Fraction(3, 1), H = 960
+dt = Fraction(1, 120), keep = Fraction(3, 4), keep_error = Fraction(0, 1)
+D_error = 0.0, extended = False
+
+    def side_from_law(unit, mass, *, rates, u_stay, u_switch, capacity, H, dt,
+                      keep, keep_error=F(0), D_error=0., extended=True):
+        """Rates are packet/s; mass[q_index, current_mode]; unit is packets.
+    
+        This low-level physical interface accepts explicit synthetic laws. Callers
+        of named grid cells must use side_table/evaluate_cell and their guard.
+        """
+        if type(H) is not int or H < 1 or dt <= 0 or unit <= 0:
+            raise ValueError('positive horizon, dt and queue unit required')
+        if len(rates) != 2 or min(*rates, u_stay, u_switch, capacity) < 0:
+            raise ValueError('nonnegative two-mode plant required')
+        if not 0 <= keep <= 1 or keep_error < 0 or D_error < 0:
+            raise ValueError('invalid probability bounds')
+        mass = np.asarray(mass, dtype=np.longdouble)
+        if mass.ndim != 2 or mass.shape[1] != 2 or np.any(mass < 0) or not np.all(np.isfinite(mass)):
+            raise ValueError('law must have two finite nonnegative mode columns')
+        if abs(mass.sum(dtype=np.longdouble) - 1) > 1e-12:
+            raise ValueError('law must sum to one')
+        dtype = np.longdouble if extended else np.float64
+        eps = np.finfo(dtype).eps
+        amounts = [(r + u - capacity) * dt for r in rates for u in (u_stay, u_switch)] + [unit]
+        denominator = math.lcm(*(F(x).denominator for x in amounts))
+        quantum = F(math.gcd(*(int(x * denominator) for x in amounts)), denominator)
+        support_q, modes = np.nonzero(mass)
+        qs = np.unique(support_q)
+        factor = unit / quantum
+        if factor.denominator != 1:
+            raise ValueError('law and action lattices must align')
+        indices = qs.astype(np.int64) * int(factor)
+        p = _number(keep, dtype)
+        # |p_float - p_true| includes supplied R2 approximation error.
+        pe = abs(F(str(p)) - keep) + keep_error + F(str(2 * eps))
+        dtf, scale = _number(dt, dtype), _number(quantum * dt, dtype)
+        q0 = np.repeat(qs.astype(dtype)[:, None], 2, axis=1) * _number(unit, dtype)
+        weights = H - np.arange(H, dtype=dtype)
+        mean = _number(sum(rates) / 2, dtype)
+        amplitude = _number((rates[1] - rates[0]) / 2, dtype)
+        r = 2 * p - 1
+        mu = mean + np.power(r, np.arange(H, dtype=dtype))[:, None] * np.array([-amplitude, amplitude], dtype=dtype)
+        W1, W0, J, errs, mean_errs, busy = {}, {}, {}, {}, {}, {}
+        net_by_action = {}
+        qbound = np.max(abs(q0)) + H * max(_number(abs(x), dtype) for x in amounts)
+        gamma = (64 * H * eps) / (1 - 64 * H * eps)
+        if 64 * H * eps >= .01:
+            raise ArithmeticError('mean-path roundoff bound invalid')
+        arrival_error = 2 * abs(amplitude) * np.arange(H, dtype=dtype) * _number(pe, dtype) * dtf
+        merror = dtf * (np.sum(weights * arrival_error) + gamma * H * (qbound + 1))
+        for action, managed in (('St', u_stay), ('Sw', u_switch)):
+            increments = tuple(int((rate + managed - capacity) * dt / quantum) for rate in rates)
+            net_by_action[action] = increments
+            raw, error, _ = backward(indices, increments, H, keep, keep_error, extended)
+            W1[action] = raw * scale
+            errs[action] = error * abs(scale) + 8 * eps * abs(scale) * max(dtype(1), np.max(abs(raw)))
+            q, total = q0.copy(), np.zeros_like(q0)
+            linear_q, minimum_linear = q0.copy(), np.full_like(q0, np.inf)
+            managed_f = _number(managed, dtype)
+            for k in range(H):
+                net = (mu[k] + managed_f - _number(capacity, dtype)) * dtf
+                linear_q += net
+                minimum_linear = np.minimum(minimum_linear, linear_q)
+                # Compute idle from pre-update q. The lesson pseudocode reversed these.
+                idle = np.maximum(0, -q - net)
+                total += (H - k) * idle
+                q = np.maximum(0, q + net)
+            W0[action] = dtf * total
+            q_error = np.sum(arrival_error) + gamma * H * (qbound + 1)
+            busy[action] = minimum_linear > q_error
+            mean_errs[action] = merror
+            linear = dtf * (H * q0 + np.sum(weights[:, None] *
+                             (mu + managed_f - _number(capacity, dtype)) * dtf, axis=0))
+            J[action] = linear + W1[action]
+            if np.any(W0[action] - W1[action] > merror + errs[action]):
+                raise ArithmeticError('Jensen bound violated')
+        d = (J['Sw'] - J['St']) - _number((u_switch-u_stay)*dt*dt*H*(H+1)/2, dtype)
+        dh = W0['Sw'] - W0['St']
+        # Saturation is another symbolic identity, not an epsilon/clamp: if both
+        # actions empty the queue at every endpoint, their idle difference is the
+        # same closed-form triangular managed-load term on either queue. Computing
+        # two idle totals independently can otherwise turn an exact A+B tie into a
+        # small negative gap and a macroscopic wrong-action cost (A01 N01).
+        max_managed = max(u_stay, u_switch)
+        first = tuple(int((rate + max_managed - capacity) * dt / quantum) for rate in rates)
+        full_idle = np.column_stack([(indices + a <= 0) & (max(rates) + max_managed <= capacity)
+                                     for a in first])
+        # For nonnegative R2 correlation, conditional mean approaches the stationary
+        # mean monotonically; otherwise max(rates) is a valid conservative envelope.
+        envelope = tuple(max(rate, sum(rates) / 2) if keep >= F(1, 2) else max(rates) for rate in rates)
+        mean_idle = np.column_stack([(indices + a <= 0) & (upper + max_managed <= capacity)
+                                     for a, upper in zip(first, envelope)])
+        saturation = (u_stay - u_switch) * dt * dt * H * (H + 1) / 2
+        d[full_idle] = _number(saturation, dtype)
+        dh[mean_idle] = _number(saturation, dtype)
+        mean_zero = busy['St'] & busy['Sw']
+        dh[mean_zero] = 0  # proved no idle in either conditional mean path
+        minimum_action = 'Sw' if u_switch < u_stay else 'St'
+        inc = net_by_action[minimum_action]
+        zero = np.column_stack([(indices + a >= 0) & (indices + a + (H - 1) * min(0, *inc) >= 0)
+                                for a in inc])
+        if u_stay == u_switch:
+            zero[:] = True  # identical actions are another exact certificate
+        mean_zero |= zero
+        if np.any(d[zero] != 0) or np.any(dh[zero] != 0):
+>           raise ArithmeticError('conservation certificate violated: exact zero required')
+E           ArithmeticError: conservation certificate violated: exact zero required
+
+experiments/A00_engine/physical.py:126: ArithmeticError
+=========================== short test summary info ============================
+FAILED tests/test_engine_physics.py::test_float_conservation_is_exact_at_large_backlog
+1 failed in 0.44s

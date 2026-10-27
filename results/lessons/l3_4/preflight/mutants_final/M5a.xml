@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="14" time="0.195" timestamp="2026-10-27T21:35:08.081263+07:00" hostname="vantai"><testcase classname="tests.test_engine_core" name="test_idle_identity_cross_check" time="0.003" /><testcase classname="tests.test_engine_core" name="test_canonical_golden_from_physics" time="0.003" /><testcase classname="tests.test_engine_core" name="test_E7_golden" time="0.001" /><testcase classname="tests.test_engine_core" name="test_tie_goes_to_stay" time="0.001"><failure message="assert Fraction(3, 4) == Fraction(1, 2)">def test_tie_goes_to_stay():                    # E4: một state có Δ = 0
+        r = aggregate(side([h, h], [1, 3], [1, 3]), side([h, h], [-4, -1], [-4, -1]))
+&gt;       assert r['p_sw'] == h
+E       assert Fraction(3, 4) == Fraction(1, 2)
+
+tests/test_engine_core.py:48: AssertionError</failure></testcase><testcase classname="tests.test_engine_core" name="test_cell_level_tie_goes_to_stay" time="0.001" /><testcase classname="tests.test_engine_core" name="test_D10_mean_of_rollouts" time="0.002" /><testcase classname="tests.test_engine_core" name="test_T01_checker_agrees" time="0.004" /><testcase classname="tests.test_engine_core" name="test_metamorphic_S0_sees_only_mean" time="0.002" /><testcase classname="tests.test_engine_core" name="test_brute_force_random" time="0.005"><failure message="AssertionError: assert ({'00': Fracti...244, 15), ...} == {'00': Fracti...244, 15), ...}&#10;  &#10;  Omitting 3 identical items, use -vv to show&#10;  Differing items:&#10;  {'cb0': Fraction(2842, 165)} != {'cb0': Fraction(254, 15)}&#10;  {'10': Fraction(5723, 330)} != {'10': Fraction(5627, 330)}&#10;  Use -v to get more diff)">def test_brute_force_random():                  # loại 3: dạng tách = liệt kê, 300 ô ngẫu nhiên
+        rng = random.Random(20261027)
+        for _ in range(300):
+            A, B = _random_side(rng, 'A', rng.randint(1, 5)), _random_side(rng, 'B', rng.randint(1, 5))
+            r, b = aggregate(A, B), brute(A, B)
+&gt;           assert r['L'] == b['L'] and r['p_sw'] == b['p_sw']
+E           AssertionError: assert ({'00': Fracti...244, 15), ...} == {'00': Fracti...244, 15), ...}
+E             
+E             Omitting 3 identical items, use -vv to show
+E             Differing items:
+E             {'cb0': Fraction(2842, 165)} != {'cb0': Fraction(254, 15)}
+E             {'10': Fraction(5723, 330)} != {'10': Fraction(5627, 330)}
+E             Use -v to get more diff)
+
+tests/test_engine_core.py:82: AssertionError</failure></testcase><testcase classname="tests.test_engine_extended" name="test_E2_and_E5_asymmetric_ledgers" time="0.001" /><testcase classname="tests.test_engine_extended" name="test_I_delta_and_weighted_quantiles_L15_E7" time="0.004" /><testcase classname="tests.test_engine_extended" name="test_E7_modified_prediction_exercise" time="0.001" /><testcase classname="tests.test_engine_extended" name="test_WD_is_not_necessarily_zero_control" time="0.001" /><testcase classname="tests.test_engine_extended" name="test_side_rejects_invalid_input_and_unknown_queue" time="0.000" /></testsuite></testsuites>

@@ -12,6 +12,7 @@ from pathlib import Path
 import subprocess
 import time
 import traceback
+import multiprocessing
 
 import numpy as np
 
@@ -170,7 +171,47 @@ def summary_row(cid, m, r, wall):
                 precision_ok=r['status'] == 'BOUNDED', status=r['status'], wall_s=wall)
 
 
-def run_partB(out, cfg):
+def level_task(spec):
+    cid, m = spec
+    start = time.monotonic()
+    A, B = sides(load_cell(cid), m)
+    r = evaluate_sides(A, B, refinement=m, dt=F(1, 120*m))
+    return cid, m, r, summary_row(cid, m, r, time.monotonic()-start)
+
+
+def run_partB_parallel(out, cfg, workers):
+    grid = json.loads(GRID_PATH.read_text())
+    tasks = [(cid, m) for m in reversed(cfg['refinement_levels']) for cid in cfg['calibration']]
+    for cid, m in tasks:
+        c = next(r for r in grid['main'] if r['id'] == cid)
+        if c[f'updates_{m}'] > cfg['updates_cap_per_cell_level'] or c[f'peak_{m}'] > cfg['peak_bytes_cap']:
+            raise MemoryError('preregistered per-cell/level budget exceeded')
+    rows = []
+    print(f'PartB: all15 cell-levels, {workers} independent processes; selection after complete table', flush=True)
+    with multiprocessing.get_context('fork').Pool(workers) as pool:
+        for cid, m, r, row in pool.imap_unordered(level_task, tasks, chunksize=1):
+            write(out / f'calibration_{cid}_m{m}.json', r)
+            rows.append(row)
+            rows.sort(key=lambda x: (cfg['calibration'].index(x['cell']), x['m']))
+            csv_write(out / 'refinement.csv', rows)
+            print(f'PartB {cid} m={m}: {r["status"]}; max_e={row["e_num_max"]:.6g}; '
+                  f'unresolved={row["unresolved_mass_max"]:.6g}; {row["wall_s"]:.1f}s', flush=True)
+    per_cell = {cid: [r for r in rows if r['cell'] == cid] for cid in cfg['calibration']}
+    csv_write(out / 'refinement_pairs.csv', [dict(cell=cid, **pair_check(a,b)) for cid,rs in per_cell.items() for a,b in zip(rs,rs[1:])])
+    csv_write(out / 'refinement_diagnostics.csv', [dict(cell=cid, **r) for cid,rs in per_cell.items() for r in diagnostics(rs)])
+    final, picks = choose_final(per_cell)
+    result = dict(status='PASS' if final != 'HOLD' else 'HOLD', final_ref=final,
+                  final_dt_s=str(F(1,120*final)) if final != 'HOLD' else None, per_cell=picks,
+                  completed_levels=15, reason='all finer suffix pairs pass' if final != 'HOLD' else
+                  'at least one finest pair fails tolerance, sign or precision; fixed budget exhausted',
+                  continuum_convergence_certified=False, A04_run=False, heldout_run=False)
+    write(out / 'selection.json', result)
+    return result
+
+
+def run_partB(out, cfg, workers=1):
+    if workers > 1:
+        return run_partB_parallel(out, cfg, workers)
     rows, per_cell, pairs, diags = [], {}, [], []
     grid = json.loads(GRID_PATH.read_text())
     for cid in cfg['calibration']:
@@ -209,8 +250,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--run-id', required=True)
     parser.add_argument('--allow-grid', action='store_true', required=True)
+    parser.add_argument('--workers', type=int, default=1)
     args = parser.parse_args()
-    if not args.run_id or Path(args.run_id).name != args.run_id:
+    if not args.run_id or Path(args.run_id).name != args.run_id or not 1 <= args.workers <= 6:
         raise ValueError('run-id must be a single path component')
     receipt = verify()  # before D, result directory creation or costs
     cfg = json.loads(CONFIG.read_text())
@@ -223,12 +265,13 @@ def main():
           python=platform.python_version(), platform=platform.platform(),
           libraries={p: importlib.metadata.version(p) for p in ('numpy', 'scipy', 'mpmath', 'pytest')},
           compiler=subprocess.check_output(['g++', '--version'], text=True).splitlines()[0],
-          longdouble_bits=np.finfo(np.longdouble).nmant + 1, seed=None, heldout_allowed=False))
+          longdouble_bits=np.finfo(np.longdouble).nmant + 1, seed=None, heldout_allowed=False,
+          execution_workers=args.workers, execution_order='independent complete levels; no early selection'))
     try:
         p0 = run_part0(out, cfg)
         partA = run_partA(out, cfg)
         write(out / 'controls_status.json', dict(status='PASS', psw_checks=p0, **partA))
-        selection = run_partB(out, cfg)
+        selection = run_partB(out, cfg, args.workers)
         write(out / 'run_status.json', dict(**selection, part0='PASS', partA='PASS', wall_s=time.monotonic() - start))
         print(json.dumps(selection, ensure_ascii=False), flush=True)
     except Exception as exc:

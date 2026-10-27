@@ -1,0 +1,64 @@
+.FF.....F..F..                                                           [100%]
+=================================== FAILURES ===================================
+______________________ test_canonical_golden_from_physics ______________________
+
+    def test_canonical_golden_from_physics():       # golden Phase 1, dựng lại từ vật lý
+        r = aggregate(*canonical()[:2])
+        assert r['L'] == {**{k: v for k, v in g.FACTORIAL_MEANS.items()}, 'cb0': r['L']['cb0']}
+        G = r['G']
+        assert (G['G_S'], G['G_M'], G['Gamma'], G['G_S_M1'], G['G_M_S1']) == (F(9, 8), F(1, 4), F(-1, 4), F(7, 8), 0)
+>       assert (G['F'], G['V']) == (F(3, 8), F(3, 4))  # L1.6: freshness + mode visibility
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       assert (Fraction(9, ...raction(0, 1)) == (Fraction(3, ...raction(3, 4))
+E         
+E         At index 0 diff: Fraction(9, 8) != Fraction(3, 8)
+E         Use -v to get more diff
+
+tests/test_engine_core.py:39: AssertionError
+________________________________ test_E7_golden ________________________________
+
+    def test_E7_golden():
+        r = aggregate(*E7)                          # jst = 0 nên K = 0
+>       assert [r['L'][k] for k in ('00', '01', '10', '11', 'cb0')] == [F(-1, 4), F(-1, 4), F(-7, 8), -1, F(-5, 8)]
+E       assert [Fraction(-1,...action(-7, 8)] == [Fraction(-1,...action(-5, 8)]
+E         
+E         At index 4 diff: Fraction(-7, 8) != Fraction(-5, 8)
+E         Use -v to get more diff
+
+tests/test_engine_core.py:43: AssertionError
+___________________________ test_brute_force_random ____________________________
+
+    def test_brute_force_random():                  # loại 3: dạng tách = liệt kê, 300 ô ngẫu nhiên
+        rng = random.Random(20261027)
+        for _ in range(300):
+            A, B = _random_side(rng, 'A', rng.randint(1, 5)), _random_side(rng, 'B', rng.randint(1, 5))
+            r, b = aggregate(A, B), brute(A, B)
+>           assert r['L'] == b['L'] and r['p_sw'] == b['p_sw']
+E           AssertionError: assert ({'00': Fracti...244, 15), ...} == {'00': Fracti...244, 15), ...}
+E             
+E             Omitting 4 identical items, use -vv to show
+E             Differing items:
+E             {'cb0': Fraction(5627, 330)} != {'cb0': Fraction(254, 15)}
+E             Use -v to get more diff)
+
+tests/test_engine_core.py:82: AssertionError
+_____________________ test_E7_modified_prediction_exercise _____________________
+
+    def test_E7_modified_prediction_exercise():
+        A, B = E7
+        r = aggregate(A, replace(B, dh=(F(-2), F(-2, 5))))
+        assert r['L']['10'] == -1 and r['G']['G_M_S1'] == 0
+        assert r['G']['Gamma'] == 0
+>       assert (r['G']['F'], r['G']['V']) == (F(3, 8), F(3, 8))
+E       assert (Fraction(3, ...raction(0, 1)) == (Fraction(3, ...raction(3, 8))
+E         
+E         At index 0 diff: Fraction(3, 4) != Fraction(3, 8)
+E         Use -v to get more diff
+
+tests/test_engine_extended.py:39: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_engine_core.py::test_canonical_golden_from_physics - assert...
+FAILED tests/test_engine_core.py::test_E7_golden - assert [Fraction(-1,...act...
+FAILED tests/test_engine_core.py::test_brute_force_random - AssertionError: a...
+FAILED tests/test_engine_extended.py::test_E7_modified_prediction_exercise - ...
+4 failed, 10 passed in 0.19s

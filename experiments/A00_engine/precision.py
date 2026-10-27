@@ -120,15 +120,16 @@ def group_side(s):
         grouped.setdefault(g, []).append(i)
     errors = {k: [] for k in ('d', 'dh')}
     de = LD((s.bounds or {}).get('D_l1', 0))
+    probabilities = array(s.p)
     for k in errors:
         values, r = array(getattr(s, k)), radii(s, k)
         maximum = max(abs(values) + r)
         for indices in grouped.values():
-            P = sum(array(s.p)[i] for i in indices)
+            P = sum(probabilities[i] for i in indices)
             if P <= de:
                 bound = 2 * maximum
             else:
-                bound = sum(array(s.p)[i] * r[i] for i in indices) / P + 2 * de * maximum / (P - de)
+                bound = sum(probabilities[i] * r[i] for i in indices) / P + 2 * de * maximum / (P - de)
             errors[k].append(bound + 64 * len(indices) * EPS * max(LD(1), maximum))
     zero = [all((s.bounds or {}).get('zero', [False] * len(s.p))[i] for i in ix)
             for ix in grouped.values()]
