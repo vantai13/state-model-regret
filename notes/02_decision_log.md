@@ -640,3 +640,30 @@ nhưng expected16; sửa fixture perturbation tại ref4. Giữ log1FAIL/26PASS,
 lưu riêng, chưa suy PASS trước khi chạy. T05 read-back author-attested đủ theo
 prerequisite lesson; engine giữ experiments, không giả có văn bản tự viết mới.
 V9 chưa gửi/A04 chờ; không held-out/A04 hoặc đổi nhãn PC/H1/null trong A01.
+
+### DL-051 — A01 run01 FAIL, arrêt avant PartB; correction certificate (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. Run `results/A01/20261027_01/`, code/receipt
+`7e1c2acee23a59ea9c9ac6093b95bae77c72b06d`. Part0 **9/9 bitwise PASS**; C1/C2/C3
+trên3calibration×2ref PASS. C5 N01/ref1 **FAIL**: GS=−0.0006173588649464212155,
+GM_S1=+0.0006173588649464212155 packet·s. Runner STOP trước PartB; không A04.
+Diagnosis guarded N01:4false-switch pairs, mass0.27182620215275735497;
+minimum predicted gap −1.3552527156068805425e−20, true excess cost
+0.0006173588649464211951 packet·s. Không xem đó là hiệu ứng thật hay nới ==0.
+
+Nguyên nhân: ở mean paths cả hai actions luôn empty, idle-difference phải bằng
+±u·dt²·H(H+1)/2. Hai idle totals cộng riêng tạo predicted tie âm một ulp;
+conditional true gap vẫn dương vì B có future randomness. Sửa bằng **certificate
+always-empty** và closed form chung, không epsilon/clamp. Mean no-idle có
+certificate riêng từ linear-path minimum trừ roundoff/probability bound, để
+exact mean ties không bị gán arbitrary action hoặc unresolved mass giả. Cặp
+saturated A/B có common rational cap đối nhau là exact tie; bounded_cut loại
+chúng khỏi *uncertainty bound*, không đổi gap theo threshold.
+
+Thêm regression synthetic SD2 ref1/2, float64/longdouble. Vòng đầu guard certificate
+so với cap longdouble bitwise làm2float64tests fail; đổi kiểm consistency theo
+input bound, giữ log, không đổi certificate toán. Tất cả sửa đều trong implementation;
+plant/control/metric/levels/tol/card/prereg giữ nguyên. Receipt mới ghi source hashes
+và previous receipt, commit trước retry; receipt gốc giữ ở failed run. Full rerun
+Part0→A→B, chỉ tớiB nếu controlsPASS. Exposure M01/M09/M22 ref1/2 và N01/ref1
+đã có; failed artifacts được giữ, không xóa/làm lại thành PASS.

@@ -1,0 +1,18 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________________ test_native_canonical_and_context_reference __________________
+
+    def test_native_canonical_and_context_reference():
+        first = evaluate_sides(*canonical_native()[:2], refinement=1, dt=F(1))
+        assert [float(first['L'][k]) for k in ('00', '01', '10', '11')] == [7.375, 7.125, 6.25, 6.25]
+        assert (first['G']['F'], first['G']['V']) == (.375, .75)
+        assert first['E_abs_I_delta'] == .25
+        second = evaluate_sides(*canonical_native(2)[:2], refinement=2, dt=F(1, 2))
+        assert first['C_ref'] != second['L']['11']
+>       assert second['C_ref'] == second['L']['11']
+E       AssertionError: assert np.longdouble('6.25') == np.longdouble('6.17578125')
+
+tests/test_engine_physics.py:35: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_engine_physics.py::test_native_canonical_and_context_reference
+1 failed in 0.39s

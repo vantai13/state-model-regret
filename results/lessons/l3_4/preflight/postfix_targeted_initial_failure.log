@@ -1,0 +1,110 @@
+........F.F............                                                  [100%]
+=================================== FAILURES ===================================
+__________ test_always_idle_SD2_symbolic_mean_tie_regression[1-False] __________
+
+m = 1, extended = False
+
+    @pytest.mark.parametrize('extended', [False, True])
+    @pytest.mark.parametrize('m', [1, 2])
+    def test_always_idle_SD2_symbolic_mean_tie_regression(m, extended):
+        # Synthetic law with deterministic draining A and mean-draining B. A01 N01
+        # exposed a -1.35e-20 predicted gap which selected Switch incorrectly.
+        kwargs = dict(unit=F(1, 120*m), capacity=F(10), H=30*m, dt=F(1, 120*m),
+                      keep=F(119, 120), extended=extended)
+        a, _ = side_from_law(mass=[[.5, .5]], rates=(F(4), F(4)),
+                             u_stay=F(1), u_switch=F(0), **kwargs)
+        b, _ = side_from_law(mass=[[.5, .5]], rates=(F(2), F(14)),
+                             u_stay=F(0), u_switch=F(1), **kwargs)
+        r = aggregate(a, b)
+        assert all(r['G'][g] == 0 for g in NAMES)
+        assert a.dh[0] + b.dh[0] == 0
+>       cert = bounded_cut(a, b, 'dh')
+               ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_a01.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(np.longdouble('0.5'), np.longdouble('0.5')), d=(np.float64(0.03229166666666667), np.float64(0.0322916666666666...0, 'zero': (False, False), 'saturated_d': (True, True), 'saturated_dh': (True, True), 'saturation': Fraction(31, 960)})
+B = Side(p=(np.longdouble('0.5'), np.longdouble('0.5')), d=(np.float64(-0.030003900993384458), np.float64(-0.0029340926771...zero': (False, False), 'saturated_d': (False, False), 'saturated_dh': (True, False), 'saturation': Fraction(-31, 960)})
+key = 'dh'
+
+    def bounded_cut(A, B, key='dh'):
+        alo, ahi = key_interval(A, key, 'A')
+        blo, bhi = key_interval(B, key, 'B')
+        pa, pb, da, db = map(array, (A.p, B.p, A.d, B.d))
+        nominal_mass, value = _cut(array(getattr(A, key)), da, pa, array(getattr(B, key)), db, pb)
+        certain, _ = _cut(ahi, da, pa, bhi, db, pb)
+        possible, _ = _cut(alo, da, pa, blo, db, pb)
+        _, abs_certain = _cut(ahi, abs(da), pa, bhi, abs(db), pb)
+        _, abs_possible = _cut(alo, abs(da), pa, blo, abs(db), pb)
+        # Paired saturation certificates are exact symbolic ties. Their common
+        # managed-load cap cancels algebraically, even though individual rounded
+        # caps have error intervals. Such pairs choose Stay, not unresolved.
+        ba, bb = A.bounds or {}, B.bounds or {}
+        ca, cb = ba.get('saturation'), bb.get('saturation')
+        if ca is not None and cb is not None and ca != 0 and ca + cb == 0:
+            sa = np.asarray(ba.get('saturated_' + key, [False] * len(pa)))
+            sb = np.asarray(bb.get('saturated_' + key, [False] * len(pb)))
+            if np.any(sa) and np.any(sb):
+                if not (np.all(array(getattr(A, key))[sa] == array(ca)) and
+                        np.all(array(getattr(B, key))[sb] == array(cb))):
+>                   raise ArithmeticError('invalid paired saturation certificate')
+E                   ArithmeticError: invalid paired saturation certificate
+
+experiments/A00_engine/precision.py:83: ArithmeticError
+__________ test_always_idle_SD2_symbolic_mean_tie_regression[2-False] __________
+
+m = 2, extended = False
+
+    @pytest.mark.parametrize('extended', [False, True])
+    @pytest.mark.parametrize('m', [1, 2])
+    def test_always_idle_SD2_symbolic_mean_tie_regression(m, extended):
+        # Synthetic law with deterministic draining A and mean-draining B. A01 N01
+        # exposed a -1.35e-20 predicted gap which selected Switch incorrectly.
+        kwargs = dict(unit=F(1, 120*m), capacity=F(10), H=30*m, dt=F(1, 120*m),
+                      keep=F(119, 120), extended=extended)
+        a, _ = side_from_law(mass=[[.5, .5]], rates=(F(4), F(4)),
+                             u_stay=F(1), u_switch=F(0), **kwargs)
+        b, _ = side_from_law(mass=[[.5, .5]], rates=(F(2), F(14)),
+                             u_stay=F(0), u_switch=F(1), **kwargs)
+        r = aggregate(a, b)
+        assert all(r['G'][g] == 0 for g in NAMES)
+        assert a.dh[0] + b.dh[0] == 0
+>       cert = bounded_cut(a, b, 'dh')
+               ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_a01.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(np.longdouble('0.5'), np.longdouble('0.5')), d=(np.float64(0.03177083333333333), np.float64(0.0317708333333333..., 'zero': (False, False), 'saturated_d': (True, True), 'saturated_dh': (True, True), 'saturation': Fraction(61, 1920)})
+B = Side(p=(np.longdouble('0.5'), np.longdouble('0.5')), d=(np.float64(-0.027740169763782574), np.float64(-0.0052269481161...ero': (False, False), 'saturated_d': (False, False), 'saturated_dh': (True, False), 'saturation': Fraction(-61, 1920)})
+key = 'dh'
+
+    def bounded_cut(A, B, key='dh'):
+        alo, ahi = key_interval(A, key, 'A')
+        blo, bhi = key_interval(B, key, 'B')
+        pa, pb, da, db = map(array, (A.p, B.p, A.d, B.d))
+        nominal_mass, value = _cut(array(getattr(A, key)), da, pa, array(getattr(B, key)), db, pb)
+        certain, _ = _cut(ahi, da, pa, bhi, db, pb)
+        possible, _ = _cut(alo, da, pa, blo, db, pb)
+        _, abs_certain = _cut(ahi, abs(da), pa, bhi, abs(db), pb)
+        _, abs_possible = _cut(alo, abs(da), pa, blo, abs(db), pb)
+        # Paired saturation certificates are exact symbolic ties. Their common
+        # managed-load cap cancels algebraically, even though individual rounded
+        # caps have error intervals. Such pairs choose Stay, not unresolved.
+        ba, bb = A.bounds or {}, B.bounds or {}
+        ca, cb = ba.get('saturation'), bb.get('saturation')
+        if ca is not None and cb is not None and ca != 0 and ca + cb == 0:
+            sa = np.asarray(ba.get('saturated_' + key, [False] * len(pa)))
+            sb = np.asarray(bb.get('saturated_' + key, [False] * len(pb)))
+            if np.any(sa) and np.any(sb):
+                if not (np.all(array(getattr(A, key))[sa] == array(ca)) and
+                        np.all(array(getattr(B, key))[sb] == array(cb))):
+>                   raise ArithmeticError('invalid paired saturation certificate')
+E                   ArithmeticError: invalid paired saturation certificate
+
+experiments/A00_engine/precision.py:83: ArithmeticError
+=========================== short test summary info ============================
+FAILED tests/test_a01.py::test_always_idle_SD2_symbolic_mean_tie_regression[1-False]
+FAILED tests/test_a01.py::test_always_idle_SD2_symbolic_mean_tie_regression[2-False]
+2 failed, 21 passed in 2.36s

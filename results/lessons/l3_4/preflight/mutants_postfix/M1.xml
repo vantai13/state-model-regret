@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="12" skipped="0" tests="14" time="0.440" timestamp="2026-10-27T21:23:00.850610+07:00" hostname="vantai"><testcase classname="tests.test_engine_core" name="test_idle_identity_cross_check" time="0.004" /><testcase classname="tests.test_engine_core" name="test_canonical_golden_from_physics" time="0.005"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_canonical_golden_from_physics():       # golden Phase 1, dựng lại từ vật lý
+&gt;       r = aggregate(*canonical()[:2])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 1),), d=(Fraction(2, 1),), dh=(Fraction(2, 1),), jst=(Fraction(4, 1),), group=(2,), bounds=None)
+B = Side(p=(Fraction(1, 4), Fraction(1, 4), Fraction(1, 4), Fraction(1, 4)), d=(Fraction(0, 1), Fraction(-7, 2), Fraction(...action(-9, 2)), jst=(Fraction(15, 2), Fraction(1, 1), Fraction(4, 1), Fraction(1, 1)), group=(2, 2, 0, 0), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_core" name="test_E7_golden" time="0.003"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_E7_golden():
+&gt;       r = aggregate(*E7)                          # jst = 0 nên K = 0
+            ^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(1, 1), Fraction(3, 1)), dh=(Fraction(1, 2), Fraction(3, 2)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(1, 4), bounds=None)
+B = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(-4, 1), Fraction(-1, 2)), dh=(Fraction(-2, 1), Fraction(-3, 4)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(0, 0), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_core" name="test_tie_goes_to_stay" time="0.002"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_tie_goes_to_stay():                    # E4: một state có Δ = 0
+&gt;       r = aggregate(side([h, h], [1, 3], [1, 3]), side([h, h], [-4, -1], [-4, -1]))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(1, 1), Fraction(3, 1)), dh=(Fraction(1, 1), Fraction(3, 1)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(0, 1), bounds=None)
+B = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(-4, 1), Fraction(-1, 1)), dh=(Fraction(-4, 1), Fraction(-1, 1)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(0, 1), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_core" name="test_cell_level_tie_goes_to_stay" time="0.001"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_cell_level_tie_goes_to_stay():         # E_D δ̂ = 0 đúng bằng 0, nhưng E_D Δ = -1
+&gt;       r = aggregate(side([1], [1], [1]), side([1], [-2], [-1]))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 1),), d=(Fraction(1, 1),), dh=(Fraction(1, 1),), jst=(Fraction(0, 1),), group=(0,), bounds=None)
+B = Side(p=(Fraction(1, 1),), d=(Fraction(-2, 1),), dh=(Fraction(-1, 1),), jst=(Fraction(0, 1),), group=(0,), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_core" name="test_D10_mean_of_rollouts" time="0.001"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_D10_mean_of_rollouts():                 # belief q_B ∈ {0,4}: E δ̂ = -1/4 (rollout từ q=2 sẽ cho +1/4)
+        B, _ = toy_side([(h, 0, 'x'), (h, 4, 'x')], {'x': 2}, {'x': {'x': 1}}, 3, 0, 2, 1)
+&gt;       r = aggregate(side([1], ['1/4'], ['1/4']), B)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 1),), d=(Fraction(1, 4),), dh=(Fraction(1, 4),), jst=(Fraction(0, 1),), group=(0,), bounds=None)
+B = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(-1, 1), Fraction(0, 1)), dh=(Fraction(-1, 1), Fraction(0, 1)), jst=(Fraction(0, 1), Fraction(3, 1)), group=(0, 4), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_core" name="test_T01_checker_agrees" time="0.004"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_T01_checker_agrees():                  # checker độc lập của repo, cấp ô
+        A, B = canonical()[:2]; b = brute(A, B)
+        rows = [(r['p'], r['st'], r['sw'], 0, r['dh']) for r in b['rows']]   # M0: chỉ hiệu số có nghĩa
+&gt;       s, r = statistics(rows), aggregate(A, B)
+                                 ^^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 1),), d=(Fraction(2, 1),), dh=(Fraction(2, 1),), jst=(Fraction(4, 1),), group=(2,), bounds=None)
+B = Side(p=(Fraction(1, 4), Fraction(1, 4), Fraction(1, 4), Fraction(1, 4)), d=(Fraction(0, 1), Fraction(-7, 2), Fraction(...action(-9, 2)), jst=(Fraction(15, 2), Fraction(1, 1), Fraction(4, 1), Fraction(1, 1)), group=(2, 2, 0, 0), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_core" name="test_metamorphic_S0_sees_only_mean" time="0.001"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_metamorphic_S0_sees_only_mean():       # đổi chỗ δ̂ giữa hai state cùng xác suất
+&gt;       A, B = E7; r1 = aggregate(A, B)
+                        ^^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:66: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(1, 1), Fraction(3, 1)), dh=(Fraction(1, 2), Fraction(3, 2)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(1, 4), bounds=None)
+B = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(-4, 1), Fraction(-1, 2)), dh=(Fraction(-2, 1), Fraction(-3, 4)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(0, 0), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_core" name="test_brute_force_random" time="0.004"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_brute_force_random():                  # loại 3: dạng tách = liệt kê, 300 ô ngẫu nhiên
+        rng = random.Random(20261027)
+        for _ in range(300):
+            A, B = _random_side(rng, 'A', rng.randint(1, 5)), _random_side(rng, 'B', rng.randint(1, 5))
+&gt;           r, b = aggregate(A, B), brute(A, B)
+                   ^^^^^^^^^^^^^^^
+
+tests/test_engine_core.py:81: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(2, 11), Fraction(2, 11), Fraction(4, 11), Fraction(3, 11)), d=(Fraction(6, 1), Fraction(2, 1), Fracti...raction(3, 2)), jst=(Fraction(2, 1), Fraction(9, 1), Fraction(4, 1), Fraction(16, 1)), group=(1, 1, 2, 1), bounds=None)
+B = Side(p=(Fraction(1, 15), Fraction(4, 15), Fraction(4, 15), Fraction(1, 5), Fraction(1, 5)), d=(Fraction(-3, 2), Fracti...=(Fraction(4, 1), Fraction(17, 1), Fraction(4, 1), Fraction(7, 1), Fraction(9, 1)), group=(2, 0, 1, 2, 2), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_extended" name="test_E2_and_E5_asymmetric_ledgers" time="0.001"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_E2_and_E5_asymmetric_ledgers():
+        A = side([F(1, 2)] * 2, [0, 1], [1, 0], [10, 10])
+        B = side([1], [-1], [-F(1, 2)])
+        # The exact E2/E5 ledgers are represented with a constant B offset.
+&gt;       E2 = aggregate(side([F(1, 2)] * 2, [0, 4], [0, 3], [10, 10]),
+                       side([1], [-3], [-1]))
+
+tests/test_engine_extended.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(0, 1), Fraction(4, 1)), dh=(Fraction(0, 1), Fraction(3, 1)), jst=(Fraction(10, 1), Fraction(10, 1)), group=(0, 1), bounds=None)
+B = Side(p=(Fraction(1, 1),), d=(Fraction(-3, 1),), dh=(Fraction(-1, 1),), jst=(Fraction(0, 1),), group=(0,), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_extended" name="test_I_delta_and_weighted_quantiles_L15_E7" time="0.003"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_I_delta_and_weighted_quantiles_L15_E7():
+&gt;       r = aggregate(*canonical()[:2])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_engine_extended.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 1),), d=(Fraction(2, 1),), dh=(Fraction(2, 1),), jst=(Fraction(4, 1),), group=(2,), bounds=None)
+B = Side(p=(Fraction(1, 4), Fraction(1, 4), Fraction(1, 4), Fraction(1, 4)), d=(Fraction(0, 1), Fraction(-7, 2), Fraction(...action(-9, 2)), jst=(Fraction(15, 2), Fraction(1, 1), Fraction(4, 1), Fraction(1, 1)), group=(2, 2, 0, 0), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_extended" name="test_E7_modified_prediction_exercise" time="0.001"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_E7_modified_prediction_exercise():
+        A, B = E7
+&gt;       r = aggregate(A, replace(B, dh=(F(-2), F(-2, 5))))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_engine_extended.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(1, 1), Fraction(3, 1)), dh=(Fraction(1, 2), Fraction(3, 2)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(1, 4), bounds=None)
+B = Side(p=(Fraction(1, 2), Fraction(1, 2)), d=(Fraction(-4, 1), Fraction(-1, 2)), dh=(Fraction(-2, 1), Fraction(-2, 5)), jst=(Fraction(0, 1), Fraction(0, 1)), group=(0, 0), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_extended" name="test_WD_is_not_necessarily_zero_control" time="0.001"><failure message="ArithmeticError: independent T01 positive/negative-parts check failed">def test_WD_is_not_necessarily_zero_control():
+&gt;       r = aggregate(side([1], [0], [0]), side([1], [-1], [0]))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_engine_extended.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+A = Side(p=(Fraction(1, 1),), d=(Fraction(0, 1),), dh=(Fraction(0, 1),), jst=(Fraction(0, 1),), group=(0,), bounds=None)
+B = Side(p=(Fraction(1, 1),), d=(Fraction(-1, 1),), dh=(Fraction(0, 1),), jst=(Fraction(0, 1),), group=(0,), bounds=None)
+
+    def aggregate(A, B):
+        A.check('A'); B.check('B')
+        E = lambda s, col: sum(p * v for p, v in zip(s.p, col))
+        K = E(A, A.jst) + E(B, B.jst)                  # E_D J(Stay): không cần ghép
+        Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
+        a00, a01 = int(Edh &lt; 0), int(Ed &lt; 0)           # S0: MỘT action cho cả ô (T01)
+        p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ&lt;0)] = -EΔ⁻
+        # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+        # Subtracting E_delta - negative_part would lose that structural guarantee.
+        _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                                tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+        pos = -minus_pos
+        _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
+        PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
+        _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
+        L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
+        L['01'], L['10'] = L['10'], L['01']
+        G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
+                 Gamma=L['10'] + L['01'] - L['00'] - L['11'],
+                 G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
+                 F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
+        result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
+                      E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+        result['R'] = {k: value - L['11'] for k, value in L.items()}
+        eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
+        eB = tuple(h - d for h, d in zip(B.dh, B.d))
+        modelA = tuple(h - d for h, d in zip(A.dh, A.d))
+        _, model_negative = _cut_sum(modelA, modelA, A.p, eB, eB, B.p)
+        result['E_abs_e_M'] = E(A, modelA) + E(B, eB) - 2 * model_negative
+        _, negative = _cut_sum(eA, eA, A.p, eB, eB, B.p)
+        result['E_abs_I_delta'] = E(A, eA) + E(B, eB) - 2 * negative
+        levels = (F(1, 2), F(9, 10), F(99, 100))
+        result['quantiles_abs_delta'] = {str(t): _abs_quantile(A.d, A.p, B.d, B.p, t) for t in levels}
+        result['quantiles_abs_I_delta'] = {str(t): _abs_quantile(eA, A.p, eB, B.p, t) for t in levels}
+        exact = all(isinstance(v, Rational) for v in (*A.p, *B.p, *A.d, *B.d, *A.dh, *B.dh))
+        if exact:
+            if not all(L['11'] &lt;= L[k] for k in ('00', '01', '10', 'cb0')):
+                raise ArithmeticError('oracle is not the minimum')
+            if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
+&gt;               raise ArithmeticError('independent T01 positive/negative-parts check failed')
+E               ArithmeticError: independent T01 positive/negative-parts check failed
+
+experiments/A00_engine/factorial_core.py:121: ArithmeticError</failure></testcase><testcase classname="tests.test_engine_extended" name="test_side_rejects_invalid_input_and_unknown_queue" time="0.000" /></testsuite></testsuites>

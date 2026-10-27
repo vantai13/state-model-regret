@@ -1,0 +1,27 @@
+Part0 M01 ref=1: match=True
+Part0 M01 ref=2: match=True
+Part0 M01 ref=4: match=True
+Part0 M09 ref=1: match=True
+Part0 M09 ref=2: match=True
+Part0 M09 ref=4: match=True
+Part0 M22 ref=1: match=True
+Part0 M22 ref=2: match=True
+Part0 M22 ref=4: match=True
+PartA M01 ref=1: C1,C2,C3 PASS; V=-0.01752553063664268
+PartA M01 ref=2: C1,C2,C3 PASS; V=0.03193976180329494
+PartA M09 ref=1: C1,C2,C3 PASS; V=-0.0817596237152137
+PartA M09 ref=2: C1,C2,C3 PASS; V=0.042411039062913033
+PartA M22 ref=1: C1,C2,C3 PASS; V=0.0
+PartA M22 ref=2: C1,C2,C3 PASS; V=0.0
+PartA N01 ref=1: C5 FAIL
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/A01_null_refinement/run.py", line 241, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/A01_null_refinement/run.py", line 229, in main
+    partA = run_partA(out, cfg)
+  File "/home/vantai/state-model-regret/experiments/A01_null_refinement/run.py", line 155, in run_partA
+    raise ArithmeticError('C5/C6 exact-zero control failed; STOP')
+ArithmeticError: C5/C6 exact-zero control failed; STOP

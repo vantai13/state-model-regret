@@ -1,0 +1,28 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________ test_prior_is_recomputed_at_refinement ____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x798d5f184050>
+
+    def test_prior_is_recomputed_at_refinement(monkeypatch):
+        import smr.cells as source
+        calls = []
+        law = source.law_for
+        def record(*args):
+            calls.append(args[-1])
+            return law(*args)
+        monkeypatch.setattr(source, 'law_for', record)
+        c = load_cell('M01')
+        y = c['yB']
+        first = queue_law(c, 'B', 1)
+        second = queue_law(c, 'B', 2)
+>       assert calls == [1, 2] and c['yB'] == y
+E       assert ([1, 1] == [1, 2]
+E         
+E         At index 1 diff: 1 != 2
+E         Use -v to get more diff)
+
+tests/test_cells_migration.py:50: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_cells_migration.py::test_prior_is_recomputed_at_refinement
+1 failed in 0.40s

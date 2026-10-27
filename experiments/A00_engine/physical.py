@@ -60,7 +60,7 @@ def side_from_law(unit, mass, *, rates, u_stay, u_switch, capacity, H, dt,
     amplitude = _number((rates[1] - rates[0]) / 2, dtype)
     r = 2 * p - 1
     mu = mean + np.power(r, np.arange(H, dtype=dtype))[:, None] * np.array([-amplitude, amplitude], dtype=dtype)
-    W1, W0, J, errs, mean_errs = {}, {}, {}, {}, {}
+    W1, W0, J, errs, mean_errs, busy = {}, {}, {}, {}, {}, {}
     net_by_action = {}
     qbound = np.max(abs(q0)) + H * max(_number(abs(x), dtype) for x in amounts)
     gamma = (64 * H * eps) / (1 - 64 * H * eps)
@@ -75,14 +75,19 @@ def side_from_law(unit, mass, *, rates, u_stay, u_switch, capacity, H, dt,
         W1[action] = raw * scale
         errs[action] = error * abs(scale) + 8 * eps * abs(scale) * max(dtype(1), np.max(abs(raw)))
         q, total = q0.copy(), np.zeros_like(q0)
+        linear_q, minimum_linear = q0.copy(), np.full_like(q0, np.inf)
         managed_f = _number(managed, dtype)
         for k in range(H):
             net = (mu[k] + managed_f - _number(capacity, dtype)) * dtf
+            linear_q += net
+            minimum_linear = np.minimum(minimum_linear, linear_q)
             # Compute idle from pre-update q. The lesson pseudocode reversed these.
             idle = np.maximum(0, -q - net)
             total += (H - k) * idle
             q = np.maximum(0, q + net)
         W0[action] = dtf * total
+        q_error = np.sum(arrival_error) + gamma * H * (qbound + 1)
+        busy[action] = minimum_linear > q_error
         mean_errs[action] = merror
         linear = dtf * (H * q0 + np.sum(weights[:, None] *
                          (mu + managed_f - _number(capacity, dtype)) * dtf, axis=0))
@@ -91,12 +96,32 @@ def side_from_law(unit, mass, *, rates, u_stay, u_switch, capacity, H, dt,
             raise ArithmeticError('Jensen bound violated')
     d = W1['Sw'] - W1['St']
     dh = W0['Sw'] - W0['St']
+    # Saturation is another symbolic identity, not an epsilon/clamp: if both
+    # actions empty the queue at every endpoint, their idle difference is the
+    # same closed-form triangular managed-load term on either queue. Computing
+    # two idle totals independently can otherwise turn an exact A+B tie into a
+    # small negative gap and a macroscopic wrong-action cost (A01 N01).
+    max_managed = max(u_stay, u_switch)
+    first = tuple(int((rate + max_managed - capacity) * dt / quantum) for rate in rates)
+    full_idle = np.column_stack([(indices + a <= 0) & (max(rates) + max_managed <= capacity)
+                                 for a in first])
+    # For nonnegative R2 correlation, conditional mean approaches the stationary
+    # mean monotonically; otherwise max(rates) is a valid conservative envelope.
+    envelope = tuple(max(rate, sum(rates) / 2) if keep >= F(1, 2) else max(rates) for rate in rates)
+    mean_idle = np.column_stack([(indices + a <= 0) & (upper + max_managed <= capacity)
+                                 for a, upper in zip(first, envelope)])
+    saturation = (u_stay - u_switch) * dt * dt * H * (H + 1) / 2
+    d[full_idle] = _number(saturation, dtype)
+    dh[mean_idle] = _number(saturation, dtype)
+    mean_zero = busy['St'] & busy['Sw']
+    dh[mean_zero] = 0  # proved no idle in either conditional mean path
     minimum_action = 'Sw' if u_switch < u_stay else 'St'
     inc = net_by_action[minimum_action]
     zero = np.column_stack([(indices + a >= 0) & (indices + a + (H - 1) * min(0, *inc) >= 0)
                             for a in inc])
     if u_stay == u_switch:
         zero[:] = True  # identical actions are another exact certificate
+    mean_zero |= zero
     if np.any(d[zero] != 0) or np.any(dh[zero] != 0):
         raise ArithmeticError('conservation certificate violated: exact zero required')
     row_lookup = {int(q): i for i, q in enumerate(qs)}
@@ -107,7 +132,11 @@ def side_from_law(unit, mass, *, rates, u_stay, u_switch, capacity, H, dt,
     j_error = errs['St'] + merror + gamma * max(dtype(1), np.max(abs(J['St'])), qbound * H * dtf)
     bounds = dict(d=d_error, dh=dh_error, jst=j_error,
                   D_l1=2 * D_error + float(abs(mass.sum(dtype=np.longdouble) - 1)),
-                  zero=tuple(bool(x) for x in zero[select]))
+                  zero=tuple(bool(x) for x in zero[select]),
+                  zero_dh=tuple(bool(x) for x in mean_zero[select]),
+                  saturated_d=tuple(bool(x) for x in full_idle[select]),
+                  saturated_dh=tuple(bool(x) for x in mean_idle[select]),
+                  saturation=saturation)
     table = Side(tuple(mass[support_q, modes]), tuple(d[select]), tuple(dh[select]),
                  tuple(J['St'][select]), tuple(F(int(q)) * unit for q in support_q), bounds)
     table.check('A' if u_switch <= u_stay else 'B')

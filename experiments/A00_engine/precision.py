@@ -33,7 +33,13 @@ def radii(s, key):
     result = np.broadcast_to(array(value), (len(s.p),))
     if np.any(result < 0) or not np.all(np.isfinite(result)):
         raise ValueError('nonnegative finite radii required')
-    return result + 2 * EPS * abs(array(getattr(s, key)))
+    result = result + 2 * EPS * abs(array(getattr(s, key)))
+    if key in ('d', 'dh'):
+        zero = np.asarray((s.bounds or {}).get('zero_' + key, (s.bounds or {}).get('zero', [False] * len(s.p))), dtype=bool)
+        if np.any(array(getattr(s, key))[zero] != 0):
+            raise ArithmeticError('invalid zero certificate')
+        result[zero] = 0
+    return result
 
 
 def key_interval(s, key, which):
@@ -44,7 +50,7 @@ def key_interval(s, key, which):
         lo, hi = np.maximum(0, lo), np.maximum(0, hi)
     else:
         lo, hi = np.minimum(0, lo), np.minimum(0, hi)
-    zero = np.asarray((s.bounds or {}).get('zero', [False] * len(values)), dtype=bool)
+    zero = np.asarray((s.bounds or {}).get('zero_' + key, (s.bounds or {}).get('zero', [False] * len(values))), dtype=bool)
     if np.any(values[zero] != 0):
         raise ArithmeticError('false structural zero certificate')
     lo[zero] = hi[zero] = 0
@@ -69,6 +75,20 @@ def bounded_cut(A, B, key='dh'):
     possible, _ = _cut(alo, da, pa, blo, db, pb)
     _, abs_certain = _cut(ahi, abs(da), pa, bhi, abs(db), pb)
     _, abs_possible = _cut(alo, abs(da), pa, blo, abs(db), pb)
+    # Paired saturation certificates are exact symbolic ties. Their common
+    # managed-load cap cancels algebraically, even though individual rounded
+    # caps have error intervals. Such pairs choose Stay, not unresolved.
+    ba, bb = A.bounds or {}, B.bounds or {}
+    ca, cb = ba.get('saturation'), bb.get('saturation')
+    if ca is not None and cb is not None and ca != 0 and ca + cb == 0:
+        sa = np.asarray(ba.get('saturated_' + key, [False] * len(pa)))
+        sb = np.asarray(bb.get('saturated_' + key, [False] * len(pb)))
+        if np.any(sa) and np.any(sb):
+            if not (np.all(abs(array(getattr(A, key))[sa] - array(ca)) <= radii(A, key)[sa]) and
+                    np.all(abs(array(getattr(B, key))[sb] - array(cb)) <= radii(B, key)[sb])):
+                raise ArithmeticError('invalid paired saturation certificate')
+            possible -= sum(pa[sa]) * sum(pb[sb])
+            abs_possible -= sum(pa[sa] * abs(da[sa])) * sum(pb[sb]) + sum(pb[sb] * abs(db[sb])) * sum(pa[sa])
     scale = max(abs(da), default=0) + max(abs(db), default=0)
     rounding = arithmetic(A, B, scale)
     # The nonnegative clamp enlarges an error bound; it never changes a gap/action.
@@ -112,8 +132,10 @@ def group_side(s):
             errors[k].append(bound + 64 * len(indices) * EPS * max(LD(1), maximum))
     zero = [all((s.bounds or {}).get('zero', [False] * len(s.p))[i] for i in ix)
             for ix in grouped.values()]
+    zero_dh = [all((s.bounds or {}).get('zero_dh', (s.bounds or {}).get('zero', [False] * len(s.p)))[i] for i in ix)
+               for ix in grouped.values()]
     return Side(p, d, dh, (LD(0),) * len(p), tuple(grouped),
-                dict(**errors, zero=zero, D_l1=de))
+                dict(**errors, zero=zero, zero_dh=zero_dh, D_l1=de))
 
 
 def enclose(A, B, nominal):
@@ -123,6 +145,8 @@ def enclose(A, B, nominal):
         raise ValueError('invalid L1 probability bound')
     dprob = sum(dp) + dp[0] * dp[1]
     def mean_error(key):
+        if key in ('d', 'dh') and all(all((s.bounds or {}).get('zero_' + key, (s.bounds or {}).get('zero', [False] * len(s.p)))) for s in (A, B)):
+            return LD(0)  # expectation of certified zeros is exactly zero
         return sum(np.sum(array(s.p) * radii(s, key), dtype=LD) +
                    LD((s.bounds or {}).get('D_l1', 0)) * max(abs(array(getattr(s, key))) + radii(s, key))
                    for s in (A, B)) + arithmetic(A, B, sum(max(abs(array(getattr(s, key)))) for s in (A, B)))

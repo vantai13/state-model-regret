@@ -10,6 +10,8 @@ from experiments.A01_null_refinement.controls import controlled, enumerated_orac
 from experiments.A01_null_refinement.run import c4_toys, control_row
 from experiments.A01_null_refinement.selection import NAMES, choose_all_finer, choose_final, pair_check, diagnostics
 from tests.test_engine_core import E7
+from experiments.A00_engine.physical import side_from_law
+from experiments.A00_engine.precision import bounded_cut
 
 
 def illustrative():
@@ -99,3 +101,21 @@ def test_E9_is_random_arrival_toy_outside_D7_known_mode_slot0():
     mean_st = max(0, F(7, 2) + 2 - 3) + max(0, F(7, 2) - 3)
     mean_sw = max(0, F(7, 2) - 3) + max(0, F(7, 2) + 2 - 3)
     assert mean_st == mean_sw == 3
+
+
+@pytest.mark.parametrize('extended', [False, True])
+@pytest.mark.parametrize('m', [1, 2])
+def test_always_idle_SD2_symbolic_mean_tie_regression(m, extended):
+    # Synthetic law with deterministic draining A and mean-draining B. A01 N01
+    # exposed a -1.35e-20 predicted gap which selected Switch incorrectly.
+    kwargs = dict(unit=F(1, 120*m), capacity=F(10), H=30*m, dt=F(1, 120*m),
+                  keep=F(119, 120), extended=extended)
+    a, _ = side_from_law(mass=[[.5, .5]], rates=(F(4), F(4)),
+                         u_stay=F(1), u_switch=F(0), **kwargs)
+    b, _ = side_from_law(mass=[[.5, .5]], rates=(F(2), F(14)),
+                         u_stay=F(0), u_switch=F(1), **kwargs)
+    r = aggregate(a, b)
+    assert all(r['G'][g] == 0 for g in NAMES)
+    assert a.dh[0] + b.dh[0] == 0
+    cert = bounded_cut(a, b, 'dh')
+    assert cert['unresolved_mass'] < 1e-12
