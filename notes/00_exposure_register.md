@@ -369,3 +369,19 @@ không có outcome lưới hay held-out nào được xem.
 Tác giả đã thấy nhãn tạm (AI) và khối reviewer của mentor trước khi xác nhận nhãn; không có dự
 đoán mù của tác giả cho Phase 2. Trước Phase 3: chưa ai thấy J, margin, contrast hay regret của
 bất kỳ ô nào; held-out sạch về outcome. Prediction card L3.3 phải viết trước A01.
+
+
+## L3.1 Part 3 — 27/10/2026
+
+Doan Van Tai phụ trách; AI đọc lesson và repo để ghi DL-044, làm con trỏ hiện hành,
+reader packet và rebuild cell/D. Bản lesson chứa giải thích và gợi ý tự kiểm đã lộ;
+không phải tác giả tự trả lời kín sách. Không ghi author attestation mới.
+
+Chỉ dựng lại 38 **main** constructors và D tách A/B cho M01/M09/M22 cùng control N01,
+ref 1/2/4, để đối chiếu implementation gốc. Đây là kiểm numerical migration;
+không tính action costs, margins, predictions, regret hoặc contrasts trên lưới.
+Full regression có tests đọc metadata và p_sw thiết kế đã công khai, bao gồm metadata
+held-out, và tái tính screen M31 cũ. Không dựng D/không chạy outcome held-out mới.
+A01/A04/A05-F/A05-T chưa chạy. L3.3 chưa khóa; K5/null/H1 không được chọn.
+[Config và nguồn](../results/lessons/l3_1/part3/config.json) ·
+[report](../results/lessons/l3_1/part3/report.md).

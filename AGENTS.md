@@ -122,3 +122,10 @@ Gate L/26/10 (DL-043): **GO có điều kiện**, tag phase-2-closeout. Tác gi�
 (ngoài vở, DL-032) đã tự đọc WM26/R02/R04/P11/P02/S11/P12, tự dẫn T03, xác nhận nhãn; Excel 6
 nguồn = "Mục liên quan". Còn: L8 người đọc thật; hai mục đầu closeout. Phase 3 mở: L3.3 commit
 trước A01; A05 khóa trước held-out; memo GVHD trước A04; HOLD Phase4 tới P0-V10.
+
+L3.1 Part3/27/10 (DL-044): có PHASE_3 (bản triển khai từ lesson, không phải plan v2.0
+đầy đủ), current pointers/index và progress log. V9 giữ điều kiện(c): chưa gửi, A04 chờ;
+P0-V10 đọc v1.2/brief/claims hiện hành, L8 OPEN; hai nghĩa V9 tách riêng. Tự viết vẫn OPEN.
+cells.py rebuild4hàm từ experiments, nguồn giữ byte;38main constructors và24D comparisons
+khớp,228testsPASS. Chỉ kiểm D, không engineL3.2/outcomes/held-outD; L3.3 chưa khóa.
+Không nhận Understanding/ownership PASS hoặc người đọc đã xem; HOLD Phase4 giữ nguyên.

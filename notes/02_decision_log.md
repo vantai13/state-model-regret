@@ -464,3 +464,29 @@ Sáu kiểm thực chạy:4PASS,1PARTIAL(full Final Review source chưa có),1FA
   **HOLD Phase 4** tới khi có người đọc độc lập (P0-V10).
 - **Không thay đổi:** contract v1.2, lưới, thresholds, D25, held-out, G1, bảng forecast PC.
 - **Tag:** `phase-2-closeout` gắn trên commit ghi DL này.
+
+### DL-044 — Mở Phase 3: điều kiện còn mở và bản hiện hành (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. AI triển khai theo lesson L3.1 Part 3 được tác giả
+cung cấp; không có xác nhận mới về tự viết, người đọc hay gửi GVHD.
+
+1. **V9: chưa gửi; giữ điều kiện (c), A04 chờ.** Không sửa điều kiện DL-043 hoặc nhận GVHD đã đồng ý.
+2. **Người đọc: P0-V10 và L8 OPEN.** Chưa có buổi đọc; có thể chung buổi 30–45 phút nếu đủ phạm vi.
+3. **Các mục tự viết: OPEN.** Lý do DL-038 và hai mục đầu closeout Phase 1/2 chưa có lời tác giả; AI không điền thành ownership evidence.
+4. **Luật provenance:** L3.3 commit trước mọi A01; A05-F khóa trước A05-T; A04 là discovery; giữ exposure thật, không gọi dự đoán sau outcome là confirmatory.
+
+- **Làm rõ P0-V10:** người thật đọc contract **v1.2 đang thực thi** (D1–D25 ở tag
+  `contract-v1.2`), brief và claim boundary cùng addendum Phase 2 hiện hành; ghi commit
+  đọc và phản hồi. Điều kiện gốc nói v0; đọc riêng bản đã thay không đủ. P0-V10 chặn
+  **thực thi Phase 4**, không chặn học/triển khai Phase 3. L8 cần prior boundary và related work.
+- **Hai nghĩa V9:** P0-V9 = timescale có nguồn/nhãn chưa có nguồn; P1-V9 = heads-up/memo
+  GVHD trước A04. Không chuyển trạng thái giữa hai nghĩa. Read-back với bạn học giảm
+  ER3, không loại ER8; nếu sau này sửa V9 phải ghi chấp nhận rủi ro tính lại A04 khi hướng đổi.
+- **Bản hiện hành:** thêm [PHASE_3](phases/PHASE_3.md), [experiment index](03_experiment_index.md),
+  khối con trỏ README; chuyển bản README cũ sang progress log, không dùng history làm nhật ký.
+  Plan v2.0 đầy đủ không có trong workspace: PHASE_3 mới ghi rõ phạm vi tái dựng từ lesson.
+- **Rebuild:** bốn hàm dựng cell/law/D từ experiments vào `src/smr/cells.py`, giữ nguyên
+  file nguồn; so khớp trên main/calibration/control, không dựng D held-out. Không triển khai
+  engine L3.2 hoặc tính outcome Phase 3. Contract/grid/thresholds/nhãn PC/G1 giữ nguyên.
+- **Evidence:** [lesson và report thực chạy](../results/lessons/l3_1/part3/report.md).
+  Mục tự viết không chặn bước thực thi; chưa có evidence để gắn Understanding PASS.

@@ -1,0 +1,236 @@
+# LESSON 3.1 — Part 3: Điều kiện còn mở và "bản hiện hành"
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.1 Re-entry
+  Part 1  bàn cờ v1.2, "cùng độ khó ≠ cùng tải"               ✔
+  Part 2  vì sao thứ tự commit là bằng chứng                  ✔
+  Part 3  ← YOU ARE HERE: điều kiện còn mở · bản hiện hành
+  ─────────────────────────────────────────────
+  L3.2 engine exact · L3.3 prediction card · …
+```
+
+## 2. Part 3 trả lời câu hỏi gì?
+
+1. Các điều kiện bạn tự đặt ở Phase 1–2 (V9, P0-V10, L8, các mục phải tự viết) **mỗi cái bảo vệ phần bằng chứng nào**, và bạn có những lựa chọn gì?
+2. Làm sao chắc rằng code của Phase 3 sẽ implement **đúng contract v1.2**, chứ không phải một phiên bản cũ?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Part này giảm bốn rủi ro:
+
+| Rủi ro | Nghĩa | Ví dụ |
+|---|---|---|
+| ER8 (đổi hướng sau kết quả) | Câu hỏi bị đổi *sau khi* đã có số | Objective đổi sau A04, phải tính lại 38 ô |
+| ER3 (buồng vang AI) | AI soạn rồi AI duyệt, nên cùng mù một chỗ | Nhãn L2.9 do AI chấm sau khi đã thấy nhãn của mentor |
+| ER2 (ownership) | Không tự bảo vệ được thiết kế của chính mình | Lý do của DL-038 do AI viết |
+| Sai phiên bản | Code chạy đúng, nhưng là của một plant khác | Mục 7.4 |
+
+**Tầng thực hành.** Sau Part 3, bạn có hai thứ: một DL "mở Phase 3" gồm bốn dòng trạng thái, và một khối con trỏ "bản hiện hành".
+
+**Quan hệ với RQ.** Quan hệ này là **gián tiếp**. Part 3 không đo đại lượng nào. Nó giữ cho *nghĩa* của các từ trong RQ (regret, state repair, model repair) không bị đổi sau khi đã có số. Nó cũng giữ cho code đo đúng estimand D18–D19.
+
+## 4. Mental model trước tiên
+
+```text
+Trước trận                       Trong trận            Sau trận
+─────────────────────────────    ───────────────       ─────────────────────
+Thống nhất luật (V9)             Đá (A04, A05-T)       Đổi luật thì kết quả
+Người ngoài soát sân (P0-V10)                          cũ phải tính lại, và
+Tự hiểu luật mình chơi (mục tự viết)                   mọi dự đoán mất giá trị
+Đúng sân, đúng bóng (bản hiện hành)
+```
+
+Cả bốn việc đều rẻ nếu làm *trước trận*, và đắt nếu làm *sau trận*. Đó là lý do Part 3 nằm ở đầu Phase 3.
+
+---
+
+## 5. Khái niệm 1: quyết định nào đắt nếu phải đổi sau A04?
+
+V9 ("GVHD nhận heads-up và memo trước A04") tồn tại vì một số quyết định trong contract có thể bị **người có quyền định hướng đề tài** đề nghị đổi. Câu hỏi thật sự đằng sau V9 là: *những quyết định nào như vậy?*
+
+| Quyết định trong contract v1.2 | Một người đọc có thể đề xuất thay bằng | Nếu đổi **sau** A04 |
+|---|---|---|
+| D13: cost = tổng occupancy trong $[t_0, t_0+h]$, đơn vị packet·s, không tính phần backlog còn lại sau $h$ | Mean delay hoặc FCT; thêm terminal cost (T-H1) | Tính lại cả 38 ô; card chấm theo cost cũ không còn nghĩa |
+| D21: model repair chỉ đổi cách biểu diễn ngẫu nhiên, θ vẫn đúng | Repair cả tham số hoặc cấu trúc (kiểu EVMI của P11) | Đổi chính đại lượng $G_M$; PC5 phải viết lại |
+| D20: state repair gồm cả việc thấy mode | Chỉ refresh backlog | $G_S$ đổi nghĩa; tách D22 thành trung tâm |
+| Lưới chọn gần ranh giới quyết định (luật đọc 3) | Phân phối theo tần suất vận hành | Chọn lại ô; held-out mất giá trị |
+| $\varepsilon_R$ = 1% của $C_{\text{ref}}$ | Ngưỡng dựa trên SLA | Nhãn đổi; phần số không đổi |
+
+**Cách đọc bảng.** Dòng cuối rẻ, vì chỉ đổi nhãn. Bốn dòng đầu đắt, vì đổi *estimand*. Nếu muốn hỏi ai đó trước A04, đây là các câu đáng hỏi. Bản nháp ngày 24/10 đã có đúng câu về D21.
+
+**Ba lựa chọn hợp lệ cho V9** (bạn quyết; repo chỉ cần một dòng trạng thái):
+
+| Lựa chọn | Hệ quả |
+|---|---|
+| (a) Gửi, theo cách bạn chọn | Rủi ro ER8 giảm nhiều nhất. Bản `2026-10-23_headsup.md` **đã lỗi thời**: nó mô tả lưới v1.1 HOLD với screen 8/22 và 11/22. Phải viết lại theo v1.2 |
+| (b) Ghi một DL sửa điều kiện | Rủi ro được chấp nhận *một cách tường minh* |
+| (c) Giữ nguyên điều kiện, chưa chạy A04 | Không có rủi ro mới; A04 phải chờ |
+
+> **Plan hiện ghi** (L3.1, Bước 4b) một phương án là "thay V9 bằng một read-back với người đọc khác trước A04".
+> **Tôi đề xuất ghi rõ:** phương án này chỉ thay *một phần* V9.
+> **Vì sao:** một bạn học đọc giúp bắt được lỗi khung (ER3). Nhưng bạn học không loại được rủi ro *người định hướng đề tài* muốn đổi objective (ER8). Đây là hai rủi ro khác nhau. Nếu chọn (b), DL nên viết: "chấp nhận rủi ro phải tính lại A04 nếu hướng đề tài đổi".
+
+**Một bẫy ký hiệu nên thêm vào bảng §0.4 của PHASE_3.** "V9" ở Phase 0 nghĩa là *"con số timescale có nguồn"* (PHASE_0_closeout). "V9" ở Phase 1 nghĩa là *"GVHD nhận heads-up và memo"*. Cùng một nhãn, hai nghĩa.
+
+## 6. Khái niệm 2: kiểm tự động, review của AI, người đọc độc lập
+
+| Loại kiểm | Ai | Bắt được | Bỏ sót | Ví dụ trong repo |
+|---|---|---|---|---|
+| Verification | Test, invariant | Code sai so với model đã định nghĩa | Model hoặc câu hỏi sai | Mutant đổi nhãn S/M bị bắt ở L1.4 |
+| Review nội bộ | AI (mock review) | Lỗi thiết kế có thể tính ra | Những điểm mù chung với người soạn | DL-026: phát hiện Stay áp đảo 13/28 ô |
+| **Người đọc độc lập** | Người thật có quyền nói "không" | Khung sai, prior bỏ sót, câu kể quá tay, "câu hỏi này có đáng không" | Chi tiết toán, nếu họ không có nền | Chưa có (P0-V10 và L8 đều mở) |
+
+Ba loại kiểm này **không thay thế được nhau**. Vì vậy L0.7 ghi rõ: review kỹ thuật tự động (DL-010) *không tính* cho V10.
+
+> **Plan v2.0 ghi:** P0-V10 đạt khi người đọc đọc đúng tag `contract-v1.2`.
+> **Nhưng điều kiện gốc** ở PHASE_0_closeout ghi *"đã xem contract v0"*.
+> **Tôi đồng ý** với cách hiểu v1.2, vì đọc một contract đã bị thay thì không giảm rủi ro hiện tại. Tuy nhiên tôi đề xuất ghi một dòng DL làm rõ phạm vi này. Lý do: một điều kiện chặn Phase 4 thì không nên để mơ hồ về việc phải đọc *cái gì*.
+
+**Một buổi có thể phục vụ cả P0-V10 và L8.** Khoảng 30–45 phút.
+- **Đưa người đọc:** brief và claim boundary ở tag `contract-v1.2`, cộng ba thứ trong `phase2_reader_packet.md`.
+- **Hỏi sáu câu:**
+  1. Prior nào tôi bỏ sót?
+  2. Nhãn nào quá rộng?
+  3. Câu nào kể quá tay?
+  4. Thuật ngữ nào bạn hiểu khác với định nghĩa?
+  5. Ở chỗ nào hai repair không tách bạch?
+  6. Nếu là reviewer, bạn hỏi gì đầu tiên?
+- **Ghi lại:** vai trò, ngày, đọc gì, đã sửa gì. **Không** ghi nội dung riêng tư.
+- **Thời điểm nên làm:** trước A05-F. Sau A05-F, mọi chỉnh sửa khung đều phải trả giá bằng held-out.
+
+**ASSUMPTION: người đọc độc lập có ích dù không giỏi queueing.** Giá trị của họ nằm ở khung, sự mới và việc kể quá tay, chứ không ở phép dẫn. Phần toán vẫn dựa vào test và vào việc bạn tự dẫn lại. Nếu người đọc không có nền networking, đừng coi việc họ "không phản đối" là bằng chứng rằng mô hình đúng.
+
+## 7. Khái niệm 3: các mục phải tự viết, vì sao không ủy quyền được
+
+| Mục | Nó đo cái gì | Nội dung tối thiểu (không phải đáp án) |
+|---|---|---|
+| Lý do của DL-038 | Bạn có bảo vệ được lưới neo không | (1) Vì sao một λA chung thất bại? (2) Vì sao chọn neo thay vì NARROW về 11 ô? (3) Cái giá là gì? (4) Chọn $h$ sau khi đã thấy $p_{\text{sw}}$ có hợp lệ không? |
+| Closeout Phase 1, §1–2 | Phase 1 đổi mental model của bạn ở đâu | 5–10 câu: "trước tôi nghĩ…, giờ tôi nghĩ…, vì…" |
+| Closeout Phase 2, §1–2 | Phần nào của câu trả lời đã có tên trong literature | Như trên |
+
+Bài tập ở cuối Part 1 (5 câu về việc neo λA) chính là bản nháp cho câu (1)–(3). Câu (4) cần thêm một ý từ Part 2 và Part 3: $p_{\text{sw}}$ là thông tin *thiết kế*, không phải *outcome*, nên chọn $h$ sau khi thấy nó không làm hỏng một phép kiểm nào. DL-038 cũng lập luận như vậy.
+
+Không mục nào ở bảng trên chặn bước thực thi nào. Chúng chỉ quyết định bạn được nói "tôi bảo vệ được thiết kế này" hay không.
+
+## 8. Khái niệm 4: "bản hiện hành", để code đo đúng estimand
+
+**Vấn đề.** Repo hiện có:
+- 4 bản definitions: v0, v1, v1.1_draft, v1.2;
+- 4 bản brief;
+- 3 bản claim boundary;
+- và nhiều module có tên dễ gây nhầm.
+
+**Một bẫy cụ thể** mình kiểm trong repo.
+- `src/smr/design.py` có hàm `episode_law` và `stationary_parameters`. Nghe tên thì rất giống thứ L3.2 cần.
+- Nhưng docstring của file ghi: *queue rời rạc với bước −2/+1* của L1.8C. Đó **không** phải plant v1.2.
+- Hàm dựng $D$ đúng cho v1.2 là `queue_D` trong `experiments/lessons/run_v1_1_a2.py`.
+- Nếu engine import nhầm, mọi test của engine trên toy vẫn có thể xanh, nhưng $D$ trên lưới là của một plant khác. Mọi contrast sau đó đo sai estimand mà không có lỗi nào hiện ra.
+
+**Khối con trỏ** (≤ 15 dòng, ở đầu README hoặc trong `notes/03_experiment_index.md`) trả lời một câu: *hôm nay, file nào là luật?*
+
+```text
+Bản hiện hành (cập nhật <ngày>):
+  Contract:        notes/01_definitions_v1_2.md   (tag contract-v1.2)
+  Brief / Claims:  notes/00_research_brief_v1_2.md · notes/01_claim_boundary_v1_2.md
+  Lưới:            notes/design/grid_v1_2.json · protocol v1_2
+  Phase hiện tại:  notes/phases/PHASE_3.md  (← hiện chưa có trong repo)
+  Log:             notes/02_decision_log.md · notes/00_exposure_register.md
+  Experiments:     A01 | A04 | A05-F | A05-T  → câu hỏi · tầng evidence · trạng thái · link
+  KHÔNG hiện hành: definitions v0/v1/v1.1 · src/smr/design.py (plant L1.8C)
+```
+
+Hai chi tiết cần nhớ:
+- **Dòng trạng thái đầu README** vẫn ghi 23/10 và 193/193 test. Bây giờ là 202 test, và Phase 2 đã đóng.
+- **`notes/00_history.md` là lịch sử các thế hệ nghiên cứu.** Đừng dùng nó làm nhật ký tiến độ. Các đoạn trạng thái cũ trong README nên chuyển sang một file mới, ví dụ `notes/00_progress_log.md`.
+
+## 9. Khái niệm 5: Keep / Reference / Archive / Rebuild
+
+**Nguyên tắc:** gán nhãn theo câu hỏi *"RQ hiện tại và contract v1.2 có cần nó không, và nó có đúng cho v1.2 không?"*. Đừng gán theo câu hỏi *"nó có chạy được không?"*.
+
+| Artifact | Nhãn | Vì sao |
+|---|---|---|
+| `src/smr/design.py` | Reference | Chạy tốt, test xanh, nhưng là plant của L1.8C |
+| `queue_D`, `law_for`, `make_cell` (nằm trong `experiments/`) | **Rebuild** vào `src/smr/cells.py` | Logic đúng cho v1.2 nhưng nằm sai chỗ. Chuyển sang, ghi provenance, và kiểm khớp với bản gốc. File gốc giữ nguyên vì nó là provenance của lưới |
+| `stationary_v2.py` | Reference | DL-033 đã chọn bản spectral |
+| `2026-10-23_headsup.md` | Archive (chỉ rebuild nếu chọn V9-a) | Mô tả trạng thái v1.1 đã bị thay |
+
+Bảng đầy đủ nằm trong PHASE_3 §8, Bước 9. Bạn chỉ cần xác nhận lại nó khi bắt đầu làm thật.
+
+---
+
+## 10. 🔗 Liên hệ với repo cũ
+
+- Ở thế hệ 1 và 2, hướng đề tài đổi nhiều lần **sau khi** đã chạy experiment. MASTER PLAN ghi đây là rủi ro ER8 và đặt pivot memo lên đầu Phase 0. V9 là cùng một bài học, áp vào một thời điểm hẹp hơn: trước A04.
+- Ở dt4n có hàng trăm amendment, tức là quy trình phình ra (ER1). Vì vậy Part 3 cố ý nhỏ: **một** DL gồm bốn dòng và **một** khối con trỏ. Nếu việc dọn repo kéo dài quá nửa ngày, đó là dấu hiệu bạn đang lặp lại ER1.
+
+## 11. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "V9: đã gửi ngày X" / "đã sửa điều kiện bằng DL-Y" | "GVHD đã đồng ý", khi chỉ mới gửi |
+| "Một người đọc độc lập đã đọc contract-v1.2 ngày X và đề xuất Z" | "Thiết kế đã được kiểm độc lập", khi người đọc không xem phần toán |
+| "Lý do của DL-038: tác giả viết ngày X" | "Tác giả viết", với một văn bản AI soạn mà bạn chỉ duyệt |
+
+## 12. Reviewer có thể hỏi
+
+1. *"Vì sao chọn cumulative occupancy thay vì latency?"* → Part 3 giúp bạn biết đây là câu nên đặt ra *trước* A04. Phần trả lời nội dung đã có ở contract và T-H1.
+2. *"Đã có ai ngoài anh và AI đọc thiết kế chưa?"* → Trả lời được khi có record P0-V10.
+3. *"Code của anh implement phiên bản contract nào?"* → Trả lời được bằng khối con trỏ, cộng với test so khớp `queue_D` ở L3.2.
+
+## 13. ⚠️ Bẫy người mới
+
+- Dùng `2026-10-23_headsup.md` nguyên trạng. Nó mô tả một lưới đã bị thay.
+- Import `episode_law` từ `design.py` vào engine v1.2 chỉ vì tên hàm nghe đúng.
+- Coi một mock review của AI là P0-V10.
+- Ghi "V9 đạt" ở Phase 3 trong khi Phase 0 dùng "V9" với nghĩa khác.
+- Biến Part 3 thành một tuần dọn repo.
+- Ghi nội dung trao đổi riêng vào repo công khai. Repo chỉ cần một dòng trạng thái.
+
+## 14. 🧠 Tư duy researcher
+
+> Trước khi đo, hãy tự hỏi: *"Nếu ai đó có quyền đổi câu hỏi nhìn thấy thiết kế này, họ sẽ đổi gì, và cái đó còn rẻ để đổi đến bao giờ?"*
+
+Một quyết định rẻ trước khi có dữ liệu có thể rất đắt sau khi có dữ liệu. Researcher giỏi đưa các quyết định đắt ra trước người khác *sớm*. Lý do không phải để xin phép, mà để chúng còn rẻ khi phải đổi.
+
+## 15. Bài tập nên làm (khuyến nghị)
+
+Với bảng ở mục 5, hãy tự chấm từng dòng theo hai câu hỏi: *"Tôi tự bảo vệ được dòng này không?"* và *"Nếu bị yêu cầu đổi, tôi mất gì?"*. Dòng nào bạn trả lời "không chắc" là câu đáng hỏi một người khác trước A04, bất kể người đó là ai.
+
+## 16. Tự kiểm tra (tùy chọn)
+
+1. Vì sao đổi $\varepsilon_R$ sau A04 rẻ hơn nhiều so với đổi D13?
+2. Một bạn học đọc contract thì giảm rủi ro nào, và *không* giảm rủi ro nào?
+3. Vì sao test của engine có thể xanh hết mà engine vẫn đo sai estimand?
+4. Vì sao lý do của DL-038 không ủy quyền cho AI viết được, trong khi card thì có thể nhờ AI soạn?
+
+---
+
+## 17. Lesson Gate — toàn bộ L3.1
+
+**Hiểu** (sau Part 1–3):
+- "Cùng độ khó, không cùng tải"; bốn đại lượng thay đổi cùng nhau; sáu luật đọc; headroom của A không phải trục thiết kế.
+- Exact vẫn có thể overfit qua việc chọn; preregistration; ba mức exposure; bốn ràng buộc của DL-043; validity khác ownership.
+- Mỗi điều kiện còn mở bảo vệ phần bằng chứng nào; vì sao cần một "bản hiện hành".
+
+**Nên làm khi triển khai thật:**
+- Một DL "mở Phase 3" gồm bốn dòng: trạng thái V9; người đọc; các mục tự viết; luật provenance.
+- Thêm vào DL đó dòng làm rõ phạm vi P0-V10 (đọc v1.2) và ghi chú về hai nghĩa của "V9".
+- Khối con trỏ "bản hiện hành"; commit `PHASE_3.md` vào repo.
+
+**Phụ thuộc khoa học** (để bằng chứng của Phase 3 có giá trị):
+- Card phải commit trước mọi lần chạy A01 (Part 2).
+- Engine phải dùng $D$ của v1.2 (mục 8 ở trên; kiểm ở L3.2).
+- Trạng thái V9 cần được ghi trước A04; nếu không, A04 chưa được chạy theo luật của chính bạn.
+- P0-V10 chặn *thực thi* Phase 4, không chặn Phase 3.
+
+**Học tiếp được không?** **Có.** L3.2 (engine exact: separability, đẳng thức capacity bỏ phí, công thức $L_{10}$) không cần bất kỳ việc thực thi nào của L3.1. Track học không bị chặn.
+
+### Điều bạn cần giữ trong đầu
+1. Lưới v1.2 so sánh các bài toán **khó ngang nhau**, nên mọi khác biệt giữa hai ô là sự pha trộn của nhiều nguyên nhân.
+2. Số exact là đúng, nhưng **luật chọn sau khi nhìn** thì không có giá trị kiểm. Thứ tự commit là cách chứng minh bạn chọn trước.
+3. Validity của một dự đoán phụ thuộc vào việc **chưa ai thấy outcome**. Ownership phụ thuộc vào việc **bạn tự giải thích được**.
+4. Những quyết định đắt (objective, phạm vi repair) nên được đưa ra trước người khác **trước A04**, khi chúng còn rẻ để đổi.
+
+Mình dừng ở đây. Khi bạn muốn, mình bắt đầu **L3.2**.

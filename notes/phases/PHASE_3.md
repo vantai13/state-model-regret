@@ -1,0 +1,106 @@
+# Phase 3 — bản triển khai hiện hành từ L3.1 Part 3
+
+Người phụ trách: **Doan Van Tai** · 27/10/2026 · Contract: `contract-v1.2`.
+AI soạn theo yêu cầu triển khai; không phải bằng chứng tác giả đã tự giải thích.
+Nguồn: [lesson được cung cấp](../../results/lessons/l3_1/part3/lesson_source.txt).
+Đây là bản triển khai phạm vi lesson, **không phải bản chép PHASE_3 v2.0**:
+bản plan đầy đủ được lesson nhắc tới không có trong repo hoặc Downloads hiện tại.
+
+## 0.4. Tránh nhầm ký hiệu và phiên bản
+
+| Ký hiệu | Nghĩa | Nơi quyết |
+|---|---|---|
+| P0-V9 | Timescale có nguồn hoặc ghi chưa có nguồn | PHASE_0_closeout, giữ nguyên |
+| P1-V9 (V9 ở Phase 3) | GVHD nhận heads-up và memo trước A04 | DL-043, DL-044 |
+| P0-V10 | Người thật đọc contract **v1.2**, brief và claim boundary hiện hành | HOLD thực thi Phase 4 |
+| L8 | Người thật đọc prior boundary, related work và giới hạn claim | Điều kiện Gate L |
+
+## 1. Trạng thái vào Phase 3
+
+[DL-043](../02_decision_log.md#dl-043--gate-l-go-có-điều-kiện-2026-10-26):
+Gate L **GO có điều kiện**, tag `phase-2-closeout`. Phase 3 mở; L3.1 Part 3
+hoàn tất phần kỹ thuật khi verification PASS. Không ghi toàn L3.1 Understanding
+PASS: chưa có record tác giả tự kiểm Part 1–3 trong phiên này.
+
+## 2. Bốn dòng mở Phase 3
+
+Theo [DL-044](../02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27):
+
+1. **V9: chưa gửi; giữ điều kiện (c), A04 chờ.** Không chọn thay điều kiện bằng AI review/read-back.
+2. **Người đọc: P0-V10 và L8 OPEN.** Có [gói 30–45 phút](../meetings/phase2_reader_packet.md), chưa có buổi đọc.
+3. **Tự viết: OPEN.** Lý do DL-038 và §1–2 của closeout Phase 1/2 vẫn chờ lời tác giả; không chặn việc học/thực thi Phase 3.
+4. **Provenance:** commit L3.3 trước mọi A01; khóa A05-F trước A05-T; discovery A04 không trở thành confirmation; giữ exposure thật.
+
+## 3. Ràng buộc thực thi
+
+- **L3.2:** có thể học/kiểm engine trước các việc người thật. Engine phải dùng D v1.2;
+  migration ở §8 chỉ kiểm dựng cell/D, chưa xác nhận engine hoặc estimand D18–D19 hoàn chỉnh.
+- **L3.3 → A01:** card chứa claim còn đứng, sau nhãn tác giả xác nhận + L-self WM26
+  (đã author-attested ở DL-043), và được commit trước lần chạy A01 đầu tiên.
+- **A01:** M01/M09/M22; chọn dt bằng D1, kiểm controls. Chưa chạy trong phiên này.
+- **A04:** sau A01 và sau record V9 đạt hoặc DL sửa điều kiện được tác giả quyết định;
+  38 main + controls, báo đầy đủ tọa độ dẫn xuất và p_sw thực.
+- **A05-F:** khóa H1/null/metric/biên/split theo D25, cùng quyền thông tin/ngân sách fit;
+  nên có người đọc trước bước này. **A05-T:** chỉ sau freeze, dùng R01–R12.
+- **Phase 4:** HOLD tới P0-V10. L8 và P0-V10 có thể dùng chung một buổi nếu đủ phạm vi.
+
+## 4. V9 bảo vệ ER8
+
+Đổi D13, phạm vi D20/D21 hoặc luật chọn lưới sau A04 sẽ đổi estimand hoặc miền
+đánh giá; phải chạy/tính lại và mất giá trị prediction theo thiết kế cũ. Đổi εR
+chủ yếu đổi nhãn, rẻ hơn nhưng vẫn phải ghi sensitivity/post hoc, không sửa
+ngưỡng đã khóa để làm kết quả thuận lợi. Read-back với bạn học giảm ER3, không
+loại rủi ro GVHD muốn đổi hướng. Nếu sau này chọn sửa V9, DL phải ghi rõ chấp
+nhận rủi ro phải tính lại A04 khi hướng đề tài đổi. Chưa có quyết định đó.
+
+## 5. Người đọc và giới hạn evidence
+
+P0-V10 làm rõ điều kiện gốc “contract v0” thành đọc **thiết kế đang thực thi v1.2**;
+đọc snapshot cũ không đủ. Đưa brief/contract ở tag `contract-v1.2` cùng claim boundary
+và phần bổ sung Phase 2 hiện hành; ghi commit của bản đọc. L8 cần thêm ba mục của
+reader packet. Chỉ đổi trạng thái khi có vai trò, ngày, phạm vi đọc và xử lý phản hồi.
+Không có nền queueing vẫn có thể góp ý khung; “không phản đối” không kiểm chứng toán.
+Verification, AI review và người thật có quyền phản đối là ba tầng khác nhau.
+
+## 6. Ownership còn mở
+
+DL-038 cần tác giả tự giải thích: vì sao λA chung thất bại; vì sao neo thay NARROW
+11 ô; đánh đổi cùng độ khó/khác tải; h chọn sau exposure p_sw thiết kế. Điều cuối
+phải ghi là lựa chọn sau screen, không giả thành preregistration ban đầu.
+Hai mục đầu mỗi closeout cần 5–10 câu “trước tôi nghĩ…, giờ…, vì…”. AI có thể soạn
+card nhưng không tạo evidence tự hiểu thay tác giả. Chưa có tự chấm “tôi bảo vệ được”
+cho năm quyết định trong lesson; không điền thay một trải nghiệm của tác giả.
+
+## 7. Bản hiện hành và experiment index
+
+[Khối con trỏ](../../README.md) · [index A01/A04/A05-F/A05-T](../03_experiment_index.md)
+· [tiến độ lịch sử](../00_progress_log.md). `00_history.md` chỉ giữ lịch sử các thế hệ.
+D1–D25/lưới khóa tại tag; claim boundary hiện hành có addendum Phase 2, không sửa estimand.
+
+## 8. Bước 9 — Keep / Reference / Archive / Rebuild
+
+| Artifact | Nhãn | Áp dụng trong v1.2 |
+|---|---|---|
+| Definitions/brief/claim boundary v1.2, grid/protocol v1.2 | Keep | Luật hiện hành; ghi rõ addendum sau tag |
+| `anchoring.py`, `stationary_spectral.py`, T04 | Keep | Luật neo và solver chọn ở DL-033 |
+| `exact.py`, `idle_gap.py`, `dominance.py`, `single_observation.py` | Keep | Thành phần toán; vẫn phải kiểm engine tích hợp tại L3.2 |
+| `gap_screen.py` và native kernel | Keep | Chẩn đoán thiết kế; không tự thay engine regret |
+| `src/smr/design.py` | Reference | Plant L1.8C bước −2/+1; không dùng làm D v1.2 |
+| `src/smr/stationary_v2.py` | Reference | Prototype trước lựa chọn spectral DL-033 |
+| `queue_D`, `law_for`, `lattice`, `make_cell` trong experiments | Rebuild → `src/smr/cells.py` | Giữ file gốc nguyên byte; so khớp constructor và D |
+| `src/smr/cells.py` | Keep sau verification | API dựng cell/D v1.2, không import experiments |
+| Definitions/brief v0/v1/v1.1 và lưới cũ | Archive | Giữ nguyên provenance, không dùng làm contract mới |
+| `2026-10-23_headsup.md` | Archive | Nháp v1.1 lỗi thời; không dùng nguyên trạng để gửi |
+| Evidence/tests/results Phase 1–2, source experiments | Keep | Không xóa hoặc viết đè artifact lịch sử |
+
+§8 là phân loại trên file hiện có, không nhận đã xác nhận một bảng đầy đủ từ plan v2.0.
+Rebuild giữ nguyên body bốn hàm, gồm giả định age=1 s và capacity=10; nguồn và SHA-256
+ở [config](../../results/lessons/l3_1/part3/config.json). Kiểm 38 main constructors,
+D tách A/B trên M01/M09/M22 và N01 ở ref 1/2/4, invariant N01; không dựng D held-out.
+
+## 9. Kết quả phiên L3.1 Part 3
+
+[Report/commands](../../results/lessons/l3_1/part3/report.md) ·
+[verification.json](../../results/lessons/l3_1/part3/verification.json).
+Part 3 không đo hypothesis: không có baseline/new-method regret hoặc confidence interval.
+Chỉ báo số kiểm migration, sai lệch numerical và regression tests thực chạy.
