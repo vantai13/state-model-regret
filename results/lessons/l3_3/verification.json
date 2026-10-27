@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "stage": "technical_before_registration",
+  "stage": "registered_and_remote_anchored",
   "responsible": "Doan Van Tai",
   "date": "2026-10-27",
   "baseline_tests": 300,
@@ -75,5 +75,32 @@
   "A04": "NOT RUN",
   "A05_F": "NOT FROZEN",
   "A05_T": "NOT RUN",
-  "registration": "PENDING_TWO_COMMIT_PROTOCOL"
+  "registration": {
+    "prediction_card_commit": "b05ed70bd4e93544bccefc975cdc452ad40d1380",
+    "prediction_card_sha256": "14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639",
+    "prediction_lock_commit": "bcd1941a5a00718d68886866ba667b9fa2d6ea97",
+    "prediction_tag": "a03-card-v1",
+    "readback_evidence": "AUTHOR_ATTESTED",
+    "status": "PASS",
+    "card_commit_changed_files": [
+      "notes/phases/PHASE_3_prediction_card.md"
+    ],
+    "guard_A01_card_requirement": "PASS_READ_ONLY",
+    "expected_denials": [
+      "M31:A01",
+      "R03:A01",
+      "R03:A05-T"
+    ],
+    "grid_D_or_outcome_calls": 0
+  },
+  "external_anchor": {
+    "status": "PASS",
+    "client_date": "2026-10-27",
+    "tool": "git ls-remote",
+    "remote": "origin",
+    "observed_main": "bcd1941a5a00718d68886866ba667b9fa2d6ea97",
+    "annotated_tag_object": "9319b8dc1b79f481b772057392bcef1dbf7e22ee",
+    "peeled_tag_commit": "bcd1941a5a00718d68886866ba667b9fa2d6ea97",
+    "recorded_after_push_before_final_audit_commit": true
+  }
 }

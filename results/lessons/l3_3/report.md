@@ -26,6 +26,8 @@ kín sách do AI giả làm tác giả. Tác giả tự xác nhận hai read-bac
 .venv/bin/python -m experiments.A00_engine.run_mutants --out results/lessons/l3_3/mutants > results/lessons/l3_3/mutation_run.log 2>&1
 .venv/bin/python -m pytest -q --junitxml=results/lessons/l3_3/full_pytest.xml > results/lessons/l3_3/full_pytest.log 2>&1
 .venv/bin/python -m experiments.A03_card.verify_card --stage prepare > results/lessons/l3_3/verification.log 2>&1
+.venv/bin/python -m experiments.A03_card.verify_card --stage registered > results/lessons/l3_3/registration_verification.log 2>&1
+git push origin main refs/tags/a03-card-v1
 ```
 
 - Card+guard: **29 PASS**, 9.162s (5 guard tests cũ,24 mới).
@@ -66,8 +68,12 @@ Không có metric regret baseline/new-method trên grid để báo; A01/A04/A05 
 - [Card](../../../notes/phases/PHASE_3_prediction_card.md), [receipt](../../../notes/phases/PHASE_3_prediction_card.lock.json).
 - Card commit1 (chỉ một file): `b05ed70bd4e93544bccefc975cdc452ad40d1380`.
 - SHA-256 nội dung: `14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639`.
-- Quy trình: commit tiếp theo chứa receipt/exposure; tag `a03-card-v1` trên commit receipt;
-  post-registration audit và trạng thái remote được bổ sung sau khi thao tác thực sự xong.
+- Receipt/exposure commit2: `bcd1941a5a00718d68886866ba667b9fa2d6ea97`; annotated tag **a03-card-v1**
+  trỏ đúng commit2. Commit1 chỉ card; SHA/tag/dependencies kiểm thực tế **PASS**.
+- Đã push main+tag; `git ls-remote` xác nhận main/tag peeled đều ở commit2 tại thời điểm
+  lập anchor. Một commit audit sau khóa chỉ lưu kết quả kiểm và report, không đổi card/receipt/tag.
+  [Registration JSON](registration_verification.json) · [registration log](registration_verification.log)
+  · [push log](push_receipt.log) · [remote anchor](external_anchor.json) · [remote refs](remote_refs_after_freeze.txt).
 - [Config/source hashes](config.json), [expected trước code](expected_before_code.json),
   [verification](verification.json), [ledger bound](ledger_bound.json), [membershipCSV](membership.csv),
   [membershipsJSON](memberships.json), [persistenceCSV](persistence_toys.csv),
@@ -87,7 +93,7 @@ Không tạo plot/PDF, A01/A04/A05 output hoặc record người đọc độc l
 
 ## E. Kết luận
 
-Technical verification PASS; bốn forecast chưa được chấm bằng outcomes, không gọi chúng
+**A03 FROZEN/REGISTERED và đã push; technical/Git verification PASS.** Bốn forecast chưa được chấm bằng outcomes, không gọi chúng
 đứng hoặc xác nhận hypothesis. Read-back là tác giả tự xác nhận, không transcript/proof độc lập;
 AI self-review không thay P0-V10/L8. Không chuyển phần AI hỗ trợ thành author-written mechanism.
 T05 chưa có văn bản mới của tác giả trong repo; engine vẫn experiments. V9 chưa gửi/A04chờ;

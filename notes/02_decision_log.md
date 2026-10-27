@@ -606,3 +606,12 @@ không amend/rebase/force. Kiểm Git sau đăng ký được lưu riêng, khôn
 - Chưa A01/A04/A05; V9/A04, P0-V10/L8/Phase4 và nhãn PC/G1 giữ nguyên. T05 read-back author-attested,
   chưa có văn bản tác giả mới trong repo; phiên này không promote engine vào src.
 [Report](../results/lessons/l3_3/report.md) · [receipt](phases/PHASE_3_prediction_card.lock.json).
+
+
+**Audit sau khóa DL-049:** receipt commit `bcd1941a5a00718d68886866ba667b9fa2d6ea97`; annotated tag
+`a03-card-v1` trỏ đúng receipt, remote main/tag đã được Git xác nhận sau push. Card
+commit1 đúng một file, SHA khớp; guard kiểm card PASS chỉ đọc, các truy cập M31/A01,
+R03/A01 và R03/A05-T chưa A05-F bị từ chối như dự kiến. Lưu ở
+[registration audit](../results/lessons/l3_3/registration_verification.json),
+[remote anchor](../results/lessons/l3_3/external_anchor.json). Commit audit riêng sau đó
+không sửa card/receipt/tag; không outcome/D grid mới được tính.
