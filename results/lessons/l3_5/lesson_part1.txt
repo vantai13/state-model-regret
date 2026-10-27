@@ -1,0 +1,312 @@
+# LESSON 3.5 — A04: discovery trên 38 ô chính, và chấm prediction card
+
+## Kiểm tra trước khi dạy
+
+L3.5 trong PHASE_3 v2.0 vẫn khớp với trạng thái nghiên cứu. Mình đã đối chiếu ba nguồn:
+- **MASTER PLAN.** §IX.1 nói discovery khác confirmation. Bảng rủi ro có SR8 (kết quả phụ thuộc $D$) và SR11 (effect nhỏ hơn $\varepsilon$, đã xảy ra ở thế hệ 2).
+- **DL-006** về cheap kill vẫn **DRAFT**.
+- **MT5** (Γ có thể sinh ra từ hình học quyết định) đang chờ A05.
+
+Vì chưa có kết quả thật, **mọi con số trong lesson này là giả định hoặc tính trên toy**. Code `score_card` mình viết rồi chạy trên **dữ liệu giả**, có gắn nhãn rõ.
+
+## Lesson map
+
+| Part | Nội dung |
+|---|---|
+| **1** (hôm nay) | **Dựng và chấm**: A04 là gì (discovery, confirmation, chấm card); điều kiện đầu vào; kiểm validity *trước khi đọc*; vì sao chấm card trước khi khám phá; `score_card.py`; prereg A04 |
+| 2 | **Đọc và khám phá**: đọc một contrast exact; headroom và cheap kill; phân tầng theo margin (MT5); tách D22; sáu luật đọc; T-H1; hình vẽ; luật post-discovery; note A04; Lesson Gate |
+
+---
+
+# LESSON 3.5 — Part 1: Dựng và chấm
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.3 card (commit) ── L3.4 A01: control đạt, dt cuối có DL
+                                │
+L3.5 A04  ← lần đầu tiên nghiên cứu tạo ra KẾT QUẢ (không chỉ kiểm thước)
+   Part 1 ← YOU ARE HERE: chạy, kiểm validity, chấm card
+   Part 2   đọc bảng, tìm pattern, viết note
+                                │
+L3.6 A05-F (đóng băng) ── L3.7 A05-T (held-out, mở một lần)
+```
+
+## 2. Part 1 trả lời câu hỏi gì?
+
+> Khi bảng 38 ô ra đời, bạn làm **gì trước, gì sau**, để phần chấm card vẫn là một phép kiểm thật và phần khám phá không làm hỏng nó? Và làm sao chấm card mà **không còn quyền diễn giải**?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** A04 là nơi hai loại bằng chứng cùng xuất hiện trên **một** bảng số:
+- bằng chứng đã khóa trước, tức card;
+- quan sát mới, tức discovery.
+
+Nếu thứ tự sai, quan sát mới sẽ "nhiễm" vào cách chấm card. Đó là garden of forking paths ở MASTER PLAN §IX.1. Repo cũ có một ví dụ thật: GO switch v1 dùng lại seed test sau khi đã phân tích trên chúng.
+
+**Tầng thực hành.** Sau Part 1, bạn có quy trình bốn bước: kiểm đầu vào → kiểm validity → chấm card → khám phá. Bạn cũng có code chấm card đã được test trên dữ liệu giả.
+
+**Nếu bỏ qua.** Bạn mở bảng và thấy ngay một pattern đẹp ở κ = 3. Khi chấm PC5, ô M20 có $G_M/C_{\text{ref}}=0{,}0051$ với khoảng cắt ngưỡng. Bạn bắt đầu nghĩ "thực ra đó là sát ngưỡng, coi như đứng". Lúc đó card không còn là preregistration nữa.
+
+## 4. Liên hệ với Main RQ
+
+| Phần của A04 | Trả lời | Loại bằng chứng |
+|---|---|---|
+| Chấm card `[PREREG-CARD]` | Q3.2: PC2, PC3, PC5, PC6 có đứng **trên đúng danh sách ô** không | Kiểm thật, trong mô hình, trên danh sách ô |
+| Khám phá `[DISCOVERY]` | RQ1 ở chế độ discovery: gain thay đổi thế nào theo tải chuyển, headroom, queue state, horizon | Candidate pattern; chưa xác nhận |
+
+## 5. Mental model: ba loại dòng trong log của A04
+
+| Nhãn | Ví dụ | Cho phép nói | Không cho phép nói |
+|---|---|---|---|
+| `[VALIDITY]` | "Bất biến đạt ở 38/38 ô; N01–N04 bằng đúng 0" | "Bảng đo đúng estimand" | Bất cứ điều gì về kết quả |
+| `[PREREG-CARD]` | "P5 vế K5: đứng 4/4 ô theo luật ở `a03-card-v1`" | Claim trên đúng các ô đó, trong mô hình | Khái quát hóa; cơ chế |
+| `[DISCOVERY]` | "$G_M>0$ chỉ thấy ở các ô B q50" | "Có candidate pattern trên mô hình và $D$ này" | "Đúng như dự đoán"; "đã xác nhận" |
+
+**So sánh đời thường.** Khảo sát để vẽ bản đồ là discovery. Đi đúng con đường đã vạch trước để xem nó có tới nơi không là confirmation. A04 làm cả hai, nhưng trên **hai** bản đồ tách biệt.
+
+---
+
+## 6. Các khái niệm
+
+### 6.1. Ba chế độ, một bảng số
+
+- **Discovery** được phép nhìn, vẽ, đổi cách phân tích. Kết luận tối đa: "có candidate pattern trong mô hình và $D$ này".
+- **Confirmation** chỉ chạy phân tích đã đăng ký trước, trên dữ liệu chưa từng dùng. Trong Phase 3, chỉ **A05-T** là confirmation đúng nghĩa.
+- **Chấm card** nằm ở giữa. Luật đã khóa trước, *và* dữ liệu chưa tồn tại lúc khóa. Vì vậy đây là một phép kiểm thật, nhưng **chỉ trên các ô đã liệt kê**. Nó không phải confirmation của một luật tổng quát (L3.3, Part 1, §7.3).
+
+**Held-out R01–R12 vẫn niêm phong trong suốt A04.** Không mở "chỉ để xem".
+
+### 6.2. Điều kiện đầu vào: thiếu một thứ thì dừng
+
+| Điều kiện | Vì sao cần | Thiếu thì sao |
+|---|---|---|
+| DL dt cuối (L3.4) | Estimand được định nghĩa ở dt đó | Không biết mình đang đo đại lượng nào |
+| Dòng trạng thái V9 (L3.1) | Quyết định đắt (objective, phạm vi repair) phải có trạng thái trước khi có kết quả | Rủi ro ER8: phải tính lại sau A04 |
+| Card đã commit, hash khớp | Phần `[PREREG-CARD]` chỉ có giá trị khi thứ tự và nội dung chứng minh được | Card thành đối chiếu, không còn là kiểm |
+| Mục exposure đã soạn sẵn | Ghi đúng lúc, không ghi lại theo trí nhớ | Mất dấu ai đã thấy gì, khi nào |
+
+### 6.3. Kiểm validity *trước khi đọc*
+
+**Lý do.** Một bảng chưa qua validity mà đã được đọc thì kết quả đã lộ. Nếu sau đó bạn tìm ra bug, bạn đã có ý kiến về các con số sai.
+
+**Đề xuất "mở file hai bước".** `run.py` ghi `cells.csv` đầy đủ, nhưng **in ra trước** một file `validity.csv` chỉ gồm các cột kiểm, chưa có contrast:
+
+| Cột trong `validity.csv` | Đạt khi |
+|---|---|
+| Bất biến loại 2 và 3 (L3.2 Part 4): $L_{11}\le L_{sm}$; $G_{M\mid S_1}\le\mathbb E\lvert e_M\rvert$; $\delta_A\ge0\ge\delta_B$; $W^{M_0}\le W^{M_1}$ | Mọi ô |
+| Ô kiểm âm: sáu contrast `== 0` (N01–N04, P01); $G_{S\mid M_1}$ `== 0` ở ô WD | Mọi ô kiểm |
+| $e_{\text{num}}/C_{\text{ref}}$ | ≤ 0,0025 |
+| Khối lượng chưa chứng nhận | ≤ 0,01 (ô vượt: HOLD, ghi lại) |
+| Cờ cặp (2·dt cuối, dt cuối): max$\lvert\Delta G\rvert/C_{\text{ref}}$ | Ghi cờ nếu > 0,0025; **không xóa ô** |
+
+Chỉ khi `validity.csv` đạt thì mới mở `cells.csv`. Nếu không đạt, quay lại L3.2 hoặc L3.4, và **chưa** đọc kết quả.
+
+**Vì sao không xóa ô bị cờ.** Xóa ô sau khi thấy nó là "bỏ ô xấu", một forking path. Luật chấm của card (L3.3 Part 1) đã nói trước: ô vượt dung sai làm mịn thì **chưa phân giải**.
+
+### 6.4. Chấm card **trước**, khám phá **sau**
+
+**Thứ tự:** validity → chấm card → khám phá.
+
+- *Vì sao:* nếu khám phá trước, bạn sẽ có ý kiến về pattern. Khi đó, mỗi ô sát ngưỡng là một cám dỗ để "hiểu lại" card.
+- *Cách làm:* chạy `score_card.py`, lưu `card_scores.csv`, **commit** nó, rồi mới mở các cột contrast để khám phá.
+- *Kiểm:* một người thứ hai, hoặc một phiên AI mới, áp lại luật **bằng tay** trên hai ô và phải ra cùng trạng thái.
+
+### 6.5. `score_card.py`: chấm mà không còn quyền diễn giải
+
+> **Plan hiện ghi:** `score_card.py` "đọc luật từ card, kiểm hash".
+> **Tôi đề xuất bổ sung cho card ở L3.3 Part 3:** thêm một khối luật **máy đọc được** *bên trong* card, ví dụ một khối ` ```json card-rules `. Khi đó script đọc đúng khối đó.
+> **Vì sao:** luật viết bằng văn xuôi luôn còn chỗ để hiểu theo hai cách. Ví dụ: "≤" là biên đóng hay mở? Ô Q5 gộp theo "mọi ô" hay "ít nhất một ô"? Nếu luật nằm trong card và hash của card được kiểm, thì cả **nội dung lẫn cách hiểu** đều bị khóa.
+> **Nếu card đã commit mà chưa có khối này:** chép luật sang JSON, nhờ người thứ hai kiểm bản chép, và **commit bản chép trước khi chạy A04**. Ghi rõ đây là bản chép sau commit card.
+
+**Code.** Mình đã chạy và test trên dữ liệu giả.
+
+```python
+"""Chấm prediction card theo đúng luật đã khóa (L3.3). Không có tham số nào để "chọn".
+
+Scientific purpose: phần [PREREG-CARD] của A04. Used by: A04 (ô chính), A05-T (mức luật).
+"""
+import hashlib, json, re
+
+STAND, FAIL, UNRES = 'đứng', 'không đứng', 'chưa phân giải'
+
+def load_card(path, registered_sha256):
+    raw = open(path, 'rb').read()
+    if hashlib.sha256(raw).hexdigest() != registered_sha256:
+        raise SystemExit('Card khác hash trong exposure register: DỪNG, không chấm.')
+    block = re.search(r'```json card-rules\n(.*?)\n```', raw.decode(), re.S)
+    return json.loads(block.group(1))                     # luật máy đọc được, nằm TRONG card
+
+def interval(row, q, normalize):
+    v, e = row[q], row['e_' + q]
+    if not normalize:
+        return v - e, v + e
+    C, eC = row['Cref'], row['e_Cref']
+    if C - eC <= 0:
+        return None                                       # D23: loại nhãn tương đối
+    lo = (v - e) / (C + eC) if v - e >= 0 else (v - e) / (C - eC)
+    hi = (v + e) / (C - eC) if v + e >= 0 else (v + e) / (C + eC)
+    return lo, hi
+
+def cell_state(row, p):
+    if row['hold']:      return UNRES, 'khối lượng chưa chứng nhận > 0,01'
+    if row['pair_flag']: return UNRES, 'chưa hội tụ (2·dt, dt)'
+    iv = interval(row, p['quantity'], p.get('normalize', True))
+    if iv is None:       return UNRES, 'Cref ≤ e_Cref (D23)'
+    lo, hi, t = *iv, p['threshold']
+    ok, bad = {'<=': (hi <= t, lo > t), '>=': (lo >= t, hi < t),
+               '>':  (lo > t, hi <= t), '<':  (hi < t, lo >= t)}[p['relation']]
+    return (STAND if ok else FAIL if bad else UNRES), f'[{lo:.5f}; {hi:.5f}]'
+
+def combine(states, how):                                  # logic ba giá trị (Kleene)
+    if how in ('all', 'and'):
+        return FAIL if FAIL in states else STAND if all(s == STAND for s in states) else UNRES
+    return STAND if STAND in states else FAIL if all(s == FAIL for s in states) else UNRES
+
+def score(rules, rows):
+    out = {}
+    for p in rules['predictions']:
+        if 'parts' in p:
+            out[p['id']] = (combine([out[k][0] for k in p['parts']], p['combine']), {})
+            continue
+        per = {c: cell_state(rows[c], p) for c in p['cells']}
+        out[p['id']] = (combine([s for s, _ in per.values()], p['aggregate']), per)
+    return out
+```
+
+**Từng khối tồn tại để làm gì:**
+- **`load_card`** hiện thực bằng chứng nội dung của L3.3 Part 3. Hash khác thì **dừng**, không có ngoại lệ.
+- **`interval`** hiện thực khoảng của tỉ số (L3.3 Part 1, đề xuất 2). Khi $C_{\text{ref}}$ không dương sau khi trừ sai số, ô bị loại theo D23.
+- **`cell_state`** xét theo thứ tự: HOLD, rồi chưa hội tụ, rồi khoảng so với ngưỡng. Biên đóng và mở được viết riêng cho từng quan hệ.
+- **`combine`** hiện thực logic Kleene: "mọi ô" và AND dùng một luật; "ít nhất một ô" dùng luật đối xứng.
+- **`score`** chấm từng vế trước, rồi mới ghép (L3.3 Part 1, đề xuất 1).
+
+**Test trên DỮ LIỆU GIẢ** ($C_{\text{ref}}$ = 100, số giả định, không phải kết quả):
+
+| Vế | Ô giả | Đầu vào | Trạng thái |
+|---|---|---|---|
+| K5 (≤ 0,005, "mọi ô") | A | $G$ = 0,45 ± 0,03 | đứng [0,00420; 0,00480] |
+| | B | 0,49 ± 0,03 | **chưa phân giải** [0,00460; 0,00520] |
+| | C | 0,10 ± 0,01, $e_C$ = 0,25 | đứng |
+| | **gộp** | | **chưa phân giải** |
+| Q5 (≥ 0,01, "ít nhất một") | D | 0,80 ± 0,02 | không đứng |
+| | E | 1,50, HOLD | chưa phân giải (HOLD) |
+| | **gộp** | | **chưa phân giải** |
+| P5 = K5 AND Q5 | | | **chưa phân giải** |
+
+Các kiểm phụ cũng đạt:
+- đổi B thành 0,60, thì K5 thành **không đứng** (một ô sai làm "mọi ô" sai);
+- bỏ HOLD ở E, thì Q5 thành **đứng**;
+- gắn cờ chưa hội tụ cho A, thì A thành chưa phân giải.
+
+Bài học từ bảng: **một ô HOLD hay một ô sát ngưỡng có thể làm cả claim "chưa phân giải"**. Đây không phải điểm yếu của luật. Đó là đúng mức hiểu biết mà dữ liệu cho phép.
+
+### 6.6. Khung prereg A04 (commit trước khi chạy)
+
+```markdown
+# A04 — Discovery trên 38 ô chính + chấm card — PREREG
+Ngày · commit engine · DL dt cuối · hash card (commit + sha256) · dòng V9 · contract-v1.2
+
+## Đầu vào   bốn điều kiện §6.2 — thiếu một thì dừng
+## Chạy      38 ô chính + N01–N04, W01, S01, P01, P02 ở dt cuối VÀ 2·dt cuối · KHÔNG chạm R01–R12
+## Validity  validity.csv trước (§6.3) · không đạt → quay lại L3.2/L3.4, chưa mở cells.csv
+## Chấm card score_card.py đọc khối card-rules · kiểm hash · commit card_scores.csv TRƯỚC khi khám phá
+           kiểm tay hai ô bởi người thứ hai
+## Cột       L00..L11, Lcb0 · 6 contrast (packet·s và %Cref) · Cref · R00 · a00, a01 · EΔ, EΔ̂, bias, EΔ±
+           E|e_M| · dấu G_S · F, V · p_sw thực · quantile |Δ| · E|I_Δ| · nhãn verdict ở εR 0,5/1/2%
+           e_num từng đại lượng · khối lượng chưa chứng nhận (tách Δ, Δ̂) · cờ cặp dt
+## Hình      2–3 hình, sinh bằng plots.py (Part 2)
+## Cheap kill  định nghĩa miền · luật đã đăng ký (DL-006 còn DRAFT) (Part 2)
+## Chẩn đoán  tầng margin · D22 · chẩn đoán một bước R04 (chỉ diagnostic)
+## Câu T-H1  "kết quả định giá cửa sổ [t0, t0+h], không phải long-run loss"
+## Post-discovery  0–3 candidate pattern · ghi MỌI pattern đã xét (Part 2) · phiên tìm có mục tiêu
+## Cam kết   không đổi lưới, ngưỡng, ô; không thêm ô; không mở held-out
+## Exposure  "contrast của 38 ô chính và ô kiểm/đầu dò đã được nhìn; held-out sạch"
+```
+
+---
+
+## 7. Experiment card: A04
+
+| Mục | Nội dung |
+|---|---|
+| **Câu hỏi** | (Q3.2) Card có đứng trên các ô của nó không? (RQ1, discovery) Gain riêng và chung trông thế nào trên lưới đã khóa? |
+| **Giả thuyết** | Chính là các P trong card, kèm con đường nếu có. Không có giả thuyết nào cho phần discovery |
+| **Biến độc lập** | Không có can thiệp. Ô là các điểm thiết kế đã khóa |
+| **Biến phụ thuộc** | Mọi cột ở §6.6 |
+| **Giữ cố định** | Lưới, ngưỡng, dt cuối, engine, card |
+| **Có thể làm sai kết luận** | λA đổi theo lát (luật đọc 1); hình học quyết định (MT5); phụ thuộc $D$ (SR8); bỏ cost sau $h$ (T-H1); ô chưa hội tụ |
+| **Baseline** | Với từng ô: oracle $L_*$, qua $C_{\text{ref}}$. Với chấm card: chính luật trong card |
+| **Metric chính** | Trạng thái chấm theo card; contrast theo % $C_{\text{ref}}$ |
+| **Kết quả có thể có** | Từng P: đứng (đúng hoặc khác con đường) / không đứng / chưa phân giải. Discovery: 0–3 pattern, hoặc "chỉ thấy threshold effects" |
+| **Chứng minh được** | Claim nào đứng trên danh sách ô nào, trong mô hình và $D$ này |
+| **Không chứng minh được** | Khái quát hóa; cơ chế; mạng thật; tần suất; hiệu ứng riêng của một trục; cost sau $h$ |
+
+**Dự đoán trước khi chạy:** chính là card, đã khóa. Nếu muốn luyện thêm, bạn có thể ghi một "dự đoán cá nhân, không chấm" về nơi bạn nghĩ $G_M>0$ sẽ xuất hiện. Phải ghi rõ đây là **sau A01**, vì contrast của M01, M09, M22 đã được nhìn.
+
+## 8. 🔗 Liên hệ với repo cũ
+
+- **SR11 ở thế hệ 2:** ngưỡng tĩnh thua oracle ít hơn SESOI ở các ô đã kiểm. Hồi đó, kết quả như vậy khiến hướng nghiên cứu bị coi là "âm". Ở A04, cùng loại kết quả sẽ hiện ra thành nhãn `equivalent_point`, hoặc cheap kill theo headroom (Part 2). MASTER PLAN ghi rõ: **equivalence là một kết quả**.
+- **§IX.1 (GO switch v1 dùng lại seed test):** ở thế hệ 2, rủi ro là dùng lại *seed*. Ở đây là *nhìn ô rồi đổi cách chấm*. Cách phòng vẫn như nhau: khóa trước (card), niêm phong (held-out), chấm bằng script đã khóa.
+- **`thresholds.verdict` của L1.8D** vẫn được dùng, nhưng chỉ cho **nhãn điểm** để mô tả. Phần *chấm card* dùng luật khoảng trong card.
+
+## 9. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "P5 vế K5 [PREREG-CARD]: đứng 4/4 ô" | "M0 đủ tốt khi κ cao" |
+| "P2 chưa phân giải: M11 bị HOLD" | "P2 gần như đứng" |
+| "Validity đạt; 2 ô bị cờ cặp dt, chấm là chưa phân giải" | (xóa 2 ô đó rồi báo 36/36) |
+
+## 10. Reviewer có thể hỏi
+
+1. *"Anh chấm card trước hay sau khi nhìn bảng?"* → `card_scores.csv` được commit trước mọi commit phân tích discovery.
+2. *"Luật chấm có để chỗ nào cho diễn giải không?"* → Khối `card-rules` nằm trong card, hash được kiểm, kèm kiểm tay hai ô.
+3. *"Ô bị cờ hội tụ đi đâu?"* → Vẫn nằm trong bảng, chấm là chưa phân giải.
+
+## 11. ⚠️ Bẫy người mới
+
+- Mở `cells.csv` trước `validity.csv`.
+- Khám phá trước, chấm card sau.
+- Xóa ô bị cờ, hoặc ô HOLD.
+- Chép luật từ văn xuôi sang code *sau khi* thấy bảng.
+- Gọi trạng thái "chưa phân giải" là "gần đứng".
+- Mở R01–R12 "chỉ để kiểm chương trình chạy".
+- Báo phần trăm đứng ("3/4 PC đứng") mà không nói con đường.
+
+## 12. 🧠 Tư duy researcher
+
+> Khi cùng một bảng số phục vụ cả **kiểm** lẫn **khám phá**, hãy làm phần kiểm trước, khóa kết quả kiểm lại, rồi mới cho phép mình tò mò.
+
+Tò mò là tốt. Nó chỉ nguy hiểm khi nó có quyền viết lại câu trả lời của phần kiểm.
+
+## 13. Bài tập nên làm (khuyến nghị)
+
+1. Viết khối `card-rules` JSON cho P2, P3, P5, P6 từ card của bạn ở L3.3. P6 có hai bất đẳng thức trên F và V. Gợi ý: thêm một cột dẫn xuất `V_minus_F`.
+2. Tự chấm bằng tay ô giả B ở §6.5. Vì sao nó chưa phân giải chứ không phải "đứng vì 0,49 < 0,5"?
+3. Viết bốn điều kiện đầu vào ở §6.2 bằng lời của bạn, và với mỗi điều kiện, nói thiếu nó thì bằng chứng nào hỏng.
+
+## 14. Tự kiểm tra (tùy chọn)
+
+1. Phần nào của A04 là `[PREREG-CARD]`, phần nào là `[DISCOVERY]`? Mỗi phần cho phép nói gì?
+2. Vì sao chấm card phải xong *và được commit* trước khi khám phá?
+3. Vì sao không được xóa ô bị cờ hội tụ?
+4. Khối luật máy đọc được bảo vệ chống lại điều gì mà hash của card không bảo vệ được?
+5. Một vế "mọi ô" có 3 ô đứng và 1 ô HOLD. Kết luận là gì, và nên ghi gì vào note?
+
+## 15. Trạng thái của Part 1
+
+- **Hiểu:**
+  - Ba loại dòng log: validity, chấm card, discovery.
+  - Bốn điều kiện đầu vào.
+  - Validity trước khi đọc, theo cách mở file hai bước.
+  - Chấm card trước, khám phá sau.
+  - `score_card` với khối luật trong card, khoảng tỉ số và logic Kleene.
+  - Khung prereg A04.
+- **Nên làm khi triển khai thật:**
+  - Thêm khối `card-rules` vào card **trước khi commit card**. Nếu đã commit, thì commit bản chép luật trước A04.
+  - Prereg A04.
+  - Test `score_card` trên dữ liệu giả.
+  - Chạy validity, chấm card, commit, rồi mới khám phá.
+- **Phụ thuộc khoa học:** nhãn `[PREREG-CARD]` chỉ hợp lệ khi `card_scores.csv` được tạo bằng luật đã khóa, *trước* mọi phân tích discovery.
+- **Học tiếp được không?** **Có.** Part 2 là cách **đọc** bảng: contrast exact, cheap kill, MT5, D22, sáu luật đọc, T-H1, hình vẽ (gồm một hình hiện trực tiếp bổ đề T01), candidate pattern, note A04, và Lesson Gate. Mình dừng ở đây.

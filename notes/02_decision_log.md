@@ -764,3 +764,22 @@ GM luôn thuộc{0,|EΔ|}: đây vốn là hệ quả T01. Không tự thêm ref
 
 [Gate record đọc được bằng máy](phases/A04_execution_gate.json) ·
 [preflight L3.5](lessons/L3.5_preflight.md).
+
+### DL-055 — Prereg A04/L3.5 trước 92 cell-levels (2026-10-27)
+
+- Người phụ trách: **Doan Van Tai**; triển khai theo yêu cầu tiếp tục hai phần L3.5.
+- Chạy38main+8controls/probes tại ref1/ref2, dt chính1/240s DL-053; gate V9
+  WAIVED_BY_AUTHOR DL-054. Không thay engine/card/lưới/threshold.
+- Khóa `experiments/A04_discovery/prereg.md`, config, source, exposure trước run;
+  receipt ở commit kế tiếp. Grader A03 đọc metadata đã nằm trong card, không
+  sửa card để thêm khối JSON mới. Validity→score→commit→discovery.
+- Miền cheap kill cố định core22/spoke_A50 8/spoke_h2 8. Cận R00 cho gain từ00,
+  không cho Gamma/GM_S1; strict upper<1% ở mọi ô eligible. DL-006 lịch sử vẫn
+  DRAFT; đây là đăng ký cụ thể cho A04 theo lesson, không ký thay học/hiểu của tác giả.
+- Giữ epsE=.5%; ở sensitivity epsR=.5%, closed-equivalence được xét trước để
+  hai nhãn không chồng nhau. Primary/luật chấm card không đổi.
+- H1/H2/H3, margin quantiles50/90/99% sẵn có, D22/R04 diagnostic; flip mass2D
+  vẫn deferred. Hai ô kiểm tay M09/P2 và M17/P6 chọn trước, reviewer phiên riêng.
+- Exposure kế hoạch ghi cả public held-out design metadata vừa hiện khi đọc
+  bảng cũ; không D/cost/gap-magnitude/contrast held-out mới. A05-T chưa mở.
+- Không tự đóng human-reader, Understanding, author-writing hoặc Phase4.

@@ -1,0 +1,341 @@
+# LESSON 3.5 — Part 2: Đọc bảng và khám phá
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.5 A04
+  Part 1  validity → chấm card (commit) → mới được khám phá               ✔
+  Part 2  ← YOU ARE HERE: đọc 38 dòng số mà không kể chuyện · candidate pattern · note A04
+  ──────────────
+  Lesson Gate L3.5 → L3.6 A05-F
+```
+
+Mọi con số dưới đây là **giả định hoặc toy**. Mình đã kiểm thêm một tính chất bằng engine nháp trên 5000 sổ cái ngẫu nhiên (§6.3).
+
+## 2. Part 2 trả lời câu hỏi gì?
+
+> Khi đã có một bảng hợp lệ và card đã được chấm, đọc 38 dòng số thế nào để **thấy điều thật** mà không **kể chuyện**? Thế nào thì đủ để gọi là một "candidate pattern"?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Discovery là nơi dễ overclaim nhất. Bạn đã nhìn số, nên mọi câu bạn viết đều có thể vô tình được *chọn* để khớp với số. Part 2 đưa ra các công cụ đọc *có kỷ luật*:
+- hình biểu diễn trực tiếp bổ đề T01;
+- headroom và giới hạn của nó;
+- phân tầng theo margin;
+- template cho một pattern, kèm danh sách giải thích thay thế bắt buộc.
+
+**Tầng thực hành.** Sau Part 2, bạn biết nên vẽ hình nào, đọc chúng ra sao, và viết note A04 với hai mục "điều tôi thấy" và "điều nó KHÔNG có nghĩa".
+
+**Nếu bỏ qua.** Bạn nối các ô bằng đường thẳng theo κ, thấy một "xu hướng tăng", rồi viết "model repair quan trọng hơn khi traffic đổi nhịp chậm". Reviewer chỉ cần hỏi: *"λA đổi theo lát; $G_M$ là hàm bậc thang; anh nối điểm giữa các lát bị nhiễu chéo bằng cái gì?"*
+
+## 4. Liên hệ với Main RQ
+
+RQ1 hỏi các gain "differ and interact" ra sao theo tải chuyển, headroom, queue state và horizon. Part 2 cho phép bạn *mô tả* điều đó trên lưới đã khóa, ở chế độ discovery. Muốn *khẳng định* cần A05-T. Đây là liên hệ **trực tiếp**, nhưng ở mức candidate.
+
+## 5. Mental model: đọc theo ba tầng (L3.3 Part 2)
+
+```text
+Tầng 1  CONTRAST    "G_M/Cref = 1,6% ở ô R"                        ← bảng cho thẳng
+Tầng 2  SỔ CÁI      "vì EΔ = −1,6 và bias = +2,0 nên M0 lật"         ← bảng cho thẳng (cột phụ)
+Tầng 3  VẬT LÝ      "vì capacity bỏ phí bị giấu ở B dưới Stay"       ← chỉ là GIẢ THUYẾT
+```
+
+Trong discovery, tầng 1 và 2 là **quan sát**, còn tầng 3 luôn là **giả thuyết**. Một câu ở tầng 3 phải được viết như một candidate, kèm cách kiểm.
+
+---
+
+## 6. Các khái niệm
+
+### 6.1. Đọc một contrast exact
+
+**Quy tắc báo cáo:**
+- Báo hai đơn vị: packet·s **và** % $C_{\text{ref}}$.
+- Nhãn điểm chính dùng $\varepsilon_R$ = 1%, kèm nhãn ở 0,5% và 2% để xem độ nhạy (D23). Đổi $\varepsilon_R$ không đổi con số, chỉ đổi nhãn.
+- Một con số exact là sự thật về **mô hình và $D$ đã khai báo**. Nó không phải về một quần thể mạng (SR8).
+
+**Ví dụ minh họa (số giả định; đơn vị là % $C_{\text{ref}}$):**
+
+| Ô | $\mathbb E\Delta$ | bias | $\mathbb E\widehat\Delta$ | $a_{00}$ | $a_{01}$ | $G_M$ | Nhãn |
+|---|---:|---:|---:|---|---|---:|---|
+| P | −0,9 | +0,4 | −0,5 | Switch | Switch | 0 | `equivalent_point` |
+| Q | −0,3 | +0,5 | +0,2 | Stay | Switch | 0,3 | `equivalent_point`, **dù quyết định khác** |
+| R | −1,6 | +2,0 | +0,4 | Stay | Switch | 1,6 | `practical_positive` |
+
+**Ô Q là bài học.** Model repair đổi được quyết định, nhưng thiệt hại tránh được chỉ 0,3%, vì ô nằm sát điểm hòa. *Quyết định khác* không đồng nghĩa với *regret đáng kể*.
+
+### 6.2. Hình 1: mặt phẳng $(\mathbb E\Delta,\ \mathbb E\widehat\Delta)$, bổ đề T01 trên giấy
+
+Đây là hình mình đề xuất làm hình đầu tiên. Nó biến bổ đề T01 thành thứ nhìn thấy được. Mỗi ô là một điểm, cả hai trục chia cho $C_{\text{ref}}$. Hình dưới là phác họa, không theo tỉ lệ:
+
+```text
+                 EΔ̂/Cref  (M0 dự đoán, cấp ô)
+                      ▲
+  LẬT                 │                 KHÔNG LẬT
+  M0: Stay            │                 cả hai: Stay
+  đúng: Switch        │
+  G_M = |EΔ|    R •   │
+          Q •         │              ╱  đường chéo EΔ̂ = EΔ  (bias = 0)
+  ────────────────────┼────────────╱────────────►  EΔ/Cref  (thật)
+            P •       │          ╱
+  KHÔNG LẬT           │        ╱        LẬT
+  cả hai: Switch      │      ╱          M0: Switch, đúng: Stay
+                      │    ╱            G_M = EΔ
+```
+
+**Cách đọc:**
+- **Góc trên-trái và góc dưới-phải** là vùng lật. Ở đó $G_M$ bằng **khoảng cách ngang tới trục tung**, tức $\lvert\mathbb E\Delta\rvert$.
+- **Bias** là **khoảng cách dọc tới đường chéo**.
+- Trong vùng lật, đường chéo luôn ở xa hơn trục tung, nên nhìn hình là thấy $G_M\le\lvert\text{bias}\rvert$.
+- Điểm nằm đúng trên trục hoành bên trái ($\mathbb E\widehat\Delta=0$, $\mathbb E\Delta<0$) cũng là lật, vì hòa thì chọn Stay.
+
+**Một hình tốt cũng cho thấy câu hỏi đúng.** Dạng của prediction phù hợp với hình này là: "ô nào rơi vào vùng lật, và với $\lvert\mathbb E\Delta\rvert$ lớn chừng nào". Dạng "$G_M$ tăng theo η" thì không khớp với hình.
+
+**Thêm cho hình:** màu theo κ, dạng điểm theo quantile của B, đánh dấu các ô `floor`. **Không** nối các điểm với nhau.
+
+### 6.3. Headroom $R_{00}$ và cheap kill: chặn được gì, không chặn được gì
+
+$R_{00}=G_{SM}=L_{00}-L_*$ là toàn bộ "tiền trên bàn" tính từ pipeline hiện trạng.
+
+**$R_{00}$ chặn những gì.** Ba contrast sau luôn ≤ $R_{00}$:
+- $G_S\le R_{00}$, vì $R_{00}-G_S=G_{M\mid S_1}\ge0$;
+- $G_M\le R_{00}$, vì $R_{00}-G_M=G_{S\mid M_1}\ge0$;
+- $G_{S\mid M_1}\le R_{00}$, vì $R_{00}-G_{S\mid M_1}=G_M\ge0$.
+
+Ngoài ra, mọi repair khả thi xuất phát từ ô 00 cũng ≤ $R_{00}$, vì không pipeline nào tốt hơn oracle.
+
+**$R_{00}$ không chặn những gì.**
+- $R_{00}-G_{M\mid S_1}=G_S$, mà $G_S$ có thể âm.
+- $R_{00}-\Gamma=G_S+G_M$, cũng có thể âm.
+- Trên 5000 sổ cái ngẫu nhiên, $G_{M\mid S_1}$ **vượt** $R_{00}$ ở 1571 ô và $\Gamma$ vượt ở 1349 ô. Ba contrast trong nhóm trên thì **chưa lần nào** vượt.
+- Ví dụ cụ thể là E5 (L3.2 Part 1): $R_{00}=0{,}5$ nhưng $G_{M\mid S_1}=\Gamma=1{,}5$.
+
+**Luật cheap kill**, theo contract v0 §7(f) và DL-006 (còn DRAFT, nên phải đăng ký trong prereg):
+- Chọn một **miền đã khai báo trước**, ví dụ theo nhóm core / spoke_A50 / spoke_h2, hoặc theo lát.
+- Nếu ở **mọi** ô của miền, cận trên $(R_{00}+e)/C_{\text{ref}}<\varepsilon_R$, thì miền đó bị **NARROW** cho mọi claim về gain thực dụng tính từ hiện trạng.
+
+**Đề xuất làm rõ trong prereg:**
+
+> Ghi rõ "gain thực dụng" gồm $G_S$, $G_M$, $G_{SM}$, $G_{S\mid M_1}$ và mọi repair khả thi xuất phát từ ô 00. **Không** gồm $G_{M\mid S_1}$ và $\Gamma$. Trong một miền bị cheap kill, nếu $\Gamma$ hay $G_{M\mid S_1}$ vẫn lớn, thì phải đọc nó là **con đường A**: sửa state riêng lẻ *làm hại* $M_0$ ($G_S<0$). Không được đọc là "hai repair bổ trợ nhau mang lại giá trị".
+>
+> **Vì sao:** nếu không viết ra, plan nói "NARROW mọi claim về gain thực dụng" nhưng một $\Gamma$ lớn vẫn có thể được trình bày như một giá trị thực dụng.
+
+**Miền bị cheap kill vẫn có thông tin.** Nó là ứng viên cho một claim **equivalence**: trên $D$ này, $M_0$ với ảnh chụp cũ đã "đủ tốt" trong phạm vi 1%.
+
+### 6.4. Phân tầng theo margin, và MT5
+
+**Câu hỏi:** pattern có chỉ đến từ việc một ô có nhiều state sát điểm hòa không?
+
+Regret bằng $\lvert\Delta\rvert$ nhân với việc lật, nên một ô có nhiều state gần hòa có thể lật nhiều mà mất ít. Một ô có ít state gần hòa thì ngược lại.
+
+**Cạnh mỗi contrast, báo:**
+- các quantile của $\lvert\Delta\rvert$ (ví dụ 10/50/90%);
+- khối lượng lật (để Later; L3.2 Part 4);
+- $\mathbb E\lvert e_M\rvert$ và $\lvert\text{bias}\rvert$ (L3.3 Part 2);
+- các cột con đường: dấu $G_S$, bias, $\lvert\mathbb E\Delta\rvert$.
+
+**MT5.** Một phần của $\Gamma$ có thể sinh ra *chỉ từ hình học quyết định*: support hữu hạn, cộng với bias phụ thuộc state. Phân tầng là **chẩn đoán**, không phải điều chỉnh nhân quả. Câu hỏi "bao nhiêu phần của $\Gamma$ là hình học" được trả lời bằng **null ở A05-F**, không phải ở A04.
+
+### 6.5. Tách D22 và PC6
+
+$G_S=F+V$, với:
+- F: thấy backlog hiện tại, mode vẫn ẩn;
+- V: thấy thêm mode;
+- cả hai đều với $M_0$ cố định.
+
+Ba lưu ý:
+- **V không phải giá trị của việc refresh telemetry backlog.** Claim boundary đã ghi điều này.
+- **F hoặc V âm không phải phát hiện.** Thông tin thêm có thể làm hại một chính sách xấp xỉ, và điều đó đã có trong prior (K-RM1…3).
+- **PC6 được chấm trên đúng hai cột này ở M17 và M18.** Đọc kèm con đường a/b (L3.3 Part 2): nếu $G_S\le0$, thì $V>F$ đúng một cách tầm thường.
+
+### 6.6. Sáu luật đọc (contract v1.2 §8) trên hình
+
+| Luật | Hiện ra trên hình thế nào |
+|---|---|
+| 1. Cùng độ khó, không cùng tải | **Không nối** các điểm giữa các lát. Ghi λA cạnh ô (như *thông tin*, không phải *nguyên nhân*) |
+| 2. ψ ∈ [−0,2; +0,05] | Ghi phạm vi này dưới mọi hình |
+| 3. Gần ranh giới quyết định | Ghi trên tiêu đề: "trên các ô được chọn gần ranh giới, không theo tần suất" |
+| 4. Báo $p_{\text{sw}}$ thực | Ghi cạnh từng ô; đánh dấu M11, M17, M18 (`floor`) |
+| 5. $h$ = 2 s chỉ ở κ = 0,3 | Nhóm nan hoa h2 đứng riêng; không vẽ chung trục với $h$ = 8 s |
+| 6. Kèm nhãn ĐK1; ô WD có thể có $G_M>0$ | Ô kiểm và đầu dò vẽ ở bảng riêng |
+
+### 6.7. Horizon hữu hạn (T-H1)
+
+D13 đếm cost trong cửa sổ $[t_0,t_0+h]$, kể cả backlog còn lại ở slot cuối, nhưng **không** đếm phần xả sau $h$.
+
+**Ví dụ (số minh họa; $h$ = 2 slot; sau $h$, mỗi slot xả 1 packet và không có packet mới):**
+
+| Action | Backlog (slot 1; 2) | Cost trong cửa sổ | Cost xả sau $h$ | Tổng |
+|---|---|---:|---:|---:|
+| X | (0; 4) | 4 | 3 + 2 + 1 = 6 | 10 |
+| Y | (3; 2) | 5 | 1 | 6 |
+
+D13 chọn X, trong khi tổng dài hạn lại ưu tiên Y.
+
+Note A04 **phải** có câu: *"Kết quả định giá cửa sổ $[t_0,t_0+h]$, không phải long-run loss."* Đừng tự thêm terminal cost vào protocol. Đó là thay đổi estimand.
+
+### 6.8. Chẩn đoán một bước từ R04 (H1-Q03): chỉ là diagnostic
+
+"True gain = predicted gain + $\delta_{\text{old}}-\delta_{\text{new}}$" cần **cost thật**. Vì vậy nó chỉ là chẩn đoán ở A04 và **không được** làm feature ở A05-F.
+
+Lý do: D25 yêu cầu $H_0$ và $H_1$ dùng **cùng thông tin có trước action**. Một feature cần cost thật sẽ đem thông tin của oracle vào mô hình dự báo. Đó là rò rỉ thông tin.
+
+### 6.9. Ba hình cho prereg
+
+| Hình | Trục | Tham chiếu | Trả lời câu hỏi nào |
+|---|---|---|---|
+| **H1** mặt phẳng T01 (§6.2) | $\mathbb E\Delta/C_{\text{ref}}$, $\mathbb E\widehat\Delta/C_{\text{ref}}$ | Hai trục; đường chéo | Ô nào $M_0$ lật quyết định, lật với margin bao nhiêu |
+| **H2** sáu contrast theo ô | Ô (theo thứ tự thiết kế, nhóm theo lát) × % $C_{\text{ref}}$ | Dải ±$\varepsilon_E$; đường $\varepsilon_R$; cột lỗi $e_{\text{num}}$ (thường nhỏ hơn điểm vẽ) | Gain nằm ở đâu, nhãn gì; **không nối điểm** |
+| **H3** headroom theo ô | Ô × $R_{00}/C_{\text{ref}}$ | Đường $\varepsilon_R$; ranh giới miền cheap kill | Miền nào còn "tiền trên bàn" |
+
+**Cách đọc mỗi hình**, theo thói quen bạn muốn học:
+1. Trục X là gì, trục Y là gì, đơn vị là gì.
+2. Màu và dạng điểm mã hóa gì.
+3. Đường tham chiếu ở đâu.
+4. Cột lỗi lớn cỡ nào.
+5. Độ lớn của khác biệt.
+6. Pattern.
+7. Giải thích thay thế: λA, MT5, `floor`, chưa hội tụ.
+
+**Đừng gọi một pattern trên heatmap là cơ chế.**
+
+### 6.10. Candidate pattern: định nghĩa, template, kiểm
+
+**Định nghĩa (khóa trong prereg).** Một candidate pattern là một phát biểu **theo tọa độ thiết kế** (κ, quantile A/B, η, $h$, mục tiêu $p_{\text{sw}}$). Nó phải:
+- nêu đủ **mọi ô khớp và mọi ô trái**;
+- đã qua các kiểm giải thích thay thế bên dưới.
+
+```text
+Pattern Cₖ  [DISCOVERY · post-discovery]
+Phát biểu:            theo tọa độ thiết kế; KHÔNG dùng λA, p_sw thực làm nguyên nhân
+Ô khớp / ô trái:      liệt kê đủ cả hai (ô trái không được "giải thích cho qua")
+Tầng sổ cái:          con đường (dấu G_S · bias · |EΔ| · E|e_M|) · quantile |Δ| · F/V nếu liên quan
+Giải thích thay thế đã xét:
+  □ λA đổi theo lát (luật đọc 1)   □ hình học quyết định (MT5)   □ identity (danh sách sanity)
+  □ thiết kế bảo đảm               □ ô chưa hội tụ / HOLD          □ T-H1
+Prior gần nhất:       ⟨phiên tìm có mục tiêu — search_log⟩
+Đưa sang A05-F?       có / không · lý do · ô held-out khớp (theo tọa độ, KHÔNG nhìn outcome held-out)
+```
+
+> **Plan hiện ghi:** "0–3 candidate pattern".
+> **Tôi đề xuất thêm:** ghi **mọi** pattern bạn đã xét trong lượt khám phá, kể cả pattern bị loại, kèm lý do loại, vào một danh sách trong note A04.
+> **Vì sao:** "3 pattern đứng trong 3 cái đã thử" và "3 pattern đứng trong 25 cái đã thử" là hai mức bằng chứng rất khác nhau. Đây chính là mẫu số của forking paths (L3.1 Part 2, ví dụ 1/256 so với 1/8). Không ghi mẫu số, người đọc không đánh giá được.
+
+**Luật post-discovery.** Pattern mới thì:
+- **không** chấm cùng lượt với card;
+- **không** gọi là "đúng như dự đoán";
+- chạy một phiên tìm có mục tiêu theo `AGENTS.md` (Hỏi → Tìm → Kiểm → Duyệt → Đọc → Ghi → Dừng; tối đa 3 nguồn mới mỗi lượt; tác giả duyệt trước khi tải hay ghi note);
+- muốn kiểm ngoài mẫu thì đưa vào A05-F.
+
+**Khi nào được viết "không thấy pattern nào ngoài threshold effects".** Khi mọi chỗ $G_M>0$ đều giải thích được bằng *vị trí của ô trên Hình 1* (lật hay không, margin bao nhiêu), và không có phát biểu nào theo tọa độ đứng được qua các kiểm thay thế. Đây là một kết luận hợp lệ, không phải thất bại.
+
+### 6.11. Note A04 và điều kiện dừng
+
+```markdown
+# A04 — note
+## Validity        (tóm tắt validity.csv; ô HOLD; ô bị cờ cặp dt)
+## Chấm card       [PREREG-CARD] card_scores.csv (commit <hash>) · con đường · kiểm tay hai ô
+## Điều tôi thấy   [DISCOVERY] tầng 1–2; Hình 1–3
+## Điều nó KHÔNG có nghĩa   sáu luật đọc · T-H1 · SR8 · không khái quát · không cơ chế
+## Cheap kill      miền · kết quả · DL nếu NARROW
+## Candidate pattern   0–3, theo template · DANH SÁCH mọi pattern đã xét
+## Cập nhật        exposure (38 ô + ô kiểm đã nhìn; held-out sạch) · claim boundary ("kết quả card")
+```
+
+**Điều kiện dừng (MASTER PLAN):** card đã chấm; đã viết 0–3 candidate pattern hoặc kết luận "chỉ threshold effects". **Không** mở rộng lưới, **không** thêm ô, **không** sửa ngưỡng.
+
+---
+
+## 7. A04 có thể cho ra những kết quả nào
+
+| Kết quả | Nghĩa | Bước sau |
+|---|---|---|
+| Card đứng **theo đúng con đường** | Cơ chế chưa bị bác trên các ô đã liệt kê | Mang mức luật sang A05-F (cam kết ở L3.3 Part 3) |
+| Card đứng **theo con đường khác** | Con số đúng, lý do sai | Ghi rõ; cơ chế mới là post-discovery |
+| Card **không đứng** | Cơ chế bạn nghĩ không chi phối các ô đó | Kết quả âm, có giá trị; không sửa card |
+| Nhiều ô **chưa phân giải** | Độ chính xác chưa đủ | Tăng độ chính xác hoặc HOLD; inconclusive |
+| $R_{00}<\varepsilon_R$ ở hầu hết miền | Ít "tiền trên bàn" trên $D$ này (kiểu SR11) | Kết quả equivalence; cân nhắc NARROW hoặc REFORMULATE ở Gate A (L3.8) |
+| Có candidate pattern | Ứng viên, chưa xác nhận | Phiên tìm có mục tiêu; có thể đóng băng ở A05-F |
+
+## 8. 🔗 Liên hệ với repo cũ
+
+- **SESOI 8,1 ms ở thế hệ 2** (bạn ghi lại ở L0.1, dự đoán V4). Hồi đó, kết quả "thua oracle ít hơn SESOI" bị đọc như một kết thúc. Ở A04, cùng loại kết quả có tên rõ ràng: cheap kill theo $R_{00}$, kèm một claim equivalence trên miền đó.
+- **DL-026:** ô có contrast bằng 0 *theo cấu trúc* khác ô có contrast nhỏ *theo dữ liệu*. Hình 1 giúp phân biệt: điểm nằm sát trục với bias nhỏ, hay điểm nằm xa trục với bias nhỏ hơn margin.
+- **$I_\Delta$ ở L1.5 và cặp cận ở L3.3 Part 2** trở thành cột trong `cells.csv`. Đây là lần đầu chúng được *đo* trên ô thật, thay vì chỉ được thử trên toy.
+
+## 9. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "Ở 7/38 ô, $M_0$ lật quyết định; $G_M$ ≥ 1% ở 3 ô (Hình 1)" | "$G_M$ tăng theo κ" |
+| "Trên miền core, $R_{00}<\varepsilon_R$ ở mọi ô, nên NARROW claim gain thực dụng" | "Model repair vô ích" |
+| "Candidate C1 (post-discovery; 1 trong 6 pattern đã xét): …" | "Đúng như dự đoán" |
+| "Trên $D$ này, sửa state có giá trị hơn khi model đã đúng; chưa biết vì sao" | "State và model bổ trợ nhau về cơ chế" |
+| "Kết quả định giá cửa sổ $[t_0,t_0+h]$" | "Giảm delay dài hạn" |
+
+## 10. Reviewer có thể hỏi
+
+1. *"Khác biệt giữa hai lát có phải do λA không?"* → Không tách được. Luật đọc 1 và template pattern buộc phải ghi điều này.
+2. *"$\Gamma$ lớn trong một miền có headroom nhỏ thì nghĩa là gì?"* → Con đường A, theo §6.3.
+3. *"Anh đã thử bao nhiêu pattern trước khi báo 2 pattern này?"* → Danh sách mọi pattern đã xét.
+4. *"Kết quả còn đúng nếu tính cost sau $h$ không?"* → **Chưa trả lời được** (T-H1). Có thể là sensitivity ở Phase 4.
+
+## 11. ⚠️ Bẫy người mới
+
+- Nối điểm giữa các lát rồi đọc thành xu hướng.
+- Vẽ $G_M$ theo η như một đường trơn.
+- Dùng $R_{00}$ nhỏ để kết luận "$\Gamma$ không quan trọng", hoặc ngược lại, dùng $\Gamma$ lớn để nói "có giá trị thực dụng".
+- Gọi V là "giá trị của telemetry mới".
+- Dùng chẩn đoán R04 làm feature cho A05-F.
+- Chỉ báo các pattern đã đứng.
+- Thêm "vài ô kiểm thêm" quanh một pattern đẹp.
+- Mở R01–R12 để "xem pattern có đúng không".
+
+## 12. 🧠 Tư duy researcher
+
+> Trong discovery, mỗi câu bạn viết nên trả lời được: *"Tôi sẽ viết câu này nếu con số ra ngược lại không?"* Nếu câu trả lời là "có, tôi sẽ viết một câu khác tương tự", thì bạn đang kể chuyện, không đang quan sát.
+
+Và một thói quen nữa: **luôn báo mẫu số**, tức đã nhìn bao nhiêu thứ để tìm ra thứ này.
+
+## 13. Bài tập nên làm (khuyến nghị)
+
+1. Đặt P, Q, R lên Hình 1 trên giấy. Tự kiểm $G_M\le\lvert\text{bias}\rvert$ bằng hình học.
+2. Với E5, viết câu đọc $\Gamma$ = 1,5 trong một miền có $R_{00}$ = 0,5 sao cho reviewer chấp nhận.
+3. Điền template pattern cho một phát biểu tưởng tượng, ví dụ "$G_M=0$ ở mọi ô κ = 3". Liệt kê đủ sáu giải thích thay thế.
+
+## 14. Tự kiểm tra (tùy chọn)
+
+1. Vì sao $G_M$ không bao giờ vượt $\lvert\text{bias}\rvert$? Hãy nói bằng Hình 1.
+2. $R_{00}$ chặn những contrast nào, và vì sao không chặn $G_{M\mid S_1}$?
+3. Một ô WD có $G_M>0$ cho bạn biết gì về $M_0$?
+4. Vì sao chẩn đoán R04 không được dùng làm feature ở A05-F?
+5. Khác nhau thế nào giữa "không thấy pattern nào" và "chưa tìm đủ"?
+
+---
+
+## 15. Lesson Gate: toàn bộ L3.5
+
+**Hiểu:**
+- Validity → chấm card → khám phá; ba nhãn log.
+- `score_card` với luật nằm trong card.
+- Đọc một contrast exact; "quyết định khác" không đồng nghĩa "regret đáng kể".
+- Hình 1 (mặt phẳng T01).
+- $R_{00}$ chặn $G_S$, $G_M$, $G_{SM}$, $G_{S\mid M_1}$ nhưng không chặn $G_{M\mid S_1}$ và $\Gamma$.
+- Phân tầng theo margin và MT5; D22 với PC6 và con đường a/b.
+- Sáu luật đọc trên hình; T-H1; R04 chỉ là diagnostic.
+- Template pattern, kèm mẫu số; luật post-discovery; note A04 và điều kiện dừng.
+
+**Nên làm khi triển khai thật:**
+- Prereg A04 có đủ: ba hình, định nghĩa miền cheap kill, danh sách contrast tính là "gain thực dụng", template pattern, cam kết ghi mọi pattern đã xét.
+- Chạy theo thứ tự ở Part 1.
+- Viết note A04.
+- Cập nhật exposure và claim boundary.
+- Ghi DL nếu có NARROW theo cheap kill.
+
+**Phụ thuộc khoa học:**
+- Phần `[PREREG-CARD]` cần chấm trước khám phá, bằng luật đã khóa.
+- Mọi pattern muốn thành claim phải qua A05-F và A05-T.
+- Held-out vẫn sạch.
+
+**Track thực thi:** A05-F bắt đầu được khi: note A04 đã viết; card đã chấm; exposure đã cập nhật; lưới và ngưỡng không đổi. Khuyến nghị: buổi đọc với người thật (L3.1) diễn ra trước A05-F.
+
+**Học tiếp được không?** **Có.** L3.6 (A05-F: đóng băng $H_0$, $H_1$, prediction và luật chấm trước khi chạm held-out) là bước tiếp theo. Đó cũng là nơi PC4 và câu hỏi "pattern là cơ chế queue hay chỉ là hình học quyết định" (MT5) lần đầu có phép kiểm. Mình dừng ở đây.

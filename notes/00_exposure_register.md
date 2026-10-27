@@ -478,3 +478,16 @@ phải được chốt trước computation liên quan. Không gọi phần disc
 confirmation. Trước run cần thêm prereg commit/source/config/hash và run-id thực;
 sau run mới ghi các outcomes thực tế đã thấy, kể cả FAIL/HOLD. Không điền trước
 kết quả cho38ô hoặc ngầm nhận draft này là đã chạy A04.
+
+## L3.5 prereg — trước outcomes A04, 27/10/2026
+
+Hai phần lesson đã đọc đầy đủ; code/tests dùng dữ liệu synthetic. Prereg và
+exposure chính ở `experiments/A04_discovery/prereg.md` / `exposure_plan.md`.
+Chọn trước ba miền cheap kill core/spoke_A50/spoke_h2, không thay card.
+A01 calibration/control exposure giữ như lịch sử. Trong phiên chuẩn bị đã mở
+toàn bộ `grid_v1_2.md`; bảng public held-out gồm lambdaA/p_sw thiết kế đã hiện
+trên tool output. Không dùng chúng làm features H0/H1; không phát sinh D, J,
+regret/contrast held-out. Không ghi blanket “chưa thấy metadata held-out”.
+Full regression tái kiểm D-only/screen đã public; chưa outcome A04 mới.
+Run dự kiến `20261027_01`: 38main+8controls/probes, ref1/ref2; validity trước,
+score commit trước discovery. Timestamps và SHA thực sẽ nằm trong manifest.

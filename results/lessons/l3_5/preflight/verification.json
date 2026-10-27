@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "responsible": "Doan Van Tai",
+  "full_tests_passed": 348,
+  "new_a04_tests": 12,
+  "full_suite_wall_s": 60.71,
+  "targeted_tests_passed": 25,
+  "a01_source_files_unchanged": 37,
+  "card_sha256": "14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639",
+  "a04_blocks_before_prereg_commit": true,
+  "new_grid_outcomes_computed": false,
+  "heldout_outcomes_computed": false,
+  "mutants": "not rerun; 11/11 KILLED is historical A01 evidence",
+  "protected_sha256": {
+    "notes/01_definitions_v1_2.md": "090eb2dcd63ad0ca6fdbda4cad4980349ddc74f2df684f29441b911f9fb5d9e6",
+    "notes/design/grid_v1_2.json": "7f7552f82926276ad9258a7b917832d29cfa3eba1d82dfdce636881838a21a56",
+    "notes/design/v1_2_protocol.md": "07c02470882cf6ab89d4ccb3271ac9331ddf8fc66287fefb8c289638bbb04589",
+    "notes/literature/claims.md": "1041245560213f74e3988f05baea69a6c1033bec9239d96cab5e9af0181dd9d3",
+    "notes/phases/PHASE_3_prediction_card.md": "14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639",
+    "notes/phases/PHASE_3_prediction_card.lock.json": "546ef1312e1a1442c40bd3ffe858c5aa32b48ba30c283b61beecdeed50b56db0",
+    "experiments/A01_null_refinement/prereg.md": "9b8dc2f358792f4ac1e7df146ca8dc334599773f7de60378999a86efe5debe0f",
+    "experiments/A01_null_refinement/prereg.lock.json": "db13a7047ca8d15023689a6c2e37a1e9dbe499c357bb3fffbe341de0fe37f4e9"
+  },
+  "commands": [
+    ".venv/bin/python -m pytest tests/test_a04.py tests/test_card_grading.py tests/test_card_batch.py -q",
+    ".venv/bin/python -m pytest -q --junitxml=results/lessons/l3_5/preflight/full_suite.xml"
+  ]
+}
