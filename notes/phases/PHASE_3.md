@@ -37,7 +37,7 @@ Theo [DL-044](../02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-m�
   migration ở §8 chỉ kiểm dựng cell/D, chưa xác nhận engine hoặc estimand D18–D19 hoàn chỉnh.
 - **L3.3 → A01:** card chứa claim còn đứng, sau nhãn tác giả xác nhận + L-self WM26
   (đã author-attested ở DL-043), và được commit trước lần chạy A01 đầu tiên.
-- **A01:** M01/M09/M22; chọn dt bằng D1, kiểm controls. Chưa chạy trong phiên này.
+- **A01:** PASS theo DL-053; M01/M09/M22 đủ ref1–16, dt cuối1/240 s; C1–C6 PASS.
 - **A04:** sau A01 và sau record V9 đạt hoặc DL sửa điều kiện được tác giả quyết định;
   38 main + controls, báo đầy đủ tọa độ dẫn xuất và p_sw thực.
 - **A05-F:** khóa H1/null/metric/biên/split theo D25, cùng quyền thông tin/ngân sách fit;
@@ -132,3 +132,23 @@ mọi trạng thái main chưa bị bác, kể cả unknown, nguyên văn sang A
 Guard đổi đúng card path, từ chối DRAFT, kiểm SHA/commit/tag trước mọi D/cost work.
 Sửa signed-ratio enclosure, giữ εE/εR và claims.md byte. Review là AI tự kiểm, không
 independent review/novelty hoặc fixed-grid feasibility. Không A01/A04/A05 hoặc src promotion.
+
+## 12. L3.4 / A01 — dt cuối đã chọn (27/10/2026)
+
+[Prereg](../../experiments/A01_null_refinement/prereg.md) commit81233ef/SHA9b8dc2f3…,
+receipt/source versions giữ theo DL-050–052; A03 card nguyên byte. Run01 FAIL tại
+SD N01 vì model tie −1.35525e−20; sửa always-empty/mean-no-idle certificates,
+không epsilon. Run02 controls PASS, interrupted M01/ref8 do O(n²) conversions;
+hoist immutable array và6 independent processes, giữ toàn bộ historical artifacts.
+
+Run03 code60a1032: **PASS**, 9/9 p_sw bitwise,18 C1–C3 identities, C4 toy independent
+aggregation/tie PASS,60 C5 zero entries và6 WD GS_M1 zero entries exact. 15/15
+cell-level BOUNDED,12/12 adjacent pairs PASS; **dt cuối=1/240 s (ref2)** cho cả ba ô.
+336 tests/11 mutants PASS; CSV replay cùng pick;3 M01 JSON +4 control artifacts
+trùng từng byte với run02. [Report](../../results/lessons/l3_4/report.md),
+[verification](../../results/lessons/l3_4/verification.json), [plot](../../results/lessons/l3_4/refinement.png).
+
+DL-053 khóa dt cho các bước sau, không xác nhận continuum hoặc35 ô còn lại.
+A04 **chưa chạy, V9 chưa gửi**; khi đủ gate cần kiểm pair1/120→1/240 từng ô.
+Không chấm forecasts/H1/null/held-out trong A01; exposure calibration cập nhật.
+Không tự ghi Understanding PASS; T05 author-writing/L8/P0-V10 vẫn mở.

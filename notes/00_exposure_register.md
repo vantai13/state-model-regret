@@ -425,3 +425,31 @@ và design screen M31 cũ; không gọi toàn phiên là “chỉ toy”. Giữ 
 P2/P3/P5/P6 là forecast không cơ chế; PC1 sanity, PC4 deferred. Mở rộng K5 có quyết định
 trước outcome; optionalP2/P3 chưa adopt. Không chọn H1/null/K5 theo kết quả. Không A01/A04/A05.
 [Card](phases/PHASE_3_prediction_card.md) · [receipt](phases/PHASE_3_prediction_card.lock.json).
+
+## L3.4 / A01 — 27/10/2026, DL-050–053
+
+Doan Van Tai phụ trách, AI triển khai theo lesson. Không author-attestation mới
+cho tự kiểm L3.4 hoặc tác giả tự viết predictions WD. A03 card/receipt/tag đã khóa
+trước mọi cost run A01; prereg81233ef trước run01 và source receipts sau các fixes.
+
+- Run01 `20261027_01`: Part0 M01/M09/M22 ref1/2/4 chỉ public p_sw; PartA baseline
+  ledgers/control variants ba calibration ref1/2 (gồm EΔ,Δhat expectations, L/G,
+  D22/V), N01/ref1; STOP C5 FAIL, chưa PartB. N01 diagnosis chỉ ô đã fail.
+- Run02 `20261027_02`: Part0/A đủ các biến thể C1/C2/C3, N01–N04/W01/S01/P01/P02
+  ref1/2; PartB M01/ref1/2/4 hoàn tất, ref8 đã tính nội bộ tới precision trước
+  interrupt, **không complete output**. Giữ console/partial JSON; không nhận run02 PASS toàn A01.
+- Run03 `20261027_03`: tính mới toàn Part0/A, PartB **M01/M09/M22 × ref1,2,4,8,16**,
+  L/contrasts/gap expectations/quantiles/e_num/actions/certificates đã exposed.
+  C1 dựng lại D khi u=0; C2/C3 lộ contrasts thật. Controls/probes mọi ledger
+  ref1/2 nay exposed. 15cell-level/12pairs PASS, dt cuối1/240s chọn theo prereg,
+  không chọn theo card. Không chấm forecasts hoặc thay card bằng kết quả calibration.
+
+Ba calibration vẫn được chấm ở A04 theo đúng card tại dt cuối; ngoài card chỉ
+là discovery, không confirmation. Toàn bộ contrast/diagnostics của chúng đã thấy;
+không giả còn blind. 35main còn lại chưa được A01 tính costs. Full regression vẫn
+rerun D-only và design screen M31 vốn đã public. Không D/outcomes held-out mới.
+A04/A05-F/A05-T chưa thực hiện; không chọn H1/null theo A01. V9 chưa gửi/A04 chờ,
+L8/P0-V10/T05 author-writing không tự đóng. [Report](../results/lessons/l3_4/report.md),
+[manifest](../results/A01/20261027_03/manifest.json),
+[failed run](../results/A01/20261027_01/run_status.json),
+[interrupted run](../results/A01/20261027_02/run_status.json).

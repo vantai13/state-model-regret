@@ -7,6 +7,16 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3.4 / A01 — 27/10/2026
+
+Prereg/receipt trước outcome; giữ run01 FAIL N01 và run02 INTERRUPTED. Sửa symbolic
+idle/mean-path certificates và O(n²) conversions; không đổi contract/card/ngưỡng.
+Run03 PASS:9p_sw bitwise,18C1–C3 identities,C4toy PASS,60C5+6WD exact zeros;
+15/15BOUNDED,12/12pairsPASS, dt cuối **1/240s/ref2** sau đủref1–16. 336tests,
+11mutantsPASS. CSV replay cùng2; outcome calibration đã exposed, không held-out.
+A04/V9 vẫn chờ; chưa chấm card/H1/null hoặc đóng author Understanding/L8/P0-V10.
+[Report](../results/lessons/l3_4/report.md) · [selection](../results/A01/20261027_03/selection.json).
+
 ## L3.3 / A03 — 27/10/2026
 
 Card4forecast không cơ chế/14sanity/1luật K5, tác giả chọn hai mức K5 và author-attested

@@ -5,9 +5,13 @@ Tác giả: **Doan Van Tai**.
 **Trạng thái 27/10/2026:** Phase 2 đóng **GO có điều kiện** (DL-043, tag
 `phase-2-closeout`); Phase 3 mở. A03/L3.3 đã khóa card trước A01 (DL-047–049).
 Contract khóa tại `contract-v1.2`: 38 main, 12 held-out, 6 controls, 2 probes;
-calibration M01/M09/M22. Chưa chạy A01/A04/A05; chưa tính regret/contrast trên lưới.
-Kiểm L3.3: **324/324 tests PASS** (baseline 300; thêm 24), **11/11 mutant bị bắt**;
-4.000 ledger không vi phạm cận statewise model error. Card có 4 forecast không cơ chế và 1 luật K5.
+calibration M01/M09/M22. **A01 PASS, dt cuối=1/240 s (ref2)** theo DL-053:
+9/9 p_sw tái lập, C1–C6 PASS, 15/15 cell-level BOUNDED, 12/12 cặp làm mịn đạt tới ref16.
+**336 tests PASS; 11/11 mutant bị bắt**. Run01 FAIL N01 đã được sửa bằng certificate;
+giữ failed/partial runs. Chưa A04/A05; outcome calibration đã exposed, held-out chưa chạy.
+Card có 4 forecast không cơ chế và 1 luật K5, không chấm card trong A01.
+[Report A01](results/lessons/l3_4/report.md) · [dt/metrics](results/lessons/l3_4/verification.json) ·
+[CSV](results/A01/20261027_03/refinement.csv).
 [Card](notes/phases/PHASE_3_prediction_card.md) · [report L3.3](results/lessons/l3_3/report.md) ·
 [L3.2](results/lessons/l3_2/report.md). Read-back đã author-attested; engine vẫn ở experiments.
 
@@ -30,7 +34,8 @@ Bản hiện hành (27/10/2026):
 [experiment index](notes/03_experiment_index.md) · [progress log lịch sử](notes/00_progress_log.md).
 Claim boundary/brief hiện hành có addendum Phase 2 sau tag; D1–D25 và lưới giữ nguyên.
 
-**Điều kiện:** A03 card và receipt phải qua kiểm Git/hash trước mọi A01; V9 chưa gửi nên **A04 chờ**;
+**Điều kiện:** A03/A01 prereg đã khóa trước run; A04 dùng dt1/240 và kiểm cặp1/120→1/240 từng ô.
+V9 chưa gửi nên **A04 chờ**;
 A05-F khóa trước A05-T; **HOLD Phase 4 tới P0-V10**. Người đọc P0-V10/L8 và các mục
 tác giả tự viết còn mở. [Gói cho người đọc](notes/meetings/phase2_reader_packet.md).
 Không dùng nháp heads-up 23/10 nguyên trạng (đã lỗi thời). Main RQ/contract/G1 giữ nguyên.

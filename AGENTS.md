@@ -148,3 +148,13 @@ lockSHA/2commit/tag,không cho DRAFT; card fullSHA thay đổi thì dừng, khô
 K5carry mọi rule chưa refute kể cả unknown, nguyênvăn sangA05-F,m=1; H1/null/split chưa khóa.
 Không grid outcomes/Dmới (regressionD-only/screenM31cũ ghi riêng),không A01/A04/A05/src promotion.
 T05chưa văn bản tác giả; P0-V10/L8/V9 và Phase4HOLD giữ; không nhận author-owned mechanism/novelty.
+
+L3.4/A01,27/10: prereg81233ef trước outcomes; cardA03 byte nguyên. Run01 C5N01 FAIL
+(modeltie−1.35525e−20), sửa always-empty/mean-no-idle certificates, không epsilon.
+Run02 controlsPASS, interruptedref8 vì O(n²)conversion; hoist và6independent processes.
+Run03 code60a1032 PASS: p_sw9/9bitwise, C1–C6 PASS (60C5zero+6WDzero),15/15BOUNDED,
+12/12pairsPASS; **DL-053 dt cuối1/240s/ref2**, cả3calibrationpick2 sau đủref1–16.
+336tests/11mutantsPASS; CSVreplay2; giữ failed/partial artifacts. Calibration mọi mức
+đã exposed, không chấm card/H1/null hoặc D/outcomes held-out mới. A04 vẫn chờV9
+chưa gửi; A04 cần kiểmpair1/120→1/240 từng ô. T05author-writing/L8/P0-V10/Phase4
+không tự đóng. Report results/lessons/l3_4/report.md, data results/A01/20261027_03/.

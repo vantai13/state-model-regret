@@ -641,7 +641,7 @@ lưu riêng, chưa suy PASS trước khi chạy. T05 read-back author-attested �
 prerequisite lesson; engine giữ experiments, không giả có văn bản tự viết mới.
 V9 chưa gửi/A04 chờ; không held-out/A04 hoặc đổi nhãn PC/H1/null trong A01.
 
-### DL-051 — A01 run01 FAIL, arrêt avant PartB; correction certificate (2026-10-27)
+### DL-051 — A01 run01 FAIL, dừng trước PartB; sửa certificate (2026-10-27)
 
 Người phụ trách: **Doan Van Tai**. Run `results/A01/20261027_01/`, code/receipt
 `7e1c2acee23a59ea9c9ac6093b95bae77c72b06d`. Part0 **9/9 bitwise PASS**; C1/C2/C3
@@ -683,3 +683,41 @@ Commit receipt source mới trước run03. Run03 tính lại Part0/A bằng cù
 mới, không mượn controls khác source; tính lại đủ PartB, không dùng cached output
 cũ để né kiểm. Run01 FAIL và run02 INTERRUPTED giữ nguyên. C5/C6 thresholds/card/
 prereg không sửa. Không thêm mức ngoài1,2,4,8,16 hoặc outcome held-out/A04.
+
+### DL-053 — A01 PASS: dt cuối = 1/240 s, ref2 (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. Prereg commit81233ef, source/receipt60a1032;
+A03 commitb05ed70/SHA14021a83… giữ nguyên. Run03 mới hoàn toàn Part0→A→B,
+longdouble,6processes, deterministic finite law, không sampling CI/seed.
+Kết quả: **9/9** public p_sw intervals bitwise; **18/18** C1/C2/C3 cell-control-level
+identities; C4 independent toy oracle/tie PASS; **60/60** C5 contrast entries
+(5cells×2ref×6G) bằng0 chính xác; **6/6** C6 GS_M1 bằng0 chính xác.
+C2prime6 rows chỉ observations, không zero requirement. P02/ref1 GM=
+0.12821501861993288285 packet·s; WD không phải all-zero control.
+
+B tính đủ3cells×5levels **15/15 BOUNDED**; **12/12 adjacent pairs PASS** theo
+DL-050. max e_num/Cref_lower=2.5115774765507683e−5 (budget.0025), max unresolved
+mass=1.715862486941145e−5 (cap.01). Cặp1→2 có cận relative-change upper:
+M01 **0.0244213218934%**, M09 **0.00891751012970%**, M22 **0.000436969036553%**,
+đều dưới0.25%; mọi cặp mịn hơn cũng đạt. Không a00 flip giữa5levels trong cả3cells.
+
+Selector all-finer-suffix chọn M01=2/M09=2/M22=2; **dt cuối=Δt/2=1/240 s ≈
+4.1666667 ms**, H=1920 cho h8s. CSV replay từ process khác ra cùng2.
+Đây là quyết định dt cho Phase3 theo D1; **không** chứng nhận continuum limit,
+35 ô khác ổn định hoặc hypothesis RQ. A04 cần kiểm **1/120→1/240** riêng từng ô.
+
+Full suite cuối **336 PASS**/65.84s,11/11mutants KILLED. Optimization6synthetic
+sizes trùng bits; 512states:1.78417→0.0107671s (single timing165.7×, không benchmark
+CPU tổng quát). Run03 calibration JSON M01/ref1/2/4 và4control artifacts trùng
+byte run02 tuần tự; computation mới, không đọc cache. Run03 wall265.686110563s,
+không gồm preflight/debug/retries. Run01FAIL/run02INTERRUPTED giữ nguyên.
+
+[Run manifest](../results/A01/20261027_03/manifest.json),
+[CSV](../results/A01/20261027_03/refinement.csv),
+[selection](../results/A01/20261027_03/selection.json),
+[report](../results/lessons/l3_4/report.md),
+[metrics](../results/lessons/l3_4/verification.json),
+[plot](../results/lessons/l3_4/refinement.png).
+A04/A05 chưa chạy, card forecasts chưa chấm; không H1/null/A05-F hoặc held-out outcomes.
+V9 **chưa gửi, A04 chờ**, L8/P0-V10 và T05 author-writing giữ OPEN. L3.4 hoàn thành
+kỹ thuật, không tự xác nhận tác giả đã làm tự kiểm/Understanding.

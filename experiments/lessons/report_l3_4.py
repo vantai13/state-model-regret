@@ -58,6 +58,12 @@ def main():
     mutants = json.loads((out / 'preflight/mutants_final/summary.json').read_text())
     assert len(mutants) == 11 and all(r['status'] == 'KILLED' for r in mutants)
     manifest = json.loads((folder / 'manifest.json').read_text())
+    previous = ROOT / 'results/A01/20261027_02'
+    replay = {p.name: p.read_bytes() == (folder / p.name).read_bytes()
+              for p in previous.glob('calibration_*.json')}
+    control_replay = {name: (previous/name).read_bytes() == (folder/name).read_bytes()
+                      for name in ('psw_check.csv','nulls.csv','negative_cells.csv','control_exposure.json')}
+    assert len(replay) == 3 and all(replay.values()) and all(control_replay.values())
     measured = dict(author='Doan Van Tai', status=status, recomputed_selection=dict(final_ref=final, per_cell=picks),
         tests_passed=test_n, mutants_killed=len(mutants), psw_bitwise_matches=9,
         C1_C2_C3_passed=18, C2prime_observations=6, C4_independent_toy='PASS',
@@ -66,6 +72,7 @@ def main():
         max_numeric_error_ratio=max(float(r['e_num_max']) / float(r['Cref_low']) for r in raw),
         max_unresolved_mass=max(float(r['unresolved_mass_max']) for r in raw),
         precision_passed=sum(r['precision_ok'] == 'True' for r in raw),
+        sequential_parallel_bitwise_replay=replay, controls_bitwise_replay=control_replay,
         cost_unit='packet*s', seed=None, method='finite-law expectation, native longdouble',
         prediction_card_sha256=manifest['prediction_card_sha256'],
         prereg_commit=manifest['prereg_commit'], code_commit=manifest['code_commit'],
@@ -113,6 +120,7 @@ def main():
              '- C5: **10/10** cell-level, **60/60** contrast entries bằng0 chính xác; C6 **6/6** GS_M1 bằng0 chính xác.',
              f'- PartB: **15/15** cell-level; numeric precision PASS **{measured["precision_passed"]}/15**.',
              f'- max e_num/Cref_lower = {measured["max_numeric_error_ratio"]:.9g} (cap .0025); max unresolved mass = {measured["max_unresolved_mass"]:.9g} (cap .01).', '',
+             '- Optimization replay: 3/3 M01 calibration JSON ref1/2/4 và4/4 control artifacts trùng từng byte với run02 tuần tự; không đọc cache làm kết quả mới.', '',
              '## Làm mịn — đủ mọi cặp, không chọn kết quả thuận lợi', '',
              '| Cell | Cặp ref | max change / min Cref (%) | Cận trên gồm e_num (%) | PASS |',
              '|---|---|---:|---:|---|']

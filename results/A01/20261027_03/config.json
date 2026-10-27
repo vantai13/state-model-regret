@@ -1,0 +1,51 @@
+{
+  "author": "Doan Van Tai",
+  "contract": "contract-v1.2",
+  "calibration": [
+    "M01",
+    "M09",
+    "M22"
+  ],
+  "psw_levels": [
+    1,
+    2,
+    4
+  ],
+  "control_levels": [
+    1,
+    2
+  ],
+  "refinement_levels": [
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "zero_cells": [
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "P01"
+  ],
+  "wd_cells": [
+    "W01",
+    "S01",
+    "P02"
+  ],
+  "allow_grid": true,
+  "allow_heldout": false,
+  "purpose": "A01",
+  "precision": "native longdouble for costs; float64-first historical sign convention for Part0",
+  "tolerance": 0.0025,
+  "epsE": 0.005,
+  "unresolved_mass_cap": 0.01,
+  "updates_cap_per_cell_level": 200000000000,
+  "peak_bytes_cap": 4294967296,
+  "seed": null,
+  "sampling": "finite-law expectation; no Monte Carlo",
+  "pair_reference": "min of both levels; lower endpoint for certification",
+  "selection": "earliest pair whose entire finer suffix passes; report finer endpoint; common max",
+  "failure_policy": "control failure STOP; precision/final pair failure HOLD; no extra levels"
+}
