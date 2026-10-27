@@ -1,0 +1,285 @@
+# LESSON 3.4 — A01: null control, ô kiểm âm, và chọn dt cuối
+
+## Kiểm tra trước khi dạy
+
+L3.4 trong PHASE_3 v2.0 vẫn khớp với repo. Mình đã đối chiếu:
+- **Bảng ô kiểm âm** trong `grid_v1_2.md`:
+  - N01, N02 là ô SD;
+  - N03, N04, P01 là ô conservation;
+  - W01, S01, P02 là ô WD.
+- **$p_{\text{sw}}$ đã công khai** của các ô WD: W01 = 0,770, S01 = 1,000, P02 = 0,524. Ba ô WD mà $p_{\text{sw}}<1$, nghĩa là có một phần khối lượng **hòa chính xác** ($\Delta=0$). Chi tiết này sẽ quan trọng ở dưới.
+- **File tham chiếu cho Part 0** có trong `results/lessons/v1_2/`. Các khoảng `p_1`, `p_2`, `p_4` của M01, M09, M22 nằm trong `grid_v1_2.json`.
+
+Mọi ví dụ bên dưới đều chạy trên toy bằng engine nháp của L3.2. Không có phép tính nào chạm vào ô lưới.
+
+## Lesson map
+
+| Part | Nội dung | Plan gọi là |
+|---|---|---|
+| **1** (hôm nay) | Kiểm đầu-cuối bằng $p_{\text{sw}}$ đã công khai; sáu null control; ô kiểm âm; số 0 "do chứng nhận" khác số 0 "do số học" | Part 0, Part A |
+| 2 | Làm mịn, chọn dt cuối, prereg A01, Lesson Gate | Part B |
+
+**Phụ thuộc thực thi** của A01: card L3.3 đã commit; engine L3.2 đã qua test và mutant; prereg A01 đã commit.
+
+---
+
+# LESSON 3.4 — Part 1: Kiểm đầu-cuối và null control
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.2 engine (toy xanh) ── L3.3 card (commit) ──┐
+                                                ▼
+L3.4 A01  ← lần đầu tiên engine chạm vào ô lưới
+   Part 1 ← YOU ARE HERE: cân thử bằng quả cân đã biết khối lượng
+   Part 2   chọn độ mịn của thước (dt cuối)
+                                                ▼
+L3.5 A04 (38 ô) ── L3.6 A05-F ── L3.7 A05-T
+```
+
+## 2. Part 1 trả lời câu hỏi gì?
+
+> Khi engine lần đầu chạy trên ô lưới, làm sao biết nó vẫn đúng ở đó, chứ không chỉ đúng trên toy? Câu trả lời: cho nó trả lời **những câu đã biết đáp án**. Mỗi câu như vậy bắt được loại bug nào?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** L3.2 kiểm engine trên toy. Ô lưới thì khác ở nhiều chỗ: $D$ thật (do `queue_D` dựng), horizon 960 slot, float thay cho phân số, và ba schema record khác nhau. A01 là lớp kiểm **ngay trên vật liệu thật** trước A04. Rủi ro chính là ER5: bug nằm trong chính "thước đo".
+
+**Tầng thực hành.** Sau Part 1, bạn biết với từng control: dựng nó thế nào, đáp án bắt buộc là gì, nó bắt bug gì, và nó *làm lộ* gì.
+
+**Nếu bỏ qua.** Ở DL-026, lưới v1 có 13/28 ô mà mọi contrast bằng 0 *theo cấu trúc*. Lỗi đó được phát hiện **trước** khi tính outcome. Ngược lại, nếu một bug khiến ô conservation cho $G_S=3\cdot10^{-11}$ chứ không phải 0, bạn sẽ không phân biệt được nó với một hiệu ứng thật nhỏ ở các ô khác.
+
+## 4. Liên hệ với Main RQ
+
+```text
+A01 Part 0 + A  ──►  "contrast mà engine báo là tính chất của MÔ HÌNH, không phải của bug"
+                ──►  điều kiện để A04 (E1: RQ1) và A05-T (RQ2) có nghĩa
+```
+
+Đây là liên hệ **gián tiếp nhưng bắt buộc**. A01 không trả lời RQ. Nó bảo đảm câu trả lời của A04 đo đúng cái RQ hỏi.
+
+## 5. Mental model
+
+**Câu hỏi đời thường:** trước khi cân hàng, bạn đặt lên cân một quả cân đã biết khối lượng, và đặt cân về 0 khi không có gì trên đó.
+
+**Một khái niệm tương tự trong thực nghiệm online: A/A test.** Đó là chạy một thí nghiệm mà hai nhóm nhận *cùng một* phiên bản. Hệ thống đo phải báo chênh lệch bằng 0. Nếu không, lỗi nằm ở hệ thống đo, không ở sản phẩm.
+
+| Loại kiểm | Câu hỏi | Ví dụ ở A01 |
+|---|---|---|
+| **Verification** | Code có cài đúng *mô hình đã định nghĩa* không? | Toàn bộ A01 |
+| Validation | Mô hình có giống *mạng thật* không? | **Không** ở Phase 3 (Phase 4, Phase 8) |
+
+> A01 là verification. "Giả thuyết" duy nhất của nó là **implementation = model**. Một control trượt là **bug**, không bao giờ là "kết quả".
+
+---
+
+## 6. Các khái niệm
+
+### 6.1. Part 0: kiểm đầu-cuối bằng đại lượng đã công khai
+
+**Việc cần làm.** Tái lập các khoảng $p_{\text{sw}}$ của M01, M09, M22 ở ref 1, 2, 4. Đây là các khoảng đã ghi trong `grid_v1_2.json` và đã công khai ở DL-039.
+
+**Vì sao không tạo exposure mới.** `reproduce_psw` có tính gap bên trong, nhưng **chỉ trả ra** $p_{\text{sw}}$. Đó là một con số đã công khai.
+
+Hệ quả cho cách viết code: hàm này **không được** trả về hay log mảng gap, kể cả để debug. Một lệnh `print(gap)` trong lúc sửa lỗi cũng là exposure.
+
+**Part 0 kiểm được gì và không kiểm được gì:**
+
+| Kiểm được | Không kiểm được |
+|---|---|
+| Việc chuyển $D$ (`queue_law` so với `queue_D`) | Toàn bộ nhánh $M_0$ ($\hat\delta$) |
+| Thành phần gap $M_1$ ($\delta_A$, $\delta_B$, kernel native) | $J_{\text{St}}$ và phần tuyến tính, tức $C_{\text{ref}}$ |
+| Prior được tính lại theo dt: mutant M6 ở L3.2 sẽ lệch ở ref 2 và 4 | Phần ghép các $L$ (sắp xếp và cộng dồn cho $L_{10}$, D22) |
+
+Vì vậy Part 0 là **điều kiện cần**: không khớp thì dừng ngay. Nhưng khớp chưa đủ để chứng minh engine đúng.
+
+### 6.2. Sáu null control: mỗi control là một câu hỏi đã biết đáp án
+
+Mình chạy C1–C3 trên toy E7 bằng engine nháp. E7 thật có $G_S=5/8$, $G_M=0$, $\Gamma=1/8$, $G_{S\mid M_1}=3/4$, $G_{M\mid S_1}=1/8$.
+
+| Control | Cách dựng | Đáp án bắt buộc | Kết quả trên E7 | Bắt bug gì |
+|---|---|---|---|---|
+| **C1** zero-action | $u=0$: Switch không dời gì cả | $\Delta\equiv0$; mọi $L$ bằng nhau; sáu contrast bằng 0 | Cả sáu bằng 0 ✓ | Action vẫn đổi được *điều gì đó* (bookkeeping, $u$ đặt sai chỗ) |
+| **C2** thông tin đầy đủ | $S_0$ nhận đúng $x$ (belief là một điểm) | $G_S=G_{S\mid M_1}=\Gamma=0$; $G_M=G_{M\mid S_1}$ | $G_S=0$, $\Gamma=0$, $G_M=G_{M\mid S_1}=1/8$ ✓ | State repair cài sai: $S_0$ và $S_1$ không trùng nhau dù cùng thông tin |
+| **C2′** tuổi 0, mode ẩn | Belief có điều kiện theo backlog hiện tại, mode ẩn (D22) | $L_{\text{cb}0}-L_{10}$ **có thể** khác 0 | $V=1/4\ne0$ | Nhầm "tuổi bằng 0" với "state hoàn hảo". Trong v1.2, state repair gồm cả việc *thấy mode* (D20) |
+| **C3** cùng model | Đặt $M_1:=M_0$ (quyết theo $\hat\delta$, chấm bằng $\delta$) | $G_M=G_{M\mid S_1}=\Gamma=0$ | Cả ba bằng 0; $G_S=5/8$ ✓ | Model repair cài sai: pipeline $M_1$ lén dùng thứ khác input model của nó |
+| **C4** oracle | — | $L_{11}=L_*$; $R_{11}=0$ | — | Oracle hoặc argmin sai |
+| **C5** ô SD, conservation | N01, N02 (SD); N03, N04, P01 (conservation) | Sáu contrast bằng 0 **chính xác** | §6.3 | Certificate, dấu, đẳng thức capacity bỏ phí |
+| **C6** ô WD | W01, S01, P02 | $G_{S\mid M_1}=0$; $G_M$ **có thể** > 0 | §6.4 | Đọc nhầm ô WD thành zero control |
+
+**Exposure của C2 và C3.** Nhìn vào cột kết quả:
+- C2 lấy trung bình theo $D$ cho ra $G_M=1/8$, **đúng bằng** $G_{M\mid S_1}$ của ô thật.
+- C3 cho ra $G_S=5/8$, **đúng bằng** $G_S$ của ô thật.
+
+Như vậy chạy C2 và C3 trên biến thể của M01, M09, M22 là đang *nhìn* một phần contrast của ba ô đó. Đó là lý do card phải commit **trước mọi** lần chạy A01, không chỉ trước Part B (DL-043, cùng phần mở rộng của PHASE_3).
+
+**Một chỗ nên làm cho chặt hơn: C4.**
+> **Plan hiện ghi:** C4 là "$L_{11}=L_*$ chính xác; $R_{11}=0$".
+> **Tôi đề xuất:** nếu engine *định nghĩa* $C_{\text{ref}}:=L_{11}$, thì C4 là một đồng nhất thức (loại 1 ở L3.2 Part 4). Nó luôn đúng, nên không bắt được bug nào. Để C4 có tác dụng, hãy tính $L_*=\mathbb E_D[\min(J_{\text{St}},J_{\text{Sw}})]$ bằng **một đường khác**: liệt kê từng cặp state trên các ô kiểm âm có support nhỏ, hoặc trên toy. Sau đó so với $L_{11}$ tính bằng sắp xếp–cộng dồn.
+> **Vì sao:** argmin sai (ví dụ luật hòa bị đảo) sẽ làm hai đường lệch nhau. Một đồng nhất thức thì không bao giờ lệch.
+
+### 6.3. Số 0 "do chứng nhận" và số 0 "do số học"
+
+Đây là chỗ dễ sai nhất khi chuyển từ phân số sang float.
+
+**C5 bằng 0 *chính xác* trong float là đúng và làm được.**
+- Ở ô conservation, certificate cho biết không queue nào có thể rỗng dưới cả hai action. Kernel trả **đúng 0** cho mọi capacity bỏ phí ("above t·max_drain value is exactly zero").
+- Đường trung bình của $M_0$ cũng không rỗng. Lượng đến trung bình luôn ≥ lượng đến ở đường ít nhất, nên theo tính đơn điệu, backlog luôn dương. Khi đó `max(0, số âm)` trả về đúng `0.0`.
+- Vậy mọi $\delta$, $\hat\delta$ bằng `0.0`, mọi pipeline chọn Stay, mọi $L$ bằng đúng $K$, và mọi contrast bằng `0.0`.
+- Lập luận tương tự cho ô SD: $\delta_B\equiv0$ và $\delta_A\ge0$, nên không cặp nào có tổng âm.
+
+Vì vậy một con số $10^{-12}$ ở đây là **bug**. Đó cũng là cách bắt mutant "trừ hai cost" ở L3.2 Part 4.
+
+**C6 thì khác: "$G_{S\mid M_1}=0$ chính xác" phụ thuộc vào *cách tính*.**
+- Ở ô WD mọi $\Delta\le0$, nên về toán $G_{S\mid M_1}=\min(\mathbb E\Delta^+,\mathbb E\Delta^-)=\min(0,\cdot)=0$.
+- Nếu engine tính $G_{S\mid M_1}=L_{01}-L_{11}$, thì $L_{01}$ dùng $\mathbb E\Delta$ (cộng theo thứ tự gốc) còn $L_{11}$ dùng tổng cộng dồn (theo thứ tự đã sắp). Hai thứ tự cộng khác nhau cho sai số làm tròn khác nhau.
+- Mình thử trên 2000 ô WD ngẫu nhiên bằng float. Hiệu $L_{01}-L_{11}$ **khác 0 ở 1202/2000 ô**, lớn nhất $8{,}9\cdot10^{-16}$. Trong khi đó, $\mathbb E[\Delta^+]$ tính **trực tiếp** (cộng phần dương; không cặp nào dương, nên tổng rỗng) bằng **đúng 0.0** ở mọi ô.
+
+> **Tôi đề xuất:** engine tính $G_{S\mid M_1}$ bằng $\min(\mathbb E\Delta^+,\mathbb E\Delta^-)$, với *mỗi* phần là một phép cộng trực tiếp có cắt, chứ không bằng hiệu $L_{01}-L_{11}$. Ghi điều này vào hợp đồng hàm.
+> **Vì sao:** phép kiểm C6 "chính xác bằng 0" của plan chỉ có nghĩa khi đại lượng được tính theo đường cho ra 0 *theo cấu trúc*. Nếu không, C6 sẽ trượt vì làm tròn, rồi bạn bị đẩy tới hai lựa chọn tệ: nới thành "gần 0" (mất khả năng bắt bug), hoặc mất thời gian debug một thứ không phải bug.
+
+**Bài học chung:** bằng 0 *chính xác* trong float chỉ đạt được khi mọi số hạng đều bằng 0 *theo cấu trúc* (certificate, tổng rỗng). Nó không bao giờ đạt được khi hai số khác 0 trừ nhau.
+
+### 6.4. C6: vì sao ô WD không phải zero control (toy E9)
+
+**Toy E9.** Một slot, nền không có mode, hai queue rỗng lúc đầu, $c=3$, $u=2$.
+- Nền A là 3 hoặc 4. Khi Switch, A nhận 3 hoặc 4 ≥ $c$, nên A không thể rỗng. Đây là điều kiện WD1.
+- Nền B là 1 hoặc 6 (trung bình 3,5).
+
+Tính bằng phân số:
+
+| | Thật | Đường trung bình $M_0$ |
+|---|---:|---:|
+| $J(\text{Stay})$ | 4 | 3 |
+| $J(\text{Switch})$ | 3 | 3 |
+| Gap | **−1, nên Switch** | **0, nên hòa, chọn Stay** |
+
+**Đọc bảng.**
+- Đường trung bình của B (3,5 > 3) không bao giờ rỗng, nên $M_0$ thấy $\hat\delta_B=0$. Kết hợp với $\hat\delta_A=0$ (A không rỗng), ta có $\widehat\Delta=0$. Luật hòa chọn Stay.
+- Thật ra Switch tốt hơn 1 đơn vị, vì nó lấp đúng lúc B rỗng.
+- Với một ô chỉ có state này: $G_{S\mid M_1}=0$ (ô WD), nhưng $G_M=1>0$.
+- Jensen vẫn đúng: $3\le4$ và $3\le3$.
+
+Plan ghi đúng hiện tượng này (contract v0 §7(g)(iii)). E9 cho bạn một ví dụ tính được bằng tay.
+
+**Hệ quả cho A01.** Ở W01, S01, P02, chỉ có $G_{S\mid M_1}=0$ là *bắt buộc*. $G_M$ và $G_S$ là **quan sát**, không phải control. Đừng gọi ô WD là "zero control".
+
+Ngoài ra, W01 có $p_{\text{sw}}=0{,}770$ và P02 có $p_{\text{sw}}=0{,}524$: một phần lớn khối lượng của chúng là **hòa chính xác**. Đây là một lý do nữa để không đọc $p_{\text{sw}}$ một mình như "độ khó" (luật đọc 6 của contract).
+
+### 6.5. Khi một control trượt: bug ở đâu?
+
+Một control trượt có hai nguồn, và cần phân biệt:
+
+| Nguồn | Ví dụ | Cách phân biệt |
+|---|---|---|
+| **Control dựng sai** | Biến thể $u=0$ nhưng quên tính lại $D$ (tải trước quyết định của A đổi từ λA + u thành λA) | Chạy cùng control trên toy, nơi đáp án tính được bằng tay |
+| **Engine sai** | Certificate không kích hoạt; dấu của $\delta$ bị đảo; nhánh $S_0$ nhận $x$ | Control đúng trên toy nhưng trượt trên ô lưới, nên lỗi nằm ở phần chỉ ô lưới mới có ($D$, schema, float) |
+
+Trong cả hai trường hợp: **dừng, sửa, chạy lại**, và **không chạy A04**. Sửa bug ở A01 không phải "sửa kết quả": control có đáp án biết trước, nên không có kết quả nào để làm cho đẹp hơn.
+
+---
+
+## 7. Experiment card: A01 Part 0 + Part A
+
+| Mục | Nội dung |
+|---|---|
+| **Câu hỏi** | Engine có cho đúng mọi đáp án đã biết khi chạy trên ô lưới không? |
+| **Vì sao** | Contrast của A04 phải là tính chất của mô hình, không phải của bug |
+| **Giả thuyết** | Implementation = model. Bị bác nếu có bất kỳ sai lệch nào |
+| **Biến độc lập** | Loại control (Part 0, C1–C6); ô (biến thể M01/M09/M22; N01–N04, P01; W01, S01, P02); mức dt (ref 1, 2, 4 cho Part 0; dt và dt/2 cho C5) |
+| **Biến phụ thuộc** | Khoảng $p_{\text{sw}}$; bốn $L$; sáu contrast; $G_{S\mid M_1}$ ở ô WD |
+| **Giữ cố định** | contract v1.2; `grid_v1_2.json`; commit của engine; hash của card |
+| **Nguồn gây sai** | Control dựng sai; thứ tự cộng float; schema (L3.2 Part 4, §11.2) |
+| **Baseline** | Đáp án lý thuyết |
+| **Metric chính** | `== 0` cho C5 và cho $G_{S\mid M_1}$ ở C6; khớp khoảng cho Part 0; đẳng thức cho C1–C3 |
+| **Nếu đúng** | Được chạy Part B |
+| **Nếu sai** | Bug: dừng, sửa, chạy lại; ghi vào log |
+| **Chứng minh được** | Engine nhất quán với mô hình trên các ca có đáp án, ở các ô và mức đã chạy |
+| **Không chứng minh được** | Hội tụ theo dt (Part 2); đúng ở ô không có đáp án biết trước; độ lớn contrast; realism |
+
+**Dự đoán trước khi chạy (khuyến nghị).** Với control, "dự đoán" chính là đáp án lý thuyết. Có một chỗ thật sự chưa biết: **$G_M$ ở W01, S01, P02 có > 0 không?** Hãy viết dự đoán của bạn trước khi chạy, kèm lý do theo kiểu E9: đường trung bình của B ở các ô đó có chạm biên rỗng không? Đây là bài tập học, không phải một mục của card.
+
+## 8. Bố cục code cho Part 0 và Part A
+
+```text
+experiments/A01_null_refinement/
+├── prereg.md        câu hỏi · hash card · đáp án bắt buộc từng control · thủ tục dt · thủ tục khi trượt · exposure
+├── config.json      danh sách ô, mức, cờ --allow-grid (KHÔNG có held-out)
+├── run.py           Part 0 → Part A → (Part 2: Part B)
+└── README.md
+results/A01/<run_id>/
+├── manifest.json    commit, hash config, hash card, phiên bản thư viện
+├── psw_check.csv    chỉ: ô, ref, p_low, p_high, khớp?
+├── nulls.csv        control, ô, sáu contrast, bằng 0 chính xác?
+└── negative_cells.csv
+```
+
+**Một chi tiết.** `psw_check.csv` chỉ có các cột liệt kê ở trên. Thêm một cột "gap trung bình" là exposure.
+
+## 9. 🔗 Liên hệ với repo cũ
+
+- **DL-026 (lưới v1)** tìm ra 13 ô mà contrast bằng 0 *theo cấu trúc*. Ở v1 đó là **lỗi thiết kế**, vì ô đáng lẽ phải có bài toán. Ở v1.2, chính loại ô đó được dựng **có chủ đích** (N01–N04, P01) để làm **control**. Cùng một hiện tượng: ở chỗ sai thì là lỗi, ở chỗ đúng thì là công cụ.
+- **A02 cũ ("linear-response null")** được *thực thi* ở C5. Ô conservation là vùng không có clipping trên mọi đường đi, nên mọi thứ tuyến tính và mọi contrast bằng 0.
+- **Ở Phase 1** bạn đã có `dominance.py` với SD1, SD2, WD1, WD2. A01 là lần đầu các certificate này được kiểm *trên ô thật, trong float*.
+
+## 10. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "Mọi null control và ô kiểm âm đạt ở dt và dt/2" | "Engine đúng" |
+| "Ở ô WD, $G_{S\mid M_1}=0$ chính xác; $G_M$ ở P02 = … (quan sát)" | "Ô WD xác nhận $M_0$ tệ", vì đó là ô kiểm, không phải ô của RQ |
+| "Part 0 tái lập $p_{\text{sw}}$ của ba ô calibration" | "Part 0 kiểm toàn bộ engine" |
+
+## 11. Reviewer có thể hỏi
+
+1. *"Sao anh biết engine không chỉ đúng trên toy?"* → Part 0 và các control trên ô lưới.
+2. *"Ô bảo toàn cho $10^{-13}$, sao anh không coi là 0?"* → Vì certificate bảo đảm 0 *theo cấu trúc*; số khác 0 là bug.
+3. *"C2 và C3 có làm lộ kết quả không?"* → Có. Vì vậy card commit trước, và exposure register ghi lại.
+
+## 12. ⚠️ Bẫy người mới
+
+- Chấp nhận "≈ 0" ở C5.
+- Kiểm "$G_{S\mid M_1}=0$ chính xác" ở C6 bằng hiệu $L_{01}-L_{11}$, rồi nới thành dung sai khi nó trượt.
+- Gọi ô WD là zero control.
+- Coi C2′ là "$S_1$".
+- Log mảng gap trong `reproduce_psw` để debug.
+- Dựng biến thể $u=0$ mà quên tính lại $D$.
+- Thấy control trượt rồi "chỉnh tham số control cho khớp".
+
+## 13. 🧠 Tư duy researcher
+
+> Một phép kiểm "bằng 0" chỉ có giá trị khi bạn biết **vì sao** nó phải bằng 0, và tính nó theo đường mà lý do đó được giữ nguyên trong code.
+
+Câu hỏi để tự hỏi: *"Nếu control này trượt, tôi sẽ nghi chỗ nào đầu tiên?"* Không trả lời được thì control đó chưa được thiết kế xong.
+
+## 14. Bài tập nên làm (khuyến nghị)
+
+1. Tính lại E9 bằng tay. Đổi nền A thành 2 hoặc 3: ô còn là WD không? Vì sao?
+2. Với C2: vì sao lấy trung bình theo $D$ của $G_M$ ở từng state lại đúng bằng $G_{M\mid S_1}$ của ô thật? (Gợi ý: dùng F5.)
+3. Viết đáp án bắt buộc của C1–C6 vào một bảng prereg bằng lời của bạn, kèm cột "bug mà nó bắt".
+
+## 15. Tự kiểm tra (tùy chọn)
+
+1. Vì sao ô conservation phải cho `0.0` chứ không phải "gần 0"? Còn $G_{S\mid M_1}$ ở ô WD thì sao?
+2. Vì sao "tuổi bằng 0" không phải zero control trong v1.2?
+3. Part 0 không kiểm được những phần nào của engine?
+4. C2 làm lộ contrast nào của ô thật? C3 thì sao?
+5. Một control trượt trên ô lưới nhưng đúng trên toy. Bạn nghi chỗ nào?
+
+## 16. Trạng thái của Part 1
+
+- **Hiểu:**
+  - A01 là verification.
+  - Part 0 và giới hạn của nó.
+  - Sáu control, đáp án và bug mà mỗi control bắt.
+  - Exposure của C2 và C3.
+  - C4 cần hai đường tính.
+  - Số 0 do chứng nhận khác số 0 do số học; cách tính $G_{S\mid M_1}$.
+  - Ô WD không phải zero control (E9).
+  - Hai nguồn khi một control trượt.
+- **Nên làm khi triển khai thật:**
+  - Viết prereg A01, phần control.
+  - Sửa hợp đồng hàm: $G_{S\mid M_1}$ tính bằng min của hai phép cộng trực tiếp; C4 có đường thứ hai.
+  - Ghi dự đoán của bạn về $G_M$ ở ô WD trước khi chạy.
+- **Phụ thuộc khoa học:** mọi control phải đạt trước Part B và trước A04. Một control trượt nghĩa là chưa có thước.
+- **Học tiếp được không?** **Có.** Part 2: làm mịn dt, bẫy "cặp đạt đầu tiên", trường hợp quyết định gần điểm hòa, chọn dt chung cho cả lưới, $\rho$ và Richardson, prereg đầy đủ, rồi Lesson Gate của L3.4. Mình dừng ở đây.

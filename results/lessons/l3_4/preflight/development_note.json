@@ -1,0 +1,10 @@
+{
+  "author": "Doan Van Tai",
+  "stage": "synthetic preflight before A01 outcomes",
+  "initial_targeted": {"passed": 26, "failed": 1},
+  "issue": "Test fixture placed perturbation at ref8, making the final pair fail; expected ref16 was wrong for that fixture.",
+  "fix": "Move synthetic perturbation to ref4 so only the final pair passes. No selector, model, threshold or grid parameter was changed.",
+  "rerun_targeted": {"passed": 27, "failed": 0},
+  "log_initial": "targeted_initial_failure.log",
+  "log_rerun": "targeted.log"
+}

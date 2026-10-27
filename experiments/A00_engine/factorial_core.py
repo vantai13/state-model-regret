@@ -86,16 +86,21 @@ def aggregate(A, B):
     Ed, Edh = E(A, A.d) + E(B, B.d), E(A, A.dh) + E(B, B.dh)
     a00, a01 = int(Edh < 0), int(Ed < 0)           # S0: MỘT action cho cả ô (T01)
     p_sw, neg = _cut_sum(A.d, A.d, A.p, B.d, B.d, B.p)     # E[Δ·1(Δ<0)] = -EΔ⁻
+    # Direct positive-part cut: an empty sum stays exactly zero on WD cells.
+    # Subtracting E_delta - negative_part would lose that structural guarantee.
+    _, minus_pos = _cut_sum(tuple(-v for v in A.d), tuple(-v for v in A.d), A.p,
+                            tuple(-v for v in B.d), tuple(-v for v in B.d), B.p)
+    pos = -minus_pos
     _, sw10 = _cut_sum(A.dh, A.d, A.p, B.dh, B.d, B.p)     # quyết theo δ̂, chấm bằng δ
     PA, dA, dhA = _by_backlog(A); PB, dB, dhB = _by_backlog(B)
     _, swcb = _cut_sum(dhA, dA, PA, dhB, dB, PB)           # D22: biết q, giấu mode
     L = {'00': K + a00 * Ed, '01': K + a01 * Ed, '10': K + sw10, '11': K + neg, 'cb0': K + swcb}
     G = dict(G_S=L['00'] - L['10'], G_M=L['00'] - L['01'], G_SM=L['00'] - L['11'],
              Gamma=L['10'] + L['01'] - L['00'] - L['11'],
-             G_S_M1=L['01'] - L['11'], G_M_S1=L['10'] - L['11'],
+             G_S_M1=min(pos, -neg), G_M_S1=L['10'] - L['11'],
              F=L['00'] - L['cb0'], V=L['cb0'] - L['10'])
     result = dict(L=L, G=G, a00=a00, a01=a01, E_delta=Ed, E_delta_hat=Edh, bias=Edh - Ed,
-                  E_pos=Ed - neg, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
+                  E_pos=pos, E_neg=-neg, p_sw=p_sw, C_ref=L['11'])
     result['R'] = {k: value - L['11'] for k, value in L.items()}
     eA = tuple(h - d - (Edh - Ed) for h, d in zip(A.dh, A.d))
     eB = tuple(h - d for h, d in zip(B.dh, B.d))
@@ -111,7 +116,7 @@ def aggregate(A, B):
     if exact:
         if not all(L['11'] <= L[k] for k in ('00', '01', '10', 'cb0')):
             raise ArithmeticError('oracle is not the minimum')
-        if G['G_S_M1'] != min(result['E_pos'], result['E_neg']):
+        if L['01'] - L['11'] != min(result['E_pos'], result['E_neg']):
             raise ArithmeticError('independent T01 positive/negative-parts check failed')
         if not 0 <= G['G_M'] <= abs(result['bias']):
             raise ArithmeticError('T01 bias bound failed')

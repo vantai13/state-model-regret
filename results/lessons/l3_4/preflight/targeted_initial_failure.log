@@ -1,0 +1,17 @@
+.F.........................                                              [100%]
+=================================== FAILURES ===================================
+___________________ test_common_finest_and_oscillating_hold ____________________
+
+    def test_common_finest_and_oscillating_hold():
+        x = illustrative(); y = illustrative()
+        y[3]['G_M'] = .5
+>       assert choose_final({'M01': x, 'M09': y, 'M22': x}) == (16, {'M01': 8, 'M09': 16, 'M22': 8})
+E       AssertionError: assert ('HOLD', {'M0...D', 'M22': 8}) == (16, {'M01': ...16, 'M22': 8})
+E         
+E         At index 0 diff: 'HOLD' != 16
+E         Use -v to get more diff
+
+tests/test_a01.py:36: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_a01.py::test_common_finest_and_oscillating_hold - Assertion...
+1 failed, 26 passed in 2.57s

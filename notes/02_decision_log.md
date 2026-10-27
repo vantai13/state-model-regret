@@ -615,3 +615,28 @@ R03/A01 và R03/A05-T chưa A05-F bị từ chối như dự kiến. Lưu ở
 [registration audit](../results/lessons/l3_3/registration_verification.json),
 [remote anchor](../results/lessons/l3_3/external_anchor.json). Commit audit riêng sau đó
 không sửa card/receipt/tag; không outcome/D grid mới được tính.
+
+### DL-050 — A01 prereg trước outcome, làm rõ D1 (2026-10-27)
+
+Người phụ trách: **Doan Van Tai**. Theo yêu cầu triển khai L3.4, áp dụng năm
+làm rõ thủ tục của lesson Part2 §7.6 trước khi chạy: (a) min Cref hai mức;
+(b) mọi cặp trong suffix đến ref16 đều đạt, báo endpoint mịn; (c) dt chung là
+max ref ba ô; (d) không ngoại lệ lưỡi dao, HOLD khi không có suffix hợp lệ;
+(e) cặp cuối không đạt thì HOLD, không thêm ngân sách hoặc nới dung sai.
+Dung sai .0025/εE .005/miền/plant/D1–D25 giữ nguyên. Pair certification dùng
+error upper bounds và Cref lower bound, báo cả nominal; rho/Richardson chỉ chẩn đoán.
+
+Prereg commit riêng `81233ef9478e88f03b548c6bef21b9fa98b51a25`, SHA256
+`9b8dc2f358792f4ac1e7df146ca8dc334599773f7de60378999a86efe5debe0f`.
+Receipt/code/config commit tiếp theo, trước lần chạy đầu. A03 card/tag nguyên byte.
+Part0 bitwise p_sw public trước cost; PartA C1–C6 bắt buộc trước B đủ15cell-level.
+C5 và GS_M1 WD ==0 exact, direct EΔ± không clamp; C3 control11 không gọi true oracle.
+C4 independent aggregation toy và strict tie action riêng. C1 dựng lại D khi u=0.
+Native longdouble từ đầu cho costs, không tự tăng ref>16. Không Monte Carlo.
+
+Lỗi synthetic fixture trước grid: đặt perturbation tại ref8 làm final pair fail
+nhưng expected16; sửa fixture perturbation tại ref4. Giữ log1FAIL/26PASS, rerun
+27PASS; không thay selector/threshold/cell. Kiểm full/mutant và kết quả A01 được
+lưu riêng, chưa suy PASS trước khi chạy. T05 read-back author-attested đủ theo
+prerequisite lesson; engine giữ experiments, không giả có văn bản tự viết mới.
+V9 chưa gửi/A04 chờ; không held-out/A04 hoặc đổi nhãn PC/H1/null trong A01.

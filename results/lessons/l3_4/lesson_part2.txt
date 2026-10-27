@@ -1,0 +1,346 @@
+# LESSON 3.4 — Part 2: Làm mịn và chọn dt cuối
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.4 A01
+  Part 1  kiểm đầu-cuối · null control · ô kiểm âm                           ✔
+  Part 2  ← YOU ARE HERE: chọn độ mịn của thước · prereg A01 · Lesson Gate
+                     ▼
+L3.5 A04: 38 ô ở dt cuối (+ kiểm cặp 2·dt cuối / dt cuối cho từng ô)
+```
+
+Mình đã chạy toàn bộ phần dưới đây:
+- áp luật làm mịn lên **bảng minh họa** của plan (số giả định, không phải kết quả);
+- thử hai thủ tục chọn dt bằng code;
+- đối chiếu protocol L1.8B trong repo.
+
+Không có phép tính nào trên ô lưới.
+
+## 2. Part 2 trả lời câu hỏi gì?
+
+> Nếu chia slot mịn hơn, kết luận về các contrast có còn đổi không? Mức nào là đủ mịn, và thủ tục chọn mức đó phải viết thế nào để **không còn chỗ cho lựa chọn** sau khi đã thấy số?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Plant được mô phỏng bằng slot $\Delta t$. Nếu một contrast thay đổi đáng kể khi $\Delta t$ đổi, thì contrast đó đang đo **cách chia slot**, không đo mô hình. Repo đã gặp chuyện này: ở toy L1.8B, $G_S$ đi từ 0,9296875 ($m=1$) xuống 0,307151637 ($m=128$) qua tám mức.
+
+**Tầng thực hành.** Sau Part 2, bạn có thủ tục chọn dt đã được viết thành code và kiểm trên bảng minh họa. Bạn có danh sách những chỗ luật đã khóa *chưa nói*, cần ghi vào prereg trước khi chạy. Bạn cũng có một cách chẩn đoán một bước nhảy.
+
+**Nếu bỏ qua.** Bạn dừng ở cặp đạt đầu tiên và chọn dt/2. Đúng ở mức đó, quyết định của $S_0M_0$ chưa ổn định. Cả 38 ô của A04 được tính ở một mức mà $G_M$ và $\Gamma$ có thể đổi 0,8% $C_{\text{ref}}$ nếu chỉ chia slot mịn thêm một bậc.
+
+## 4. Liên hệ với Main RQ
+
+Estimand D18–D19 được định nghĩa **ở dt cuối** (D1). A01 Part B quyết định mức dt đó.
+
+```text
+dt cuối ──► mọi con số của A04, A05-T ──► RQ1, RQ2
+```
+
+Đây là liên hệ **trực tiếp với định nghĩa** của thứ được đo.
+
+## 5. Nền toán cần cho Part 2
+
+| Mức | Nội dung |
+|---|---|
+| **Cần ngay** | Sai lệch tương đối; hàm bậc thang; ý nghĩa của "max lấy trên sáu contrast" |
+| Học trong lúc làm | Tỉ số hội tụ $\rho$; ngoại suy Richardson (chỉ dùng làm chỉ báo) |
+| Chưa cần | Lý thuyết hội tụ của xấp xỉ rời rạc cho queue liên tục |
+
+## 6. Mental model: nhiệt kế có vạch nhỏ dần
+
+Đọc nhiệt độ bằng vạch 1°, rồi 0,5°, rồi 0,25°. Khi số đọc thôi thay đổi quá mức cho phép, ta dừng. Có hai điều cần cẩn thận:
+- **Số đọc có thể đứng yên giữa hai vạch rồi nhảy ở vạch tiếp theo.** Hai lần đọc giống nhau chưa có nghĩa là đã hội tụ.
+- **Phải đo cùng một thứ ở mọi vạch.** Nếu bạn đổi luôn thứ được đo khi đổi vạch, thì số đọc thay đổi không còn nói gì về độ mịn của nhiệt kế.
+
+---
+
+## 7. Các khái niệm
+
+### 7.1. Cái gì cố định, cái gì đổi giữa các mức
+
+| Cố định (đại lượng vật lý) | Đổi theo mức $m$ |
+|---|---|
+| $h$ tính bằng giây (D2) | $\Delta t_m=\Delta t/m$ |
+| Rate (packet/s), $\mu=10$ | $H_m=m\,H_{\text{coarse}}$ |
+| Tuổi 1 s; $T_{\text{mode}}=\kappa$ giây | Prior $D$, **tính lại** ở mỗi mức (D12) |
+| Giá trị vật lý của observation $y$, lấy ở dt thô (D8) | $C_{\text{ref}}^{(m)}=L_*^{(m)}$, luôn cùng mức với contrast (D23) |
+
+**Vì sao $y$ phải giữ nguyên.** Câu hỏi của một ô là: "ảnh chụp cũ cho thấy $y$ packet, thì nên làm gì?". Nếu ở mỗi mức bạn tính lại quantile q90, giá trị $y$ sẽ trôi theo. Khi đó mỗi mức là một câu hỏi khác nhau, và các mức không còn so sánh được.
+
+**Vì sao $D$ phải tính lại.** Chuỗi slot ở mức $m$ là một chuỗi Markov khác, nên phân phối dừng của nó cũng khác. Nếu giữ $D$ cũ, đó chính là mutant M6 (L3.2 Part 4). Part 0 ở ref 2 và 4 sẽ bắt được lỗi này.
+
+**Một hệ quả L1.8B đã ghi.** Khi $D$ đổi theo dt, "quần thể state" của ô cũng đổi. Thay đổi giữa các mức vì vậy gồm cả sai số động học *lẫn* thay đổi của $D$. Cả hai đều là một phần của estimand ở mức đó, nên **không** phải nhiễu cần loại bỏ.
+
+### 7.2. Luật đã khóa (D1)
+
+Với hai mức kề $m$ và $2m$:
+$$\text{đạt}(m,2m)\iff\max_{G\in\text{6 contrast}}\lvert G^{(2m)}-G^{(m)}\rvert\le0{,}0025\,C_{\text{ref}},\ \text{và không contrast nào đổi dấu khi độ lớn của nó vượt }\varepsilon_E C_{\text{ref}}.$$
+
+Báo kết quả ở mức mịn hơn của cặp đạt.
+
+**Một nhận xét khi đọc kỹ luật.** Vì dung sai (0,0025) nhỏ hơn $\varepsilon_E$ (0,005), một lần đổi dấu với độ lớn vượt $\varepsilon_E$ luôn kéo theo $\lvert\Delta G\rvert>\varepsilon_E>$ dung sai. Như vậy điều kiện dấu đã nằm trong điều kiện dung sai, khi cả hai dùng cùng một $C_{\text{ref}}$. Giữ điều kiện dấu cũng không hại gì; nó chỉ có tác dụng nếu sau này dung sai được nới.
+
+### 7.3. Vì sao contrast "nhảy": nhắc lại từ L3.2
+
+Ở L3.2 Part 3 (§7.7) và ở protocol L1.8B, ta đã thấy:
+- **Liên tục:** $L_{11}$, $L_{01}$, và vì vậy cả $G_{S\mid M_1}$. Oracle dùng $\min$, mà $\min$ liên tục qua điểm hòa.
+- **Nhảy:** $L_{00}$ nhảy cỡ $\lvert\mathbb E\Delta\rvert$ khi $\mathbb E\widehat\Delta$ đi qua 0. $L_{10}$ nhảy ở từng state có $\widehat\Delta(x)$ đi qua 0.
+
+Bảng minh họa của plan khớp với điều đó. Từ dt đến dt/16, $G_{S\mid M_1}$ đi 1,40 → 1,32 → 1,28 → 1,27 → 1,265, trôi đều. Còn $G_M$ đi 0,80 → 0,80 → **0** → 0 → 0, một bước nhảy.
+
+### 7.4. Dấu vân tay của một lần lật $a_{00}$
+
+Đây là công cụ chẩn đoán quan trọng nhất của Part 2. Nó suy ra trực tiếp từ định nghĩa của sáu contrast.
+
+**Suy luận.** Nếu chỉ $L_{00}$ nhảy một lượng $J$:
+- $G_S=L_{00}-L_{10}$, $G_M=L_{00}-L_{01}$, $G_{SM}=L_{00}-L_{11}$ cùng dịch **+J**;
+- $\Gamma=L_{10}+L_{01}-L_{00}-L_{11}$ dịch **−J**;
+- $G_{S\mid M_1}$ và $G_{M\mid S_1}$ **không đổi**, vì chúng không chứa $L_{00}$.
+
+Theo T01, độ lớn của bước nhảy là $\lvert J\rvert=\lvert\mathbb E\Delta\rvert$ ở mức đó.
+
+**Kiểm trên bảng minh họa, cặp (dt/2, dt/4).** Mình tính:
+
+| | $G_S$ | $G_M$ | $G_{SM}$ | $\Gamma$ | $G_{S\mid M_1}$ | $G_{M\mid S_1}$ |
+|---|---:|---:|---:|---:|---:|---:|
+| Thay đổi | −0,80 | −0,80 | −0,84 | +0,76 | −0,04 | −0,04 |
+| = bước nhảy $J$ | −0,80 | −0,80 | −0,80 | +0,80 | 0 | 0 |
+| + trôi trơn | 0 | 0 | −0,04 | −0,04 | −0,04 | −0,04 |
+
+Đúng mẫu: một lần lật $a_{00}$ với $J=-0{,}80$, cộng với một phần trôi trơn nhỏ.
+
+**Cách dùng khi đọc `refinement.csv`.** Gặp một bước nhảy thì kiểm ba điều:
+1. $a_{00}$ có đổi giữa hai mức không?
+2. $\mathbb E\widehat\Delta$ có nằm gần 0 và đổi dấu không?
+3. Bước nhảy có đúng **dấu vân tay** trên, với $\lvert J\rvert=\lvert\mathbb E\Delta\rvert$ không?
+
+Cả ba đúng thì đó là **một quyết định gần điểm hòa** thật của mô hình. Nếu bước nhảy không khớp dấu vân tay nào, ví dụ $G_{S\mid M_1}$ nhảy trong khi nó phải liên tục, thì **nghi bug** hoặc nghi $D$ đổi bất thường.
+
+Một lần lật $a_{01}$ thì **không** tạo bước nhảy, vì $L_{01}=K+\min(0,\mathbb E\Delta)$ liên tục.
+
+### 7.5. Bẫy "cặp đạt đầu tiên"
+
+Mình áp luật lên bảng minh họa của plan ($C_{\text{ref}}=100$, dung sai 0,25):
+
+| Cặp | max$\lvert\Delta G\rvert$ | Kết quả |
+|---|---:|---|
+| (dt, dt/2) | 0,100 | đạt |
+| (dt/2, dt/4) | **0,840** | **không đạt** |
+| (dt/4, dt/8) | 0,010 | đạt |
+| (dt/8, dt/16) | 0,005 | đạt |
+
+| Thủ tục | Chọn | Hệ quả |
+|---|---|---|
+| Dừng ở cặp đạt đầu tiên | **dt/2** | Đúng ở mức mà $a_{00}$ còn sai |
+| **Mức thô nhất mà mọi cặp kề từ đó tới mức mịn nhất đều đạt** | **dt/8** | Báo ở mức mịn hơn của cặp (dt/4, dt/8) |
+
+Bài học, cũng là điều protocol L1.8B đã ghi: *"Pair PASS chưa tự là chứng nhận continuum error ≤ tol"*.
+
+### 7.6. Năm điều luật đã khóa chưa nói, phải ghi vào prereg *trước khi chạy*
+
+Đây là **làm rõ thủ tục**, không phải đổi dung sai. Ghi vào một DL trước khi chạy.
+
+| # | Câu hỏi | Đề xuất của mình | Vì sao |
+|---|---|---|---|
+| (a) | Dùng $C_{\text{ref}}$ của mức nào để tính dung sai của một cặp? | $\min(C_{\text{ref}}^{(m)},C_{\text{ref}}^{(2m)})$ | Chặt hơn, và không còn lựa chọn nào để làm sau. *Lưu ý:* L1.8B dùng một mẫu số cố định $L_*(m128)$; v1.2 thì yêu cầu $C_{\text{ref}}$ theo từng mức (D23) |
+| (b) | Một cặp đạt rồi cặp mịn hơn không đạt thì sao? | Thủ tục "mọi cặp từ đó tới mức mịn nhất đều đạt" | §7.5 |
+| (c) | Ba ô calibration chọn ba mức khác nhau thì sao? | dt cuối = **mức mịn nhất** trong ba mức; một ô HOLD thì cả lưới HOLD | Với thủ tục (b), mọi cặp mịn hơn mức của mỗi ô đều đạt, nên chọn mức mịn nhất vẫn giữ đúng điều kiện cho cả ba ô |
+| (d) | $a_{00}$ lật qua lại mãi, vì $\mathbb E\widehat\Delta$ dao động quanh 0 qua các mức? | Mặc định: **HOLD**. Nếu muốn một phương án khác, xem bên dưới | Luật đã khóa không có ngoại lệ |
+| (e) | Cặp mịn nhất trong ngân sách (dt/8, dt/16) vẫn không đạt? | **HOLD**, không nới dung sai | Nới sau khi thấy bảng là forking path |
+
+**Về (d), "lưỡi dao".** Một phương án khác là: chọn dt dựa trên các đại lượng trơn, và báo $G_M$ ở ô đó là "chưa phân giải". Phương án này **đổi D1**, vốn là luật LOCKED. Vì vậy nó cần `v1.2.x` kèm DL, và phải quyết **trước** khi chạy. Nếu chỉ nghĩ ra *sau khi* thấy một ô lật qua lại, đó là đổi luật để có kết quả.
+
+Mình đã thử thủ tục bằng code: một ô dao động thì cả lưới bị HOLD, đúng như thiết kế. Ngoài ra, nếu ô X cần dt/8 còn ô Y cần dt/16, thì dt cuối là dt/16.
+
+### 7.7. $\rho$ và Richardson: chẩn đoán, không phải tiêu chí
+
+- **Tỉ số hội tụ** trên ba mức: $\rho=\lvert G^{(4m)}-G^{(2m)}\rvert/\lvert G^{(2m)}-G^{(m)}\rvert$. Nếu $\rho$ gần 1/2, điều đó *gợi ý* hội tụ bậc một. Nếu $\rho$ thất thường, nhiều khả năng có một quyết định gần điểm hòa.
+  - Trên bảng minh họa: $G_{M\mid S_1}$ cho $\rho$ = 0,40; 0,25; 0,20, tương đối đều. $G_S$ cho $\rho$ = 40; 0; ∞, thất thường vì bước nhảy.
+  - Cần ít nhất ba mức thì mới nói được gì về bậc hội tụ. Nếu hai hiệu liên tiếp đều bằng 0, ghi "không xác định"; đừng chia cho 0.
+- **Richardson** $2G_{\text{mịn}}-G_{\text{thô}}$ là ước lượng *có điều kiện* của giới hạn khi giả định hội tụ bậc một. Không gọi nó là "giá trị thật" hay "sai số thật" (L1.8B).
+
+Cả hai được ghi vào `refinement.csv` để **diễn giải**. Chúng không tham gia quyết định đạt hay không đạt.
+
+### 7.8. Sai số làm tròn tăng theo $H$
+
+Làm mịn làm $H$ tăng (960 → 15 360 slot ở dt/16 với $h$ = 8 s). Cận tiên nghiệm của kernel trong `gap_screen.backward` tăng theo $H$; trong đơn vị lưới, nó tăng cỡ $H^3$ (L3.2 Part 3). Vì vậy ở mức mịn nhất phải kiểm lại:
+- $e_{\text{num}}\le0{,}0025\,C_{\text{ref}}$;
+- khối lượng chưa chứng nhận ≤ 0,01.
+
+Nếu không đạt, chuyển sang long double. Nếu vẫn không đạt thì HOLD. Mịn hơn không phải lúc nào cũng chính xác hơn.
+
+---
+
+## 8. Experiment card: A01 Part B
+
+| Mục | Nội dung |
+|---|---|
+| **Câu hỏi** | Ở mức dt nào, contrast của M01, M09, M22 ổn định trong 0,25% $C_{\text{ref}}$ dưới làm mịn? |
+| **Giả thuyết** | Với mỗi ô, tồn tại $m\le16$ sao cho mọi cặp kề từ $m$ tới 16 đều đạt. Bị bác (HOLD) nếu không tồn tại $m$ như vậy |
+| **Biến độc lập** | $m\in\{1,2,4,8,16\}$ |
+| **Biến phụ thuộc** | Sáu contrast; $L_*$; $\mathbb E\Delta$; $\mathbb E\widehat\Delta$; $a_{00}$; $a_{01}$; $\rho$; $e_{\text{num}}$; khối lượng chưa chứng nhận |
+| **Giữ cố định** | Đại lượng vật lý (§7.1); contract; engine; card |
+| **Đổi có chủ đích** | dt, $H$, $D$, $C_{\text{ref}}$ |
+| **Có thể làm sai kết luận** | Quyết định gần điểm hòa (lưỡi dao); sai số làm tròn tăng theo $H$; $D$ đổi theo dt (đây là một phần của estimand, nhưng làm khó việc đọc $\rho$) |
+| **Metric chính** | $\max\lvert\Delta G\rvert/C_{\text{ref}}$ theo thủ tục (a)–(e) |
+| **Kết quả** | O1: dt cuối = dt/$m$. O2: HOLD, kèm lý do (a)–(e) |
+| **Chứng minh được** | Ở dt cuối, trên ba ô calibration, sai lệch làm mịn ≤ 0,25% $C_{\text{ref}}$ |
+| **Không chứng minh được** | 35 ô còn lại hội tụ; giới hạn liên tục tồn tại; độ lớn contrast có ý nghĩa; plant giống mạng thật |
+
+**Dự đoán trước khi chạy (khuyến nghị).** Viết ra trước:
+- contrast nào sẽ trôi nhiều nhất giữa các mức, theo bảng liên tục/nhảy;
+- có ô nào lật $a_{00}$ không;
+- $\rho$ của $G_{S\mid M_1}$ có gần 1/2 không.
+
+Đây là bài tập học. Nó không thay đổi thủ tục.
+
+## 9. Code: thủ tục chọn dt
+
+Code này tồn tại để kiểm câu hỏi: *"Thủ tục chọn dt có tất định và áp lại được từ CSV không?"* Một người thứ hai, hoặc một phiên AI mới, chạy nó trên `refinement.csv` phải ra **cùng** dt cuối.
+
+```python
+NAMES = ('G_S', 'G_M', 'G_SM', 'Gamma', 'G_S_M1', 'G_M_S1')
+
+def pair_ok(lo, hi, tol=0.0025, epsE=0.005):
+    """Luật D1 cho cặp mức kề (m, 2m). Dùng Cref NHỎ HƠN của hai mức (đề xuất (a), khóa trước)."""
+    C = min(lo['Cref'], hi['Cref'])
+    worst = max(abs(hi[g] - lo[g]) for g in NAMES)
+    flip = any(lo[g] * hi[g] < 0 and max(abs(lo[g]), abs(hi[g])) > epsE * C for g in NAMES)
+    return worst <= tol * C and not flip, worst
+
+def choose_all_finer(levels):
+    """Đề xuất (b): mức thô nhất mà MỌI cặp kề từ đó tới mức mịn nhất đều đạt; báo mức mịn hơn."""
+    ok = [pair_ok(levels[i], levels[i + 1])[0] for i in range(len(levels) - 1)]
+    for i in range(len(ok)):
+        if all(ok[i:]):
+            return levels[i + 1]['m']
+    return 'HOLD'                                    # đề xuất (d), (e)
+
+def choose_final(per_cell):
+    """Đề xuất (c): một dt chung = mức mịn nhất các ô calibration cần; một ô HOLD thì HOLD."""
+    picks = {cid: choose_all_finer(levels) for cid, levels in per_cell.items()}
+    return ('HOLD', picks) if 'HOLD' in picks.values() else (max(picks.values()), picks)
+```
+
+**Kết quả trên bảng minh họa:**
+- thủ tục ngây thơ chọn **2**;
+- `choose_all_finer` chọn **8**;
+- hai ô cần 8 và 16 thì `choose_final` chọn **16**;
+- có một ô dao động thì `choose_final` trả **HOLD**.
+
+Code này không cần chạm vào ô lưới để kiểm. Hãy đưa bảng minh họa vào test cùng các kết quả mong đợi trên, *trước* khi chạy A01.
+
+## 10. Khung prereg A01 (Part 0, A và B trong một file)
+
+```markdown
+# A01 — Null control, ô kiểm âm, chọn dt cuối — PREREG
+Ngày · commit engine · hash card (commit + sha256) · contract-v1.2
+Câu hỏi: (1) engine có cho đúng mọi đáp án đã biết trên ô lưới? (2) dt cuối là bao nhiêu?
+
+## Part 0  Tái lập p_sw: M01, M09, M22 ở ref 1, 2, 4 · khớp khoảng trong grid_v1_2.json · chỉ xuất p_sw
+## Part A  Bảng control C1–C6: cách dựng · đáp án bắt buộc · bug bắt được · exposure (C2, C3)
+           C5: "== 0" · C6: G_{S|M1} tính bằng min(EΔ⁺, EΔ⁻), mỗi phần là phép cộng trực tiếp
+           C4: L* tính bằng đường thứ hai (liệt kê cặp trên ô support nhỏ / toy)
+## Part B  Mức {1,2,4,8,16} · luật D1 · thủ tục (a)–(e) · ρ, Richardson chỉ để chẩn đoán
+           Kiểm e_num và khối lượng chưa chứng nhận ở mức mịn nhất
+## Khi trượt  Control: bug → dừng, sửa, chạy lại; không chạy A04
+              Làm mịn: dấu vân tay §7.4 → lưỡi dao hay bug; HOLD theo (d), (e); KHÔNG nới dung sai
+## Exposure  "Contrast của M01, M09, M22 ở mọi mức đã được nhìn. Ba ô vẫn được chấm theo card ở A04,
+            ở dt cuối, bằng đúng luật trong card; ngoài card chúng chỉ là dữ liệu discovery."
+## Provenance  (theo từng mục)
+```
+
+**Commit prereg trước khi chạy.** Prereg dùng chung cơ chế hai hash như card (L3.3 Part 3), nhưng không bắt buộc tag.
+
+## 11. Sau khi chạy: kết quả nào dẫn tới đâu
+
+| Kết quả | Ghi | Ảnh hưởng tới A04 |
+|---|---|---|
+| Mọi control đạt; dt cuối = dt/$m$ | DL "dt cuối = Δt/m", kèm bảng làm mịn | A04 chạy ở dt/$m$, **cộng** kiểm cặp (2·dt/$m$, dt/$m$) cho từng ô. Ô vượt dung sai thì "chưa phân giải" theo luật trong card |
+| Control trượt | Log bug, sửa, chạy lại | Chưa có A04 |
+| HOLD vì (d) lưỡi dao | DL HOLD, kèm dấu vân tay | Chưa có A04. Muốn đi tiếp thì phải có quyết định nghiên cứu (đổi luật bằng `v1.2.x`, hoặc đổi ô calibration). Cả hai đều cần ghi lý do *trước* khi xem thêm số |
+| HOLD vì (e) ngân sách | DL HOLD | Như trên. Không tự mở rộng ngân sách mà không có DL |
+
+**Một điều không được làm:** A01 dùng contrast của M01 (∈ Q5), M09 (∈ K2), M22 (∈ K5). Nếu thủ tục chọn dt còn để lại bất kỳ lựa chọn nào, bạn có thể vô tình chọn mức "làm card đứng". Thủ tục (a)–(e) tồn tại để **không còn lựa chọn nào**.
+
+## 12. 🔗 Liên hệ với repo cũ
+
+- **L1.8B** là lần đầu bạn làm mịn. $G_S$ giảm từ 0,93 xuống 0,31 qua tám mức. Support tăng từ 4 lên 510 state. Protocol L1.8B đã ghi bốn điều mà Part 2 dùng lại: cặp đạt chưa phải hội tụ; cần ít nhất ba mức để nói về bậc; Richardson chỉ là proxy; oracle liên tục qua điểm hòa còn predictor xấp xỉ thì nhảy.
+- **DL-038:** $p_{\text{sw}}$ của 38 ô ổn định tới dt/4 (trôi ≤ 0,003). Nhưng $p_{\text{sw}}$ là đại lượng **trơn** (một tỉ lệ khối lượng). Nó ổn định *không* bảo đảm $G_M$ hay $\Gamma$ ổn định, vì chúng nhảy theo quyết định của $M_0$. Đây là lý do Part B vẫn cần thiết dù lưới đã được kiểm $p_{\text{sw}}$.
+- **Khác biệt so với demo L1.8B:** demo dùng một mẫu số cố định $L_*(m128)$ cho mọi mức. Contract v1.2 dùng $C_{\text{ref}}$ **theo từng mức**. Vì vậy cần đề xuất (a).
+
+## 13. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "Ở dt cuối, sai lệch làm mịn trên M01, M09, M22 ≤ 0,25% $C_{\text{ref}}$" | "Contrast đã hội tụ" (với 35 ô còn lại) |
+| "Bước nhảy ở (dt/2, dt/4) là một lần lật $a_{00}$, theo dấu vân tay" | "Kết quả không phụ thuộc dt" |
+| "Richardson gợi ý giới hạn khoảng …" | "Giá trị thật là …" |
+| "HOLD vì không cặp nào đạt trong ngân sách" | "Đại lượng không xác định" (L1.8B: chuỗi không ổn định trong ngân sách chưa chứng minh điều đó) |
+
+## 14. Reviewer có thể hỏi
+
+1. *"Sao anh biết kết quả không phụ thuộc cách chia slot?"* → Có cho ba ô calibration. Có một phần cho 35 ô (kiểm cặp ở A04). Không có cho giới hạn liên tục.
+2. *"Anh có chọn dt để card đứng không?"* → Không, nếu thủ tục (a)–(e) được commit trước khi chạy và áp lại được từ CSV.
+3. *"Bước nhảy này là bug hay thật?"* → Dấu vân tay ở §7.4.
+
+## 15. ⚠️ Bẫy người mới
+
+- Dừng ở cặp đạt đầu tiên.
+- Dùng $C_{\text{ref}}$ của một mức cố định cho mọi mức, kiểu L1.8B.
+- Tính lại quantile của $y$ ở mỗi mức.
+- Giữ $D$ của mức thô khi làm mịn.
+- Coi $\rho$ hoặc Richardson là tiêu chí đạt.
+- Thấy $a_{00}$ lật qua lại rồi "thêm một ngoại lệ" vào luật.
+- Nghĩ rằng $p_{\text{sw}}$ ổn định thì contrast cũng ổn định.
+- Quên kiểm $e_{\text{num}}$ ở mức mịn nhất.
+
+## 16. 🧠 Tư duy researcher
+
+> Một thủ tục chọn tham số chỉ trung lập khi nó **không còn chỗ cho lựa chọn** sau khi dữ liệu xuất hiện. Hãy viết nó đủ chi tiết để một người khác áp lại từ file kết quả và ra cùng đáp án.
+
+Và một thói quen: *gặp một con số nhảy, hãy hỏi "dấu vân tay của nó là gì?" trước khi hỏi "nó có đẹp không?".*
+
+## 17. Bài tập nên làm (khuyến nghị)
+
+1. Tự áp luật lên bảng minh họa trên giấy, rồi tự kiểm dấu vân tay ở cặp (dt/2, dt/4).
+2. Dựng một bảng minh họa mà bước nhảy là một lần lật **$a_{01}$**. Vì sao bạn không dựng được một bước nhảy lớn?
+3. Viết đề xuất (a)–(e) bằng lời của bạn, và quyết định cho (d): HOLD mặc định, hay đổi luật *trước* khi chạy.
+
+## 18. Tự kiểm tra (tùy chọn)
+
+1. Vì sao $y$ giữ nguyên nhưng $D$ phải tính lại?
+2. Trong bảng minh họa, vì sao cặp (dt, dt/2) đạt mà dt/2 vẫn chưa phải lựa chọn tốt?
+3. Dấu vân tay của một lần lật $a_{00}$ là gì? Vì sao $G_{S\mid M_1}$ không thuộc dấu vân tay đó?
+4. Ba ô calibration chọn dt/4, dt/8 và dt/4. dt cuối là bao nhiêu, và vì sao chọn như vậy là an toàn?
+5. Vì sao "mịn hơn" không phải lúc nào cũng "chính xác hơn"?
+
+---
+
+## 19. Lesson Gate: toàn bộ L3.4
+
+**Hiểu:**
+- A01 là verification. Part 0 kiểm được gì và không kiểm được gì.
+- Sáu control; exposure của C2 và C3; C4 cần đường tính thứ hai.
+- Số 0 do chứng nhận khác số 0 do số học. Ô WD không phải zero control (E9).
+- Cái gì cố định, cái gì đổi khi làm mịn. Liên tục và nhảy; dấu vân tay của một lần lật $a_{00}$.
+- Bẫy cặp đạt đầu tiên. Năm điểm (a)–(e) cần làm rõ. $\rho$ và Richardson chỉ để chẩn đoán. Sai số làm tròn tăng theo $H$.
+
+**Nên làm khi triển khai thật:**
+- Prereg A01 theo khung ở §10, kèm DL làm rõ thủ tục (a)–(e).
+- Test `choose_dt` trên bảng minh họa.
+- Chạy Part 0, rồi A, rồi B.
+- DL "dt cuối", hoặc HOLD.
+- Cập nhật exposure.
+
+**Phụ thuộc khoa học:**
+- Card đã commit trước *mọi* lần chạy A01.
+- Mọi control đạt trước Part B.
+- Thủ tục chọn dt được commit trước Part B.
+- dt cuối có DL trước A04.
+- A04 phải kèm kiểm cặp (2·dt cuối, dt cuối) cho từng ô.
+
+**Track thực thi:** A04 chạy được khi tất cả điều sau đã có: mọi null control và ô kiểm âm đạt; bất biến của ô WD đạt; dt cuối có DL (hoặc HOLD có lý do theo prereg); exposure đã cập nhật; và **dòng trạng thái V9** đã có (L3.1).
+
+**Học tiếp được không?** **Có.** L3.5 (A04: discovery trên 38 ô chính và chấm prediction card) là bước tiếp theo, và cũng là lần đầu tiên nghiên cứu tạo ra *kết quả* chứ không chỉ kiểm thước. Mình dừng ở đây.
