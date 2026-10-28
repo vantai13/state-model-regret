@@ -7,6 +7,17 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3.6 / A05-F — đã đóng băng (28/10/2026,DL-057–058)
+
+Tác giả chọn D25(ii),thiết kếA vàủyquyềnchi tiết. Author51c926f→prereg57d84c6
+→theta6aa696a→prediction3c75aec→freeze5f20103.369testsPASS;80LOSO/2fullfits,
+164starts đều thànhcông. H0/H1cùng12coeff/2candidates/rho0;H1summaryMSELOSO
+thấp hơn21.13%,chỉdiscovery. Dprimary.59124pp,weak.21230pp,extra.47495pp;
+margin.25pp. GiữR09/R10chưamở;actualplanned10ô theo luật trướcprediction.
+K5m=1nguyênvăn;C1equivalence≤.005khóa sauA04,báoriêng. FeaturesRchỉbậc0–2,
+khôngD/cost/gap/Cref/outcomes. Chưa A05-T/irreversibledecision;human/Phase4giữmở.
+[Report](../results/lessons/l3_6/freeze_report.md) · [Freeze](lessons/A05_F_preregistration.md).
+
 ## L3.6 — chuẩn bị, chưa freeze (28/10/2026)
 
 Đã đọc đủ baattachment, thêm append-only headroom vào noteA04/boundary, tự kiểm

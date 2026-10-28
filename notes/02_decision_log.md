@@ -854,3 +854,7 @@ GM luôn thuộc{0,|EΔ|}: đây vốn là hệ quả T01. Không tự thêm ref
 - Hoàn tấtA05-F/L3.6sau receiptcommit;chưachấmH0/H1held-out,chưanhậnSUPPORT/
   WEAKEN/FALSIFY từtruth. **Chưa thực hiện quyết định không đảo ngược A05-T**;
   L3.7 cần ghi quyết định đó trước run. Không tự đóngL8/P0-V10/T05/Phase4.
+
+Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_report.md),
+[freeze_verification](../results/lessons/l3_6/freeze_verification.json).369testsPASS;
+80LOSO/24model-cellpredictionsreplaykhớp;164starts đều thànhcông.

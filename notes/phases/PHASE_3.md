@@ -199,3 +199,22 @@ Cần tác giả chọn D25(i)/(ii) vềlambdaA và phạm vi sharedGaussianH0/H
 DL/prereg. [Hai lựa chọn](../lessons/L3.6_decisions_pending.md). Chưa cóprereg,
 theta,predictions_heldout/discriminationheld-out hoặcfreeze receipt. L3.6 chưa
 hoàn tất;A05-T vẫn chưa mở. V9waiver/humanreading/Phase4 không đổi.
+
+
+## 16. L3.6/A05-F — đã khóa, supersede trạng thái chuẩn bị §15
+
+DL-057: tác giả chọn D25(ii),thiết kếA,K5+C1+PC4. DL-058khóa 12coeff/model,
+2candidate/2start,rho0,20sliceLOSO. Prereg57d84c6→theta6aa696a→pred3c75aec
+→freeze5f20103.369testsPASS;replay80folds/24model-cellpredictions/3Dkhớp.
+
+Metricchính MAEđềuGS/GM/Gamma,margin.25pp. Dprimary8ô=.59124pp;
+DweakR09/R10=.21230pp nên **không mở**;DextraR11/R12=.47495pp,báoriêng.
+Universe12 đăngký,actualplanned10R01–R08,R11/R12;K5/C1khôngbịđổi.
+[Prereg](../../experiments/A05_freeze/prereg.md) · [receipt](../../experiments/A05_freeze/freeze.lock.json) ·
+[completion](A05_F_completion.json) · [report](../../results/lessons/l3_6/freeze_report.md).
+
+θ/code/config/feature/model/metric/threshold/split giữbyte saupred;A05-T phải
+qua freeze guard và planned-ID gate trước outcome. Không sửa freeze-folder
+để thêm runner: dùng thư mục A05-T riêng. L3.7 cần dòngquyếtđịnh khôngđảongược
+trước run;chưa códòngđó/chưaA05-T. KhôngD/cost/gap/contrast held-out ởL3.6.
+HumanreaderL8/P0-V10/T05author-writing/Understanding/Phase4 không tựđóng.

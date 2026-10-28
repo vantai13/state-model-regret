@@ -184,3 +184,19 @@ không D/J/gap-magnitude/regret/contrast held-out mới. Literature20records,
 1proposal2511.19961v2 DOI10.1109/MWC.2026.3712294 chưa PDF/note,catalog giữ23;
 không novelty. L3.6 mở;không A05-T/Phase4. L8/P0-V10/T05author-writing/
 Understanding không tự đóng. MemoV9 chưa gửi,waivedDL054.
+
+
+L3.6/A05-F hoàn tất kỹ thuật28/10 (DL-057–058): tácgiả chọnD25(ii),lambdaA
+cho cảH0/H1,ủyquyềnchi tiết thiết kếA. Author51c926f trướcprereg57d84c6;
+theta6aa696a trướcpredictions3c75aec;freeze5f20103.369testsPASS;12coeff/model,
+2candidate/2start,rho0,20sliceLOSO;80foldreplaykhớp. FitLOSOlàdiscovery.
+MetricchínhMAEđềuGS/GM/Gamma,margin.25pp. Dprimary.59124pp,weak.21230pp,
+extra.47495pp;**R09/R10khôngmở**,plannedoutcomes10:R01–R08,R11/R12.
+Universe12vẫngiữ;khônghạmargin/đổimodelsauD. K5carrynguyênvănm=1;C1equivalence
+≤.005tạiR05–R08(base36/38,heuristic.8055,khôngphảixácsuất thật),báoriêng.
+FeaturesRchỉbậc0–2,khôngD/cost/gap/Cref/contrast thật. A05-Tchưachạy/chưacó
+irreversibledecision;L3.7phảighitrướcrun. SourceA05_freeze bịsource.lockkhóa,
+khôngsửasauprediction;runnerA05-Tmớiđặtởfolderkhác. Verify_frozen trướcinput/
+enginevàcheckplannedIDs;A00guardcũkhôngthayfullfreezechecker. Reporthiện dùng:
+results/lessons/l3_6/freeze_report.md;oldreport.md/verification.jsonlàsnapshot
+chuẩnbịgiữhistoricalhashes. Humanreader/T05author-writing/Understanding/Phase4giữmở.
