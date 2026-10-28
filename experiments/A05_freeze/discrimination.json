@@ -1,0 +1,125 @@
+{
+  "groups": {
+    "interpolation": {
+      "ids": [
+        "R01",
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08"
+      ],
+      "n_cells": 8,
+      "metric": [
+        "G_S",
+        "G_M",
+        "Gamma"
+      ],
+      "equal_weight": true,
+      "D": "23649554970622186801/4000000000000000000000",
+      "D_fraction_Cref": 0.005912388742655547,
+      "D_percentage_points_Cref": 0.5912388742655547,
+      "margin": "1/400",
+      "comparison_open": true,
+      "decision": "OPEN_COMPARISON",
+      "diagnostics_only_D_by_contrast": {
+        "G_S": 0.010497133103456176,
+        "G_M": 0.0007618245997977127,
+        "G_SM": 0.008654408433273484,
+        "Gamma": 0.006478208524712751,
+        "G_S_M1": 0.007892583833475771,
+        "G_M_S1": 0.0057163839249150415
+      }
+    },
+    "weak_interpolation": {
+      "ids": [
+        "R09",
+        "R10"
+      ],
+      "n_cells": 2,
+      "metric": [
+        "G_S",
+        "G_M",
+        "Gamma"
+      ],
+      "equal_weight": true,
+      "D": "3184455676657897/1500000000000000000",
+      "D_fraction_Cref": 0.0021229704511052648,
+      "D_percentage_points_Cref": 0.21229704511052647,
+      "margin": "1/400",
+      "comparison_open": false,
+      "decision": "DO_NOT_OPEN_COMPARISON",
+      "diagnostics_only_D_by_contrast": {
+        "G_S": 0.0014352735314020514,
+        "G_M": 0.0,
+        "G_SM": 0.004697567628914325,
+        "Gamma": 0.004933637821913742,
+        "G_S_M1": 0.004697567628914325,
+        "G_M_S1": 0.004933637821913737
+      }
+    },
+    "extrapolation": {
+      "ids": [
+        "R11",
+        "R12"
+      ],
+      "n_cells": 2,
+      "metric": [
+        "G_S",
+        "G_M",
+        "Gamma"
+      ],
+      "equal_weight": true,
+      "D": "5699419985713007/1200000000000000000",
+      "D_fraction_Cref": 0.004749516654760839,
+      "D_percentage_points_Cref": 0.4749516654760839,
+      "margin": "1/400",
+      "comparison_open": true,
+      "decision": "OPEN_COMPARISON",
+      "diagnostics_only_D_by_contrast": {
+        "G_S": 0.009250533198784995,
+        "G_M": 0.0,
+        "G_SM": 0.01424854996428252,
+        "Gamma": 0.004998016765497522,
+        "G_S_M1": 0.01424854996428252,
+        "G_M_S1": 0.004998016765497522
+      }
+    }
+  },
+  "primary_group": "interpolation",
+  "interpretation": "D>=m is necessary discrimination, not a power guarantee or an outcome verdict",
+  "outcome_open_ids": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R11",
+    "R12"
+  ],
+  "registered_universe": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
+    "R10",
+    "R11",
+    "R12"
+  ],
+  "outcomes_not_needed": [
+    "R09",
+    "R10"
+  ],
+  "group_mixing_allowed": false,
+  "heldout_truth_used": false
+}
