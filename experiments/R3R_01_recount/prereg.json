@@ -1,0 +1,51 @@
+{
+  "responsible": "Doan Van Tai",
+  "study": "R3R_01_RECOUNT_DISCOVERY",
+  "declared_at": "2026-10-28T21:35:45.066305+07:00",
+  "pilot_commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "pilot_tag": "explore-v13-pilot",
+  "decision": "DL-064",
+  "run": "results/R3R_01_recount/20261028_01",
+  "source_sha256": {
+    "experiments/R3R_01_recount/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/R3R_01_recount/recount.py": "d04b64775ad2468cbc900f6b2f29eaac8377430739872bfcc2b4faa5150a0ee6",
+    "experiments/R3R_01_recount/mutants.py": "61cf66aca0b0ef2547468255bd6c2fe012f249e14f106fee082f640987d413fd",
+    "tests/test_r3r_01_recount.py": "01b638737aa6f438088b2ce4ecac11098b633f8c581899de5212e641e460d0ea"
+  },
+  "input_files": [
+    "results/explore_v13/stage1/regimes.csv",
+    "results/explore_v13/stage2/regimes.csv",
+    "results/explore_v13/stage3/regimes.csv",
+    "results/explore_v13/robustK/regimes.csv",
+    "results/explore_v13/robustdt/regimes.csv",
+    "results/explore_v13/SUMMARY.md",
+    "notes/design/grid_v1_2.json"
+  ],
+  "expected_rows": {
+    "stage1": 60,
+    "stage2": 108,
+    "stage3": 48,
+    "robustK": 9,
+    "robustdt": 9
+  },
+  "engine_calls_allowed": false,
+  "new_regimes_allowed": false,
+  "confirmation_outcomes_allowed": false,
+  "seed": null,
+  "thresholds_percent": {
+    "harm": -1,
+    "model_value": 1,
+    "near_zero_diagnostic": 0.05
+  },
+  "planned_checks": [
+    "stage counts and summary rounding",
+    "distinct configuration counts and identical outputs",
+    "robustness matched by coordinates on pctC and pctS",
+    "Stage 3 parameter pairing only",
+    "eta label versus physical transfer/headroom",
+    "v1.2 coordinate overlap, sealed cells parameters only",
+    "previously exposed Part1 tables and rubric diagnostic counts"
+  ],
+  "report_comparison": "Exact provided preview text after normalizing line endings and Rev label only",
+  "provenance": "Triển khai theo ủy quyền tác giả; không xác nhận tác giả tự làm kín sách hoặc tự đọc từng raw file"
+}

@@ -977,3 +977,32 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   đối nhỏ nhất kèm phóng đại B > A; thiệt hại đến từ sai số lớn xa biên) chỉ là ứng viên, chưa kiểm.
 - Quyết định bước 2 thuộc tác giả. v1.3 vẫn DRAFT; Phase 4 HOLD tới P0-V10 và contract mới được khóa.
   [Report](../results/V13_step1/report.md).
+
+
+### DL-064 — Mở Phase 3R; đóng băng pilot population v1.3 làm discovery (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. Thực hiện theo yêu cầu trực tiếp triển khai L3R.1;
+  phần tổng hợp/bài học được soạn theo ủy quyền, không tự ghi Understanding PASS.
+- **Decision.** Mở Phase3R theo [plan](phases/PHASE_3R.md); đóng băng branch pilot tại
+  `a7435e9a3cb0d1625479c942041ec6748444014a` bằng annotated tag `explore-v13-pilot`.
+  Không merge hoặc xóa branch; SUMMARY và raw giữ nguyên byte. Chạy lại phép đếm **một lần**
+  theo [khai trước](../experiments/R3R_01_recount/prereg.json), sau commit này và sau khi tag lên remote.
+- **Why.** Tài liệu cung cấp đã nêu sai lệch SUMMARY/raw và các phát hiện trùng ID/tọa độ;
+  cần kiểm tại máy này trước khi dùng số cho hypotheses. Đây là verification trên discovery
+  đã thấy, không phải prereg cho hypothesis chưa thấy outcomes.
+- **Alternatives.** Merge pilot sẽ nhập engine chưa audit; xóa branch mất provenance;
+  ghi summary mà không chạy lại không xác nhận được số; đổi raw để khớp summary không hợp lệ.
+- **Consequence.** Kết quả/errata ghi ở [discovery record](phases/PHASE_3R_discovery_record.md),
+  tạo danh sách tham số đã exposed cho L3R.7. Bất kỳ trùng tọa độ phát hiện được đều giữ và báo,
+  không ép dữ liệu thỏa câu “mọi regime đều mới”. Không engine/CF outcomes hoặc quét mới.
+- **Trạng thái mang sang.** V9=WAIVED_BY_AUTHOR (DL-054, chỉ memo trước A04);
+  P0-V10/L8/T05 author-writing/Understanding và tự viết Phase1/2 OPEN. Hai mục closeout Phase3
+  soạn theo ủy quyền DL-061, không thành tự viết. v1.3 chỉ DRAFT; thực thi Phase4 HOLD tới
+  P0-V10 và contract mới khóa. R09/R10 vẫn niêm phong; 38 main +10 R đã mở là dữ liệu đã thấy.
+- **Provenance §0.5.** Giữ nguyên attribution nguồn được cung cấp, ghi người phụ trách là
+  Doan Van Tai; phân biệt triển khai theo ủy quyền, tự viết và human review. Không suy ra
+  tác giả đã tự dự đoán, đọc hết raw hoặc hiểu chỉ từ yêu cầu thực hiện thay.
+- Ghi lúc 2026-10-28T21:35:45.066305+07:00. Nguồn script/test từ ZIP tác giả cung cấp; đã kiểm trước khi chạy.
+  ZIP được đọc, giải nén tạm và xóa theo yêu cầu, không commit/push; hash ở
+  [intake](../results/lessons/l3r_1/bundle_intake.json). Một đường dẫn attachment không tồn tại;
+  hướng dẫn Part2 đầy đủ trong ZIP được dùng thay, không nhận đã đọc attachment thiếu đó.

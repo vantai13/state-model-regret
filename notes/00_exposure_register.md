@@ -605,3 +605,25 @@ DISCOVERY. Không ô R nào được tính lại; R09/R10 vẫn niêm phong. AI 
 Run `results/V13_step1/20261028_01`. Đã tính và xem theo từng state, ở mức tổng hợp mỗi ô: khối
 lượng fluid chạm rỗng, thành phần gap trung bình mỗi phía, G_M|S1 tính lại, lens biên của **38 ô main**.
 Không ô R nào được tính lại; R09/R10 niêm phong. Kết quả là DISCOVERY trên dữ liệu đã lộ.
+
+
+## Phase 3R / L3R.1 — khai trước đếm lại pilot (2026-10-28, DL-064)
+
+`R3R1_RECOUNT_DECLARED` · 2026-10-28T21:35:45.066305+07:00. Người phụ trách: **Doan Van Tai**.
+
+Đã lộ trước khai này: pilot ở a7435e9 và các bảng/errata trong lesson Part1, ZIP và
+preview report được cung cấp. Theo nguồn, Stage2 thích nghi sau Stage1, chỉ báo M0
+chọn hậu nghiệm trong5; lần reviewer tính bảng Part1 và recount trước đây là
+**reviewer-reported**, không chép thành lần chạy local hoặc tác giả tự đọc raw.
+Trong phiên trước đã đọc plan/SUMMARY/report Step1; phiên này đọc đầy đủ script,
+preview và hướng dẫn ZIP. Chưa tính lại raw tại máy này trước khai báo này.
+
+Sau commit này và tag remote: chạy script một lần từ tag, chỉ git-show 5 CSV,
+SUMMARY và grid v1.2 (chỉ tham số, kể cả R09/R10). Các kiểm thêm trùng cấu hình,
+trùng tọa độ, thang pctS, ghép Stage3 và bảng Part1/rubric đã khai trước ở prereg.json.
+Các bảng vẫn là DISCOVERY/verification dữ liệu lưu; không gọi engine, không D/J/contrast
+mới của main/R/CF. Tham số R đã public trước đây không đồng nghĩa mở outcome niêm phong.
+
+Số210 cấu hình,45 trùng tọa độ… trong preview hiện là số nguồn báo, chưa là kết quả
+local; sẽ đối chiếu và ghi sau run, giữ cả sai lệch nếu có. Không khẳng định đã tự
+làm bài kín sách/đọc từngCSV chỉ vì yêu cầu triển khai theo ủy quyền.
