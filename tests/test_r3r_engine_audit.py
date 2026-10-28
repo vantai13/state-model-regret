@@ -40,6 +40,16 @@ def test_D22_exact_fresh_and_mode_paths():
         assert float(L['cb0'] - L['10']) == v
 
 
+def test_rational_tie_adapter_regression_preserves_original_problem():
+    # The original naive adapter rounded 2/7,3/7,2/7 before taking a sign.
+    # Integer-count homogeneity preserves exact mean-hat=0 and hence Stay.
+    plant = dict(p={'y': F(1)}, D={'y': {1: F(2, 7), 2: F(3, 7), 3: F(2, 7)}},
+                 J={1: F(10), 2: F(10), 3: F(6)},
+                 Delta={1: F(3), 2: F(-1), 3: F(0)},
+                 Dhat={1: F(2), 2: F(-4), 3: F(4)})
+    assert B.golden_population(plant)['00'] == F(62, 7)
+
+
 def test_T7_engine_ties_stay_in_both_rows():
     A = dict(d=np.array([1.], dtype=P.LD), dh=np.array([0.], dtype=P.LD),
              j=np.array([5.], dtype=P.LD), w=[np.array([1.], dtype=P.LD)])

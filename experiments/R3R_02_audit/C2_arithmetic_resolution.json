@@ -1,0 +1,31 @@
+{
+  "responsible": "Doan Van Tai",
+  "id": "X1008",
+  "scope": "rerun only affected MC arithmetic checks, not rerun pilot",
+  "source_commit": "5a26db7",
+  "points": [
+    {
+      "side": "A",
+      "y": 31.1,
+      "N": 65536,
+      "seed": 318306500,
+      "reason": "post-retry alarm; exact no-idle certificate now in independent MC, thresholds unchanged"
+    },
+    {
+      "side": "B",
+      "y": 33.3,
+      "N": 65536,
+      "seed": 318306501,
+      "reason": "post-retry alarm; exact no-idle certificate now in independent MC, thresholds unchanged"
+    },
+    {
+      "side": "B",
+      "y": 55.266666666666666,
+      "N": 65536,
+      "seed": 318306502,
+      "reason": "post-retry alarm; exact no-idle certificate now in independent MC, thresholds unchanged"
+    }
+  ],
+  "z_max": 3,
+  "expected": "same symbolic deterministic gap as engine, raw cost differences retained"
+}
