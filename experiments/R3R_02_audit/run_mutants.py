@@ -47,8 +47,8 @@ def main():
         ('S0_leaks_state', P, 'pair_values', 'J + a00 * ED', 'J + T10'),
         ('swap_L00_L10', P, 'pair_values', "'10': J + T10", "'10': J + a00 * ED"),
         ('mean_state_rollout_D10', physical, 'side_from_law',
-         'q0 = np.repeat(qs.astype(dtype)[:, None], 2, axis=1) * _number(unit, dtype)',
-         'q0 = np.full((len(qs),2), _number(unit,dtype)*np.sum(np.arange(len(mass))*mass.sum(axis=1)), dtype=dtype)'),
+         'q, total = q0.copy(), np.zeros_like(q0)',
+         'q, total = np.full_like(q0, _number(unit,dtype)*np.sum(np.arange(len(mass))*mass.sum(axis=1))), np.zeros_like(q0)'),
         ('old_mode_independent_of_y', P, 'queue_D', 'prior,bound=law.posterior(index)', 'prior,bound=.5,0.'),
         ('no_age_propagation', P, 'queue_D', 'for _ in range(tau):', 'for _ in range(0):'),
         ('drop_zero_atom', P, 'observation_bins', 'reps, weights = [0], [pmf[0]]', 'reps, weights = [], []'),
@@ -71,6 +71,12 @@ def main():
                 observed = execute(tests)
             caught = [r['test'] for r in observed if r['status'] == 'FAIL_ASSERTION']
             records.append({'mutant': name, 'status': 'KILLED' if caught else 'SURVIVED', 'caught_by': caught})
+        except ArithmeticError as error:
+            if str(error) in ('Jensen bound violated', 'conservation certificate violated: exact zero required'):
+                records.append({'mutant': name, 'status': 'KILLED', 'caught_by': ['existing_physical_math_guard'],
+                                'mechanism': 'MATH_INVARIANT_REJECTION', 'guard': str(error)})
+            else:
+                records.append({'mutant': name, 'status': 'EXECUTION_ERROR', 'error': repr(error)})
         except Exception as error:
             # Run errors are not counted as a killed scientific mutant.
             records.append({'mutant': name, 'status': 'EXECUTION_ERROR', 'error': repr(error)})

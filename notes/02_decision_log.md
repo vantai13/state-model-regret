@@ -1055,3 +1055,20 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   chỉ rerun vùng thuận lợi. Kết luận cuối ghiDL khác theo kết quả, không định sẵnPASS.
 - T07 authored-understanding/P0-V10/L8/T05 vẫnOPEN; V9WAIVED_BY_AUTHOR,G1,Phase4HOLD.
 - Khai lúc 2026-10-28T23:15:51.002242+07:00, trước mọi engine outcome mới của phiên L3R.3.
+
+
+### DL-067 — Khóa N MC; mở rộng chẩn đoán số sau quan sát (2026-10-28)
+
+- Người phụ trách Doan Van Tai. Ghi 2026-10-28T23:37:52.565845+07:00.
+- **Decision.** Khóa [N MC](../experiments/R3R_02_audit/MC_N_selection.json) theo
+  SD từ N0=2048 và luậtDL-066, trước C3 production. Không đổi ngưỡng/luậtseed/rerun.
+  Khai thêm K320 tạiX1008/X1009 trong [extension](../experiments/R3R_02_audit/prereg_extension.json).
+- **Why.** K160 còn lệchS1~.32ppC ởκ3; đây là chẩn đoán sau outcome, không giả
+  vờpreregister trước. Giữ originalUNRESOLVED; cần biết có co tiếp và chi phí.
+- **Alternatives.** Không nới.25ppC, không bỏ regime khó, không gọi flat/nonmonotone
+  là bug tự động. C2có3alarm sau4N ở busy side, chênh~1e−15/SE~1e−17; kiểm
+  conservation/arithmetic củaMC trước khi kết luận lỗiengine.
+- **Consequence.** Kết quả mới báo riêng. Adaptertoy đã sửa bằngintegercount để
+  giữ exactrationaltie, không sửaphysicalpilot. 1mutant bị mathguard từ chối phải
+  ghi rõ cơ chế, không lẫn với runtimeerror hoặc assertionkill.
+- Audit chưa đóngPASS; Understanding/read-backOPEN,Phase4HOLD,G1giữ nguyên.

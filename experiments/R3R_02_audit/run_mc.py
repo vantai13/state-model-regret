@@ -7,6 +7,7 @@ import argparse
 import json
 import math
 import pickle
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -39,6 +40,8 @@ def write(path, data):
 
 def stats(v):
     v = np.asarray(v, dtype=float)
+    if np.all(v == v[0]):
+        return dict(mean=float(v[0]), sd=0., se=0., n=len(v))
     return dict(mean=float(v.mean()), sd=float(v.std(ddof=1)), se=float(v.std(ddof=1) / np.sqrt(len(v))), n=len(v))
 
 
@@ -177,7 +180,8 @@ def final(rid, out):
     alternates = [target(v) for v in source['levels'][1:]]
     numerical = {k: max(abs(v[k] - expected[k]) for v in alternates) for k in expected}
     cap_bounds = M.population_cost_truncation_bound(la, lb, u=float(model.cell['u']), h=float(model.cell['h']), c_sw=float(F(model.spec[8])))
-    result = {'id': rid, 'status': 'RUNNING', 'N_selection_commit': selection['selection_commit_placeholder'],
+    selection_commit = subprocess.check_output(['git', '-C', str(ROOT), 'log', '-1', '--format=%H', '--', 'experiments/R3R_02_audit/MC_N_selection.json'], text=True).strip()
+    result = {'id': rid, 'status': 'RUNNING', 'N_selection_commit': selection_commit,
               'C3': {}, 'numerical_allowance_status': 'refinement differences, not certified bounds'}
     for i, kind in enumerate(('nodes', 'stationary')):
         n = selection['regimes'][rid][kind]['final_N']
