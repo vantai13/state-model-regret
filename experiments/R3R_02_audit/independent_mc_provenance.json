@@ -1,0 +1,97 @@
+{
+  "responsible": "Doan Van Tai",
+  "implementation_origin": "delegated fresh AI session; specification-only implementation, not human independent review",
+  "allowed_project_sources_read": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "50a08427c0fb075bb0e14934a7276b1574d358c846a9cf8c7def821fbd420aec"
+    },
+    {
+      "path": "notes/theory/T07_population_estimand.md",
+      "sha256": "afcabda5148f7258396f74367c48dda278be0f76620165611c09c8f6a7620e52"
+    },
+    {
+      "path": "notes/01_definitions_v1_2.md",
+      "sha256": "090eb2dcd63ad0ca6fdbda4cad4980349ddc74f2df684f29441b911f9fb5d9e6"
+    },
+    {
+      "path": "experiments/R3R_02_audit/mc_physical_spec.md",
+      "sha256": "baaef470c90785bc6f72022e195fca11ab61f3f6efcf4765510a0cddfa93037e"
+    }
+  ],
+  "additional_project_sources_read": [],
+  "engine_source_tests_pilot_or_outcomes_consulted": false,
+  "own_created_files_read_during_compile_tests_and_provenance": [
+    "experiments/R3R_02_audit/independent_mc.py",
+    "experiments/R3R_02_audit/independent_mc_native.cpp",
+    "tests/test_r3r_independent_mc.py"
+  ],
+  "implementation_files_sha256": {
+    "experiments/R3R_02_audit/independent_mc.py": "3af6186df0bd73e57db2f96201eb8170add1f92ddd20a68e0298546dfc0aad7e",
+    "experiments/R3R_02_audit/independent_mc_native.cpp": "cf6e8b8263119391204b00e2edfe9c5086b788cfb2a306da611745773d9452df",
+    "tests/test_r3r_independent_mc.py": "761ad7adcaf7ce2e221a92368a511ec4b5960fd50730c7f189f30a85e6a6e6c2"
+  },
+  "runtime": {
+    "python": "3.14.5 (main, May 10 2026, 10:21:34) [GCC 12.3.0]",
+    "interpreter": "/home/vantai/state-model-regret/.venv/bin/python",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "native": "g++ -std=c++17 -O3 -shared -fPIC; compiled artifact only under /tmp/state_model_regret_independent_mc"
+  },
+  "stationary_method": "rational-gcd lattice, finite reflected cap, anchor-state sparse regenerative invariant solve; uncapped age/future",
+  "tail_and_convergence": [
+    "positive eigenvector exponential Lyapunov bound",
+    "explicit finite-cap stationary coupling TV formula 2*A*rho^t+t*A*exp(-theta*Q)",
+    "tail first moment and conservative unbounded-cost allowance for full-stationary C3",
+    "sparse invariant residual L1/Linf and negative correction disclosed",
+    "optional separately requested cap refinement; measured variation exposed"
+  ],
+  "simulation_method": "exact discrete R2 skeleton using geometric run lengths, slot0 initial mode, endpoint occupancy, same physical future for both actions; sides and episodes use independent PRNG draws",
+  "policy_interface": {
+    "array_order": [
+      "00",
+      "10",
+      "01",
+      "11"
+    ],
+    "mapping_preferred": true,
+    "x_order": [
+      "qA",
+      "mA",
+      "qB",
+      "mB"
+    ],
+    "supplied_by_caller": true,
+    "policy_implementation_viewed": false
+  },
+  "tests": {
+    "command": "/home/vantai/state-model-regret/.venv/bin/python -m pytest -q tests/test_r3r_independent_mc.py",
+    "result": "PASS",
+    "passed": 14,
+    "last_reported_seconds": 0.55,
+    "parameters": "invented small lambda=6, managed=0/1, kappa=0/.017/.03/.05/.1 or deterministic floating-point keep=1 limit; mu10/13; h<=.1 seconds",
+    "unit_seed_range_used": [
+      318300001,
+      318300009
+    ],
+    "discovery_outcomes_simulated": false,
+    "production_N_or_seeds_selected": false
+  },
+  "limitations": [
+    "Analytic formulas are evaluated in float64; no interval-certified eigenvalue or invariant solve.",
+    "Residual alone is not a rigorous finite-chain invariant numerical error bound; sparse arithmetic excluded from analytic cap allowance.",
+    "Conditional lattice modes require supported exact y and finite marginal mass; mode-weight cap bound is disclosed separately.",
+    "Full stationary sampling, discrete retained-node law and representative-bin policies are different targets; quadrature bias requires independent allowance or same-law comparison.",
+    "IID Monte Carlo SE excludes cap/invariant/policy/quadrature numerical errors.",
+    "Policy information restrictions, oracle optimality and strict gap tie rules remain caller responsibilities; supplied policies never inferred from realized future.",
+    "Geometric-run integration uses double-precision arithmetic; no epsilon-based action decisions occur in this module.",
+    "Stationary full queue law is an audit target only, not adoption of v1.3 contract; no engine verification or hypothesis conclusion follows from unit tests."
+  ],
+  "math_review": {
+    "read_back": "Self-review by same independent implementation session, not second reviewer",
+    "slot_order": "backlog update/cost before mode transition; final age transition is retained for current-state mode",
+    "lyapunov": "K=diag(exp(theta*d))*P; reflection correction bounded at q0; stationary mode marginal 1/2; zero-start coupling plus overflow union bound",
+    "cost_allowance": "cost<=B0+h*(yA+yB); monotone initial coupling, mismatch truncation and exponential excess moment control for unbounded backlog costs"
+  },
+  "files_not_modified": "No existing project file was edited; only the three implementation/test files and this provenance were created."
+}
