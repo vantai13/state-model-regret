@@ -576,3 +576,19 @@ regret, C_ref, R00, diagnostics của **R01–R08, R11, R12** ở ref 1 và 2. M
 liệu đã thấy, không còn dùng được để kiểm giả thuyết mới. **R09/R10 vẫn niêm phong**: không D,
 không cost, không outcome. Chuỗi "R10" trong output là khóa regret R10, không phải ô.
 Đọc verdict sau khi chấm bằng scorer đã khóa; không đổi model, metric, dt hay danh sách ô.
+
+## Review A05-T và L3.8 — sau dữ liệu, 28/10/2026
+
+Đã đọc hai lesson L3.8, source/provenance, status, verdict và report đã có. Phiên review
+trước đã chấm lại dữ liệu A05-T đã lưu; artifacts ở `results/reviews/l3_7_20261028/`.
+L3.8 kiểm hash/chronology, full-suite regression391tests và rescore saved data; không
+gọi runner A05-T, không tính D/cost/outcome grid mới, không mở R09/R10. Regression
+có các toy/design checks đã exposed trước; không nhận hoàn toàn chưa thực thi phép tính.
+
+Mọi đề xuất Gate/diễn giải mới trong phiên này đều **sau dữ liệu**. Khuyến nghị NARROW
+của AI không được adopt: tác giả chọn REFORMULATE ở DL-061 và ủy quyền viết ngôi “tôi”. Không bổ sung
+hồi tố kỳ vọng trước A05-T, không nhận người thật/GVHD đã đọc hoặc Understanding PASS.
+Các source/card/threshold cũ giữ nguyên; 10 ô đã mở không còn là test sạch cho claim mới.
+Contract/briefv1.3 chỉ là proposal nhiều observations chưa khóa; không mở R09/R10 hoặc
+tính outcome mới để chọn law/weights. Hai đoạn ngôi “tôi” là bản sau dữ liệu theo
+ủy quyền, không thành kỳ vọng trước run/tự viết/author-attested Understanding.

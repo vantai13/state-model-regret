@@ -267,3 +267,17 @@ giải thích lại được?" sang "Có, author-attested ngày …" chỉ khi t
 | EV-46 | Đợt duyệt 26/10: IA26, DTS25, CEN26, CEH23 (tác giả duyệt và tải PDF); điều kiện "nhãn sẽ đổi nếu" của PC2/PC3/PC5/PC6 đã kiểm, nhãn tạm không đổi | L-2nd | Chưa có record | AI-T (DTS25 AI-F) | [report](../results/lessons/l2_8/approved_batch/report.md) |
 | EV-47 | Đối chiếu bản chính thức: S11 journal (khớp), R01 eCommons = TR (journal chưa có), R34 bản CDC 1992 (TAC chưa có); ví dụ tính tay T03 (EVPPI=1/9, E[VSS]=2/9, không hòa) | L-2nd + E0 ví dụ | Chưa có record | AI-T | [report](../results/lessons/l2_9/journal_check/report.md) |
 | EV-48 | Tác giả author-attested 26/10: tự đọc WM26 §4.1/§5/F.1, R02 §5, R04 §3, P11 §2.4, P02 §2.2.4/§3.3/Bảng 2, S11 §III Eq10, P12 Def1/§3.1; tự dẫn T03; xác nhận nhãn | Author attestation (DL-032 mechanism) | **Có — author-attested 26/10** (lời giải ngoài vở, không kiểm độc lập) | L-self | [xác nhận](../results/lessons/l2_9/gate_l/author_attestation.json), [DL-043](02_decision_log.md) |
+
+## Phase 3 — tổng hợp tại L3.8, 28/10/2026
+
+Không đổi EV-01…48 hoặc mức đọc nguồn. Các item dưới là E0/E1 trong plant,
+không network evidence, không tự cấp Understanding/Gate A hoặc novelty.
+
+| EV | Item | Type | Tác giả giải thích lại được? | Artifact |
+|---|---|---|---|---|
+| EV-49 | Engine/bounds/golden cases, card/receipt, 11/11 mutant lịch sử | E0/E1 verification | Read-back ngoài repo author-attested DL-048; author-writing còn OPEN | [L3.2](../results/lessons/l3_2/report.md), [L3.3](../results/lessons/l3_3/report.md) |
+| EV-50 | A01 controls, calibration, dt cuối1/240; giữ failed/partial | E1 numerical calibration | Chưa có xác nhận mới | [L3.4](../results/lessons/l3_4/report.md) |
+| EV-51 | A04 38main+8controls/probes,92levels, card và discovery | E1 discovery | Chưa có xác nhận mới | [L3.5](../results/lessons/l3_5/report.md) |
+| EV-52 | A05-F prereg/θ/predictions/metric/margin/split trước truth | Documentary/freeze | D25(ii)/thiết kế A do tác giả chọn DL-057; không suy tự fit | [L3.6](../results/lessons/l3_6/freeze_report.md) |
+| EV-53 | A05-T 10ô mở, PC4 WEAKEN/FALSIFY, K5 bác R04, C1 đứng | E1 confirmation trong plant | AI chạy theo ủy quyền DL-059; không kỳ vọng tác giả trước run | [L3.7](../results/lessons/l3_7/report.md), [verdict](../results/A05_test/20261028_01/verdict.json) |
+| EV-54 | L3.8 audit/link/hashes/rescore/391tests; Gate REFORMULATE/closeout/proposalv1.3 | Documentary + verification sau dữ liệu | Nhãn do tác giả chọn DL-061; hai mục AI soạn theo ủy quyền, không human review/Understanding | [Gate A](phases/PHASE_3_gate.md), [report](../results/lessons/l3_8/report.md) |

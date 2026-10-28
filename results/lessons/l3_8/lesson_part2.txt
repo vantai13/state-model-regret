@@ -1,0 +1,185 @@
+# Lesson 3.8 · Part 2: Gate note, DL, closeout và trạng thái Phase 4
+
+Part 1 đã giúp bạn thu hẹp lựa chọn xuống NARROW hoặc REFORMULATE. Part 2 lo phần còn lại: biến lựa chọn đó thành những file mà một người đọc sau này có thể kiểm lại.
+
+### Gate note: `notes/phases/PHASE_3_gate.md` (tối đa 2 trang)
+
+Gate note không phải báo cáo. Report A05-T đã dài 160 dòng, nên gate note chỉ cần **link tới** report đó, không chép lại. Hãy coi gate note như phần mục lục kèm một quyết định. Dưới đây là khung tôi soạn. Plan cho phép AI soạn khung; các ô ⟨…⟩ là phần bạn tự điền.
+
+```markdown
+# Phase 3 — Gate A
+> 2026-10-__ · Doan Van Tai · contract-v1.2
+> Provenance: ⟨tác giả viết / author-attested / AI soạn, tác giả duyệt / AI theo ủy quyền⟩
+
+## 1. Validity (§17.1)
+| ID | Trạng thái | Evidence |
+|---|---|---|
+| V3-1 Engine | ⟨⟩ | 391 test pass · report L3.2 |
+| V3-2 A01 | ⟨⟩ | report L3.4 |
+| V3-3 dt, sai số số | ⟨⟩ | DL chọn dt · A04 validity · A05-T validity_status.json |
+| V3-4 Thứ tự commit | ⟨⟩ | git log: card → A01; prereg → mỗi run |
+| V3-5 Không đổi luật sau khi thấy contrast | ⟨⟩ | decision log |
+| V3-6 Exposure | ⟨⟩ | exposure register (A01, A04, A05-T) |
+| V3-7 Card | ⟨⟩ | card_scores.csv |
+| V3-8 Prereg A05-F | ⟨⟩ | prereg.md · DL-057/058 |
+| V3-9 Held-out mở một lần | ⟨⟩ | DL-059 · output_hashes.json |
+| V3-10 Tái lập | ⟨⟩ | manifest A04, A05-T |
+| V3-11 Provenance | ⟨⟩ | phần đầu card, prereg, gate note |
+
+## 2. Điều kiện quy trình (§17.2), không ảnh hưởng nhãn
+(bảng bên dưới)
+
+## 3. Outcome (§17.3), mỗi dòng một câu kèm link
+O1 … O5
+
+## 4. Quyết định
+**Nhãn:** ⟨⟩ · **Claim duy nhất:** ⟨⟩ · **Miền:** ⟨⟩
+**Vì sao không phải các nhãn khác:** ⟨bảng loại trừ ở Part 1, kèm link⟩
+
+## 5. Bước tiếp theo
+Phase 4: ⟨⟩ · Việc đầu tiên: ⟨⟩
+```
+
+Bảng §17.2 có thể điền ngay, vì đó là các fact đang có trong repo:
+
+| Điều kiện | Trạng thái hiện tại | Ảnh hưởng |
+|---|---|---|
+| V9 | WAIVED_BY_AUTHOR | Rủi ro thời điểm chạy A04 đã được chấp nhận |
+| P0-V10 (người đọc độc lập) | OPEN | Chặn **thực thi** Phase 4 |
+| L8 | OPEN | Gate L tối đa là "GO có điều kiện" |
+| Lý do DL-038; §1–2 closeout Phase 1 và 2 | OPEN. Phase 2 có bản nháp AI, đã gắn nhãn "không phải lời tác giả" | Ownership |
+| X.3 #2 (tự dẫn công thức engine) | Engine vẫn ở `experiments/`, chưa đưa vào `src/` | Vị trí engine |
+| T05 author-writing, Understanding | OPEN | Ownership |
+| A05-T | AI chạy theo ủy quyền; không có kỳ vọng trước khi chạy | Không được viết "tôi đã dự đoán" |
+
+### Viết claim duy nhất
+
+Đây là câu khó nhất trong gate note. Một claim đủ chuẩn cho gate phải có bốn tính chất:
+- là **một câu**;
+- có **scope** rõ (mô hình, lưới, dt, danh sách ô);
+- có **link tới evidence**;
+- nói được **Phase 4 sẽ làm gì với nó**.
+
+Ví dụ một câu không đạt: "Phase 3 cho thấy state và model tương tác phức tạp." Câu này không có scope, không kiểm chứng được, và không dẫn tới hành động nào.
+
+Hình dạng của claim cho mỗi nhãn còn lại (tôi chỉ đưa khung, nội dung là của bạn):
+- **NARROW:** "Trong mô hình v1.2, trên ⟨danh sách ô⟩ ở dt 1/240, ⟨điều đứng⟩. Ngoài mẫu: ⟨điều đã kiểm và kết quả⟩. Phase 4 chỉ kiểm ⟨phần còn lại⟩."
+- **REFORMULATE:** "Trong thiết kế một observation mỗi ô, ⟨estimand⟩ không biểu diễn được ⟨phần của Main RQ⟩, vì ⟨evidence⟩. Contract v1.3 cần ⟨thay đổi tối thiểu⟩ trước Phase 4."
+
+Nếu bạn dùng lập luận "ô lật / ô không lật" ở Part 1 để làm căn cứ, hãy ghi rõ nguồn gốc của từng mảnh:
+- **Phần dẫn chứng là fact từ định nghĩa:** G_M > 0 ⇔ lật; Γ < 0 ⇒ lật.
+- **Phần đếm ô** dựa trên a00/a01, là diagnostic **đã khai trước** ở DL-059.
+
+Cả hai đều không phải verdict. Đừng chạy thêm phân tích mới trên 10 ô đã mở để biện minh cho nhãn. Những ô đó giờ là dữ liệu đã thấy, nên mọi phân tích mới trên chúng đều là post-discovery.
+
+### Dòng DL cho Gate A
+
+Một dòng DL, cho một quyết định thật (đây là ER1, chống phình quy trình). Dòng đó cần ghi:
+- nhãn và claim duy nhất;
+- link tới gate note;
+- điều kiện §18 nào đã được áp, và vì sao các nhãn khác bị loại;
+- trạng thái Phase 4;
+- nhãn provenance;
+- tài liệu nào phải đổi theo.
+
+Nếu nhãn là REFORMULATE, dòng DL phải nói rõ rằng contract v1.3 cần có trước Phase 4. Nếu là NARROW, dòng DL phải nói rõ miền nào bị thu lại.
+
+### Closeout: `notes/phases/PHASE_3_closeout.md` (template §21)
+
+Phần lớn closeout có thể lấy từ những thứ đã có:
+- *Decisions made:* liệt kê các DL của Phase 3.
+- *Evidence created:* E0/E1 trong mô hình đã khai báo, và ghi rõ "không có network evidence".
+- *Assumptions still open:* template đã liệt kê sẵn, gồm AS1–AS9, một observation mỗi ô, lưới chọn gần ranh giới, D13 và D21.
+- *What I am / am NOT allowed to claim:* lấy từ report L3.7 và claim boundary.
+
+AI có thể soạn những phần này, với nhãn "AI soạn, tác giả duyệt". Nhãn đó chỉ đúng **sau khi** bạn đã thật sự đọc.
+
+Hai mục đầu thì khác. Template ghi rõ "Không ủy quyền được", vì hai mục này là phép thử duy nhất cho câu hỏi: nghiên cứu này có nằm trong đầu bạn không? Khi bảo vệ, người ta sẽ hỏi đúng những câu đó, và lúc ấy không có ai đứng sau trả lời thay bạn.
+
+Cách viết trong khoảng 30 phút: đóng hết tài liệu, viết tay hoặc gõ thẳng, chấp nhận sai.
+- **What I understood** (5–10 câu). Gợi ý thứ tự, không phải đáp án:
+  1. Main RQ bằng lời của bạn.
+  2. A04 cho thấy gì.
+  3. A05-T kiểm cái gì và ra kết quả gì.
+  4. Vì sao 0,247 không phải SUPPORT.
+  5. Hai chế độ "lật / không lật" nói gì về G_M và Γ.
+  6. Phase 3 chưa chứng minh được điều gì.
+- **What changed in my mental model.** Viết 2–4 dòng theo dạng "Trước Phase 3 tôi nghĩ … ; bây giờ tôi nghĩ … ; vì evidence …". Những chỗ đáng tự hỏi: trước đây bạn kỳ vọng gì về H1, về K5, và về ý nghĩa của Γ?
+
+Câu sai trong hai mục này có giá trị hơn câu đúng do người khác viết, vì câu sai chỉ ra đúng chỗ cần học lại.
+
+**Một điều tôi nói thẳng, không nhằm phán xét.** Hai mục này hiện đang trống ở closeout của cả Phase 1 lẫn Phase 2. L3.7 thì do AI chạy theo ủy quyền. Từng việc riêng lẻ đều được ghi trung thực và không ảnh hưởng validity. Nhưng gộp lại, chúng thành đúng cái bẫy #13 của plan: "để AI viết, rồi tự coi là đã hiểu". Cách nhỏ nhất để bắt đầu sửa: viết hai mục cho Phase 3 ngay bây giờ. Với các phase trước, có thể để OPEN một cách trung thực.
+
+### Các cập nhật còn lại, giữ ở mức nhỏ
+
+- **Brief:** chỉ sửa nếu nhãn làm đổi estimand hoặc RQ (trường hợp REFORMULATE).
+- **Claim boundary:** cập nhật trạng thái PC4, PC5/K5, C1 (phần lớn đã có từ DL-060).
+- **README:** cập nhật khối con trỏ.
+
+### Trạng thái Phase 4 và tag
+
+P0-V10 đang OPEN, nên thực thi Phase 4 vẫn **HOLD, dù nhãn là gì**. Có ba lối ra hợp lệ:
+1. Giữ HOLD.
+2. Có một người đọc độc lập. Không nhất thiết phải là giảng viên hướng dẫn.
+3. Ghi một dòng DL đổi điều kiện, kèm lý do trung thực.
+
+**Việc học** Phase 4 không bị chặn.
+
+Tạo tag chỉ sau khi closeout đã được commit, và không dùng `-f`:
+
+```bash
+git tag -a phase-3-closeout -m "Phase 3 closeout: Gate A = <nhãn>; xem notes/phases/PHASE_3_gate.md"
+git push origin phase-3-closeout
+```
+
+### Verification
+
+- Mọi claim trong gate note đều có link.
+- Nhãn khớp với bảng loại trừ theo §18.
+- Một người đọc gate note nói lại được bước tiếp theo.
+
+Khi bạn push, tôi có thể kiểm phần link và tính nhất quán. Còn việc người đọc có nói lại được bước tiếp theo hay không chỉ kiểm được bằng một người thật đọc.
+
+### Ý nghĩa của nhãn, và điều nhãn không chứng minh
+
+Nhãn chỉ nói Phase 4 được làm gì, với claim nào, trong miền nào. Nó không nói gì thêm:
+- GO không có nghĩa hypothesis đúng.
+- NARROW không có nghĩa thất bại một phần.
+- REFORMULATE không có nghĩa thiết kế sai. Nó có nghĩa evidence đã làm câu hỏi sắc hơn.
+- PIVOT không có nghĩa thất bại.
+- HOLD không có nghĩa hướng nghiên cứu sai.
+
+### ⚠️ Bẫy người mới
+- Chọn nhãn theo lịch, hoặc vì Phase 4 "vui hơn".
+- Gate note dài như một bài báo, chép lại report thay vì link.
+- Trộn điều kiện quy trình vào bảng validity.
+- Tạo tag trước khi commit closeout.
+- Chạy phân tích mới trên các ô đã mở để "đỡ" cho nhãn.
+- Gắn nhãn "author-attested" cho văn bản bạn chưa đọc kỹ.
+
+### 🧠 Tư duy researcher
+
+Đóng một phase là biến kết quả thành **một quyết định** cộng **một câu bạn tự bảo vệ được**. Gate note kiểm phần quyết định. Hai mục tự viết kiểm phần "tự bảo vệ được". Hai mục đó trông giống thủ tục nhất, nhưng thực ra là phần khoa học nhất của closeout.
+
+### Self-check (tùy chọn)
+1. Validity nào bắt buộc phải đạt trước khi diễn giải bất kỳ outcome nào?
+2. Vì sao "H0 đủ tốt" dẫn tới PIVOT mà không phải DROP?
+3. Nếu P0-V10 chưa đạt nhưng Gate A = GO, bạn làm gì tiếp?
+
+---
+
+### Lesson Gate: L3.8
+- **Understanding:** phân biệt được validity, điều kiện quy trình và outcome; nhãn HOLD khác "Phase 4 HOLD"; lập luận loại trừ bằng §18; sự khác nhau giữa NARROW và REFORMULATE; vì sao hai mục đầu closeout không ủy quyền được.
+- **Recommended execution:**
+  1. Điền §17.1 và §17.3.
+  2. **Tự** chọn nhãn và viết claim duy nhất.
+  3. Viết gate note.
+  4. Ghi dòng DL.
+  5. Viết closeout, hai mục đầu do bạn tự viết.
+  6. Cập nhật claim boundary và README.
+  7. Ghi trạng thái P0-V10.
+  8. Tạo tag.
+- **Scientific dependency:** Nếu nhãn là REFORMULATE, bước tiếp theo là contract v1.3, không phải Phase 4. Nếu là NARROW, Phase 4 chỉ được kiểm phần còn lại. Theo §22, các ô held-out đã mở ở A05-T không còn sạch cho các phase sau.
+- **Can I study next?** Yes. Học Phase 4 không bị chặn. Lưu ý rằng `PHASE_4.md` chưa được viết, vì plan để viết "khi tới".
+
+Phase 3 kết thúc ở đây trong track học. Khi bạn đã chọn nhãn và push, tôi có thể kiểm gate note.

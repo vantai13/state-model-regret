@@ -186,3 +186,23 @@ cho nominalzero. Không dùng heuristic độc lập như xác suất thật.
 - **C1:** G_M/C_ref ≤ 0,5% đứng ở R05–R08. Luật post-discovery, base rate cao; không claim
   cho vùng tọa độ liên tục.
 - **Chưa kiểm:** trục h = 4 s (R09/R10 niêm phong). Không network evidence, không cơ chế, không G2.
+
+### Tổng hợp L3.8 — 28/10/2026, Gate A REFORMULATE (DL-061)
+
+AI soạn tổng hợp, nhãn do tác giả chọn trực tiếp. [Gate A](phases/PHASE_3_gate.md)
+và [closeout](phases/PHASE_3_closeout.md) giữ PC4 WEAKEN/FALSIFY, K5 bị bác R04,
+C1 đứng bốn ô; không đổi nhãn prior, card, D18/D19 hoặc ngưỡng đã khóa.
+
+- T01 chính xác là GM=|EΔ|·1[action khác]; action khác không đảm bảo GM>0 nếu EΔ=0.
+- Cấu trúc một observation không tự phủ nhận ý nghĩa factorial interaction D19 của Γ;
+  cũng không chứng minh cơ chế. Không tự REFORMULATE Main RQ theo một nhận xét lesson.
+- C1 được khóa trước A05-T nên là kiểm held-out hợp lệ; evidence hạn chế bởi n=4,
+  base rate cao và scope hẹp, không chỉ vì nguồn gốc sau discovery.
+- εE là ngưỡng equivalence cho gain, không tiêu chí accuracy tuyệt đối của H0/H1.
+- 10 ô R đã mở là dữ liệu đã thấy cho các phase sau; R09/R10 chưa mở không được tự
+  dùng để cứu model/claim sau khi thấy kết quả. Học Phase4 được; thực thi vẫn HOLD tới P0-V10.
+
+[Đối chiếu và dẫn chứng](lessons/L3.8_evidence_review.md). Khuyến nghị NARROW trước đó
+không được adopt; tác giả chọn REFORMULATE để chuẩn bị estimand nhiều observations.
+Một claim chính thức của Gate ở gate note; [v1.3 proposal](01_definitions_v1_3_draft.md)
+chưa là contract và không thay kết quả/estimand v1.2. Không nâng G1 hoặc ownership.

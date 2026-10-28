@@ -1,0 +1,172 @@
+{
+  "responsible": "Doan Van Tai",
+  "review_provenance": "AI-assisted review requested by author; not human supervisor review",
+  "audited_HEAD": "ec022d1de4aebc5761d10df558d06b186c963547",
+  "review_utc": "2026-10-28T04:45:31.143793+00:00",
+  "original_run": "results/A05_test/20261028_01",
+  "engine_rerun": false,
+  "checks": {
+    "output_sha256": {
+      "matched": 29,
+      "failed": 0
+    },
+    "console_sha256": "PASS",
+    "frozen_and_runner_source_sha256": {
+      "matched": 22,
+      "failed": 0
+    },
+    "prediction_and_discrimination_sha256": "PASS",
+    "raw_equals_grading_input_levels": 20,
+    "registered_ids_dt_reference_numeric_gates": "PASS",
+    "adjacent_dt_pairs_passed": 10,
+    "max_pair_change_fraction_Cref": 0.00011699813454494464,
+    "recorded_public_psw_bitwise_matches": 20,
+    "independent_MAE0_MAE1_paired_d_and_verdict": "PASS",
+    "independent_K5_C1_and_headroom_labels": "PASS",
+    "sealed_outcomes_absent_in_audited_run": [
+      "R09",
+      "R10"
+    ],
+    "freeze_runner_decision_run_output_chronology": "PASS",
+    "engine_card_A01_A04_unchanged": "PASS"
+  },
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "43",
+    "time": "1.697",
+    "timestamp": "2026-10-28T11:38:26.709947+07:00",
+    "hostname": "vantai"
+  },
+  "run_wall_s": 22.644345921999957,
+  "chronology": [
+    {
+      "commit": "5f201030cebec0f916ef5db7625ca86c7e11833c",
+      "committed_at": "2026-10-28T07:51:59+07:00"
+    },
+    {
+      "commit": "72903b71b757edee559ed27b8af8ec7c70dfd151",
+      "committed_at": "2026-10-28T08:31:28+07:00"
+    },
+    {
+      "commit": "146169d185d22e24b22bf0f0af42366ed6a6a532",
+      "committed_at": "2026-10-28T08:32:50+07:00"
+    },
+    {
+      "commit": "e719157c2f55a5cff2163bb73ef09a31a3483f7e",
+      "committed_at": "2026-10-28T08:34:25+07:00"
+    },
+    {
+      "commit": "ec022d1de4aebc5761d10df558d06b186c963547",
+      "committed_at": "2026-10-28T08:38:38+07:00"
+    }
+  ],
+  "margin_pp": 0.25,
+  "PC4": {
+    "interpolation": {
+      "cells": 8,
+      "scalar_entries": 24,
+      "verdict": "WEAKEN",
+      "d_exact": [
+        "2837433815478480678616654688866923672658510946848264099962728146052584694268841121869012755476155863900026581691/1148593303753010307151816707128087623822870685762906458293872129773973653067759015546098232364000000000000000000000",
+        "42991421464347085364028444749587643835767230462148533404228505413412510708340237343721616281686807161343993193/17402928844751312786059017677413274685970381163987708756049124774787243187748297946932681572000000000000000000000"
+      ],
+      "d_pp": [
+        0.24703555263705707,
+        0.2470355527386599
+      ],
+      "MAE0_pp": [
+        0.6896435208700816,
+        0.6897084759275637
+      ],
+      "MAE1_pp": [
+        0.44260796818222314,
+        0.4426729232397052
+      ]
+    },
+    "extrapolation": {
+      "cells": 2,
+      "scalar_entries": 6,
+      "verdict": "FALSIFY",
+      "d_exact": [
+        "-1701006573314989/1200000000000000000",
+        "-1701006573314989/1200000000000000000"
+      ],
+      "d_pp": [
+        -0.14175054777624907,
+        -0.14175054777624907
+      ],
+      "MAE0_pp": [
+        2.0461994634866003,
+        2.046683618656963
+      ],
+      "MAE1_pp": [
+        2.1879500112628496,
+        2.1884341664332116
+      ]
+    }
+  },
+  "rules": {
+    "K5": {
+      "verdict": "DOES_NOT_STAND",
+      "cells": {
+        "R03": {
+          "verdict": "STANDS",
+          "headroom_label": "STANDS_HEADROOM_LIMITED",
+          "GM_percent_Cref_interval": [
+            -3.143349471671677e-11,
+            3.143349471671677e-11
+          ]
+        },
+        "R04": {
+          "verdict": "DOES_NOT_STAND",
+          "headroom_label": "NOT_STANDING_OR_UNRESOLVED",
+          "GM_percent_Cref_interval": [
+            0.5279263770143438,
+            0.5279263770692705
+          ]
+        }
+      }
+    },
+    "C1": {
+      "verdict": "STANDS",
+      "cells": {
+        "R05": {
+          "verdict": "STANDS",
+          "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+          "GM_percent_Cref_interval": [
+            -8.912111984843527e-11,
+            8.912111984843527e-11
+          ]
+        },
+        "R06": {
+          "verdict": "STANDS",
+          "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+          "GM_percent_Cref_interval": [
+            -6.836135759762591e-11,
+            6.836135759762591e-11
+          ]
+        },
+        "R07": {
+          "verdict": "STANDS",
+          "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+          "GM_percent_Cref_interval": [
+            -1.1572903661210215e-10,
+            1.1572903661210215e-10
+          ]
+        },
+        "R08": {
+          "verdict": "STANDS",
+          "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+          "GM_percent_Cref_interval": [
+            -8.10544038227611e-11,
+            8.10544038227611e-11
+          ]
+        }
+      }
+    }
+  },
+  "scope_limit": "Saved files, committed history and targeted tests only; not proof of actions outside repo or unconditional engine validity."
+}

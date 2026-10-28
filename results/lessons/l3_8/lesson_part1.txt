@@ -1,0 +1,125 @@
+## Phần A: Kết quả kiểm tra A05-T (HEAD `ec022d1`)
+
+A05-T hợp lệ về kỹ thuật. Tôi tự viết một bộ chấm thứ ba, chỉ đọc `grading_input.json` và file dự báo đã khóa. Bộ chấm này ra đúng các verdict trong report.
+
+| Mục kiểm | Kết quả |
+|---|---|
+| Thứ tự commit (giờ +07) | Runner 08:31:28 → quyết định 08:32:50 (DL-059, exposure, claim sheet và `decision.json` cùng một commit) → run bắt đầu 08:33:04 → commit output 08:34:25 → report 08:38:38. Đúng thứ tự |
+| Gate trong runner | Kiểm chuỗi freeze, kiểm decision là hậu duệ của freeze, assert đúng danh sách 10 ô trước khi gọi engine, thư mục output phải rỗng, hash nguồn đã đăng ký |
+| R09/R10 | Không có file nào. Chữ "R10" trong output là tên regret, không phải ô |
+| Output hashes | 29/29 khớp |
+| Validity | p_sw khớp 20/20, 20/20 BOUNDED, 10/10 cặp dt STANDS |
+| Test suite | 391 pass |
+| Chấm lại độc lập (code của tôi) | Nội suy: **WEAKEN**, d = 0,24704 điểm %. Khoảng sai số rộng 10⁻¹⁰, còn khoảng cách tới margin là 0,00296, nên verdict không thể do sai số số. Ngoại suy: **FALSIFY**, d = −0,14175. K5: R04 có G_M/C_ref = 0,5279% ở dt mịn, 0,5283% ở dt thô, cả hai vượt 0,5% → bác. C1: G_M = 0 ở cả 4 ô |
+| Đóng góp theo ô | R01 góp 0,1767 trên tổng 0,2470 của d, khớp con số "≈72%" trong report |
+
+Có hai điều git không chứng minh được, nên tôi nói rõ:
+- Tôi không loại trừ được khả năng đã có một lần chạy thử bị xóa trên máy trước khi commit. Mọi dấu hiệu đều khớp với đúng một lần chạy: run_id `_01`, run bắt đầu 14 giây sau commit quyết định, và danh sách hash đầy đủ. Đây là suy luận, không phải bằng chứng.
+- DL-059 ghi trung thực rằng A05-T do AI thực hiện theo ủy quyền, và phần kỳ vọng của tác giả để trống. Phần kỳ vọng trước run giờ **không bổ sung được nữa**: nếu viết bây giờ, nó phải ghi giờ thật và mang nhãn "sau dữ liệu". Điều này không ảnh hưởng validity, nhưng nó thuộc bảng điều kiện quy trình (§17.2) của L3.8.
+
+Ở L3.8, plan ghi hai việc **không ủy quyền được**: chọn nhãn Gate A, và viết hai mục đầu của closeout.
+
+---
+
+## Phần B: Lesson 3.8 · Part 1 — Gate A
+
+**Bức tranh lớn.** Đây là lần đầu toàn bộ evidence của Phase 3 phải dồn về một quyết định. Quyết định đó gồm ba phần: một nhãn, một claim gắn với nhãn, và trạng thái của Phase 4. Gate tồn tại để chặn việc trôi sang phase sau theo quán tính. Bài học ngày 01/10 trong MASTER PLAN là ví dụ: nhãn "GO" từng tồn tại song song với kết luận "chưa đạt SESOI", vì nhãn và claim không được gắn chặt với nhau.
+
+**Câu hỏi của lesson:** với evidence đang có, nhãn nào trung thực, và nhãn đó gắn vào **đúng một** claim nào?
+
+**Mental model.** Ba bảng tách riêng, chỉ một bảng quyết định nhãn:
+
+```
+§17.1 Validity: phép đo có đáng tin không?
+   ├── trượt → nhãn HOLD (sửa đúng điều kiện đó, không cần outcome mới)
+   ▼ đạt
+§17.3 Outcome: evidence nói gì?  ──►  luật §18  ──►  MỘT nhãn + MỘT claim + miền
+
+§17.2 Điều kiện quy trình (P0-V10, L8, các mục tác giả tự viết, ủy quyền…)
+   └── không đổi nhãn. Nó quyết định Phase 4 có được THỰC THI không,
+       và bạn được nói gì về ownership
+```
+
+### Khái niệm 1: Validity khác outcome
+
+Hình dung một nhiệt kế. Nhiệt kế đã được kiểm định là chính xác: đó là validity. Nhiệt kế đọc 39°: đó là outcome. Bạn không "trượt kiểm định" chỉ vì đọc ra số mình không thích.
+
+Với A05-T, phần validity đã đạt: 20/20, các cặp dt đứng, chấm lại khớp. Các kết quả WEAKEN, FALSIFY và "K5 bị bác" là outcome. Chúng không làm gate "thất bại". Chúng chỉ quyết định nhãn nào áp dụng.
+
+**Bẫy dễ nhầm nhất ở đây là chữ HOLD.** Nhãn Gate A **HOLD** nghĩa là có một điều kiện validity chưa đạt. Còn câu "Phase 4 HOLD tới P0-V10" đang có trong repo là một trạng thái **quy trình**. Hai thứ trùng chữ nhưng khác loại. Nhãn Gate A có thể là bất cứ gì trong khi Phase 4 vẫn HOLD.
+
+### Khái niệm 2: Điều kiện quy trình là bảng riêng
+
+Những điều kiện này do bạn tự đặt ra. Chúng không làm con số nào đúng hay sai. Theo repo hiện tại:
+
+| Điều kiện | Trạng thái |
+|---|---|
+| V9 | WAIVED_BY_AUTHOR |
+| P0-V10, L8 | OPEN |
+| T05 author-writing, Understanding | OPEN |
+| A05-T | Do AI chạy theo ủy quyền. Kỳ vọng trước run: không có |
+| Lý do DL-038, §1–2 closeout Phase 1/2, X.3 #2 | Tôi chưa kiểm, bạn cần tự điền |
+
+Bảng này chỉ trả lời hai câu: bạn có được nói "tôi bảo vệ được thiết kế này" không, và Phase 4 có được thực thi không. Nó không được trộn vào bảng validity.
+
+### Khái niệm 3: Hai chế độ của một ô, chìa khóa để đọc Phase 3
+
+Trong thiết kế một-observation, mỗi ô chỉ có một quyết định cho mỗi model ở S0. Vì vậy chỉ có hai khả năng.
+
+**Ô không lật (a00 = a01).** M0 và M1 chọn cùng một action, nên L00 = L01. Từ đó:
+- G_M = 0 chính xác.
+- Γ = L10 − L11 ≥ 0, vì oracle không thể thua chính sách nào.
+
+**Ô lật (a00 ≠ a01).** Khi đó G_M = |EΔ| > 0, và Γ có thể âm.
+
+Suy ra hai mệnh đề, đúng theo định nghĩa (fact):
+- G_M > 0 ⇔ ô lật;
+- Γ < 0 ⇒ ô lật.
+
+Dữ liệu khớp đúng như vậy:
+- A04: các ô lật là M01, M03, M20, M22.
+- A05-T: các ô lật là R01, R04, R11.
+- Γ < 0 chỉ xuất hiện ở M01, M03, R01, R11. Không có trường hợp nào Γ âm ở ô không lật.
+
+Nhìn qua lăng kính này, cả ba kết quả của A05-T trở nên đơn giản:
+- **K5 bị bác** vì R04 là ô lật có |EΔ|/C_ref = 0,53%. Trong miền K5 ở main cũng có ô lật cùng kiểu (M0 chọn Stay khi đáng ra phải Switch), nhưng cái giá rất nhỏ: M20 0,074%, M22 0,025%. Vì vậy K5 đứng ở main rồi gãy ở held-out.
+- **C1 đứng** vì R05–R08 không có ô nào lật, nên G_M = 0 về cấu trúc. Nó không cho thấy "M0 xấp xỉ tốt" theo nghĩa có mức độ.
+- **PC4**: 72% lợi thế của H1 đến từ R01. Đó là ô lật duy nhất H1 đoán là lật. Cả hai model bỏ sót cú lật ở R04 và R11, và không model nào dự báo được Γ âm.
+
+Suy luận (chưa phải fact): phần thông tin thật của Phase 3 tập trung gần như hoàn toàn ở các ô lật.
+
+### Khái niệm 4: Đối chiếu §18 với kết quả thật
+
+| Nhãn | Điều kiện §18 | Evidence | Đạt? |
+|---|---|---|---|
+| GO (a) | Một prediction phân biệt được H1 với H0 và không bị bác | Nội suy WEAKEN (không đạt margin đã khóa); ngoại suy FALSIFY | Không |
+| GO (b) | Một equivalence đóng băng đứng ở A05-T, **có vế relevance** | K5 bị bác. C1 đứng, nhưng khóa sau A04, không có vế Q, và đứng chỉ nhờ không có ô lật | Không |
+| HOLD | Một điều kiện validity chưa đạt | Audit không thấy lỗi nào (bạn vẫn phải tự điền §17.1) | Tạm thời: không |
+| PIVOT | H0 đủ tốt trên mọi gain held-out, hoặc G_M ≈ 0 ở mọi nơi có thể lật | MAE0 = 0,69 và 2,05, đều > εE = 0,5. G_M = 1,98% ở R01, 3,82% ở R11 | Không |
+| DROP | Có evidence chết người | R00/C_ref lên tới 4,09% ở R01 và 6,12% ở R11, lớn hơn εR = 1% | Không |
+
+Sau khi loại trừ, còn lại **NARROW** hoặc **REFORMULATE**. Đây là lựa chọn thật của bạn, nên tôi trình bày lập luận mạnh nhất cho mỗi bên.
+
+**Lập luận cho NARROW.** Claim vẫn đứng, chỉ trong miền nhỏ hơn: các claim của card đứng ở mức danh sách ô (A04), nhưng chưa có gì được xác nhận ngoài mẫu. §18 liệt kê đúng tình huống "card chỉ đứng trên danh sách ô, chưa có kiểm ngoài mẫu" làm ví dụ cho NARROW. Theo hướng này, Phase 4 giữ nguyên estimand và chỉ kiểm phần còn lại. Điểm yếu: nếu estimand không đổi, Phase 4 có thể chỉ tái tạo các kết quả do ô lật chi phối, ở quy mô lớn hơn.
+
+**Lập luận cho REFORMULATE.** §18 viết gần như nguyên văn tình huống này: "G_M là bậc thang 0/|EΔ| ở mọi ô, nên Γ không mang thông tin về 'interact' trong thiết kế một-observation". Khái niệm 3 cho thấy chữ "interact" trong Main RQ, ở thiết kế hiện tại, rút gọn thành các sự kiện lật. Theo hướng này, cần một contract mới (nhiều observation mỗi ô) trước Phase 4. Điểm yếu: bổ đề T01 về bậc thang đã có từ trước Phase 3, nên reviewer sẽ hỏi "sao không đổi từ đầu?". Câu trả lời trung thực: định lý thì đã biết, cái mới là evidence cho thấy prediction và luật sống hay chết hoàn toàn theo cú lật.
+
+**Câu hỏi quyết định:** nếu Phase 4 có simulator với horizon dài hơn nhưng **vẫn một observation mỗi ô**, nó có trả lời được chữ "interact" trong Main RQ không? Nếu có thì nghiêng về NARROW. Nếu không thì nghiêng về REFORMULATE.
+
+Có hai chỗ lệch giữa plan và kết quả thật:
+1. Plan đưa ví dụ "H1 thắng ở nội suy, gãy ở ngoại suy → NARROW". Kết quả thật là WEAKEN, không phải "H1 thắng", nên ví dụ này không áp dụng nguyên văn được.
+2. Plan §16 ghi "Một negative hoặc equivalence claim… cũng qua được gate". Nhưng §18 chỉ cho GO qua (a) hoặc (b). Tôi đề xuất hiểu câu ở §16 theo nghĩa: một negative result vẫn cho ra một nhãn hợp lệ kèm claim, chứ không tự động thành GO. "K5 bị bác ở R04" là knowledge thật, nhưng nó là một refutation, không phải một equivalence đứng vững.
+
+### ⚠️ Bẫy người mới
+- Đọc d = 0,247 thành "suýt GO". Margin được khóa trước chính là để chặn cách đọc này.
+- Nhầm nhãn HOLD với "Phase 4 HOLD".
+- Gắn hai nhãn cho hai claim liền kề, kiểu "NARROW cho K5, REFORMULATE cho Γ".
+- Dùng C1 làm căn cứ cho GO (b).
+- Chọn nhãn trước rồi mới đi tìm lý do.
+
+### 🧠 Tư duy researcher
+Nhãn gate không phải điểm số chấm cho quá khứ. Nó là một câu nói về hành động tiếp theo. Câu cần hỏi không phải "Phase 3 thành công hay thất bại", mà là "nhãn này cho phép Phase 4 làm gì, với claim nào, trong miền nào?".
+
+---
+
+Part 2 sẽ hướng dẫn viết gate note (tối đa 2 trang), dòng DL cho Gate A, closeout theo template §21 (gồm cách tự viết hai mục đầu), cập nhật brief, claim boundary và README, trạng thái P0-V10, tag `phase-3-closeout`, rồi đến Lesson Gate. Tôi dừng ở đây.

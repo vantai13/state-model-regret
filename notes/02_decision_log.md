@@ -914,3 +914,32 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
 - Deviations: không có. 10 ô đã mở nay là dữ liệu đã thấy. Nhãn Gate A dành cho tác giả ở L3.8;
   dòng này không chọn nhãn. Phase 4 HOLD tới P0-V10; L8, T05 author-writing và Understanding OPEN.
   [Report](../results/lessons/l3_7/report.md) · [số đo](../results/lessons/l3_7/verification.json).
+
+### DL-061 — Gate A REFORMULATE và closeout Phase 3 theo ủy quyền (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả chọn nguyên văn **“REFORMULATE — chuẩn bị
+  thiết kế mới”**, thay khuyến nghị NARROW ban đầu của AI; [record nguyên văn/timestamp](phases/PHASE_3_author_decision.json).
+- **Một nhãn: REFORMULATE. Một claim:** Trong contract v1.2 một observation cố định
+  mỗi ô ở dt 1/240 s, estimand có điều kiện và các kết quả A04/A05-T chưa xác nhận
+  một quy luật dự báo khái quát, nên theo quyết định REFORMULATE của tác giả, contract
+  mới phải định nghĩa gain/Γ trung bình trên một phân phối observations trước khi
+  thực thi Phase 4.
+- Scope evidence:38main A04 và10R đã mở; [Gate note](phases/PHASE_3_gate.md) link từng
+  validity/outcome. Theo khung§18 của lesson: GO(a)/(b) không đạt, không có lỗi validity
+  buộc HOLD, chưa đủ PIVOT/DROP; NARROW là phương án giữ estimand tác giả không chọn.
+  Không suyΓvô nghĩa hoặc bắt buộc đổi thiết kế từ T01; ghi đúng ngoại lệ EΔ=0.
+- Tác giả yêu cầu **“tôi yêu cầu bạn hãy đóng vai là tôi và ghi cho tôi đây là yêu cầu”**
+  đối với hai mục closeout. Yêu cầu này thay quy tắc khôngủyquyền của lesson cho việc
+  soạn/đóng hồ sơ: AI viết ngôi “tôi” có provenance rõ. Không ghi thành bài tự viết,
+  kỳ vọng trước run, human review hoặc author-attested Understanding. Ownership vẫn OPEN.
+- [Contractv1.3 proposal](01_definitions_v1_3_draft.md) và [brief proposal](00_research_brief_v1_3_draft.md)
+  chỉ DRAFT: cần chốt joint law P(Y,X), support/tail/weights, normalization, grid,
+  metric/margin/models/budget và split mới trước computation. Không tự khóa contract,
+  không đổi D13/D21/engine/card hoặc estimand của kết quả v1.2, không rerun held-out.
+- **Phase4 thực thi HOLD tới P0-V10 và contract mới được khóa.** Được học/chuẩn bị tiếp.
+  V9 WAIVED_BY_AUTHOR chỉ cho memo trước A04; L8/T05/Understanding và các mục tự viết
+  Phase1/2 không tự đóng.10ôR đã mở là dữ liệu đã thấy; R09/R10 vẫn niêm phong.
+- [Closeout](phases/PHASE_3_closeout.md), claim boundary, README/current pointers,
+  index/exposure/inventory/progress được cập nhật. Full suite local391/391 PASS;
+  [audit/log](../results/lessons/l3_8/report.md) kiểm nguồn/hash/chấm lại/link.
+  Commit closeout trước tag `phase-3-closeout`, không force; tag không nhận ownership PASS.

@@ -232,6 +232,24 @@ Run `e719157`: p_sw 20/20, validity 20/20, 10/10 cặp dt STANDS, rescore độc
 | K5 | **DOES_NOT_STAND** ở R04 (G_M/C_ref 0,528%) |
 | C1 | **STANDS** ở R05–R08 (bằng chứng yếu) |
 
-R09/R10 niêm phong; trục h = 4 s chưa kiểm. Tiếp theo: **L3.8 Gate A**, nhãn do tác giả chọn.
+R09/R10 niêm phong; trục h = 4 s chưa kiểm. Khi kết thúc L3.7: nhãn Gate A chờ tác giả;
+quyết định L3.8 hiện tại ở §18 bên dưới.
 Phase 4 HOLD tới P0-V10; L8, T05 author-writing và Understanding OPEN.
 [Report](../../results/lessons/l3_7/report.md) · [completion](A05_T_completion.json).
+
+## 18. L3.8 — Gate A REFORMULATE, DL-061
+
+[Gate note](PHASE_3_gate.md), [closeout](PHASE_3_closeout.md),
+[handoff tác giả](../lessons/L3.8_author_handoff.md) và
+[audit](../../results/lessons/l3_8/report.md) tách validity, quy trình và outcome.
+391 tests toàn repo vừa kiểm lại PASS, không run outcome mới. Các §17–22 được
+tham chiếu từ hai lesson, không nhận đã có bản plan đầy đủ trong repo.
+
+Tác giả chọn REFORMULATE và yêu cầu AI viết ngôi “tôi” cho hai mục closeout. DL-061
+ghi một nhãn/claim và exception soạn hồ sơ; không ghi thành bài tự viết/Understanding.
+Chuẩn bị [contract v1.3 DRAFT](../01_definitions_v1_3_draft.md), chưa khóa và không thay
+estimand/kết quả v1.2. Commit closeout trước tag `phase-3-closeout`, không force.
+P0-V10/L8/T05 author-writing/Understanding OPEN; Phase4 thực thi HOLD tới P0-V10
+và contract mới khóa, học tiếp được.
+Chi tiết ngoại lệ hòa trong phát biểu ô lật và giới hạn Γ ở
+[evidence review](../lessons/L3.8_evidence_review.md).

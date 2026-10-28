@@ -2,6 +2,16 @@
 
 Tác giả: **Doan Van Tai**.
 
+**L3.8 — Gate A: REFORMULATE** (DL-061, 28/10/2026):
+391/391 tests toàn repo vừa kiểm lại PASS; validity/evidence và điều kiện quy trình
+được tách riêng. Tác giả chọn chuẩn bị thiết kế mới; hai mục closeout được viết ngôi
+“tôi” theo ủy quyền trực tiếp, **Understanding/ownership vẫn OPEN**.
+[Gate note](notes/phases/PHASE_3_gate.md) · [Closeout](notes/phases/PHASE_3_closeout.md) ·
+[Record tác giả](notes/phases/PHASE_3_author_decision.json) ·
+[Audit L3.8](results/lessons/l3_8/report.md). Bước tiếp: hoàn thiện
+[contract v1.3 DRAFT](notes/01_definitions_v1_3_draft.md) và [brief DRAFT](notes/00_research_brief_v1_3_draft.md).
+**Thực thi Phase 4 HOLD tới P0-V10 và contract mới được khóa**; học tiếp được.
+
 **L3.6/A05-F đã đóng băng** (DL-057–058): D25(ii), shared Gaussian H0/H1,
 12 hệ số/model, 2 candidates/bên, LOSO 20 lát. **369 tests PASS**; θ, features,
 predictions và luật chấm đã commit đúng thứ tự, source/SHA guard PASS.
@@ -14,8 +24,8 @@ Universe12 ô; A05-T mở **R01–R08,R11/R12**, R09/R10 niêm phong.
 **L3.7/A05-T đã chạy đúng một lần** (DL-059–060, 28/10/2026): validity 20/20, p_sw 20/20,
 chấm lại độc lập khớp. **PC4 nội suy WEAKEN** (d = 0,247 < m = 0,25 điểm % C_ref;
 MAE0 0,690, MAE1 0,443); ngoại suy h12 **FALSIFY** (d = −0,142); **K5 bị bác ở R04**
-(G_M/C_ref 0,528%); **C1 đứng** ở R05–R08 (post-discovery, bằng chứng yếu). Không SUPPORT,
-không cơ chế. Nhãn Gate A chờ tác giả ở L3.8. [Report L3.7](results/lessons/l3_7/report.md) ·
+(G_M/C_ref 0,528%); **C1 đứng** ở R05–R08 (khóa sau discovery/trước test; n=4, base rate cao). Không SUPPORT,
+không cơ chế. Gate A được tác giả chọn REFORMULATE ở L3.8. [Report L3.7](results/lessons/l3_7/report.md) ·
 [verdict](results/A05_test/20261028_01/verdict.json).
 
 [Report L3.6](results/lessons/l3_6/freeze_report.md) · [Audit](results/lessons/l3_6/freeze_verification.json) ·
@@ -23,14 +33,14 @@ không cơ chế. Nhãn Gate A chờ tác giả ở L3.8. [Report L3.7](results/
 [Biểu đồ](results/lessons/l3_6/freeze_diagnostics.png) · [Completion](notes/phases/A05_F_completion.json).
 
 **Trạng thái 28/10/2026:** Phase 2 GO có điều kiện (DL-043); Phase 3 đã hoàn tất
-kỹ thuật **L3.5/A04**. Contract `contract-v1.2` và prediction card `a03-card-v1`
+kỹ thuật tới **L3.7/A05-T**, L3.8 chốt REFORMULATE. Contract `contract-v1.2` và prediction card `a03-card-v1`
 giữ nguyên. **A04: 92/92 cell-level BOUNDED, 46/46 cặp dt đạt**, không HOLD/cờ dt;
 348 tests PASS. Primary dt=1/240 s theo DL-053, pair1/120→1/240 cho từng ô.
 
 **Card: P5 đứng; P2, P3, P6 không đứng.** K5 đạt4/4; Q5 có2/4 witness. Chấm và
 commit `7005a3b` trước discovery, kiểm tay độc lập hai ô khớp. Không xác nhận cơ chế.
 Đã xét5 phát biểu, giữ1 candidate C1 sau discovery; cả3 miền không bị cheap kill.
-K5 đã carry nguyên văn m=1 vào **A05-F**, C1 khóa sau A04; held-out outcomes chưa chạy.
+K5 đã carry nguyên văn m=1 vào **A05-F**, C1 khóa sau A04; kết quả held-out ở khối L3.7 phía trên.
 
 [Note A04](notes/lessons/L3.5_A04_note.md) · [report đầy đủ](results/lessons/l3_5/report.md) ·
 [kiểm chứng](results/lessons/l3_5/verification.json) · [38 ô cuối](results/A04/20261027_01/main_final.csv) ·
@@ -46,6 +56,8 @@ Bản hiện hành (28/10/2026):
   Brief / Claims: notes/00_research_brief_v1_2.md · notes/01_claim_boundary_v1_2.md
   Lưới:           notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
   Phase:          notes/phases/PHASE_3.md
+  Gate / Closeout: notes/phases/PHASE_3_gate.md · PHASE_3_closeout.md (REFORMULATE, ownership OPEN)
+  Proposal mới:   notes/01_definitions_v1_3_draft.md (CHƯA KHÓA, không thay contract kết quả cũ)
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md
   Experiments:    notes/03_experiment_index.md (A01 | A04 | A05-F | A05-T)
   D v1.2:         src/smr/cells.py (nguồn experiments giữ nguyên)

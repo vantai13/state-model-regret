@@ -7,6 +7,27 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3.8 — Gate A REFORMULATE, DL-061 (28/10/2026)
+
+Đọc đủ hai phần lesson, đối chiếu nguồn/freeze/output, chạy lại391tests PASS.
+Đã soạn bảng11validity checks, bảng quy trình,5outcomes, gate note/closeout/handoff;
+không đổi RQ/contract/metric/threshold, không run engine/outcome mới. Sửa diễn giải
+ngoại lệ EΔ=0 trong phát biểu lật⇔GM>0; T01 không suyΓvô nghĩa hoặc bắt buộc đổi thiết kế.
+Tác giả chọn REFORMULATE thay khuyến nghị NARROW trước đó của AI. Hai mục closeout
+viết ngôi “tôi” theo yêu cầu ủy quyền mới, không phải author-understanding attestation.
+DL-061 chốt một nhãn/claim và ghi exception ownership. Đã chuẩn bị contract/briefv1.3
+DRAFT, chưa khóa/rerun. P0-V10/L8/ownership OPEN; thực thiPhase4 HOLD tới người đọc
+và contract mới, học tiếpđược. Closeout commit trước annotated tag theo lesson.
+[Gate](phases/PHASE_3_gate.md) · [Closeout](phases/PHASE_3_closeout.md) ·
+[Phần tác giả](lessons/L3.8_author_handoff.md) · [Report](../results/lessons/l3_8/report.md).
+
+## L3.7 — A05-T hoàn tất, nhắc lại trạng thái mới hơn L3.6 bên dưới
+
+DL-059–060, run đã commit e719157 và report ec022d1:10ôR mởmộtlần,
+20BOUNDED/10pairsPASS;PC4nộisuyWEAKEN,ngoạisuyFALSIFY,K5bácR04,C1đứng4ô.
+R09/R10niêmphong;10ôđãmởkhôngcòncleantestchohypothesismới.
+[Report](../results/lessons/l3_7/report.md). Các dòng “chưa A05-T” dưới đây là lịch sử.
+
 ## L3.6 / A05-F — đã đóng băng (28/10/2026,DL-057–058)
 
 Tác giả chọn D25(ii),thiết kếA vàủyquyềnchi tiết. Author51c926f→prereg57d84c6
