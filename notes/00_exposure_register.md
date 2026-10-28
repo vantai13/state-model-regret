@@ -658,3 +658,17 @@ Không mở code engine population để viết golden. Chỉ toy hữu hạn đ
 8 kiểm bổ sung (500 laws seed20261028, cùng tập được dùng lại cho bound), không
 new-regime outcome, R09/R10 hoặc CF. Không khảo sát literature mới.
 T07 soạn theo ủy quyền, self-read-back chưa có xác nhận; Understanding OPEN.
+
+
+## Phase 3R / L3R.2 — sau golden run (2026-10-28, DL-065)
+
+Ghi lúc 2026-10-28T23:02:37.144963+07:00. T07 source315d203 trước run. Đã tính các toy hữu hạn: GM=.24,
+harm GS=−.5/Γ=.5; biến thể GS=.5/Γ=−.5; D22 mode/backlog/triệt tiêu và hai ratio 1%/5%.
+16 golden/439 full tests PASS; 500 joint laws seed20261028/0 vi phạm; 5/5 mutant KILLED.
+Cùng 500 laws được replay, không cộng số plant theo số lần gọi. Không mở code engine
+population, không tính outcomes pilot/regime mới/CF/R09/R10. Full suite gồm regression
+engine v1.2 cũ trên toy, không phải population audit. Đối chiếu aggregate L3R.1 đã lưu
+cho số 79/162 Stage1+2, không đếm lại raw. Không khảo sát literature.
+Kết quả là reference verification, không hypothesis confirmation; law/primary/εR
+v1.3 vẫn OPEN và sẽ là lựa chọn sau pilot. [Report](../results/lessons/l3r_2/report.md).
+Người phụ trách Doan Van Tai; Understanding/P0-V10/L8/T05 OPEN, Phase4 HOLD, G1 giữ nguyên.

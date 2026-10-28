@@ -13,6 +13,7 @@ Người phụ trách: **Doan Van Tai** · cập nhật 28/10/2026.
 | V13-STEP1 | Ba prediction về chế độ sai của M0 có đứng trên discovery cũ? | Discovery/consistency | P(a)PASS;P(b)/P(c)FAIL, fallback DL-063 | [Report](../results/V13_step1/report.md) |
 | V13-PILOT | Population có tín hiệu khả thi trên regime đã thử? | Discovery thích nghi | Tag explore-v13-pilot=a7435e9; branch không merge, chưa audit engine | [Discovery record](phases/PHASE_3R_discovery_record.md); raw chỉ trên tag/branch |
 | R3R_01 | SUMMARY/raw, cấu hình trùng và exposure có khớp? | Verification dữ liệu đã lưu, không engine verification | L3R.1 kỹ thuật PASS;216ID/210cấu hình, E1–E7; không outcome mới | [Prereg](../experiments/R3R_01_recount/prereg.json), [report](../results/lessons/l3r_1/report.md), [CSV chỉ tham số](../results/R3R_01_recount/20261028_01/discovery_regimes.csv) |
+| L3R.2/T07 | Population estimand, identity và D22 có đúng trên toy hữu hạn? | E0/theory + kiểm reference | 16 golden/439 full PASS, 500 laws/0 vi phạm, 5 mutant KILLED; chưa audit pilot | [T07](theory/T07_population_estimand.md), [spec](../experiments/lessons/l3r_2_spec.json), [report](../results/lessons/l3r_2/report.md) |
 
 **Tên có phạm vi:** các script `run_v1_1_a1.py`, `run_v1_1_a4.py`, `run_v1_1_a5.py`
 là các bước A1/A4/A5 của quy trình dựng lưới v1.1, **không phải A01/A04/A05 của

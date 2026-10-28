@@ -7,6 +7,17 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.2 — T07 và golden reference (28/10/2026, DL-065)
+
+Đọc đủ 3 phần lesson; T07 đủ 8 mục, 18 sanity rows, proofs và toys, soạn theo ủy quyền.
+Commit315d203 trước run/audit. 16 golden PASS (0.47s), 439 full PASS (61.95s), 500 joint laws
+seed20261028/0 vi phạm; 5/5 mutant KILLED. Sửa điều kiện invariance, chiều suy Γ/harm,
+finite-support smoothness, bound Γ và optional cb0; không đổi contract v1.2/pilot.
+Chưa audit engine population; không CF/R09/R10 outcome; Understanding/P0-V10/L8/T05 OPEN,
+G1 giữ nguyên, Phase4 HOLD. [Report](../results/lessons/l3r_2/report.md),
+[T07](theory/T07_population_estimand.md), [completion](phases/L3R_2_completion.json).
+Tiếp theo L3R.3; T07 reference có sẵn không phải xác nhận tác giả tự viết.
+
 ## L3R.1 — re-entry hoàn tất kỹ thuật (28/10/2026, DL-064)
 
 Đã đọc bundle, xóa ZIP theo yêu cầu; pilot tag a7435e9, branch không merge/xóa.

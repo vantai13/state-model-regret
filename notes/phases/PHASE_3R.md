@@ -1,3 +1,19 @@
+# Addendum triển khai v1.2 — L3R.2, 28/10/2026
+
+Người phụ trách/người soạn: **Doan Van Tai** · DL-065. [T07](../theory/T07_population_estimand.md)
+soạn theo ủy quyền đã commit315d203 trước audit; Understanding/self-read-back vẫn OPEN.
+16golden/439fulltests PASS,500laws seed20261028 không vi phạm,5/5mutantKILLED.
+[Report](../../results/lessons/l3r_2/report.md), [completion](L3R_2_completion.json).
+S1 bất biến chỉ khi marginalX/J/policy cố định; target stationary/periodic là giả định
+chưa adopt. LargeΓ⇒harm là discovery, không phải chiều đảo của identity harm⇒Γ>0.
+Chặn Γ[−σ̄,σ̄] mạnh hơn chặn lỏng trong nguồn; finite population không bảo đảm smooth.
+Không kế thừa εR1% tự động; law/normalization/primary/η/numerics giữOPEN choL3R.5.
+Không audit engine ởL3R.2, không CF/R09/R10 outcome; G1/Phase4HOLD giữ nguyên.
+Tiếp theoL3R.3; không promote engine từ bảnT07 ủy quyền hoặc đóng ownership.
+Phần nguồn plan bên dưới vẫn nguyên byte; addendum hiện tại ưu tiên về trạng thái.
+
+---
+
 # Addendum triển khai v1.1 — L3R.1, 28/10/2026
 
 Người phụ trách: **Doan Van Tai** · DL-064. Phần dưới giữ nguyên nguồn plan v1.0 được cung cấp,
