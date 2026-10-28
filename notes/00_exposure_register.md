@@ -647,3 +647,14 @@ máy sinh. Hai khác biệt đã công bố ở [report](../results/lessons/l3r_
 Người phụ trách: Doan Van Tai; tổng hợp theo ủy quyền, không xác nhận tác giả tự làm
 kín sách/đọc hết raw hoặc human review mới. Understanding/P0-V10/L8/T05 giữOPEN;
 V9 giữWAIVED_BY_AUTHOR, thực thiPhase4 HOLD. Không nângG1 hoặc gọi210cấu hình là mẫuIID.
+
+
+## Phase 3R / L3R.2 — theory và golden reference (2026-10-28, DL-065)
+
+Ghi lúc 2026-10-28T22:59:28.587036+07:00. Người phụ trách: **Doan Van Tai**. Đã đọc ba phần lesson được cung cấp,
+T01, contractv1.2, draftv1.3 và plan§9. Đã biết các discovery pilot/Step1/L3R.1 trước
+định nghĩa này; mọi lựa chọn v1.3 tiếp theo là sau pilot, không gọi là pre-pilot.
+Không mở code engine population để viết golden. Chỉ toy hữu hạn được cung cấp và
+8 kiểm bổ sung (500 laws seed20261028, cùng tập được dùng lại cho bound), không
+new-regime outcome, R09/R10 hoặc CF. Không khảo sát literature mới.
+T07 soạn theo ủy quyền, self-read-back chưa có xác nhận; Understanding OPEN.

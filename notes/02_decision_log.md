@@ -1006,3 +1006,31 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   ZIP được đọc, giải nén tạm và xóa theo yêu cầu, không commit/push; hash ở
   [intake](../results/lessons/l3r_1/bundle_intake.json). Một đường dẫn attachment không tồn tại;
   hướng dẫn Part2 đầy đủ trong ZIP được dùng thay, không nhận đã đọc attachment thiếu đó.
+
+
+### DL-065 — T07 và golden reference trước audit population (2026-10-28)
+
+- Người phụ trách/người soạn: **Doan Van Tai**. Triển khai L3R.2 theo ba phần lesson và
+  ủy quyền soạn thay đã có trong phiên; không nhận author-attested tự dẫn hoặc tự viết.
+- **Decision.** Lưu [T07](theory/T07_population_estimand.md), sanity list/proofs/toys và
+  [golden](../tests/test_population_toys.py); commit bản định nghĩa trước mọi kết luận
+  audit L3R.3. Chỉ chạy toy hữu hạn Fraction, 500 joint laws seed20261028, kiểm 5 mutant.
+  [Spec](../experiments/lessons/l3r_2_spec.json) không là prereg hypothesis v1.3.
+- **Why.** Cần đặc tả độc lập với engine làm đáp án audit; phân biệt identity, quan sát
+  discovery và claim có thể sai. Lesson có vài chỗ cần điều kiện/đính chính bên dưới.
+- **Alternatives.** Chép nguyên lời nguồn sẽ giữ nhận định sai chiều về Γ/harm; suy
+  engine đúng từ golden là không hợp lệ. Chờ tự viết không cần thiết cho việc soạn
+  reference theo ủy quyền, nhưng Understanding vẫn cần tác giả tự làm/xác nhận riêng.
+- **Consequence.** T07 là reference cho kỹ thuật; không đóng self-understanding hoặc
+  promote engine vào src. Target law, εR, primary scale, η và numerical policy v1.3
+  giữ OPEN cho L3R.5; v1.2/claims/pilot raw/freeze giữ nguyên. Không audit engine, không
+  mở R09/R10, không CF outcome ở lesson này.
+- **Đính chính nguồn.** L3R.1/tag/exposure đã hoàn tất (bf3915e), không còn treo. S1
+  invariance cần marginal X/J/policy cố định; đổi p/trigger có thể đổi marginal. Chiều
+  harm⇒Γ>0 là hệ quả; chiều Γ lớn⇒harm là discovery, không phải định lý. Bảng bias
+  hữu hạn không bảo đảm tính trơn; bound Γ theo shared belief còn chặt hơn bound
+  lesson: [−σ̄,σ̄] nằm trong [−σ̄,2σ̄]. F/V có thể âm nhưng vẫn bị stakes chặn.
+  Golden nguồn gán cb0=0 khi thiếu q: sửa thành không tính cb0/F/V để tránh chẩn đoán
+  giả. Không đổi công thức/8 đáp án nguồn hoặc tiêu chí khoa học.
+- Understanding/P0-V10/L8/T05 author-writing OPEN; V9 waived theo DL-054, G1 không đổi,
+  Phase4 thực thi HOLD. T07 soạn theo ủy quyền không tự biến thành tác giả tự viết.
