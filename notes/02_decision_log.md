@@ -963,3 +963,17 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   truy cập "A04", chỉ mở ô main; manifest ghi study V13-STEP1-DISCOVERY.
 - Kết quả bước này chỉ là đầu vào cho bước 2 (thiết kế v1.3). v1.3 vẫn DRAFT; Phase 4 HOLD tới
   P0-V10 và contract mới được khóa. Ghi lúc 2026-10-28T18:24:00+07:00.
+
+### DL-063 — Kết quả v1.3 bước 1: P(a) PASS, P(b) FAIL, P(c) FAIL (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. AI (Claude) chạy và báo cáo theo ủy quyền DL-062; không human review.
+  Dự đoán commit `81b1c3f` trước run. Run `results/V13_step1/20261028_01`, một lần, exit 0;
+  validity PASS (G_M|S1 tính lại khớp A04 38/38; khối lượng chưa phân giải bằng 0).
+- **P(a) PASS:** ở M19–M22, cả hai đường fluid không chạm rỗng trên toàn support; không có triệt tiêu.
+- **P(b) FAIL:** M01, M03 không phải "một phía" (I_A = I_B = 1); M0 phóng đại cả hai phía nhưng không đều.
+- **P(c) FAIL:** Spearman lens biên 0,163 < 0,6; lens bias trung bình −0,701.
+- Theo bảng khai trước, hướng tương ứng là fallback (population characterization hoặc NARROW); không
+  đặt v1.3 quanh "fluid một phía" hay "fidelity tại biên". Hai quan sát post-hoc (đảo dấu ở biên tương
+  đối nhỏ nhất kèm phóng đại B > A; thiệt hại đến từ sai số lớn xa biên) chỉ là ứng viên, chưa kiểm.
+- Quyết định bước 2 thuộc tác giả. v1.3 vẫn DRAFT; Phase 4 HOLD tới P0-V10 và contract mới được khóa.
+  [Report](../results/V13_step1/report.md).

@@ -599,3 +599,9 @@ tính outcome mới để chọn law/weights. Hai đoạn ngôi “tôi” là b
 gap theo từng state (δ, δ̂, e_M, khối lượng fluid chạm rỗng, cửa sổ gần biên) của **38 ô main ở
 ref 2**. Các ô này đã lộ ở mức tổng hợp từ A04; chi tiết theo state là exposure mới, cùng ô, nhãn
 DISCOVERY. Không ô R nào được tính lại; R09/R10 vẫn niêm phong. AI theo ủy quyền, không human review.
+
+## v1.3 bước 1 — sau run (28/10/2026, DL-063)
+
+Run `results/V13_step1/20261028_01`. Đã tính và xem theo từng state, ở mức tổng hợp mỗi ô: khối
+lượng fluid chạm rỗng, thành phần gap trung bình mỗi phía, G_M|S1 tính lại, lens biên của **38 ô main**.
+Không ô R nào được tính lại; R09/R10 niêm phong. Kết quả là DISCOVERY trên dữ liệu đã lộ.

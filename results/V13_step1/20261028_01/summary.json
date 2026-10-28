@@ -1,0 +1,37 @@
+{
+  "P_a": {
+    "verdict": "PASS",
+    "blind_cells": [
+      "M19",
+      "M20",
+      "M21",
+      "M22"
+    ],
+    "blind_both_sides_certified_zero": true,
+    "nonblind_all_have_fluid_idle": true
+  },
+  "P_b": {
+    "verdict": "FAIL",
+    "observed_reversal": [
+      "M01",
+      "M03"
+    ],
+    "predicted_reversal": [],
+    "hits": [],
+    "false_positives": [],
+    "max_false_allowed": 2
+  },
+  "P_c": {
+    "verdict": "FAIL",
+    "n_same_sign": 32,
+    "spearman_boundary": 0.1627565982404692,
+    "spearman_mean_lens": -0.7005131964809382,
+    "required_min": 0.6,
+    "required_gain": 0.2,
+    "sensitivity_spearman_boundary": {
+      "0.05": 0.13269794721407624,
+      "0.2": 0.26063049853372433
+    }
+  },
+  "label": "DISCOVERY"
+}
