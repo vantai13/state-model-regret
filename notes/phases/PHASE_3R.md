@@ -11,6 +11,12 @@ bao gồm attribution; addendum này ưu tiên khi trạng thái repo khác bả
   mặc định. Giữ mọi overlap phát hiện được, R09/R10 chỉ đọc tham số public.
 - Phải tách nhãn eta=u/2 của pilot khỏi u/(capacity−lambdaB); dt/K của pilot không tự
   trở thành mức số v1.3. D22, chỉ báo và rubric chỉ báo phần thực có/thiếu, không suy diễn.
+- Kết quả L3R.1 đã kiểm local:216ID/210cấu hình,6cặp trùng;45ID chạm23ôv1.2;
+  điều kiện “không trùng” của plan không thỏa. E1–E7, dt1/120/K40, thiếuD22 và
+  giới hạn nhãneta/rubric ghi trong discovery record, không sửa sourcepilot.
+- Trên9cấu hình có refinement, max0,193329ppC̄; không suy cả210cấu hình đều đạt.
+- Local423tests/13recounttests/3mutantsPASS là kiểm hiện tại; các số reviewer báo
+  trong nguồn gốc bên dưới không được chép thành phép kiểm local khác.
 - Hồ sơ L3R.1 sau run: [discovery record](PHASE_3R_discovery_record.md),
   [prereg](../../experiments/R3R_01_recount/prereg.json),
   [báo cáo thực thi](../../results/lessons/l3r_1/report.md).

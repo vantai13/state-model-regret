@@ -2,6 +2,15 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Phase 3R — L3R.1 hoàn tất kỹ thuật** (28/10/2026, DL-064):
+pilot được đóng băng tại tag `explore-v13-pilot` → `a7435e9`, không merge branch.
+Đếm một lần từ raw: **216 ID/210 cấu hình phân biệt; harm80/216 hoặc78/210**;
+423 tests toàn repo PASS,3/3mutant bị bắt. SUMMARY nguồn giữ nguyên, E1–E7 ghi riêng.
+[Discovery record](notes/phases/PHASE_3R_discovery_record.md) ·
+[Report/log](results/lessons/l3r_1/report.md) · [Số liệu](results/R3R_01_recount/20261028_01/recount.json) ·
+[Completion](notes/phases/L3R_1_completion.json). Tiếp theo **L3R.2**;
+engine audit/realism chưa làm, Understanding và điều kiện Phase4 vẫn OPEN/HOLD.
+
 **L3.8 — Gate A: REFORMULATE** (DL-061, 28/10/2026):
 391/391 tests toàn repo vừa kiểm lại PASS; validity/evidence và điều kiện quy trình
 được tách riêng. Tác giả chọn chuẩn bị thiết kế mới; hai mục closeout được viết ngôi
@@ -55,7 +64,7 @@ Bản hiện hành (28/10/2026):
   Contract:       notes/01_definitions_v1_2.md (tag contract-v1.2, D1–D25)
   Brief / Claims: notes/00_research_brief_v1_2.md · notes/01_claim_boundary_v1_2.md
   Lưới:           notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
-  Phase:          notes/phases/PHASE_3.md
+  Phase:          notes/phases/PHASE_3R.md (L3R.1; Phase3 cũ đã closeout)
   Gate / Closeout: notes/phases/PHASE_3_gate.md · PHASE_3_closeout.md (REFORMULATE, ownership OPEN)
   Proposal mới:   notes/01_definitions_v1_3_draft.md (CHƯA KHÓA, không thay contract kết quả cũ)
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md

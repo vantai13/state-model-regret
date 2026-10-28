@@ -7,6 +7,17 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.1 — re-entry hoàn tất kỹ thuật (28/10/2026, DL-064)
+
+Đã đọc bundle, xóa ZIP theo yêu cầu; pilot tag a7435e9, branch không merge/xóa.
+Khai trước c8c165e và tag đều trên remote trước một lần đếm. 13 tests riêng/423full PASS,
+3/3mutant KILLED. Đếm216ID/210cấu hình,234ID gồmrobust; harm80/216 hoặc78/210.
+E1–E7/overlap45ID/23ô/mappingeta/dt/D22 được ghi; SUMMARY/raw giữ nguyên.
+Sai lệch trình tự tag và lỗi EOF so preview đã công bố trong report; không rerun hoặc đổi dữ liệu.
+L3R.1 không chứng minh engine đúng/hypothesis; Understanding OPEN, học L3R.2 được;
+P0-V10/L8/T05 và thực thiPhase4 HOLD giữ nguyên. [Report](../results/lessons/l3r_1/report.md),
+[record](phases/PHASE_3R_discovery_record.md).
+
 ## L3.8 — Gate A REFORMULATE, DL-061 (28/10/2026)
 
 Đọc đủ hai phần lesson, đối chiếu nguồn/freeze/output, chạy lại391tests PASS.

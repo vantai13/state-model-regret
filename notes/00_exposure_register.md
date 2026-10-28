@@ -627,3 +627,23 @@ mới của main/R/CF. Tham số R đã public trước đây không đồng ngh
 Số210 cấu hình,45 trùng tọa độ… trong preview hiện là số nguồn báo, chưa là kết quả
 local; sẽ đối chiếu và ghi sau run, giữ cả sai lệch nếu có. Không khẳng định đã tự
 làm bài kín sách/đọc từngCSV chỉ vì yêu cầu triển khai theo ủy quyền.
+
+
+## Phase 3R / L3R.1 — sau đếm lại (2026-10-28, DL-064)
+
+Ghi lúc 2026-10-28T21:50:17.714926+07:00. Run `results/R3R_01_recount/20261028_01`, đúng một invocation
+local, subprocess exit0. Đã xem bảng30ôSUMMARY theo stage; E1–E7;6cặp trùng;45ID
+trùng tọa độ23ôv1.2; ghép Stage3, mappingeta, thangpctC/pctS, bảngPart1 theoID và
+cấu hình, rubric diagnostic. Tất cả thuộc phạm vi đã khai, vẫn là DISCOVERY.
+Không engine/new regime/CF outcome; grid R09/R10 chỉ tham số public. D22 và chỉ báo
+M0 chưa có phép tính/tái lập mới. Script/source raw/README SUMMARY ở tag không thay.
+
+Tag được tạo trước commit khai trước do bước kiểm định dạng chặn commit ban đầu;
+cả tag và khai trước đã push trước đếm. Output khớp ZIP ngoàiRev; controller kiểm
+bản paste dừng vì thiếuEOF newline rồi phục hồi metadata, không rerun hoặc đổi3file
+máy sinh. Hai khác biệt đã công bố ở [report](../results/lessons/l3r_1/report.md).
+[Discovery record](phases/PHASE_3R_discovery_record.md) ghi số local đã xác nhận.
+
+Người phụ trách: Doan Van Tai; tổng hợp theo ủy quyền, không xác nhận tác giả tự làm
+kín sách/đọc hết raw hoặc human review mới. Understanding/P0-V10/L8/T05 giữOPEN;
+V9 giữWAIVED_BY_AUTHOR, thực thiPhase4 HOLD. Không nângG1 hoặc gọi210cấu hình là mẫuIID.

@@ -1,0 +1,45 @@
+{
+  "responsible": "Doan Van Tai",
+  "study": "R3R_01_RECOUNT_DISCOVERY",
+  "source_commit": "c8c165ed9bc135053449d1c85086ca0b6b07fe72",
+  "declaration_commit": "c8c165ed9bc135053449d1c85086ca0b6b07fe72",
+  "pilot_tag": "explore-v13-pilot",
+  "pilot_commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "artifact_last_write_utc": "2026-10-28T14:39:54.225697+00:00",
+  "metadata_recorded_utc": "2026-10-28T14:42:17.240683+00:00",
+  "command": [
+    ".venv/bin/python",
+    "experiments/R3R_01_recount/recount.py",
+    "--rev",
+    "explore-v13-pilot",
+    "--out",
+    "results/R3R_01_recount/20261028_01"
+  ],
+  "python": "3.14.5",
+  "seed": null,
+  "engine_rerun": false,
+  "new_regimes": false,
+  "confirmation_outcomes": false,
+  "local_recount_invocations": 1,
+  "recount_exit_code": 0,
+  "declaration_and_published_tag_verified_before_invocation": true,
+  "prereg_sha256": "565e2348eb0bc5a8606943afb589a0ce9181e6a7393972706da7beac11424180",
+  "source_sha256": {
+    "experiments/R3R_01_recount/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/R3R_01_recount/recount.py": "d04b64775ad2468cbc900f6b2f29eaac8377430739872bfcc2b4faa5150a0ee6",
+    "experiments/R3R_01_recount/mutants.py": "61cf66aca0b0ef2547468255bd6c2fe012f249e14f106fee082f640987d413fd",
+    "tests/test_r3r_01_recount.py": "01b638737aa6f438088b2ce4ecac11098b633f8c581899de5212e641e460d0ea"
+  },
+  "zip_preview_matches_after_Rev_normalization": true,
+  "pasted_preview_strict_match": false,
+  "pasted_preview_matches_ignoring_final_newline": true,
+  "controller_initial_status": "FAILED_POST_RUN_PRESENTATION_ASSERTION",
+  "controller_recovered_without_recount": true,
+  "script_wall_s": null,
+  "timing_note": "Exact script timing was not persisted before controller assertion; measured exec invocation wall time below includes prechecks and comparison",
+  "observed_exec_invocation_wall_s": 0.160293242,
+  "deviations": [
+    "Tag was created/published before declaration commit; both precede recount",
+    "Post-run comparison against pasted text failed on final newline only; ZIP preview exact except Rev; metadata recovered without rerunning recount"
+  ]
+}
