@@ -541,3 +541,22 @@ Các công thức/numerical gates/conditional opening đã viết trước khi t
 Unit tests feature chỉ sanitize38main;không load held-out record vào features.
 369fulltestsPASS/60.31s,21targetedtestsPASS;không fit thực38ô trướcpreregcommit.
 Nguồn A01/A04/cardgiữnguyên. KhôngD/cost/gap/contrast held-out mới.
+
+
+## A05-F — dự báo đã khóa, chưa outcomes (28/10/2026)
+
+Prereg 57d84c66fc2cfca6de6fbbda662918959cd99fc5,theta 6aa696a958ec0ee09242812c94762a0f42927f89,predictions 3c75aecd720ef688923d818bc41f3db4a82742ec.
+Fit38ô đãexposedA04,80LOSO+2fullfits,164solverstarts;thetađãcommit trước
+featureR. Đã đọc/tính/xem sanitizedmetadata vàfeaturesbậc0–2của cả12R lúc
+2026-10-28T00:50:16.694515+00:00,gồmλAđượcphéptheoDL-057;khôngp_swactual,cost,gap hoặcCrefR.
+Khôngbậc3/Dheld-out. Không gọi bước này là hoàn toànchưađụngmetadataheld-out.
+
+ĐãxemdựbáoGaussian của12R vàD3nhóm saukhicodemodel/config/preregđãcommit.
+Không thaychoice/model/threshold/metric/split sau đó. Dweak=.2123<margin.25 nên
+R09/R10không cần mở;outcomeIDsplanned10củaunionnhánhđãkhóa. ChưarunA05-T,
+chưaJ/Delta/bias/margin/headroom/regret/contrast thật củaR,khôngfitbằngtest.
+K5m=1nguyênvăn;C1postdiscovery riêng;khônggộptỷlệthànhcông.
+
+[Predictions](../experiments/A05_freeze/predictions_heldout.json) ·
+[Discrimination](../experiments/A05_freeze/discrimination.json) ·
+[Features](../experiments/A05_freeze/features_heldout.json).

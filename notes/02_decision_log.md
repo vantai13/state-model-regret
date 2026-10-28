@@ -830,3 +830,27 @@ GM luôn thuộc{0,|EΔ|}: đây vốn là hệ quả T01. Không tự thêm ref
   trong prereg trước fit/predictions; không ghi chúng là tác giả tự dẫn/viết.
 - Bản ghi này commit trước prereg, không author-attest Understanding hoặc human
   review, không quyết định chạy A05-T. A05-T là bước khác, chưa thực hiện.
+
+### DL-058 — A05-F đã khóa dự báo và khả năng phân biệt (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. Theo tác giả chọn D25(ii)/thiết kếA ởDL-057.
+  Author decision commit:51c926fda9a2442c02b320d6dad1063def91d075;prereg:57d84c66fc2cfca6de6fbbda662918959cd99fc5;
+  theta:6aa696a958ec0ee09242812c94762a0f42927f89;predictions+discrimination:3c75aecd720ef688923d818bc41f3db4a82742ec.
+- predictions_heldout.json SHA256: `9b93e3f3445d4ebc2fbda96f72988bc3bc78c5524df05825405c73f83093bb80`.
+- discrimination.json SHA256: `cbd0851a47e5939a9ae68e342befdcb8171f5722c169f00cf77c66b86310afe5`.
+  Freeze receipt giữsource/K5copy/theta/input/outputhashes;khôngamend/force.
+- H0coordinates_0,H1dynamics_1,12hệsố/model,2candidate/2start,rho0;chọnbằng
+  20foldLOSO trên38main;khôngheld-outoutcome. LOSO làdiscovery,nothing confirmed.
+- Metricchính MAEđềuGS/GM/Gamma,margin .25điểm%Cref. Dprimary8ô=.5912388743,
+  DweakR09/R10=.2122970451,DextraR11/R12=.4749516655(điểm%Cref).
+  Theo luật trướcprediction: primary/extra đủD;**weak không mởcomparison**.
+  Đăngkýuniverse12nhưngactualoutcomeIDs cần10:R01–R08,R11/R12;R09/R10giữchưamở.
+  Khônghạmargin hoặcđổi modelđểcứu nhómweak saukhithấypredictions.
+- K5carry nguyênvăn,m=1,R03/R04,QscopecũM01–M04. C1equivalence≤.005tạiR05–R08
+  khóa sauA04,báoriêng;baserate36/38,heuristic4ô .8055186808 khôngphảixácsuấtthật.
+  Có nhãnheadroom trướcoutcomes;chưatínhheadroomheld-out đểgắnnhãn.
+- Featuresheld-outbậc0–2 tạo 2026-10-28T00:50:16.694515+00:00;**khôngD/cost/gap/Cref/outcomes**.
+  λA dùngchung theoDL-057,khôngp_swthực. Nguồnengine/card/A04giữnguyên.
+- Hoàn tấtA05-F/L3.6sau receiptcommit;chưachấmH0/H1held-out,chưanhậnSUPPORT/
+  WEAKEN/FALSIFY từtruth. **Chưa thực hiện quyết định không đảo ngược A05-T**;
+  L3.7 cần ghi quyết định đó trước run. Không tự đóngL8/P0-V10/T05/Phase4.
