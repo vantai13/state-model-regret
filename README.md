@@ -2,6 +2,11 @@
 
 Tác giả: **Doan Van Tai**.
 
+**L3.6 đang chuẩn bị:** 358 tests PASS, Gaussian/identity/luật chấm interval đã
+kiểm trên A04 và dữ liệu giả. **A05-F chưa khóa**: chờ quyết định D25 về lambdaA
+và phạm vi H0/H1/C1 trước prereg. [Kết quả chuẩn bị](results/lessons/l3_6/report.md) ·
+[Hai lựa chọn còn thiếu](notes/lessons/L3.6_decisions_pending.md).
+
 **Trạng thái 28/10/2026:** Phase 2 GO có điều kiện (DL-043); Phase 3 đã hoàn tất
 kỹ thuật **L3.5/A04**. Contract `contract-v1.2` và prediction card `a03-card-v1`
 giữ nguyên. **A04: 92/92 cell-level BOUNDED, 46/46 cặp dt đạt**, không HOLD/cờ dt;

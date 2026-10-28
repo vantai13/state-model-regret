@@ -187,3 +187,15 @@ Gate record DL-054 là snapshot trước run,không sửa vì nằm trong receip
 [A04_completion.json](A04_completion.json) là trạng thái kết quả hiện tại.
 KhôngD/J/gap-magnitude/regret/contrast held-out mới. Đã ghi public design metadata
 λA/p_sw hiển thị khi đọc bảngcũ;không dùng làmfeatures. Human gates/Phase4 giữ nguyên.
+
+
+## 15. L3.6 đang chuẩn bị — chưa A05-F freeze (28/10/2026)
+
+Đã thực hiện phần độc lập: addendumheadroom A04;Gaussian/identity/paired-MAE
+math;358tests PASS;toyMC2×2triệu mẫu và100.000discriminationtoys. Không đổi
+card/score/engine hoặc outcomes held-out. [Report](../../results/lessons/l3_6/report.md).
+
+Cần tác giả chọn D25(i)/(ii) vềlambdaA và phạm vi sharedGaussianH0/H1,C1 trước
+DL/prereg. [Hai lựa chọn](../lessons/L3.6_decisions_pending.md). Chưa cóprereg,
+theta,predictions_heldout/discriminationheld-out hoặcfreeze receipt. L3.6 chưa
+hoàn tất;A05-T vẫn chưa mở. V9waiver/humanreading/Phase4 không đổi.

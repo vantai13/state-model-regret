@@ -7,6 +7,16 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3.6 — chuẩn bị, chưa freeze (28/10/2026)
+
+Đã đọc đủ baattachment, thêm append-only headroom vào noteA04/boundary, tự kiểm
+38ô/20lát và base rates. Gaussian/identity/pairedintervalMAE có10test mới,
+358fullPASS/60s. ToyMC2×2triệu mẫu đạt;100.000toyD không vi phạm trên allowance
+float,rawexcessmax6.66e−16 được ghi.147A04hashes và nguồnengine/card giữnguyên.
+**Chờ tác giả quyết D25/lambdaA và phạm vi H0/H1/C1**; chưaprereg/theta/predictions
+hoặcfreeze. Khôngfit/targetfeatures/D/cost/gap held-out;khôngA05-T.
+[Report](../results/lessons/l3_6/report.md) · [Lựa chọn](lessons/L3.6_decisions_pending.md).
+
 ## L3.5 / A04 — run27/10, tổng kết28/10/2026 (DL-055–056)
 
 Prereg56c4141,receipt0eb42f2,score checkpoint7005a3b trước discovery.38main+8ô kiểm/

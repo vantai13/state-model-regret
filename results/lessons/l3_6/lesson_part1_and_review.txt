@@ -1,0 +1,318 @@
+Mình sẽ kéo repo mới nhất và rà kỹ những gì bạn đã làm từ L3.1 đến L3.5: thứ tự commit, hash, engine, A01, A04. Sau đó mới vào L3.6.
+
+# Phần A — Kết quả kiểm tra repo
+
+Phần kỹ thuật của L3.1–L3.5 làm rất chắc. Mình chạy lại toàn bộ test, tự chấm lại card và tự chọn lại dt bằng code viết riêng, không dùng code của repo. Cả ba khớp với số bạn báo. Không có lỗi nào làm hỏng bằng chứng.
+
+Mình tìm thấy ba điều cần sửa về *cách đọc* kết quả, và có hai chỗ ở các lesson trước mình viết sai mà bạn đã sửa đúng. Repo ở commit `5dd0dca`.
+
+### A1. Mình đã kiểm những gì
+
+| Kiểm | Cách làm | Kết quả |
+|---|---|---|
+| Test suite | Chạy lại toàn bộ trong môi trường sạch | **348 passed**, 74 s |
+| Card còn nguyên không | So SHA-256 của file hiện tại, của bản ở commit `b05ed70` và trong `lock.json`. Xem lịch sử file. Kiểm tag | Cả ba hash đều là `14021a83…`. File chỉ có đúng một commit. `a03-card-v1` là tag có chú thích |
+| Thứ tự commit | Đối chiếu giờ commit với `start_utc` trong manifest | Card 20:50 → prereg A01 21:15 → A01 runs → prereg A04 23:17:05 → receipt 23:17:20 → **run bắt đầu 23:17:22** → chấm card 23:18:17 → discovery sáng 28/10 ✓ |
+| A01 chọn dt | Script riêng đọc `refinement.csv`, dùng cận trên của $\lvert\Delta G\rvert$ và $C_{\text{ref}}$ thấp | Cả 12 cặp đều đạt. Ba ô đều chọn ref 2. **dt cuối = 1/240 s**, khớp DL-053 |
+| A04 chấm card | Script riêng, dùng phân số, tính khoảng tỉ số bằng bốn thương | **Khớp từng ô** với `card_scores.csv`: P2 không đứng (2/4), P3 không đứng (0/2), P5 đứng (K 4/4, Q 2/4), P6 không đứng (0/2) |
+| Held-out | Tìm file `R*` trong `raw/`, đọc các cờ trong manifest | 0 file; `heldout_evaluated: false` ✓ |
+| Validity A04 | Đọc `run_status.json` | 92/92 BOUNDED; $e/C_{\text{ref}}$ ≤ 0,065%; khối lượng chưa chứng nhận ≤ 0,19%; thay đổi cặp dt ≤ 0,10% |
+
+**Điểm mạnh nên giữ cho các phase sau:**
+- Run01 của A01 trượt ở N01. Bạn **giữ nguyên** lần trượt đó, chẩn đoán đến tận một ulp, sửa bằng certificate thay vì nới dung sai, rồi chạy lại từ đầu.
+- Card tách rõ "forecast không cơ chế".
+- Bạn ghi lại đủ năm phát biểu đã xét, kể cả các phản ví dụ.
+
+### A2. Những điểm cần chú ý, xếp theo mức quan trọng
+
+**(1) Vế K của P5 đứng chủ yếu vì headroom quá nhỏ, không phải vì $M_0$ tốt.**
+
+| Ô | $\mathbb E\widehat\Delta$ | $R_{00}/C_{\text{ref}}$ | $G_M/C_{\text{ref}}$ |
+|---|---:|---:|---:|
+| M19 | **0 chính xác** | 0,110% | 0 |
+| M20 | **0 chính xác** | 0,146% | 0,074% |
+| M21 | **0 chính xác** | 0,126% | 0 |
+| M22 | **0 chính xác** | 0,164% | 0,025% |
+
+- Ở L3.5 Part 2 (§6.3), ta có $G_M\le R_{00}$. Ở cả bốn ô, $R_{00}$ đã nhỏ hơn $\varepsilon_E$ = 0,5%. Vì vậy vế K **không thể** trượt, bất kể $M_0$ tốt hay tệ.
+- $\mathbb E\widehat\Delta=0$ chính xác nghĩa là đường trung bình của $M_0$ không thấy capacity bỏ phí nào. $M_0$ "mù" ở đây và luôn chọn Stay theo luật hòa.
+- **Điểm chấm vẫn đúng.** Nhưng câu "P5 đứng" trong note và claim boundary hiện thiếu ý này. Người đọc dễ hiểu thành "$M_0$ đủ tốt ở κ = 3".
+
+**(2) P3 trượt cũng do headroom.** Ở M19 và M21, $G_S=0$, nên $\Gamma=G_{S\mid M_1}\le R_{00}<0{,}13\%$. PC3 (do AI chọn ngày 24/10) nhắm vào một vùng gần như không có gì để mất. Đây là một bài học thiết kế: **chọn tập ô cho một prediction mà không có ý niệm về headroom thì dễ ra kết quả trống.**
+
+**Khuyến nghị cho (1) và (2):** thêm một mục *append-only* vào note A04 và claim boundary, gắn nhãn "diễn giải sau A04, không đổi điểm chấm". Ví dụ:
+
+> *"Ở M19–M22, $R_{00}/C_{\text{ref}}$ ∈ [0,110%; 0,164%] < $\varepsilon_E$ và $\mathbb E\widehat\Delta=0$ chính xác. Vế K của P5 đứng là hệ quả của headroom nhỏ, không phải bằng chứng $M_0$ đủ cho quyết định. P3 trượt vì $\Gamma=G_{S\mid M_1}\le R_{00}$."*
+
+**(3) Ba con số nền từ tập fit, quan trọng cho L3.6 (dạy ở Phần B):**
+- $a_{01}=\mathbf 1[\text{mục tiêu}=0{,}7]$ ở **38/38** ô. Dấu của $\mathbb E\Delta$ gần như do thiết kế quyết định.
+- $G_M=0$ ở 34/38 ô.
+- $G_M/C_{\text{ref}}\ge1\%$ chỉ ở 2/38 ô (M01, M03).
+
+**(4) Hai chỗ mình dạy sai, bạn đã sửa đúng:**
+- L3.3 Part 1: công thức khoảng tỉ số hai đầu mút của mình chỉ đúng khi tử số không âm. Card dùng **min/max của bốn thương**, và đó là cách đúng.
+- L3.4 Part 1, §6.3: mình viết rằng ô SD cho "bằng 0 chính xác theo cấu trúc". Điều đó sai với ô **SD2**. Ở đó cả hai queue luôn rỗng trên đường trung bình, nên $\widehat\Delta$ bằng 0 *theo toán* nhưng ra **−1,36·10⁻²⁰** *theo float*. Đó chính là lý do run01 trượt. Certificate "always-empty" là cách sửa đúng.
+
+**(5) Các mục ownership còn mở** (không chặn A05-F):
+- card chưa có cơ chế do bạn viết, nên kết quả card không dạy được gì về cơ chế;
+- T05 chưa có phần tác giả viết;
+- chưa có người đọc thật (L8 / P0-V10). Plan khuyến nghị làm việc này trước A05-F;
+- V9 đang ở trạng thái `WAIVED_BY_AUTHOR`;
+- reviewer của card là AI trong cùng phiên soạn.
+
+**(6) Nhỏ:**
+- Hình H1 bị chồng nhãn quanh gốc tọa độ (M19–M22).
+- `notes/phases/PHASE_3.md` trong repo là file *trạng thái*. Lesson plan v2.0 không nằm trong repo. Không sai, nhưng dễ nhầm hai file.
+
+### A3. Trạng thái các lesson
+
+| Lesson | Thực thi | Hiểu |
+|---|---|---|
+| L3.1–L3.5 | **Hoàn tất** | Repo không kiểm được; một số mục là author-attested |
+
+---
+
+# Phần B — LESSON 3.6: A05-F, đóng băng $H_0$, $H_1$ và các prediction trước khi chạm held-out
+
+## Kiểm plan so với kết quả thật
+
+Plan L3.6 được viết **trước** A04. Giờ đã có A04, nên có bốn điều chỉnh:
+
+> **(a)** Plan ghi: "chọn 1–3 prediction chính". Giờ có một danh sách cụ thể: luật K5 (*bắt buộc* mang sang, $m=1$), C1, và so sánh $H_0/H_1$ của PC4.
+> **(b)** Plan có "kiểm khả năng phân biệt" giữa $H_0$ và $H_1$ (Khái niệm 9). **Tôi đề xuất thêm "rủi ro theo base rate" cho các prediction kiểu equivalence**, vì A04 cho thấy chúng gần như chắc chắn đứng (§6.4).
+> **(c)** **Tôi đề xuất đăng ký trước một nhãn diễn giải "đứng do headroom"** cho R03, R04 và các ô của C1 (§6.5). Lý do là điểm A2-(1).
+> **(d)** $G_M$ bằng 0 ở 34/38 ô, nên dùng thẳng nó làm mục tiêu hồi quy sẽ nghèo thông tin. Part 2 sẽ dùng cấu trúc mà plan đã gợi ý: dự báo các đại lượng tóm tắt, rồi đi qua tầng identity T01.
+
+## Lesson map
+
+| Part | Nội dung |
+|---|---|
+| **1** (hôm nay) | Null bị giới hạn; ba tập dữ liệu; kho ứng viên sau A04; **rủi ro theo base rate**; nhãn "đứng do headroom"; bậc thông tin và phép thử rò rỉ trên chính repo này; quyết định D25 về λA |
+| 2 | Đặc tả $H_0$ và $H_1$: tầng identity dùng chung; null phải tái tạo được hình học quyết định (MT5); cùng ngân sách $k$; fit và leave-one-slice-out trên 38 ô; các ứng viên H1-Q |
+| 3 | Metric, margin $m$, luật support/weaken/falsify/inconclusive; kiểm khả năng phân biệt; chọn ô held-out; template prereg; file dự đoán có hash; Lesson Gate |
+
+---
+
+# LESSON 3.6 — Part 1: Đóng băng cái gì, dùng thông tin gì
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.5 A04 ✔ (38 ô đã thấy; card đã chấm; C1 là candidate)
+        │
+L3.6 A05-F  ← YOU ARE HERE: lần cuối được đổi giả thuyết mà không trả giá bằng held-out
+   Part 1 ← hôm nay
+        │  commit prereg + predictions_heldout.json
+L3.7 A05-T  (mở held-out ĐÚNG MỘT LẦN — không đảo ngược)
+L3.8 Gate A
+```
+
+## 2. Part 1 trả lời câu hỏi gì?
+
+> Sau A04, **những gì** đáng được đóng băng để kiểm trên held-out? Kiểm chúng có thật sự *dạy* được gì không? Và một mô hình dự báo được phép **biết gì** về một ô mà nó chưa thấy?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** RQ2 hỏi: *"Which gain patterns are explained by a **pre-specified decision-threshold null**, and when do models of action-induced dynamics provide additional predictive power under **held-out** workloads?"* Câu này chỉ trả lời được khi có một null đặc tả trước, một $H_1$ có cùng quyền thông tin, và một held-out sạch. Held-out chỉ mở được một lần. Sau A05-T, mọi điều chỉnh đều phải trả giá.
+
+**Rủi ro:**
+- kill-K2: null giải thích hết;
+- $H_0$ rò rỉ đáp án;
+- $H_0$ là một strawman;
+- $H_1$ thắng nhờ nhiều tham số hơn;
+- forking paths khi chọn ô test;
+- **mới:** đóng băng những prediction gần như chắc chắn đứng.
+
+**Nếu bỏ qua.** Bạn mang K5 và C1 sang, mở R03–R08, cả hai đứng, và viết "M0 đủ tốt khi κ ≥ 1". Reviewer chỉ cần hỏi: *"Trên tập fit, 36/38 ô đã có $G_M$ ≤ 0,5%. Nếu không có cơ chế nào, xác suất cả hai đứng là bao nhiêu?"*
+
+## 4. Liên hệ với Main RQ
+
+```text
+A05-F (đóng băng) ─► A05-T (held-out) ─► RQ2: null giải thích được đến đâu; H1 thêm được gì
+                                       └► "differ" (PC5): equivalence có đứng ngoài mẫu không
+```
+
+Đây là liên hệ **trực tiếp**. Phase 3 không có cách nào khác để trả lời RQ2.
+
+## 5. Mental model: dự báo thời tiết
+
+- Mô hình "ngày mai giống hôm nay" là **null**.
+- Mô hình khí tượng là **$H_1$**.
+- Cả hai chỉ được dùng thông tin **có trước ngày mai**. Cả hai được chấm trên những **ngày chưa xảy ra**.
+- Nếu bạn cho null xem nhiệt độ ngày mai, nó sẽ thắng, nhưng đó không còn là dự báo nữa.
+- Và nếu chỗ đó tháng nào cũng nắng, thì đoán "ngày mai nắng" đúng chẳng chứng minh được gì.
+
+---
+
+## 6. Các khái niệm
+
+### 6.1. Identity không kiểm được; null bị giới hạn thì kiểm được
+
+Đẳng thức F5 (regret = $\lvert\Delta\rvert$ khi lật) luôn đúng. Một "null" nhận vào $\mathbb E\Delta$ và $\mathbb E\widehat\Delta$ của ô test sẽ tái tạo **chính xác** $G_M$ nhờ T01. Đó không phải dự báo; đó là sổ sách.
+
+$H_0$ phải là một mô hình **bị giới hạn**: nó dự báo cho ô chưa thấy, chỉ từ thông tin được phép (§6.6). Tham số của nó được học trên tập fit rồi đóng băng.
+
+### 6.2. Ba tập dữ liệu, với tên thật
+
+| Tập | Gồm | Đã được dùng cho | Không được gọi là |
+|---|---|---|---|
+| Calibration | M01, M09, M22 | Chọn dt (A01) | "Tập fit" |
+| **Fit** $\mathcal T_{\text{fit}}$ | 38 ô chính M01–M38 (gồm cả ba ô calibration) | Discovery A04; fit $H_0$, $H_1$ | Bằng chứng ngoài mẫu |
+| **Test** $\mathcal T_{\text{test}}$ | Các ô held-out *được khai báo mở* trong prereg | Chưa dùng | — |
+
+Ô held-out nào **không** được khai báo vẫn sạch. Muốn dùng chúng về sau cần một DL, vì D25 chỉ cho dùng held-out ở A05.
+
+### 6.3. Kho ứng viên sau A04
+
+| Ứng viên | Nguồn | Nhãn khóa | Bắt buộc? | Ô test theo tọa độ thiết kế |
+|---|---|---|---|---|
+| **Luật K5** (P5-rule) | Card A03 | **khóa trước A04** | **Có**: card đã cam kết mang nguyên văn mọi luật chưa bị bác ($m=1$), không tính vào quota | R03, R04 (κ = 2, q90/q90, η = 0,5, $h$ = 8 s) |
+| **C1** (κ = 1: $G_M=0$) | A04 discovery | khóa sau A04, trước A05-T | Tùy | R05, R06 (B q75); R07, R08 (η = 0,625). Đều là nội suy |
+| **PC4**: $H_1$ so với $H_0$ | D25, RQ2 | khóa sau A04 | Tùy, nhưng **đây mới là câu RQ2 hỏi** | Tùy (Part 3) |
+| H1-Q01…Q04, MT5 | Hàng đợi từ Phase 2 | — | Nguyên liệu cho $H_1$ và $H_0$ | — |
+
+### 6.4. Rủi ro theo base rate: prediction có thật sự có thể sai không?
+
+Đây là bài học trực tiếp từ điểm A2-(1). Trên tập fit:
+
+| Sự kiện | Base rate trên 38 ô chính |
+|---|---:|
+| $a_{01}=\mathbf 1[\text{mục tiêu}=0{,}7]$ | **38/38** |
+| $G_M=0$ (không lật) | 34/38 |
+| Cận trên $G_M/C_{\text{ref}}\le0{,}5\%$ | 36/38 |
+| $G_M/C_{\text{ref}}\ge1\%$ | 2/38 (M01, M03) |
+
+**Một phép tính heuristic.** Giả sử *không có cơ chế nào*, và mỗi ô test giống một ô rút ngẫu nhiên từ tập fit. Khi đó:
+- **Luật K5 đứng ở R03 và R04:** $(36/38)^2\approx$ **0,90**.
+- **C1 đứng ở bốn ô R05–R08:** $(34/38)^4\approx$ **0,64**.
+
+**Giới hạn của phép tính này.** Các ô không hoán đổi được cho nhau (thiết kế khác nhau, λA được neo), nên đây **không** phải xác suất thật. Nó chỉ trả lời câu: *"Nếu cơ chế của tôi sai, liệu prediction này có trượt không?"* Câu trả lời ở đây là: **gần như không**. Một kết quả đứng với "xác suất nền" 0,9 gần như không mang thông tin. Đây chính là lỗi "độ rủi ro" ở L3.3 Part 1, nay hiện ra bằng số thật.
+
+**Khuyến nghị đưa vào prereg:**
+- Ghi base rate trên tập fit, cùng heuristic này, **cạnh mỗi prediction kiểu equivalence**, trước khi mở held-out.
+- Nếu muốn một phép kiểm có giá trị, hãy tìm chỗ mà **các dự đoán có thể khác nhau**. Trên tập fit, $M_0$ chỉ lật mạnh ở κ = 0,3, A q90, B q50, mục tiêu 0,3. Theo tọa độ thiết kế, ô held-out "gần" vùng đó nhất là R01 (κ = 0,6, B q50, mục tiêu 0,3). Nó nằm giữa vùng lật (κ = 0,3) và vùng không lật (κ = 1).
+- *Đây là một ví dụ lập luận dựa trên tọa độ (bậc 0) và dữ liệu fit. Chọn ô nào là quyết định của bạn.*
+
+### 6.5. Nhãn "đứng do headroom", đăng ký trước
+
+> **Đề xuất:** trong prereg, viết trước một luật diễn giải. Sau A05-T, với mỗi ô test của một prediction equivalence, báo cận trên $R_{00}/C_{\text{ref}}$. Nếu nó < $\varepsilon_E$, gắn nhãn **"đứng, bị headroom chặn: không có thông tin về $M_0$"**.
+> **Vì sao:** luật K5 phải được mang **nguyên văn**, nên không được sửa nó. Nhưng viết trước *cách đọc* thì không đổi luật, và chặn được việc kể chuyện sau khi thấy số. Bạn không thể biết $R_{00}$ của R03, R04 trước khi mở, vì đó là bậc 4. Vì vậy nhãn này chỉ được áp *sau*, nhưng phải được *định nghĩa trước*.
+
+### 6.6. Bậc thông tin và phép thử rò rỉ, trên chính repo của bạn
+
+**Quy tắc:** nếu một feature chỉ tính được bằng cách chạy engine exact để lấy **cost hoặc gap** của ô cần dự đoán, đó là **đáp án trá hình**.
+
+| Bậc | Trong repo này | Quy tắc |
+|---|---|---|
+| **0** | `kappa`, `alphaA`, `alphaB`, `eta`, `h_s`, `targets`, `group` | Luôn được dùng. **Lưu ý:** riêng `targets` đã dự báo đúng $a_{01}$ ở 38/38 ô. Bất kỳ mô hình nào cũng có phần này miễn phí |
+| **1** | Rate của B (2/14), μ = 10, $u=2\eta$, tuổi 1 s, $y_A$, $y_B$, **rate của A = λA ± 6** | Mọi thứ trừ λA đều được dùng. **λA cần một DL đọc D25** (§6.7) |
+| **2** | Công thức dạng đóng từ bậc 0–1. Ví dụ: "đường trung bình fluid xuất phát từ $y_B$ có chạm 0 trong $h$ không" (một chỉ báo cho việc $M_0$ "mù"), thời gian xả, phương sai telegraph | Được dùng, nếu công thức nằm trong prereg |
+| **3** | Tóm tắt từ $D$ của ô đích: $P(q_B=0)$, moment của posterior | Vùng xám. Khai báo trước, dùng cho **cả** $H_0$ lẫn $H_1$. **Dựng $D$ của ô held-out là một bước tính trên held-out**, nên phải ghi exposure, dù đó không phải outcome |
+| **4** | Mọi cột kết quả của `cells.csv` cho ô đích: $J$, $L$, $\mathbb E\Delta$, $\mathbb E\widehat\Delta$, bias, margin, $R_{00}$, contrast, **$p_{\text{sw}}$ thực** | **Cấm.** Dùng mục tiêu thiết kế (bậc 0) thay cho $p_{\text{sw}}$ thực |
+
+**Phép thử rò rỉ** (cho từng feature, ghi vào prereg):
+1. Truy feature về input gốc của nó.
+2. Nếu nó cần cost hoặc gap của ô đích, thì là bậc 4, **loại**.
+3. Nếu nó cần $D$ của ô đích, thì là bậc 3: khai báo, dùng cho cả hai mô hình, ghi exposure.
+4. Trong code: module tính feature chỉ đọc các trường thiết kế của `grid_v1_2.json`. `fit.py` không import đường dẫn nào của `results/A05*`.
+
+**Một rủi ro riêng của repo này.** Exposure register ghi rằng λA và $p_{\text{sw}}$ của held-out đã *hiện ra* khi đọc bảng công khai cũ. Cấm dùng chúng làm feature là chưa đủ. Bạn còn có thể *chọn ô test* theo chúng một cách vô thức, ví dụ chọn ô có $p_{\text{sw}}$ "đẹp". Cách phòng là chọn ô test bằng một **luật tọa độ** viết sẵn trong prereg, ví dụ "mọi ô held-out thỏa luật X", chứ không chọn từng ô một.
+
+### 6.7. D25 và λA: không có lựa chọn trung lập
+
+Câu chữ của D25: *"p_sw và λA riêng của held-out không làm biến đầu vào trừ khi định nghĩa cho mọi ô"*. Có hai cách đọc:
+
+| | (i) Chặt: không dùng λA | (ii) Theo chữ: λA là tham số plant, có cho mọi ô |
+|---|---|---|
+| Hệ quả cho $H_1$ | **Không biết rate của A** (rate A = λA ± 6). Mọi động học của path A, như xả, rỗng hay Jensen gap $j_A$, đều không tính được | Dùng được vật lý của cả hai path |
+| Nếu $H_1$ không thắng | Có thể chỉ vì $H_1$ thiếu thông tin. Không được kết luận "động học không quan trọng" | Diễn giải mạnh hơn |
+| Rủi ro rò rỉ | Không | λA được chọn bằng luật neo, mà luật neo dựa trên phân phối dấu của oracle. Cần viết lý do vì sao điều đó chỉ mang thông tin về *vị trí ranh giới*, không mang *độ lớn* |
+| Thủ tục | Ghi trước vào prereg hệ quả diễn giải ở dòng 2 | Một **DL trước prereg**, vì nó đổi một câu đã ghi trong repo (hàng đợi L3.3, exposure L2.7 Part B) |
+
+**Một điểm làm quyết định dễ hơn.** Nếu cả $H_0$ lẫn $H_1$ đều được dùng λA, thì phần thông tin oracle mà λA có thể mang theo **giúp cả hai bên như nhau**. Khi đó:
+- phép **so sánh** $H_1$ với $H_0$ không bị lệch;
+- độ chính xác **tuyệt đối** của cả hai có thể bị thổi phồng.
+
+Vì vậy, nếu chọn (ii), prereg nên ghi: *"claim chỉ về chênh lệch $H_1-H_0$, không về độ chính xác tuyệt đối"*.
+
+*Đề xuất của plan, mình đồng ý (bạn quyết):* chọn (ii), viết DL trước prereg, cho **cả hai** mô hình dùng λA, và giới hạn claim như trên. Nếu chọn (i), ghi sẵn câu diễn giải ở dòng 2 của bảng.
+
+---
+
+## 7. Assumptions
+
+| Assumption | Nó giúp gì | Nếu sai thì sao |
+|---|---|---|
+| Ô test giống ô fit đủ để học được | Fit trên 38 ô dùng được cho 12 ô | Ngoại suy theo $h$ (R11, R12: $h$ = 12 s) có thể vỡ. Phải tách nội suy và ngoại suy (Part 3) |
+| Heuristic base rate coi các ô như rút ngẫu nhiên | Đo nhanh độ rủi ro | Không phải xác suất thật. Chỉ dùng để *xếp hạng* độ rủi ro, không dùng để suy luận |
+| Feature bậc 0–2 không mang outcome | Phép so sánh sạch | λA là chỗ duy nhất có thể không thỏa (§6.7) |
+
+## 8. 🔗 Liên hệ với repo cũ
+
+- **GO switch v1 ở thế hệ 2** dùng lại seed test sau khi đã phân tích. A05-T là phiên bản "đúng" của điều mà lần đó thiếu: một held-out được mở **một lần**, theo một prereg có hash.
+- **`L3.3_equivalence_queue.md`** (hàng đợi L3.3) đã viết từ ngày 26/10: *"một ô held-out trượt chỉ bác uniform-equivalence trên tập đang kiểm; không suy ra ranh giới duy nhất giữa κ 2 và 3"*. Câu này vẫn đúng, và giờ có thêm một lớp: *"một ô đứng có thể chỉ vì headroom"*.
+- **`margin_route_diagnostics.csv` của A04** là nguyên liệu cho Part 2. Ở đó bạn đã có dấu $G_S$, bias, $\lvert\mathbb E\Delta\rvert$, $\mathbb E\lvert e_M\rvert$ cho mọi ô.
+
+## 9. Được nói gì và không được nói gì (sau A05-T)
+
+| Được nói | Không được nói |
+|---|---|
+| "Luật K5 [khóa trước A04] đứng ở R03, R04; base rate trên tập fit là 36/38; cả hai ô có $R_{00}<\varepsilon_E$, nên là 'đứng do headroom'" | "Đã xác nhận $M_0$ đủ tốt khi κ ≥ 2" |
+| "$H_1$ tốt hơn $H_0$ theo metric S, với margin $m$ đã khóa, trên các ô test đã khai báo" | "Động học queue giải thích pattern" (cần knockout ở Phase 6) |
+| "Theo cách đọc D25 (ii), chênh lệch $H_1-H_0$ là …" | Độ chính xác tuyệt đối như một claim (nếu dùng λA) |
+
+## 10. Reviewer có thể hỏi
+
+1. *"Prediction của anh có thể sai không, khi 36/38 ô fit đã thỏa?"* → §6.4. Trả lời được nếu prereg ghi base rate.
+2. *"λA có rò rỉ oracle không?"* → §6.7. Trả lời được nếu có DL và cả hai mô hình cùng dùng.
+3. *"Anh chọn ô test theo gì?"* → Một luật tọa độ viết trong prereg, cùng với exposure về metadata held-out đã thấy.
+4. *"R03 đứng có nghĩa gì nếu $R_{00}$ ở đó cũng rất nhỏ?"* → Nhãn ở §6.5.
+
+## 11. ⚠️ Bẫy người mới
+
+- Đóng băng những prediction có base rate 90% rồi gọi kết quả đứng là "xác nhận".
+- Sửa luật K5 khi mang sang, vì nó "trông yếu". Card bắt buộc mang **nguyên văn**.
+- Dùng `targets` mà không nhận ra nó đã cho không $a_{01}$ ở 38/38 ô. Cả $H_0$ lẫn $H_1$ đều phải có nó.
+- Coi việc dựng $D$ của ô held-out là "không chạm held-out".
+- Chọn ô test sau khi "liếc" $p_{\text{sw}}$ hay λA của chúng.
+- Dùng λA mà không có DL; hoặc cho chỉ $H_1$ dùng λA.
+- Dùng bất kỳ cột nào của `cells.csv` cho ô test.
+
+## 12. 🧠 Tư duy researcher
+
+> **Một phép thử có giá trị khi kết quả của nó có thể thay đổi niềm tin của bạn.** Trước khi đóng băng một prediction, hãy hỏi: *"Nếu nó đứng, tôi sẽ tin điều gì mà trước đó tôi chưa tin? Và nếu không có cơ chế nào, nó có đứng không?"*
+
+Một held-out chỉ mở được một lần, nên hãy dùng nó cho câu hỏi khó nhất mà bạn trả lời được, không phải câu dễ nhất.
+
+## 13. Bài tập nên làm (khuyến nghị)
+
+1. Viết đoạn "diễn giải sau A04" cho P5-K và P3 (A2-(1), (2)) bằng lời của bạn, rồi thêm vào note theo kiểu append-only.
+2. Tính lại hai heuristic 0,90 và 0,64 trên giấy. Sau đó nghĩ xem: với C1, ô test nào làm heuristic này thấp đi?
+3. Lập bảng bậc thông tin cho **mọi** feature bạn định dùng, kèm một dòng "phép thử rò rỉ" cho mỗi feature.
+4. Viết DL đọc D25 về λA, theo (i) hoặc (ii), kèm câu giới hạn claim.
+
+## 14. Tự kiểm tra (tùy chọn)
+
+1. Vì sao F5 không phải một null kiểm được?
+2. Vì sao `targets` là bậc 0 mà vẫn "cho không" $a_{01}$? Điều đó ảnh hưởng gì tới việc so sánh $H_0$ với $H_1$?
+3. Cho một ví dụ bậc 2 và một ví dụ bậc 3 trong repo này. Vì sao dựng $D$ của R01 phải ghi exposure?
+4. Nếu chọn cách đọc (i) và $H_1$ không thắng, bạn được kết luận gì?
+5. Reviewer: "Luật K5 đứng ở R03, R04, sao anh không gọi là xác nhận?"
+
+## 15. Trạng thái của Part 1
+
+- **Hiểu:**
+  - Null bị giới hạn; ba tập dữ liệu.
+  - Kho ứng viên: K5 bắt buộc mang sang; C1 và PC4 tùy chọn.
+  - **Rủi ro theo base rate** (0,90 và 0,64).
+  - Nhãn "đứng do headroom".
+  - Bậc thông tin áp vào từng cột của repo; phép thử rò rỉ; rủi ro chọn ô test sau khi đã thấy metadata.
+  - D25 và λA: hai cách đọc, và vì sao rò rỉ chung không làm lệch phép so sánh.
+- **Nên làm khi triển khai thật:**
+  - Thêm addendum về headroom vào note A04 (A2).
+  - Viết DL về D25 và λA *trước* prereg.
+  - Lập bảng bậc thông tin cùng phép thử rò rỉ.
+  - Quyết định có đóng băng C1 không, và có thêm một prediction rủi ro hơn không.
+  - Khuyến nghị: buổi đọc với người thật (L8 / P0-V10) trước khi commit prereg.
+- **Phụ thuộc khoa học:** mọi thứ trong Part 1 phải được khóa **trước** A05-T. Sau khi mở held-out, mọi lựa chọn ở đây đều thành forking path.
+- **Học tiếp được không?** **Có.** Part 2 đặc tả $H_0$ và $H_1$: tầng identity dùng chung, null đủ mạnh để tái tạo hình học quyết định, cùng ngân sách $k$, và fit trên 38 ô bằng leave-one-slice-out. Mình dừng ở đây.

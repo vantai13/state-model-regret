@@ -1,0 +1,309 @@
+# LESSON 3.6 — Part 3: Luật chấm, kiểm khả năng phân biệt, chọn ô test, commit
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.6 A05-F
+  Part 1  đóng băng cái gì · base rate · headroom · bậc thông tin · D25/λA   ✔
+  Part 2  H0 và H1: tầng identity chung · null Gauss · k · LOSO              ✔
+  Part 3  ← YOU ARE HERE: luật trận đấu viết trước khi bóng lăn
+  ──────────
+  Lesson Gate L3.6 → L3.7 A05-T (mở held-out một lần)
+```
+
+Những gì mình đã kiểm trong Part 3:
+- tiêu chí khả năng phân biệt ở §6.3, kiểm trên 100 000 bộ số ngẫu nhiên;
+- ví dụ MAE của plan, tính lại;
+- nhãn thiết kế của 12 ô held-out: cả 12 đều `candidate`. Mình chỉ đọc nhãn và tọa độ, **không** đọc $p_{\text{sw}}$ hay λA.
+
+## 2. Part 3 trả lời câu hỏi gì?
+
+> Khi held-out mở ra, kết quả nào sẽ được gọi là SUPPORT, WEAKEN, FALSIFY hay INCONCLUSIVE, và vì sao phải quyết định điều đó *bây giờ*? Làm sao biết trước rằng phép thử *có thể* cho ra một kết luận? Và mở những ô nào?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Sau A05-T không còn dữ liệu sạch nào để kiểm lại. Mọi chỗ prereg chưa nói rõ (metric nào, ngưỡng nào, ô nào, kết quả lẫn lộn thì sao) sẽ trở thành một lựa chọn *sau khi* thấy số. Đó là forking paths ở đúng chỗ đắt nhất.
+
+**Nếu bỏ qua.** Giả sử $H_1$ thắng ở 8 ô nội suy nhưng thua ở R11 và R12. Không có luật viết trước, bạn sẽ có quyền chọn giữa "SUPPORT (bỏ qua ngoại suy)" và "WEAKEN". Lựa chọn nào cũng trông hợp lý. Đó chính là vấn đề.
+
+## 4. Liên hệ với Main RQ
+
+```text
+luật chấm + ô test + kiểm khả năng phân biệt (khóa trước)
+        └─► A05-T ─► Q3.5: "có prediction nào đứng qua ĐÚNG MỘT LẦN kiểm trên R01–R12?"
+                    └─► RQ2 ("pre-specified null", "held-out") ─► Gate A (L3.8)
+```
+
+Đây là liên hệ **trực tiếp**.
+
+## 5. Mental model
+
+**So sánh đời thường.** Luật bóng đá được viết trước khi bóng lăn. Và nếu hai đội luôn dự đoán cùng một tỉ số, thì trận đấu không cho biết đội nào giỏi hơn. Khi đó, không cần đá.
+
+---
+
+## 6. Các khái niệm
+
+### 6.1. Chọn mục tiêu và metric chính: một cái, không phải sáu
+
+**Vì sao chỉ một.** Mỗi metric thêm vào là một cơ hội để "thắng ở đâu đó". Đó là multiple comparisons, dù không có lấy mẫu.
+
+| Lựa chọn | Ưu | Nhược, trên chính dữ liệu fit của bạn |
+|---|---|---|
+| MAE của **$G_M/C_{\text{ref}}$** | Đúng câu hỏi "model repair" | $G_M=0$ ở 34/38 ô fit. Hai mô hình có thể cùng dự báo 0 gần hết, nên khả năng phân biệt thấp (§6.3) |
+| MAE của **$G_S/C_{\text{ref}}$** | Biến thiên nhiều: 18/38 ô ≥ 1% | Chỉ là một nửa câu hỏi "differ" |
+| MAE trung bình của ba contrast **($G_S$, $G_M$, $\Gamma$)/$C_{\text{ref}}$** | Gắn đúng với "differ and interact" của RQ1 | Ba contrast này không độc lập (Part 2, tầng identity). Cách gộp phải khóa trước |
+| Độ chính xác của nhãn ($\ge\varepsilon_R$ hay không) | Dễ diễn giải về mặt thực dụng | Thô, vì một ô sát ngưỡng có thể lật nhãn |
+
+**Một quy tắc hợp lệ để chọn.** Bạn có thể chọn metric chính theo **khả năng phân biệt $D$** (§6.3), bằng cách tính $D$ cho từng metric ứng viên *từ dự báo của hai mô hình*. $D$ không dùng giá trị thật, nên đây không phải nhìn trộm outcome. Nó chỉ chọn "sân" nơi hai đội thật sự khác nhau. Điều kiện: quy tắc chọn phải được viết vào prereg *trước* khi tính $D$.
+
+### 6.2. Margin $m$: gắn với ý nghĩa thực dụng, không với kết quả mong muốn
+
+$m$ là chênh lệch metric nhỏ nhất mà bạn coi là "có ý nghĩa". Gợi ý gắn với các ngưỡng đã khóa:
+
+| $m$ (điểm % của $C_{\text{ref}}$) | Lý do |
+|---|---|
+| 0,25 | Bằng một nửa $\varepsilon_E$: chênh lệch nhỏ hơn mức này nằm gọn trong dải "tương đương" |
+| 0,5 | Bằng $\varepsilon_E$: chặt hơn, khó SUPPORT hơn |
+
+Điều kiện cần: sai số số của giá trị thật ở các ô test phải **nhỏ hơn rất nhiều** so với $m$. A04 cho $e/C_{\text{ref}}$ ≤ 0,065%, nên điều kiện này có vẻ thỏa. Nhưng phải kiểm lại trên ô test.
+
+### 6.3. Kiểm khả năng phân biệt: một tiêu chí *chính xác*
+
+**Câu hỏi:** trước khi mở held-out, có biết được phép thử có *thể* cho kết luận không?
+
+**Bước 1.** Gọi $\hat y^{(0)}_i$ và $\hat y^{(1)}_i$ là dự báo của $H_0$ và $H_1$ ở ô test $i$; $y_i$ là giá trị thật, chưa biết. Định nghĩa
+$$d=\text{MAE}_0-\text{MAE}_1,\qquad D=\frac1n\sum_i\big\lvert\hat y^{(0)}_i-\hat y^{(1)}_i\big\rvert .$$
+
+**Bước 2.** Bất đẳng thức tam giác ngược cho, với mọi $y_i$:
+$$\big\lvert\,\lvert\hat y^{(0)}_i-y_i\rvert-\lvert\hat y^{(1)}_i-y_i\rvert\,\big\rvert\le\lvert\hat y^{(0)}_i-\hat y^{(1)}_i\rvert .$$
+
+**Bước 3.** Lấy trung bình theo $i$, ta được
+$$\lvert d\rvert\le D\quad\textbf{với mọi giá trị thật có thể có.}$$
+
+**Hệ quả.** Nếu $D<m$, thì **không có kết quả nào** đạt được $\lvert d\rvert\ge m$. Phép thử đã được quyết định sẵn, bất kể held-out ra sao, nên **không mở held-out cho so sánh này**.
+
+$D$ chỉ cần dự báo, nên tính được hoàn toàn *trước* A05-T.
+
+**Kiểm (số giả định, $m$ = 0,25):**
+
+| Ví dụ | $\hat y^{(0)}$ | $\hat y^{(1)}$ | $D$ | Nếu $y$ = (0; 0; 1,3) |
+|---|---|---|---:|---|
+| Ví dụ của plan | (0; 1,2; 0) | (0; 0,4; 1,1) | 0,633 | MAE₀ = 0,833, MAE₁ = 0,2, $d$ = 0,633 → SUPPORT |
+| Hai mô hình gần nhau | (0; 0,1; 0,2) | (0; 0,15; 0,1) | **0,05 < $m$** | Không mở: $\lvert d\rvert\le0{,}05$ dù $y$ thế nào |
+
+Trên 100 000 bộ số ngẫu nhiên, $\lvert d\rvert-D$ không bao giờ dương.
+
+**Với prediction kiểu equivalence** (K5, C1), "khả năng phân biệt" tương ứng với **độ rủi ro** ở Part 1, §6.4: base rate 0,90 và 0,64. Thêm hai điều kiện: ô test phải là `candidate`, và claim không được là identity. Cả 12 ô held-out đều là `candidate`.
+
+### 6.4. Luật quyết định: một chỗ mình đề xuất sửa plan
+
+> **Plan hiện ghi:** "Inconclusive khi chênh lệch metric giữa hai mô hình nhỏ hơn $m$, hoặc khi quá nhiều ô chưa phân giải."
+> **Tôi đề xuất:** một khi kiểm khả năng phân biệt đã đạt ($D\ge m$), thì $\lvert d\rvert<m$ là **kết quả có thông tin**, không phải inconclusive.
+> **Vì sao:** khi $D\ge m$, phép thử *có thể* cho ra SUPPORT. Nếu nó không cho ra, đó là thông tin: động học không thêm được $m$ trên các ô này. Gọi trường hợp đó là "inconclusive" sẽ biến mọi kết quả âm thành một lối thoát.
+
+| Kết luận | Điều kiện (khóa trước) | Nghĩa với claim "động học thêm ≥ $m$" |
+|---|---|---|
+| **SUPPORT** | $D\ge m$ và $d\ge m$ | Được ủng hộ trên các ô test đã khai báo |
+| **WEAKEN** | $D\ge m$ và $0<d<m$ | Đúng chiều nhưng dưới ngưỡng thực dụng |
+| **FALSIFY** | $D\ge m$ và $d\le0$ | Không đứng: $H_1$ không tốt hơn null |
+| **INCONCLUSIVE** | $D<m$ (lẽ ra không mở); **hoặc** khoảng của $d$, tính từ enclosure của giá trị thật, cắt qua 0 hoặc $m$; **hoặc** số ô test HOLD/chưa hội tụ vượt ngưỡng đã định | Phép thử không đủ để kết luận |
+
+**Chi tiết số học.** Giá trị thật có khoảng enclosure (A04 đã có). Hãy tính $d$ cho các đầu mút của khoảng. Nếu khoảng của $d$ cắt qua 0 hoặc $m$, thì chưa phân giải, theo đúng tinh thần luật ba trạng thái của card.
+
+**Ô test bị HOLD hoặc chưa hội tụ** (cặp 2·dt, dt như ở A04): loại khỏi MAE và **báo số lượng**. Nếu vượt một ngưỡng viết trước (ví dụ quá 2 ô), kết luận là INCONCLUSIVE.
+
+### 6.5. Chọn ô test theo luật tọa độ
+
+Tọa độ thiết kế của 12 ô held-out (bậc 0, đã công khai):
+
+| Ô | κ | B | η | $h$ (s) | So với tập fit | Loại |
+|---|---|---|---|---:|---|---|
+| R01, R02 | **0,6** | q50 | 0,5 | 8 | κ nằm giữa 0,3 và 1 | Nội suy (1 trục) |
+| R03, R04 | **2** | q90 | 0,5 | 8 | κ nằm giữa 1 và 3 | Nội suy (1 trục). Đây là ô của luật K5 |
+| R05, R06 | 1 | **q75** | 0,5 | 8 | B nằm giữa q50 và q90 | Nội suy (1 trục). Ô của C1 |
+| R07, R08 | 1 | q50 | **0,625** | 8 | η nằm giữa 0,5 và 0,75 | Nội suy (1 trục). Ô của C1 |
+| R09, R10 | **0,6** | q90 | 0,5 | **4** | Hai trục mới cùng lúc. Ở tập fit, $h$ = 2 s chỉ có ở κ = 0,3 | **Nội suy yếu** (hai trục, lân cận thưa) |
+| R11, R12 | 0,3 | q90 | 0,5 | **12** | $h$ vượt ngoài khoảng 2–8 | **Ngoại suy** |
+
+Mỗi cặp có mục tiêu 0,3 và 0,7. Mọi ô có A q90.
+
+**Plan tách "nội suy" và "ngoại suy (R11, R12)".** Mình đề xuất tách thêm **R09, R10** thành "nội suy yếu", vì chúng đổi hai trục cùng lúc.
+
+**Luật mở (bạn quyết, nhưng phải là luật):**
+
+| Phương án | Hệ quả |
+|---|---|
+| Mở cả 12; verdict chính trên 8 ô nội suy một trục; R09, R10 và R11, R12 báo riêng | Phủ rộng nhất; không có lựa chọn từng ô. Nên chọn phương án này nếu đã lo ngại việc từng thấy metadata của held-out (Part 1, §6.6) |
+| Chỉ mở các ô của những prediction đã đóng băng | Giữ một phần held-out sạch. Nhưng D25 chỉ cho dùng held-out ở A05, nên muốn dùng phần còn lại về sau thì cần DL |
+
+**Kết quả lẫn lộn (viết trước).** Ví dụ: SUPPORT trên nội suy, FALSIFY trên ngoại suy → kết luận là **SUPPORT, giới hạn trong vùng nội suy**. Không được gộp hai nhóm thành một con số rồi chọn cách báo.
+
+### 6.6. Ba nhánh chấm trong cùng một prereg, báo riêng
+
+| Nhánh | Luật | Báo kèm | Nhãn khóa |
+|---|---|---|---|
+| (a) $H_1$ so với $H_0$ (PC4) | §6.3–6.4 | $D$, MAE₀, MAE₁, khoảng của $d$ | khóa sau A04 |
+| (b) Luật K5 trên R03, R04 | **Nguyên văn** luật ba trạng thái của card | Base rate 36/38; nhãn "đứng do headroom" (Part 1, §6.5) | **khóa trước A04**; $m=1$ |
+| (c) C1 trên R05–R08 (nếu đóng băng) | Luật ba trạng thái, viết mới | Base rate 34/38; nhãn headroom | khóa sau A04, trước A05-T |
+
+**Không** gộp ba nhánh thành một "tỉ lệ thành công". Các nhánh khác nhau về độ rủi ro, nguồn gốc và loại claim.
+
+### 6.7. Thứ tự commit, file và exposure
+
+```text
+1. DL đọc D25 về λA                                        (Part 1, §6.7)
+2. prereg.md + features.py + fit.py + tests     ─ commit
+3. fit trên 38 ô, LOSO, đóng băng θ               ─ commit (theta.json)
+4. tính đặc trưng bậc ≤ đã khai cho ô test
+   (bậc 3 cần dựng D của ô held-out → GHI exposure "chỉ D, không cost/gap")
+5. predictions_heldout.json + discrimination.json ─ commit + hai hash vào DL
+   (D < m cho so sánh nào thì ghi "không mở cho so sánh đó")
+6. (khuyến nghị) một người thật đọc prereg — gộp với L8 / P0-V10
+7. dòng DL: "A05-T là quyết định không đảo ngược" → mới chạy L3.7
+```
+
+Hai hash (commit và SHA-256) dùng giống như card. Script chấm A05-T kiểm SHA-256 của `predictions_heldout.json` và **dừng** nếu không khớp.
+
+---
+
+## 7. Khung prereg A05-F, theo dự án của bạn
+
+```markdown
+# A05-F — PREREG (đóng băng trước A05-T)
+ID · ngày · contract-v1.2 · commit · provenance theo mục (tác giả viết / AI soạn, tác giả quyết)
+RQ2 (một câu)
+
+## Prediction
+(a) PC4: H1 vs H0 — mục tiêu y = … · metric chính S = … (quy tắc chọn theo D, nếu dùng) · m = …
+(b) Luật K5 A03 — NGUYÊN VĂN, khóa trước A04, R03/R04 · base rate 36/38 · luật nhãn "đứng do headroom"
+(c) C1 (nếu chọn) — miền, câu, luật ba trạng thái, base rate 34/38, nhãn headroom · khóa sau A04
+
+## Ô test   luật mở: … · nội suy 1 trục: … · nội suy yếu: R09,R10 · ngoại suy: R11,R12 · ô không mở: …
+## Đặc trưng  bảng bậc 0–3 + phép thử rò rỉ từng đặc trưng · DL D25/λA: (i)/(ii) + câu giới hạn claim
+## H0       sổ cái Gauss (hoặc …) · tọa độ · k · ρ: … · hàm mất mát · LOSO 20 lát · luật chọn
+## H1       CÙNG khung · đặc trưng động học (H1-Q…) · CÙNG k, CÙNG số tập ứng viên
+## Tầng identity T01 dùng chung · ràng buộc khả thi: tham số hóa / chiếu
+## Luật quyết định  SUPPORT/WEAKEN/FALSIFY/INCONCLUSIVE (§6.4) · enclosure của d · ngưỡng ô HOLD
+## Kết quả lẫn lộn  verdict chính = nội suy 1 trục; các nhóm khác báo riêng
+## Khả năng phân biệt  D cho từng so sánh (đính kèm discrimination.json)
+## Exposure  metadata held-out đã thấy (λA, p_sw); D held-out đã dựng (nếu có); không cost/gap held-out
+## Hash     predictions_heldout.json (commit + sha256)
+```
+
+## 8. Code: luật quyết định, đã kiểm
+
+```python
+import numpy as np
+
+def verdict(y, y0, y1, m):
+    """Chấm H1 so với H0 theo luật §6.4. D không cần y, nên tính được TRƯỚC A05-T."""
+    y, y0, y1 = map(np.asarray, (y, y0, y1))
+    D = np.mean(np.abs(y0 - y1))                    # khả năng phân biệt: |d| ≤ D với mọi y
+    d = np.mean(np.abs(y0 - y)) - np.mean(np.abs(y1 - y))
+    if D < m:   return D, d, 'KHÔNG MỞ: không phân biệt được'
+    if d >= m:  return D, d, 'SUPPORT'
+    if d > 0:   return D, d, 'WEAKEN'
+    return D, d, 'FALSIFY'
+```
+
+Trong code thật, $d$ được tính trên các *khoảng* của giá trị thật. Nếu khoảng cắt qua 0 hoặc $m$, kết quả là INCONCLUSIVE (số học).
+
+## 9. Các kết quả có thể có, và chúng dẫn tới Gate A như thế nào
+
+| A05-T | Ý nghĩa | Gợi ý ở Gate A (L3.8) |
+|---|---|---|
+| (a) SUPPORT | Thông tin động học thêm ≥ $m$ trên các ô test | Câu trả lời tích cực cho RQ2. Cơ chế vẫn cần Phase 6 |
+| (a) WEAKEN hoặc FALSIFY | Null chỉ-ngưỡng giải thích gần đủ trong vùng này | Kết quả có giá trị, nghiêng về kill-K2. Cân nhắc NARROW hoặc REFORMULATE |
+| (a) không mở vì $D<m$ | Hai giải thích không khác nhau ở đây | Phải sửa thiết kế so sánh, *không* mở held-out để "thử xem" |
+| (b) K5 đứng, nhãn "do headroom" | Không thông tin về $M_0$ | Báo trung thực; không nâng G-level vì kết quả này |
+| (b) K5 không đứng | Luật bị bác ở κ = 2 | Không suy ra ranh giới nằm ở đâu |
+| (c) C1 đứng hoặc không | Như trên, kèm base rate 0,64 | Như trên |
+
+## 10. 🔗 Liên hệ với repo cũ
+
+- **MASTER PLAN §IX.1** yêu cầu ghi trước *"Kết quả nào bác bỏ"* và *"Kết quả nào là inconclusive"*. §6.4 là lần đầu hai dòng đó được viết thành điều kiện tính được.
+- **Ở thế hệ 2**, các gate ngày 01/10 có tiêu chí khác nhau cho các câu hỏi liền kề. Một luật quyết định duy nhất cho mỗi nhánh, cộng với việc báo riêng từng nhánh, là bài học từ đó.
+- **Hàng đợi L3.3 (26/10)** đã viết rằng *"thất bại chứng nhận do khoảng cắt biên là HOLD, không tự chứng minh non-equivalence"*. Đó cũng là dòng INCONCLUSIVE số học ở §6.4.
+
+## 11. Được nói gì và không được nói gì
+
+| Được nói | Không được nói |
+|---|---|
+| "Trên 8 ô nội suy một trục, $H_1$ tốt hơn $H_0$ ở MAE của S, với $d$ = …, lớn hơn $m$ = …" | "Động học giải thích pattern" |
+| "So sánh trên $G_M$ không được mở vì $D<m$" | Im lặng về các so sánh đã bỏ |
+| "Luật K5 đứng ở R03, R04; nhãn 'đứng do headroom'" | "Xác nhận $M_0$ đủ tốt khi κ ≥ 2" |
+| "WEAKEN: đúng chiều, dưới ngưỡng thực dụng" | "Gần SUPPORT" |
+
+## 12. Reviewer có thể hỏi
+
+1. *"Anh có thể đã chọn metric sau khi thấy kết quả?"* → Không: metric chọn theo $D$, mà $D$ chỉ dùng dự báo; quy tắc chọn được commit trước.
+2. *"Phép thử của anh có thể ra SUPPORT không, hay đã định sẵn?"* → $D\ge m$, ghi trong `discrimination.json`.
+3. *"Sao lại gọi $\lvert d\rvert<m$ là FALSIFY hoặc WEAKEN mà không phải inconclusive?"* → §6.4: khả năng phân biệt đã đạt.
+4. *"R09, R10 và R11, R12 thì sao?"* → Báo riêng, theo luật kết quả lẫn lộn viết trước.
+
+## 13. ⚠️ Bẫy người mới
+
+- Chọn nhiều metric chính rồi báo metric "thắng".
+- Mở held-out khi $D<m$, "để xem".
+- Gọi mọi kết quả âm là inconclusive.
+- Gộp nội suy với ngoại suy thành một MAE.
+- Chọn ô test từng ô một sau khi đã thấy metadata.
+- Gộp ba nhánh thành "2/3 thành công".
+- Quên rằng giá trị thật cũng có enclosure.
+- Commit dự báo *sau khi* tính đặc trưng bậc 3 mà không ghi exposure của $D$ held-out.
+
+## 14. 🧠 Tư duy researcher
+
+> Trước một phép thử không lặp lại được, hãy chứng minh nó **có thể** cho ra mọi kết luận mà bạn sẽ chấp nhận. Một phép thử chỉ có thể ra "đứng" không phải là phép thử. Một luật để mọi kết quả âm thành "chưa rõ" cũng vậy.
+
+## 15. Bài tập nên làm (khuyến nghị)
+
+1. Tự chứng minh $\lvert d\rvert\le D$ trong ba dòng.
+2. Viết bảng §6.4 bằng lời của bạn, gồm luật kết quả lẫn lộn và ngưỡng ô HOLD.
+3. Chọn luật mở ô test, và viết vì sao luật đó *không phụ thuộc* metadata held-out đã thấy.
+4. Điền khung prereg ở §7 tới mức có thể, với các phần chưa quyết để trống.
+
+## 16. Tự kiểm tra (tùy chọn)
+
+1. Vì sao tính được $D$ trước A05-T, còn $d$ thì không?
+2. Nếu $D$ = 0,3 và $m$ = 0,25, những kết luận nào còn có thể xảy ra?
+3. Vì sao R09 và R10 là "nội suy yếu"?
+4. Vì sao nhánh K5 phải mang nguyên văn, còn C1 thì không?
+5. Reviewer: "WEAKEN chỉ là cách nói khác của thất bại." Bạn trả lời thế nào?
+
+---
+
+## 17. Lesson Gate: toàn bộ L3.6
+
+**Hiểu:**
+- Null bị giới hạn; ba tập dữ liệu.
+- Kho ứng viên: K5 bắt buộc; C1 và PC4 tùy chọn.
+- Base rate (0,90 và 0,64); nhãn "đứng do headroom".
+- Bậc thông tin, phép thử rò rỉ, rủi ro chọn ô test.
+- D25 và λA: hai cách đọc; rò rỉ chung không làm lệch phép so sánh.
+- Tầng identity bốn đại lượng; null Gauss sinh được $\Gamma>0$ mà không cần động học; thiết kế A và B; đếm $k$; LOSO 20 lát.
+- Một metric chính; $m$ gắn với $\varepsilon_E$.
+- **$\lvert d\rvert\le D$**: kiểm khả năng phân biệt chính xác, trước khi mở.
+- Luật SUPPORT/WEAKEN/FALSIFY/INCONCLUSIVE.
+- Chọn ô theo luật tọa độ (nội suy / nội suy yếu / ngoại suy); ba nhánh báo riêng; thứ tự commit.
+
+**Nên làm khi triển khai thật:**
+- Addendum về headroom cho A04 (Phần A ở lượt trước).
+- DL về D25 và λA.
+- Prereg theo khung §7.
+- `features.py`, `fit.py` và test.
+- Đóng băng $\theta$.
+- `predictions_heldout.json` và `discrimination.json` có hash.
+- Khuyến nghị mạnh: một người thật đọc prereg (gộp với L8 / P0-V10), vì đây là lần dùng held-out duy nhất.
+
+**Phụ thuộc khoa học** (A05-T chỉ có giá trị khi):
+- prereg và file dự báo đã commit, hash nằm trong DL;
+- $D$ đã ghi cho từng so sánh;
+- DL về D25 có trước prereg;
+- luật K5 được mang nguyên văn;
+- không có thay đổi nào sau khi tính dự báo cho ô test.
+
+**Track thực thi:** A05-T chạy được khi đủ các điều trên, và có dòng DL *"A05-T là quyết định không đảo ngược"*.
+
+**Học tiếp được không?** **Có.** L3.7 (A05-T) là phần chạy đúng một lần, chấm theo prereg, và viết kết quả mà không diễn giải lại. Khi bạn thực hiện xong A05-F và muốn mình kiểm lại repo trước khi mở held-out, mình khuyên làm đúng điều đó: đây là bước không đảo ngược được. Mình dừng ở đây.

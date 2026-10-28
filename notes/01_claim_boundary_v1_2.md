@@ -156,3 +156,20 @@ D-specific/near-boundary/ψrange/h2κ.3/floor/ĐK1 giữ nguyên. Held-outcost/c
 chưa mở;publicdesignmetadataexposure được ghi riêng. Humanreading/Phase4giữmở.
 [Note](lessons/L3.5_A04_note.md) · [scores](../results/A04/20261027_01/card_scores.csv) ·
 [candidate và prior screen](../results/lessons/l3_5/patterns.md).
+
+
+### Diễn giải sau A04 từ L3.6 — append-only, không đổi điểm chấm
+
+Tại baseline đã đo của M19–M22, upperR00/Cref nằm trong khoảng
+0,1096014850%–0,1643461187%, đều dướiεE=0,5%. DoGM≤R00, vếK củaP5
+đứng đã được headroom chặn; không lấy nó làm bằng chứng riêng M0 đủ tốt về
+mô hình/vật lý. ThayM0 có thể đổi baseline/R00, nên không suy “bất kểM0”.
+M19/M21 cóGS=0, nênΓ=GS_M1≤R00, giải thích P3 không thể đạt ngưỡng0,5%
+ở baseline này. Không đổi miền hoặc forecast đã khóa; không sửa scores.
+
+EΔhat=0 trong raw của bốn ô cho a00=Stay theo tie rule; kỳ vọng0 không tự
+chứng minh từngstatehatgap0 hoặc không cóidle. Các luận điểm vật lý mạnh hơn
+chưa kiểm. C1 nếu đăng ký equivalence≤0,5% phải dùng base36/38; base34/38 chỉ
+cho nominalzero. Không dùng heuristic độc lập như xác suất thật.
+[Addendum và số đo](lessons/L3.5_A04_note.md) ·
+[audit](../results/lessons/l3_6/preflight/a04_audit.json).

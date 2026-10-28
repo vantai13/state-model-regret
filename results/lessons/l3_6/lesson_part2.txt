@@ -1,0 +1,310 @@
+# LESSON 3.6 — Part 2: Đặc tả $H_0$ và $H_1$
+
+## 1. Bạn đang ở đâu
+
+```text
+L3.6 A05-F
+  Part 1  đóng băng cái gì · base rate · headroom · bậc thông tin · D25/λA        ✔
+  Part 2  ← YOU ARE HERE: hai mô hình thi với nhau thế nào cho công bằng
+  Part 3  metric · luật quyết định · kiểm khả năng phân biệt · chọn ô test · commit
+```
+
+Ba phần dưới đây mình đã chạy thật:
+- **tầng identity** trên dữ liệu A04 của bạn;
+- **dạng đóng** của một null Gauss, so với Monte Carlo 2 triệu mẫu;
+- một **ví dụ null không có động học** nhưng vẫn sinh ra $\Gamma>0$.
+
+Mình không đụng tới held-out.
+
+## 2. Part 2 trả lời câu hỏi gì?
+
+> Làm sao đặc tả một null $H_0$ **đủ mạnh** và một $H_1$ **có động học**, sao cho nếu $H_1$ thắng thì lý do là nhờ thông tin động học, chứ không nhờ sổ sách, nhờ thêm tham số, hay nhờ null bị làm yếu?
+
+## 3. Tại sao cần
+
+**Tầng nghiên cứu.** Nửa sau của RQ2 hỏi *"when do models of action-induced dynamics provide **additional** predictive power"*. Chữ "additional" chỉ có nghĩa khi phép so sánh công bằng. Có ba cách để so sánh mất công bằng:
+- null là strawman;
+- $H_1$ linh hoạt hơn;
+- một bên được tính công cho phần sổ sách.
+
+**Nếu bỏ qua.** Giả sử $H_0$ là "mỗi contrast bằng trung bình của tập fit", còn $H_1$ là một mô hình 6 tham số. $H_1$ thắng, và bạn viết "động học giúp dự báo". Reviewer sẽ hỏi: *"Null của anh có biểu diễn được việc lật quyết định không? MT5 nói $\Gamma$ có thể sinh ra chỉ từ hình học quyết định."* §7.2 dưới đây cho thấy điều đó *thật sự* xảy ra.
+
+## 4. Liên hệ với Main RQ
+
+```text
+H0 (chỉ ngưỡng) ─┐
+                 ├─ cùng tầng identity, cùng bậc thông tin, cùng k ─► dự báo ô test ─► RQ2
+H1 (động học) ───┘
+```
+
+Đây là liên hệ **trực tiếp**: đặc tả ở Part 2 *chính là* cách RQ2 được vận hành hóa.
+
+## 5. Nền toán cần cho Part 2
+
+| Mức | Nội dung |
+|---|---|
+| **Cần ngay** | Phân phối chuẩn $N(\mu,\sigma^2)$; $\phi$ (mật độ) và $\Phi$ (hàm phân phối) của chuẩn tắc; ý nghĩa của tương quan $\rho$; bình phương tối thiểu |
+| Học trong lúc làm | Hai công thức kỳ vọng của phân phối chuẩn ở §7.2 (mình dẫn từng bước); leave-one-out; đếm bậc tự do |
+| Chưa cần | Suy luận Bayes, chọn mô hình theo AIC/BIC, kiểm định thống kê. Không có lấy mẫu, nên không cần chúng |
+
+## 6. Mental model: một cuộc thi công bằng
+
+| Thành phần | Chung cho cả hai | Khác nhau |
+|---|---|---|
+| Sân đấu | Tầng identity T01 (§7.1) | — |
+| Luật | Bậc thông tin, phép thử rò rỉ (Part 1) | — |
+| Ngân sách | Cùng $k$ tham số, cùng thủ tục chọn mô hình | — |
+| Cách giải thích | — | $H_0$: chỉ ngưỡng, từ tọa độ. $H_1$: từ đặc trưng động học |
+
+> Nếu hai đội khác nhau ở **chỉ một** thứ, thì kết quả cho biết thứ đó có giá trị không.
+
+---
+
+## 7. Các khái niệm
+
+### 7.1. Tầng identity dùng chung: 4 con số quyết định cả 6 contrast
+
+**Câu hỏi:** mô hình cần dự báo *những gì* để ra được contrast?
+
+**Bước 1: viết các $L$ theo sổ cái** (L3.2 Part 1). Trừ đi $K=\mathbb E J(\text{St})$, rồi chia cho $C_{\text{ref}}$:
+$$\tilde L_{00}=a_{00}\,\mathbb E\Delta,\quad \tilde L_{01}=a_{01}\,\mathbb E\Delta,\quad \tilde L_{10}=T_{10},\quad \tilde L_{11}=-\mathbb E\Delta^-,$$
+trong đó $a_{00}=\mathbf 1[\mathbb E\widehat\Delta<0]$, $a_{01}=\mathbf 1[\mathbb E\Delta<0]$, và $T_{10}=\mathbb E[\Delta\,\mathbf 1(\widehat\Delta<0)]$.
+
+**Bước 2: vì sao $K$ biến mất.** Mọi contrast là hiệu giữa hai $L$, nên $K$ triệt tiêu (L3.2 Part 1, §7.3).
+
+**Kết luận.** Chỉ cần **bốn đại lượng tóm tắt** (chia cho $C_{\text{ref}}$):
+$$s=\big(\mathbb E\Delta,\ \mathbb E\widehat\Delta,\ \mathbb E\Delta^-,\ T_{10}\big)\big/C_{\text{ref}}$$
+là đủ để tính cả sáu contrast/$C_{\text{ref}}$.
+
+**Kiểm trên A04 của bạn.** Mình tái dựng sáu contrast của 38 ô chính chỉ từ bốn con số này:
+- sai lệch lớn nhất so với `cells.csv` là $2{,}8\cdot10^{-19}$, tức chỉ là làm tròn;
+- **0/38** ô vi phạm các ràng buộc khả thi ở dưới.
+
+**Ràng buộc khả thi.** Một dự báo hợp lệ phải thỏa:
+$$\mathbb E\Delta^-\ \ge\ \max(0,-\mathbb E\Delta),\qquad -\mathbb E\Delta^-\ \le\ T_{10}\ \le\ \mathbb E\Delta+\mathbb E\Delta^- .$$
+Nếu một mô hình dự báo ra ngoài vùng này, tầng identity sẽ cho ra "gain âm" ở những chỗ không thể âm (ví dụ $G_{M\mid S_1}<0$). Prereg phải nói cách xử lý: hoặc tham số hóa để không bao giờ ra ngoài, hoặc chiếu vào vùng khả thi.
+
+**Vì sao dùng chung tầng này.** Với cấu trúc này, không bên nào được tính công cho phần sổ sách. Hai mô hình chỉ còn thi ở việc **dự báo phân phối của gap**.
+
+D22 (F, V) cần thêm một đại lượng thứ năm. Vì P6 đã không đứng và không có ô held-out nào cho nó, mình đề xuất **không** đưa D22 vào A05.
+
+### 7.2. Null phải tái tạo được hình học quyết định (MT5): một ví dụ cụ thể
+
+**Ý tưởng.** Mô tả mỗi ô bằng một "sổ cái Gauss", hoàn toàn không có hàng đợi:
+$$\Delta\sim N(\mu,\sigma^2),\qquad e_M\sim N(b,\tau^2),\qquad \text{corr}(\Delta,e_M)=\rho,\qquad \widehat\Delta=\Delta+e_M .$$
+
+| Tham số | Ý nghĩa | Gắn với |
+|---|---|---|
+| $\mu$ | Gap trung bình | Margin; dấu của $a_{01}$ |
+| $\sigma$ | Độ trải của gap *trong ô*: thứ mà state repair "nhìn thấy" | $e_S$ trong dạng của Final Review |
+| $b$ | Bias của $M_0$ ở cấp ô | T01: $G_M\le\lvert b\rvert$ |
+| $\tau$ | Độ trải của sai số $M_0$ *theo state* | Cận $\mathbb E\lvert e_M\rvert$ ở L3.3 Part 2 |
+| $\rho$ | Sai số $M_0$ phụ thuộc state đến mức nào | "Bias phụ thuộc state" của MT5 |
+
+Đây là phiên bản cụ thể của dạng $\widehat\Delta_{sm}=\Delta+(1-s)e_S+(1-m)e_M+e_0$ trong Final Review §2.7.
+
+**Dạng đóng của bốn đại lượng tóm tắt.**
+- $\mathbb E\Delta=\mu$ và $\mathbb E\widehat\Delta=\mu+b$: hiển nhiên.
+- $\mathbb E\Delta^-=\sigma\,\phi(\mu/\sigma)-\mu\,\Phi(-\mu/\sigma)$: kỳ vọng của phần âm của một biến chuẩn.
+- $T_{10}=\mathbb E[\Delta\,\mathbf 1(\widehat\Delta<0)]$, dẫn qua ba bước:
+  1. Lấy kỳ vọng có điều kiện theo $\widehat\Delta$: $\mathbb E[\Delta\mid\widehat\Delta]=\mu+\frac{c}{s^2}(\widehat\Delta-\hat m)$. Với hai biến chuẩn đồng thời, kỳ vọng có điều kiện tuyến tính. Ở đây $\hat m=\mu+b$, $s^2=\text{Var}\,\widehat\Delta=\sigma^2+\tau^2+2\rho\sigma\tau$, và $c=\text{cov}(\Delta,\widehat\Delta)=\sigma^2+\rho\sigma\tau$.
+  2. Vì vậy $T_{10}=\mu\,P(\widehat\Delta<0)+\frac{c}{s^2}\,\mathbb E[(\widehat\Delta-\hat m)\mathbf 1(\widehat\Delta<0)]$.
+  3. Với $Y\sim N(\hat m,s^2)$, ta có $\mathbb E[(Y-\hat m)\mathbf 1(Y<0)]=-s\,\phi(\hat m/s)$. Thay vào:
+  $$T_{10}=\mu\,\Phi(-\hat m/s)-\frac{c}{s}\,\phi(\hat m/s).$$
+- **Kiểm bằng Monte Carlo** (2 triệu mẫu, hai bộ tham số): cả bốn đại lượng khớp tới cỡ $10^{-3}$, đúng bằng nhiễu của Monte Carlo.
+
+**Thí nghiệm then chốt: một null không có động học vẫn sinh ra $\Gamma>0$.** Đặt bias $b=0$ (sai số $M_0$ trung bình bằng 0), $\rho=0$, $\mu=0{,}5$, $\sigma=1$. Chỉ tăng độ trải $\tau$ của sai số theo state:
+
+| $\tau$ | $G_M$ | $G_S$ | $\Gamma$ | $G_{M\mid S_1}$ | $G_{SM}=R_{00}$ |
+|---:|---:|---:|---:|---:|---:|
+| 0 | 0 | 0,198 | 0 | 0 | 0,198 |
+| 0,5 | 0 | 0,159 | 0,039 | 0,039 | 0,198 |
+| 1 | 0 | 0,084 | 0,114 | 0,114 | 0,198 |
+| 2 | 0 | **−0,032** | **0,230** | 0,230 | 0,198 |
+
+**Đọc bảng:**
+- **Không có hàng đợi nào**, nhưng $\Gamma$ đi từ 0 lên 0,23.
+- Ở $\tau=2$, $G_S<0$. Đó là **con đường A** của L3.3 Part 2, sinh ra chỉ từ nhiễu cộng với ngưỡng argmin.
+- $G_{M\mid S_1}$ vượt $R_{00}$, đúng như L3.5 Part 2 (§6.3) đã nói.
+- $G_M=0$ ở mọi dòng, vì bias bằng 0 nên $S_0$ không bao giờ lật.
+
+> **Hệ quả cho thiết kế.** Một $H_0$ không có $\tau$ (hoặc $\rho$) sẽ **không** sinh ra được $\Gamma$ và $G_S<0$. Khi đó $H_1$ sẽ "thắng" ở chính những chỗ mà hình học quyết định đã đủ giải thích. Đó là strawman. MT5 ở đây không còn là lời cảnh báo trừu tượng: bảng trên là bằng chứng bằng số.
+
+**Một vấn đề nhận dạng (identifiability).** Mỗi ô fit cho bạn **4** con số, trong khi sổ cái Gauss có **5** tham số. Từ dữ liệu của một ô, bạn không xác định được cả năm. Có hai cách xử lý phổ biến:
+- dùng chung $\rho$ cho mọi ô (1 tham số toàn cục);
+- cố định $\rho=0$.
+
+Chọn cách nào phải ghi trong prereg. Đổi sau khi thấy test là một forking path.
+
+### 7.3. Hai kiến trúc cho $H_1$
+
+| | **Thiết kế A: cùng khung, khác covariate** | **Thiết kế B: khác cấu trúc** |
+|---|---|---|
+| $H_0$ | Sổ cái Gauss; $(\mu,\sigma,b,\tau)$ là hàm của **tọa độ** (bậc 0, cộng λA nếu chọn D25-ii) | Như A |
+| $H_1$ | **Cùng** sổ cái Gauss và cùng dạng hàm; $(\mu,\sigma,b,\tau)$ là hàm của **đặc trưng động học** (bậc 2–3, từ hàng đợi H1-Q) | Một mô hình queue hay fluid tự tính bốn đại lượng tóm tắt |
+| Ưu | Hai bên khác nhau ở **đúng một thứ**: thông tin động học. Dễ cân ngân sách | Gần cơ chế hơn |
+| Nhược | Nếu sổ cái Gauss mô tả sai hình dạng gap, cả hai bên cùng chịu. Phép so sánh vẫn công bằng, nhưng độ chính xác tuyệt đối kém | Khó cân ngân sách; khác nhau ở nhiều thứ cùng lúc. $H_1$ thắng thì khó nói vì sao |
+| Hợp với | Phase 3: "thông tin động học có thêm sức dự báo không" | Phase 6 (knockout, cơ chế) |
+
+*Đề xuất của mình (bạn quyết):* **thiết kế A** cho A05. Nó trả lời đúng chữ "additional predictive power" của RQ2 với ít giả định nhất.
+
+**Đặc trưng ứng viên cho $H_1$**, lấy từ hàng đợi Phase 2. Bậc ghi theo Part 1.
+
+| Ứng viên | Dạng đặc trưng | Bậc |
+|---|---|---|
+| H1-Q01 | Phương sai của input tích phân trong $h$ theo $\kappa$ và biên độ (mode telegraph) | 2 |
+| H1-Q02 | $\mathbb E[q_B^2]/(2r)\cdot\eta/(1-\eta)$ (proxy từ quantile, hoặc từ belief) | 2 hoặc 3 |
+| H1-Q04 | Xác suất, hoặc chỉ báo fluid, của việc chạm biên rỗng trong $h$ dưới từng action. Đây chính là nơi Jensen gap $j_l$ xuất hiện (L3.2 Part 2) | 2 (fluid) hoặc 3 (law) |
+| ~~H1-Q03~~ | Cần cost thật | **4: cấm** |
+
+**Hai lưu ý:**
+- **$H_1$ phải vượt điều prior đã biết.** Nếu đặc trưng của $H_1$ chỉ là "tuổi × tải", thì đó đã là K-S2 và K-S7. $H_1$ thắng cũng không phải đóng góp mới.
+- **Trên hình H1 của chính bạn (A04)**, phần lớn các điểm nằm *xa gốc hơn* đường chéo: $\lvert\mathbb E\widehat\Delta\rvert>\lvert\mathbb E\Delta\rvert$ ở 15/16 ô κ = 0,3 và 15/16 ô κ = 1. Riêng bốn ô K5 thì $\mathbb E\widehat\Delta$ nằm đúng ở 0. Đây là **quan sát discovery**, chưa phải cơ chế. Nhưng nó cho thấy $b$ không phải nhiễu đối xứng: một $H_0$ tốt phải cho phép $b$ phụ thuộc vào tọa độ.
+
+### 7.4. Cùng ngân sách $k$: đếm *mọi* bậc tự do
+
+$k$ không chỉ là số hệ số. Những thứ sau đều là "độ linh hoạt" và cần được khóa giống nhau cho hai bên:
+
+| Bậc tự do | Cách khóa |
+|---|---|
+| Số hệ số đã fit | $k_{\max}$ bằng nhau |
+| Họ hàm (tuyến tính, log-tuyến tính, …) | Giống nhau |
+| **Số tập đặc trưng ứng viên được thử** | Bằng nhau. Nếu $H_1$ được thử 10 tập còn $H_0$ chỉ 1, thì $H_1$ có lợi thế forking paths *ngay trong tập fit* |
+| Thủ tục chọn mô hình | Giống nhau (§7.5) |
+| Bộ tối ưu, điểm khởi tạo, ràng buộc | Giống nhau |
+| Xử lý $\rho$ (§7.2) | Giống nhau |
+
+**Chọn $k$ thế nào.** Bạn có 38 ô, tức 152 con số tóm tắt, nhưng chỉ có **20 lát**. Held-out là lát *mới*. Vì vậy số tham số nên nhỏ hơn hẳn số lát, để mô hình không học thuộc từng lát. Mình không đưa ra một con số "đúng". Hãy chọn $k$ trước, ghi lý do, và giữ nó.
+
+### 7.5. Fit và leave-one-slice-out trên 38 ô
+
+- **Tập fit:** 38 ô chính, gồm cả ba ô calibration và các ô của card. Được phép, vì tất cả là dữ liệu discovery.
+- **Kiểm nội bộ: leave-one-slice-out (LOSO), 20 fold.** Mỗi lần bỏ cả một lát (ví dụ V05 = {M09, M10}), fit trên 19 lát còn lại, rồi dự báo lát bị bỏ.
+  - *Vì sao bỏ cả lát, không bỏ từng ô:* hai ô trong cùng một lát chung mọi tọa độ trừ mục tiêu. Bỏ một ô còn giữ ô kia thì gần như là "nhìn trộm". Held-out lại là **lát mới**, nên LOSO mô phỏng đúng tình huống thật.
+- **Hàm mất mát.** Ví dụ: tổng bình phương sai số của bốn đại lượng tóm tắt đã chia $C_{\text{ref}}$. **Cảnh báo:** fit tốt các đại lượng tóm tắt chưa chắc dự báo tốt contrast *gần ngưỡng*, vì contrast nhảy bậc. Prereg phải nói rõ bạn tối ưu cái gì và chấm cái gì. Chấm ở Part 3.
+- **Kết quả LOSO là bằng chứng discovery**, không phải bằng chứng ngoài mẫu. Nó dùng để *chọn* mô hình trong họ đã khai báo. Sau đó **đóng băng** $\theta_{H_0}$ và $\theta_{H_1}$.
+
+**Pseudocode:**
+
+```text
+for model in (H0, H1):                                   # cùng vòng lặp, cùng thủ tục
+    for feature_set in CANDIDATES[model]:                # số tập ứng viên BẰNG NHAU
+        loso_err = mean over 20 slices of
+                   loss( fit(model, feature_set, cells ∖ slice), cells ∈ slice )
+    chosen[model] = argmin loso_err                      # luật chọn khóa trong prereg
+    θ[model] = fit(model, chosen[model], all 38 cells)   # đóng băng
+save θ, chosen, loso_err  → commit (TRƯỚC khi tính đặc trưng của ô test nếu muốn, chắc chắn trước A05-T)
+```
+
+## 8. Code: hai khối đã kiểm
+
+Code này tồn tại để kiểm hai việc: *"Tầng identity có đúng trên dữ liệu thật không?"* và *"Null Gauss có tính đúng các đại lượng tóm tắt không?"*
+
+```python
+from math import erf, exp, pi, sqrt
+Phi = lambda x: 0.5 * (1 + erf(x / sqrt(2))); phi = lambda x: exp(-x * x / 2) / sqrt(2 * pi)
+
+def contrasts(Ed, Edh, En, T10):
+    """Tầng identity (T01): 4 đại lượng tóm tắt/Cref -> 6 contrast/Cref. Dùng CHUNG cho H0 và H1."""
+    a00, a01 = int(Edh < 0), int(Ed < 0)
+    L00, L01, L10, L11 = a00 * Ed, a01 * Ed, T10, -En          # các L đã trừ K, chia Cref
+    return dict(G_S=L00 - L10, G_M=L00 - L01, G_SM=L00 - L11, Gamma=L10 + L01 - L00 - L11,
+                G_S_M1=L01 - L11, G_M_S1=L10 - L11)
+
+def summaries(mu, sig, b, tau, rho):
+    """Sổ cái Gauss: Δ~N(μ,σ²), e_M~N(b,τ²), corr ρ, Δ̂=Δ+e_M. Dạng đóng, đã kiểm bằng Monte Carlo."""
+    s = sqrt(sig**2 + tau**2 + 2 * rho * sig * tau)
+    cov = sig**2 + rho * sig * tau
+    mh = mu + b
+    En = sig * phi(mu / sig) - mu * Phi(-mu / sig)
+    T10 = mu * Phi(-mh / s) - (cov / s) * phi(mh / s)
+    return dict(Ed=mu, Edh=mh, En=En, T10=T10)
+```
+
+**Test nên có trong `experiments/A05_freeze/`:**
+1. `contrasts` tái dựng đúng contrast của 38 ô A04. Sai lệch thực tế mình đo được là $2{,}8\cdot10^{-19}$.
+2. `summaries` khớp Monte Carlo trên vài bộ tham số.
+3. Bảng $\tau$ ở §7.2 là golden: một null không có động học vẫn cho $\Gamma>0$.
+4. `fit.py` không import đường dẫn nào trong `results/A05*` hay `raw/R*`.
+5. Module đặc trưng chỉ đọc các trường của `grid_v1_2.json` có bậc ≤ mức cho phép.
+6. $k$ được đếm tự động, và bằng nhau giữa hai mô hình.
+
+## 9. Assumptions
+
+| Assumption | Nó giúp gì | Nếu sai thì sao |
+|---|---|---|
+| Gap trong một ô gần với phân phối chuẩn | Có dạng đóng; null mô tả được hình học quyết định | Gap thật có support hữu hạn, có thể lệch, có khối ở 0 (ô WD, ô hòa). Cả hai bên cùng chịu (thiết kế A), nên so sánh vẫn công bằng, nhưng độ chính xác tuyệt đối kém. Muốn tốt hơn thì dùng phân phối linh hoạt hơn, *khóa trước* |
+| $\rho$ dùng chung, hoặc bằng 0 | Nhận dạng được | Nếu sai số $M_0$ phụ thuộc state rất khác nhau giữa các ô, null bị yếu đi. Hãy kiểm bằng LOSO trên tập fit |
+| Ô test là lát mới nhưng cùng họ | LOSO có ý nghĩa | R11, R12 ($h$ = 12 s) là ngoại suy: tách riêng ở Part 3 |
+
+## 10. 🔗 Liên hệ với repo cũ
+
+- **Ở thế hệ 2**, phân phối Gauss xuất hiện trong *controller*: posterior Gauss gần đúng cho quyết định "uncertainty-aware". Bây giờ nó xuất hiện trong **null**, như một cách mô tả hình học quyết định mà không cần hàng đợi. Cùng công cụ, vai trò ngược lại.
+- **$I_\Delta$ ở L1.5** chính là phần sai số thay đổi theo state, tức $\tau$ và $\rho$ ở đây. L1.5 đã cho thấy tương tác ở tầng dự báo có thể có mà không cần cơ chế. §7.2 lặp lại điều đó, nhưng ở tầng quyết định.
+- **`margin_route_diagnostics.csv` của A04** có $\mathbb E\lvert e_M\rvert$ và các quantile của $\lvert\Delta\rvert$ cho mọi ô fit. Bạn có thể dùng chúng để *kiểm* xem sổ cái Gauss có mô tả hợp lý tập fit không. Với ô test thì chúng là **bậc 4, cấm**.
+- **Final Review §2.7** đề xuất dạng sai số cộng. Sổ cái Gauss là một cách cụ thể hóa nó, và lần đầu tiên dạng đó tính được trên lưới thật.
+
+## 11. Được nói gì và không được nói gì
+
+| Được nói (sau A05-T, nếu $H_1$ thắng theo luật đã khóa) | Không được nói |
+|---|---|
+| "Với cùng sổ cái Gauss, cùng $k$, cùng bậc thông tin, đặc trưng động học X dự báo tốt hơn tọa độ trên các ô test đã khai báo" | "Động học hàng đợi là cơ chế" (cần knockout) |
+| "LOSO trên 38 ô ủng hộ chọn tập đặc trưng X" (discovery) | "LOSO xác nhận $H_1$" |
+| "Một null không có động học tái tạo được $\Gamma>0$ và $G_S<0$ (§7.2)" | "$\Gamma>0$ ở A04 là bằng chứng của tương tác cơ chế" |
+
+## 12. Reviewer có thể hỏi
+
+1. *"Null của anh có sinh ra $\Gamma$ không?"* → **Có**, qua $\tau$ và $\rho$ (bảng §7.2).
+2. *"$H_1$ có được thử nhiều tập đặc trưng hơn $H_0$ không?"* → §7.4: số tập ứng viên bằng nhau.
+3. *"Vì sao Gauss?"* → Đó là giả định của *cả hai* bên. Phép so sánh vẫn công bằng; độ chính xác tuyệt đối thì có giới hạn.
+4. *"Đặc trưng của $H_1$ có khác 'tuổi × tải' của prior không?"* → Phải trả lời bằng định nghĩa đặc trưng trong prereg.
+
+## 13. ⚠️ Bẫy người mới
+
+- $H_0$ không có $\tau$ hoặc $\rho$, tức không sinh được $\Gamma$: strawman.
+- Fit trực tiếp sáu contrast bằng hai mô hình khác cấu trúc, rồi một bên "ăn" phần sổ sách.
+- Thử 10 tập đặc trưng cho $H_1$ nhưng chỉ 1 cho $H_0$.
+- Dùng LOSO từng ô thay vì từng lát.
+- Dùng `margin_route_diagnostics` hay quantile của $\lvert\Delta\rvert$ của ô test làm đặc trưng.
+- Đổi cách xử lý $\rho$ sau khi thấy dự báo của ô test.
+- Gọi LOSO là kiểm ngoài mẫu.
+- Bỏ qua ràng buộc khả thi, rồi báo "$G_{M\mid S_1}$ âm" như một kết quả.
+
+## 14. 🧠 Tư duy researcher
+
+> Muốn biết một thông tin có giá trị không, hãy cho hai mô hình **giống hệt nhau ở mọi thứ trừ thông tin đó**. Rồi cho null mọi lợi thế hợp lệ mà nó có thể có.
+
+Một null mạnh không phải là kẻ thù của $H_1$. Nó là lý do khiến một chiến thắng của $H_1$ có ý nghĩa.
+
+## 15. Bài tập nên làm (khuyến nghị)
+
+1. Tự dẫn lại $T_{10}$ (ba bước ở §7.2). Kiểm trường hợp cực đoan $\tau\to0$, $\rho=0$: khi đó $T_{10}$ nên bằng $-\mathbb E\Delta^-$ (vì $S_1M_0$ trùng oracle). Công thức có cho đúng như vậy không?
+2. Dùng `summaries` để tìm một bộ tham số có $b\ne0$ cho $G_M>0$. Kiểm $G_M\le\lvert b\rvert$.
+3. Viết danh sách tập đặc trưng ứng viên cho $H_0$ và cho $H_1$, với **cùng số lượng**, kèm bậc thông tin của từng đặc trưng.
+4. Quyết định cách xử lý $\rho$ và $k$, rồi viết lý do.
+
+## 16. Tự kiểm tra (tùy chọn)
+
+1. Vì sao bốn đại lượng tóm tắt đủ để tính sáu contrast? Vì sao D22 cần thêm một đại lượng?
+2. Trong bảng $\tau$, vì sao $G_M=0$ ở mọi dòng mà $\Gamma$ lại tăng?
+3. Vì sao LOSO theo lát mô phỏng held-out tốt hơn LOSO theo ô?
+4. Thiết kế A và thiết kế B: mỗi cái trả lời câu hỏi gì?
+5. Reviewer: "Gauss là sai hình dạng, kết quả của anh vô nghĩa." Bạn trả lời thế nào, và phần nào của lời phê bình là đúng?
+
+## 17. Trạng thái của Part 2
+
+- **Hiểu:**
+  - Tầng identity dùng chung (bốn đại lượng tóm tắt, ràng buộc khả thi; đã kiểm trên A04).
+  - Sổ cái Gauss làm null: dạng đóng, kiểm bằng Monte Carlo, và **null không có động học vẫn sinh $\Gamma>0$, $G_S<0$**.
+  - Vấn đề nhận dạng của $\rho$.
+  - Thiết kế A và B cho $H_1$; đặc trưng từ H1-Q.
+  - Đếm mọi bậc tự do vào $k$.
+  - LOSO theo 20 lát.
+- **Nên làm khi triển khai thật:**
+  - Chọn thiết kế A hoặc B.
+  - Viết hai danh sách tập đặc trưng có cùng số lượng, kèm bậc thông tin.
+  - Khóa $k$, họ hàm, cách xử lý $\rho$, hàm mất mát, luật chọn bằng LOSO.
+  - Viết `fit.py` cùng sáu test ở §8.
+  - Fit, đóng băng $\theta$.
+- **Phụ thuộc khoa học:** mọi lựa chọn ở Part 2 phải được commit **trước** khi tính dự báo cho ô test, và chắc chắn trước A05-T. Mọi lựa chọn đưa ra sau khi thấy dự báo trên ô test đều là forking path.
+- **Học tiếp được không?** **Có.** Part 3 sẽ bàn: chấm bằng metric nào, margin $m$ bao nhiêu; support/weaken/falsify/inconclusive nghĩa là gì; kiểm khả năng phân biệt *trước* khi mở held-out; chọn ô test theo luật tọa độ (tách nội suy và ngoại suy); template prereg và file dự đoán có hash. Mình dừng ở đây.

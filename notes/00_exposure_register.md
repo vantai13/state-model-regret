@@ -515,3 +515,18 @@ lookupprimary2nguồn:arXivabstracts,crossrefmetadata;khôngPDF/fulltext/newpape
 
 [Note A04](lessons/L3.5_A04_note.md) · [manifest](../results/A04/20261027_01/manifest.json) ·
 [scores](../results/A04/20261027_01/card_scores.json) · [pattern log](../results/lessons/l3_5/patterns.md).
+
+
+## L3.6 chuẩn bị — trước quyết định D25/prereg,28/10/2026
+
+Doan Van Tai phụ trách. Đọc/archive review và Parts1–3 L3.6. Review tựbáo348tests/
+74s không được chép thànhlocal evidence. Đã audit lại A04/currentguards,38ô/20lát,
+headroom vàbase rates,tái dựngidentity;không tínhD/outcome gridmới. GaussianMC
+4triệu mẫu và100.000toyD chỉ dữ liệu giả;seeds/tham số/log lưu riêngpreflight.
+358tests/60s là local runmới;regression tái kiểm D-only/screen đãexposed trướcđó.
+
+Đã đọc tọa độ/nhãnheld-out ngay trong lesson được cung cấp;chưa tải recordgrid
+held-out mới vào feature module,chưaD/cost/gap/contrast held-out. Khôngp_sw/λA
+held-out mới được tính;exposurepublicmetadata cũ vẫn giữ. Đã hỏi tác giả hai
+quyết định D25/phạm vi;chưa có câu trả lời,không giảđã chọn. A05-F chưa freeze.
+[Report](../results/lessons/l3_6/report.md) · [audit](../results/lessons/l3_6/preflight/a04_audit.json).
