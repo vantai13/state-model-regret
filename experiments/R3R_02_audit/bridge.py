@@ -5,6 +5,7 @@ is the comparison implementation; no named held-out cell is constructed here.
 """
 from fractions import Fraction as F
 import json
+import math
 from pathlib import Path
 
 import numpy as np
@@ -50,21 +51,36 @@ def population_from_tables(A, B, wa, wb, c=0, pair=P.pair_values):
 
 
 def golden_population(plant):
-    """All finite toy states on A; zero B; source golden may have arbitrary signed gaps."""
+    """All toy states on A, zero B; preserve exact input ties by integer scaling.
+
+    A zero B with c=0 makes pair_values homogeneous of degree one in A weights
+    and A costs. Scale rational probabilities/costs to integer counts first,
+    then divide the returned cost by both scales. This avoids changing a toy
+    with exact rational tie into a different rounded-input toy. Production
+    physical code/pilot estimates are unaffected by this adapter correction.
+    """
     xs, ys = list(plant['J']), list(plant['p'])
-    col = lambda v: np.array([LD(F(v[x]).numerator) / F(v[x]).denominator for x in xs])
-    A = {'d': col(plant['Delta']), 'dh': col(plant['Dhat']), 'j': col(plant['J']),
-         'w': [np.array([LD(F(plant['D'][y].get(x, 0)).numerator) / F(plant['D'][y].get(x, 0)).denominator for x in xs]) for y in ys]}
+    cost_scale = math.lcm(*(F(plant[c][x]).denominator for c in ('J', 'Delta', 'Dhat') for x in xs))
+    col = lambda v: np.array([LD(int(F(v[x]) * cost_scale)) for x in xs])
     B = dict(d=np.array([LD(0)]), dh=np.array([LD(0)]), j=np.array([LD(0)]), w=[np.array([LD(1)])])
-    wa = [LD(F(plant['p'][y]).numerator) / F(plant['p'][y]).denominator for y in ys]
-    L = population_from_tables(A, B, wa, [LD(1)])
+    L = dict.fromkeys(('00', '01', '10', '11'), F(0))
+    for y in ys:
+        scale = math.lcm(*(F(plant['D'][y].get(x, 0)).denominator for x in xs))
+        A = {'d': col(plant['Delta']), 'dh': col(plant['Dhat']), 'j': col(plant['J']),
+             'w': [np.array([LD(int(F(plant['D'][y].get(x, 0)) * scale)) for x in xs])]}
+        result = P.pair_values(A, B, 0, 0)['L']
+        for key in L:
+            integer = int(result[key])
+            if result[key] != integer:
+                raise ArithmeticError('integer-count toy exceeds exact arithmetic range')
+            L[key] += F(plant['p'][y]) * F(integer, scale * cost_scale)
     if 'q' in plant:
-        cb = LD(0)
-        for iy, py in enumerate(wa):
+        cb = F(0)
+        for y in ys:
             for q in set(plant['q'].values()):
-                w = np.array([A['w'][iy][i] if plant['q'][x] == q else LD(0) for i, x in enumerate(xs)])
-                action = (w * A['dh']).sum() < 0
-                cb += py * (w * (A['j'] + action * A['d'])).sum()
+                weights = {x: F(plant['D'][y].get(x, 0)) for x in xs if plant['q'][x] == q}
+                action = sum(w * plant['Dhat'][x] for x, w in weights.items()) < 0
+                cb += F(plant['p'][y]) * sum(w * (plant['J'][x] + action * plant['Delta'][x]) for x, w in weights.items())
         L['cb0'] = cb
     return L
 

@@ -84,25 +84,31 @@ def sample(model, la, lb, n, seed, kind):
 
 
 def prepare(rid, out):
-    if out.exists():
-        raise ValueError('preserve existing MC prepare output')
-    out.mkdir(parents=True)
+    resumed = out.exists()
+    if resumed and (out / 'prepare.json').exists() and json.loads((out / 'prepare.json').read_text())['status'] == 'COMPLETE':
+        raise ValueError('preserve completed MC prepare output')
+    out.mkdir(parents=True, exist_ok=True)
     row = list(B.specs()).index(rid)
     seed = 318301000 + 1000 * row
     start = time.monotonic()
-    model = B.BlackBox(B.spec(rid))
+    if resumed:
+        with (out / 'engine_cache.pkl').open('rb') as f: model, la, lb = pickle.load(f)
+        result = json.loads((out / 'prepare.json').read_text())
+        result['resumed_after_diagnostic_index_guard_fix'] = True
+    else:
+        model = B.BlackBox(B.spec(rid))
+        la = M.stationary_law(float(model.cell['lambdaA']), float(model.cell['u']), float(model.cell['kappa']))
+        lb = M.stationary_law(float(model.cell['lambdaB']), 0., float(model.cell['kappa']))
+        (out / 'stationary.json').write_text(json.dumps({'A': la.diagnostics, 'B': lb.diagnostics}, indent=2) + '\n')
+        # Local reusable cache, not a published scientific output or dependency on pilot cache.
+        with (out / 'engine_cache.pkl').open('wb') as f: pickle.dump((model, la, lb), f, protocol=5)
+        result = {'id': rid, 'seed_base': seed, 'C1': [], 'C2': [], 'pilot': {}, 'status': 'RUNNING'}
     c = model.cell
-    la = M.stationary_law(float(c['lambdaA']), float(c['u']), float(c['kappa']))
-    lb = M.stationary_law(float(c['lambdaB']), 0., float(c['kappa']))
-    (out / 'stationary.json').write_text(json.dumps({'A': la.diagnostics, 'B': lb.diagnostics}, indent=2) + '\n')
-    # Local reusable cache, not a published scientific output or dependency on pilot cache.
-    with (out / 'engine_cache.pkl').open('wb') as f:
-        pickle.dump((model, la, lb), f, protocol=5)
-    result = {'id': rid, 'seed_base': seed, 'C1': [], 'C2': [], 'pilot': {}, 'status': 'RUNNING'}
     def save(): write(out / 'prepare.json', result)
     save()
     states = [(0, 0, 0, 0), (0, 1, 0, 1), (1, 0, 1, 1), (5, 1, 5, 0), (200, 0, 200, 1)]
     for j, state in enumerate(states):
+        if len(result['C1']) > j: continue
         expected = model.costs(np.asarray([state], dtype=float))[0]
         history = []
         for retry in (0, 1):
@@ -120,6 +126,7 @@ def prepare(rid, out):
         positive /= positive.sum()
         qvals = sorted({0., *[float(np.searchsorted(np.cumsum(positive), p) * law.quantum) for p in (.25, .5, .75, .9)]})
         for j, y in enumerate(qvals):
+            if any(row['side'] == side and row['y'] == y for row in result['C2']): continue
             d, _ = engine_side.old_gap(np.asarray([y]))
             linear = float((engine_side.post - engine_side.pre) * engine_side.dt ** 2 * engine_side.H * (engine_side.H + 1) / 2)
             expected = float(d[0]) + linear
@@ -135,12 +142,13 @@ def prepare(rid, out):
             # MC distribution is unchanged for mutants; only the claimed engine expectation changes.
             index = engine_side._indices(np.asarray([y]))[0]
             no_age = float((engine_side.d[index] * engine_side.old_mode[index]).sum()) + linear if index <= engine_side.cap else linear
-            independent_mode = float(engine_side.old_d[index].mean()) + linear
+            independent_mode = (float(engine_side.old_d[index].mean()) if index < len(engine_side.old_d) else 0.) + linear
             result['C2'].append({'side': side, 'y': y, 'history': history,
                                  'mutant_no_age': comparison(no_age, stats(data['gap'])),
                                  'mutant_old_mode_independent': comparison(independent_mode, stats(data['gap']))})
             save()
     for i, kind in enumerate(('nodes', 'stationary')):
+        if kind in result['pilot']: continue
         data = sample(model, la, lb, 2048, seed + 200 + i, kind)
         score = M.score_policies(data, policies(model, data))
         expected = json.loads((ROOT / f'results/lessons/l3r_3/engine_run01/{rid}/audit.json').read_text())['levels'][0]
