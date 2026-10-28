@@ -1,0 +1,61 @@
+{
+  "responsible": "Doan Van Tai",
+  "source_card_sha256": "14021a83c6d45a3fbeba6b7cbe27e9c8c0e572734557af1598cf79b819f34639",
+  "locked_before_A04": true,
+  "locked_rule_count": 1,
+  "rule": {
+    "kappa_min": "2",
+    "alphaA": "9/10",
+    "alphaB": "9/10",
+    "h_s": "8",
+    "eta": [
+      "1/2",
+      "3/4"
+    ],
+    "targets": [
+      "3/10",
+      "7/10"
+    ],
+    "main": [
+      "M19",
+      "M20",
+      "M21",
+      "M22"
+    ],
+    "heldout": [
+      "R03",
+      "R04"
+    ],
+    "carry": "all non-refuted rules, including unresolved; unchanged into A05-F",
+    "Q_witness_scope": "M01-M04 only; no new heldout Q claim"
+  },
+  "P5": {
+    "source": "PC5",
+    "K_ids": [
+      "M19",
+      "M20",
+      "M21",
+      "M22"
+    ],
+    "Q_ids": [
+      "M01",
+      "M02",
+      "M03",
+      "M04"
+    ],
+    "K_relation": "<=",
+    "K_threshold": "1/200",
+    "K_quantifier": "all",
+    "Q_relation": ">=",
+    "Q_threshold": "1/100",
+    "Q_quantifier": "any"
+  },
+  "verbatim_card_section_4": "## 4. Hai mức K5 và carry sang A05-F\n\nTác giả đã chọn hai mức, xác nhận nguyên văn được lưu trong author_attestation.json:\n\n- Danh sách: M19–M22 (K); Q5=M01–M04 (witness chỉ ở tập đó), chấm A04.\n- Luật: eligible candidate, κ≥2, A/B q90, h=8s, η∈{0.5,0.75}, target thiết kế∈{0.3,0.7}.\n  Candidate dùng labels đã khóa của thiết kế; không loại/thay ô vì outcome hay precision sau này.\n  Main M19–M22; held-out R03/R04 tại κ=2, η=0.5. Thực nghiệm hữu hạn, không khẳng định\n  mọi κ≥2 hoặc η=.75 ở κ=2. Không dùng p_sw thực/lambdaA held-out làm features.\n- P5-rule là K-uniform trên main+R03/R04 **AND** Q-witness trên M01–M04 đã khóa.\n  Vế Q không được mở rộng sang held-out hoặc thay witness bằng ô thuận lợi khác.\n- Khóa carry trước A04: **mọi luật trong card có main chưa bị bác (kể cả unknown)\n  được đưa nguyên văn sang A05-F**. Nếu phần main bị bác, ghi refuted, không mở held-out\n  chỉ để cứu luật. Không chọn riêng “luật đẹp”; A05-T báo k/m và toàn bộ trạng thái của m=1 luật.\n  Đây là accounting, không là bằng chứng cơ chế khi m=1 hoặc khi Q chỉ có main witness.\n- Luật này **không tiêu vào quota 1–3 H1/null predictions mới** của A05-F; A05-F phải\n  giữ nguyên và báo riêng “khóa trước A04”. Rule mới/sửa sau A04 phải mang nhãn riêng.\n  H1/null/metric/fit/split của A05 chưa được chọn hoặc khóa ở card này (D25).\n- Các mở rộng P2→R07/R08 và P3→R03 chỉ là **candidate chưa adopt**, không thuộc card\n  formal claims/denominator/carry. Không âm thầm thêm chúng sau khi thấy main outcomes.\n- P6: **không có kiểm ngoài mẫu** trong held-out hiện tại. Không tự sinh/thay ô.\n\n",
+  "A04_main_K_verdict": "STANDS",
+  "A04_Q_verdict": "STANDS",
+  "Q_witnesses": [
+    "M01",
+    "M03"
+  ],
+  "heldout_Q_claim_added": false
+}

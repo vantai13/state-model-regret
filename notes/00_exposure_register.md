@@ -530,3 +530,14 @@ held-out mới vào feature module,chưaD/cost/gap/contrast held-out. Khôngp_sw
 held-out mới được tính;exposurepublicmetadata cũ vẫn giữ. Đã hỏi tác giả hai
 quyết định D25/phạm vi;chưa có câu trả lời,không giảđã chọn. A05-F chưa freeze.
 [Report](../results/lessons/l3_6/report.md) · [audit](../results/lessons/l3_6/preflight/a04_audit.json).
+
+
+## L3.6 sau tác giả chọn DL-057 — trước fit/predictions (28/10/2026)
+
+Tác giả chọn D25(ii) và thiết kếA đầy đủ, giao chốt chi tiết trong prereg.
+Đã commit author decision51c926f trước prereg. H0/H1 cùng12hệ số,2candidate,
+2start;rho0;LOSO20lát;metricchínhMAEđều GS/GM/Gamma,margin.25điểm%Cref.
+Các công thức/numerical gates/conditional opening đã viết trước khi tạo θ/dựbáo.
+Unit tests feature chỉ sanitize38main;không load held-out record vào features.
+369fulltestsPASS/60.31s,21targetedtestsPASS;không fit thực38ô trướcpreregcommit.
+Nguồn A01/A04/cardgiữnguyên. KhôngD/cost/gap/contrast held-out mới.
