@@ -1,0 +1,42 @@
+{
+  "responsible": "Doan Van Tai",
+  "status": "IRREVERSIBLE_A05_T_DECISION",
+  "decided_at": "2026-10-28T08:31:52+07:00",
+  "provenance": "AI (Claude) soạn và thực hiện theo ủy quyền trực tiếp của tác giả; không phải câu tác giả tự viết",
+  "author_request_verbatim": "hãy làm theo hướng dẫn và thực hiện lesson 7 cho tôi đi",
+  "decision": "Mở 10 ô R01–R08, R11, R12 cho A05-T, đúng một lần; R09/R10 giữ niêm phong",
+  "decision_log_entry": "DL-059",
+  "open_ids": ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R11", "R12"],
+  "sealed_ids": ["R09", "R10"],
+  "scoring_dt_s": "1/240",
+  "check_dt_s": "1/120",
+  "psw_check_refs": [1, 2],
+  "freeze_commit": "5f201030cebec0f916ef5db7625ca86c7e11833c",
+  "predictions_sha256": "9b93e3f3445d4ebc2fbda96f72988bc3bc78c5524df05825405c73f83093bb80",
+  "discrimination_sha256": "cbd0851a47e5939a9ae68e342befdcb8171f5722c169f00cf77c66b86310afe5",
+  "engine_card_A01_A04_unchanged_since": "0eb42f20ae1deaa1ed96b65bdb98907bbc4e4bf8",
+  "runner_commit": "72903b71b757edee559ed27b8af8ec7c70dfd151",
+  "source_sha256": {
+    "experiments/A05_test/__init__.py": "4eec3d7ad0c980cec76cd90d5f4a2aa0154e41e59c849ef6c885f2f1606a663c",
+    "experiments/A05_test/gate.py": "354fafe7076ed9ad2244bf9683d298a076de3fdef8c4b9d52ee07a0cf4e604ed",
+    "experiments/A05_test/invariants.py": "774864dff18b580d5058bb3c0fb031ce36efcee048b084c7788ff7a4b097ce5c",
+    "experiments/A05_test/rescore.py": "01bdcbb95663c28da0fbb6edb087f7708a6693a8edf51c019eab42da6abbdc62",
+    "experiments/A05_test/run.py": "c04e70c05904e5483fe50491f550d6ee4b6614f99f5261a80101232bfcaaf3d3"
+  },
+  "scoring": "experiments/A05_freeze/score_test.score unchanged (prereg A05-F §7); independent re-application by rescore.py",
+  "declared_diagnostics_not_verdict": [
+    "tier-1 invariants on every opened cell-level: A04 ledger_checks, physical_checks, C_ref=L11 same row, record identity, dt, R00/R01/R10 not wholly below zero, G_S+Gamma meets G_S_M1",
+    "regime per cell: nominal a00/a01 and structural G_M=0, R00/Cref interval with flags <1/200 and <1/100, engine p_sw versus public p_2",
+    "position of each truth interval relative to the two frozen predictions and its d contribution (saturation bound |p0-p1|)",
+    "level/shape split per contrast and group: |mean(p0)-mean(p1)|, mean signed error, midpoint MAE and de-meaned (shape-only) MAE of each model"
+  ],
+  "commitments": [
+    "no change of dt, margin, metric, weights, cell list, model or precision gate after any outcome",
+    "a cell failing a registered gate is unavailable, not rerun at another dt",
+    "only a validity bug provable without the verdict may be fixed, with a new DL and decision record, reported under Deviations",
+    "R09/R10 outcomes remain sealed",
+    "the four branches PC4 interpolation, PC4 extrapolation, K5, C1 are reported separately; no pooled success rate"
+  ],
+  "author_expectations_recorded_before_run": false,
+  "human_reader_before_A05_T": false
+}

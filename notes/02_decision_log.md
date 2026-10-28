@@ -858,3 +858,33 @@ GM luôn thuộc{0,|EΔ|}: đây vốn là hệ quả T01. Không tự thêm ref
 Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_report.md),
 [freeze_verification](../results/lessons/l3_6/freeze_verification.json).369testsPASS;
 80LOSO/24model-cellpredictionsreplaykhớp;164starts đều thànhcông.
+
+### DL-059 — Quyết định không đảo ngược: mở A05-T đúng một lần (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. Yêu cầu trực tiếp nguyên văn: “hãy làm theo
+  hướng dẫn và thực hiện lesson 7 cho tôi đi”. AI (Claude) soạn dòng này và thực hiện
+  **theo ủy quyền**; đây không phải câu tác giả tự viết, không author-attest
+  Understanding L3.7 hay kỳ vọng trước run.
+- 2026-10-28T08:31:52+07:00: mở **10 ô R01–R08, R11, R12** cho A05-T, **đúng một lần**.
+  **R09/R10 giữ niêm phong** (D_weak = 0,2123 < m, DL-058); trục h = 4 s không được kiểm.
+- Neo: freeze `5f20103`; predictions SHA256 `9b93e3f3…bb80`; discrimination SHA256
+  `cbd0851a…afe5`; engine, card, A01 và A04 không đổi kể từ `0eb42f2` (git diff rỗng);
+  runner, gate và rescorer ở commit `72903b7`, SHA nguồn đăng ký trong
+  [decision.json](../experiments/A05_test/decision.json).
+- Chấm ở dt 1/240 s; kiểm cặp 1/120→1/240 cho từng ô; luật prereg A05-F §7 qua
+  `score_test.score` nguyên vẹn; chấm lại độc lập bằng `rescore.py`. Kiểm p_sw công
+  khai ở ref 1/2 bitwise trước cost; lệch thì dừng.
+- Cam kết: không đổi dt, margin, metric, trọng số, danh sách ô, mô hình hay cổng
+  precision sau khi thấy outcome. Ô trượt cổng là unavailable, không chạy lại ở dt khác.
+  Chỉ sửa bug validity chứng minh được mà không cần verdict; khi đó cần DL mới,
+  decision mới và mục Deviations.
+- Chẩn đoán khai trước, `DIAGNOSTIC_NOT_VERDICT`, tính cho mọi ô đã mở bất kể verdict:
+  bất biến tầng 1; regime (a00/a01, G_M bằng 0 cấu trúc, R00/C_ref, p_sw engine so với p_2);
+  vị trí truth so với hai dự báo và đóng góp d; phân rã level/shape theo contrast.
+- Đọc kết quả: SUPPORT chỉ nghĩa H1 gần sự thật hơn H0 ít nhất m (|d| ≤ D); luôn báo
+  MAE0 và MAE1. "H0 đủ tốt" chỉ được ghi dưới nhãn Inference. K5/C1 báo kèm base rate
+  heuristic (0,8975 / 0,8055) và nhãn headroom. Bốn nhánh báo riêng, không gộp.
+- Chưa có: kỳ vọng trước run do tác giả viết ([claim sheet](lessons/A05_T_claim_sheet.md)
+  để trống phần đó); người đọc thật trước A05-T (khuyến nghị của PHASE_3 v2.0).
+  A05-T không là network evidence, cơ chế hay G2. Phase 4 vẫn HOLD tới P0-V10;
+  L8, T05 author-writing và Understanding giữ OPEN.

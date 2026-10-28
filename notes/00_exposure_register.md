@@ -560,3 +560,11 @@ K5m=1nguyênvăn;C1postdiscovery riêng;khônggộptỷlệthànhcông.
 [Predictions](../experiments/A05_freeze/predictions_heldout.json) ·
 [Discrimination](../experiments/A05_freeze/discrimination.json) ·
 [Features](../experiments/A05_freeze/features_heldout.json).
+
+## A05-T — quyết định mở, ghi trước run (28/10/2026, DL-059)
+
+`A05-T_OPENING_DECLARED` · 2026-10-28T08:31:52+07:00. Các ô **R01–R08, R11, R12** được
+mở cho A05-T, đúng một lần, sau commit này. Lúc commit: chưa có D, J, gap, contrast,
+regret hay C_ref của bất kỳ ô R nào; không có `results/A05_test/`. **R09/R10 giữ niêm
+phong**: không D, không outcome. Sau run, 10 ô đã mở trở thành dữ liệu đã thấy; giả
+thuyết mới nảy ra từ chúng cần dữ liệu khác (Phase 5). AI theo ủy quyền, không human review.
