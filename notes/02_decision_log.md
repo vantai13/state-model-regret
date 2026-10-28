@@ -888,3 +888,29 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   để trống phần đó); người đọc thật trước A05-T (khuyến nghị của PHASE_3 v2.0).
   A05-T không là network evidence, cơ chế hay G2. Phase 4 vẫn HOLD tới P0-V10;
   L8, T05 author-writing và Understanding giữ OPEN.
+
+### DL-060 — Kết quả A05-T và hoàn tất kỹ thuật L3.7 (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. AI (Claude) chạy và chấm theo ủy quyền DL-059;
+  không human review, không author-attest Understanding hay kỳ vọng trước run.
+- Thứ tự: freeze `5f20103` → runner `72903b7` (391 tests PASS) → quyết định `146169d`
+  → run một lần → output `e719157`. Engine, card, A01, A04 và A05-F không đổi.
+- Validity: p_sw công khai bitwise 20/20; 20/20 cell-level BOUNDED và hard_pass; 10/10 cặp
+  1/120→1/240 STANDS; max e_num/C_ref = 7,26·10⁻⁶; unresolved mass ≤ 4,59·10⁻⁶. Cổng
+  precision PC4 10/10. `rescore.py` chấm lại độc lập: **agreement PASS**.
+- **PC4 nội suy (verdict chính): WEAKEN.** 8/8 eligible; d = 0,247036 điểm % C_ref,
+  thấp hơn m = 0,25; MAE0 = 0,690, MAE1 = 0,443.
+- **PC4 ngoại suy R11/R12: FALSIFY.** d = −0,141751; MAE0 = 2,047, MAE1 = 2,188.
+  R09/R10 DO_NOT_OPEN, niêm phong, không có outcome.
+- **K5: DOES_NOT_STAND.** R03 STANDS (headroom-limited). R04 có G_M/C_ref = 0,527926% > 0,5%.
+  Luật tọa độ K5 bị bác ở held-out; claim mức danh sách M19–M22 từ A04 không bị ảnh hưởng.
+- **C1: STANDS** ở R05–R08 (G_M = 0 danh nghĩa, headroom không chứng nhận). Luật
+  post-discovery, base rate heuristic ≈ 0,81, nên là bằng chứng yếu.
+- Chẩn đoán khai trước, không đổi verdict:
+  - R01 đóng góp khoảng 72% của d nội suy.
+  - Lợi thế của H1 chủ yếu nằm ở mức (sai số có dấu G_S: −0,74 so với −0,01; Γ: +1,01 so với +0,36);
+    phần shape-only nhỏ hơn.
+  - Γ thật âm ở R01 và R11, không mô hình nào dự báo Γ âm.
+- Deviations: không có. 10 ô đã mở nay là dữ liệu đã thấy. Nhãn Gate A dành cho tác giả ở L3.8;
+  dòng này không chọn nhãn. Phase 4 HOLD tới P0-V10; L8, T05 author-writing và Understanding OPEN.
+  [Report](../results/lessons/l3_7/report.md) · [số đo](../results/lessons/l3_7/verification.json).

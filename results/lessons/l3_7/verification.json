@@ -1,0 +1,118 @@
+{
+  "responsible": "Doan Van Tai",
+  "provenance": "AI (Claude) theo ủy quyền trực tiếp; DL-059/060",
+  "run": "results/A05_test/20261028_01",
+  "decision_commit": "146169d185d22e24b22bf0f0af42366ed6a6a532",
+  "runner_commit": "72903b71b757edee559ed27b8af8ec7c70dfd151",
+  "outputs_commit": "e719157c2f55a5cff2163bb73ef09a31a3483f7e",
+  "freeze_commit": "5f201030cebec0f916ef5db7625ca86c7e11833c",
+  "tests_before_run": 391,
+  "psw_bitwise_matches": 20,
+  "cell_levels": 20,
+  "hard_failures": [],
+  "hold_levels": [],
+  "dt_pair_not_stands": [],
+  "all_pairs_STANDS": true,
+  "max_e_over_Cref_lower": 7.262321725560676e-06,
+  "max_unresolved_mass": 4.588299879126391e-06,
+  "max_pair_change_upper_over_Cref_fine": 0.00011699813454494464,
+  "wall_s": 22.644345921999957,
+  "PC4": {
+    "interpolation": {
+      "verdict": "WEAKEN",
+      "eligible": 8,
+      "registered": 8,
+      "d_interval_pp": [
+        0.2470355526370571,
+        0.24703555273865987
+      ],
+      "active_D_pp": 0.5912388742655547,
+      "MAE0_pp": [
+        0.6896435208700816,
+        0.6897084759275637
+      ],
+      "MAE1_pp": [
+        0.4426079681822231,
+        0.4426729232397052
+      ],
+      "margin_pp": 0.25
+    },
+    "weak_interpolation": {
+      "verdict": "DO_NOT_OPEN",
+      "D_pp": 0.21229704511052647,
+      "outcome_computed": false
+    },
+    "extrapolation": {
+      "verdict": "FALSIFY",
+      "eligible": 2,
+      "registered": 2,
+      "d_interval_pp": [
+        -0.1417505477762491,
+        -0.1417505477762491
+      ],
+      "active_D_pp": 0.4749516654760839,
+      "MAE0_pp": [
+        2.0461994634866003,
+        2.046683618656963
+      ],
+      "MAE1_pp": [
+        2.1879500112628496,
+        2.188434166433212
+      ],
+      "margin_pp": 0.25
+    }
+  },
+  "primary_verdict": "WEAKEN",
+  "K5": {
+    "verdict": "DOES_NOT_STAND",
+    "cells": {
+      "R03": {
+        "verdict": "STANDS",
+        "headroom_label": "STANDS_HEADROOM_LIMITED",
+        "sensitive_to_dt": false
+      },
+      "R04": {
+        "verdict": "DOES_NOT_STAND",
+        "headroom_label": "NOT_STANDING_OR_UNRESOLVED",
+        "sensitive_to_dt": false
+      }
+    },
+    "full_rule": "DOES_NOT_STAND"
+  },
+  "C1": {
+    "verdict": "STANDS",
+    "cells": {
+      "R05": {
+        "verdict": "STANDS",
+        "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+        "sensitive_to_dt": false
+      },
+      "R06": {
+        "verdict": "STANDS",
+        "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+        "sensitive_to_dt": false
+      },
+      "R07": {
+        "verdict": "STANDS",
+        "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+        "sensitive_to_dt": false
+      },
+      "R08": {
+        "verdict": "STANDS",
+        "headroom_label": "STANDS_NOT_CERTIFIED_BY_HEADROOM",
+        "sensitive_to_dt": false
+      }
+    }
+  },
+  "independent_rescore": "PASS",
+  "independent_rescore_exit": 0,
+  "sealed_never_evaluated": [
+    "R09",
+    "R10"
+  ],
+  "deviations": [],
+  "author_expectations_recorded_before_run": false,
+  "human_review": false,
+  "gate_A_label_chosen": false,
+  "console_log_sha256": "342d14500d894d65b50cab0256c5a5b46c633d81932cc444c90d5ba36cc29e02"
+}

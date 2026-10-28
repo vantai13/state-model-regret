@@ -173,3 +173,16 @@ chưa kiểm. C1 nếu đăng ký equivalence≤0,5% phải dùng base36/38; bas
 cho nominalzero. Không dùng heuristic độc lập như xác suất thật.
 [Addendum và số đo](lessons/L3.5_A04_note.md) ·
 [audit](../results/lessons/l3_6/preflight/a04_audit.json).
+
+### Kết quả A05-T — held-out một lần, 28/10/2026 (DL-060)
+
+Áp dụng cho 10 ô R01–R08, R11, R12 ở dt 1/240 s, trong mô hình đã khai báo:
+
+- **PC4:** nội suy **WEAKEN**: H1 gần sự thật hơn H0 nhưng dưới margin đã khóa
+  (d = 0,247 < 0,25 điểm % C_ref); ngoại suy h = 12 s **FALSIFY** (d = −0,142). Không được
+  claim "động học queue thêm sức dự báo" hay "H1 chính xác". PC4 không đạt SUPPORT.
+- **K5:** luật tọa độ κ ≥ 2, A/B q90, h = 8 s **bị bác ở R04** (G_M/C_ref = 0,528%). Chỉ còn
+  claim mức danh sách M19–M22 (A04), có headroom chặn.
+- **C1:** G_M/C_ref ≤ 0,5% đứng ở R05–R08. Luật post-discovery, base rate cao; không claim
+  cho vùng tọa độ liên tục.
+- **Chưa kiểm:** trục h = 4 s (R09/R10 niêm phong). Không network evidence, không cơ chế, không G2.

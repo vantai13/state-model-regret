@@ -9,7 +9,14 @@ predictions và luật chấm đã commit đúng thứ tự, source/SHA guard PA
 H1 có LOSO summary MSE thấp hơn H0 **21,13%** trên discovery; chưa là kết quả test.
 D của nhóm nội suy chính **0,59124 điểm %Cref**, ngoại suy **0,47495**, đều vượt
 margin0,25. Nhóm yếu R09/R10 chỉ **0,21230** nên giữ chưa mở theo luật đã khóa.
-Universe12 ô; bước A05-T dự kiến chỉ cần **R01–R08,R11/R12**. **A05-T chưa chạy**.
+Universe12 ô; A05-T mở **R01–R08,R11/R12**, R09/R10 niêm phong.
+
+**L3.7/A05-T đã chạy đúng một lần** (DL-059–060, 28/10/2026): validity 20/20, p_sw 20/20,
+chấm lại độc lập khớp. **PC4 nội suy WEAKEN** (d = 0,247 < m = 0,25 điểm % C_ref;
+MAE0 0,690, MAE1 0,443); ngoại suy h12 **FALSIFY** (d = −0,142); **K5 bị bác ở R04**
+(G_M/C_ref 0,528%); **C1 đứng** ở R05–R08 (post-discovery, bằng chứng yếu). Không SUPPORT,
+không cơ chế. Nhãn Gate A chờ tác giả ở L3.8. [Report L3.7](results/lessons/l3_7/report.md) ·
+[verdict](results/A05_test/20261028_01/verdict.json).
 
 [Report L3.6](results/lessons/l3_6/freeze_report.md) · [Audit](results/lessons/l3_6/freeze_verification.json) ·
 [Prereg](experiments/A05_freeze/prereg.md) · [Freeze](notes/lessons/A05_F_preregistration.md) ·
@@ -58,7 +65,7 @@ Claim boundary có addendum Phase 2 và kết quả A04 sau tag; D1–D25 và l�
 memo chưa gửi, chưa có phản hồi GVHD thật. Prereg/exposure, runner/tests và A04 đã hoàn tất.
 [Completion A04](notes/phases/A04_completion.json) ghi trạng thái sau run; gate record là snapshot trước run.
 [Gate record](notes/phases/A04_execution_gate.json) · [preflight L3.5](notes/lessons/L3.5_preflight.md).
-A05-F đã khóa; A05-T cần quyết định không đảo ngược trước run L3.7. **HOLD Phase 4 tới P0-V10**. Người đọc P0-V10/L8 và các mục
+A05-F đã khóa; A05-T đã chạy một lần sau quyết định DL-059. **HOLD Phase 4 tới P0-V10**. Người đọc P0-V10/L8 và các mục
 tác giả tự viết còn mở. [Gói cho người đọc](notes/meetings/phase2_reader_packet.md).
 Không dùng nháp heads-up 23/10 nguyên trạng (đã lỗi thời). Main RQ/contract/G1 giữ nguyên.
 

@@ -568,3 +568,11 @@ mở cho A05-T, đúng một lần, sau commit này. Lúc commit: chưa có D, J
 regret hay C_ref của bất kỳ ô R nào; không có `results/A05_test/`. **R09/R10 giữ niêm
 phong**: không D, không outcome. Sau run, 10 ô đã mở trở thành dữ liệu đã thấy; giả
 thuyết mới nảy ra từ chúng cần dữ liệu khác (Phase 5). AI theo ủy quyền, không human review.
+
+## A05-T — sau run (28/10/2026, DL-060)
+
+Run `results/A05_test/20261028_01`, một lần, exit 0. Đã tính và xem: D, cost, gap, contrast,
+regret, C_ref, R00, diagnostics của **R01–R08, R11, R12** ở ref 1 và 2. Mười ô này nay là dữ
+liệu đã thấy, không còn dùng được để kiểm giả thuyết mới. **R09/R10 vẫn niêm phong**: không D,
+không cost, không outcome. Chuỗi "R10" trong output là khóa regret R10, không phải ô.
+Đọc verdict sau khi chấm bằng scorer đã khóa; không đổi model, metric, dt hay danh sách ô.

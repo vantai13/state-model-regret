@@ -218,3 +218,20 @@ qua freeze guard và planned-ID gate trước outcome. Không sửa freeze-folde
 để thêm runner: dùng thư mục A05-T riêng. L3.7 cần dòngquyếtđịnh khôngđảongược
 trước run;chưa códòngđó/chưaA05-T. KhôngD/cost/gap/contrast held-out ởL3.6.
 HumanreaderL8/P0-V10/T05author-writing/Understanding/Phase4 không tựđóng.
+
+## 17. L3.7/A05-T — đã chạy một lần, supersede dòng "chưa A05-T" ở §16
+
+DL-059 (AI theo ủy quyền trực tiếp, không phải tác giả tự viết): quyết định không đảo ngược
+`146169d`, commit cùng exposure và claim sheet, sau runner `72903b7` (391 tests PASS).
+Run `e719157`: p_sw 20/20, validity 20/20, 10/10 cặp dt STANDS, rescore độc lập PASS.
+
+| Nhánh | Verdict |
+|---|---|
+| PC4 nội suy (chính) | **WEAKEN**, d = 0,247 < 0,25 điểm % C_ref |
+| PC4 ngoại suy h12 | **FALSIFY**, d = −0,142 |
+| K5 | **DOES_NOT_STAND** ở R04 (G_M/C_ref 0,528%) |
+| C1 | **STANDS** ở R05–R08 (bằng chứng yếu) |
+
+R09/R10 niêm phong; trục h = 4 s chưa kiểm. Tiếp theo: **L3.8 Gate A**, nhãn do tác giả chọn.
+Phase 4 HOLD tới P0-V10; L8, T05 author-writing và Understanding OPEN.
+[Report](../../results/lessons/l3_7/report.md) · [completion](A05_T_completion.json).

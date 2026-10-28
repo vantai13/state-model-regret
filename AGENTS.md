@@ -200,3 +200,11 @@ khôngsửasauprediction;runnerA05-Tmớiđặtởfolderkhác. Verify_frozen tr�
 enginevàcheckplannedIDs;A00guardcũkhôngthayfullfreezechecker. Reporthiện dùng:
 results/lessons/l3_6/freeze_report.md;oldreport.md/verification.jsonlàsnapshot
 chuẩnbịgiữhistoricalhashes. Humanreader/T05author-writing/Understanding/Phase4giữmở.
+
+L3.7/A05-T chạy đúng một lần 28/10 (DL-059–060, AI theo ủy quyền "thực hiện lesson 7"):
+decision146169d (sau runner72903b7, 391tests) trước run; output e719157. p_sw20/20,
+validity20/20, 10 cặp dt STANDS, rescore độc lập PASS. **PC4 nội suy WEAKEN** (d.247<m.25pp),
+ngoại suy h12 FALSIFY, **K5 bị bác ở R04** (GM/Cref.528%), C1 đứng R05–R08 (post-discovery).
+10 ô R đã mở là dữ liệu đã thấy; R09/R10 niêm phong; "R10" trong output là khóa regret.
+Không chạy lại A05-T. Kỳ vọng tác giả trước run/người đọc thật: không có. Gate A (L3.8) do
+tác giả chọn; Phase4 HOLD tới P0-V10; L8/T05/Understanding OPEN. Report results/lessons/l3_7/report.md.
