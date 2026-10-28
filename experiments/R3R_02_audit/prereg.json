@@ -1,0 +1,132 @@
+{
+  "responsible": "Doan Van Tai",
+  "declared_at": "2026-10-28T23:15:51.002242+07:00",
+  "pilot_commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "T07_base_commit": "315d2037c3877c2616212ffccdfd44be9b3e4df9",
+  "audit_regimes": [
+    "X2065",
+    "X2029",
+    "X2041",
+    "X1001",
+    "X3001",
+    "X1008",
+    "X2012",
+    "X1009"
+  ],
+  "parameters": "regimes.json",
+  "scope": "verification of already exposed discovery; no CF/R09/R10",
+  "tests": {
+    "T1": {
+      "expected": "T07 exact toys via actual pilot pair_values + population average",
+      "abs_tol": 1e-12
+    },
+    "T2a": {
+      "expected": "every retained support point, same stationary prior mass -> age transition recovers prior",
+      "TV_tol": "removed_mass + 1e-12"
+    },
+    "T2b": {
+      "expected": "S1 via y quadrature versus direct stationary pi on same state cost tables",
+      "max_cost_ppC": 0.25,
+      "K": [
+        40,
+        80,
+        160
+      ],
+      "dt_ref": 1,
+      "trend": "report each difference; non-monotone is UNRESOLVED diagnostic, not proof of bug"
+    },
+    "T3": {
+      "expected": "fluid atom formula (10-lambda-managed)/(16-lambda-managed), slotted discrepancy contracts",
+      "atom_abs_tol_ref1": 0.01,
+      "refinements": [
+        1,
+        2
+      ],
+      "kappa_independence": "fluid limit only; at finite dt mode persistence can affect atom"
+    },
+    "T4": {
+      "expected": "u0 gives six exact zero contrasts and flip0",
+      "abs_tol": 0
+    },
+    "T5": {
+      "expected": "far from empty, idle gaps d=dh=0 exactly",
+      "abs_tol": 0
+    },
+    "T6": {
+      "expected": "8 pairs across 8 declared discovery regimes, compare 4 costs/actions to evaluate_sides",
+      "relative_tol": 1e-12
+    },
+    "T7": {
+      "expected": "explicit S0/S1 exact ties Stay",
+      "abs_tol": 0
+    }
+  },
+  "mutants": [
+    "S0_leaks_state",
+    "swap_L00_L10",
+    "mean_state_rollout_D10",
+    "old_mode_independent_of_y",
+    "no_age_propagation",
+    "drop_zero_atom",
+    "unnormalized_y_weights",
+    "tie_switch",
+    "union_weight_row_permutation",
+    "Cbar_other_dt",
+    "D22_mode_leak",
+    "state_cost_corruption"
+  ],
+  "MC": {
+    "author": "independent clean session, allowed T07/contract/physical spec only",
+    "physical_spec": "mc_physical_spec.md",
+    "seed_range": [
+      318300000,
+      318399999
+    ],
+    "pilot_N": 2048,
+    "N_rule": "ceil(max contrast SD/(0.001*Cbar))^2; minimum32768; maximum524288; round up power2",
+    "C1_N": 65536,
+    "C2_N": 65536,
+    "C3_N_min": 32768,
+    "C3_N_max": 524288,
+    "SE_target_ppC": 0.1,
+    "z_max": 3,
+    "retry_multiplier": 4,
+    "max_retries": 1,
+    "retry_seed": "separate independent seed offset+50000",
+    "num_allowance": "MEASURED refinement difference and independent-law tail error, recorded separately; heuristic difference is not certified error bound",
+    "zero_SE": "exact agreement -> z0; nonzero difference -> alarm",
+    "C2_points": "0 plus stationary conditional q25/q50/q75/q90 positive lattice quantiles of each side; no outcome selection",
+    "C1_states": "5 deterministic starting states: (0,0,0,0),(0,1,0,1),(1,0,1,1),(5,1,5,0),(200,0,200,1)",
+    "C3_comparison": "same retained-node discrete joint law for strict estimator z comparison; independent stationary-law population uses numeric allowance and is qualified; bin-policy interpolation alone does not remove quadrature error",
+    "budget": "report inadequate SE/uncertified tail as unresolved; no forced PASS"
+  },
+  "reproducibility": {
+    "regimes": "9 original robustness coordinates at original levels plus X2065",
+    "same_platform": "all CSV numeric columns except wall_s exact float equality; pairs array byte equality with equal NaNs",
+    "different_platform_absC": 1e-09,
+    "clean_checkout": "isolated git clone of source tag then fresh venv exact installed library versions"
+  },
+  "numerical_policy_proposal": {
+    "main_ref": 2,
+    "main_K": 40,
+    "checks": [
+      [
+        2,
+        20
+      ],
+      [
+        1,
+        40
+      ]
+    ],
+    "tol_ppC": 0.25,
+    "tol_ppStakes": 0.25,
+    "epsilon_equiv_ppC": 0.5,
+    "sign_rule": "reject flip when either magnitude beyond equivalence band",
+    "escalation": "K80/ref2 and K40/ref4 at most one step after failed axis; unresolved remains reported",
+    "unresolved": "no PASS/FALSIFY counted, proposed >10% gives inconclusive; not adopted confirmation rule"
+  },
+  "engine_location": "experiments/R3R_02_audit only; no src promotion",
+  "Understanding": "OPEN",
+  "phase4_execution": "HOLD"
+}

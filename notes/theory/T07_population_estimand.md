@@ -196,3 +196,22 @@ sẽ lưu cost/contrasts/phân số, kiểm 5 mutant và log; kết quả thực
 vì sao S1 chỉ bất biến khi giữ marginal X, và vì sao GS<0 chưa nói được F<0.
 Hiện chưa có xác nhận việc tự làm này. Không nâng G1, không khóa contract,
 không tuyên bố engine verified hoặc mở Phase4 từ T07.
+
+
+## 9. Bổ sung đặc tả vật lý trước MC — L3R.3 (DL-066, 28/10/2026)
+
+Bổ sung này theo nguồn **đã tồn tại trước pilot**: grid_v1.md dòng14 cho R2;
+contractv1 D1/D7 cho thứ tự slot; D5/D13 v1.2 cho action/cost. Không thay plant cũ.
+S1: keep=(1+exp(−2dt/κ))/2, κ=Tmode/age, age=1s. S2: state là đầu slot0; mode
+hiện tại cấp arrivals, phản xạ backlog tại0, cộng cost endpoint rồi đổi mode cho
+slot kế. S4: chụp backlog tại đầu slot t0−age; đẩy đúng 120·ref slot pre-Stay tới
+x đầu slot t0. S6: Stage3 thêm c_sw packet·s **một lần** vào cost Switch; đây là
+scenario audit của pilot, không sửa D13v1.2 hoặc adopt contractv1.3.
+[Đặc tả độc lập đầy đủ](../../experiments/R3R_02_audit/mc_physical_spec.md).
+
+Sai số giữa hai mức refinement là estimate chẩn đoán, không tự là certified bound.
+Không suy lỗi số luôn co đơn điệu; không suy MC dùng bin-policy có cùng law với
+representative-point quadrature. So z thuần cần cùng joint law đã xấp xỉ; so với
+population thật phải báo phần allowance số, tail và giới hạn tương ứng.
+Số79 về largeGamma ở §6 là trên162 cấu hình Stage1+2 phân biệt, không phải toàn210.
+Understanding/read-back của tác giả vẫn OPEN.

@@ -29,3 +29,12 @@ chưa có stream riêng theo sample k. RNG NumPy2.5.3/PCG64 được ghi trong c
 ## L1.8D v1 — schema stage × role, 22/10/2026
 
 Khóa stage_root(discovery/calibration/confirmation) × role(episode/future/predictor/branch) × episode_id/future_id/branch_id. Pipeline/actor variant không nằm trong key future dùng CRN. Đây là làm rõ đề xuất L1.7, không cấp root: **roots_allocated=false, draws mới=0**. Phase3 exact không cần RNG. Cấp seed chỉ trước phase dùng tương ứng, không instantiate confirmation sớm. DL-019; machine schema trong notes/design/grid_v1.json.
+
+
+## L3R.3 — audit/verification (DL-066, 28/10/2026)
+
+Người phụ trách Doan Van Tai. Cấp dải **318300000–318399999** cho audit discovery,
+không dùng confirmation. Một seed riêng theo regime/check/replicate; không đưa
+action/pipeline vào future stream (CRN). Productionseed sau pilotNselection ghi
+trongrun manifest; retry độc lập offset+50000, tối đa1 lần4N. Chưa rút trước
+commitprereg; trạng thái cấp dải không có nghĩa mọi seed đã sử dụng.

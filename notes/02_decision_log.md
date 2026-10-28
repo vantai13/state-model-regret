@@ -1034,3 +1034,24 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   giả. Không đổi công thức/8 đáp án nguồn hoặc tiêu chí khoa học.
 - Understanding/P0-V10/L8/T05 author-writing OPEN; V9 waived theo DL-054, G1 không đổi,
   Phase4 thực thi HOLD. T07 soạn theo ủy quyền không tự biến thành tác giả tự viết.
+
+
+### DL-066 — Khai trước audit engine population L3R.3 (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**; triển khai/soạn theo ủy quyền, chưa human read-back.
+- **Decision.** Audit snapshot byte-identical từ tag explore-v13-pilot ở experiments/;
+  khai T1–T7/12mutants,8discovery regimes,MC C1–C3/seeds/luậtN/rerun trước run ở
+  [prereg](../experiments/R3R_02_audit/prereg.json). T07 bổ sung S1/S2/S4/S6 từ
+  tài liệu cũ trước pilot, không tự thay model. Phiên MC mới chỉ nhận đặc tả/contract,
+  không source engine; provenance của phiên lưu riêng. Không promote lên src.
+- **Why.** L3R.1 chỉ kiểm raw/summary; L3R.2 chỉ reference toy. Cần kiểm khâu law,
+  posterior,union-DP,averaging,numerics và tái lập trên inputlambdaB6/7/8.
+- **Alternatives.** Chỉ kiểm identity không bắt consistent bugs. Dùng engine helpers
+  trongMC sẽ mất độc lập. Không coi failuremonotone refinement là bằng chứng bug
+  hoặc coi bin-policyMC tự cùng measure với point quadrature.
+- **Consequence.** Không dùng CF hoặc R09/R10. Mọi run là verification discovery đã
+  thấy; numerical policy chỉ proposal choL3R.5. Nếu bug: regression đỏ trước sửa,
+  giữpilotv1,preregister dự đoán tác động và chạy lại toàn216ID ở outputv2; không
+  chỉ rerun vùng thuận lợi. Kết luận cuối ghiDL khác theo kết quả, không định sẵnPASS.
+- T07 authored-understanding/P0-V10/L8/T05 vẫnOPEN; V9WAIVED_BY_AUTHOR,G1,Phase4HOLD.
+- Khai lúc 2026-10-28T23:15:51.002242+07:00, trước mọi engine outcome mới của phiên L3R.3.
