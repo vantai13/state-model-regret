@@ -810,3 +810,23 @@ GM luôn thuộc{0,|EΔ|}: đây vốn là hệ quả T01. Không tự thêm ref
   snapshot trước run; A04_completion.json là trạng thái sau run.
 - Evidence: notes/lessons/L3.5_A04_note.md;results/lessons/l3_5/report.md;
   results/A04/20261027_01/. Không claim runtime/CI/statistical inference ngoài scope.
+
+### DL-057 — Tác giả chọn D25(ii) và thiết kế A trước prereg A05-F (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. Câu trả lời trực tiếp của tác giả:
+  “Dùng λA cho cả hai theo D25(ii), chỉ kết luận về chênh lệch dự báo H1−H0
+  (khuyến nghị của lesson)”; “Đồng ý theo phương án này; bạn chốt các chi tiết
+  kỹ thuật và ghi rõ trong prereg”. Nguyên văn lưu author_choices.json.
+- Định nghĩa lambdaA là tham số plant cho cả38main+12held-out theo cùng công thức,
+  không dùng p_sw thực. H0/H1 có cùng quyền input trước action. DL này thay cách
+  đọc chặt trong hàng đợi/exposure cũ cho bước A05, không sửa D25/contract/lưới.
+- Claim chỉ là paired predictive comparison có điều kiện trên thiết kế neo.
+  Cùng input không tự chứng minh hết leakage/endogeneity hoặc cơ chế nhân quả;
+  không dùng độ chính xác tuyệt đối như evidence độc lập.
+- Thiết kế A: sổ cái Gauss/tầng identity chung, cùng ngân sách và thủ tục fit.
+  Carry K5 nguyên văn,m=1; khóa thêm C1 equivalence sau discovery và nhánh PC4.
+  Universe12ô;8ô nội suy một trục là verdict chính;R09/R10,R11/R12báo riêng.
+  Không mở comparison D<m. Các chi tiết kỹ thuật do AI chốt theo ủy quyền này
+  trong prereg trước fit/predictions; không ghi chúng là tác giả tự dẫn/viết.
+- Bản ghi này commit trước prereg, không author-attest Understanding hoặc human
+  review, không quyết định chạy A05-T. A05-T là bước khác, chưa thực hiện.
