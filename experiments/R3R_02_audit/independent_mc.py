@@ -401,7 +401,13 @@ def sample_fixed_state(q_a, m_a, q_b, m_b, *, lambda_a, lambda_b, u, kappa,
 
 def sample_side_conditional(law: StationaryLaw, y: float, *, managed_stay: float,
                             managed_switch: float, h, n, seed, tau=1.0) -> dict:
-    """C2 conditional old mode from the independently computed joint law."""
+    """C2 conditional old mode from the independently computed joint law.
+
+    raw_gap preserves subtraction of the two native costs. gap uses a symbolic
+    conservation value ONLY on episodes with the exact no-idle certificate;
+    no_idle_certificate records which episodes satisfy it. No tolerance or
+    statistical threshold participates in that certificate.
+    """
     if not isinstance(n, (int, np.integer)) or n < 1:
         raise ValueError("n must be positive")
     streams = _streams(seed)
@@ -412,15 +418,65 @@ def sample_side_conditional(law: StationaryLaw, y: float, *, managed_stay: float
                           tau=tau, ref=law.ref, mu=law.mu, seed=streams[1])
     c0, c1 = simulate_future(q, mode, law.lambda_bg, managed_stay, managed_switch, law.kappa,
                              h=h, ref=law.ref, mu=law.mu, seed=streams[2])
+    raw_gap = c1 - c0
+    gap, certificate, certificate_metadata = _side_gap_no_idle(
+        q, raw_gap, lambda_bg=law.lambda_bg, managed_stay=managed_stay,
+        managed_switch=managed_switch, mu=law.mu, h=h, ref=law.ref)
     return {"y": old_q, "old_mode": old_mode, "x_q": q, "x_mode": mode,
-            "CStay": c0, "CSwitch": c1, "gap": c1 - c0,
+            "CStay": c0, "CSwitch": c1, "raw_gap": raw_gap, "gap": gap,
+            "no_idle_certificate": certificate,
             "metadata": {"check": "C2", "seed": int(seed), "stream_seeds": streams,
                          "n": n, "tau": tau, "h": h, "condition": condition,
                          "lambda_bg": law.lambda_bg, "pre_managed": law.managed,
                          "managed_stay": managed_stay, "managed_switch": managed_switch,
                          "kappa": law.kappa, "mu": law.mu, "ref": law.ref,
+                         "gap_arithmetic": certificate_metadata,
                          "conditional_mode_probability": mode_probability.tolist(),
                          "stationary": law.diagnostics, "iid": True}}
+
+
+def _side_gap_no_idle(q, raw_gap, *, lambda_bg, managed_stay, managed_switch,
+                      mu, h, ref):
+    """Exact rational sufficient certificate for a deterministic side gap.
+
+    Let d=max(0,mu-(lambda_bg-6)-min(v0,v1)). If q>=H*dt*d,
+    both action queues are nonnegative at every endpoint for every mode path.
+    Reflection then changes no endpoint value, even if the final endpoint is
+    exactly zero. Thus q1[k]-q0[k]=k*dt*(v1-v0), and summing D13 gives
+    (v1-v0)*dt**2*H*(H+1)/2. This is independent of future randomness.
+    """
+    slots = _slots(h, ref)
+    dt = Fraction(1, 120*ref)
+    v0, v1 = Fraction(str(managed_stay)), Fraction(str(managed_switch))
+    drain = max(Fraction(0), Fraction(str(mu)) - Fraction(str(lambda_bg)) + 6 - min(v0,v1))
+    threshold = drain * slots * dt
+    symbolic_gap = (v1-v0)*dt*dt*slots*(slots+1)/2
+    # Directed conversion supplies the smallest representable float not below
+    # the rational threshold. Consequently q>=threshold_float implies the exact
+    # rational comparison for every finite IEEE-754 q, including boundary cases.
+    threshold_float = float(threshold)
+    if Fraction.from_float(threshold_float) < threshold:
+        threshold_float = float(np.nextafter(threshold_float, np.inf))
+    q = np.asarray(q, dtype=np.float64)
+    raw_gap = np.asarray(raw_gap, dtype=np.float64)
+    certificate = q >= threshold_float
+    gap = raw_gap.copy()
+    gap[certificate] = float(symbolic_gap)
+    differences = raw_gap[certificate]-float(symbolic_gap)
+    metadata = {
+        "method": "exact rational no-idle conservation certificate; raw costs/subtraction retained",
+        "condition": "q_current >= max(0,mu-(lambda_bg-6)-min(managed_stay,managed_switch))*H*dt",
+        "threshold_packets_fraction": str(threshold),
+        "threshold_packets_conservative_float": threshold_float,
+        "gap_packet_seconds_fraction": str(symbolic_gap),
+        "gap_packet_seconds_float": float(symbolic_gap),
+        "certified_episode_count": int(certificate.sum()),
+        "episode_count": int(len(q)),
+        "certified_raw_subtraction_max_abs_roundoff": float(np.max(np.abs(differences))) if len(differences) else 0.0,
+        "arithmetic_scope": "certificate applies to supplied float current q treated exactly; native age-state rounding and invariant numerical errors remain disclosed separately",
+        "epsilon_or_clamping": False,
+    }
+    return gap, certificate, metadata
 
 
 def sample_population(law_a: StationaryLaw, law_b: StationaryLaw, *, u, h, n, seed,

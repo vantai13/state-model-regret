@@ -79,6 +79,41 @@ class IndependentPhysicalTests(unittest.TestCase):
                                            h=0.1, seed=318300006)
         np.testing.assert_array_equal(stay, switch)
 
+    def test_far_state_no_idle_gap_is_symbolic_raw_noise_is_retained(self):
+        from fractions import Fraction
+        n, h = 128, 0.1
+        q = np.full(n, 1e9)
+        raw0, raw1 = mc.simulate_future(q, np.arange(n)%2, 6, 1, 0, 0.017,
+                                       h=h, seed=318300010)
+        raw_gap = raw1-raw0
+        gap, certified, metadata = mc._side_gap_no_idle(
+            q, raw_gap, lambda_bg=6, managed_stay=1, managed_switch=0, mu=10, h=h, ref=1)
+        expected = float(-Fraction(1,120)**2*12*13/2)
+        self.assertTrue(np.all(certified))
+        np.testing.assert_array_equal(gap, np.full(n, expected))
+        self.assertEqual(float(gap.max()-gap.min()), 0)
+        self.assertTrue(np.any(raw_gap != gap))
+        self.assertGreater(raw_gap.std(), 0)
+        self.assertGreater(metadata["certified_raw_subtraction_max_abs_roundoff"], 0)
+        # Native action costs themselves have not been rewritten.
+        np.testing.assert_array_equal(raw_gap, raw1-raw0)
+
+    def test_exact_no_idle_threshold_has_no_tolerance(self):
+        from fractions import Fraction
+        exact_threshold = Fraction(10,120)  # one-slot max drain, lambda6, min managed0
+        boundary = float(exact_threshold)
+        if Fraction.from_float(boundary) < exact_threshold:
+            boundary = np.nextafter(boundary, np.inf)
+        q = np.array([np.nextafter(boundary,-np.inf), boundary])
+        raw = np.array([0.0, 0.0])
+        gap, certificate, metadata = mc._side_gap_no_idle(
+            q, raw, lambda_bg=6, managed_stay=1, managed_switch=0,
+            mu=10, h=1/120, ref=1)
+        np.testing.assert_array_equal(certificate, [False,True])
+        self.assertEqual(gap[0],raw[0])
+        self.assertEqual(gap[1],float(-Fraction(1,120)**2))
+        self.assertFalse(metadata["epsilon_or_clamping"])
+
 
 class IndependentStationaryTests(unittest.TestCase):
     def test_exact_empty_queue(self):

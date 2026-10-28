@@ -27,9 +27,9 @@
     "tests/test_r3r_independent_mc.py"
   ],
   "implementation_files_sha256": {
-    "experiments/R3R_02_audit/independent_mc.py": "3af6186df0bd73e57db2f96201eb8170add1f92ddd20a68e0298546dfc0aad7e",
+    "experiments/R3R_02_audit/independent_mc.py": "110a6256e615d51798a728821379c9c01bd817bbd3e33025e2c875f3551589d8",
     "experiments/R3R_02_audit/independent_mc_native.cpp": "cf6e8b8263119391204b00e2edfe9c5086b788cfb2a306da611745773d9452df",
-    "tests/test_r3r_independent_mc.py": "761ad7adcaf7ce2e221a92368a511ec4b5960fd50730c7f189f30a85e6a6e6c2"
+    "tests/test_r3r_independent_mc.py": "9f0ed8d397b316bfbc661956242d67d58cd99efbc0a86bb3625aee8a1066dd19"
   },
   "runtime": {
     "python": "3.14.5 (main, May 10 2026, 10:21:34) [GCC 12.3.0]",
@@ -67,12 +67,12 @@
   "tests": {
     "command": "/home/vantai/state-model-regret/.venv/bin/python -m pytest -q tests/test_r3r_independent_mc.py",
     "result": "PASS",
-    "passed": 14,
-    "last_reported_seconds": 0.55,
-    "parameters": "invented small lambda=6, managed=0/1, kappa=0/.017/.03/.05/.1 or deterministic floating-point keep=1 limit; mu10/13; h<=.1 seconds",
+    "passed": 16,
+    "last_reported_seconds": 0.38,
+    "parameters": "invented small lambda=6, managed=0/1, kappa=0/.017/.03/.05/.1 or deterministic floating-point keep=1 limit; mu10/13; h<=.1 seconds; no-idle toy q=1e9,h=.1 with raw subtraction retained, and exact rational one-slot boundary",
     "unit_seed_range_used": [
       318300001,
-      318300009
+      318300010
     ],
     "discovery_outcomes_simulated": false,
     "production_N_or_seeds_selected": false
@@ -91,7 +91,39 @@
     "read_back": "Self-review by same independent implementation session, not second reviewer",
     "slot_order": "backlog update/cost before mode transition; final age transition is retained for current-state mode",
     "lyapunov": "K=diag(exp(theta*d))*P; reflection correction bounded at q0; stationary mode marginal 1/2; zero-start coupling plus overflow union bound",
-    "cost_allowance": "cost<=B0+h*(yA+yB); monotone initial coupling, mismatch truncation and exponential excess moment control for unbounded backlog costs"
+    "cost_allowance": "cost<=B0+h*(yA+yB); monotone initial coupling, mismatch truncation and exponential excess moment control for unbounded backlog costs",
+    "c2_no_idle_proof": "For d=max(0,mu-(lambda_bg-6)-min(vStay,vSwitch)), q_current>=H*dt*d implies both unreflected endpoint backlogs >=q_current-k*dt*d>=0 for every k<=H and every mode path. Reflection is inactive, including a zero endpoint. Thus qSwitch[k]-qStay[k]=k*dt*(vSwitch-vStay), and D13 gap=(vSwitch-vStay)*dt^2*H*(H+1)/2. Parameters and dt are Fraction rationals; final gap converts once. The backlog threshold is rounded upward only when needed to the least float >=exact rational threshold, so comparison has no epsilon or false positive from downward threshold rounding. Current float q is treated exactly; previous age arithmetic uncertainty is not certified."
   },
-  "files_not_modified": "No existing project file was edited; only the three implementation/test files and this provenance were created."
+  "files_not_modified": "Initial implementation created the declared sources/tests/provenance. This follow-up edited only independent_mc.py, its own test and provenance, and saved the previous provenance snapshot. No engine, bridge, pilot, discovery outcomes, preregistration, acceptance thresholds or report read/edited.",
+  "pre_correction_provenance_snapshot": "experiments/R3R_02_audit/independent_mc_provenance.before_c2_no_idle.json",
+  "c2_no_idle_followup": {
+    "requested_scope": "physical conservation identity from specification; no engine or outcomes read",
+    "changes": [
+      "Raw CStay/CSwitch unchanged",
+      "New raw_gap preserves subtraction",
+      "gap uses symbolic expression only on no_idle_certificate=True",
+      "metadata.gap_arithmetic records threshold, exact formula, count and raw discrepancy"
+    ],
+    "measured_invented_toy": {
+      "n": 128,
+      "seed": 318300010,
+      "q": 1000000000.0,
+      "lambda_bg": 6,
+      "managed_stay": 1,
+      "managed_switch": 0,
+      "kappa": 0.017,
+      "h": 0.1,
+      "ref": 1,
+      "symbolic_gap_fraction": "-13/2400",
+      "symbolic_gap_float": -0.005416666666666667,
+      "corrected_gap_range": 0.0,
+      "corrected_gap_sd": 0.0,
+      "raw_gap_sd": 1.1155686233996342e-08,
+      "raw_subtraction_max_abs_error": 3.953774770082408e-08,
+      "certified_episodes": 128
+    },
+    "changed_engine_or_acceptance_threshold": false,
+    "discovery_simulations": false,
+    "native_source_changed": false
+  }
 }
