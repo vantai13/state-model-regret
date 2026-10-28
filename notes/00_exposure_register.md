@@ -592,3 +592,10 @@ Các source/card/threshold cũ giữ nguyên; 10 ô đã mở không còn là te
 Contract/briefv1.3 chỉ là proposal nhiều observations chưa khóa; không mở R09/R10 hoặc
 tính outcome mới để chọn law/weights. Hai đoạn ngôi “tôi” là bản sau dữ liệu theo
 ủy quyền, không thành kỳ vọng trước run/tự viết/author-attested Understanding.
+
+## v1.3 bước 1 — khai trước run (28/10/2026, DL-062)
+
+`V13_STEP1_DISCOVERY_DECLARED` · 2026-10-28T18:24:00+07:00. Sau commit này sẽ tính lại bảng D và các thành phần
+gap theo từng state (δ, δ̂, e_M, khối lượng fluid chạm rỗng, cửa sổ gần biên) của **38 ô main ở
+ref 2**. Các ô này đã lộ ở mức tổng hợp từ A04; chi tiết theo state là exposure mới, cùng ô, nhãn
+DISCOVERY. Không ô R nào được tính lại; R09/R10 vẫn niêm phong. AI theo ủy quyền, không human review.

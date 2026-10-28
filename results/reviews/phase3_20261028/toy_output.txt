@@ -1,0 +1,30 @@
+A. single observation, Gaussian, constant bias (mu = +0.5, sigma = 1 -> p_sw = Phi(-0.5) = 0.309)
+   b=-0.20  flip=False  G_M=0.0000  G_M|S1=0.0075  Gamma=+0.0075
+   b=-0.45  flip=False  G_M=0.0000  G_M|S1=0.0394  Gamma=+0.0394
+   b=-0.55  flip=True   G_M=0.5000  G_M|S1=0.0593  Gamma=-0.4407
+   b=-0.60  flip=True   G_M=0.5000  G_M|S1=0.0708  Gamma=-0.4292
+   b=-1.00  flip=True   G_M=0.5000  G_M|S1=0.1915  Gamma=-0.3085
+   b=-3.00  flip=True   G_M=0.5000  G_M|S1=0.6772  Gamma=+0.1772
+   b=+0.60  flip=False  G_M=0.0000  G_M|S1=0.0478  Gamma=+0.0478
+
+B. exaggeration Delta_hat = k*Delta (k=2), mu=+0.5, sigma=1
+   c_sw=0.0  G_M=0.0000  G_M|S1=0.0000  Gamma=+0.0000
+   c_sw=0.5  G_M=0.0000  G_M|S1=0.0088  Gamma=+0.0088
+   c_sw=1.0  G_M=0.0000  G_M|S1=0.0253  Gamma=+0.0253
+
+C. knife-edge vs population: G_M as bias grows (single obs mu=0.5, sigma=1) vs population
+   population: mu(y) ~ N(0.5, 0.8^2), sigma_post = 0.6 (total sd = 1.0)
+   b=-0.20  single: G_M=0.000 Gamma=+0.007   population: G_M=0.009 Gamma=-0.002 P(flip)=0.089
+   b=-0.40  single: G_M=0.000 Gamma=+0.031   population: G_M=0.038 Gamma=-0.007 P(flip)=0.184
+   b=-0.49  single: G_M=0.000 Gamma=+0.047   population: G_M=0.058 Gamma=-0.011 P(flip)=0.229
+   b=-0.51  single: G_M=0.500 Gamma=-0.449   population: G_M=0.063 Gamma=-0.012 P(flip)=0.240
+   b=-0.60  single: G_M=0.500 Gamma=-0.429   population: G_M=0.088 Gamma=-0.017 P(flip)=0.284
+   b=-0.80  single: G_M=0.500 Gamma=-0.375   population: G_M=0.155 Gamma=-0.029 P(flip)=0.380
+   b=-1.20  single: G_M=0.500 Gamma=-0.235   population: G_M=0.316 Gamma=-0.052 P(flip)=0.543
+
+D. population Gamma sign vs informativeness of the observation (b = -0.3, total sd 1.0, mu0 = 0.5)
+   share of Var(Delta) explained by y = 0.05:  G_M=0.0340  G_M|S1=0.0171  Gamma=-0.0169
+   share of Var(Delta) explained by y = 0.30:  G_M=0.0280  G_M|S1=0.0171  Gamma=-0.0108
+   share of Var(Delta) explained by y = 0.60:  G_M=0.0215  G_M|S1=0.0171  Gamma=-0.0043
+   share of Var(Delta) explained by y = 0.90:  G_M=0.0181  G_M|S1=0.0171  Gamma=-0.0009
+   share of Var(Delta) explained by y = 0.98:  G_M=0.0173  G_M|S1=0.0171  Gamma=-0.0002

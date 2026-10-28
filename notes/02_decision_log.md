@@ -943,3 +943,23 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   index/exposure/inventory/progress được cập nhật. Full suite local391/391 PASS;
   [audit/log](../results/lessons/l3_8/report.md) kiểm nguồn/hash/chấm lại/link.
   Commit closeout trước tag `phase-3-closeout`, không force; tag không nhận ownership PASS.
+
+### DL-062 — v1.3 bước 1: kiểm hình học chế độ sai số trên 38 ô discovery (2026-10-28)
+
+- Người phụ trách: **Doan Van Tai**. Yêu cầu trực tiếp nguyên văn: “bạn hãy tự kiểm tra và thực
+  hiện hãy làm theo hướng dẫn trên viết 3 prediciton rồi chạy kiểm tra thử cho tôi trước để xem v3
+  liệu ổn và đáng theo không, thực hiện cho tôi đi”. AI (Claude) viết ba dự đoán và chạy **theo ủy
+  quyền**; đây không phải dự đoán tác giả tự viết, không là understanding artifact.
+- Nguồn: AI review Phase 3 do tác giả dán (commit `1f620ec`); số liệu và hai script đã kiểm lại,
+  [intake](../results/reviews/phase3_20261028/intake.md). Không thay P0-V10/L8.
+- Nhãn **[DISCOVERY]**: chỉ 38 ô main đã lộ ở A04, ref 2, dt 1/240 s. Không dùng 10 ô R đã mở,
+  không chạm R09/R10, không đổi engine, card, contract hay ngưỡng cũ. Nhãn ba chế độ ở mức ô đã được
+  thấy trước khi viết dự đoán, nên kết quả chỉ là kiểm tính nhất quán, không phải xác nhận.
+- Ba dự đoán, định nghĩa và tiêu chí PASS/FAIL ở
+  [predictions.md](../experiments/V13_step1/predictions.md), commit cùng DL này **trước** mọi
+  phép tính theo từng state: P(a) mù do cả hai đường fluid không chạm rỗng; P(b) đảo dấu khi M0 chỉ
+  thấy một phía trade-off; P(c) lens sai số tại biên giải thích G_M|S1 tốt hơn lens bias trung bình.
+- Guard đã khóa chỉ biết A01/A04/A05-T và nằm trong receipt A01, nên không sửa. Runner dùng mức
+  truy cập "A04", chỉ mở ô main; manifest ghi study V13-STEP1-DISCOVERY.
+- Kết quả bước này chỉ là đầu vào cho bước 2 (thiết kế v1.3). v1.3 vẫn DRAFT; Phase 4 HOLD tới
+  P0-V10 và contract mới được khóa. Ghi lúc 2026-10-28T18:24:00+07:00.
