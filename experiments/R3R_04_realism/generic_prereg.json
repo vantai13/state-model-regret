@@ -1,0 +1,19 @@
+{
+  "owner": "Doan Van Tai",
+  "scope": "A1 generic continuous-fluid formula verification; no pilot outcomes or pilot joint regimes",
+  "cases": [
+    {"name": "generic_80_fast", "lambda": 8.0, "amplitude": 6.0, "capacity": 10.0, "T_s": 0.1},
+    {"name": "generic_80_slow", "lambda": 8.0, "amplitude": 6.0, "capacity": 10.0, "T_s": 0.3},
+    {"name": "generic_95_fast", "lambda": 9.5, "amplitude": 6.0, "capacity": 10.0, "T_s": 0.1}
+  ],
+  "replicates": 8,
+  "burn_s": 1000.0,
+  "measure_s": 4000.0,
+  "seed_rule": "318400000 + 1000*case_index + replicate_index; generic verification, never CF",
+  "windows_s": [0.01, 0.1, 1.0],
+  "tail_delay_s": 0.1,
+  "algorithm": "Exact exponential holding times and reflected piecewise-linear fluid queue; exact time integration; fixed non-overlapping physical windows",
+  "initialization": "Q=0, equiprobable initial mode, then burn; no analytic stationary law initialization",
+  "comparison": "abs(replica mean - formula) <= 4*replica_SE + 0.01*abs(formula) + 1e-8",
+  "limitations": "Finite-time Monte Carlo diagnostic with approximate replica SE, not a coverage guarantee, not an exact slotted-engine test. No rerun to select favorable seeds."
+}
