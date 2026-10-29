@@ -20,6 +20,7 @@ for p in Path('/proc').iterdir():
   args=(p/'cmdline').read_bytes().split(bytes([0]))
   if b'experiments.R3R_08_population_numerics.worker' not in args:continue
   st=(p/'stat').read_text().rsplit(')',1)[1].split();out=Path(args[args.index(b'--out')+1].decode())
+  if not out.is_absolute():out=(p/'cwd').resolve()/out
   row=dict(pid=int(p.name),job=args[args.index(b'--job')+1].decode(),stage=args[args.index(b'--stage')+1].decode(),cpu_seconds=(int(st[11])+int(st[12]))/os.sysconf('SC_CLK_TCK'))
   status=dict(s.split(':',1) for s in (p/'status').read_text().splitlines() if ':' in s)
   row['rss_kB']=int(status.get('VmRSS','0 kB').split()[0]);f=out/'progress.jsonl'
@@ -33,11 +34,16 @@ print(json.dumps(data))
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--attempt',choices=['02','03'],default='03');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--attempt',choices=['02','03'],default='03');p.add_argument('--concise',action='store_true');a=p.parse_args()
     r=subprocess.run(['ssh','-o','BatchMode=yes','-o','ConnectionAttempts=1','-o','ConnectTimeout=15','dt4n-gcp','python3 -'],input=REMOTE.replace('ATTEMPT',a.attempt),capture_output=True,text=True,timeout=45)
     if r.returncode:raise RuntimeError(r.stderr)
     data=json.loads(r.stdout);folder=Path('results/lessons/l3r_7/full_numerics')
     with (folder/f'telemetry{a.attempt}.jsonl').open('a') as f:f.write(json.dumps(data)+'\n')
+    if a.concise:
+        data.pop('last_log',None)
+        if 'preflight' in data:data['preflight']={k:v for k,v in data['preflight'].items() if k in ('status','tests')}
+        for row in data['workers']:
+            if 'phase' in row:row['phase']=row['phase']['phase']
     print(json.dumps(data,ensure_ascii=False,indent=2))
 
 
