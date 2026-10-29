@@ -193,3 +193,21 @@ def test_every_summary_is_logged(tmp_path):
     _, counts, _ = D.summarize(disc, Box('ALL', (('c_sw', '0', '0'),)), both, log, who='test', purpose='and')
     assert counts == dict(AND=1, MIN=2) and len(log.entries()) == 4
     assert log.entries()[1]['ids'] == ['T1', 'T2']
+
+
+# ---------------------------------------------------------------- frozen card ↔ code consistency
+def test_card_machine_block_matches_code():
+    from experiments.R3R_06_cards.check_cards import load_card
+    from experiments.R3R_06_cards.run_discovery import CANDIDATES
+    card = load_card()
+    assert card['status'] == 'FROZEN' and card['allocation']['secondary'] is None
+    table = card['verdict_maps']['primary_v1']['table']
+    for (p, m), (v, code) in V.PRIMARY_TABLE.items():
+        assert table[f'{p}|{m}'] == (v if code is None else f'{v}-{code}')
+    logged = {b.rule_id: sorted(b.bounds) for b in CANDIDATES}
+    for rid, spec in card['regions'].items():
+        if rid == 'SH-BND': continue
+        assert logged[rid] == sorted((c, lo, hi) for c, (lo, hi) in spec['bounds'].items())
+    for name, c in card['cards'].items():
+        assert F(c['aggregate']['alpha']) == V.PRIMARY_ALPHA and F(c['aggregate']['pi0']) == V.PRIMARY_PI0
+        assert F(c['r6_boundary']) == V.CRITERIA[c['criterion']][0]
