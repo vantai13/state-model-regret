@@ -13,6 +13,16 @@ def cpu():
     return time.process_time()+child.ru_utime+child.ru_stime
 
 
+def select_job(cfg,rid,stage):
+    sources=cfg['legacy_jobs']+cfg['marginals'] if stage=='marginal' else cfg['cases']
+    jobs={j['id']:j for j in sources}
+    if len(jobs)!=len(sources):raise ValueError('duplicate IDs within one execution namespace')
+    if rid not in jobs or stage not in cfg['stage_levels']:raise ValueError('unregistered computation')
+    job=jobs[rid]
+    if job['kind']=='global_calibration' and not cfg['stage_levels'][stage]:raise ValueError('empty population level set')
+    return job
+
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--prereg',type=Path,required=True);p.add_argument('--job',required=True)
     p.add_argument('--stage',required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--cache',type=Path,required=True)
@@ -21,9 +31,7 @@ def main():
     cfg=verify_prereg(a.prereg);limits=cfg['limits']
     resource.setrlimit(resource.RLIMIT_CPU,(limits['job_cpu_seconds'],limits['job_cpu_seconds']+5))
     resource.setrlimit(resource.RLIMIT_AS,(limits['address_space_bytes'],limits['address_space_bytes']))
-    jobs={j['id']:j for j in cfg['legacy_jobs']+cfg['marginals']+cfg['cases']}
-    if a.job not in jobs or a.stage not in cfg['stage_levels']:raise ValueError('unregistered computation')
-    job=jobs[a.job];start=cpu();wall=time.monotonic();a.out.mkdir(parents=True,exist_ok=True)
+    job=select_job(cfg,a.job,a.stage);start=cpu();wall=time.monotonic();a.out.mkdir(parents=True,exist_ok=True)
     def progress(phase,**values):
         with (a.out/'progress.jsonl').open('a') as log:log.write(json.dumps(dict(utc=datetime.now(timezone.utc).isoformat(),phase=phase,**values))+'\n')
     try:

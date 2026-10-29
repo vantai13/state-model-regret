@@ -18,8 +18,11 @@ def main():
         wall_seconds=limits['job_wall_seconds'],cpu_seconds=limits['job_cpu_seconds'],rss_bytes=limits['rss_bytes'],
         env=dict(os.environ,**cfg['worker_environment']))
     result=a.out/'result.json';data=json.loads(result.read_text()) if result.exists() else {}
+    expected='global_calibration' if a.stage!='marginal' else next(j['kind'] for j in cfg['legacy_jobs']+cfg['marginals'] if j['id']==a.job)
+    payload_valid=data.get('kind')==expected
+    if expected=='global_calibration':payload_valid &= len(data.get('levels',{}))==len(cfg['stage_levels'][a.stage])>0
     row=dict(id=a.job,stage=a.stage,resources=resources,
-             status='COMPLETED' if resources['exit_code']==0 and data.get('status')=='COMPLETED' else 'UNRESOLVED')
+             payload_valid=payload_valid,status='COMPLETED' if resources['exit_code']==0 and data.get('status')=='COMPLETED' and payload_valid else 'UNRESOLVED')
     with (a.out/'receipt.json').open('x') as f:json.dump(row,f,indent=2)
     return 0
 

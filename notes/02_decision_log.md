@@ -1523,3 +1523,24 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Exposure mới chỉcác calibration đãkhai; sẽ reserve toàn bộjointkeys mới
   trong collisioninventory trướcCFdraw. R09/R10giữniêmphong; frozen card/contract
   và scorerprimary giữbyte. Thiết kế/nguồn đượccommit trước physicalrun mới.
+
+### DL-087 — Dừng full01 vì dispatch bug; giữ records sai và đăng ký full02 cùng designs (29/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Trong giám sát full01 phát hiện mapjobs
+  dùng chungID legacy/calibration: ba X2065/X1008/X1009 bịoverwritten bởicase
+  global, stage marginal khôngcólevels nên falselyCOMPLETED vớilevels{}. Đây
+  lỗi điều phối, không phải ba anchor đã replayPASS. Không dùng chúng đểclosure.
+- Đã dừng riêng controller/worker full01, giữ toàn bộpartial/caches/raw và
+  stoprecord trênGCP. Tại snapshot13receipts,131.075CPU-s đãghi; worker đang
+  chạy observed117.78CPU-s rồiSIGTERM; không gán nó finalCPU hoặc PASS. Có
+  marginal/native và một số calibration đãexposed; không quay lại trạngthái
+  chưa thấy. CF0/n/root vẫnnull.
+- Sửa dispatch theo namespace stage và thêm guardkhôngchoemptygloballevels;
+  resourcecontroller còn kiểm kind/payload trướcCOMPLETED.2regressiontests
+  bổ sung. [Prereg02](../experiments/R3R_08_population_numerics/prereg_02.json)
+  giữ nguyên114cases,9reference/marginaljobs,candidates/rules/budget; source107
+  files và670fulltests trênGCP trước rerun. Không sửa prereg01/oldraw hồi tố.
+- Full02 chạy lại toànregistered batch; cacheπ/profile chỉreuse khi source/
+  parameters/SHA khớp, khôngreuse các empty anchor records. Actuallegacyreplay
+  vẫn bắtbuộc. Rawđợt1 vàđợt2 táchdir; không chọn case/kếtquảthuậnlợi. Source
+  sẽcommit trướcfull02. Không tagv1.3.1, n/root hoặcCF từđợt1.

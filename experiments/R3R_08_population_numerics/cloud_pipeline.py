@@ -11,8 +11,9 @@ import xml.etree.ElementTree as ET
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True);a=p.parse_args()
-    base=a.base;cfg=json.loads(Path('experiments/R3R_08_population_numerics/prereg.json').read_text())
+    p=argparse.ArgumentParser();p.add_argument('--base',type=Path,required=True)
+    p.add_argument('--prereg',type=Path,default=Path('experiments/R3R_08_population_numerics/prereg.json'));a=p.parse_args()
+    base=a.base;cfg=json.loads(a.prereg.read_text())
     env=dict(os.environ,**cfg['worker_environment'],MPLBACKEND='Agg')
     state={'owner':'Doan Van Tai','CF_generated':0,'Phase4':'HOLD'}
     try:
@@ -24,11 +25,11 @@ def main():
         with (base/'full_suite.log').open('x') as log:
             test=subprocess.run([sys.executable,'-m','pytest','-q','--junitxml='+str(base/'full_suite.xml')],env=env,stdout=log,stderr=subprocess.STDOUT,timeout=900)
         suites=list(ET.parse(base/'full_suite.xml').getroot().iter('testsuite'))
-        if test.returncode or sum(int(s.get('tests',0)) for s in suites)!=668 or any(int(s.get(k,0)) for s in suites for k in ('failures','errors','skipped')):
-            raise RuntimeError('cloud full suite did not pass668tests')
-        (base/'preflight.json').write_text(json.dumps(dict(status='PASS',tests=668,python=platform.python_version(),packages=cfg['environment']['packages'],CF_generated=0),indent=2)+'\n')
-        result=subprocess.run([sys.executable,'-m','experiments.R3R_08_population_numerics.run','--prereg','experiments/R3R_08_population_numerics/prereg.json',
-                               '--out','results/R3R_population_numerics/20261029_01','--cache',str(base/'cache')],env=env)
+        if test.returncode or sum(int(s.get('tests',0)) for s in suites)!=cfg['full_tests_required'] or any(int(s.get(k,0)) for s in suites for k in ('failures','errors','skipped')):
+            raise RuntimeError('cloud full suite count/failures mismatch')
+        (base/'preflight.json').write_text(json.dumps(dict(status='PASS',tests=cfg['full_tests_required'],python=platform.python_version(),packages=cfg['environment']['packages'],CF_generated=0),indent=2)+'\n')
+        result=subprocess.run([sys.executable,'-m','experiments.R3R_08_population_numerics.run','--prereg',str(a.prereg),
+                               '--out',cfg['output'],'--cache',cfg.get('cache_path',str(base/'cache'))],env=env)
         state.update(status='CALIBRATION_CONTROLLER_FINISHED',controller_exit_code=result.returncode)
     except Exception as exc:state.update(status='FAIL_PREFLIGHT_OR_CONTROLLER',error_type=type(exc).__name__,error=str(exc))
     (base/'pipeline_result.json').write_text(json.dumps(state,indent=2)+'\n')
