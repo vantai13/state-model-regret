@@ -27,7 +27,13 @@ def main():
     env = dict(os.environ, PYTHONPATH=os.pathsep.join((str(repo / 'src'), str(repo))), TMPDIR=str(base / 'native_tmp'))
     worker = ROOT / 'experiments/R3R_02_audit/reproduction_worker.py'
     original = json.loads((out / 'comparison.json').read_text())
-    previous = {r['id']: r for r in original['jobs']}
+    checkpoint = out / 'comparison_resume.json'
+    if checkpoint.exists():
+        current = json.loads(checkpoint.read_text())
+        (out / 'comparison_before_schema_fix.json').write_text(json.dumps(current, indent=2) + '\n')
+    else:
+        current = original
+    previous = {r['id']: r for r in current['jobs']}
     rawcsv, rawpairs, jobs = {}, {}, []
     for stage in ('robustK', 'robustdt', 'stage2'):
         raw = subprocess.check_output(['git', '-C', str(ROOT), 'show', f'explore-v13-pilot:results/explore_v13/{stage}/regimes.csv'])
@@ -47,21 +53,33 @@ def main():
             return dict(previous[rid], resumed=False, preserved_completed_job=True)
         path = base / (rid + '_spec.json'); path.write_text(json.dumps(spec))
         dest = out / rid
-        start = time.monotonic()
-        with (out / (rid + '_resume.log')).open('w') as log:
-            result = subprocess.run([interpreter, str(worker), str(path), str(dest)], cwd=repo, env=env, stdout=log, stderr=subprocess.STDOUT)
-        row = dict(id=rid, stage=stage, exit_code=result.returncode, wall_s=time.monotonic() - start, resumed=True)
-        if result.returncode: return dict(row, status='FAIL')
+        if dest.with_suffix('.json').exists() and dest.with_suffix('.npz').exists():
+            row = dict(id=rid, stage=stage, exit_code=0, resumed=True,
+                       saved_output_rechecked_without_engine_rerun=True,
+                       controller_wall_time_unavailable=True,
+                       wall_s=json.loads(dest.with_suffix('.json').read_text())['wall_s'])
+        else:
+            start = time.monotonic()
+            with (out / (rid + '_resume.log')).open('w') as log:
+                result = subprocess.run([interpreter, str(worker), str(path), str(dest)], cwd=repo, env=env, stdout=log, stderr=subprocess.STDOUT)
+            row = dict(id=rid, stage=stage, exit_code=result.returncode, wall_s=time.monotonic() - start, resumed=True)
+            if result.returncode: return dict(row, status='FAIL')
         actual = json.loads(dest.with_suffix('.json').read_text()); expected = rawcsv[stage][rid]
         bad = {}
         for k, v in actual.items():
             if k == 'wall_s': continue
+            if k not in expected:
+                # Stage2 CSV was saved before this metadata column was added;
+                # its declared c_sw=0 is explicit in the archived parameter spec.
+                assert k == 'c_sw' and float(v) == float(spec[8]) == 0.
+                row['added_metadata_verified_against_spec'] = {'c_sw': 0.}
+                continue
             ok = str(v) == expected[k] if k == 'id' else float(v) == float(expected[k]) or np.isnan(float(v)) and np.isnan(float(expected[k]))
             if not ok: bad[k] = [v, expected[k]]
         new = np.load(dest.with_suffix('.npz'))['pairs']; old = rawpairs[stage]; select = old['rid'] == rid
         badpairs = [k for i, k in enumerate(cols) if not (np.array_equal(new[:, i], old[k][select]) if k == 'rid'
                     else np.array_equal(new[:, i].astype(float), old[k][select].astype(float), equal_nan=True))]
-        return dict(row, scalar_columns=len(actual) - 1, scalar_mismatches=bad, pairs=len(new),
+        return dict(row, scalar_columns=len(expected) - 2, scalar_mismatches=bad, pairs=len(new),
                     pair_columns_mismatch=badpairs, all_pairs_exact=not badpairs, status='PASS' if not bad and not badpairs else 'FAIL')
     ledger = dict(original, status='RUNNING', jobs=[], interrupted_ledger_preserved=True)
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
