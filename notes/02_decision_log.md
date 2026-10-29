@@ -1400,3 +1400,20 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   sourcemanifest trước profile;baselinev2 source/environment khôngsửa hoặcdừng.
 - Khôngsrcpromotion,CF/n/root hoặcclosurev1.3.1. Candidatepassmộtlaw khôngtựđóng
   globalcostaccuracy,tailmoment,arrayconversion,D22/Gate3R/human. GCPvẫntắt.
+
+### DL-083 — Khóa hai kiểm tra tiếp theo cho candidate, chưa chạy (29/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Trong lúc candidate02 và baseline v2 đang
+  chạy, đăng ký hai probe với đúng implementation/source manifest của DL-082.
+  Không sửa 59 source files đã khóa hoặc thay ngưỡng sau quan sát.
+- Candidate03: cùng CAL_RATE_100_A đã có đáp án baseline; ceiling120CPU-s/
+  180wall-s/1GiBRSS/2GiBAS. Đối chiếu quantiles chính xác và posterior trong
+  error bounds cũ; certificate vẫn phải đạt1e-10. Đây kiểm reference parity của
+  cả root proposal lẫn certificate mới, không chỉ công thức hệ số candidate01.
+- Candidate04: cùng CAL_RATE_1000_B chưa giải xong bằng baseline; ceiling1800CPU-s/
+  2400wall-s/1GiBRSS/2GiBAS. Chỉ chạy nếu candidate02 complete/certified và03
+  đạt reference parity; các fast probes chạy nối tiếp, baseline v2 không dừng.
+- Hai JSON prereg_sparse_candidate_03/04 sẽ commit trước mọi execution mới.
+  Bất kỳ failure giữ raw và dừng chuỗi; không tự mở312global jobs, đổi source,
+  tạo n/seed/CF/tagv1.3.1 hoặc suy certificate một law thành full accuracy.
+  Đây tiếp tục calibration theo ủy quyền đo máy; GCP không khởi động.
