@@ -1421,3 +1421,32 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   posterior point estimates. Vì vậy chỉ kiểm quantiles khớp và các error bounds
   posterior đạt1e-8/law đạt1e-10; không tuyên bố posterior point estimates đã
   đối chiếu trực tiếp. Không yêu cầu hai thuật toán có error bound bằng nhau.
+
+### DL-084 — Candidate02 không chứng nhận được; khóa balanced candidate và chuyển profile nặng sang GCP (29/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Candidate02 dừng sau1260.709wall-s,
+  1260.656CPU-s,peak98.262MiB: `normalizer not certified nonzero`. Không phải
+  thiếuRAM; không suy normalizer thật bằngzero. Theo DL-083,03/04 KHÔNG chạy.
+- Tác giả đã bật VM và yêu cầu chuyển nếu local không chạy được. API xác nhận
+  RUNNING,8vCPU/~31.3GiB. Tìm project trong Terraform; SSH timeout vì egressIP
+  hiện tại khác hai /32 trong firewall. Tạo rule TẠM chỉ currentIP/32,tcp22,
+  tagdt4n-research-vm; giữ rule cũ, xóa rule tạm sau lấy kết quả. Không start/
+  resize VM hoặc sửa hệ thống/Conda environments đang có. GCP không tự sửa lỗi số.
+- Tạo implementation riêng `balanced_certificate.py`: dùng cây tích khoảng
+  cho cùng derivatives, không left-fold dài. Giữ80digits, mọi residual/tail/
+  stored-error terms và threshold. [Proof](design/stationary_balanced_certificate_candidate.md).
+  12targeted và633fulltestsPASS trước profile; regression1024factor chứng minh
+  wrapping có thể làm left-fold baozero trong khi balanced vẫn chặt.
+- Prereg05 local CAL_RATE_100_A,120CPU-s/180wall-s; phải khớp quantiles baseline
+  và đạt error limits. Chỉ sau đó06/07 chạy trên GCP với hai marginalrate1000
+  A/B đãkhóa,3600CPU-s/4800wall-s mỗi job,2GiBRSS/3GiBAS,<=2workers/1thread.
+  Profilecloud ceiling được khai mới trước computation, không thay v1/v2 hoặc02.
+- Checkout/venv riêng trên GCP;Python3.13.13 khác local3.14.5, sáu package pin
+  theo local và kiểm633tests tại server trước profile. Mỗi worker lưu và kiểm
+  environment khớp prereg. Source63files commit trước computation.
+- Phiên bị ngắt khiến baselinev2 B không có finalresource/summary; lastsample
+  CPU1815.55s vượt1800s, sau đó worker mất. Giữ recovered partial, không ghi
+  ceiling-enforcementPASS hoặc biến1815.55 thànhfinalCPUtime. Không rerun B cũ.
+  Mediumv2complete,A CPU-limit córeceipt vẫn giữ nguyên.
+- Candidate vẫn NOT_ADOPTED; không CF/n/root/tagv1.3.1, không mở312globaljobs
+  hoặc đóng costaccuracy/D22/human/Gate3R. Đây calibration, không hypothesis run.
