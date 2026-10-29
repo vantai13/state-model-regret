@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:state-model-regret:regime:contract-v1.3",
+  "title": "Doan Van Tai — scientific regime v1.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "contract_id",
+    "lambdaA",
+    "lambdaB",
+    "u",
+    "kappa",
+    "h",
+    "c_sw",
+    "role"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract_id": {
+      "const": "contract-v1.3"
+    },
+    "lambdaA": {
+      "$ref": "#/$defs/exact"
+    },
+    "lambdaB": {
+      "$ref": "#/$defs/exact"
+    },
+    "u": {
+      "$ref": "#/$defs/exact"
+    },
+    "kappa": {
+      "$ref": "#/$defs/exact"
+    },
+    "h": {
+      "$ref": "#/$defs/exact"
+    },
+    "c_sw": {
+      "$ref": "#/$defs/exact"
+    },
+    "role": {
+      "enum": [
+        "discovery",
+        "calibration",
+        "confirmation",
+        "control"
+      ]
+    },
+    "numerics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "K": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "ref": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "eta_pilot": {
+          "$ref": "#/$defs/exact"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "exact": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "string",
+          "pattern": "^-?(?:[0-9]+/[1-9][0-9]*|[0-9]+(?:\\.[0-9]+)?|\\.[0-9]+)$"
+        }
+      ]
+    }
+  },
+  "$comment": "Structural schema only. Cross-field stationarity, positivity, role/cost and eta consistency require experiments.R3R_05_contract.schema.validate; scientific identity excludes K/ref, not c_sw."
+}
