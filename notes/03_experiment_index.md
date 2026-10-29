@@ -1,6 +1,6 @@
 # Experiment index — evidence v1.2 và thiết kế population v1.3
 
-Người phụ trách: **Doan Van Tai** · cập nhật 29/10/2026.
+Người phụ trách: **Doan Van Tai** · cập nhật 29/10/2026 (L3R.6).
 [Bản hiện hành](../README.md) · [Phase 3R](phases/PHASE_3R.md) ·
 [contract v1.3](01_definitions_v1_3.md). Kết quả A01/A04/A05 giữ
 [contract v1.2](01_definitions_v1_2.md) và [protocol cũ](design/v1_2_protocol.md).
@@ -18,6 +18,7 @@ Người phụ trách: **Doan Van Tai** · cập nhật 29/10/2026.
 | R3R_02 / L3R.3 | Pilot có tính đúng estimand trong scope được kiểm? | Verification trong plant | Audit **HOLD**, evidence có giới hạn;467full/19oldtests/12mutants/19repro PASS; no CF | [Prereg](../experiments/R3R_02_audit/prereg.json), [code map](verification/l3r_3/code_map.md), [report](../results/lessons/l3r_3/report.md) |
 | R3R_04 / L3R.4 | Design có cùng phù hợp dải nguồn ở bối cảnh DL008 không? | Formula verification + realism screen, chưa validation | **HOLD_UNSOURCED** cảMV/SH,a/b;216ID/210distinct;491full/18MCchecksPASS; labels commit trước overlay | [Envelope](realism/envelope_v1.json), [worksheet](realism/worksheet_v1.md), [labels](../results/lessons/l3r_4/screen/labels.csv), [report](../results/lessons/l3r_4/report.md) |
 | R3R_05 / L3R.5 | Population/thước/schema và luật số đã khóa trước cards chưa? | Contract/provenance + parameter/toy verification | **LOCKED_WITH_DEFERRED**,tagcontract-v1.3→3d2359b;532full/41targetedPASS;khôngnewresearchoutcomes | [Contract](01_definitions_v1_3.md),[schema](design/regime_schema_v1_3.json),[receipt](phases/contract_v1_3.lock.json),[report](../results/lessons/l3r_5/report.md) |
+| R3R_06 / L3R.6 | Discovery nói gì để vẽ vùng; card nào có thể sai/PASS? | Prediction cards + discovery tóm tắt có log, không evidence | **CARDS_FROZEN** 1414d92, receipt PASS; Hyp-MV/Hyp-SH primary, không secondary; 9/9 checks, 549 full/17 targeted PASS; không CF/engine | [Cards](phases/PHASE_3R_hypothesis_cards.md), [log](phases/PHASE_3R_forking_paths.md), [receipt](phases/PHASE_3R_hypothesis_cards.lock.json), [report](../results/lessons/l3r_6/report.md) |
 
 **Tên có phạm vi:** các script `run_v1_1_a1.py`, `run_v1_1_a4.py`, `run_v1_1_a5.py`
 là các bước A1/A4/A5 của quy trình dựng lưới v1.1, **không phải A01/A04/A05 của

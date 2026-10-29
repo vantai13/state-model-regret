@@ -1219,3 +1219,24 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   không 0/20; góc λA=8 có 1/12 cấu hình λB7 ḠM>.09%. Bảng CP/power/coverage khác khớp.
 - Không engine/CF/R09/R10; card chưa frozen ở DL này. Contract v1.3 giữ nguyên; G1, Phase4 HOLD,
   Understanding/P0-V10/L8/T05 OPEN; numerics v1.3.1 vẫn là điều kiện trước L3R.7 sampling.
+
+
+### DL-074 — Cards v1 L3R.6 đã đóng băng; L3R.7 phải verify receipt trước frame (2026-10-29)
+
+- Người phụ trách/người soạn: **Doan Van Tai**; AI soạn, tác giả duyệt theo DL-073.
+  Freeze commit **`1414d9299d767b2abd56642c4d56048867b83095`**: [cards](phases/PHASE_3R_hypothesis_cards.md),
+  [forking log](phases/PHASE_3R_forking_paths.md) (22 dòng, 13 luật tóm tắt + 1 khai không nhìn dữ liệu),
+  [claim boundary](01_claim_boundary_v1_3.md), card checks, verdict/stats/regions code. Card SHA-256
+  `248d9165…7117`; [receipt](phases/PHASE_3R_hypothesis_cards.lock.json) giữ hash 10 file.
+- **Hyp-MV** primary1 (ḠM/C̄ref≥1%, Ω⁺ MV+A, Ω⁻ lật κ∈[1;3]) và **Hyp-SH** primary2 (ḠS/C̄ref≤−1%,
+  Ω⁺ SH+A, Ω⁻ lật κ∈[1;3]); không secondary. π₀=1/2, CP 97,5%, Bonferroni, AND, bảng primary_v1,
+  R4 bốn góc, R5 u_max=1/10. Measure khóa trong card; L3R.7 chỉ chọn n, seed, cơ chế va chạm.
+- Chín phép kiểm PASS (phép7 ở mức “AI soạn, tác giả duyệt”; bằng lời tác giả OPEN; phép9 sơ bộ:
+  p⁺=.7,p⁻=.2 → P(PASS) .553/.690/.837 với n=30/40/60 mỗi vùng). Bảng verdict 12 ô, 0 vi phạm phủ/
+  đơn điệu, 12.400 trường hợp pipeline; R4 bốn góc khác hai kịch bản đồng loạt 0 lần trong lưới quét.
+- Full suite **549/549 PASS**, targeted 17/17, contract freeze PASS, receipt verify PASS.
+- Không CF/sample/seed/engine/MC; R09/R10 không nằm trong vùng nào. R11 nằm trong MV+A/MV-BND (đã mở
+  ở A05-T): L3R.7 loại tuple trùng. Ω⁻ hai card là ngoại suy; κ=3,h=16 là góc số khó (L3R.3), cần
+  v1.3.1 phủ trước sampling, nếu không R5 có thể cho INCONCLUSIVE.
+- Card là prediction, không phải evidence; G1 không đổi. Phase4 HOLD (numerics v1.3.1, D22 audit,
+  P0-V10/L8, Gate3R); audit L3R.3 HOLD; realism HOLD_UNSOURCED; Understanding/T05 OPEN.

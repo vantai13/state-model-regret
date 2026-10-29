@@ -211,3 +211,16 @@ def test_card_machine_block_matches_code():
     for name, c in card['cards'].items():
         assert F(c['aggregate']['alpha']) == V.PRIMARY_ALPHA and F(c['aggregate']['pi0']) == V.PRIMARY_PI0
         assert F(c['r6_boundary']) == V.CRITERIA[c['criterion']][0]
+
+
+def test_card_receipt_verifies_and_fails_closed(tmp_path, monkeypatch):
+    import json as _json
+    from experiments.R3R_06_cards import verify_cards as VC
+    assert VC.verify()['status'] == 'PASS'
+    rec = _json.loads(VC.RECEIPT.read_text())
+    rec['sha256']['notes/phases/PHASE_3R_hypothesis_cards.md'] = '0' * 64
+    fake = tmp_path / 'lock.json'; fake.write_text(_json.dumps(rec))
+    monkeypatch.setattr(VC, 'RECEIPT', fake)
+    r = VC.verify()
+    assert r['status'] == 'FAIL' and any('hypothesis_cards.md' in e for e in r['errors'])
+    with pytest.raises(SystemExit): VC.create('HEAD')          # receipt already exists: no silent overwrite

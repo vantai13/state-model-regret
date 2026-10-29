@@ -7,6 +7,16 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.6 — hypothesis cards v1 FROZEN (29/10/2026, DL-073–074)
+
+Công cụ + mục0 log commit64f20ee trước đọc outcome; tóm tắt discovery log#1–#20 và lựa chọn tác giả
+5b5760b; freeze1414d92; receipt verify PASS. Phương án D: Hyp-MV/Hyp-SH primary, không secondary,
+Γ̄ diagnostic (3/162 cấu hình có thông tin). Ω⁻ lật κ∈[1;3] là ngoại suy. 9/9 checks, P(PASS) sơ bộ
+.553 ở n=30/vùng (p⁺.7,p⁻.2). 17 targeted/549 full PASS. Đính chính lesson §16(b), §9.2, h=2.
+Không CF/engine/seed. AI soạn, tác giả duyệt; Understanding OPEN; G1, Phase4 HOLD.
+[Report](../results/lessons/l3r_6/report.md), [cards](phases/PHASE_3R_hypothesis_cards.md),
+[completion](phases/L3R_6_completion.json).
+
 ## L3R.5 — contract v1.3 LOCKED với DEFERRED (29/10/2026, DL-071–072)
 
 Tác giả chọn P1/RoE/ngưỡng/c_sw0,cam kếtD22 vàtagA trước contract. Tagcontract-v1.3

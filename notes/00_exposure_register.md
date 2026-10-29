@@ -748,3 +748,13 @@ Người phụ trách: **Doan Van Tai**; triển khai theo yêu cầu L3R.6. Đ�
 ghi `results/lessons/l3r_6/forking_paths.jsonl`. Sẽ đọc lại saved raw stage1–2 (c_sw0,162cấu hình)
 tại taga7435e9 để tái lập bảng lesson và đếm12luật ứng viên đã khóa trong code. Không engine,
 không regime mới, không CF/R09/R10 outcome; tọa độ R09/R10 chỉ dùng kiểm luật có chạm hay không.
+
+
+## Phase3R / L3R.6 — sau tóm tắt discovery và freeze card (2026-10-29, DL-073–074)
+
+Đã đọc lại saved raw stage1–2 tại taga7435e9 (162cấu hình, 6cặp trùng chênh0) qua logger:
+6bảng/listing tái lập lesson (#1–#6), 13luật ứng viên + chẩn đoán Γ (#7–#19), quyết định (#20),
+SH-BND khai không nhìn dữ liệu (#21). Outcome đã xem: ḠM,ḠS,Γ̄,ḠSM,P(flip) của discovery đã lộ.
+Card commit1414d92 sau các tóm tắt này; mọi tỉ lệ discovery trong card là hộp vẽ sau khi thấy dữ liệu.
+Không engine/MC/simulation, không regime mới, không seed, không CF; R09/R10 không đọc ngoài tọa độ
+để kiểm luật không chạm. Toy CP/power/verdict chỉ là toán trên số đếm giả.

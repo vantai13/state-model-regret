@@ -1,3 +1,19 @@
+# Addendum triển khai — L3R.6, 29/10/2026
+
+Người phụ trách: **Doan Van Tai** · DL-073–074. Cards v1 **FROZEN** ở `1414d92`, receipt
+[PHASE_3R_hypothesis_cards.lock.json](PHASE_3R_hypothesis_cards.lock.json) verify PASS. Tác giả chọn
+phương án D (Part1 §11): Hyp-MV, Hyp-SH primary; không secondary; Γ̄ diagnostic vì Γ̄≥−min(ḠS,ḠM)
+(discovery 3/162 cấu hình có thông tin, 70/73 cấu hình ḠS≥0 tự đạt). Ω⁺ MV+A/SH+A, Ω⁻ chỉ lật κ∈[1;3]
+(ngoại suy), BND mô tả; measure khóa trong card; R4 bốn góc. 13 luật tóm tắt + 1 khai không nhìn dữ
+liệu đều trong [forking log](PHASE_3R_forking_paths.md). 9/9 checks, 17 targeted/549 full PASS.
+Đính chính lesson: Part3 §16(b) 20/30→U⁻→W2; Part1 §9.2 cận −min(ḠS,ḠM); Part2 h=2 là 0/30.
+Không CF/engine/MC/seed; R09/R10 ngoài mọi vùng; R11 trong MV+A. L3R.7 học được; frame phải gọi
+verify_cards trước; n/seed sau numerics v1.3.1 (phủ κ=3,h=16). AI soạn, tác giả duyệt; phép7 bằng
+lời tác giả, Understanding/P0-V10/L8/T05 OPEN; audit L3R.3 HOLD, realism HOLD_UNSOURCED, G1, Phase4 HOLD.
+[Report](../../results/lessons/l3r_6/report.md), [completion](L3R_6_completion.json).
+
+---
+
 # Addendum triển khai — L3R.5, 29/10/2026
 
 Người phụ trách: **Doan Van Tai** · DL-071–072. Contractv1.3 **LOCKED_WITH_DEFERRED**,

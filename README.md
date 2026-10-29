@@ -2,6 +2,17 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Phase 3R — L3R.6 đã đóng băng hypothesis cards v1** (29/10/2026, DL-073–074):
+freeze commit **1414d92**, [receipt](notes/phases/PHASE_3R_hypothesis_cards.lock.json) verify PASS.
+Tác giả chọn **phương án D**: Hyp-MV (ḠM/C̄ref≥1%) và Hyp-SH (ḠS/C̄ref≤−1%) primary, không secondary;
+Γ̄ chỉ diagnostic vì Γ̄≥−min(ḠS,ḠM) (discovery: 3/162 cấu hình có thông tin). Ω⁻ hai card chỉ lật
+κ∈[1;3] (ngoại suy). π₀=½, CP 97,5%, Bonferroni, R4 bốn góc, R5 u_max10%; measure khóa trong card.
+**9/9 phép kiểm, 17/17 targeted, 549/549 full tests PASS.** AI soạn, tác giả duyệt; phép7 bằng lời
+tác giả và Understanding OPEN. Không CF/engine/seed; R09/R10 ngoài mọi vùng. CF sampling chờ numerics
+v1.3.1; **Phase4 HOLD**, G1. [Cards](notes/phases/PHASE_3R_hypothesis_cards.md) ·
+[Forking log](notes/phases/PHASE_3R_forking_paths.md) · [Claim boundary](notes/01_claim_boundary_v1_3.md) ·
+[Report](results/lessons/l3r_6/report.md) · [Completion](notes/phases/L3R_6_completion.json).
+
 **Phase 3R — L3R.5 đã khóa contract v1.3 với mục DEFERRED** (29/10/2026, DL-071–072):
 Tag **contract-v1.3 → 3d2359b**,21frozen inputs khớp receipt;
 **532/532 full tests,41/41 targeted tests PASS**. P1/RoE/εR1%/εE.5%/c_sw0primary
@@ -106,10 +117,11 @@ K5 đã carry nguyên văn m=1 vào **A05-F**, C1 khóa sau A04; kết quả hel
 ```text
 Bản hiện hành thiết kế population (29/10/2026):
   Contract:       notes/01_definitions_v1_3.md (tag contract-v1.3, có DEFERRED)
-  Brief / Claims: notes/00_research_brief_v1_3.md · notes/01_claim_boundary_v1_3.md (khung chưa freeze)
+  Brief / Claims: notes/00_research_brief_v1_3.md · notes/01_claim_boundary_v1_3.md (điền theo cards L3R.6)
+  Cards v1.3:     notes/phases/PHASE_3R_hypothesis_cards.md (+ .lock.json; FROZEN 1414d92)
   Receipt:        notes/phases/contract_v1_3.lock.json
   Kết quả cũ:     notes/01_definitions_v1_2.md · notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
-  Phase:          notes/phases/PHASE_3R.md (L3R.5 contract tagged; numerics/realism HOLD)
+  Phase:          notes/phases/PHASE_3R.md (L3R.6 cards frozen; numerics/realism HOLD)
   Gate / Closeout: notes/phases/PHASE_3_gate.md · PHASE_3_closeout.md (REFORMULATE, ownership OPEN)
   Draft lịch sử:  notes/01_definitions_v1_3_draft.md (DL-061, đã supersede cho thiết kế mới)
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md
@@ -122,7 +134,7 @@ Bản hiện hành thiết kế population (29/10/2026):
 ```
 
 [Contract v1.3](notes/01_definitions_v1_3.md) · [brief v1.3](notes/00_research_brief_v1_3.md) ·
-[claim boundary v1.3, khung](notes/01_claim_boundary_v1_3.md) · [Phase 3 cũ và phân loại artifact](notes/phases/PHASE_3.md) ·
+[claim boundary v1.3](notes/01_claim_boundary_v1_3.md) · [Phase 3 cũ và phân loại artifact](notes/phases/PHASE_3.md) ·
 [experiment index](notes/03_experiment_index.md) · [progress log lịch sử](notes/00_progress_log.md).
 [Contract v1.2](notes/01_definitions_v1_2.md) vẫn đi cùng kết quả cũ;
 claim boundary v1.2 có addendum Phase2/A04, D1–D25 và lưới giữ nguyên.

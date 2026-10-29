@@ -1,0 +1,99 @@
+{
+ "owner": "Doan Van Tai",
+ "completed_at": "2026-10-29T10:21:55.941777+07:00",
+ "status": "L3R_6_CARDS_FROZEN",
+ "card_set": "L3R6 v1",
+ "card_commit": "1414d9299d767b2abd56642c4d56048867b83095",
+ "card_sha256": "248d91659c5eb8d6d71198e5a9cfff443d5c7ee1be89d9e66b9299a9b0987117",
+ "receipt": "notes/phases/PHASE_3R_hypothesis_cards.lock.json",
+ "allocation": {
+  "primary": [
+   "Hyp-MV",
+   "Hyp-SH"
+  ],
+  "secondary": null,
+  "lesson_option": "D",
+  "Gamma": "DIAGNOSTIC_ONLY"
+ },
+ "author_choices": "results/lessons/l3r_6/author_choices.json",
+ "provenance": "AI drafted; author selected allocation/regions/rule package; author_predicted=false; mechanism_author_words=false",
+ "discovery_basis": {
+  "distinct_configs": 162,
+  "forking_log_entries": 22,
+  "rules_summarized": 13,
+  "rules_declared_without_data": 1
+ },
+ "checks": {
+  "nine_checks_pass": 9,
+  "extra_checks_pass": 7,
+  "check7": "AI_DRAFTED_AUTHOR_APPROVED; AUTHOR_OWN_WORDS_OPEN",
+  "check9": "PRELIMINARY"
+ },
+ "tests": {
+  "targeted": 17,
+  "full_suite": 549
+ },
+ "lesson_errata": [
+  "Part3 §16(b): 20/30 -> U- -> W2 not W1",
+  "Part1 §9.2: Gamma >= -min(G_S,G_M)",
+  "Part2 §8.3: h=2 is 0/30 not 0/20",
+  "Part2 §8.1: lambdaA=8 corner has 1/12 G_M>.09% at lambdaB=7"
+ ],
+ "new_CF_regimes": 0,
+ "new_engine_or_MC_runs": 0,
+ "new_seeds": 0,
+ "new_research_outcomes": false,
+ "R09_R10_inside_regions": false,
+ "v12_cells_inside": {
+  "MV+A": [
+   "R11"
+  ],
+  "MV-BND": [
+   "R11"
+  ]
+ },
+ "audit_L3R3": "HOLD",
+ "realism": "HOLD_UNSOURCED",
+ "numerical_levels": "DEFERRED",
+ "D22_engine_and_audit": "DEFERRED",
+ "Understanding": "OPEN",
+ "P0_V10": "OPEN",
+ "L8": "OPEN",
+ "T05_author_writing": "OPEN",
+ "G_level": "G1",
+ "Phase4": "HOLD",
+ "V9": "WAIVED_BY_AUTHOR",
+ "readiness": {
+  "L3R7_learning": {
+   "allowed": true
+  },
+  "L3R7_frame_writing": {
+   "allowed": true,
+   "requires": [
+    "verify_cards PASS before frame",
+    "n and seed locked only after numerics v1.3.1",
+    "v1.3.1 coverage map must include card corners (kappa=3, h=16)"
+   ]
+  },
+  "CF_sampling": {
+   "allowed": false,
+   "reasons": [
+    "numerics v1.3.1 (K*, ref*/dt*, S1 route, quadrature/tail, audit coverage) not closed",
+    "L3R.7 frame/n/seed/collision prereg not created"
+   ]
+  },
+  "Phase4": {
+   "allowed": false,
+   "reasons": [
+    "numerics v1.3.1",
+    "D22 implementation/audit",
+    "P0-V10 real reader",
+    "L8 real reader",
+    "Gate3R/prereg not frozen",
+    "realism HOLD_UNSOURCED"
+   ]
+  }
+ },
+ "report": "results/lessons/l3r_6/report.md",
+ "next_lesson": "L3R.7 (learning now; sampling after numerics v1.3.1)"
+}

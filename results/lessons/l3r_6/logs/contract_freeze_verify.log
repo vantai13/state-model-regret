@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "tag": "contract-v1.3",
+  "tag_commit": "3d2359b32d7bd24f9e9072d5b5b8131bd33fffa0",
+  "frozen_inputs": 21,
+  "readiness": {
+    "hypothesis_freeze": {
+      "allowed": true,
+      "reasons": []
+    },
+    "CF_sampling": {
+      "allowed": false,
+      "reasons": [
+        "numerics DEFERRED: K_star",
+        "numerics DEFERRED: ref_star",
+        "numerics DEFERRED: dt_star",
+        "numerics DEFERRED: S1_route",
+        "numerics DEFERRED: quadrature_tail_policy",
+        "numerical audit/coverage closure HOLD",
+        "L3R.7 frame/strata/sample-size/seed/collision prereg not created in L3R.5"
+      ]
+    },
+    "Phase4": {
+      "allowed": false,
+      "reasons": [
+        "numerics DEFERRED: K_star",
+        "numerics DEFERRED: ref_star",
+        "numerics DEFERRED: dt_star",
+        "numerics DEFERRED: S1_route",
+        "numerics DEFERRED: quadrature_tail_policy",
+        "numerical audit/coverage closure HOLD",
+        "L3R.7 frame/strata/sample-size/seed/collision prereg not created in L3R.5",
+        "committed D22 implementation/audit DEFERRED",
+        "P0-V10 real reader OPEN",
+        "L8 real reader OPEN",
+        "Gate3R/prereg not frozen",
+        "realism disposition remains HOLD_UNSOURCED"
+      ]
+    },
+    "scope": "Current v1.3 snapshot only; closure requires versioned v1.3.1 evidence, not editing status flags"
+  }
+}
+exit=0
