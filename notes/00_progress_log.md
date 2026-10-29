@@ -7,6 +7,22 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.4 — screen đã chạy, realism HOLD_UNSOURCED (29/10/2026, DL-069–070)
+
+Đã đọc848dòng lesson,T00/DL008/protocol;3nguồn mới được tác giả duyệt rồi AI-T.
+Generic preregcbed2bc trước24replicates,18/18checksPASS;24targeted/491fulltestsPASS.
+Envelope6bef959 trước A2; exportkappaFAIL được regression đỏ rồi fix830a187,
+không đổi scientific rules. Labels1164500 trước saved-overlay.216ID/210distinct,
+432features/1296labels: tất cảUNSOURCED ởa/b,f1.5/2/3. MV20/20,SH80/78,
+giao14/14; hai vùng nhánh(d)HOLD, không kết luận OUT hay prevalence.
+Stationary-only3IDs×2queues×2refs, không J/newgain; fluid approximation không exactslot.
+Review tự động input-limited xác nhận consistency; không human review/L-self.
+Library26nguồn giữ23oldrecords/authorlevels; chưa sourced numeric envelope.
+L3R.5 học/soạn được, chưa CFframe/contractadoption; auditL3R.3HOLD,numericsNOT_FROZEN,
+G1/Phase4HOLD,Understanding/P0-V10/L8/T05OPEN.
+[Report](../results/lessons/l3r_4/report.md),[worksheet](realism/worksheet_v1.md),
+[completion](phases/L3R_4_completion.json).
+
 ## L3R.3 — audit đã thực hiện, gate HOLD (29/10/2026, DL-066–068)
 
 Đã đọc đủ 4 phần, ánh xạ 14 câu; prereg6499d7f trước run, Nselection4c4908f trước C3.

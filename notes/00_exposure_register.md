@@ -713,3 +713,15 @@ nguồn mới3được duyệt rồi targeted-primary-read. Không tác giả L-
 không newregime gain. Chuẩn bị stationary-only X2041/X2012/X1009,Apre/Bpre,ref1/2.
 Envelope/luật phải commit trước216design translations và labels; labels checkpoint
 phải commit trước saved-discovery overlay. CF/R09/R10 không mở.
+
+
+## Phase3R / L3R.4 — sau screen, DL-070 (2026-10-29T08:12:02.140485+07:00)
+
+Đã dịch tham số216ID(210distinct),hai anchor minh họa10ms/100ms,432feature rows;
+1296labels(context×f),không1296designs. Envelope6bef959 trước run;exportfix830a187
+giữrules;labels1164500 trước overlay. Đã đọc lại saved rawstage1–3 từpilot taga7435e9
+choMV20/SH80/giao14,không outcome mới. Stationary-onlyX2041/X2012/X1009,Apre/Bpre,
+ref1/2:atom/mean/tail,khôngJ/gap/action/regret/newcontrast. Full491tests gồm regression
+toy cũ;khôngrunA05-T hoặcCF/R09/R10. Reviewer riêngchỉenvelope/worksheet/rules/labels/receipt.
+Ba nguồn mới approvedAI-T,khôngauthor-selfread. Buffer/d_act thựcchưađủnguồn;range
+misalignment ghiworksheet. MV/SH đềuHOLD_UNSOURCED;G1,Phase4HOLD giữ.

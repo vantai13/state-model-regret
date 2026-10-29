@@ -13,3 +13,6 @@ DBLP3lookups trả0; Crossref3lookups mỗi3records, đã sàng9title/metadata g
 6records khác loại/không đúng target. Webpublisher3queries không trả kết quả; đó là
 hạn chế truy cập/index, không evidence nguồn không tồn tại. Không dùngcitationcount
 hoặc kết quả bênreviewer như sốđếm thực của phiên. Đây là lookup, khôngfieldsurvey/saturation.
+
+
+Cập nhật sau metadata snapshot: tác giả đã duyệt cả3trước PDF/content notes; cả3 nay AI-T, không author L-self. Xem approval.json, downloads.json và các notes đã có. Đây là đợt nguồn realism có giới hạn, không saturation survey.

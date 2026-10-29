@@ -1,3 +1,22 @@
+# Addendum triển khai — L3R.4, 29/10/2026
+
+Người phụ trách: **Doan Van Tai** · DL-069–070. Screen đã chạy, **realism HOLD_UNSOURCED**
+ở cả MV/SH và hai bối cảnh DL-008. Không phải OUT hoặc empirical validation.
+Generic preregcbed2bc,18/18checks/24replicatesPASS;24targeted/491fulltestsPASS.
+Envelope6bef959 trước bảng216, exportfix830a187 giữ nguyên luật; labels1164500
+trước saved-overlay.216ID/210cấu hình,432feature/1296label rows,toànUNSOURCED.
+MV20/20distinct,SH80/78,giao14/14;f1.5/2/3 không exercise numeric robustness.
+Ba nguồn mới được duyệt rồi đọc targeted; Excel26giữ23oldrecords, không L-self.
+Sửa thứ tựA1→nguồn/envelope/commit→A2/labels→overlay; φ=u/(c−λB) khácη=u/2;
+a/c=.6 và nền hai mức cố định; delayvirtualtimeaverage,buffer-tail≠drop;
+stationary-postload≠transient;modecorr≠backlogcorr;actuation không suy dấuGS.
+[Report](../../results/lessons/l3r_4/report.md),[worksheet](../realism/worksheet_v1.md),
+[completion](L3R_4_completion.json). Scope chỉproposal choL3R.5,CFframe chưa chọn.
+L3R.3HOLD/numericsNOT_FROZEN,contractv1.3DRAFT,G1/Phase4HOLD;
+Understanding/P0-V10/L8/T05OPEN. Phần plannguồn và các addenda cũ giữ nguyên byte.
+
+---
+
 # Addendum triển khai — L3R.3, 29/10/2026
 
 Người phụ trách: **Doan Van Tai** · DL-066–068. Audit đã chạy, **gate HOLD**;

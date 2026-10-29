@@ -1133,3 +1133,24 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   J/gap/action/regret/contrast mới. CF/R09/R10 giữ niêm phong.
 - L3R.3 HOLD và numerics NOT_FROZEN giữ; contractv1.3 DRAFT, G1,Phase4HOLD.
   Understanding/read-back/P0-V10/L8/T05 không tự đóng. Chưa chọn CFframe.
+
+
+### DL-070 — Realism v1: MV(d) HOLD · SH(d) HOLD (2026-10-29)
+
+- Người phụ trách/người soạn: **Doan Van Tai**, triển khai theo ủy quyền.
+- Envelope/rules6bef959 trước bảng216; exportfirstrowFAIL(kappa) không tạo labels;
+  regression đỏ rồi fix830a187 giữ nguyên science. Labels1164500 trước saved-overlay.
+- a/b đều216/216UNSOURCED (210distinct);f1.5/2/3 không đổi vì thiếu source ranges.
+  Không coi là robustness evidence hoặc OUT. MV20ID/20distinct;SH80/78;giao14/14.
+- **MV(d) HOLD_REALISM_UNSOURCED;SH(d) HOLD_REALISM_UNSOURCED.** Cần source/schema
+  backlogAoI/holdh/offeredinputCV/buffer-time/d_act tương thích. Không đổi RQ/plant
+  hoặc chọn context cứu effect. Không claim prevalence từ discovery thích nghi.
+- 491full/24targetedtestsPASS,18/18genericMCchecks;stationary-only12rows,fluidapprox
+  không exactslot. Review riêng chỉ5input,consistencyPASS,không human/L-self.
+- Buffer/actuationUNSOURCED,modeoracleTRUE. Infinite-queue tail sensitivity không
+  finitebufferdrop; postloadproxy không transient; không suy dấuGS từmodecorr.
+- Trước envelopev2 cần khóa granularity mean/peak và phép nới định tính;v1frozen
+  không sửa. Nguồn mới có version sau labels. [Note](realism/realism_note_v1.md),
+  [report](../results/lessons/l3r_4/report.md),[completion](phases/L3R_4_completion.json).
+- L3R.5 học/soạn được;chưa contractadoption/CFframe/CFoutcomes. L3R.3HOLD,numerics
+  NOT_FROZEN,v1.3DRAFT,G1/Phase4HOLD;Understanding/P0-V10/L8/T05OPEN giữ.

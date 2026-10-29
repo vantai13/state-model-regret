@@ -2,6 +2,19 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Phase 3R — L3R.4 đã chạy screen; realism HOLD_UNSOURCED** (29/10/2026, DL-069–070):
+**491/491 full tests,24/24 targeted tests,18/18 generic MC comparisons PASS**.
+Nguồn mới3được duyệt/đọc targeted; Excel26nguồn,23record/progress cũ giữ nguyên.
+Envelope commit6bef959, export fix830a187 không đổi luật; labels1164500 trước overlay.
+**216ID/210cấu hình đều UNSOURCED ở cả DC và edge**, kể cả f1.5/2/3.
+MV20ID,SH80ID(78distinct),giao14ID từ discovery cũ; cả MV/SH nhánh(d) HOLD.
+Không đủ nguồn tương thích chưa có nghĩa OUT/phi thực tế; chưa empirical validation.
+[Report](results/lessons/l3r_4/report.md) · [Nhãn](results/lessons/l3r_4/screen/labels.csv) ·
+[Worksheet](notes/realism/worksheet_v1.md) · [Review giới hạn input](results/lessons/l3r_4/blind_review.md) ·
+[Completion](notes/phases/L3R_4_completion.json).
+L3R.5 học/soạn được; L3R.3 auditHOLD/numericsNOT_FROZEN giữ; contractv1.3DRAFT,
+Understanding/P0-V10/L8/T05OPEN, **Phase4 thực thi HOLD**,G1.
+
 **Phase 3R — L3R.3 đã chạy audit; gate HOLD** (29/10/2026, DL-068):
 **467/467 tests**, 19 tests gốc riêng, **12/12 mutants**, **19/19 clean reproductions** đạt.
 MC: C1 **80/80**, C2 **80/80 sau kiểm arithmetic**, C3 node **8/8**, max|z| **2,313697**.
@@ -82,7 +95,7 @@ Bản hiện hành (28/10/2026):
   Contract:       notes/01_definitions_v1_2.md (tag contract-v1.2, D1–D25)
   Brief / Claims: notes/00_research_brief_v1_2.md · notes/01_claim_boundary_v1_2.md
   Lưới:           notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
-  Phase:          notes/phases/PHASE_3R.md (L3R.3 audit HOLD; Phase3 cũ đã closeout)
+  Phase:          notes/phases/PHASE_3R.md (L3R.4 realism HOLD; L3R.3 numerics HOLD)
   Gate / Closeout: notes/phases/PHASE_3_gate.md · PHASE_3_closeout.md (REFORMULATE, ownership OPEN)
   Proposal mới:   notes/01_definitions_v1_3_draft.md (CHƯA KHÓA, không thay contract kết quả cũ)
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md

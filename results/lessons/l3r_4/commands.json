@@ -1,0 +1,38 @@
+[
+  [
+    ".venv/bin/python -m pytest tests/test_realism_implied.py tests/test_realism_sim.py tests/test_realism_classify.py tests/test_realism_workflow.py -q",
+    "PASS24"
+  ],
+  [
+    ".venv/bin/python -m experiments.R3R_04_realism.generic_sim",
+    "PASS18checks/24replicates"
+  ],
+  [
+    ".venv/bin/python -B tools/paper_library/build_notes.py",
+    "PASS26sources/24localPDFs"
+  ],
+  [
+    ".venv/bin/python -m experiments.R3R_04_realism.run_screen --freeze 6bef959",
+    "FAILduplicatekappa; preserved attempt1"
+  ],
+  [
+    ".venv/bin/python -m experiments.R3R_04_realism.run_screen --freeze 830a187",
+    "PASS216IDs/1296labels"
+  ],
+  [
+    ".venv/bin/python -m experiments.R3R_04_realism.check_stationary --freeze 6bef959",
+    "EXECUTED12rows; diagnostic, not exact-match requirement"
+  ],
+  [
+    ".venv/bin/python -m experiments.R3R_04_realism.overlay --labels-commit 1164500",
+    "PASSsavedoverlayaftercommittedlabels"
+  ],
+  [
+    ".venv/bin/python -m pytest -q --junitxml=results/lessons/l3r_4/full_suite.xml",
+    "PASS491"
+  ],
+  [
+    ".venv/bin/python -m experiments.R3R_04_realism.verify_saved",
+    "PASS13frozen inputs/3024cross-anchorchecks/51legacyfiles/187oldauditartifacts; initial self-link ordering failure preserved"
+  ]
+]
