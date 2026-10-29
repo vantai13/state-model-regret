@@ -1379,3 +1379,24 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   cóthểcùngchạy. Candidate chưa giải quyếtnumpy_roots degree12000 hoặcfullaudit.
 - Đo sánhimplementation tươngđương,khôngnewhypothesisoutcome hoặc seed/CF.
   GCPgiữSTOPPED theo thôngtintácgiả;khôngcloudmutation.
+
+### DL-082 — Sparse-root/algebraic-certificate candidate trước profile degree12000 (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. Baselinev2 đã hoàn tấtdegree1200 sau806.568s;
+  candidateLU-free hoàn tấtcùngpoint199.590s,quantiles5647/25370 vàposteriorerrors
+  khớp,lawerror≈1.42415e-32;cảhai đượccertificategốc chấpnhận. Đâybenchmark
+  numerical,sau khiđãthấyv1/v2partial,khôngpredictionkhoahọc.
+- Tạo candidate riêng đểgiảm hai costkhác: rootproposals sparseNewton(double)
+  vẫnphảirefine80digits/countb; certificate dùngVandermondeidentity,geometric
+  residualsum vàintervalenclosure củaexacttargetcoefficients. Giữtailplan/
+  returnboundvà1e-10;accountstoredcoefficientL1error. Đây **certificateevaluation
+  mới**,khônggọi “codecũkhôngđổi”;fullaudit/adoption cònchờ.
+- [Proof/scope](design/stationary_algebraic_certificate_candidate.md). 9root
+  tests so densecompanion độc lập;9certificate tests gồmexactFractiondirectbalance,
+  fullclosedformTV+tail,originalcertificateparity vàcorruptionrejection. Test
+  helpercomplexparserbanđầulỗi,giữfailurelog rồi sửahelper,khôngnới acceptance.
+- [Prereg profile](../experiments/R3R_07_fast_stationary/prereg_sparse_candidate_02.json)
+  cốđịnhCAL_RATE_1000_A,1800CPU-s/2400wall-s/1GiBRSS/2GiBAS,1worker. Commitcode/
+  sourcemanifest trước profile;baselinev2 source/environment khôngsửa hoặcdừng.
+- Khôngsrcpromotion,CF/n/root hoặcclosurev1.3.1. Candidatepassmộtlaw khôngtựđóng
+  globalcostaccuracy,tailmoment,arrayconversion,D22/Gate3R/human. GCPvẫntắt.

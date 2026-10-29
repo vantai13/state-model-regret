@@ -1,0 +1,148 @@
+...FFF..                                                                 [100%]
+=================================== FAILURES ===================================
+_____________ test_certificate_covers_actual_closed_form_error[s0] _____________
+
+s = Fraction(1, 2)
+
+    @pytest.mark.parametrize('s',[F(1,2),F(3,4),F(9,10)])
+    def test_certificate_covers_actual_closed_form_error(s):
+        law=AlgebraicCertificateLaw((-2,1),s)
+        declared=[tuple(mp.nstr(x,80) for x in term) for term in law.terms]
+        zero=[mp.nstr(x,80) for x in law.zero]
+        with mp.workdps(150):
+            p=mp.mpf(s.numerator)/s.denominator
+            r=(-(1-p)+mp.sqrt((1-p)**2+4*p*p))/(2*p);v=r*(1+r)
+            a=1/(v/(1-p)+(1+v)*r/(1-r))
+            error=mp.mpf(0)
+>           terms=[tuple(mp.mpc(x) for x in t) for t in declared]
+                   ^^^^^
+
+tests/test_algebraic_stationary_certificate.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_algebraic_stationary_certificate.py:53: in <genexpr>
+    terms=[tuple(mp.mpc(x) for x in t) for t in declared]
+                 ^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:375: in __new__
+    real = cls.context.mpf(real)
+           ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:79: in __new__
+    v._mpf_ = mpf_pos(cls.mpf_convert_arg(val, prec, rounding), prec, rounding)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:86: in mpf_convert_arg
+    if isinstance(x, basestring): return from_str(x, prec, rounding)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/libmp/libmpf.py:1331: in from_str
+    man, exp = str_to_man_exp(x, base=10)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = '(0.61803398874989484820458683436563811772030917980576286213544862270526046281890245 + 0.0j)'
+base = 10
+
+    def str_to_man_exp(x, base=10):
+        """Helper function for from_str."""
+        x = x.lower().rstrip('l')
+        # Verify that the input is a valid float literal
+>       float(x)
+E       ValueError: could not convert string to float: '(0.61803398874989484820458683436563811772030917980576286213544862270526046281890245 + 0.0j)'
+
+.venv/lib/python3.14/site-packages/mpmath/libmp/libmpf.py:1294: ValueError
+_____________ test_certificate_covers_actual_closed_form_error[s1] _____________
+
+s = Fraction(3, 4)
+
+    @pytest.mark.parametrize('s',[F(1,2),F(3,4),F(9,10)])
+    def test_certificate_covers_actual_closed_form_error(s):
+        law=AlgebraicCertificateLaw((-2,1),s)
+        declared=[tuple(mp.nstr(x,80) for x in term) for term in law.terms]
+        zero=[mp.nstr(x,80) for x in law.zero]
+        with mp.workdps(150):
+            p=mp.mpf(s.numerator)/s.denominator
+            r=(-(1-p)+mp.sqrt((1-p)**2+4*p*p))/(2*p);v=r*(1+r)
+            a=1/(v/(1-p)+(1+v)*r/(1-r))
+            error=mp.mpf(0)
+>           terms=[tuple(mp.mpc(x) for x in t) for t in declared]
+                   ^^^^^
+
+tests/test_algebraic_stationary_certificate.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_algebraic_stationary_certificate.py:53: in <genexpr>
+    terms=[tuple(mp.mpc(x) for x in t) for t in declared]
+                 ^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:375: in __new__
+    real = cls.context.mpf(real)
+           ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:79: in __new__
+    v._mpf_ = mpf_pos(cls.mpf_convert_arg(val, prec, rounding), prec, rounding)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:86: in mpf_convert_arg
+    if isinstance(x, basestring): return from_str(x, prec, rounding)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/libmp/libmpf.py:1331: in from_str
+    man, exp = str_to_man_exp(x, base=10)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = '(0.84712708838303661483328070753367784368082834913106853106985884108105545421981837 + 0.0j)'
+base = 10
+
+    def str_to_man_exp(x, base=10):
+        """Helper function for from_str."""
+        x = x.lower().rstrip('l')
+        # Verify that the input is a valid float literal
+>       float(x)
+E       ValueError: could not convert string to float: '(0.84712708838303661483328070753367784368082834913106853106985884108105545421981837 + 0.0j)'
+
+.venv/lib/python3.14/site-packages/mpmath/libmp/libmpf.py:1294: ValueError
+_____________ test_certificate_covers_actual_closed_form_error[s2] _____________
+
+s = Fraction(9, 10)
+
+    @pytest.mark.parametrize('s',[F(1,2),F(3,4),F(9,10)])
+    def test_certificate_covers_actual_closed_form_error(s):
+        law=AlgebraicCertificateLaw((-2,1),s)
+        declared=[tuple(mp.nstr(x,80) for x in term) for term in law.terms]
+        zero=[mp.nstr(x,80) for x in law.zero]
+        with mp.workdps(150):
+            p=mp.mpf(s.numerator)/s.denominator
+            r=(-(1-p)+mp.sqrt((1-p)**2+4*p*p))/(2*p);v=r*(1+r)
+            a=1/(v/(1-p)+(1+v)*r/(1-r))
+            error=mp.mpf(0)
+>           terms=[tuple(mp.mpc(x) for x in t) for t in declared]
+                   ^^^^^
+
+tests/test_algebraic_stationary_certificate.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_algebraic_stationary_certificate.py:53: in <genexpr>
+    terms=[tuple(mp.mpc(x) for x in t) for t in declared]
+                 ^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:375: in __new__
+    real = cls.context.mpf(real)
+           ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:79: in __new__
+    v._mpf_ = mpf_pos(cls.mpf_convert_arg(val, prec, rounding), prec, rounding)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/ctx_mp_python.py:86: in mpf_convert_arg
+    if isinstance(x, basestring): return from_str(x, prec, rounding)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/mpmath/libmp/libmpf.py:1331: in from_str
+    man, exp = str_to_man_exp(x, base=10)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = '(0.9459864654066636925331170187418044295142490482903461701973480711742130411925029 + 0.0j)'
+base = 10
+
+    def str_to_man_exp(x, base=10):
+        """Helper function for from_str."""
+        x = x.lower().rstrip('l')
+        # Verify that the input is a valid float literal
+>       float(x)
+E       ValueError: could not convert string to float: '(0.9459864654066636925331170187418044295142490482903461701973480711742130411925029 + 0.0j)'
+
+.venv/lib/python3.14/site-packages/mpmath/libmp/libmpf.py:1294: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_algebraic_stationary_certificate.py::test_certificate_covers_actual_closed_form_error[s0]
+FAILED tests/test_algebraic_stationary_certificate.py::test_certificate_covers_actual_closed_form_error[s1]
+FAILED tests/test_algebraic_stationary_certificate.py::test_certificate_covers_actual_closed_form_error[s2]
+3 failed, 5 passed in 1.06s
