@@ -1,0 +1,65 @@
+{
+  "owner": "Doan Van Tai",
+  "recorded_at": "2026-10-29T18:17:11.209749+07:00",
+  "status": "RECOVERED_PARTIAL_ATTEMPT_NOT_FULLY_VERIFIED",
+  "records": [
+    {
+      "id": "CAL_RATE_100_A",
+      "kind": "stationary_only",
+      "resources": {
+        "exit_code": 0,
+        "stop_reason": null,
+        "wall_seconds": 806.5676431229949,
+        "cpu_seconds": 806.1605260000001,
+        "sampled_peak_rss_bytes": 367718400,
+        "sampled_peak_cpu_seconds": 805.85,
+        "limits": {
+          "wall_seconds": 2400,
+          "cpu_seconds": 1800,
+          "rss_bytes": 6442450944
+        },
+        "outcome": "COMPLETED"
+      },
+      "status": "COMPLETED",
+      "worker_peak_rss_bytes": 367718400,
+      "degree": 1200,
+      "law_error_upper": "1.4241522235566336919299384657905394913710830432442191769892788856830535042280095e-32"
+    },
+    {
+      "id": "CAL_RATE_1000_A",
+      "kind": "stationary_only",
+      "resources": {
+        "exit_code": -15,
+        "stop_reason": "CPU_LIMIT",
+        "wall_seconds": 1801.1104753160034,
+        "cpu_seconds": 1801.0004239999998,
+        "sampled_peak_rss_bytes": 5470945280,
+        "sampled_peak_cpu_seconds": 1800.01,
+        "limits": {
+          "wall_seconds": 2400,
+          "cpu_seconds": 1800,
+          "rss_bytes": 6442450944
+        },
+        "outcome": "RESOURCE_UNRESOLVED"
+      },
+      "status": "UNRESOLVED"
+    },
+    {
+      "id": "CAL_RATE_1000_B",
+      "kind": "stationary_only",
+      "status": "INTERRUPTED_UNVERIFIED",
+      "resources": {
+        "cpu_seconds": null,
+        "wall_seconds": null,
+        "sampled_peak_rss_bytes": null,
+        "stop_reason": "MISSING_FINAL_RECEIPT_AFTER_TURN_INTERRUPTION",
+        "observed_cpu_seconds_lower": 1815.55
+      },
+      "recovery_note": "No parent summary/resource or worker result survived. Worker was observed with CPU1815.55s after interruption, then absent on next check. This is an observed lower bound, not final CPU measurement; declared1800s ceiling was exceeded in that sample. Do not infer a successful cap enforcement or numerical result."
+    }
+  ],
+  "full_budget_enforcement_verified": false,
+  "CF_generated": 0,
+  "Phase4": "HOLD",
+  "original_files_unchanged": true
+}
