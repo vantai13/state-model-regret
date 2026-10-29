@@ -52,6 +52,7 @@ def main():
                 for key,row in result['levels'].items():
                     assert row==levels[rid][key]
                     gain=dict(id=rid,stage=stage,K=row['K'],ref=row['ref'],Cref_packet_seconds=row['Cref'],arithmetic_pass=row['arithmetic_pass'])
+                    for cell,value in row['losses'].items():gain['L'+cell+'_packet_seconds']=value
                     for metric in ('G_S','G_M','G_SM','Gamma','G_S_M1','G_M_S1'):
                         gain[metric+'_percent_Cref']=100*float(F(row[metric])/F(row['Cref']))
                     gain['maximum_arithmetic_error_percent_Cref']=100*max(float(v) for v in row['normalized_error'].values())
