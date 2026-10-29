@@ -1,0 +1,974 @@
+{
+ "meta": {
+  "n_distinct": 162,
+  "duplicates": [
+   [
+    "X1025",
+    "X2030",
+    0.0
+   ],
+   [
+    "X1027",
+    "X2033",
+    0.0
+   ],
+   [
+    "X1037",
+    "X2066",
+    0.0
+   ],
+   [
+    "X1039",
+    "X2069",
+    0.0
+   ],
+   [
+    "X1049",
+    "X2102",
+    0.0
+   ],
+   [
+    "X1051",
+    "X2105",
+    0.0
+   ]
+  ],
+  "blobs": {
+   "results/explore_v13/stage1/specs.json": "189e5f2bb70eaa4a00cd4c3a60516bde126a58663910cdd3a40566edda721331",
+   "results/explore_v13/stage1/regimes.csv": "f43c7e84cd7fb1c339c197189411cb01fd98031e72ce3ee48080927cfa0fe7c1",
+   "results/explore_v13/stage2/specs.json": "d81290a313d9c3e4bb17c41e30478d31f507a7ab7cb7941e91d8a1981d700395",
+   "results/explore_v13/stage2/regimes.csv": "a9055848f0a2d139e75a29b7be74fc4976639a71e7a3ffbeb609b55227ef934f"
+  },
+  "pilot_commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "git_head": "64f20ee951d4b159d235cdd0ff69944c22c1fb9f",
+  "label": "DISCOVERY ONLY: saved pilot raw; not evidence, not CF"
+ },
+ "candidates": [
+  {
+   "rule": {
+    "rule_id": "MV+A",
+    "role": "MV_plus",
+    "note": "lesson illustrative box; hugs the 16 seen points",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "15/2"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "12",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "MV+A: lambdaB=8, lambdaA∈[7;15/2], kappa∈[1/10;3/10], h∈[12;16], u∈[1;3/2], c_sw=0",
+   "n": 16,
+   "counts": {
+    "MV": 16,
+    "SH": 11
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 1.3296333190091136,
+     "median": 2.525136345816839,
+     "max": 13.406930030953724
+    },
+    "G_S_pctC": {
+     "min": -21.57016526610904,
+     "median": -2.926077451365199,
+     "max": 0.651284998549327
+    },
+    "Gamma_pctC": {
+     "min": 0.28879277737497555,
+     "median": 2.9908944631893,
+     "max": 21.570165300003833
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "R11"
+    ],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "MV+B",
+    "role": "MV_plus",
+    "note": "wider horizon, includes kappa=.3/h=8",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "15/2"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "8",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "MV+B: lambdaB=8, lambdaA∈[7;15/2], kappa∈[1/10;3/10], h∈[8;16], u∈[1;3/2], c_sw=0",
+   "n": 24,
+   "counts": {
+    "MV": 20,
+    "SH": 16
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 0.4341862918449619,
+     "median": 2.4650767166325585,
+     "max": 13.406930030953724
+    },
+    "G_S_pctC": {
+     "min": -21.57016526610904,
+     "median": -1.8246194653004637,
+     "max": 1.1706222307677883
+    },
+    "Gamma_pctC": {
+     "min": 0.12447987178668246,
+     "median": 2.2395820581973007,
+     "max": 21.570165300003833
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "M01",
+     "M02",
+     "M03",
+     "M04",
+     "M05",
+     "M07",
+     "M08",
+     "R11"
+    ],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "MV-ii",
+    "role": "MV_minus",
+    "note": "flip kappa only; pilot never sampled this box (extrapolation)",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "15/2"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1",
+      "hi": "3"
+     },
+     {
+      "coord": "h",
+      "lo": "12",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "MV-ii: lambdaB=8, lambdaA∈[7;15/2], kappa∈[1;3], h∈[12;16], u∈[1;3/2], c_sw=0",
+   "n": 0,
+   "counts": {
+    "MV": 0,
+    "SH": 0
+   },
+   "describe": {
+    "G_M_pctC": null,
+    "G_S_pctC": null,
+    "Gamma_pctC": null
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "MV-i",
+    "role": "MV_minus",
+    "note": "flip headroom only; risk of obviousness",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "6",
+      "hi": "7"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "15/2"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "12",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "MV-i: lambdaB∈[6;7], lambdaA∈[7;15/2], kappa∈[1/10;3/10], h∈[12;16], u∈[1;3/2], c_sw=0",
+   "n": 32,
+   "counts": {
+    "MV": 0,
+    "SH": 24
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.3477126109405657
+    },
+    "G_S_pctC": {
+     "min": -14.21034683823909,
+     "median": -5.916147372182859,
+     "max": 0.9811460952979046
+    },
+    "Gamma_pctC": {
+     "min": 9.143259649693202e-06,
+     "median": 5.916160797320179,
+     "max": 14.21034683823909
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "MV-BND",
+    "role": "MV_bnd",
+    "note": "descriptive band between plus and minus kappa",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "15/2"
+     },
+     {
+      "coord": "kappa",
+      "lo": "3/10",
+      "hi": "1"
+     },
+     {
+      "coord": "h",
+      "lo": "12",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "MV-BND: lambdaB=8, lambdaA∈[7;15/2], kappa∈[3/10;1], h∈[12;16], u∈[1;3/2], c_sw=0",
+   "n": 8,
+   "counts": {
+    "MV": 8,
+    "SH": 4
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 1.3296333190091136,
+     "median": 2.2995884382174783,
+     "max": 3.698609102290473
+    },
+    "G_S_pctC": {
+     "min": -6.008225463647124,
+     "median": -1.6083728154486439,
+     "max": 0.651284998549327
+    },
+    "Gamma_pctC": {
+     "min": 0.28879277737497555,
+     "median": 1.9350589909687397,
+     "max": 6.185717230156979
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "R11"
+    ],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "SH+A",
+    "role": "SH_plus",
+    "note": "B with headroom",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "6",
+      "hi": "7"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "8"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "8",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "SH+A: lambdaB∈[6;7], lambdaA∈[7;8], kappa∈[1/10;3/10], h∈[8;16], u∈[1;3/2], c_sw=0",
+   "n": 72,
+   "counts": {
+    "MV": 0,
+    "SH": 57,
+    "SH_and_GSM_lt_epsE": 57
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 0.3477126109405657
+    },
+    "G_S_pctC": {
+     "min": -14.21034683823909,
+     "median": -4.742175773054965,
+     "max": 1.3036100941901891
+    },
+    "Gamma_pctC": {
+     "min": 9.143259649693202e-06,
+     "median": 4.742203039577127,
+     "max": 14.21034683823909
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "SH+B",
+    "role": "SH_plus",
+    "note": "includes lambdaB=8 and overlaps MV",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "6",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "8"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "8",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "SH+B: lambdaB∈[6;8], lambdaA∈[7;8], kappa∈[1/10;3/10], h∈[8;16], u∈[1;3/2], c_sw=0",
+   "n": 108,
+   "counts": {
+    "MV": 20,
+    "SH": 73,
+    "SH_and_GSM_lt_epsE": 57
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 0.0,
+     "median": 0.0,
+     "max": 13.406930030953724
+    },
+    "G_S_pctC": {
+     "min": -21.57016526610904,
+     "median": -3.6541650321925223,
+     "max": 1.3036100941901891
+    },
+    "Gamma_pctC": {
+     "min": -5.168958067965437e-05,
+     "median": 3.6541650321925223,
+     "max": 21.570165300003833
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "M01",
+     "M02",
+     "M03",
+     "M04",
+     "M05",
+     "M06",
+     "M07",
+     "M08",
+     "R11",
+     "R12"
+    ],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "SH-ii",
+    "role": "SH_minus",
+    "note": "flip kappa only; pilot never sampled this box (extrapolation)",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "6",
+      "hi": "7"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "8"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1",
+      "hi": "3"
+     },
+     {
+      "coord": "h",
+      "lo": "8",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "SH-ii: lambdaB∈[6;7], lambdaA∈[7;8], kappa∈[1;3], h∈[8;16], u∈[1;3/2], c_sw=0",
+   "n": 0,
+   "counts": {
+    "MV": 0,
+    "SH": 0,
+    "SH_and_GSM_lt_epsE": 0
+   },
+   "describe": {
+    "G_M_pctC": null,
+    "G_S_pctC": null,
+    "Gamma_pctC": null
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "SH-i",
+    "role": "SH_minus",
+    "note": "flip headroom to lambdaB=8",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "8"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "8",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "SH-i: lambdaB=8, lambdaA∈[7;8], kappa∈[1/10;3/10], h∈[8;16], u∈[1;3/2], c_sw=0",
+   "n": 36,
+   "counts": {
+    "MV": 20,
+    "SH": 16,
+    "SH_and_GSM_lt_epsE": 0
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 0.0,
+     "median": 1.3332662620846332,
+     "max": 13.406930030953724
+    },
+    "G_S_pctC": {
+     "min": -21.57016526610904,
+     "median": 0.02715695021037446,
+     "max": 1.1706222307677883
+    },
+    "Gamma_pctC": {
+     "min": -5.168958067965437e-05,
+     "median": 0.5844243288896174,
+     "max": 21.570165300003833
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "M01",
+     "M02",
+     "M03",
+     "M04",
+     "M05",
+     "M06",
+     "M07",
+     "M08",
+     "R11",
+     "R12"
+    ],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "G-A",
+    "role": "Gamma",
+    "note": "same box as MV+A",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "15/2"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "12",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "G-A: lambdaB=8, lambdaA∈[7;15/2], kappa∈[1/10;3/10], h∈[12;16], u∈[1;3/2], c_sw=0",
+   "n": 16,
+   "counts": {
+    "MV": 16,
+    "SH": 11,
+    "GS_nonneg": 3,
+    "informative_min_gt_epsE": 1,
+    "Gamma_meets": 16,
+    "Gamma_fails": 0,
+    "Gamma_negative": 0
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 1.3296333190091136,
+     "median": 2.525136345816839,
+     "max": 13.406930030953724
+    },
+    "G_S_pctC": {
+     "min": -21.57016526610904,
+     "median": -2.926077451365199,
+     "max": 0.651284998549327
+    },
+    "Gamma_pctC": {
+     "min": 0.28879277737497555,
+     "median": 2.9908944631893,
+     "max": 21.570165300003833
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "R11"
+    ],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "G-B",
+    "role": "Gamma",
+    "note": "lambdaA near 7.5 to reduce harm regimes",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "15/2",
+      "hi": "15/2"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "12",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "G-B: lambdaB=8, lambdaA=15/2, kappa∈[1/10;3/10], h∈[12;16], u∈[1;3/2], c_sw=0",
+   "n": 8,
+   "counts": {
+    "MV": 8,
+    "SH": 3,
+    "GS_nonneg": 3,
+    "informative_min_gt_epsE": 1,
+    "Gamma_meets": 8,
+    "Gamma_fails": 0,
+    "Gamma_negative": 0
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 1.3296333190091136,
+     "median": 3.6818321667738925,
+     "max": 13.406930030953724
+    },
+    "G_S_pctC": {
+     "min": -2.759610726722069,
+     "median": -0.2878428559708324,
+     "max": 0.651284998549327
+    },
+    "Gamma_pctC": {
+     "min": 0.28879277737497555,
+     "median": 0.8182923668395865,
+     "max": 2.780341347264814
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "R11"
+    ],
+    "sealed_inside": []
+   }
+  },
+  {
+   "rule": {
+    "rule_id": "G-C",
+    "role": "Gamma",
+    "note": "broader lambdaB=8 slow-B box",
+    "bounds": [
+     {
+      "coord": "lambdaB",
+      "lo": "8",
+      "hi": "8"
+     },
+     {
+      "coord": "lambdaA",
+      "lo": "7",
+      "hi": "8"
+     },
+     {
+      "coord": "kappa",
+      "lo": "1/10",
+      "hi": "3/10"
+     },
+     {
+      "coord": "h",
+      "lo": "8",
+      "hi": "16"
+     },
+     {
+      "coord": "u",
+      "lo": "1",
+      "hi": "3/2"
+     },
+     {
+      "coord": "c_sw",
+      "lo": "0",
+      "hi": "0"
+     }
+    ]
+   },
+   "text": "G-C: lambdaB=8, lambdaA∈[7;8], kappa∈[1/10;3/10], h∈[8;16], u∈[1;3/2], c_sw=0",
+   "n": 36,
+   "counts": {
+    "MV": 20,
+    "SH": 16,
+    "GS_nonneg": 18,
+    "informative_min_gt_epsE": 3,
+    "Gamma_meets": 36,
+    "Gamma_fails": 0,
+    "Gamma_negative": 9
+   },
+   "describe": {
+    "G_M_pctC": {
+     "min": 0.0,
+     "median": 1.3332662620846332,
+     "max": 13.406930030953724
+    },
+    "G_S_pctC": {
+     "min": -21.57016526610904,
+     "median": 0.02715695021037446,
+     "max": 1.1706222307677883
+    },
+    "Gamma_pctC": {
+     "min": -5.168958067965437e-05,
+     "median": 0.5844243288896174,
+     "max": 21.570165300003833
+    }
+   },
+   "active": [
+    "lambdaB",
+    "lambdaA",
+    "kappa",
+    "h"
+   ],
+   "exposure": {
+    "v12_cells_inside": [
+     "M01",
+     "M02",
+     "M03",
+     "M04",
+     "M05",
+     "M06",
+     "M07",
+     "M08",
+     "R11",
+     "R12"
+    ],
+    "sealed_inside": []
+   }
+  }
+ ],
+ "gamma_all": {
+  "n": 162,
+  "counts": {
+   "GS_nonneg": 73,
+   "informative_min_gt_epsE": 3,
+   "Gamma_meets": 162,
+   "Gamma_fails": 0,
+   "Gamma_negative": 9
+  },
+  "describe": {
+   "Gamma_pctC": {
+    "min": -5.168958067965437e-05,
+    "median": 0.7413448088556944,
+    "max": 21.570165300003833
+   }
+  }
+ }
+}

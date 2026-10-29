@@ -1192,3 +1192,30 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   chỉdiagnostictrừprimaryslotL3R.6;RQ2Phase5,RQ3Phase7. Khôngnovelty/evidenceupgrade.
 - GiữauditL3R.3HOLD,realismHOLD_UNSOURCED,Phase4HOLD,G1;P0-V10/L8/T05/UnderstandingOPEN.
   Author science choices khôngthànhself-readback/human review.
+
+
+### DL-073 — L3R.6: phân suất D, vùng lật κ và gói luật card theo lựa chọn tác giả (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả chọn nguyên văn qua hộp chọn trong phiên, sau khi xem
+  số discovery đã log và trước khi viết card: “MV+SH primary; Γ diagnostic (Recommended)”, “MV+A, MV−
+  lật κ (Recommended)”, “SH+A, SH− lật κ (Recommended)”, “Theo lesson, AI soạn (Recommended)”.
+  [Record nguyên văn](../results/lessons/l3r_6/author_choices.json). Đây là **phương án D** của lesson
+  Part1 §11 (không secondary); “interact” chỉ mô tả qua Γ̄, chưa có phép kiểm có thể sai.
+- **Vì sao không cấp suất Γ.** Γ̄=ḠS|M1−ḠS=ḠM|S1−ḠM (T07 S11) và các contrast oracle ≥0 cho
+  **Γ̄≥−min(ḠS,ḠM)**; lesson Part1 §9.2 chỉ ghi cận −ḠM nên đánh giá rộng quá phía substitution.
+  Discovery (162 cấu hình c_sw0, log #19): Γ̄≥−.5% ở 162/162, chỉ **3/162** có min(ḠS,ḠM)>.5%;
+  73 có ḠS≥0 nhưng 70 trong đó tự đạt do identity. Card Γ theo lesson gần như không thể sai; lọc đúng
+  thì gần như không đạt N_min. Đây là discovery thích nghi, không phải bằng chứng “không substitution”.
+- **Vùng (chỉ tọa độ, c_sw=0, u∈[1;3/2]).** Ω_MV⁺: λB=8, λA∈[7;15/2], κ∈[1/10;3/10], h∈[12;16];
+  Ω_MV⁻ lật κ∈[1;3] (pilot chưa thử, ngoại suy); Ω_MV_BND κ∈[3/10;1] mô tả. Ω_SH⁺: λB∈[6;7],
+  λA∈[7;8], κ∈[1/10;3/10], h∈[8;16]; Ω_SH⁻ lật κ∈[1;3] (ngoại suy). Discovery 16/16 và 57/72 là
+  hộp vẽ sau khi thấy dữ liệu; kỳ vọng tỉ lệ CF thấp hơn. 13 luật đã tóm tắt, 5 giữ, 7 bỏ (log #20).
+- **Gói luật.** π₀=1/2, CP một phía 97,5% (Bonferroni 2 primary), AND trong card không chia α;
+  measure khóa trong card; R4 xét bốn góc (Ω⁺,Ω⁻ × MEETS/FAILS) thay hai kịch bản đồng loạt; R5
+  u_max=1/10 mỗi vùng chấm; SH không có WEAKEN-theo-dấu; dấu E[Δ̂−Δ] chỉ đo. Card ghi “AI soạn,
+  tác giả duyệt”, không ghi tác giả dự đoán/tự viết cơ chế.
+- **Đính chính lesson đã kiểm.** §16(b) Part3: 20/30 có cận dưới 97,5%=.472 → U⁻ → WEAKEN-W2
+  (không W1). Part1 tự kiểm3: Γ̄=ḠS|M1−ḠS=0,1% xác định, không là khoảng. Part2: h=2 là 0/30,
+  không 0/20; góc λA=8 có 1/12 cấu hình λB7 ḠM>.09%. Bảng CP/power/coverage khác khớp.
+- Không engine/CF/R09/R10; card chưa frozen ở DL này. Contract v1.3 giữ nguyên; G1, Phase4 HOLD,
+  Understanding/P0-V10/L8/T05 OPEN; numerics v1.3.1 vẫn là điều kiện trước L3R.7 sampling.

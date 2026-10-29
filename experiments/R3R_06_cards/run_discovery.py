@@ -146,13 +146,38 @@ def candidates(disc, log):
     return dict(candidates=res, gamma_all=dict(n=n, counts=counts, describe=desc))
 
 
+DECISION = {
+    'kept': {'MV+A': 'Ω_MV⁺ (tác giả chọn)', 'MV-ii': 'Ω_MV⁻ lật κ, ngoại suy (tác giả chọn)',
+             'MV-BND': 'Ω_MV_BND chỉ mô tả', 'SH+A': 'Ω_SH⁺ (tác giả chọn)',
+             'SH-ii': 'Ω_SH⁻ lật κ, ngoại suy (tác giả chọn)'},
+    'dropped': {'MV+B': 'không chọn; rộng hơn nhưng gồm κ.3/h8 có MV0',
+                'MV-i': 'đối chứng lật headroom gần như chắc đạt, ít thông tin',
+                'SH+B': 'chồng vùng MV và trộn λB8', 'SH-i': 'λB8 16/36 không phải đối chứng sạch',
+                'G-A': 'không cấp suất Γ', 'G-B': 'không cấp suất Γ', 'G-C': 'không cấp suất Γ'},
+    'not_a_rule_choice': 'Γ diagnostic: 3/162 cấu hình min(ḠS,ḠM)>.5%; 70/73 cấu hình ḠS≥0 tự đạt do identity',
+}
+
+
+def decision():
+    log = D.ForkingLog(LOG)
+    seen = {e.get('rule_id') for e in log.entries() if e.get('kind') == 'rule'}
+    missing = (set(DECISION['kept']) | set(DECISION['dropped'])) - seen
+    if missing: raise SystemExit(f'decision references unlogged rules: {sorted(missing)}')
+    log.append(dict(kind='decision', who='Doan Van Tai (trả lời nguyên văn) — AI ghi',
+                    purpose='Giữ/bỏ luật vùng', source='results/lessons/l3r_6/author_choices.json',
+                    rules_tried=len(seen), **DECISION, git_head=D.head()))
+    print('decision entry written')
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
+    ap.add_argument('--decision', action='store_true')
     ap.add_argument('--entry0', action='store_true')
     ap.add_argument('--part-a', action='store_true')
     ap.add_argument('--candidates', action='store_true')
     a = ap.parse_args(argv)
     if a.entry0: return entry0()
+    if a.decision: return decision()
     require_committed()
     disc, log = D.load(), D.ForkingLog(LOG)
     meta = dict(n_distinct=len(disc), duplicates=disc.duplicates, blobs=disc.blobs, pilot_commit=D.PILOT_COMMIT,
