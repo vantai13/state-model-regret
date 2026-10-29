@@ -1,0 +1,4997 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "PARAMETER_ONLY_INVENTORY_V1",
+  "pilot_commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "identity": [
+    "lambdaA",
+    "lambdaB",
+    "u",
+    "kappa",
+    "h",
+    "c_sw"
+  ],
+  "sources": {
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage1/specs.json": "189e5f2bb70eaa4a00cd4c3a60516bde126a58663910cdd3a40566edda721331",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage2/specs.json": "d81290a313d9c3e4bb17c41e30478d31f507a7ab7cb7941e91d8a1981d700395",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage3/specs.json": "198ef3f46c2ea8dda10eef2523562cb2e1c47a2779d9b36c98db0b7707eb695e",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/robustK/specs.json": "1a9483b5455f915a13acd3b253f106b80f67e7ee5452d45318b3bfd2029e0242",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/robustdt/specs.json": "6e0e79dcee5777cfae9d54c6e7017318da8716d961a66566d98e80a1644f484f",
+    "notes/design/grid_v1_2.json": "7f7552f82926276ad9258a7b917832d29cfa3eba1d82dfdce636881838a21a56",
+    "experiments/R3R_02_audit/regimes.json": "da41f1794147df273397dc9e7705c5715a768bae7bb5b61380f54e7b66ab1f17",
+    "experiments/R3R_04_realism/generic_prereg.json": "d6fe956e0ef7575475b5785a3c4689c907503d2d3480e080b89f05f1103c3cb6",
+    "experiments/lessons/l3r_2_spec.json": "83764959eb3a7a20b98e27a4c4e044ec4abf1c45e6ac5985d7a92fabcfcaade4",
+    "experiments/R3R_02_audit/pilot_tests_original.py": "5b36674895c96c801a8916cba206cb9a63adfe28100a28d4c9b01c453f19b860",
+    "experiments/R3R_04_realism/check_stationary.py": "43b72b908ed70f17ee28360ac180a452ccfb9cf4c232cc246a8b88cb1302576b"
+  },
+  "records": [
+    {
+      "source": "stage1",
+      "source_id": "X1000",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1001",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1002",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1003",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1004",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1005",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1006",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1007",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1008",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1009",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1010",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1011",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1012",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1013",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1014",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1015",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1016",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1017",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1018",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1019",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1020",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1021",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1022",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1023",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1024",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1025",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1026",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1027",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1028",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1029",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1030",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1031",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1032",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1033",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1034",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1035",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1036",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1037",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1038",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1039",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1040",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1041",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1042",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1043",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1044",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1045",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1046",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1047",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1048",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1049",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1050",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1051",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1052",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1053",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1054",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|1|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1055",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|1|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1056",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1057",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|3|8|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1058",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|3|2|0"
+    },
+    {
+      "source": "stage1",
+      "source_id": "X1059",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|3|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2000",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|6|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2001",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|6|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2002",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|6|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2003",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|6|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2004",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|6|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2005",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|6|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2006",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|6|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2007",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|6|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2008",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|6|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2009",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|6|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2010",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|6|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2011",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|6|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2012",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|7|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2013",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|7|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2014",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|7|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2015",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|7|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2016",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|7|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2017",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|7|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2018",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|7|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2019",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|7|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2020",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|7|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2021",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|7|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2022",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|7|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2023",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|7|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2024",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2025",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2026",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2027",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2028",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2029",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2030",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2031",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2032",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2033",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2034",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2035",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2036",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2037",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2038",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2039",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2040",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2041",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2042",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2043",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2044",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2045",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2046",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2047",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2048",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2049",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2050",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2051",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2052",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2053",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2054",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2055",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2056",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2057",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2058",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2059",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|7|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2060",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2061",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2062",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2063",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2064",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2065",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2066",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2067",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2068",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2069",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2070",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2071",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2072",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|6|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2073",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|6|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2074",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|6|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2075",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|6|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2076",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|6|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2077",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|6|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2078",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|6|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2079",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|6|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2080",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|6|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2081",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|6|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2082",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|6|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2083",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|6|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2084",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|7|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2085",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|7|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2086",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|7|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2087",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|7|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2088",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|7|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2089",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|7|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2090",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|7|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2091",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|7|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2092",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|7|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2093",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|7|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2094",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|7|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2095",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "7",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|7|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2096",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2097",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2098",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2099",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|1/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2100",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|1/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2101",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2102",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2103",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2104",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|3/10|16|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2105",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2106",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|3/10|12|0"
+    },
+    {
+      "source": "stage2",
+      "source_id": "X2107",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|3/10|16|0"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3000",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "13/2|8|1|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3001",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|1|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3002",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "13/2|8|3/2|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3003",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|3/2|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3004",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "13/2|8|1|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3005",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|1|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3006",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "13/2|8|3/2|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3007",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|3/2|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3008",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "13/2|8|1|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3009",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|1|3|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3010",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "13/2|8|3/2|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3011",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|3/2|3|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3012",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "7|8|1|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3013",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "7|8|1|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3014",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "7|8|3/2|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3015",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "7|8|3/2|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3016",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "7|8|1|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3017",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "7|8|1|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3018",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "7|8|3/2|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3019",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "7|8|3/2|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3020",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "7|8|1|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3021",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "7|8|1|3|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3022",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "7|8|3/2|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3023",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "7|8|3/2|3|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3024",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "15/2|8|1|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3025",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "15/2|8|1|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3026",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "15/2|8|3/2|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3027",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "15/2|8|3/2|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3028",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "15/2|8|1|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3029",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "15/2|8|1|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3030",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "15/2|8|3/2|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3031",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "15/2|8|3/2|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3032",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "15/2|8|1|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3033",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "15/2|8|1|3|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3034",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "15/2|8|3/2|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3035",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "15/2|8|3/2|3|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3036",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "8|8|1|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3037",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "8|8|1|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3038",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "8|8|3/2|3/10|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3039",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "8|8|3/2|3/10|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3040",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "8|8|1|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3041",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "8|8|1|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3042",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "8|8|3/2|1|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3043",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "8|8|3/2|1|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3044",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "8|8|1|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3045",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "8|8|1|3|8|4"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3046",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "1"
+      },
+      "key": "8|8|3/2|3|8|1"
+    },
+    {
+      "source": "stage3",
+      "source_id": "X3047",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "8|8|3/2|3|8|4"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK1",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|12|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK2",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|8|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK3",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1/10|16|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK4",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK5",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|16|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK6",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|16|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK7",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|1/10|16|0"
+    },
+    {
+      "source": "robustK",
+      "source_id": "XRK8",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|8|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD1",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|12|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD2",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|8|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD3",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1/10|16|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD4",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD5",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|16|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD6",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|16|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD7",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|1/10|16|0"
+    },
+    {
+      "source": "robustdt",
+      "source_id": "XRD8",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M01",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|1|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M02",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M03",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M04",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M05",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|1|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M06",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "31/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "31/4|8|1|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M07",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M08",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|3/10|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M09",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "25/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "25/4|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M10",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M11",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M12",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M13",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M14",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M15",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M16",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M17",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M18",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "25/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "25/4|8|3/2|3|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M19",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M20",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|1|3|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M21",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|3|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M22",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "27/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "27/4|8|3/2|3|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M23",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M24",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M25",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "27/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "27/4|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M26",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "31/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "31/4|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M27",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M28",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "17/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "17/2|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M29",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "31/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "31/4|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M30",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "8|8|3/2|1|8|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M31",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "25/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "25/4|8|1|3/10|2|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M32",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|1|3/10|2|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M33",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M34",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "27/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "27/4|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M35",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "27/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "27/4|8|1|3/10|2|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M36",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|2|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M37",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "v1.2/main",
+      "source_id": "M38",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "3/10",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|3/2|3/10|2|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R01",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "27/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/5",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "27/4|8|1|3/5|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R02",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/5",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|1|3/5|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R03",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "2",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|2|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R04",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "2",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|2|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R05",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R06",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "29/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "29/4|8|1|1|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R07",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "5/4",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|5/4|1|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R08",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "27/4",
+        "lambdaB": "8",
+        "u": "5/4",
+        "kappa": "1",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "27/4|8|5/4|1|8|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R09",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "27/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/5",
+        "h": "4",
+        "c_sw": "0"
+      },
+      "key": "27/4|8|1|3/5|4|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R10",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/5",
+        "h": "4",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/5|4|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R11",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|1|3/10|12|0"
+    },
+    {
+      "source": "v1.2/heldout",
+      "source_id": "R12",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "31/4",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "12",
+        "c_sw": "0"
+      },
+      "key": "31/4|8|1|3/10|12|0"
+    },
+    {
+      "source": "v1.2/controls",
+      "source_id": "N01",
+      "namespace": "v1.2_incompatible_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=0; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "3",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "1/4",
+        "c_sw": "0"
+      },
+      "key": "3|8|1|1|1/4|0"
+    },
+    {
+      "source": "v1.2/controls",
+      "source_id": "N02",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "1/4",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|1|1/4|0"
+    },
+    {
+      "source": "v1.2/controls",
+      "source_id": "N03",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "1/4",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|1|1/4|0"
+    },
+    {
+      "source": "v1.2/controls",
+      "source_id": "N04",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "1/2",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|1|1/2|0"
+    },
+    {
+      "source": "v1.2/controls",
+      "source_id": "W01",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "1/4",
+        "c_sw": "0"
+      },
+      "key": "13/2|8|1|1|1/4|0"
+    },
+    {
+      "source": "v1.2/controls",
+      "source_id": "S01",
+      "namespace": "v1.2_incompatible_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7/2",
+        "lambdaB": "8",
+        "u": "3",
+        "kappa": "1",
+        "h": "97/60",
+        "c_sw": "0"
+      },
+      "key": "7/2|8|3|1|97/60|0"
+    },
+    {
+      "source": "v1.2/probes",
+      "source_id": "P01",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "7|8|1|3|2|0"
+    },
+    {
+      "source": "v1.2/probes",
+      "source_id": "P02",
+      "namespace": "v1.3_fixed_plant",
+      "note": "parameter projection only; snapshot outcomes are not population outcomes; u=2eta; A amplitude=6; incompatible namespace is not a valid v1.3 regime",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "8",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "1",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "8|8|1|1|2|0"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X2065",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X2065:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "8",
+        "u": "0",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|8|0|1/10|16|0"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X2029",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|3/2|1/10|16|0"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X2029:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "8",
+        "u": "0",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "7|8|0|1/10|16|0"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X2041",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "3/2",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|3/2|1/10|16|0"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X2041:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "15/2",
+        "lambdaB": "6",
+        "u": "0",
+        "kappa": "1/10",
+        "h": "16",
+        "c_sw": "0"
+      },
+      "key": "15/2|6|0|1/10|16|0"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X1001",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3/10|8|0"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X1001:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "0",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|0|3/10|8|0"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X3001",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|1|3/10|8|4"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X3001:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "13/2",
+        "lambdaB": "8",
+        "u": "0",
+        "kappa": "3/10",
+        "h": "8",
+        "c_sw": "4"
+      },
+      "key": "13/2|8|0|3/10|8|4"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X1008",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3|2|0"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X1008:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "0",
+        "kappa": "3",
+        "h": "2",
+        "c_sw": "0"
+      },
+      "key": "6|8|0|3|2|0"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X2012",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "1",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|7|1|1/10|8|0"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X2012:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "7",
+        "lambdaB": "7",
+        "u": "0",
+        "kappa": "1/10",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "7|7|0|1/10|8|0"
+    },
+    {
+      "source": "L3R.3/audit",
+      "source_id": "X1009",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "observed_or_design_reserved",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "1",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|1|3|8|0"
+    },
+    {
+      "source": "L3R.3/conservative_zero_variants",
+      "source_id": "X1009:u0",
+      "namespace": "v1.3_fixed_plant",
+      "note": "",
+      "reservation_type": "conservative_unattested_execution",
+      "coordinates": {
+        "lambdaA": "6",
+        "lambdaB": "8",
+        "u": "0",
+        "kappa": "3",
+        "h": "8",
+        "c_sw": "0"
+      },
+      "key": "6|8|0|3|8|0"
+    }
+  ],
+  "source_record_counts": {
+    "stage1": 60,
+    "stage2": 108,
+    "stage3": 48,
+    "robustK": 9,
+    "robustdt": 9,
+    "v1.2/main": 38,
+    "v1.2/heldout": 12,
+    "v1.2/controls": 6,
+    "v1.2/probes": 2,
+    "L3R.3/audit": 8,
+    "L3R.3/conservative_zero_variants": 8
+  },
+  "distinct_v13_keys": 245,
+  "other_namespaces": [
+    {
+      "path": "experiments/R3R_04_realism/generic_prereg.json",
+      "namespace": "single_queue_continuous_fluid",
+      "handling": "three single queues, no routing action/u or decision horizon h; not joint v1.3 keys"
+    },
+    {
+      "path": "experiments/lessons/l3r_2_spec.json",
+      "namespace": "finite_abstract_T07",
+      "handling": "finite algebraic laws/toys, not fixed-plant joint regimes"
+    },
+    {
+      "path": "experiments/R3R_02_audit/pilot_tests_original.py",
+      "namespace": "synthetic_side_tables",
+      "handling": "synthetic arrays; no physical joint-regime identity"
+    },
+    {
+      "path": "experiments/R3R_04_realism/check_stationary.py",
+      "namespace": "stationary_marginal_only",
+      "handling": "X2041/X2012/X1009 already reserved above; marginal laws do not define new joint regimes"
+    }
+  ],
+  "limitations": [
+    "local registered sources only; unseen external work is not certified",
+    "sealed R09/R10 coordinates reserved; no sealed outcome computed/read",
+    "all projected keys may conservatively be reserved, even incompatible controls"
+  ]
+}

@@ -8,6 +8,7 @@ the contract commit. A changed card means a new version + DL, never an edited re
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -48,8 +49,31 @@ def create(card_commit):
 
 
 def verify():
-    rec = json.loads(RECEIPT.read_text())
     errors = []
+    def unique(pairs):
+        out = {}
+        for key, value in pairs:
+            if key in out: raise ValueError(f'duplicate receipt key: {key}')
+            out[key] = value
+        return out
+    try:
+        rec = json.loads(RECEIPT.read_text(), object_pairs_hook=unique)
+        if not isinstance(rec, dict): raise ValueError('receipt must be an object')
+        if (rec.get('schema_version'), rec.get('card_set_id'), rec.get('version')) != (1, 'L3R6', 1):
+            raise ValueError('unsupported card receipt identity/schema')
+        if not re.fullmatch(r'[0-9a-f]{40}', str(rec.get('card_commit', ''))):
+            raise ValueError('full card commit required')
+        if rec.get('contract_tag') != 'contract-v1.3' or rec.get('contract_commit') != '3d2359b32d7bd24f9e9072d5b5b8131bd33fffa0':
+            raise ValueError('contract identity mismatch')
+        if rec.get('checks_all_ok') is not True or rec.get('primaries') != ['Hyp-MV', 'Hyp-SH'] or rec.get('secondary') is not None:
+            raise ValueError('card allocation/check status mismatch')
+        hashes = rec.get('sha256')
+        if not isinstance(hashes, dict) or set(hashes) != set(FROZEN):
+            raise ValueError('receipt must cover the exact frozen path set (10 files)')
+        if any(not isinstance(h, str) or not re.fullmatch(r'[0-9a-f]{64}', h) for h in hashes.values()):
+            raise ValueError('invalid SHA-256 value')
+    except (OSError, ValueError, TypeError) as exc:
+        return dict(status='FAIL', errors=[str(exc)], card_commit=None, files=0)
     if _git('merge-base', '--is-ancestor', rec['card_commit'], 'HEAD', check=False).returncode:
         errors.append('card commit is not an ancestor of HEAD')
     tag = _git('rev-list', '-n1', rec['contract_tag'], check=False).stdout.decode().strip()

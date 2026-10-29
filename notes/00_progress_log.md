@@ -7,6 +7,18 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.7 — phần chuẩn bị hoàn tất, sampling HOLD (29/10/2026, DL-075–076)
+
+Đọc đủ3lesson; sửa checker receipt thiếu manifest,10negative cases bị reject;
+card10/contract21frozen inputs giữ nguyên.587full/38targetedtestsPASS; sampler10k
+draws test-only,κ<.2=62.50%; inventory308records/245reservedv1.3keys. Power36
+scenarios; jointR4/R5 chỉ là toán giả định.88oldpilotrows thiếu cặp→UNRESOLVED;
+3CLIrefusals đúng,khôngengine. Luật n/B pending author;n/seed/CF chưa cấp.
+Numericsv1.3.1 coverage gồmκ3h16 vàinteriorrate1/1000;backend/dry-runB/D22audit
+DEFERRED,Understanding/P0-V10/L8/T05OPEN,G1/Phase4HOLD.
+[Thiết kế](design/confirmation_v1_3.md) · [Report](../results/lessons/l3r_7/report.md) ·
+[Completion](phases/L3R_7_completion.json).
+
 ## L3R.6 — hypothesis cards v1 FROZEN (29/10/2026, DL-073–074)
 
 Công cụ + mục0 log commit64f20ee trước đọc outcome; tóm tắt discovery log#1–#20 và lựa chọn tác giả

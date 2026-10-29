@@ -1,0 +1,52 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___________ test_incomplete_frozen_manifest_must_be_rejected[empty] ____________
+
+tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-19/test_incomplete_frozen_manifes0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7da4987a5e00>
+manifest_kind = 'empty'
+
+    @pytest.mark.parametrize('manifest_kind',['empty','only_stats'])
+    def test_incomplete_frozen_manifest_must_be_rejected(tmp_path,monkeypatch,manifest_kind):
+        receipt=json.loads(VC.RECEIPT.read_text())
+        receipt['sha256']={} if manifest_kind=='empty' else {
+            k:v for k,v in receipt['sha256'].items() if k.endswith('/stats.py')}
+        fake=tmp_path/'incomplete_receipt.json'
+        fake.write_text(json.dumps(receipt))
+        monkeypatch.setattr(VC,'RECEIPT',fake)
+        result=VC.verify()
+>       assert result['status']=='FAIL',f'incomplete manifest accepted: {result}'
+E       AssertionError: incomplete manifest accepted: {'status': 'PASS', 'errors': [], 'card_commit': '1414d9299d767b2abd56642c4d56048867b83095', 'files': 0}
+E       assert 'PASS' == 'FAIL'
+E         
+E         - FAIL
+E         + PASS
+
+../.codex/reviews/state-model-regret/l3r_6_af65dbc_123457/test_receipt_negative_cases.py:16: AssertionError
+_________ test_incomplete_frozen_manifest_must_be_rejected[only_stats] _________
+
+tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-19/test_incomplete_frozen_manifes1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7da4987a5940>
+manifest_kind = 'only_stats'
+
+    @pytest.mark.parametrize('manifest_kind',['empty','only_stats'])
+    def test_incomplete_frozen_manifest_must_be_rejected(tmp_path,monkeypatch,manifest_kind):
+        receipt=json.loads(VC.RECEIPT.read_text())
+        receipt['sha256']={} if manifest_kind=='empty' else {
+            k:v for k,v in receipt['sha256'].items() if k.endswith('/stats.py')}
+        fake=tmp_path/'incomplete_receipt.json'
+        fake.write_text(json.dumps(receipt))
+        monkeypatch.setattr(VC,'RECEIPT',fake)
+        result=VC.verify()
+>       assert result['status']=='FAIL',f'incomplete manifest accepted: {result}'
+E       AssertionError: incomplete manifest accepted: {'status': 'PASS', 'errors': [], 'card_commit': '1414d9299d767b2abd56642c4d56048867b83095', 'files': 1}
+E       assert 'PASS' == 'FAIL'
+E         
+E         - FAIL
+E         + PASS
+
+../.codex/reviews/state-model-regret/l3r_6_af65dbc_123457/test_receipt_negative_cases.py:16: AssertionError
+=========================== short test summary info ============================
+FAILED ::test_incomplete_frozen_manifest_must_be_rejected[empty] - AssertionE...
+FAILED ::test_incomplete_frozen_manifest_must_be_rejected[only_stats] - Asser...
+2 failed in 0.07s

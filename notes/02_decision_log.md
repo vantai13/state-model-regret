@@ -1240,3 +1240,38 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   v1.3.1 phủ trước sampling, nếu không R5 có thể cho INCONCLUSIVE.
 - Card là prediction, không phải evidence; G1 không đổi. Phase4 HOLD (numerics v1.3.1, D22 audit,
   P0-V10/L8, Gate3R); audit L3R.3 HOLD; realism HOLD_UNSOURCED; Understanding/T05 OPEN.
+
+### DL-075 — Sửa checker receipt card trước frame L3R.7 (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. Review af65dbc tái hiện receipt sao chép có
+  sha256={} hoặc chỉ1file vẫn PASS. Receipt thật đủ10file vẫn đúng; không evidence
+  card đã bị sửa. Giữ log failure trước sửa trong results/lessons/l3r_7/logs/.
+- Sửa duy nhất checker verify_cards.py (không thuộc manifest10file): bắt exact
+  FROZEN set,valid SHA/schema/fullcommit,JSONunique keys vàfail closed.10negative
+  cases bị reject; receipt/card/forkinglog/scorer frozen giữ byte,không tạo v2.
+- Đây là sửa correctness của kiểm chứng, không thay RQ/measure/ngưỡng/verdict
+  hoặc tự cấp science/human clearance.21contract+10card inputs verify PASS.
+
+### DL-076 — L3R.7 chuẩn bị confirmation; không cấp n/root/CF trước numerics (2026-10-29)
+
+- Người phụ trách/người soạn: **Doan Van Tai**; triển khai theo yêu cầu thực hiện
+  ba phần lesson, không nhận tác giả tự read-back/dự đoán/human review mới.
+- Design/sampler/power/inventory/distance/formatadapter/runnerguard/tests đã có;
+  587full/38targetedPASS;10kdraws root test318700001,khôngengine;308source records,
+  245reservedv1.3keys (có8u0variants bảo thủ),generic/incompatible namespace tách riêng.
+- Luật n{30,40,60}/p95+30%/BND15hoặc0 là **đề xuất chờ trả lời tác giả**; B/threads/n/
+  rootconfirmation=null. Không coi user chưa trả lời là đã duyệt; chưa có final
+  prereg/list/executionreceipt. Code rule evaluator không phải adoption hoặc n thật.
+- Chỉnh giải thích lesson: heuristic power×P(quaR5) bỏR4; n40,p+.7,p−.2,r+.02,r−.05
+  cho.655709heuristic/.561573joint theo mô hình giả định,khôngđo. INCONCLUSIVE còn
+  PRECISION/R4,không tựcho phép rerun. Không đổi scorer/card để có kết quả đẹp.
+- Sampling còn chờnumericsv1.3.1 (K*/ref*/S1route/tail/coverage/timing/r). Thêm
+  coverageinterior1/1000:degree12000 ởλA7.123/u1.234,maxpilot24;chỉarithmetic,
+  chưađo engine/time/RAM. Khôngđổi rounding/measure hoặcbenchmark trêntrialCF.
+- Bảng discovery16MV/72SH đãlessonđưa vàreplaycólog mới nối parenthash;frozenlog
+  giữ nguyên.88oldrows thiếucoarsepairs→UNRESOLVED.3CLIrefusals/engine0; backend
+  thực vàdry-runB DEFERRED. Khôngpilotmerge/srcpromotion/tagmới/CF/MC/R09R10outcomes.
+- G1/Phase4HOLD,Understanding/P0-V10/L8/T05OPEN;auditL3R.3HOLD,D22DEFERRED,
+  realismHOLD_UNSOURCED. L3R.8học/soạnđược; Gate3R/human không tự đóng.
+- [Thiết kế](design/confirmation_v1_3.md),[report](../results/lessons/l3r_7/report.md),
+  [completion](phases/L3R_7_completion.json).

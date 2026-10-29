@@ -1,6 +1,6 @@
 # Sổ seed của repo hiện tại
 
-Người phụ trách: **Doan Van Tai** · Cập nhật: **22/10/2026**.
+Người phụ trách: **Doan Van Tai** · Cập nhật: **29/10/2026**.
 “Đã xem” là đã đọc một đại lượng nghiên cứu từ seed/regime; xem thêm
 [exposure register](00_exposure_register.md), gồm các seed lịch sử không được cấp lại.
 Sổ này không xác nhận exposure trên mọi máy/sandbox.
@@ -48,6 +48,16 @@ N/check/regime/receipt; pilot2048 và production phân biệt, retry+50000 độ
 Root318351301 dùng cho X2065precision extension sau quan sát, không gọi là final
 prereg ban đầu. Unit/symbolic-conservation tests của phiên MC ghi trongprovenance.
 Không cấp lại roots verification cho confirmation.
+
+## L3R.7 — sampler test only, 29/10/2026
+
+Người phụ trách **Doan Van Tai**. Dải318700000–318709999 dành riêng unit tests/
+sampler verification, root318700001 đã dùng trong phiên chuẩn bị. Các lần lặp
+root này kiểm deterministic/prefix/collision/distribution, không phải các mẫu
+confirmation độc lập. Không engine trên parameter samples, không đưa danh sách
+thử vào Phase4. [Verification](../results/lessons/l3r_7/preparation/sampler_verification.json).
+**Confirmation root vẫn CHƯA CẤP**; không dùng dải test/audit/generic/demo để cấp lại.
+Việc thêm record này không nhận là root test đã preregistered trước lần unit test đầu.
 
 
 ## L3R.4 — formula verification only, 29/10/2026

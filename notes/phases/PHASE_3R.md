@@ -1,3 +1,15 @@
+# Addendum triển khai — L3R.7, 29/10/2026
+
+Phần chuẩn bị hoàn tất; **toàn bộ sampling gate chưa hoàn tất**. DL-075 sửa checker
+receipt thiếu manifest mà không sửa card/receipt; DL-076 ghi design/power/sampler/
+collision inventory/runner guard.587full/38targetedPASS;10kdraws test-only;
+308inventoryrecords/245reservedv1.3keys;88unpairedpilotrows→UNRESOLVED đúng.
+Không confirmationroot/CF/engine mới; n/B/luật n chưa được tác giả xác nhận.
+K*/dt*/route/tail/timing/r→numericsv1.3.1; coverage phải cóκ3,h16 vàinteriorrate1/1000.
+Audited backend và dry-runB DEFERRED; D22/human/Gate3R còn mở. Phase4HOLD,G1 giữ.
+[Thiết kế](../design/confirmation_v1_3.md),[report](../../results/lessons/l3r_7/report.md),
+[completion](L3R_7_completion.json). Không đổi luật/card/tag cũ hoặc claim boundary.
+
 # Addendum triển khai — L3R.6, 29/10/2026
 
 Người phụ trách: **Doan Van Tai** · DL-073–074. Cards v1 **FROZEN** ở `1414d92`, receipt

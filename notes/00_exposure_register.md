@@ -758,3 +758,22 @@ SH-BND khai không nhìn dữ liệu (#21). Outcome đã xem: ḠM,ḠS,Γ̄,Ḡ
 Card commit1414d92 sau các tóm tắt này; mọi tỉ lệ discovery trong card là hộp vẽ sau khi thấy dữ liệu.
 Không engine/MC/simulation, không regime mới, không seed, không CF; R09/R10 không đọc ngoài tọa độ
 để kiểm luật không chạm. Toy CP/power/verdict chỉ là toán trên số đếm giả.
+
+## Phase3R / L3R.7 — preparation only (29/10/2026, DL-075–076)
+
+Đọc đủ3lesson. Part3 đã đưa16MVgains vàvị trí15SHnon-meets; ghi intake trước
+replayoldStage1+2,cùngregion/cardđãkhóa. Log mới ởresults/lessons/l3r_7/preparation/
+forking_paths.jsonl nối parenthashL3R.6,khôngsửafrozenlog. Chỉsaveddiscoveryvalues,
+khôngnewresearchoutcomes. Gridv1.2 được mở trong kiểm tra cấu trúc (cómetadata
+p_sw đãlộ từtrước); codeinventorychỉparseparameters,khôngdùngp_sw/outcomes đểchọnframe.
+R09/R10chỉreserve tọađộ,khôngD/J/gap/regret/contrast niêmphong.
+
+Testroot318700001/dải318700000–318709999:10kparameterdraws đểkiểmmeasure và
+unitrepeats kiểmreproducibility/prefix/collision;khôngengine trênsamples,không
+giữtriallist đểchọnCF. Seedtestkhôngđượccấplạichoconfirmation. Power/CP/R4R5 là
+toántrênprobabilities/countsgiả;88oldpilotrows thiếucoarse→UNRESOLVED trongadapter,
+không phải newengine/dry-runB.587tests gồmregressiontoys/discoverycũ đãlộ.
+
+ChỉtechnicaldoclookupNumPycompatibility/PCG64/NEP19,khôngpapersearch/download/note.
+Arithmeticdegree12000 khônginstantiate law/engine. B/n/rootconfirmation chưa
+cấp,CF0/MC0/newresearchengineruns0;card10/contract21inputs giữbyte,Phase4HOLD/G1.
