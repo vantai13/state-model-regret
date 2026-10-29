@@ -1154,3 +1154,22 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   [report](../results/lessons/l3r_4/report.md),[completion](phases/L3R_4_completion.json).
 - L3R.5 học/soạn được;chưa contractadoption/CFframe/CFoutcomes. L3R.3HOLD,numerics
   NOT_FROZEN,v1.3DRAFT,G1/Phase4HOLD;Understanding/P0-V10/L8/T05OPEN giữ.
+
+
+### DL-071 — Tác giả chọn khóa contract v1.3 với mục DEFERRED (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. L3R.5 cả4phần được yêu cầu triển khai.
+- Tác giả chọn nguyên văn: “Đồng ý; bạn chốt chi tiết kỹ thuật theo lesson” cho
+  P1stationary,RoE Ḡ/C̄ref primary,stakes descriptive,εR1%(sensitivity.5/2%chỉmô tả),
+  εE.5%,c_sw0primary,λA không outcome-anchor. Chọn sau pilot,trước confirmation;
+  không so các phương án theo tỷ lệPASS để chọn thước.
+- D22: “Cam kết làm D22; implementation và audit phải xong trước Phase 4”. Khóa
+  định nghĩa/cam kết; chưa tuyên bố implementation/audit xong trong lesson này.
+- Tag: “Phương án A: tạo tag contract-v1.3 sau kiểm chứng; phần DEFERRED có mốc đóng”.
+  Tag sau tests/schema/consistency; không mở Phase4 hoặc đóng auditL3R.3/realism.
+- Chi tiết kỹ thuật theoủyquyền: u_max=.10,fixed finite escalation trướcCF; khóa
+  rule và điều kiện unresolved, không gán K*/dt* khi auditHOLD. H0/H1fitbudget→Phase5.
+- Sửa lý luận lesson: refinement gap không chứng nhận total error hoặc chống mọi
+  verdict flip; invarianceS1 chỉ khiπ/J/policycốđịnh, không mặc định khiκđổi.
+- Tác giả chưa attest tự đọc/read-back; Understanding/P0-V10/L8/T05OPEN,G1,Phase4HOLD.
+  [Lựa chọn nguyên văn](../results/lessons/l3r_5/author_choices.json).
