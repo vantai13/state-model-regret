@@ -116,3 +116,19 @@ nhóm đông nhất (36/77), không phải đa số vượt50%.
 [Báo cáo thực thi](../../results/lessons/l3r_1/report.md) ·
 [Manifest](../../results/R3R_01_recount/20261028_01/manifest.json) ·
 [Verification](../../results/lessons/l3r_1/verification.json).
+
+
+## 9. Addendum L3R.3 — audit 28–29/10/2026 (DL-068)
+
+**N7 — comparison8snapshot.** Không tìm thấy implementation củaclaim gốc trong
+population.py/testpilot ởtag. Audit này đã thực hiện mới8pairs với evaluate_sidesv1.2,
+8/8khớp, maxrelative3.19e−18. Đây là evidence mới, không chứng nhận claim đã chạy
+trước pilot. N3chỉbáo và N5D22outcome vẫnOPEN.
+
+KEEP lõi/snapshot, thêm API/test; audit tổng thểHOLD, evidence kỹ thuật có giới hạn.
+Repro19/19khớp;467fulltests/19oldtests/12mutantsPASS. MC node8/8khớp; S1costκ3
+K160chưađạt, K320post-observationextensionco thêm. Atomref1có5/16ngoài.01,ref2đạt.
+Lỗi adapterrationaltie/MCno-idlearithmetic được sửa, không thay productionengine;
+không có pilotv2 mới hoặc rewrite sốđếmL3R.1. Không biến discovery thànhconfirmation
+hoặc networkvalidation. [Report](../../results/lessons/l3r_3/report.md),
+[summary](../../results/lessons/l3r_3/summary.json). Mục1–8 giữ là snapshot L3R.1.

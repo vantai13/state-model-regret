@@ -2,6 +2,16 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Phase 3R — L3R.3 đã chạy audit; gate HOLD** (29/10/2026, DL-068):
+**467/467 tests**, 19 tests gốc riêng, **12/12 mutants**, **19/19 clean reproductions** đạt.
+MC: C1 **80/80**, C2 **80/80 sau kiểm arithmetic**, C3 node **8/8**, max|z| **2,313697**.
+Giữ UNRESOLVED ở các mức số khai gốc; X2065 qua kiểm sau tăng K80/ref2 (0,050361ppC).
+19 lần tái lập thuộc 9 tọa độ vật lý; kiểm bổ sung được ghi riêng. KEEP lõi/snapshot với
+lớp test/API trong experiments. Numerics v1.3 và read-back tác giả chưa khóa/hoàn tất.
+[Report](results/lessons/l3r_3/report.md) · [CSV/metric](results/lessons/l3r_3/summary.csv) ·
+[Code map](notes/verification/l3r_3/code_map.md) · [Completion](notes/phases/L3R_3_completion.json).
+L3R.4 học tiếp được; **Phase4 thực thi HOLD**, contract v1.3 vẫn DRAFT.
+
 **Phase 3R — L3R.2 hoàn tất kỹ thuật** (28/10/2026, DL-065):
 [T07 estimand/proofs](notes/theory/T07_population_estimand.md) đã commit trước audit;
 **16/16 golden, 439/439 full tests PASS; 500 joint laws/0 vi phạm; 5/5 mutant KILLED**.
@@ -72,7 +82,7 @@ Bản hiện hành (28/10/2026):
   Contract:       notes/01_definitions_v1_2.md (tag contract-v1.2, D1–D25)
   Brief / Claims: notes/00_research_brief_v1_2.md · notes/01_claim_boundary_v1_2.md
   Lưới:           notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
-  Phase:          notes/phases/PHASE_3R.md (L3R.2; Phase3 cũ đã closeout)
+  Phase:          notes/phases/PHASE_3R.md (L3R.3 audit HOLD; Phase3 cũ đã closeout)
   Gate / Closeout: notes/phases/PHASE_3_gate.md · PHASE_3_closeout.md (REFORMULATE, ownership OPEN)
   Proposal mới:   notes/01_definitions_v1_3_draft.md (CHƯA KHÓA, không thay contract kết quả cũ)
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md

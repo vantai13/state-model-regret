@@ -682,3 +682,24 @@ X2065, X2029, X2041, X1001, X3001, X1008, X2012, X1009. T1–T7/12mutants/MC/ref
 Dải318300000–318399999 chỉaudit; C3pilotN2048,chọnNtheoluật trướcfinalrun.
 Phiên MC độc lập không được xemengine; tác giả không được ghi đã tự viết/read-back.
 R09/R10/CF không mở; v1.3law/numericschỉproposal.
+
+
+## Phase3R / L3R.3 — sau audit (2026-10-29, DL-068)
+
+Ghi 2026-10-29T07:24:06.679220+07:00. Đã tính J/gap/loss/contrasts mới trong8regimes discovery đã khai:
+X2065,X2029,X2041,X1001,X3001,X1008,X2012,X1009; đã nhìn T2/T3/T6,ref/K levels,
+MC C1–C3. Tái lập18robustness IDs(cùng9tọa độ)+X2065 từtag,không CF/R09/R10.
+K320 và X2065precision extension được khai sau quan sát, trước lần bổ sung; originals
+UNRESOLVED/failed/partial giữ nguyên. Dảiseed318300000–318399999 chỉverification;
+[used seeds](../results/lessons/l3r_3/used_seeds.json) ghi roots thực trongreceipts,
+không nhận toàn bộdảiđãrút hoặc nhân sốepisode vì replay. Full467tests+19oldtoy,
+12mutants,19repro PASS; đây làverification trongplant, không hypothesis confirmation.
+T07/code map soạn theoủyquyền; không human read-back mới. AuditHOLD, G1/Phase4HOLD,
+v1.3DRAFT,Understanding/P0-V10/L8/T05OPEN. [Report](../results/lessons/l3r_3/report.md).
+
+
+L3R.3bổ sung: đã chạy X2065ref2,K80 theo one-step escalation khai gốc; maxdelta so
+K40=.050360895ppC, không signflip. Đây cùngregime discovery đã lộ, khôngCF mới.
+Sau interruption đã giữ12jobrepro trước và hoàn tất7job còn lại từ freshclone/venv
+khác cùngsource/deps;19lầnchạy trên9tọa độ,57.808pairs khớp. Không rerunengine để
+sửa schema-checker; archivedStage2 thiếuc_sw chỉ kiểm metadata0 vớispec.

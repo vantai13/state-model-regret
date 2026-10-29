@@ -1,0 +1,24 @@
+F........................                                                [100%]
+=================================== FAILURES ===================================
+___________ test_T1_actual_pilot_on_exact_toys_and_random_joint_laws ___________
+
+    def test_T1_actual_pilot_on_exact_toys_and_random_joint_laws():
+        G = golden()
+        plants = [G.two_state_part1(F(4, 5)), G.two_state_part1(F(3, 5)), G.harm_toy(-2),
+                  G.harm_toy(-4), G.harm_toy(F(1, 2))]
+        rng = G.random.Random(20261028)
+        plants.extend(G.random_plant(rng) for _ in range(500))
+        for plant in plants:
+            observed = B.golden_population(plant)
+            expected = G.cells(plant)
+            for key in ('00', '01', '10', '11'):
+>               assert abs(float(observed[key]) - float(expected[key])) <= 1e-12
+E               AssertionError: assert 0.15000000000000036 <= 1e-12
+E                +  where 0.15000000000000036 = abs((9.4 - 9.25))
+E                +    where 9.4 = float(np.longdouble('9.4'))
+E                +    and   9.25 = float(Fraction(37, 4))
+
+tests/test_r3r_engine_audit.py:32: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_r3r_engine_audit.py::test_T1_actual_pilot_on_exact_toys_and_random_joint_laws
+1 failed, 24 passed in 1.53s

@@ -45,6 +45,10 @@ Files: [snapshot pilot](../../../experiments/R3R_02_audit/pilot_population.py),
 | D-A09 | Giới hạn thống kê | Bin-policy integral không phải representative-point quadrature; SE rất nhỏ có thể thấy sai số số | Strict z chỉ dùng discrete-node same-law design; full population cộng allowance refinement và ghi nó không certified |
 | D-A10 | Precision OPEN | Strict floating signs không tự certify mọi true tie; physical bounds bị lớp pilot bỏ | Không epsilon/clamp, không khóa production v1.3 từ audit này; cần policy HOLD/enclosures trước confirmation |
 
-Không có bằng chứng cho câu lịch sử “L1.5 checker chung helper đã bỏ sót bug” trong
-các artifact được kiểm ở đây; không dùng câu đó làm evidence. Các gap về mức đọc
-tác giả/P0-V10/L8 không được đóng bằng code hoặc bởi bản soạn theo ủy quyền.
+Đính chính Part1 của hướng dẫn: repo **có evidence L1.5** về checker dùng chung helper
+bỏ sót P4 ở test any-belief: [report L1.5, dòng63–81](../l1_5/report.md) và
+[test có weighted sum trực tiếp](../../../tests/test_l1_5_identity.py).
+Report ghi P4 có1test đỏ ở checker chung,2test đỏ ở checker độc lập; bản replay/log/XML
+vẫn được giữ. Vì vậy không chép kết luận “không tìm được bằng chứng” của nguồn lesson
+thành fact. Chỉ đối chiếu artifact cũ ở phiên này, không nhận đã chạy lại L1.5 mutants.
+Các gap về mức đọc tác giả/P0-V10/L8 không được đóng bằng code hoặc bản soạn theo ủy quyền.

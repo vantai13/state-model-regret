@@ -1,0 +1,145 @@
+{
+  "baseline": [
+    {
+      "test": "test_Cbar_comes_from_same_population_loss_call",
+      "status": "PASS"
+    },
+    {
+      "test": "test_D10_average_cost_is_not_cost_at_mean_backlog",
+      "status": "PASS"
+    },
+    {
+      "test": "test_D22_exact_fresh_and_mode_paths",
+      "status": "PASS"
+    },
+    {
+      "test": "test_T1_actual_pilot_on_exact_toys_and_random_joint_laws",
+      "status": "PASS"
+    },
+    {
+      "test": "test_T4_zero_action_is_exactly_zero",
+      "status": "PASS"
+    },
+    {
+      "test": "test_T5_far_states_have_exact_zero_idle_gaps",
+      "status": "PASS"
+    },
+    {
+      "test": "test_T7_engine_ties_stay_in_both_rows",
+      "status": "PASS"
+    },
+    {
+      "test": "test_conditional_mode_age_matches_closed_R2_formula",
+      "status": "PASS"
+    },
+    {
+      "test": "test_new_integration_rejects_nonprobability_weights",
+      "status": "PASS"
+    },
+    {
+      "test": "test_observation_atom_and_normalization",
+      "status": "PASS"
+    },
+    {
+      "test": "test_rational_tie_adapter_regression_preserves_original_problem",
+      "status": "PASS"
+    },
+    {
+      "test": "test_union_weight_rows_match_nonzero_order",
+      "status": "PASS"
+    }
+  ],
+  "mutants": [
+    {
+      "mutant": "S0_leaks_state",
+      "status": "KILLED",
+      "caught_by": [
+        "test_D22_exact_fresh_and_mode_paths",
+        "test_T1_actual_pilot_on_exact_toys_and_random_joint_laws",
+        "test_rational_tie_adapter_regression_preserves_original_problem"
+      ]
+    },
+    {
+      "mutant": "swap_L00_L10",
+      "status": "KILLED",
+      "caught_by": [
+        "test_D22_exact_fresh_and_mode_paths",
+        "test_T1_actual_pilot_on_exact_toys_and_random_joint_laws"
+      ]
+    },
+    {
+      "mutant": "mean_state_rollout_D10",
+      "status": "KILLED",
+      "caught_by": [
+        "existing_physical_math_guard"
+      ],
+      "mechanism": "MATH_INVARIANT_REJECTION",
+      "guard": "Jensen bound violated"
+    },
+    {
+      "mutant": "old_mode_independent_of_y",
+      "status": "KILLED",
+      "caught_by": [
+        "test_conditional_mode_age_matches_closed_R2_formula"
+      ]
+    },
+    {
+      "mutant": "no_age_propagation",
+      "status": "KILLED",
+      "caught_by": [
+        "test_conditional_mode_age_matches_closed_R2_formula"
+      ]
+    },
+    {
+      "mutant": "drop_zero_atom",
+      "status": "KILLED",
+      "caught_by": [
+        "test_observation_atom_and_normalization"
+      ]
+    },
+    {
+      "mutant": "unnormalized_y_weights",
+      "status": "KILLED",
+      "caught_by": [
+        "test_observation_atom_and_normalization"
+      ]
+    },
+    {
+      "mutant": "tie_switch",
+      "status": "KILLED",
+      "caught_by": [
+        "test_T1_actual_pilot_on_exact_toys_and_random_joint_laws",
+        "test_T7_engine_ties_stay_in_both_rows",
+        "test_rational_tie_adapter_regression_preserves_original_problem"
+      ]
+    },
+    {
+      "mutant": "union_weight_row_permutation",
+      "status": "KILLED",
+      "caught_by": [
+        "test_union_weight_rows_match_nonzero_order"
+      ]
+    },
+    {
+      "mutant": "Cbar_other_dt",
+      "status": "KILLED",
+      "caught_by": [
+        "test_Cbar_comes_from_same_population_loss_call"
+      ]
+    },
+    {
+      "mutant": "D22_mode_leak",
+      "status": "KILLED",
+      "caught_by": [
+        "test_D22_exact_fresh_and_mode_paths"
+      ]
+    },
+    {
+      "mutant": "state_cost_corruption",
+      "status": "KILLED",
+      "caught_by": [
+        "test_D10_average_cost_is_not_cost_at_mean_backlog"
+      ]
+    }
+  ]
+}

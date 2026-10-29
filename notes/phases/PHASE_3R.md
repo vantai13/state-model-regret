@@ -1,3 +1,19 @@
+# Addendum triển khai — L3R.3, 29/10/2026
+
+Người phụ trách: **Doan Van Tai** · DL-066–068. Audit đã chạy, **gate HOLD**;
+evidence kỹ thuật PASS có giới hạn. 467fulltests/19oldtests/12mutants/19repro đạt,
+C1 80/80,C2 80/80 sau arithmetic check,C3node8/8,max|z|2.313697.
+Giữ original UNRESOLVED/FAIL/partial; K320/MCprecision extension ghi sau quan sát,
+trước lần bổ sung. K160 costκ3 chưa đủ.25ppC; numericsv1.3/read-back vẫnOPEN.
+KEEP lõi/snapshot và thêmtest/API ởexperiments; khôngpromotesrc hoặcmergepilot.
+Không enginebug mới đượcxácnhận trongscope, khôngrerun216ID/pilotv2.
+L1.5 có reportP4 checkerchung bỏsóttest; không chép nhận định thiếuevidence củalesson.
+[Report](../../results/lessons/l3r_3/report.md),[code map](../verification/l3r_3/code_map.md),
+[completion](L3R_3_completion.json). L3R.4 học tiếpđược; L3R.5 không tựfreezenumerics;
+P0-V10/L8/T05/UnderstandingOPEN,G1/Phase4HOLD. Phần plannguồn bên dưới giữ nguyên byte.
+
+---
+
 # Addendum triển khai v1.2 — L3R.2, 28/10/2026
 
 Người phụ trách/người soạn: **Doan Van Tai** · DL-065. [T07](../theory/T07_population_estimand.md)

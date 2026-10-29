@@ -38,3 +38,13 @@ không dùng confirmation. Một seed riêng theo regime/check/replicate; không
 action/pipeline vào future stream (CRN). Productionseed sau pilotNselection ghi
 trongrun manifest; retry độc lập offset+50000, tối đa1 lần4N. Chưa rút trước
 commitprereg; trạng thái cấp dải không có nghĩa mọi seed đã sử dụng.
+
+
+### L3R.3 sau audit — 29/10/2026
+
+Dải318300000–318399999 có roots đã dùng ghi trong
+[used_seeds.json](../results/lessons/l3r_3/used_seeds.json). Seeds chi tiết đi kèm
+N/check/regime/receipt; pilot2048 và production phân biệt, retry+50000 độc lập.
+Root318351301 dùng cho X2065precision extension sau quan sát, không gọi là final
+prereg ban đầu. Unit/symbolic-conservation tests của phiên MC ghi trongprovenance.
+Không cấp lại roots verification cho confirmation.

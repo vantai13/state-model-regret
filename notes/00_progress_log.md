@@ -7,6 +7,24 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.3 — audit đã thực hiện, gate HOLD (29/10/2026, DL-066–068)
+
+Đã đọc đủ 4 phần, ánh xạ 14 câu; prereg6499d7f trước run, Nselection4c4908f trước C3.
+467 full tests và 19 test gốc riêng PASS; 12 mutant bị bắt (1 bởi Jensen math guard).
+19 lần clean reproduction trên 9 tọa độ vật lý, 57.808 snapshot-pair records khớp.
+MC C1 đạt80/80; C2 đạt77/80 ban đầu, 3 conservation arithmetic checks bổ sung PASS;
+C3 node đạt8/8, max|z|2,313697. X2065 precision extension đạtSE0,051907ppC,
+original0,103447 UNRESOLVED giữ nguyên. K320 extension sau quan sát co S1errorκ3
+xuống0,218–0,229ppC; K160 gốc chưa đạt. X2065 qua contrast refinement sau tăngK80/ref2,
+maxdelta0,050361ppC; cặp thô ban đầu giữ UNRESOLVED.
+
+Chưa xác nhận engine bug trong scope; đã sửa adapter/MC checker, không chạy lại216ID,
+không merge branch hoặc promote src. KEEP core/snapshot với lớp test/API.
+L1.5 có evidence checker chung bỏ sót P4, đã đính chính nguồn lesson. Numerics/read-back
+OPEN, audit HOLD; P0-V10/L8/T05 OPEN, G1/Phase4 HOLD.
+[Report](../results/lessons/l3r_3/report.md), [code map](verification/l3r_3/code_map.md),
+[completion](phases/L3R_3_completion.json).
+
 ## L3R.2 — T07 và golden reference (28/10/2026, DL-065)
 
 Đọc đủ 3 phần lesson; T07 đủ 8 mục, 18 sanity rows, proofs và toys, soạn theo ủy quyền.

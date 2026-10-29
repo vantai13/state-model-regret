@@ -1079,3 +1079,40 @@ các job đã hoàn tất. C3stationary X2065khớp vềmean nhưng SE=.10344693
 giữ nguyênUNRESOLVED. Khai [precision extension](../experiments/R3R_02_audit/precision_extension.json)
 N=4×262144,seed mới đã cấp, trước khi chạy thêm. Đây là kiểm thêm sau quan sát,
 không sửaNđãkhóa hoặc ngưỡng, không gọi kết quả cũ là PASS.
+
+
+### DL-068 — Audit population: HOLD; KEEP lõi với lớp test/API (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**; triển khai/soạn theo ủy quyền, chưa human read-back.
+- **Decision.** Audit tổng thể **HOLD**; evidence kỹ thuật **PASS có giới hạn**. KEEP
+  lõi và snapshot pilot nguyên byte, thêm test/API ở experiments/R3R_02_audit; không
+  promote src, không merge branch, không khóa numerics/contractv1.3.
+- **Đã kiểm.** 467tests full PASS,19test gốc riêng PASS,12mutants bị bắt (1 bởi
+  Jensen mathguard); T2prob16side PASS; T6 8pairs PASS; C1 80/80; C2 77/80 ban đầu
+  +3 exact-conservation arithmetic checks PASS; C3nodes8/8,max|z|2.313697. Full
+  stationary means khớp trong3SE+allowance; X2065 SE .103447ppC ban đầuUNRESOLVED,
+  extension khai trước lần bổ sung cho .051907ppC. Repro19/19 exact numeric values.
+- **Giới hạn.** K160 S1cost κ3 còn .316–.327ppC; K320 extension sau quan sát cho
+  .218–.229ppC.5/16 atom cases chưa đạt.01 ởref1,ref2 16/16 đạt/co. MC8regimes
+  production ởref1; ref2 chỉ probe/repro. Full-stationary allowance là estimate
+  refinement, sparse/finite-cap arithmetic chưa interval-certified. Population
+  precision/HOLD near ties, D22outcome/N3 còn OPEN. Original UNRESOLVED không sửa.
+- **Why.** Số kiểm ủng hộ cách tính trên scope đã audit; chưa đủ tự nhận global
+  numerics certificate hoặc author understanding. Read-back do tác giả làm cònOPEN.
+- **Alternatives.** Không gộp tests xanh thành auditPASS vô điều kiện; không nới
+  tol hoặc chọn bỏ regime khó; không rewrite lõi đã tái lập nếu chưa xác nhậnbug.
+- **Consequence.** Chưa kích hoạt rerun216ID/pilotv2: lỗi đã xác nhận ở adapter và
+  MC checker, không productionpilot. Nếu enginebug thật được xác nhận sau này,
+  vẫn giữv1 và chạy lại toàn216ID theo lesson. N7 được tái lập mới8pairs, không
+  backdate claim gốc. L1.5 có report/replayP4 checker chung; đính chính nguồn lesson.
+- P0-V10/L8/T05author-writing/Understanding OPEN; V9 waiver chỉ phạm viDL-054; G1
+  giữ nguyên,Phase4HOLD. L3R.4 học/thực hiện theo scope được; L3R.5 numerics không
+  tự freeze từ audit này. [Report](../results/lessons/l3r_3/report.md),
+  [completion](phases/L3R_3_completion.json),[code map](verification/l3r_3/code_map.md).
+
+
+Bổ sung kết quả DL-068: áp dụng đúng escalation đã khai từDL-066, X2065K40→K80/ref2
+cho maxdelta.050360895ppC, đạt.25 và không signflip ngoàiεE. Giữ cặpK20→K40
+ban đầuUNRESOLVED.19lầnrepro là9tọa độ vật lý với các mức số khác nhau, không19
+regimesđộclập;57.808snapshot-pair records khớp. Integrity auditorPASS chỉ xác nhận
+artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-backOPEN.
