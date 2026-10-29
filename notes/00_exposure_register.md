@@ -784,3 +784,11 @@ Ghi nguyênvăn duyệtluật n vàủyquyền chọnB. Chỉđọc lscpu,/proc/
 (1s),affinity/cgroup,df; snapshotWSL2,khôngbenchmark/calibration/engine/MC.
 Chọn budget48CPU-giờ/2→4workers theoRAM,khôngtạo n/seed/CF hoặc xem outcome mới.
 Không đọc lại pilot bảngoutcome đểchọnB,khôngđổimeasure/card/ngưỡng. G1/Phase4HOLD.
+
+## L3R.7 — trước calibration numerics, DL-078 (29/10/2026)
+
+Đãđọcplan/auditHOLD/source; sẽreplay3oldanchors bằngcostengine khôngsửa vàso
+savedpilotCSV/pairs tại taga7435e9. Sẽđo6stationarymarginals thiết kếcốđịnh
+theoprereg,khôngjointoutcomes/tỉ lệMEETS ởrateinteriors. Coverage96corners/
+312jobs chỉmetadata; nếu gate0khôngPASS thìkhôngmởglobalcalibration.
+Không CF/root/sampletestđểđoengine,R09/R10khôngđụng; khôngthaymetric/measure.

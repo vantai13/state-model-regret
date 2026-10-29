@@ -1301,3 +1301,20 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   587PASS ởc4b4bf5 làkếtquảkếthừa,khôngreruncho cậpnhậtmetadata.
 - [Budget](design/confirmation_compute_budget_v1.json),
   [máy](../results/lessons/l3r_7/resources/20261029_01/snapshot.json).
+
+### DL-078 — Đăng ký calibration numerics trước chạy (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả yêu cầu “bạn thực hiện cho tôi đi”
+  sau khi được báo numericsv1.3.1 chặn phần thực thi còn lại củaL3R.7. Tiến hành
+  calibration/audit trong scope hiện tại, không waive điều kiện khoa học/human.
+- [Prereg](../experiments/R3R_07_numerics/prereg.md) vàJSON khai trước computation:
+  3legacyanchorsK40/ref1,sáu stationarymarginalprobes cố định,312conditionalglobal
+  jobs phủ96corners+8auditIDs ởmain/coarseK/coarsedt. Không seed/sampleCF.
+- Stage0 phảiPASS trước activationfullglobalnumericsaudit. Bất kỳ error/resource
+  ceiling/anchormismatch→HOLD,khôngglobalrun/tagv1.3.1/n/root/CF. Tail/route cũ
+  chỉbaseline; fullaudit còncostmomenttail/S1/quadrature,R1–R8,κ3h16 vàruntime/r.
+- Ceiling1worker,120CPU-s/180wall-s/4GiBRSS/5GiBAS mỗijob,1CPU-hour totalattempt;
+  giới hạnCPU/AS thực bằngrlimit vàparentmonitorCPU/RSS/wall. Không nới theo outcome.
+  Giữ failed/partial vàtracephase. Đâybudgetcalibration riêng,khôngđổi B48CPUhCF.
+- Giữcard/contract/enginecore byte; khônghạ rategrid1/1000 hoặc tựđổi phươngpháp.
+  Nếu khôngđạt, báoHOLD chứkhônggánconvergence smallness thànhtotalerrorbound.
