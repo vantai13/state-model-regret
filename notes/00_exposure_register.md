@@ -833,3 +833,10 @@ Không sample thử từ Ω−; khôngCF/root/newseed. Các jointcalibration ch�
 sẽ trở thành exposed discovery/calibration vàreserve trướcCFdraw. Numerical
 selection chỉ theo rules/time đãkhai, không theo pattern thuậnlợi. Giữ frozen
 card/contract vàR09/R10. Full668tests dùngoldregressiontoys vànewmath references.
+
+
+L3R.7 full02 / DL-088: 3legacy và6marginal regression đã mở; zeroMV/SH,
+X2065/X1009 và RATE_SH_BASE_K1_10_H16 có ba mức outcomes; K3_H16 dừng trước row
+vì posterior guard. Designs đúngprereg02,khôngCF; inventory phải reserve đủ114
+calibrationdesigns trước CF sampling. Full03 chỉ rerun cùngdesigns với precision
+fallback, trước khi chốt n/seed; không dùng gain thuận lợi để chọn thiết kế.

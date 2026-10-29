@@ -40,6 +40,7 @@ def convert(value):
 class FastLaw:
     def __init__(self,law):
         self._cdf_cache={}
+        self._posterior_fallback_cache={}
         self.law=law;self.error=LD(str(2*law.error));self.terms,zero=law.intervals()
         self.r,self.er=map(np.array,zip(*(convert(t[0]) for t in self.terms)))
         self.c=[];self.ec=[];self.h=[];self.eh=[]
@@ -121,12 +122,23 @@ class FastLaw:
         return values,errors
 
     def posterior(self,indices):
+        indices=np.atleast_1d(indices).astype(np.int64)
         p,e=self.point(indices);total=p.sum(axis=1);et=e.sum(axis=1)
-        if np.any(total<=et):raise ArithmeticError('conditioning event not certified positive')
-        center=p[:,1]/total
-        low=np.maximum(LD(0),(p[:,1]-e[:,1])/(total+et))
-        high=np.minimum(LD(1),(p[:,1]+e[:,1])/(total-et))
-        error=up(np.maximum(center-low,high-center)+32*EPS)
+        positive=total>et;center=np.zeros(len(indices),dtype=LD)
+        error=np.full(len(indices),INF,dtype=LD)
+        center[positive]=p[positive,1]/total[positive]
+        low=np.maximum(LD(0),(p[positive,1]-e[positive,1])/(total[positive]+et[positive]))
+        high=np.minimum(LD(1),(p[positive,1]+e[positive,1])/(total[positive]-et[positive]))
+        error[positive]=up(np.maximum(center[positive]-low,high-center[positive])+32*EPS)
+        # A large forward error in binary evaluation need not mean that the
+        # conditioning event or posterior is uncertifiable. Use the original
+        # 80-digit interval evaluator and its unchanged 1e-8 acceptance test.
+        for i in np.flatnonzero(error>LD('1e-8')):
+            q=int(indices[i])
+            if q not in self._posterior_fallback_cache:
+                value,bound=self.law.posterior(q)
+                self._posterior_fallback_cache[q]=(LD(value),up(LD(bound)+32*EPS))
+            center[i],error[i]=self._posterior_fallback_cache[q]
         if np.any(error>LD('1e-8')):raise ArithmeticError('fast posterior error exceeds1e-8')
         return center,error
 

@@ -1544,3 +1544,24 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   parameters/SHA khớp, khôngreuse các empty anchor records. Actuallegacyreplay
   vẫn bắtbuộc. Rawđợt1 vàđợt2 táchdir; không chọn case/kếtquảthuậnlợi. Source
   sẽcommit trướcfull02. Không tagv1.3.1, n/root hoặcCF từđợt1.
+
+### DL-088 — Giữ full02 và nâng độ chính xác posterior khi fast bound chưa đạt (29/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Full02 dừng theo stoprule sau15receipts:
+  3legacyreplaysPASS,6marginalsPASS,5globalbundlescomplete,1globalERROR;
+  108globalcases chưa chạy. Tổng464.154668CPU-s; không CPU/RAMlimit.
+  RATE_SH_BASE_K3_H16 báo `fast posterior error exceeds1e-8` sau171.006578CPU-s.
+  Không gọi việc này hypothesisFAIL hoặc toànnumericsPASS; chưa chọnK*/dt*/n/seed/CF.
+- Diagnostic cùng law/cachedprofile tìm binaryforwardbound max1.53536e-7;
+  ba điểm q916318/1341550/1450400 có original80digitsposterior bounds khoảng4e-16.
+  Đây là lỗi không có precisionfallback, không cho phép nới ngưỡng1e-8.
+  Thêm fallback tới `SpectralLaw.posterior`, giữ certificate/acceptance nguyên;
+  nếu originalinterval cũng khôngcertify thì tiếp tụcFAIL. Cache kết quả cùngq.
+- Hai regressiontests: binarybound lớn nhưng80digits đạt; conditioningevent
+  khôngcertify ở80digits vẫn phải reject. [Prereg03](../experiments/R3R_08_population_numerics/prereg_03.json)
+  giữ114designs/3candidates/budget/metric/card; rerun registeredbatch ởdir03,
+  source108files,672fulltests trênGCP. Không ghi đè02, khôngtag/CF trướcclosure.
+- Diagnostic đầu nhầm costprofile tolerance so với cache đã đăng ký; dừng riêng
+  process237625 sau khoảng26CPU-s, không coi là prereg experiment hoặcPASS.
+  Diagnostic sau chỉ đọc completedprofiles; không có profileB thì ghi chưa có.
+  Các diagnostic không phải dữ liệu confirmation. Raw/diagnostic được giữ riêng.
