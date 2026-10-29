@@ -1,6 +1,19 @@
 # L3R.7 — báo cáo thực hiện phần chuẩn bị confirmation
 
 Người phụ trách/người soạn: **Doan Van Tai** · 29/10/2026.
+**Cập nhật DL-077 sau commit chuẩn bị c4b4bf5:** tác giả đã duyệt luật chọn n và
+ủy quyền chọn B/concurrency theo máy. Chọn **48CPU-giờ**, profile1worker rồi bắt
+đầu2/tốiđa4 khi đủRAM,1BLAS/OpenMPthread mỗiworker. n/root/CF vẫn chưa cấp.
+Snapshot WSL2: Ryzen57535HS,10logicalCPU,13.65GiBRAM,9.50GiBavailable lúc15:00:53
+Asia/Saigon; CPU utilization1s≈0.49%. Đây không phải benchmark engine hoặc
+cam kết thời gian chạy. Resource policy chưa được OS/backend enforce.
+[Policy](../../../notes/design/confirmation_compute_budget_v1.json) ·
+[Snapshot](resources/20261029_01/snapshot.json) ·
+[Nguyên văn trả lời](author_choices.json).
+
+Audit sau cập nhật xác nhận budget/choices/completion đồng bộ,card/contract
+khớp; không rerun toàn bộpytest cho thay đổi metadata. Số587tests bên dưới là
+kết quả thực của phiên chuẩn bị đã lưu trong commitc4b4bf5.
 Trạng thái **PREPARATION_COMPLETE / SAMPLING_BLOCKED**. Triển khai theo yêu cầu
 “tiếp tục lesson 7 đi”, đọc đủ ba phần [intake](intake.json). Không có xác nhận
 tác giả tự read-back/hiểu bài hoặc người đọc thật mới. G1, Phase4 HOLD giữ nguyên.
@@ -84,7 +97,8 @@ Power một card dưới giả định p+=.7,p−=.2,khôngUNRESOLVED/UNDEFINED:
 |40|68,9601%|
 |60|83,6469%|
 
-**Không chọn n60 chỉ vì dòng đẹp nhất.** n thực theo B và numerics, chưa có cả hai.
+**Không chọn n60 chỉ vì dòng đẹp nhất.** B=48CPU-giờ theoDL-077; numerics chưa có
+p95/timing/r nên n thực chưa được chốt.
 Ví dụ n40,r+=.02,r−=.05: nhân heuristic chỉ R5 cho65,5709%; tính R4+R5 đầy đủ
 cho **56,1573%**, giả định U độc lập nhãn tiềm ẩn và p là conditional MEETS khi
 resolved. Không giả định độc lập giữa số U/số MEETS trong cùng sample. Cả hai
@@ -134,6 +148,8 @@ trên mọi version/build. Đây là technical docs lookup, không literature/no
 | Log/tests | `logs/*.log`, `logs/*.xml` |
 | Refused invocations | `refusal_attempts/*.json` |
 | Intake/lựa chọn/môi trường | `intake.json`, `author_choices.json`, `environment.json` |
+| Resource snapshot/logs | `resources/20261029_01/snapshot.json`, `lscpu.log`, `disk.log` |
+| Budget vận hành | `notes/design/confirmation_compute_budget_v1.json` (từ root repo) |
 | Audit/hash index | `verification.json`, `artifact_index.json` |
 | Trạng thái bàn giao | `notes/phases/L3R_7_completion.json` |
 
@@ -148,8 +164,8 @@ toán power có giả định và adapter không chấm nhầm pilot thiếu ref
 Chưa xác nhận hypothesis/causal mechanism/realism/novelty hoặc numerical
 feasibility trên toàn frame. Đây không phải confirmation thành công hay thất bại.
 
-**Chưa đủ toàn bộ gate L3R.7:** numericsv1.3.1,mức số/timing/r,D22/backend/dry-runB;
-tác giả chưa trả lời luật n/B ở thời điểm báo cáo; n/seed/list giữ null.
-Sau numerics và ngân sách mới freeze prereg rồi sinh danh sách đúng một lần.
+**Chưa đủ toàn bộ gate L3R.7:** numericsv1.3.1,mức số/timing/r,D22/backend/dry-runB.
+Luật n đã được tác giả duyệt và B=48CPU-giờ được chọn theoủyquyềnDL-077;
+n/seed/list giữnull. Sau numerics mới áp luật,freezeprereg vàsinhdanh sách mộtlần.
 Phase4 còn Gate3R/D22audit/P0-V10/L8; realism chờ disposition. Không tự đóng
 Understanding hoặc thay mock review bằng GVHD. L3R.8 học/soạn được; sampling vẫn HOLD.

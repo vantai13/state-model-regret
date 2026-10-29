@@ -6,7 +6,8 @@ Tác giả: **Doan Van Tai**.
 (29/10/2026, DL-075–076): **587/587 full tests,38/38 targeted PASS**; sửa checker
 receipt thiếu manifest, giữ nguyên10file cardv1 và21file contract. Sampler dùng
 seed thử,10.000draws; inventory308records/245reservedv1.3keys; power36scenarios;
-runner từ chối đúng, engine0/CF0/rootconfirmation0. Luật n/B chờ tác giả;
+runner từ chối đúng, engine0/CF0/rootconfirmation0. **DL-077: luật n đã duyệt,
+B48CPU-giờ theoủyquyền,2worker banđầu/tốiđa4,1luồngBLAS mỗiworker**;
 numericsv1.3.1 và audited backend/dry-runB còn DEFERRED. **Sampling/Phase4 HOLD**,G1.
 [Thiết kế](notes/design/confirmation_v1_3.md) · [Report](results/lessons/l3r_7/report.md) ·
 [Completion](notes/phases/L3R_7_completion.json).

@@ -1,0 +1,60 @@
+{
+  "owner": "Doan Van Tai",
+  "date": "2026-10-29",
+  "version": 1,
+  "decision": "DL-077",
+  "status": "ADOPTED_UNDER_AUTHOR_DELEGATION",
+  "authorization": "Author approved the n rule and delegated B/concurrency selection after inspecting the machine",
+  "n_rule": {
+    "status": "AUTHOR_ADOPTED",
+    "scored_regions": 4,
+    "same_n_all_scored_regions": true,
+    "candidates": [30, 40, 60],
+    "selection": "largest feasible n using p95 complete main/coarse-K/coarse-dt CPU bundle time plus fixed validations, all with 30% reserve",
+    "reserve_fraction": "3/10",
+    "boundary_per_region_if_both_fit": 15,
+    "boundary_per_region_otherwise": 0,
+    "if_n30_exceeds_budget": "HOLD or versioned DL increasing B before sampling",
+    "evaluate_after": "verified numerics v1.3.1 only"
+  },
+  "budget_cpu_hours": 48,
+  "budget_cpu_seconds": 172800,
+  "budget_includes_reserve": true,
+  "budget_scope": "complete confirmation including registered validation and bounded escalation; summed CPU time across workers",
+  "workers": {
+    "initial": 2,
+    "maximum": 4,
+    "unit": "independent worker processes; one BLAS/OpenMP thread each",
+    "final_count": null,
+    "selection_after_memory_profile": "min(4, floor((min(6 GiB, MemAvailable - 3 GiB) - 0.5 GiB pool overhead)/measured conservative peak worker RSS)); HOLD if less than one",
+    "extra_requirement": "profile one worker first during preregistered numerics calibration; start two only if the memory formula permits, otherwise one or HOLD; use worst observed peak RSS and current load before increasing parallelism"
+  },
+  "worker_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "memory_policy": {
+    "worker_pool_target_gib": 6,
+    "available_memory_reserve_gib": 3,
+    "pool_overhead_allowance_gib": "1/2",
+    "avoid_swap": true,
+    "on_limit": "checkpoint/pause without partial scoring; lower concurrency or HOLD; do not drop regimes",
+    "enforcement_status": "PLANNED_NOT_OS_ENFORCED; audited execution backend still deferred"
+  },
+  "wall_time": {
+    "ideal_at_four_fully_busy_workers_hours": 12,
+    "ideal_at_two_fully_busy_workers_hours": 24,
+    "guaranteed": false,
+    "note": "CPU-hours divided by workers is only an ideal equivalence, not measured wall-time or a machine-capacity guarantee"
+  },
+  "hardware_snapshot": "results/lessons/l3r_7/resources/20261029_01/snapshot.json",
+  "n": null,
+  "n_bnd": null,
+  "confirmation_root": null,
+  "CF_generation_allowed": false,
+  "Phase4": "HOLD",
+  "change_policy": "version + DL before changing B/rule; resource scheduling may adapt to measured RAM/load without changing registered regimes or scoring"
+}

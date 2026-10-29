@@ -1,12 +1,24 @@
 {
   "owner": "Doan Van Tai",
-  "status": "PENDING_AUTHOR_RESPONSE",
-  "n_rule": "PROPOSED_NOT_ADOPTED",
-  "budget_cpu_hours": null,
-  "threads": null,
+  "status": "AUTHOR_RESPONSE_RECORDED",
+  "decision": "DL-077",
+  "n_rule": "AUTHOR_ADOPTED",
+  "author_response_verbatim": {
+    "n_rule": "Đồng ý khóa luật này",
+    "budget_and_concurrency": "tùy theo ý bạn, bạn có thể xem máy củ tôi mà chạy"
+  },
+  "budget_selection_authority": "delegated by author; 48 CPU-hours was selected under this delegation, not directly specified by author",
+  "budget_cpu_hours": 48,
+  "threads": 1,
+  "threads_meaning": "BLAS/OpenMP threads per worker, not total machine threads",
+  "workers_initial": 2,
+  "workers_max": 4,
+  "workers_final": null,
+  "compute_budget": "notes/design/confirmation_compute_budget_v1.json",
   "n": null,
   "n_bnd": null,
   "confirmation_root": null,
   "author_understanding": "OPEN",
-  "note": "async question sent for n rule and B; absence of answer is not approval; preparation independent of those choices"
+  "note": "author reply arrived after preparation commit c4b4bf5; n/seed/CF still await numerics v1.3.1; no new understanding/human attestation",
+  "compute_budget_sha256": "65df629194674354125eef0a89c54f0c5d435e5534c89a8ec0d30ae1ea2a2450"
 }

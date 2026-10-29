@@ -777,3 +777,10 @@ không phải newengine/dry-runB.587tests gồmregressiontoys/discoverycũ đãl
 ChỉtechnicaldoclookupNumPycompatibility/PCG64/NEP19,khôngpapersearch/download/note.
 Arithmeticdegree12000 khônginstantiate law/engine. B/n/rootconfirmation chưa
 cấp,CF0/MC0/newresearchengineruns0;card10/contract21inputs giữbyte,Phase4HOLD/G1.
+
+### L3R.7 — trả lời tác giả và resource probe, DL-077 (29/10/2026)
+
+Ghi nguyênvăn duyệtluật n vàủyquyền chọnB. Chỉđọc lscpu,/proc/meminfo,/proc/stat
+(1s),affinity/cgroup,df; snapshotWSL2,khôngbenchmark/calibration/engine/MC.
+Chọn budget48CPU-giờ/2→4workers theoRAM,khôngtạo n/seed/CF hoặc xem outcome mới.
+Không đọc lại pilot bảngoutcome đểchọnB,khôngđổimeasure/card/ngưỡng. G1/Phase4HOLD.

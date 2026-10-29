@@ -4,7 +4,8 @@ Phần chuẩn bị hoàn tất; **toàn bộ sampling gate chưa hoàn tất**.
 receipt thiếu manifest mà không sửa card/receipt; DL-076 ghi design/power/sampler/
 collision inventory/runner guard.587full/38targetedPASS;10kdraws test-only;
 308inventoryrecords/245reservedv1.3keys;88unpairedpilotrows→UNRESOLVED đúng.
-Không confirmationroot/CF/engine mới; n/B/luật n chưa được tác giả xác nhận.
+Không confirmationroot/CF/engine mới. DL-077: tác giả duyệt luật n,ủyquyền chọnB;
+B48CPU-giờ,profile1worker trước rồi2/tốiđa4 theoRAM,1BLASthread/worker; n chưa chốt.
 K*/dt*/route/tail/timing/r→numericsv1.3.1; coverage phải cóκ3,h16 vàinteriorrate1/1000.
 Audited backend và dry-runB DEFERRED; D22/human/Gate3R còn mở. Phase4HOLD,G1 giữ.
 [Thiết kế](../design/confirmation_v1_3.md),[report](../../results/lessons/l3r_7/report.md),

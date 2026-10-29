@@ -1275,3 +1275,29 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   realismHOLD_UNSOURCED. L3R.8học/soạnđược; Gate3R/human không tự đóng.
 - [Thiết kế](design/confirmation_v1_3.md),[report](../results/lessons/l3r_7/report.md),
   [completion](phases/L3R_7_completion.json).
+
+### DL-077 — Tác giả duyệt luật n; ủy quyền chọn ngân sách theo máy (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. Trả lời tới sau commit chuẩn bịc4b4bf5:
+  luật n: “Đồng ý khóa luật này”; B/concurrency: “tùy theo ý bạn, bạn có thể xem
+  máy củ tôi mà chạy”. [Nguyên văn](../results/lessons/l3r_7/author_choices.json).
+  Không diễn giải thành tác giả trực tiếp chọn48CPU-giờ hoặc tự read-back.
+- Khóa luật bốn vùng cùng n∈{30,40,60},lớnnhất vừaB theo p95bundle+fixedvalidation,
+  dựphòng30%; BND15/vùng nếu cảhai vừa,khôngthì0; n30khôngvừa→HOLD/DL tăngB.
+  Con sốn chỉchốt sau verifiednumericsv1.3.1,không từtiming cũ/phân bốtrialCF.
+- ĐãđọcmáyWSL2: Ryzen57535HS,10logicalCPU/affinity0–9,RAM13.65GiB/available9.50GiB,
+  load1min≈.184,CPUusage1s≈.49%,swap4GiBchưadùng. Snapshot15:00:53Asia/Saigon.
+  cgroup2mount có nhưngcpu.max/memory.max khôngexposed; khôngcoi đó làvôhạn hoặc
+  đãkiểmRAM/SSDhostWindows. Đâyresourceprobe,khôngenginebenchmark.
+- Chọn theoủyquyền **B=48CPU-giờ tổng**,đãgồmdựphòng30%; profile1worker trước,
+  khởiđầu2/tốiđa4workerprocesses theopeakRSS/load;1BLAS/OpenMPthread/worker.
+  Pooltarget6GiB,chừa3GiBavailable/0.5GiBpooloverhead. Policy chưaOS-enforced,
+  sẽtíchhợpbackend audited sau; chưalaunchjobs. 48/4=12h chỉlýtưởng,khôngETA đo.
+- B làgiớihạnvậnhànhđượcchọn,khôngsốđo khảthi hoặc lýdocứu n60/PASS. ĐổiB cần
+  version+DL; nếu budgethết thìpausekhôngchấmpartial,khôngbỏregime/đổicard.
+- n/n_bnd/root/CF vẫnnull/0; numerics/D22/backend/human/Gate3R cònchờ.
+  G1/Phase4HOLD giữ; checklist không còn author n-rule/B pending. Khôngpapersearch,
+  calibration hoặc research engine run mới. Auditmetadata/receiptPASS; fullsuite
+  587PASS ởc4b4bf5 làkếtquảkếthừa,khôngreruncho cậpnhậtmetadata.
+- [Budget](design/confirmation_compute_budget_v1.json),
+  [máy](../results/lessons/l3r_7/resources/20261029_01/snapshot.json).

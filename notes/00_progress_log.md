@@ -7,7 +7,17 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
-## L3R.7 — phần chuẩn bị hoàn tất, sampling HOLD (29/10/2026, DL-075–076)
+## L3R.7 — bổ sung duyệt luật n và ngân sách máy (29/10/2026, DL-077)
+
+Tác giả trả lời “Đồng ý khóa luật này”,ủyquyền B/concurrency theo máy. Snapshot
+WSL2 Ryzen57535HS,10logicalCPU,13.65GiBRAM/9.50GiBavailable. Chọn48CPU-giờ,
+profile1worker rồi2/tốiđa4 khiRAMcho phép,1BLASthread/worker; khônglàtiming đo.
+n/root/CF vẫnnull tới numericsv1.3.1. Audit metadata/receiptPASS;587fulltests là
+kếtquả ởcommitc4b4bf5,khôngrerunfullsuite cho cậpnhật lựa chọn. Phase4HOLD/G1.
+[Budget](design/confirmation_compute_budget_v1.json) ·
+[Snapshot](../results/lessons/l3r_7/resources/20261029_01/snapshot.json).
+
+## L3R.7 — phần chuẩn bị hoàn tất, sampling HOLD (29/10/2026, DL-075–076; snapshot trước trả lời DL-077)
 
 Đọc đủ3lesson; sửa checker receipt thiếu manifest,10negative cases bị reject;
 card10/contract21frozen inputs giữ nguyên.587full/38targetedtestsPASS; sampler10k

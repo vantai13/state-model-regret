@@ -1,7 +1,7 @@
 # L3R.7 — Thiết kế confirmation v1.3
 
 Người phụ trách/người soạn: **Doan Van Tai** · 29/10/2026.
-Trạng thái: **PREPARATION_ONLY / DRAFT_PENDING_NUMERICS_AND_BUDGET**.
+Trạng thái: **PREPARATION_ONLY / N_RULE_ADOPTED_NUMERICS_DEFERRED** (DL-077).
 Triển khai theo ba phần lesson; không phải prereg cuối hoặc Gate3R GO.
 Card v1 `1414d92` và contract v1.3 `3d2359b` giữ nguyên byte/tag.
 G1 không đổi; Phase4 HOLD; Understanding do tác giả tự đánh giá, vẫn OPEN.
@@ -16,7 +16,7 @@ MEETS là GM/C̄ref≥1% cho MV, GS/C̄ref≤−1% cho SH; không cứu SH bằn
 
 ## 2. Luật chọn n, ngân sách và trạng thái chưa chốt
 
-**Đề xuất từ lesson, chờ xác nhận tác giả:** bốn vùng được chấm cùng n∈{30,40,60}.
+**Tác giả đã duyệt “Đồng ý khóa luật này” (DL-077):** bốn vùng được chấm cùng n∈{30,40,60}.
 Chọn n lớn nhất vừa B theo p95 thời gian CPU của **cả bundle** main/coarse-K/coarse-dt,
 cộng 30% dự phòng. Cắt BND trước: sau khi chọn n cho bốn vùng, thêm 15/vùng BND nếu
 cả hai vừa ngân sách; nếu không là 0 cho cả hai. Không hạ n<30; nếu không đủ thì HOLD
@@ -28,10 +28,20 @@ anchors hai mức và identical-model checks, không tính ba lần chi phí bun
 đuôi thời gian, số luồng, CPU-giờ và wall-time; không lấy B/threads làm thời gian đảm bảo.
 Các số 7phút/24/40–80CPU-giờ trong lesson là ngoại suy pilot, **chưa** dự toán CF đáng tin.
 
-Hiện tại **B=null, số luồng=null, n=null, n_bnd=null, root=null**. Hàm
-`power.select_allocation` chỉ là evaluator; gọi trên số giả không cấp n thực tế.
-Luật chỉ được coi AUTHOR_ADOPTED khi có trả lời thực của tác giả; không suy từ việc AI soạn.
-Sau v1.3.1, đo p95 bundle/fixed cost và r theo coverage, rồi mới áp luật.
+Tác giả ủy quyền chọn B/concurrency theo máy: “tùy theo ý bạn, bạn có thể xem máy
+củ tôi mà chạy”. Theo resource snapshot WSL2, chọn **B=48 CPU-giờ**, đã gồm30%
+dự phòng; tối đa4worker processes, mỗi worker1luồng BLAS/OpenMP. Profile một
+worker trước, bắt đầu2 khi memory budget cho phép, nếu không dùng1/HOLD.
+Pool target6GiB, chừa3GiBMemAvailable và0.5GiBpooloverhead; worker count cuối
+theo peakRSS bảo thủ, không chỉ sốcore. Chưa enforce bằng OS/backend trong phiên này.
+[Policy machine-readable](confirmation_compute_budget_v1.json),
+[snapshot](../../results/lessons/l3r_7/resources/20261029_01/snapshot.json).
+48CPU-giờ/4worker tương đương lý tưởng12h bậnCPU, không phải wall-time đo được.
+
+Hiện tại **n=null,n_bnd=null,root=null,workers_final=null**. Luật đã AUTHOR_ADOPTED;
+`power.select_allocation` chỉ là evaluator, số giả không cấp n thực tế.
+Sau v1.3.1 đo p95 bundle/fixed cost và r theo coverage rồi mới áp luật với B48.
+Prereg sau này phải ghi hash/version policy này; đổi B cần DL/version trước draw.
 
 ## 3. Power và giới hạn của phép nhân gần đúng
 
@@ -191,7 +201,7 @@ bug có version/deviation và lưu cả hai. Không dùng bảng power để d�
 
 Chuẩn bị được: design, power, sampler/tests, inventory/distance, guard/tests,
 decision map, deviation/blinding, adapter refusal với saved pilot unpaired.
-Chưa có: mức số final, timing/r coverage thực, B/n, confirmation root, final
+Chưa có: mức số final, timing/r coverage thực, n, confirmation root, final
 prereg/list/execution receipt, audited backend và dry-run B. Không tạo file có
 tên prereg.json/regimes_cf.json chứa placeholders để tránh bị hiểu là đã freeze.
 
@@ -201,6 +211,6 @@ chưa chạy engine/RAM/timing. Không benchmark trên mẫu thử CF. Calibrati
 khai design trước computation. Nếu đổi measure/rounding để giảm chi phí, cần
 cardv2+DL, không sửa ngầm cardv1.
 
-Sau numerics và tác giả chốt ngân sách/luật mới sinh CF. Phase4 còn D22 audit,
+Ngân sách/luật đã chốt theo DL-077; sau numerics mới chốt n rồi sinh CF. Phase4 còn D22 audit,
 P0-V10/L8 và Gate3R; realism HOLD_UNSOURCED chỉ được phân xử tại Gate3R, không tự waive.
 Không khẳng định hypothesis, cơ chế, realism hay novelty đã được xác nhận.
