@@ -1450,3 +1450,7 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   Mediumv2complete,A CPU-limit córeceipt vẫn giữ nguyên.
 - Candidate vẫn NOT_ADOPTED; không CF/n/root/tagv1.3.1, không mở312globaljobs
   hoặc đóng costaccuracy/D22/human/Gate3R. Đây calibration, không hypothesis run.
+- Trước cloud06/07, bổ sung controller `cloud_pipeline.py` vào manifest (64files
+  cho cloud,63cho local05). Controller chạy độc lập SSH để tránh mất monitor khi
+  client bị ngắt; preflight633tests + versions + local05parity trước hai jobs.
+  Không sửa bất kỳ implementation nào đã chạy05 hoặc raw của05.
