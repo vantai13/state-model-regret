@@ -7,6 +7,21 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.5 — contract v1.3 LOCKED với DEFERRED (29/10/2026, DL-071–072)
+
+Tác giả chọn P1/RoE/ngưỡng/c_sw0,cam kếtD22 vàtagA trước contract. Tagcontract-v1.3
+→3d2359b sau41targeted/532fulltests vàmetadata/toy checks.21frozeninput hashes khớp.
+216mainID→210scientific keys;quênc_sw→162;234main+robustrecords đưaK/ref→228.
+0invalid/234,144λB8 eta=φchecksPASS.3D22goldenskhớp,khôngproductionD22audit.
+LuậtR1–R8,u_max10%,2bướcescalationchungLOCKED; K*/dt*/tail/S1routeDEFERRED trướcCF.
+dt-indexedslottedfamily,khôngâmthầmcontinuouslimit;refinementgapkhôngerrorcertificate.
+Đã códiff/brief/chain/schema/claimboundarytemplate;RQ2→Phase5,RQ3→Phase7,
+interactiondiagnostictrừkhiL3R.6cấpprimaryslot. KhôngCF/outcomesmới/MC/simulation/papersearch.
+L3R.6đạtđiềukiệncontract,cardchecksriêngchưalàm;Phase4HOLD,auditL3R.3HOLD,
+realismHOLD_UNSOURCED,G1,Understanding/P0-V10/L8/T05OPEN.
+[Report](../results/lessons/l3r_5/report.md),[contract](01_definitions_v1_3.md),
+[completion](phases/L3R_5_completion.json).
+
 ## L3R.4 — screen đã chạy, realism HOLD_UNSOURCED (29/10/2026, DL-069–070)
 
 Đã đọc848dòng lesson,T00/DL008/protocol;3nguồn mới được tác giả duyệt rồi AI-T.

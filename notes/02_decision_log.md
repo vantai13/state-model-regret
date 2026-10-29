@@ -1173,3 +1173,22 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   verdict flip; invarianceS1 chỉ khiπ/J/policycốđịnh, không mặc định khiκđổi.
 - Tác giả chưa attest tự đọc/read-back; Understanding/P0-V10/L8/T05OPEN,G1,Phase4HOLD.
   [Lựa chọn nguyên văn](../results/lessons/l3r_5/author_choices.json).
+
+
+### DL-072 — Contract v1.3 đã tag; deferred có deadline (2026-10-29)
+
+- Người phụ trách/người soạn: **Doan Van Tai**. Tag annotated `contract-v1.3`
+  tại `3d2359b32d7bd24f9e9072d5b5b8131bd33fffa0` sau41targeted/532fulltests vàmetadata/toy/integrity checks.
+- 21frozen inputs khớpbyte/hash. [Contract](01_definitions_v1_3.md),
+  [receipt](phases/contract_v1_3.lock.json),[report](../results/lessons/l3r_5/report.md).
+- Khóa21inventory rows:18LOCKED,2DEFERRED,1LOCKED-definition/DEFERRED-execution.
+  P1,RoE/C̄ref,εR1%/εE.5%,stakesdescriptive,c_sw0primary theo lựa chọnDL071.
+  u_max=.10,finiteescalation2bướcdùngchung;R6xửlýsát+εR/−εR/±εE.
+- DEFERRED: K*/dt*/S1route/quadrature-tail/auditcoverage→v1.3.1 trướcL3R.7CFsampling;
+  D22engine/audit→trướcPhase4;H0/H1fitbudget→Phase5. Không sửatag hoặcđiềnnullngầm.
+- Schema234recordsPASS,216mainID/210physicalkeys;quênc_sw162,thêmK/ref228.
+ 144λB8eta=φchecks;3D22goldens khôngthayproductionaudit. Khôngnewengineoutcomes.
+- ĐãđạttiềnđềcontractchoL3R.6,khôngphảicardđãfrozen hayCFđãđượcsinh. “interact”
+  chỉdiagnostictrừprimaryslotL3R.6;RQ2Phase5,RQ3Phase7. Khôngnovelty/evidenceupgrade.
+- GiữauditL3R.3HOLD,realismHOLD_UNSOURCED,Phase4HOLD,G1;P0-V10/L8/T05/UnderstandingOPEN.
+  Author science choices khôngthànhself-readback/human review.

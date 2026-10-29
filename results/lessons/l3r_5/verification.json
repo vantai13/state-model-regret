@@ -1,8 +1,8 @@
 {
   "owner": "Doan Van Tai",
-  "checked_utc": "2026-10-29T02:15:01.075949+00:00",
+  "checked_utc": "2026-10-29T02:18:38.026430+00:00",
   "status": "PASS",
-  "mode": "PRE_TAG",
+  "mode": "POST_TAG",
   "tests": {
     "targeted_tests": 41,
     "full_suite": 532
@@ -23,20 +23,21 @@
     "l3r_4": 58
   },
   "historical_plan_body_preserved": true,
-  "local_links": 35,
-  "artifact_hashes": 36,
-  "tag": null,
+  "local_links": 36,
+  "artifact_hashes": 39,
+  "tag": {
+    "tag": "contract-v1.3",
+    "commit": "3d2359b32d7bd24f9e9072d5b5b8131bd33fffa0",
+    "tag_object": "ebee0d509888c4455d7a8034f45900ef68478964"
+  },
   "readiness": {
     "hypothesis_freeze": {
-      "allowed": false,
-      "reasons": [
-        "annotated contract tag/receipt not verified"
-      ]
+      "allowed": true,
+      "reasons": []
     },
     "CF_sampling": {
       "allowed": false,
       "reasons": [
-        "annotated contract tag/receipt not verified",
         "numerics DEFERRED: K_star",
         "numerics DEFERRED: ref_star",
         "numerics DEFERRED: dt_star",
@@ -49,7 +50,6 @@
     "Phase4": {
       "allowed": false,
       "reasons": [
-        "annotated contract tag/receipt not verified",
         "numerics DEFERRED: K_star",
         "numerics DEFERRED: ref_star",
         "numerics DEFERRED: dt_star",

@@ -2,6 +2,19 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Phase 3R — L3R.5 đã khóa contract v1.3 với mục DEFERRED** (29/10/2026, DL-071–072):
+Tag **contract-v1.3 → 3d2359b**,21frozen inputs khớp receipt;
+**532/532 full tests,41/41 targeted tests PASS**. P1/RoE/εR1%/εE.5%/c_sw0primary
+được tác giả chọn; stakes chỉ mô tả, không dùng OR. Schema giữ210scientific keys
+trên216ID; quênc_sw→162,đưaK/ref→228 trên234metadata records.
+D22 đã cam kết/khóa định nghĩa; enginepath/auditDEFERRED. Numerical rules LOCKED,
+K*/dt*/quadrature-tail/S1routeDEFERRED→v1.3.1 trướcCFsampling. RealismHOLD_UNSOURCED,
+auditL3R.3HOLD; **Phase4HOLD**,G1,Understanding/P0-V10/L8/T05OPEN.
+Đã đạt điều kiện contract choL3R.6; chưa tạo hypothesis card hoặcCF.
+[Contract](notes/01_definitions_v1_3.md) · [Brief](notes/00_research_brief_v1_3.md) ·
+[Lock receipt](notes/phases/contract_v1_3.lock.json) · [Report](results/lessons/l3r_5/report.md) ·
+[Completion](notes/phases/L3R_5_completion.json).
+
 **Phase 3R — L3R.4 đã chạy screen; realism HOLD_UNSOURCED** (29/10/2026, DL-069–070):
 **491/491 full tests,24/24 targeted tests,18/18 generic MC comparisons PASS**.
 Nguồn mới3được duyệt/đọc targeted; Excel26nguồn,23record/progress cũ giữ nguyên.
@@ -91,13 +104,14 @@ K5 đã carry nguyên văn m=1 vào **A05-F**, C1 khóa sau A04; kết quả hel
 [L3.2](results/lessons/l3_2/report.md). Engine vẫn ở experiments, chưa promote.
 
 ```text
-Bản hiện hành (28/10/2026):
-  Contract:       notes/01_definitions_v1_2.md (tag contract-v1.2, D1–D25)
-  Brief / Claims: notes/00_research_brief_v1_2.md · notes/01_claim_boundary_v1_2.md
-  Lưới:           notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
-  Phase:          notes/phases/PHASE_3R.md (L3R.4 realism HOLD; L3R.3 numerics HOLD)
+Bản hiện hành thiết kế population (29/10/2026):
+  Contract:       notes/01_definitions_v1_3.md (tag contract-v1.3, có DEFERRED)
+  Brief / Claims: notes/00_research_brief_v1_3.md · notes/01_claim_boundary_v1_3.md (khung chưa freeze)
+  Receipt:        notes/phases/contract_v1_3.lock.json
+  Kết quả cũ:     notes/01_definitions_v1_2.md · notes/design/grid_v1_2.json · notes/design/v1_2_protocol.md
+  Phase:          notes/phases/PHASE_3R.md (L3R.5 contract tagged; numerics/realism HOLD)
   Gate / Closeout: notes/phases/PHASE_3_gate.md · PHASE_3_closeout.md (REFORMULATE, ownership OPEN)
-  Proposal mới:   notes/01_definitions_v1_3_draft.md (CHƯA KHÓA, không thay contract kết quả cũ)
+  Draft lịch sử:  notes/01_definitions_v1_3_draft.md (DL-061, đã supersede cho thiết kế mới)
   Log:            notes/02_decision_log.md · notes/00_exposure_register.md
   Experiments:    notes/03_experiment_index.md (A01 | A04 | A05-F | A05-T)
   D v1.2:         src/smr/cells.py (nguồn experiments giữ nguyên)
@@ -107,10 +121,11 @@ Bản hiện hành (28/10/2026):
   KHÔNG hiện hành: definitions v0/v1/v1.1; src/smr/design.py (plant L1.8C)
 ```
 
-[Contract](notes/01_definitions_v1_2.md) · [brief](notes/00_research_brief_v1_2.md) ·
-[claim boundary](notes/01_claim_boundary_v1_2.md) · [Phase 3 và phân loại artifact](notes/phases/PHASE_3.md) ·
+[Contract v1.3](notes/01_definitions_v1_3.md) · [brief v1.3](notes/00_research_brief_v1_3.md) ·
+[claim boundary v1.3, khung](notes/01_claim_boundary_v1_3.md) · [Phase 3 cũ và phân loại artifact](notes/phases/PHASE_3.md) ·
 [experiment index](notes/03_experiment_index.md) · [progress log lịch sử](notes/00_progress_log.md).
-Claim boundary có addendum Phase 2 và kết quả A04 sau tag; D1–D25 và lưới giữ nguyên.
+[Contract v1.2](notes/01_definitions_v1_2.md) vẫn đi cùng kết quả cũ;
+claim boundary v1.2 có addendum Phase2/A04, D1–D25 và lưới giữ nguyên.
 
 **Điều kiện:** A03/A01 prereg đã khóa trước run; A04 dùng dt1/240 và kiểm cặp1/120→1/240 từng ô.
 **V9 đã được tác giả miễn làm điều kiện tiên quyết theo DL-054 (`WAIVED_BY_AUTHOR`)**;

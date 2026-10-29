@@ -1,8 +1,10 @@
 # L3R.5 — Contract v1.3 và kiểm chứng
 
 Người phụ trách/người soạn: **Doan Van Tai** · 29/10/2026 · DL-071.
-Trạng thái lúc chuẩn bị tag: **READY_TO_TAG_WITH_DEFERRED**; xem lock receipt
-sau bước tag để biết commit bất biến. Phase4 vẫn HOLD.
+Trạng thái: **LOCKED_WITH_DEFERRED**, annotated tag **contract-v1.3** tại
+commit **3d2359b32d7bd24f9e9072d5b5b8131bd33fffa0**.
+[Lock receipt](../../../notes/phases/contract_v1_3.lock.json) khớp21frozen inputs;
+snapshot kiểm trước tag lưu riêng. Phase4 vẫn HOLD.
 
 ## Đã thực hiện
 
@@ -99,6 +101,9 @@ không mở R09/R10, không thay engine/src hoặc merge pilot branch.
 .venv/bin/python -m experiments.R3R_05_contract.run_checks
 .venv/bin/python -m pytest -q --junitxml=results/lessons/l3r_5/full_suite.xml
 .venv/bin/python -m experiments.lessons.audit_l3r_5
+git tag -a contract-v1.3 -F results/lessons/l3r_5/tag_message.txt
+.venv/bin/python -m experiments.R3R_05_contract.freeze --create-lock
+.venv/bin/python -m experiments.lessons.audit_l3r_5 --post-tag
 ```
 
 Source: [schema.py](../../../experiments/R3R_05_contract/schema.py),
@@ -130,5 +135,6 @@ cơ chế; εR convention chưa chứng minh practical value. Chưa có confirma
 evidence mới, contribution hoặc novelty. Realism **HOLD_UNSOURCED**, auditL3R.3
 **HOLD**, G1 không đổi. P0-V10/L8/T05/Understanding giữ OPEN.
 
-Sau tag đã kiểm chứng, L3R.6 được viết/khóa trên contract cố định. CF sampling
-và Phase4 vẫn bị giữ theo các điều kiện trên; tag không phải permission chạy.
+Tag/receipt đã kiểm chứng; điều kiện contract cho L3R.6 đã đạt. Cards vẫn phải
+qua các kiểm tra riêng của lesson6 trước khi freeze; chưa có card được tạo ở đây.
+CF sampling và Phase4 vẫn bị giữ theo các điều kiện trên; tag không phải permission chạy.

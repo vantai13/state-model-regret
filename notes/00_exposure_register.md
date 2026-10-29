@@ -725,3 +725,16 @@ ref1/2:atom/mean/tail,khôngJ/gap/action/regret/newcontrast. Full491tests gồm 
 toy cũ;khôngrunA05-T hoặcCF/R09/R10. Reviewer riêngchỉenvelope/worksheet/rules/labels/receipt.
 Ba nguồn mới approvedAI-T,khôngauthor-selfread. Buffer/d_act thựcchưađủnguồn;range
 misalignment ghiworksheet. MV/SH đềuHOLD_UNSOURCED;G1,Phase4HOLD giữ.
+
+
+## Phase3R / L3R.5 — contract/schema only (2026-10-29T09:17:41.162857+07:00, DL-071–072)
+
+Đọc4lesson vàlocalcontract/T07/DL/auditstatus. Tácgiả đã chọnP1,metric/ngưỡng,
+D22commitment,tagA trướcadoption. Chỉ đọc5design specs.json từpilot taga7435e9,
+234metadatarecords;khôngđọcmớipilotoutcomeCSVđểchọnthước hoặcđếmPASSphươngán.
+3D22toyexactreplay vàRoE/P2a/numerical-ruletoy;đơnvịtoycost,khôngnetworkmeasurements.
+41targeted/532fulltestsPASS,gồmregressiongoldencũ,khôngnewresearchregimeoutcomes.
+Tagcontract-v1.3→3d2359b;CFgenerated0,newMC/simulation0,newseeds0.
+R09/R10khôngmở,khôngpilotmerge/srcpromotion,khôngpapersearch/download/note mới.
+D22physicalpath/numlevelsDEFERRED,auditL3R.3HOLD,realismHOLD_UNSOURCED;
+G1,Understanding/P0-V10/L8/T05OPEN,Phase4HOLD.

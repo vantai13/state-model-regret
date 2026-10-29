@@ -1,3 +1,23 @@
+# Addendum triển khai — L3R.5, 29/10/2026
+
+Người phụ trách: **Doan Van Tai** · DL-071–072. Contractv1.3 **LOCKED_WITH_DEFERRED**,
+annotatedtagcontract-v1.3→3d2359b;21input hashes tronglockreceipt. Tác giả chọn
+P1stationary,RoE/C̄ref,εR1%/εE.5%,stakesdescriptive,c_sw0primary,camkếtD22,tagA.
+532full/41targetedtestsPASS;234metadatarecords hợp lệ,216ID→210scientifickeys;
+thiếuc_sw→162,thêmK/ref→228. KhôngCF/outcomesmới/MC/simulation/papersearch.
+Khóa luậtR1–R8,u_max10%,2bướcescalationchung; levels/S1route/quadrature-tail
+DEFERRED→numericsfreezev1.3.1trướcL3R.7sampling;D22implementation/audittrướcPhase4;
+H0/H1fitbudget→Phase5. Không suy refinementdelta làerrorbound hoặc levelsfree
+không thểảnhhưởngverdict. δindexedslottedfamily giữobjectivev1.2,khôngcontinuouslimit.
+S1invariance cầnπ/J/policycốđịnh; không mặcđịnhkhiκđổi. Validitykhácframe.
+[Contract](../01_definitions_v1_3.md),[brief](../00_research_brief_v1_3.md),
+[report](../../results/lessons/l3r_5/report.md),[completion](L3R_5_completion.json).
+L3R.6đạtđiềukiệncontract;cardchecksriêngchưalàm. AuditL3R.3HOLD,realism
+HOLD_UNSOURCED,G1,Phase4HOLD;Understanding/P0-V10/L8/T05OPEN. Không sửa byte
+contract/draft/briefv1.2 hoặc draftDL061;phần plan và addenda cũ bên dưới giữ nguyên.
+
+---
+
 # Addendum triển khai — L3R.4, 29/10/2026
 
 Người phụ trách: **Doan Van Tai** · DL-069–070. Screen đã chạy, **realism HOLD_UNSOURCED**

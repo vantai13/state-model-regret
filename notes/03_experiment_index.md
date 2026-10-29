@@ -1,8 +1,9 @@
-# Experiment index — contract v1.2
+# Experiment index — evidence v1.2 và thiết kế population v1.3
 
-Người phụ trách: **Doan Van Tai** · cập nhật 28/10/2026.
-[Bản hiện hành](../README.md) · [Phase 3](phases/PHASE_3.md) ·
-[contract](01_definitions_v1_2.md) · [protocol](design/v1_2_protocol.md).
+Người phụ trách: **Doan Van Tai** · cập nhật 29/10/2026.
+[Bản hiện hành](../README.md) · [Phase 3R](phases/PHASE_3R.md) ·
+[contract v1.3](01_definitions_v1_3.md). Kết quả A01/A04/A05 giữ
+[contract v1.2](01_definitions_v1_2.md) và [protocol cũ](design/v1_2_protocol.md).
 
 | Experiment | Câu hỏi | Tầng evidence | Trạng thái / điều kiện | Cấu hình / nơi quyết |
 |---|---|---|---|---|
@@ -16,6 +17,7 @@ Người phụ trách: **Doan Van Tai** · cập nhật 28/10/2026.
 | L3R.2/T07 | Population estimand, identity và D22 có đúng trên toy hữu hạn? | E0/theory + kiểm reference | 16 golden/439 full PASS, 500 laws/0 vi phạm, 5 mutant KILLED; chưa audit pilot | [T07](theory/T07_population_estimand.md), [spec](../experiments/lessons/l3r_2_spec.json), [report](../results/lessons/l3r_2/report.md) |
 | R3R_02 / L3R.3 | Pilot có tính đúng estimand trong scope được kiểm? | Verification trong plant | Audit **HOLD**, evidence có giới hạn;467full/19oldtests/12mutants/19repro PASS; no CF | [Prereg](../experiments/R3R_02_audit/prereg.json), [code map](verification/l3r_3/code_map.md), [report](../results/lessons/l3r_3/report.md) |
 | R3R_04 / L3R.4 | Design có cùng phù hợp dải nguồn ở bối cảnh DL008 không? | Formula verification + realism screen, chưa validation | **HOLD_UNSOURCED** cảMV/SH,a/b;216ID/210distinct;491full/18MCchecksPASS; labels commit trước overlay | [Envelope](realism/envelope_v1.json), [worksheet](realism/worksheet_v1.md), [labels](../results/lessons/l3r_4/screen/labels.csv), [report](../results/lessons/l3r_4/report.md) |
+| R3R_05 / L3R.5 | Population/thước/schema và luật số đã khóa trước cards chưa? | Contract/provenance + parameter/toy verification | **LOCKED_WITH_DEFERRED**,tagcontract-v1.3→3d2359b;532full/41targetedPASS;khôngnewresearchoutcomes | [Contract](01_definitions_v1_3.md),[schema](design/regime_schema_v1_3.json),[receipt](phases/contract_v1_3.lock.json),[report](../results/lessons/l3r_5/report.md) |
 
 **Tên có phạm vi:** các script `run_v1_1_a1.py`, `run_v1_1_a4.py`, `run_v1_1_a5.py`
 là các bước A1/A4/A5 của quy trình dựng lưới v1.1, **không phải A01/A04/A05 của
