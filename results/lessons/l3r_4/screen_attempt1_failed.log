@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/R3R_04_realism/run_screen.py", line 107, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/R3R_04_realism/run_screen.py", line 72, in main
+    feat = dict(id=row['id'], context=context['id'], coordinate=key(row), stage=row['stage'],
+                **numeric, **{k:v for k,v in x.items() if not isinstance(v, dict)},
+                anchor_role='ILLUSTRATIVE_NOT_EMPIRICAL_NO_IN_CERTIFICATE')
+TypeError: dict() got multiple values for keyword argument 'kappa'

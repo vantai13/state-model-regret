@@ -69,9 +69,9 @@ def main():
             x = implied(numeric['lambdaA'], numeric['lambdaB'], numeric['u'], numeric['kappa'],
                         numeric['h'], tau_anchor_s=context['illustrative_tau_s'],
                         windows_s=spec['fixed_windows_s'], c_sw_model=numeric['c_sw'], ref=int(numeric['ref']))
-            feat = dict(id=row['id'], context=context['id'], coordinate=key(row), stage=row['stage'],
-                        **numeric, **{k:v for k,v in x.items() if not isinstance(v, dict)},
-                        anchor_role='ILLUSTRATIVE_NOT_EMPIRICAL_NO_IN_CERTIFICATE')
+            feat = dict(id=row['id'], context=context['id'], coordinate=key(row), stage=row['stage'], **numeric)
+            feat.update({k:v for k,v in x.items() if not isinstance(v, dict)})
+            feat['anchor_role'] = 'ILLUSTRATIVE_NOT_EMPIRICAL_NO_IN_CERTIFICATE'
             for queue in ['A_pre','A_post','B_pre','B_post']:
                 for field, value in x[queue].items():
                     if field == 'CV_windows':

@@ -1,0 +1,40 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_complete_generic_row_export_does_not_collide_shared_keys _________
+
+tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-3/test_complete_generic_row_expo0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73bfac3ae9e0>
+capsys = <_pytest.capture.CaptureFixture object at 0x73bfac3ca510>
+
+    def test_complete_generic_row_export_does_not_collide_shared_keys(tmp_path, monkeypatch, capsys):
+        spec=json.loads(Path('notes/realism/envelope_v1.json').read_text())
+        design=tmp_path/'design.csv'
+        design.write_text('id,stage,lambdaA,lambdaB,kappa,eta,h,c_sw,ref,K,u\ntoy,stage1,7,8,3/10,1/2,8,0,1,40,1\n')
+        spec.update(design_csv=str(design),expected_ids=1,expected_distinct=1,contexts=spec['contexts'][:1])
+        monkeypatch.setattr(S,'verify_freeze',lambda *a:('toy-commit',spec,{}))
+        monkeypatch.setattr(S,'OUT',tmp_path/'output')
+        monkeypatch.setattr('sys.argv',['run_screen','--freeze','toy-commit'])
+>       S.main()
+
+tests/test_realism_workflow.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def main():
+        p = argparse.ArgumentParser(); p.add_argument('--freeze', required=True); args = p.parse_args()
+        commit, spec, hashes = verify_freeze(args.freeze)
+        rows = designs(spec); features, labels = [], []
+        for row in rows:
+            numeric = {k: float(F(row[k])) for k in COORDINATES}
+            for context in spec['contexts']:
+                x = implied(numeric['lambdaA'], numeric['lambdaB'], numeric['u'], numeric['kappa'],
+                            numeric['h'], tau_anchor_s=context['illustrative_tau_s'],
+                            windows_s=spec['fixed_windows_s'], c_sw_model=numeric['c_sw'], ref=int(numeric['ref']))
+>               feat = dict(id=row['id'], context=context['id'], coordinate=key(row), stage=row['stage'],
+                            **numeric, **{k:v for k,v in x.items() if not isinstance(v, dict)},
+                            anchor_role='ILLUSTRATIVE_NOT_EMPIRICAL_NO_IN_CERTIFICATE')
+E               TypeError: dict() got multiple values for keyword argument 'kappa'
+
+experiments/R3R_04_realism/run_screen.py:72: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_realism_workflow.py::test_complete_generic_row_export_does_not_collide_shared_keys
+1 failed in 0.31s
