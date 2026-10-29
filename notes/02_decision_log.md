@@ -1361,3 +1361,21 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   access trong lúc tiếp tục local. Không tựcreate/start/resizeVM. Nếu cócloudrun,
   táchenvironment/version/manifest vàđo,không suy chỉcầnthêmvCPU làgiảiquyết.
 - n/root/CF/tagv1.3.1 giữchưa cấp; callbackfullaudit/D22/human/Gate3R không đổi.
+
+### DL-081 — Candidate hệ số tương đương khi baseline v2 đang chạy (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. V1đãcho thấyLU437×437vượt120CPU-s;v2đangchạy
+  dài hơn, đãhơn7phút ởLU. Pháttriển numericalcandidate trongexperiments riêng,
+  khôngsửa source/môi trường/ceiling hoặc dừngbaselinev2.
+- Cùng spectralroots,v_j vànormalization, dùngnullvector Vandermonde
+  c_j tỷlệr_j^(b-1)/(v_j P'(r_j)); khôngdenseLU. [Derivation](design/stationary_barycentric_candidate.md).
+  Giữđúngintervalcertificate80digits/1e-10cũ, khônghạprecision/threshold/cardgrid.
+- 8targeted tests so coefficientvớidenseLU,law/quantilevớireference,closedform
+  vàcorruptionrejection. Test đầu lỗiAPI midpoint interval,đãgiữfailurelog vàsửa
+  helpertest;khôngphải sửa science hoặc nới tolerance đểPASS.
+- [Prereg candidate](../experiments/R3R_07_fast_stationary/prereg.json) chỉbenchmark
+  cùngCAL_RATE_100_A;1800CPU-s/2400wall-s/1GiBRSS/2GiBAS,1worker. Táchsourcehash,
+  committrước benchmark;notadoptedvào src/CF. CPUtime/wall ghi riêng vìbaseline
+  cóthểcùngchạy. Candidate chưa giải quyếtnumpy_roots degree12000 hoặcfullaudit.
+- Đo sánhimplementation tươngđương,khôngnewhypothesisoutcome hoặc seed/CF.
+  GCPgiữSTOPPED theo thôngtintácgiả;khôngcloudmutation.

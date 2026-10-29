@@ -1,0 +1,109 @@
+.FFFFF..                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_law_matches_unchanged_reference_and_passes_certificate[increments0-kappa0-1] _
+
+increments = (-2, 1), kappa = Fraction(1, 10), ref = 1
+
+    @pytest.mark.parametrize('increments,kappa,ref',[
+        ((-2,1),F(1,10),1),((-5,3),F(3,10),1),((-7,5),F(1,10),1),
+        ((-77,43),F(1,10),1),((-7,5),F(3),2),
+    ])
+    def test_law_matches_unchanged_reference_and_passes_certificate(increments,kappa,ref):
+        keep,error=r2_keep(F(1,120*ref),kappa)
+        reference=SpectralLaw(increments,keep,error)
+        candidate=BarycentricLaw(increments,keep,error)
+        assert candidate.error<mp.mpf('1e-10')
+        for q in (0,1,3,10,100):
+            for a,b in zip(reference.point_interval(q),candidate.point_interval(q)):
+>               assert abs(mp.mpc(a.mid)-mp.mpc(b.mid))<mp.mpf('1e-50')
+                                  ^^^^^
+E               AttributeError: 'ivmpc' object has no attribute 'mid'
+
+tests/test_fast_stationary_candidate.py:36: AttributeError
+_ test_law_matches_unchanged_reference_and_passes_certificate[increments1-kappa1-1] _
+
+increments = (-5, 3), kappa = Fraction(3, 10), ref = 1
+
+    @pytest.mark.parametrize('increments,kappa,ref',[
+        ((-2,1),F(1,10),1),((-5,3),F(3,10),1),((-7,5),F(1,10),1),
+        ((-77,43),F(1,10),1),((-7,5),F(3),2),
+    ])
+    def test_law_matches_unchanged_reference_and_passes_certificate(increments,kappa,ref):
+        keep,error=r2_keep(F(1,120*ref),kappa)
+        reference=SpectralLaw(increments,keep,error)
+        candidate=BarycentricLaw(increments,keep,error)
+        assert candidate.error<mp.mpf('1e-10')
+        for q in (0,1,3,10,100):
+            for a,b in zip(reference.point_interval(q),candidate.point_interval(q)):
+>               assert abs(mp.mpc(a.mid)-mp.mpc(b.mid))<mp.mpf('1e-50')
+                                  ^^^^^
+E               AttributeError: 'ivmpc' object has no attribute 'mid'
+
+tests/test_fast_stationary_candidate.py:36: AttributeError
+_ test_law_matches_unchanged_reference_and_passes_certificate[increments2-kappa2-1] _
+
+increments = (-7, 5), kappa = Fraction(1, 10), ref = 1
+
+    @pytest.mark.parametrize('increments,kappa,ref',[
+        ((-2,1),F(1,10),1),((-5,3),F(3,10),1),((-7,5),F(1,10),1),
+        ((-77,43),F(1,10),1),((-7,5),F(3),2),
+    ])
+    def test_law_matches_unchanged_reference_and_passes_certificate(increments,kappa,ref):
+        keep,error=r2_keep(F(1,120*ref),kappa)
+        reference=SpectralLaw(increments,keep,error)
+        candidate=BarycentricLaw(increments,keep,error)
+        assert candidate.error<mp.mpf('1e-10')
+        for q in (0,1,3,10,100):
+            for a,b in zip(reference.point_interval(q),candidate.point_interval(q)):
+>               assert abs(mp.mpc(a.mid)-mp.mpc(b.mid))<mp.mpf('1e-50')
+                                  ^^^^^
+E               AttributeError: 'ivmpc' object has no attribute 'mid'
+
+tests/test_fast_stationary_candidate.py:36: AttributeError
+_ test_law_matches_unchanged_reference_and_passes_certificate[increments3-kappa3-1] _
+
+increments = (-77, 43), kappa = Fraction(1, 10), ref = 1
+
+    @pytest.mark.parametrize('increments,kappa,ref',[
+        ((-2,1),F(1,10),1),((-5,3),F(3,10),1),((-7,5),F(1,10),1),
+        ((-77,43),F(1,10),1),((-7,5),F(3),2),
+    ])
+    def test_law_matches_unchanged_reference_and_passes_certificate(increments,kappa,ref):
+        keep,error=r2_keep(F(1,120*ref),kappa)
+        reference=SpectralLaw(increments,keep,error)
+        candidate=BarycentricLaw(increments,keep,error)
+        assert candidate.error<mp.mpf('1e-10')
+        for q in (0,1,3,10,100):
+            for a,b in zip(reference.point_interval(q),candidate.point_interval(q)):
+>               assert abs(mp.mpc(a.mid)-mp.mpc(b.mid))<mp.mpf('1e-50')
+                                  ^^^^^
+E               AttributeError: 'ivmpc' object has no attribute 'mid'
+
+tests/test_fast_stationary_candidate.py:36: AttributeError
+_ test_law_matches_unchanged_reference_and_passes_certificate[increments4-kappa4-2] _
+
+increments = (-7, 5), kappa = Fraction(3, 1), ref = 2
+
+    @pytest.mark.parametrize('increments,kappa,ref',[
+        ((-2,1),F(1,10),1),((-5,3),F(3,10),1),((-7,5),F(1,10),1),
+        ((-77,43),F(1,10),1),((-7,5),F(3),2),
+    ])
+    def test_law_matches_unchanged_reference_and_passes_certificate(increments,kappa,ref):
+        keep,error=r2_keep(F(1,120*ref),kappa)
+        reference=SpectralLaw(increments,keep,error)
+        candidate=BarycentricLaw(increments,keep,error)
+        assert candidate.error<mp.mpf('1e-10')
+        for q in (0,1,3,10,100):
+            for a,b in zip(reference.point_interval(q),candidate.point_interval(q)):
+>               assert abs(mp.mpc(a.mid)-mp.mpc(b.mid))<mp.mpf('1e-50')
+                                  ^^^^^
+E               AttributeError: 'ivmpc' object has no attribute 'mid'
+
+tests/test_fast_stationary_candidate.py:36: AttributeError
+=========================== short test summary info ============================
+FAILED tests/test_fast_stationary_candidate.py::test_law_matches_unchanged_reference_and_passes_certificate[increments0-kappa0-1]
+FAILED tests/test_fast_stationary_candidate.py::test_law_matches_unchanged_reference_and_passes_certificate[increments1-kappa1-1]
+FAILED tests/test_fast_stationary_candidate.py::test_law_matches_unchanged_reference_and_passes_certificate[increments2-kappa2-1]
+FAILED tests/test_fast_stationary_candidate.py::test_law_matches_unchanged_reference_and_passes_certificate[increments3-kappa3-1]
+FAILED tests/test_fast_stationary_candidate.py::test_law_matches_unchanged_reference_and_passes_certificate[increments4-kappa4-2]
+5 failed, 3 passed in 4.91s
