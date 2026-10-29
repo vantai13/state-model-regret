@@ -1,0 +1,6023 @@
+{
+  "owner": "Doan Van Tai",
+  "id": "NUMERICS_V1_3_1_FEASIBILITY_02_LONGER",
+  "declared_at": "2026-10-29T16:58:39.558636+07:00",
+  "status": "PREREGISTERED_CALIBRATION_ONLY",
+  "decision": "DL-080",
+  "pilot_commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "purpose": "same unresolved stationary marginals with a longer resource ceiling; no new scientific parameter or CF sample",
+  "CF_allowed": false,
+  "confirmation_root": null,
+  "scientific_card_changed": false,
+  "limits": {
+    "job_cpu_seconds": 1800,
+    "job_wall_seconds": 2400,
+    "rss_bytes": 6442450944,
+    "address_space_bytes": 7516192768,
+    "total_cpu_seconds": 7200,
+    "workers": 1
+  },
+  "worker_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "legacy_jobs": [],
+  "stationary_jobs": [
+    {
+      "id": "CAL_RATE_100_A",
+      "kind": "stationary_only",
+      "lambda": "178/25",
+      "managed": "5/4",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "fixed deterministic rate-resolution calibration"
+    },
+    {
+      "id": "CAL_RATE_1000_A",
+      "kind": "stationary_only",
+      "lambda": "7123/1000",
+      "managed": "617/500",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "fixed deterministic rate-resolution calibration"
+    },
+    {
+      "id": "CAL_RATE_1000_B",
+      "kind": "stationary_only",
+      "lambda": "6543/1000",
+      "managed": "0",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "fixed deterministic rate-resolution calibration"
+    }
+  ],
+  "conditional_global_jobs": [
+    {
+      "id": "CAL_CORNER_001_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_001_main",
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_001_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_001_coarse_K",
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_001_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_001_coarse_dt",
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_002_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_002_main",
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_002_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_002_coarse_K",
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_002_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_002_coarse_dt",
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_003_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_003_main",
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_003_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_003_coarse_K",
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_003_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_003_coarse_dt",
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_004_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_004_main",
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_004_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_004_coarse_K",
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_004_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_004_coarse_dt",
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_005_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_005_main",
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_005_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_005_coarse_K",
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_005_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_005_coarse_dt",
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_006_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_006_main",
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_006_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_006_coarse_K",
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_006_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_006_coarse_dt",
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_007_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_007_main",
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_007_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_007_coarse_K",
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_007_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_007_coarse_dt",
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_008_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_008_main",
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_008_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_008_coarse_K",
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_008_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_008_coarse_dt",
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_009_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_009_main",
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_009_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_009_coarse_K",
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_009_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_009_coarse_dt",
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_010_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_010_main",
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_010_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_010_coarse_K",
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_010_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_010_coarse_dt",
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_011_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_011_main",
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_011_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_011_coarse_K",
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_011_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_011_coarse_dt",
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_012_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_012_main",
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_012_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_012_coarse_K",
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_012_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_012_coarse_dt",
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_013_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_013_main",
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_013_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_013_coarse_K",
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_013_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_013_coarse_dt",
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_014_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_014_main",
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_014_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_014_coarse_K",
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_014_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_014_coarse_dt",
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_015_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_015_main",
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_015_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_015_coarse_K",
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_015_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_015_coarse_dt",
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_016_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_016_main",
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_016_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_016_coarse_K",
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_016_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_016_coarse_dt",
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_017_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_017_main",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_017_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_017_coarse_K",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_017_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_017_coarse_dt",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_018_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_018_main",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_018_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_018_coarse_K",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_018_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_018_coarse_dt",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_019_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_019_main",
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_019_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_019_coarse_K",
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_019_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_019_coarse_dt",
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_020_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_020_main",
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_020_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_020_coarse_K",
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_020_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_020_coarse_dt",
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_021_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_021_main",
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_021_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_021_coarse_K",
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_021_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_021_coarse_dt",
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_022_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_022_main",
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_022_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_022_coarse_K",
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_022_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_022_coarse_dt",
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_023_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_023_main",
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_023_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_023_coarse_K",
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_023_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_023_coarse_dt",
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_024_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_024_main",
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_024_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_024_coarse_K",
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_024_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_024_coarse_dt",
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_025_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_025_main",
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_025_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_025_coarse_K",
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_025_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_025_coarse_dt",
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_026_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_026_main",
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_026_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_026_coarse_K",
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_026_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_026_coarse_dt",
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_027_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_027_main",
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_027_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_027_coarse_K",
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_027_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_027_coarse_dt",
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_028_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_028_main",
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_028_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_028_coarse_K",
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_028_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_028_coarse_dt",
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_029_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_029_main",
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_029_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_029_coarse_K",
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_029_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_029_coarse_dt",
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_030_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_030_main",
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_030_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_030_coarse_K",
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_030_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_030_coarse_dt",
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_031_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_031_main",
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_031_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_031_coarse_K",
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_031_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_031_coarse_dt",
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_032_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_032_main",
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_032_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_032_coarse_K",
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_032_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_032_coarse_dt",
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_033_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_033_main",
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_033_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_033_coarse_K",
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_033_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_033_coarse_dt",
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_034_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_034_main",
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_034_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_034_coarse_K",
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_034_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_034_coarse_dt",
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_035_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_035_main",
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_035_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_035_coarse_K",
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_035_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_035_coarse_dt",
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_036_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_036_main",
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_036_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_036_coarse_K",
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_036_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_036_coarse_dt",
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_037_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_037_main",
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_037_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_037_coarse_K",
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_037_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_037_coarse_dt",
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_038_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_038_main",
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_038_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_038_coarse_K",
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_038_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_038_coarse_dt",
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_039_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_039_main",
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_039_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_039_coarse_K",
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_039_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_039_coarse_dt",
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_040_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_040_main",
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_040_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_040_coarse_K",
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_040_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_040_coarse_dt",
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_041_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_041_main",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_041_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_041_coarse_K",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_041_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_041_coarse_dt",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_042_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_042_main",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_042_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_042_coarse_K",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_042_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_042_coarse_dt",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_043_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_043_main",
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_043_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_043_coarse_K",
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_043_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_043_coarse_dt",
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_044_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_044_main",
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_044_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_044_coarse_K",
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_044_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_044_coarse_dt",
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_045_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_045_main",
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_045_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_045_coarse_K",
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_045_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_045_coarse_dt",
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_046_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_046_main",
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_046_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_046_coarse_K",
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_046_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_046_coarse_dt",
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_047_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_047_main",
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_047_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_047_coarse_K",
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_047_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_047_coarse_dt",
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_048_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_048_main",
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_048_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_048_coarse_K",
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_048_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_048_coarse_dt",
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_049_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_049_main",
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_049_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_049_coarse_K",
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_049_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_049_coarse_dt",
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_050_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_050_main",
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_050_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_050_coarse_K",
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_050_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_050_coarse_dt",
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_051_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_051_main",
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_051_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_051_coarse_K",
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_051_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_051_coarse_dt",
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_052_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_052_main",
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_052_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_052_coarse_K",
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_052_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_052_coarse_dt",
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_053_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_053_main",
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_053_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_053_coarse_K",
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_053_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_053_coarse_dt",
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_054_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_054_main",
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_054_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_054_coarse_K",
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_054_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_054_coarse_dt",
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_055_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_055_main",
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_055_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_055_coarse_K",
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_055_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_055_coarse_dt",
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_056_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_056_main",
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_056_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_056_coarse_K",
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_056_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_056_coarse_dt",
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_057_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_057_main",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_057_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_057_coarse_K",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_057_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_057_coarse_dt",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_058_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_058_main",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_058_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_058_coarse_K",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_058_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_058_coarse_dt",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_059_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_059_main",
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_059_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_059_coarse_K",
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_059_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_059_coarse_dt",
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_060_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_060_main",
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_060_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_060_coarse_K",
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_060_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_060_coarse_dt",
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_061_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_061_main",
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_061_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_061_coarse_K",
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_061_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_061_coarse_dt",
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_062_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_062_main",
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_062_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_062_coarse_K",
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_062_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_062_coarse_dt",
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_063_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_063_main",
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_063_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_063_coarse_K",
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_063_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_063_coarse_dt",
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_064_main",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_064_main",
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_064_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_064_coarse_K",
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_064_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_064_coarse_dt",
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_065_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_065_main",
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_065_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_065_coarse_K",
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_065_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_065_coarse_dt",
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_066_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_066_main",
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_066_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_066_coarse_K",
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_066_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_066_coarse_dt",
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_067_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_067_main",
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_067_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_067_coarse_K",
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_067_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_067_coarse_dt",
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_068_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_068_main",
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_068_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_068_coarse_K",
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_068_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_068_coarse_dt",
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_069_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_069_main",
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_069_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_069_coarse_K",
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_069_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_069_coarse_dt",
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_070_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_070_main",
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_070_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_070_coarse_K",
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_070_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_070_coarse_dt",
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_071_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_071_main",
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_071_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_071_coarse_K",
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_071_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_071_coarse_dt",
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_072_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_072_main",
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_072_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_072_coarse_K",
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_072_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_072_coarse_dt",
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_073_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_073_main",
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_073_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_073_coarse_K",
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_073_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_073_coarse_dt",
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_074_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_074_main",
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_074_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_074_coarse_K",
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_074_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_074_coarse_dt",
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_075_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_075_main",
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_075_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_075_coarse_K",
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_075_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_075_coarse_dt",
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_076_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_076_main",
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_076_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_076_coarse_K",
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_076_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_076_coarse_dt",
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_077_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_077_main",
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_077_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_077_coarse_K",
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_077_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_077_coarse_dt",
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_078_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_078_main",
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_078_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_078_coarse_K",
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_078_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_078_coarse_dt",
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_079_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_079_main",
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_079_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_079_coarse_K",
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_079_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_079_coarse_dt",
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_080_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_080_main",
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_080_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_080_coarse_K",
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_080_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_080_coarse_dt",
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_081_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_081_main",
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_081_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_081_coarse_K",
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_081_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_081_coarse_dt",
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_082_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_082_main",
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_082_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_082_coarse_K",
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_082_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_082_coarse_dt",
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_083_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_083_main",
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_083_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_083_coarse_K",
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_083_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_083_coarse_dt",
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_084_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_084_main",
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_084_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_084_coarse_K",
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_084_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_084_coarse_dt",
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_085_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_085_main",
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_085_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_085_coarse_K",
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_085_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_085_coarse_dt",
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_086_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_086_main",
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_086_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_086_coarse_K",
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_086_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_086_coarse_dt",
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_087_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_087_main",
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_087_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_087_coarse_K",
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_087_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_087_coarse_dt",
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_088_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_088_main",
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_088_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_088_coarse_K",
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_088_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_088_coarse_dt",
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_089_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_089_main",
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_089_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_089_coarse_K",
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_089_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_089_coarse_dt",
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_090_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_090_main",
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_090_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_090_coarse_K",
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_090_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_090_coarse_dt",
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_091_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_091_main",
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_091_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_091_coarse_K",
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_091_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_091_coarse_dt",
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_092_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_092_main",
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_092_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_092_coarse_K",
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_092_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH+A"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_092_coarse_dt",
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_093_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_093_main",
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_093_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_093_coarse_K",
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_093_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_093_coarse_dt",
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_094_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_094_main",
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_094_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_094_coarse_K",
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_094_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_094_coarse_dt",
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_095_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_095_main",
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_095_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_095_coarse_K",
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_095_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_095_coarse_dt",
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_096_main",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "main",
+      "spec": [
+        "CAL_CORNER_096_main",
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_096_coarse_K",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_K",
+      "spec": [
+        "CAL_CORNER_096_coarse_K",
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "CAL_CORNER_096_coarse_dt",
+      "kind": "global_calibration",
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "coarse_dt",
+      "spec": [
+        "CAL_CORNER_096_coarse_dt",
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2065_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X2065_main",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2065_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X2065_coarse_K",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X2065_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X2065_coarse_dt",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2029_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X2029_main",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2029_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X2029_coarse_K",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X2029_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X2029_coarse_dt",
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2041_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X2041_main",
+        "15/2",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2041_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X2041_coarse_K",
+        "15/2",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X2041_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X2041_coarse_dt",
+        "15/2",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X1001_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X1001_main",
+        "6",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X1001_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X1001_coarse_K",
+        "6",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X1001_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X1001_coarse_dt",
+        "6",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X3001_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X3001_main",
+        "13/2",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "4"
+      ]
+    },
+    {
+      "id": "X3001_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X3001_coarse_K",
+        "13/2",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "4"
+      ]
+    },
+    {
+      "id": "X3001_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X3001_coarse_dt",
+        "13/2",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "4"
+      ]
+    },
+    {
+      "id": "X1008_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X1008_main",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "2",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X1008_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X1008_coarse_K",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "2",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X1008_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X1008_coarse_dt",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "2",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2012_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X2012_main",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X2012_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X2012_coarse_K",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X2012_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X2012_coarse_dt",
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X1009_main",
+      "kind": "global_calibration",
+      "role": "main",
+      "spec": [
+        "X1009_main",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "8",
+        2,
+        80,
+        "0"
+      ]
+    },
+    {
+      "id": "X1009_coarse_K",
+      "kind": "global_calibration",
+      "role": "coarse_K",
+      "spec": [
+        "X1009_coarse_K",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "8",
+        2,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X1009_coarse_dt",
+      "kind": "global_calibration",
+      "role": "coarse_dt",
+      "spec": [
+        "X1009_coarse_dt",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "8",
+        1,
+        80,
+        "0"
+      ]
+    }
+  ],
+  "design_corner_count": 96,
+  "proposed_candidate": {
+    "K": 80,
+    "ref": 2,
+    "dt": "1/240",
+    "S1_route": "unchanged pilot y-quadrature, no direct-route substitution",
+    "observation_tail_mass": "1/10000 legacy diagnostic; cost/moment tail certificate remains an additional closure requirement",
+    "retained_zero_atom": true,
+    "stationary_law": "unchanged interval-certified spectral law,80digits",
+    "R1_tolerance": "1/400",
+    "R3_escalation": [
+      [
+        160,
+        2
+      ],
+      [
+        160,
+        4
+      ]
+    ],
+    "R4": "four_corners",
+    "R5": "1/10",
+    "R6": "unchanged frozen card"
+  },
+  "on_any_stage0_failure": "HOLD; do not open global calibration, freeze numerics, allocate n/root or generate CF",
+  "stage0_success": "requires separate full global-audit activation/receipt; stage0 alone never writes a v1.3.1 tag",
+  "source_sha256": {
+    "experiments/A00_engine/cells_adapter.py": "ef272dd76beafd5e83506288fcffb6af3f0f49b78c721a879e055ef6aec7a9b1",
+    "experiments/A00_engine/evaluate.py": "77326ab19b86a29dd6cef5f728747e50242ac27fbdcf93ddd88b1a91a0487117",
+    "experiments/A00_engine/factorial_core.py": "7507293e27ef68882d75d40b72861d7ab1ac3ebd88bb917f6f1cf87475cf8d3e",
+    "experiments/A00_engine/guard.py": "79b19fd64b07ffb917c542b812bc0b2446a840db56e54794bb81bb4f4fdc5ec5",
+    "experiments/A00_engine/physical.py": "cf78f3e361acc190099d7b5d4f75dbffffb3808694d0121736ef9f9264dc17ee",
+    "experiments/A00_engine/precision.py": "4330e4b2d887a2770d6ef3c612f5e46cd66a3f4d5094d70f286ec37270b028ab",
+    "experiments/A00_engine/report_verification.py": "273af50ff5892db401729105d371a38a07f8f7b3efe16e7f8d67a1e5970c7b65",
+    "experiments/A00_engine/run_mutants.py": "190ed51ee2f2e80fd494ef8c3b0c419c71683019a6b3a555073a5d13d1210ca3",
+    "experiments/A00_engine/toy_physics.py": "44e120207c0e76ba2342708fd582aac0d4aba82d79aeeb52b2c13f143cca3732",
+    "experiments/A00_engine/toy_refinement.py": "a7c9e93ae3e4668b7e1daa2b2f95fe2a41afd6cfb12a27c5161d6e0dbb0ce612",
+    "experiments/R3R_02_audit/__init__.py": "951eaa5c6658537318828c1106bee1b1da9fb104ab64e87087f504a57e1ff8d1",
+    "experiments/R3R_02_audit/bridge.py": "a1655a1071c3bbae8cce20a0729a49366f53f7351a09095f734018757feb9a5b",
+    "experiments/R3R_02_audit/independent_mc.py": "110a6256e615d51798a728821379c9c01bd817bbd3e33025e2c875f3551589d8",
+    "experiments/R3R_02_audit/independent_mc_native.cpp": "cf6e8b8263119391204b00e2edfe9c5086b788cfb2a306da611745773d9452df",
+    "experiments/R3R_02_audit/pilot_population.py": "cc80bb61668e86fab68f76655059a497b3900d810d1c23ff6e99ace5369df332",
+    "experiments/R3R_02_audit/pilot_tests_original.py": "5b36674895c96c801a8916cba206cb9a63adfe28100a28d4c9b01c453f19b860",
+    "experiments/R3R_02_audit/reproduction_worker.py": "606c41d0c963b2c170e9e266960925e49fcc5ca805b8aeb20d3f1856bbeccb4c",
+    "experiments/R3R_02_audit/resume_reproduction.py": "c0e5bf6a6e76b0f574f8b6ec1cb99e5c24089057308c2613645b76da9cb33ff2",
+    "experiments/R3R_02_audit/run_engine_audit.py": "99f79df541ed4ea98decc1490ee46030284d95ec1d07f9783e8a462c10788d98",
+    "experiments/R3R_02_audit/run_extensions.py": "a187e20c7c27d9c14d0d6110230547d09acef18b6760f5651d7787b1e4d93173",
+    "experiments/R3R_02_audit/run_mc.py": "5fdea7681d68d3fcb040aabc597a41cc680ac4226214eeb86e6946f87c6a2975",
+    "experiments/R3R_02_audit/run_mutants.py": "62388770ac6fe2d51111cf74c187ae019bff4711e232ae252897c349dd0dfaf3",
+    "experiments/R3R_02_audit/run_pilot_original_tests.py": "9620b460131cb295b8350b81d9bfb7863f3e9e42b66396d7a1b8d8fdea7d5652",
+    "experiments/R3R_02_audit/setup_reproduction.py": "1569c94b9f26f2cdf1d9fb16dae7421bdc8f06b40ed2065a108a47b5c21d5c30",
+    "experiments/R3R_07_numerics/__init__.py": "8355a45f55191617218cfd63ed320d6634f6ef3aed56ded9165506a4a41a0202",
+    "experiments/R3R_07_numerics/budget.py": "3b628b097006eed44f19e0313d77e256fff0f4892d1ce1d1015977acc8f9a6ef",
+    "experiments/R3R_07_numerics/run.py": "90bc587e5be7067a0a1eacf9fc6c9e2989c9508afddaddceb21fb1f9c32cb6b8",
+    "experiments/R3R_07_numerics/worker.py": "f1b632b73ce6b8f63d02a6fcd712f7638862a340d74af1910f85f731b6f48925",
+    "src/smr/__init__.py": "2b624922ab07c40dc83ae46d9ec095f765e27c8631a42bc359b50b61d0c0d1dd",
+    "src/smr/anchoring.py": "8eb042671765614c4fd81b1a8238879a0c596d4b3d3bfa0ae7e717cae46a59b0",
+    "src/smr/cells.py": "2be7f50e48b5dabaa7886f6a31a5a2cb4de958aa7d785c8f67dd75c261e0a3bc",
+    "src/smr/design.py": "a0afa5d2e473ec87ed377b65ae7c3bdd8f7c43d634662a75165a62cc91d5402e",
+    "src/smr/dominance.py": "91ba3526e449d05ea18236f595ec7674433fd7084e52410bd8f862ffb8ff9603",
+    "src/smr/exact.py": "c3216f0a318e5212882d1e1980dc5b69b7688486b7662c3b009d131366192f5b",
+    "src/smr/gap_screen.py": "b85ca281910cfbbe5ebe810d77570f88927ce0e9b1f3b5f3d582aded0270ad38",
+    "src/smr/idle_gap.py": "b749bbf5c85270a76c3d89dd19f582051625e87f91fbf5185dfec5ff0c92af47",
+    "src/smr/native/idle_backward.cpp": "8a76d84abf8fd0c1b59c247d2ae8555ac9803dfde117cd8105cf8e988f0b9c84",
+    "src/smr/single_observation.py": "3d5cdcf5ffea436ceca3b7770c07f52bdda9e9dc731f22d642882f71a5a66726",
+    "src/smr/stationary.py": "7d8a850f8aa26d132b179b54bea1bab7293f321093c73d776baf00a1e4b0f31a",
+    "src/smr/stationary_spectral.py": "cc7c3f82f88cbc99013130b580dc3374075d021c884e77b3bf382caf10d8cb6c",
+    "src/smr/stationary_v2.py": "60639e6fc33eb16ee3b55b196ba6fcab00715d28f2a72b5501915834513b627a",
+    "src/smr/thresholds.py": "cb26e33cca88064ef13fef41e7675a7cc4eafb5198a901c8f6f2eced27839bbf",
+    "tests/test_r3r_numerics_budget.py": "610bf9660656b3660bd6528870bc1b3b630a3cf51e4e10264bd4eff97eb7f97e",
+    "experiments/R3R_07_confirmation/common.py": "e4f6b0594ea5d3310dd3255ae212759e626679cdbb6365dd175e37e75ee751e9",
+    "experiments/R3R_06_cards/verify_cards.py": "e2490b1f541d85ebe23ace451d771d4b86baa475b2d761177b5c775511a3efd9",
+    "experiments/V13_step1/run.py": "3b732c9e6d433b14662eb1356dc9bd2b8368c8643a2676c9335454c3b79b2206",
+    "experiments/V13_step1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/V13_step1/regime.py": "f0ff322db1f993c90b7f0b466511a9d7d55a6ec83796246654d6dfd9cb57efa6"
+  },
+  "output": "results/R3R_numerics/20261029_02",
+  "caveats": [
+    "resource ceiling is a preregistered operational test, not proof of mathematical impossibility",
+    "rate probes are stationary marginal laws only, no trial CF joint costs",
+    "full corner schedule declared design-only; may not execute after stage0 failure",
+    "no change of rate rounding, plant, S1 information rights, metric or card",
+    "explicitly post-CPU-limit resource extension under author authorization; original results retained",
+    "no true cost/gap/contrast for new joint regimes; all three probes retain their exact original parameters",
+    "future complete audit must include all transitive dependencies, not only this manifest"
+  ],
+  "archive_sha256": {
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage1/regimes.csv": "f43c7e84cd7fb1c339c197189411cb01fd98031e72ce3ee48080927cfa0fe7c1",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage1/pairs.npz": "66ce0da59458998459f4620f6939e4c7bf2b6b5bb94aa498a2bc725e229facca",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage1/specs.json": "189e5f2bb70eaa4a00cd4c3a60516bde126a58663910cdd3a40566edda721331",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage2/regimes.csv": "a9055848f0a2d139e75a29b7be74fc4976639a71e7a3ffbeb609b55227ef934f",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage2/pairs.npz": "60d5921c85787e6b95cee8e8cd43cd8f6426d3340c58c1e04cb064b53eb2cfba",
+    "a7435e9a3cb0d1625479c942041ec6748444014a:results/explore_v13/stage2/specs.json": "d81290a313d9c3e4bb17c41e30478d31f507a7ab7cb7941e91d8a1981d700395"
+  },
+  "prior_attempt": {
+    "path": "results/R3R_numerics/20261029_01/summary.json",
+    "sha256": "bafbd392d161f7c81862690eb9d2510714e2c560e071030e65313c57bfd94325",
+    "prereg_sha256": "59bbee6f17dec839f8d06bc4f96c1a0c9e1f597fd49b050eb68d0fef2993b68c",
+    "trigger": "after prior CPU-limit observations; author explicitly requested completion and machine-capacity assessment"
+  },
+  "reused_anchor_checks": "3/3 exact replays from v1 attempt; no rerun or relabeling",
+  "reused_completed_marginals": [
+    "CAL_BASE_A",
+    "CAL_RATE_10_A",
+    "CAL_KAPPA3_A"
+  ],
+  "budget_scope": "at most 2 CPU-hours for this extended calibration, tracked separately from the unchanged 48 CPU-hour confirmation budget",
+  "GCP": "capacity/access being checked read-only; no cloud start/create/resize authorized by this prereg; current attempt is local WSL"
+}

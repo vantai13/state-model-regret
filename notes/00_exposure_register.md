@@ -803,3 +803,10 @@ regret/contrast/tỉlệMEETS ởrateinteriors. Metadata312globaljobs chỉcover
 khôngexecute saugateHOLD. CF0/root0/MC0/R09R10outcomes0. Src/card/contractgiữbyte.
 595fulltests gồmoldregressionđãexposed;8newlimit tests chỉsynthetic subprocess.
 Lần gián đoạn saurun không làm rerun calibration; giữ raw9attempts vàUNRESOLVED.
+
+## Numerics extension v2 — trước run, DL-080 (29/10/2026)
+
+Sau3CPU-limitv1,tác giả yêu cầu tiếp tục đo khả năng máy. Chỉrerun đúng3stationary
+marginals với1800CPU-s/job,khôngjointcost/newregimeoutcome/CF/seed. Giữ bảnv1;
+nguồnengine khôngsửa. Localresourceprobe vàGCPmetadata/SSH read-only,khôngpapersearch.
+Cloud chưa truy cậpđược; attemptv2 hiện đăngkýlocal WSL,1worker.

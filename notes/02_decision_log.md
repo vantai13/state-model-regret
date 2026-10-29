@@ -1344,3 +1344,20 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - [Report](../results/lessons/l3r_7/numerics_report.md),
   [CSV](../results/R3R_numerics/20261029_01/metrics.csv),
   [JSON](../results/R3R_numerics/20261029_01/verification.json).
+
+### DL-080 — Tác giả yêu cầu đo dài hơn trên máy hiện tại; GCP là phương án dự phòng (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. Yêu cầu nguyên văn: “vậy bạn chạy xong luôn đi,
+  kiểm tra máy tôi có khả năng chạy không để tôi tắt app các thứ, nếu không ỏn thì
+  tôi có server gcp á, bạn muốn cái nào”. Tiếp tục kỹ thuật,không hỏi lại quyền nới
+  ceiling khi tác giả vừa yêu cầu. Không sửa/giấu kết quảv1 hoặcđổi card/measure.
+- Resource WSL hiện tại10CPUlogic,RAMavailable≈10.62GiB,swap0. Chọn chạy1worker
+  local trước để đo thực,ceiling1800CPU-s/2400wall-s/6GiBRSS/7GiBAS mỗi job;
+  total7200CPU-s cho3marginals đãCPU-limit,giữexactparametersv1. Chính thức là
+  resourceextension SAU outcomesv1,khôngclaim đãkhai mức này từtrước.
+- [Configv2](../experiments/R3R_07_numerics/prereg_extended_v2.json) vàmd sẽcommit
+  trước attempt mới; giữ solver/kernel hiện tại. Reuse3anchor+3lawpassv1; khôngCF.
+- Read-only GCP: gcloudchưacóproject,aliasdt4n-gcpSSHtimeout20s; đã hỏi VM/capacity/
+  access trong lúc tiếp tục local. Không tựcreate/start/resizeVM. Nếu cócloudrun,
+  táchenvironment/version/manifest vàđo,không suy chỉcầnthêmvCPU làgiảiquyết.
+- n/root/CF/tagv1.3.1 giữchưa cấp; callbackfullaudit/D22/human/Gate3R không đổi.
