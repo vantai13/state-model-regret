@@ -703,3 +703,13 @@ K40=.050360895ppC, không signflip. Đây cùngregime discovery đã lộ, khôn
 Sau interruption đã giữ12jobrepro trước và hoàn tất7job còn lại từ freshclone/venv
 khác cùngsource/deps;19lầnchạy trên9tọa độ,57.808pairs khớp. Không rerunengine để
 sửa schema-checker; archivedStage2 thiếuc_sw chỉ kiểm metadata0 vớispec.
+
+
+## Phase3R / L3R.4 — trước bảng216, DL-069 (29/10/2026)
+
+Đã đọc đủ3lesson(848lines), T00/DL008/protocol, metadata9Crossrefrecords/0DBLP,
+nguồn mới3được duyệt rồi targeted-primary-read. Không tác giả L-self. A1generic
+3singlequeues λ8/T.1,λ8/T.3,λ9.5/T.1;24seeds generic đã khai,18comparisons;
+không newregime gain. Chuẩn bị stationary-only X2041/X2012/X1009,Apre/Bpre,ref1/2.
+Envelope/luật phải commit trước216design translations và labels; labels checkpoint
+phải commit trước saved-discovery overlay. CF/R09/R10 không mở.

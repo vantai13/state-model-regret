@@ -48,3 +48,11 @@ N/check/regime/receipt; pilot2048 và production phân biệt, retry+50000 độ
 Root318351301 dùng cho X2065precision extension sau quan sát, không gọi là final
 prereg ban đầu. Unit/symbolic-conservation tests của phiên MC ghi trongprovenance.
 Không cấp lại roots verification cho confirmation.
+
+
+## L3R.4 — formula verification only, 29/10/2026
+
+Doan Van Tai. Roots318400000–318409999 dành riêng generic verification, không CF.
+Prereg cbed2bc khai chính xác318400000+1000case+replicate trước rút:case0–2,rep0–7,
+24roots đã dùng. Không cấp lại cho confirmation. Burn1000s,measure4000s, không
+engine action/decision; [replicate seeds](../results/lessons/l3r_4/generic/replicates.csv).

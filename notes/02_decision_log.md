@@ -1116,3 +1116,20 @@ cho maxdelta.050360895ppC, đạt.25 và không signflip ngoàiεE. Giữ cặpK
 ban đầuUNRESOLVED.19lầnrepro là9tọa độ vật lý với các mức số khác nhau, không19
 regimesđộclập;57.808snapshot-pair records khớp. Integrity auditorPASS chỉ xác nhận
 artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-backOPEN.
+
+
+### DL-069 — Realism v1: khóa nguồn/luật trước bảng216 (2026-10-29)
+
+- Người phụ trách/người soạn: **Doan Van Tai**; triển khai L3R.4 theo ủy quyền.
+- Giữ hai bối cảnh của DL-008. Tác giả duyệt cả3nguồn BAM10/ZLK17/LTWW94;
+  targeted reading, chưa author L-self. Worksheet không đổi egress burst thành
+  hidden-mode holding time, không biến polling thành AoI, không đoán buffer.
+- [Envelope](realism/envelope_v1.json), [worksheet](realism/worksheet_v1.md),
+  [luật](realism/rules_v1.md): k1,f2,sensitivity1.5/3. Thiếu một range bắt buộc
+  thì UNSOURCED; không chọn anchor để cứu nhãn. Illustrativeτ10ms/100ms không
+  là nguồn. Commit toàn bộ trước implied216; checkpoint labels trước overlay.
+- A1generic đã khai ởcbed2bc rồi chạy:24replicates/18comparisons PASS theo
+  tolerance khai trước. Chỉ stationary law tại3discoveryIDs đã khai; không
+  J/gap/action/regret/contrast mới. CF/R09/R10 giữ niêm phong.
+- L3R.3 HOLD và numerics NOT_FROZEN giữ; contractv1.3 DRAFT, G1,Phase4HOLD.
+  Understanding/read-back/P0-V10/L8/T05 không tự đóng. Chưa chọn CFframe.

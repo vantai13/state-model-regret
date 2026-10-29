@@ -90,3 +90,10 @@ Ba ứng viên snowball L2.4 chỉ ở log chờ duyệt; chưa tải hoặc th�
 Tái tạo: `.venv/bin/python -B tools/paper_library/build_notes.py`.
 [Kiểm Excel](data/verification.json) · [Nguồn P04](../results/lessons/l2_5/source_access.json).
 [Nguồn M00/P01 và provenance A4](../results/lessons/l2_5/part2/source_access.json).
+
+
+**L3R.4,29/10:** tác giả duyệt3measurement sources mới; Excel hiện **26nguồn**.
+[BAM10](../notes/literature/papers/BAM10.md),[ZLK17](../notes/literature/papers/ZLK17.md),
+[LTWW94](../notes/literature/papers/LTWW94.md) đọc targeted phục vụ realism, không
+novelty search. Giữ23record/progress/notes cũ; author levels ba nguồn mới chưa
+có xác nhận. PDF local ngoàiGit; [worksheet](../notes/realism/worksheet_v1.md).

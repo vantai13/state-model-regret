@@ -1,0 +1,211 @@
+{
+  "owner": "Doan Van Tai",
+  "version": "realism-envelope-v1",
+  "date": "2026-10-29",
+  "status": "INCOMPLETE_SOURCED_RANGES_HOLD",
+  "context_origin": "DL-008, 2026-10-08",
+  "delay_definition": "infinite-buffer stationary virtual time-average E[Q]/c",
+  "k": 1,
+  "f_primary": 2,
+  "f_sensitivity": [
+    1.5,
+    2,
+    3
+  ],
+  "required": [
+    "h_hold_s",
+    "CV_rate_1ms",
+    "CV_rate_10ms",
+    "CV_rate_100ms",
+    "CV_rate_1s",
+    "T_mode_s",
+    "offered_mean_and_peak_load",
+    "observation_schema",
+    "variability_shape"
+  ],
+  "contexts": [
+    {
+      "id": "a",
+      "description": "DC 1–10 Gb/s; ms rate telemetry is context motivation, not backlog AoI",
+      "tau_eff_s": null,
+      "illustrative_tau_s": 0.01,
+      "constraints": [
+        {
+          "name": "h_hold_s",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_1ms",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_10ms",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_100ms",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_1s",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "T_mode_s",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "offered_mean_and_peak_load",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "observation_schema",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "variability_shape",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        }
+      ],
+      "buffer_time_s": null,
+      "actuation_s": null,
+      "missing_reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+    },
+    {
+      "id": "b",
+      "description": "edge 10–100 Mb/s; polling .1–1s is context motivation, not AoI",
+      "tau_eff_s": null,
+      "illustrative_tau_s": 0.1,
+      "constraints": [
+        {
+          "name": "h_hold_s",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_1ms",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_10ms",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_100ms",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "CV_rate_1s",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "T_mode_s",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "offered_mean_and_peak_load",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "observation_schema",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        },
+        {
+          "name": "variability_shape",
+          "allowed_tau_s": null,
+          "reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+        }
+      ],
+      "buffer_time_s": null,
+      "actuation_s": null,
+      "missing_reason": "No jointly comparable empirical envelope; worksheet has targeted evidence and explicit definition mismatches."
+    }
+  ],
+  "fixed_windows_s": [
+    0.001,
+    0.01,
+    0.1,
+    1
+  ],
+  "buffer_ratio_sensitivity": [
+    1,
+    5,
+    10
+  ],
+  "buffer_tail_flag_threshold": 0.01,
+  "actuation_correlation_flag_threshold": 0.1353352832366127,
+  "design_csv": "results/R3R_01_recount/20261028_01/discovery_regimes.csv",
+  "main_stages": [
+    "stage1",
+    "stage2",
+    "stage3"
+  ],
+  "expected_ids": 216,
+  "expected_distinct": 210,
+  "stationary_check": {
+    "ids": [
+      "X2041",
+      "X2012",
+      "X1009"
+    ],
+    "queues": [
+      "A_pre",
+      "B_pre"
+    ],
+    "refs": [
+      1,
+      2
+    ],
+    "delay_threshold_over_T": 5
+  },
+  "overlay": {
+    "tag": "explore-v13-pilot",
+    "commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+    "MV_GM_pctC_at_least": 1,
+    "SH_GS_pctC_at_most": -1,
+    "meaning": "Existing diagnostic cuts, not new CF hypothesis thresholds"
+  },
+  "scope": [
+    "fluid arrivals, two rates lambda±6",
+    "capacity10",
+    "a/c=.6 fixed",
+    "ideal backlog observation",
+    "S1 includes hidden modes oracle",
+    "infinite buffer",
+    "instantaneous action"
+  ],
+  "g_level": "G1",
+  "CF_opened": false,
+  "contract": "v1.3 DRAFT, no adoption here",
+  "freeze_paths": [
+    "notes/realism/envelope_v1.json",
+    "notes/realism/rules_v1.md",
+    "notes/realism/worksheet_v1.md",
+    "experiments/R3R_04_realism/implied.py",
+    "experiments/R3R_04_realism/classify.py",
+    "experiments/R3R_04_realism/run_screen.py",
+    "experiments/R3R_04_realism/check_stationary.py",
+    "experiments/R3R_04_realism/overlay.py",
+    "notes/literature/papers/BAM10.md",
+    "notes/literature/papers/ZLK17.md",
+    "notes/literature/papers/LTWW94.md",
+    "results/lessons/l3r_4/literature/approval.json",
+    "results/R3R_01_recount/20261028_01/discovery_regimes.csv"
+  ]
+}

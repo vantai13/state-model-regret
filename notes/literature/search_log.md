@@ -448,3 +448,38 @@ Chờ duyệt trướcPDF/note mới, không thêmExcel/catalog/authorprogress. 
 [tóm tắt/giới hạn](../../results/lessons/l3_5/literature/screening_summary.md),
 [raw+hash](../../results/lessons/l3_5/literature/raw_hashes.json).
 Dừng sau2queriesbounded, trước6phút; không2×20/saturation.0download,0newpaper-note.
+
+
+## L3R.4-R1 — realism metadata lookup,29/10/2026
+
+[Thẻ](../../results/lessons/l3r_4/literature/session_card.md): Q3R.3/K9/SR5–SR6,
+không đổiPC1–PC6. Kiểm23catalog vàT00/EV/DL008 trước. Hai contextcũ giữnguyên.
+
+|Loại|Query/tool|Số thực sàng|Giữ unique mới|Giới hạn|
+|---|---|---:|---:|---|
+|lookup|3exact-title queries qua paper-search/search_dblp,max3/title|0|0|Cả3trảempty,noerror; không coi lànegativeevidence|
+|lookup|3exact-title queries qua search_crossref,max3,relevance|9title/metadata|3proposals|BAM10/ZLK17/LTWW94 đúngDOI/venue theoCrossref;6records khác bịloại|
+|lookup verification|3publisher-domain webqueries theoDOI/title|0|0|Khôngsearchresults; khôngđọcPDF/abstract mới|
+
+[Metadata/proposals](../../results/lessons/l3r_4/literature/proposals.md),raw từngtool
+call có trong cùngfolder. Citationcounts trảvềkhông dùngchoquyếtđịnh. Dừng targeted
+lookupbudget, khôngsurvey hoặc2×20.3PDF/newnotes **chờ tác giả duyệt**;0download.
+
+
+### L3R.4-R1 — tác giả duyệt3nguồn và đọc targeted (29/10/2026)
+
+Tác giả trả lời nguyên văn “Duyệt cả 3 (khuyến nghị)” trước PDF/content notes.
+3nguồn mới giữ,0nguồn ngoài ngành thêm. BAM10: MSR request timeout2lần; guessed
+UWimc10.pdf404; paper-pilot lấy đúng MSR PDF14trang, copy ngoàiGit. ZLK17 author
+PDF8trang và LTWW94SFU journal15trang tải được. StanfordLeland là conference1993,
+không dùng thay journal1994. PublisherACM403/unavailable,IEEErobotcheck; identity
+Crossref+headers/officialinstitution/authorpages, không nhận publisher full-read.
+Weblookup/MSR/UW là targeted access, không broadsearch/snowball. Các bước thất bại
+local: command `python` không có; `.venv` không córequests; dùngurllibstdlib,
+không thay dependencies. PDF3lưu ngoàiGit; raw metadata/download errors lưu
+results/lessons/l3r_4/literature/. Mức AI-T,author levels không đổi.
+BAM10§3.1/5.2/6.2–6.3; ZLK17§4/5/6.4; LTWW94TableI/§3.1/4/5.2.
+Có evidence về variability/measurement mismatch; chưa có joint numeric envelope
+cho backlogAoI/holdh/CV4windows/offeredinput/buffer. Không gán range từ abstract
+hoặc plot pixel. Dừng đúng boundedround3nguồn đã duyệt; không đạt2×20, không
+claim saturation/novelty/PC hoặc author đã đọc. Catalog23→26; giữ23oldrows.
