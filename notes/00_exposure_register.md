@@ -738,3 +738,13 @@ Tagcontract-v1.3→3d2359b;CFgenerated0,newMC/simulation0,newseeds0.
 R09/R10khôngmở,khôngpilotmerge/srcpromotion,khôngpapersearch/download/note mới.
 D22physicalpath/numlevelsDEFERRED,auditL3R.3HOLD,realismHOLD_UNSOURCED;
 G1,Understanding/P0-V10/L8/T05OPEN,Phase4HOLD.
+
+
+## Phase3R / L3R.6 — trước bảng discovery vẽ vùng (2026-10-29)
+
+Người phụ trách: **Doan Van Tai**; triển khai theo yêu cầu L3R.6. Đã đọc lesson Part2/Part3
+(Part1 bị cắt từ §9.2). Lesson đã cho xem4bảng discovery pilot (mục0 forking log). Công cụ
+`experiments/R3R_06_cards/` commit trước: luật vùng chỉ đọc DesignView, mọi tóm tắt outcome tự
+ghi `results/lessons/l3r_6/forking_paths.jsonl`. Sẽ đọc lại saved raw stage1–2 (c_sw0,162cấu hình)
+tại taga7435e9 để tái lập bảng lesson và đếm12luật ứng viên đã khóa trong code. Không engine,
+không regime mới, không CF/R09/R10 outcome; tọa độ R09/R10 chỉ dùng kiểm luật có chạm hay không.
