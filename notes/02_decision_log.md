@@ -1444,7 +1444,7 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Checkout/venv riêng trên GCP;Python3.13.13 khác local3.14.5, sáu package pin
   theo local và kiểm633tests tại server trước profile. Mỗi worker lưu và kiểm
   environment khớp prereg. Source63files commit trước computation.
-- Phiên bị ngắt khiến baselinev2 B không có finalresource/summary; lastsample
+- Sau khi phiên bị ngắt, baselinev2 B không có finalresource/summary; lastsample
   CPU1815.55s vượt1800s, sau đó worker mất. Giữ recovered partial, không ghi
   ceiling-enforcementPASS hoặc biến1815.55 thànhfinalCPUtime. Không rerun B cũ.
   Mediumv2complete,A CPU-limit córeceipt vẫn giữ nguyên.
@@ -1454,3 +1454,37 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   cho cloud,63cho local05). Controller chạy độc lập SSH để tránh mất monitor khi
   client bị ngắt; preflight633tests + versions + local05parity trước hai jobs.
   Không sửa bất kỳ implementation nào đã chạy05 hoặc raw của05.
+
+### DL-085 — Hai probe GCP hoàn tất; giữ HOLD cho adoption/full audit (29/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Local05 theo prereg1c469c7; cloud06/07
+  theo source/prereg269bed8, sau preflight633/633testsPASS (81.146s). Local
+  balancedfull633PASS (83.38s),12balancedtargetedPASS;31frozenfiles giữbyte
+  (21contract+10card). Không mở hoặc đổi các tag đã khóa.
+- Medium cùng đầu vào: baseline806.568wall-s/806.161CPU-s; balanced05
+  19.926wall-s/19.902CPU-s,peak71.211MiB. Quantiles5647/25370 khớp. Wallratio
+  40.479 lần từ một attempt mỗi phiên bản trên local, không p95. Posterior chỉ
+  đối chiếu savederrorbounds, không tuyên bố pointestimates đãcompare.
+- GCP06 CAL_RATE_1000_A:902.514wall-s/902.461CPU-s,peak137.922MiB,
+  lawerrorupper1.40770e-32,quantiles55424/251343. GCP07 B:329.654wall-s/
+  329.601CPU-s,peak108.883MiB,lawerrorupper2.45347e-33,quantiles10172/77322.
+  Maxposteriorerror mỗi ca≤4.01e-16<1e-8. Cloud2jobs chạy song song, tổng
+  CPU1232.062s; không so crosshardware như isolatedalgorithm speedup.
+- Balanced currentversion3/3complete; candidatehistory4/5complete (01+05–07),
+  02ERRORgiữraw,03/04NOT_RUN. Baselinev2 mediumcomplete,A CPUlimit;
+  Bpartial/thiếufinalreceipt vàlastCPU1815.55s vượtceiling,không tô thànhPASS.
+  Do missingreceipt không có totalCPU chính xác; savedlowerboundallattempts
+  7531.007s. Không thay số unknown thành số ceiling hoặc sample cuối.
+- Đã tải29raw/log/metafiles từ server và soSHA256 khớp. Auditbookkeeping/
+  frozen/source/artifactPASS; đây không đóng engineauditL3R.3. Đã xóa vàverify
+  ruleSSH tạm bằngAPI; rulecũ giữnguyên,VMvẫnRUNNING do tácgiả bật,không tựtắtVM.
+- Những kết quả này xác nhận khả năng tính các stationarymarginals đãđăngký.
+  Không phải bound tổngsaisốphysicalcost/gain hoặc hypothesisconfirmation.
+  Candidate chưaadopt vào src/globalbackend;312globaljobs/fulltail-moment/
+  S1quadrature-arrayconversion/D22/dry-runB/p95+r cònchờ. Không v1.3.1/K*/ref*/
+  n/root/CF mới. B48CPUhCF giữnguyên;calibration táchriêng. G1/Phase4HOLD,
+  human/Understanding/P0-V10/L8/T05OPEN không tựđóng.
+- [Report](../results/lessons/l3r_7/extended_capacity/candidate_report.md),
+  [CSV](../results/lessons/l3r_7/extended_capacity/candidate_metrics.csv),
+  [verification](../results/lessons/l3r_7/verification.json),
+  [baseline partial](../results/lessons/l3r_7/extended_capacity/report.md).

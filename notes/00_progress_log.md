@@ -7,6 +7,17 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.7 — capacity local/GCP và balanced candidate (29/10/2026, DL-084–085)
+
+Local633tests/GCP633testsPASS. Sau candidate02 không certify normalizer, giữ
+ERROR và không chạy03/04. Balanced05 medium19,926s, quantiles5647/25370 khớp
+baseline806,568s. Cloud06/07 same fixedmarginals:902,514/329,654s,lawerrorbound
+1,408e-32/2,453e-33,peakRSS137,9/108,9MiB. Currentbalanced3/3complete, chưaadopt.
+Giữ v2B partial/lastCPU1815,55s/khôngfinalreceipt; không suyfinaltime hoặcPASS.
+29exportfiles khớp hash; ephemeralSSHrule đãxóa,VMvẫnRUNNING do tácgiả bật.
+Không newjointregimeoutcome/n/root/CF/tagv1.3.1; globalcostaudit/D22/human cònmở.
+[Report](../results/lessons/l3r_7/extended_capacity/candidate_report.md).
+
 ## L3R.7 — numerics đã đo, HOLD (29/10/2026, DL-078–079)
 
 Prereg0efddcc trước run9jobs. Full595/8targetedPASS;3legacyreplays khớp4879pairs

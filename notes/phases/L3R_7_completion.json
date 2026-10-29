@@ -1,14 +1,20 @@
 {
   "owner": "Doan Van Tai",
   "date": "2026-10-29",
-  "status": "NUMERICS_ATTEMPTED_HOLD_FEASIBILITY",
+  "status": "CALIBRATION_PROBES_COMPLETE_HOLD_CANDIDATE_ADOPTION_AND_FULL_AUDIT",
   "lesson": "L3R.7 Parts 1–3",
   "decisions": [
     "DL-075",
     "DL-076",
     "DL-077",
     "DL-078",
-    "DL-079"
+    "DL-079",
+    "DL-080",
+    "DL-081",
+    "DL-082",
+    "DL-083",
+    "DL-084",
+    "DL-085"
   ],
   "contract": "contract-v1.3",
   "card_commit": "1414d9299d767b2abd56642c4d56048867b83095",
@@ -16,9 +22,11 @@
   "receipt_checker_fixed": true,
   "tests": {
     "new_targeted": 38,
-    "full_suite": 595,
+    "full_suite": 633,
     "negative_receipt_cases_rejected": 10,
-    "numerics_targeted": 8
+    "numerics_targeted": 8,
+    "cloud_full_suite": 633,
+    "balanced_targeted": 12
   },
   "inventory": {
     "source_records": 308,
@@ -50,7 +58,7 @@
   "new_CF_regimes": 0,
   "new_research_engine_or_MC_runs": 3,
   "sealed_R09_R10": "coordinates reserved only; outcomes remain sealed",
-  "numerics_v1_3_1": "HOLD_FEASIBILITY_STAGE0",
+  "numerics_v1_3_1": "HOLD_CANDIDATE_ADOPTION_AND_FULL_AUDIT",
   "D22_implementation_and_audit": "DEFERRED",
   "audit_L3R3": "HOLD",
   "realism": "HOLD_UNSOURCED; disposition at Gate3R",
@@ -69,13 +77,34 @@
   "report": "results/lessons/l3r_7/report.md",
   "verification": "results/lessons/l3r_7/verification.json",
   "research_engine_scope": "three replays of previously seen population anchors; no new joint-regime outcomes; MC=0",
-  "stationary_only_attempts": 6,
-  "stationary_completed": 3,
-  "stationary_unresolved": 3,
-  "numerics_prereg_commit": "0efddcc6703c3d729eb005b6d36e65da783aeb84",
-  "numerics_verification": "results/R3R_numerics/20261029_01/verification.json",
-  "numerics_report": "results/lessons/l3r_7/numerics_report.md",
-  "numerics_cpu_seconds": 396.116187,
+  "stationary_only_attempts": 14,
+  "stationary_completed": 8,
+  "stationary_unresolved": 6,
+  "numerics_prereg_commit": "269bed8ba4b1607d40842b6e88bbf89d0491a948",
+  "numerics_verification": "results/lessons/l3r_7/extended_capacity/candidate_verification.json",
+  "numerics_report": "results/lessons/l3r_7/extended_capacity/candidate_report.md",
+  "numerics_cpu_seconds": null,
   "global_calibration_jobs_not_run_by_stop_rule": 312,
-  "new_regime_population_outcomes": 0
+  "new_regime_population_outcomes": 0,
+  "numerical_candidates_adopted": false,
+  "local_capacity_verification": "results/lessons/l3r_7/extended_capacity/candidate_verification.json",
+  "local_capacity_status": "LOCAL_MEDIUM_PARITY_AND_TWO_GCP_MARGINALS_CERTIFIED",
+  "numerics_cpu_seconds_lower": 7531.006696999999,
+  "baseline_v1_verification": "results/R3R_numerics/20261029_01/verification.json",
+  "baseline_v2_verification": "results/R3R_numerics/20261029_02/capacity_verification.json",
+  "balanced_profile_attempts": 3,
+  "balanced_profile_completed": 3,
+  "numerics_v1_prereg_commit": "0efddcc6703c3d729eb005b6d36e65da783aeb84",
+  "GCP_used": true,
+  "GCP_started_by_agent": false,
+  "GCP_left_running": true,
+  "temporary_SSH_rule": "DELETED_VERIFIED_API",
+  "raw_export_files_verified": 29,
+  "numerics_scope": "stationary probes only; full costs/tails/quadrature/D22/global accuracy not audited",
+  "local_v2_interruption": {
+    "final_B_receipt_missing": true,
+    "last_observed_B_CPU_seconds": 1815.55,
+    "declared_job_CPU_seconds": 1800,
+    "budget_enforcement_fully_verified": false
+  }
 }

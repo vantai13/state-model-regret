@@ -810,3 +810,17 @@ Sau3CPU-limitv1,tác giả yêu cầu tiếp tục đo khả năng máy. Chỉre
 marginals với1800CPU-s/job,khôngjointcost/newregimeoutcome/CF/seed. Giữ bảnv1;
 nguồnengine khôngsửa. Localresourceprobe vàGCPmetadata/SSH read-only,khôngpapersearch.
 Cloud chưa truy cậpđược; attemptv2 hiện đăngkýlocal WSL,1worker.
+
+## L3R.7 — sau capacity/candidate/GCP, DL-081–085 (29/10/2026)
+
+Mục này được ghi sau các computation, không diễn giải thành pre-run entry;
+prereg/DL/sourcecommit trước từng attempt là provenance trước chạy. Chỉ tính lại
+các stationary marginals đã khóa: law/certificate/quantile/posterior error bounds,
+không jointcost/gain/action/contrast hoặc tỷ lệMEETS ở regime mới.
+Candidate01/02/05 local;06/07 GCP. 02ERROR,03/04 không chạy; balanced05–07complete.
+Baselinev2 B gián đoạn thiếufinalreceipt, lastCPU1815,55s vượt1800; không gánPASS.
+Full633tests ởlocal/cloud gồm regressiontoys/discovery cũ và toán interval mới;
+không researchMC hoặc CFsampling. Hai rawcloudfolders tải về,29files khớpSHA256.
+R09/R10khôngmở,CF0/root0/newjointoutcomes0; src/card/contract giữbyte. Chưa chọn
+globalK*/ref*/n hoặc tagv1.3.1. CloudVMdo tácgiả bật; temporarySSHrule/32tạo riêng
+để kết nối rồiđãxóa,không đổi rulecũ hoặc cloudsystem/Condaenv đang có.

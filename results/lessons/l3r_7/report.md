@@ -2,7 +2,13 @@
 
 Người phụ trách/người soạn: **Doan Van Tai** · 29/10/2026.
 
-**Kết quả mới nhất DL-078–079:** đã chạy9calibrationjobs theo prereg0efddcc;
+**Cập nhật DL-084–085:** đã chạy balanced05 trên local và06/07 trên GCP sau
+633testsPASS mỗi môi trường. Ba probe hiện tại complete; medium19,926s,
+hai degree12000 là902,514/329,654s. Candidate chưaadopt/fullnumericsaudit chưađóng,
+không n/root/CF. [Báo cáo mới nhất](extended_capacity/candidate_report.md),
+[CSV](extended_capacity/candidate_metrics.csv), [baselinev2/partial](extended_capacity/report.md).
+
+**Snapshot DL-078–079:** đã chạy9calibrationjobs theo prereg0efddcc;
 3legacyanchorskhớp và3/6stationarycomplete,3/6CPUlimit. Full595/8numerics tests
 PASS; tổng396.116CPU-s;312globaljobs chưa chạy theo stoprule. **Numerics HOLD**,
 chưa chọnK*/dt*/n/root/CF. Xem [report numerics](numerics_report.md) và

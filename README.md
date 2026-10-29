@@ -2,7 +2,19 @@
 
 Tác giả: **Doan Van Tai**.
 
-**L3R.7 — numerics đã chạy, kết quả HOLD** (29/10/2026, DL-078–079):
+**L3R.7 — đã chạy hai probe lớn trên GCP** (29/10/2026, DL-084–085):
+633/633 tests PASS trên local và 633/633 PASS riêng trên GCP. Balanced candidate:
+medium local **19,926 s** (baseline806,568s, quantiles khớp); hai marginal degree12000
+trên GCP **902,514 s / 329,654 s**, peakRSS **137,9 / 108,9 MiB**, law error bounds
+**1,408e-32 / 2,453e-33**. Phiên bản balanced hoàn tất3/3probe đã đăng ký.
+Giữ failed candidate02 và baselinev2 B bị ngắt/thiếu finalreceipt; không tô thànhPASS.
+29file export khớp SHA256; ruleSSH tạm đã xóa, VM vẫn RUNNING do tác giả bật.
+**Candidate chưa adopted; numerics v1.3.1/fullaccuracy/D22 còn HOLD. Chưa n/root/CF.**
+[Kết quả candidate](results/lessons/l3r_7/extended_capacity/candidate_report.md) ·
+[CSV](results/lessons/l3r_7/extended_capacity/candidate_metrics.csv) ·
+[Baseline và lần gián đoạn](results/lessons/l3r_7/extended_capacity/report.md).
+
+**Snapshot numerics v1 — kết quả HOLD** (29/10/2026, DL-078–079):
 prereg `0efddcc` trước run; **595/595 full tests,8/8 numerics tests PASS**.
 Replay **3/3 anchor khớp**, stationary **3/6 hoàn tất,3/6 UNRESOLVED do CPU ceiling**.
 Hai probe degree12000 dừng ở numpy_roots, khoảng2.21GiBRSS; degree1200 dừng ở

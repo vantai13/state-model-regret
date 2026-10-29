@@ -71,7 +71,7 @@ def main():
         numeric_full=count(root/'numerics_logs/full_suite_final.xml')
         numeric_targeted=count(root/'numerics_logs/targeted.xml')
         assert numeric_full==595 and numeric_targeted==8
-        assert completion['numerics_v1_3_1']=='HOLD_FEASIBILITY_STAGE0'
+        assert completion['numerics_v1_3_1'] in ('HOLD_FEASIBILITY_STAGE0','HOLD_CANDIDATE_ADOPTION_AND_FULL_AUDIT')
         dependency=json.loads((root/'numerics_logs/post_run_dependency_check.json').read_text())
         assert dependency['in_preregistered_manifest'] is False and dependency['unchanged_against_run_commit'] is True
         assert digest(dependency['path'])==dependency['sha256_current']==dependency['sha256_at_run_commit']
@@ -85,6 +85,57 @@ def main():
                       numerics_status=numeric['status'],numerics_verification=str(numeric_path),
                       dependency_manifest_limitation='cut_value omitted; post-run verified against source commit; full-audit closure required',
                       calibration_cpu_seconds=numeric['cpu_seconds'])
+    capacity_path=root/'extended_capacity/candidate_verification.json'
+    if capacity_path.exists():
+        from experiments.lessons.report_stationary_candidates import candidate
+        from experiments.R3R_07_numerics.run import verify_prereg
+        candidates=json.loads(capacity_path.read_text())
+        raw=Path('results/R3R_numerics/20261029_02')
+        capacity=json.loads((raw/'capacity_verification.json').read_text())
+        verify_prereg(Path('experiments/R3R_07_numerics/prereg_extended_v2.json'))
+        assert capacity['CF_generated']==0 and capacity['n'] is capacity['confirmation_root'] is None
+        assert candidates['CF_generated']==0 and candidates['n'] is candidates['confirmation_root'] is None
+        assert candidates['numerical_adoption'] is candidates['global_accuracy_audit_completed'] is False
+        transfer=json.loads((root/'extended_capacity/gcp/transfer_verification.json').read_text())
+        assert transfer['status']=='PASS' and transfer['files_checked']==29
+        for p,h in json.loads((root/'extended_capacity/gcp/raw_export_manifest.json').read_text()).items():assert digest(p)==h,p
+        connection=json.loads((root/'extended_capacity/gcp_connection_receipt.json').read_text())
+        assert connection['temporary_rule_cleanup']=='DELETED_VERIFIED_API'
+        assert count(root/'extended_capacity/balanced_full_suite.xml')==633
+        assert count(root/'extended_capacity/gcp/full_suite.xml')==633
+        for row in candidates['candidate_rows']:
+            actual,_=candidate(row['candidate'])
+            assert actual==row
+            candidate_raw=Path(row['raw'])
+            for p,h in json.loads((candidate_raw/'artifact_index.json').read_text()).items():assert digest(p)==h,p
+        for p,h in json.loads((raw/'artifact_index.json').read_text()).items():assert digest(p)==h,p
+        total_cpu_lower=numeric['cpu_seconds']+capacity['cpu_seconds_lower']+sum(r['cpu_seconds'] for r in candidates['candidate_rows'])
+        assert completion['stationary_only_attempts']==6+capacity['attempted']+candidates['attempted']
+        assert completion['local_capacity_verification']==str(capacity_path)
+        assert completion['new_CF_regimes']==0 and completion['n'] is completion['confirmation_root'] is None
+        assert completion['numerical_candidates_adopted'] is False
+        result.update(status='VERIFIED_CAPACITY_RESULTS_NUMERICS_HOLD',full_tests=633,cloud_full_tests=633,
+                      test_results='633 full PASS local and independent cloud preflight; historical suites and interrupted baseline retained',
+                      baseline_v1_stationary_only_attempts=6,
+                      extended_baseline_attempts=capacity['attempted'],extended_baseline_completed=capacity['completed'],
+                      numerical_candidate_attempts=candidates['attempted'],numerical_candidate_completed=candidates['completed'],
+                      balanced_profile_attempts=candidates['balanced_profile_attempts'],
+                      balanced_profile_completed=candidates['balanced_profile_completed'],
+                      cloud_marginals_completed=sum(r['candidate']>=6 and r['status']=='COMPLETED' for r in candidates['candidate_rows']),
+                      stationary_only_attempts=completion['stationary_only_attempts'],
+                      original_baseline_distinct_completed=capacity['combined_stationary_completed'],
+                      stationary_unresolved=completion['stationary_unresolved'],
+                      baseline_distinct_unresolved=capacity['combined_stationary_total']-capacity['combined_stationary_completed'],
+                      candidate_adoption=False,global_audit_complete=False,
+                      numerics_status='HOLD_CANDIDATE_ADOPTION_AND_FULL_AUDIT',
+                      numerics_verification=str(capacity_path),baseline_v1_numerics_verification=str(numeric_path),
+                      dependency_manifest_limitation='historical v1 cut_value omission preserved; current candidate source manifests checked, full physical audit still pending',
+                      local_capacity_status=capacity['status'],local_capacity_verification=str(capacity_path),
+                      extended_baseline_verification=str(raw/'capacity_verification.json'),
+                      current_manifest_files={'extended_baseline':48,'sparse_candidate':59,'balanced_local':63,'balanced_cloud':64},
+                      GCP_used=True,GCP_started_by_agent=False,calibration_cpu_seconds=None,
+                      calibration_cpu_seconds_lower=total_cpu_lower,
+                      interrupted_attempt_final_metrics_known=False)
     (root/'verification.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     # The live stdout log and this index cannot hash their own final contents.
     index={str(p):digest(p) for p in sorted(root.rglob('*')) if p.is_file() and p.name!='artifact_index.json' and not p.name.endswith('audit.log')}
