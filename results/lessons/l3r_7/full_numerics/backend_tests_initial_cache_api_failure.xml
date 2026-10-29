@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="5" time="0.717" timestamp="2026-10-29T22:13:49.247063+07:00" hostname="vantai"><testcase classname="tests.test_population_complete_backend" name="test_pair_costs_match_exact_factorized_state_enumeration" time="0.001" /><testcase classname="tests.test_population_complete_backend" name="test_exact_mean_saturation_tie_is_not_decided_by_roundoff" time="0.001" /><testcase classname="tests.test_population_complete_backend" name="test_stale_expected_gap_agrees_with_original_forward_posterior" time="0.073"><failure message="TypeError: dict() got multiple values for keyword argument 'profiles'">tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-31/test_stale_expected_gap_agrees0')
+
+    def test_stale_expected_gap_agrees_with_original_forward_posterior(tmp_path):
+        from smr.cells import queue_D
+        from smr.stationary import r2_keep
+        from experiments.A00_engine.physical import side_from_law
+        unit,law,_=law_cache.get(F(7),F(1),F(1,10),1,tmp_path/'law')
+&gt;       side=profiles.get(F(7),F(1),F(0),F(1,10),F(1,40),1,unit,tmp_path/'profiles',cost_budget=F(1,10**9))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_population_complete_backend.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+lam = Fraction(7, 1), pre = Fraction(1, 1), post = Fraction(0, 1)
+kappa = Fraction(1, 10), h = Fraction(1, 40), ref = 1, unit = Fraction(1, 30)
+cache = PosixPath('/tmp/pytest-of-vantai/pytest-31/test_stale_expected_gap_agrees0/profiles')
+cost_budget = Fraction(1, 1000000000)
+progress = &lt;function &lt;lambda&gt; at 0x7d42efb66560&gt;
+
+    def get(lam,pre,post,kappa,h,ref,unit,cache,*,cost_budget='1/10000',progress=lambda *a,**k:None):
+        dt=F(1,120*ref);H=F(h)/dt
+        if H.denominator!=1:raise ValueError('physical horizon not on selected grid')
+        H=int(H);params=[str(F(x)) for x in (lam,pre,post,kappa,h,unit,F(cost_budget))]+[ref]
+        sources=[__file__,P.__file__,str(Path(P.__file__).with_name('native')/'piecewise.cpp'),'src/smr/stationary.py']
+        source=hashlib.sha256(''.join(hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in sources).encode()).hexdigest()
+        key=hashlib.sha256(json.dumps([params,source]).encode()).hexdigest();folder=Path(cache);folder.mkdir(parents=True,exist_ok=True)
+        meta=folder/(key+'.json');data=folder/(key+'.npz')
+        constructed=0.
+        with (folder/(key+'.lock')).open('a') as lock:
+            fcntl.flock(lock,fcntl.LOCK_EX)
+            if meta.exists():
+                record=json.loads(meta.read_text())
+                if record['source']!=source or record['parameters']!=params or hashlib.sha256(data.read_bytes()).hexdigest()!=record['sha256']:
+                    raise ValueError('cost profile checkpoint provenance/bytes mismatch')
+                arrays=np.load(data);profiles={}
+                for name,item in record['profiles'].items():
+                    profiles[name]=dict(modes=[(arrays[name+f'_x{m}'],arrays[name+f'_y{m}']) for m in (0,1)],error=P.LD(item['error']),peak_knots=item['peak_knots'])
+                progress('cost_profiles_cache_hit',key=key)
+            else:
+                children=resource.getrusage(resource.RUSAGE_CHILDREN)
+                started=time.process_time()+children.ru_utime+children.ru_stime
+                amounts=[(F(lam)+s*6+F(load)-10)*dt for s in (-1,1) for load in (pre,post)]
+                q=quantum([*amounts,unit]);factor=unit/q
+                if factor.denominator!=1:raise ArithmeticError('unaligned action lattice')
+                st=tuple(int((F(lam)+s*6+F(pre)-10)*dt/q) for s in (-1,1))
+                sw=tuple(int((F(lam)+s*6+F(post)-10)*dt/q) for s in (-1,1))
+                keep,ke=r2_keep(dt,F(kappa));scale=P.number(q*dt);raw_budget=P.number(F(cost_budget))/scale
+                progress('cost_profiles_started',parameters=params,H=H,increments_st=st,increments_sw=sw)
+                Wst=P.idle(H,st,keep,ke,error_budget_raw=raw_budget)
+                Wsw=Wst if F(pre)==F(post) else P.idle(H,sw,keep,ke,error_budget_raw=raw_budget)
+                d=P.combine(Wsw,Wst,subtract=True)
+                Mst=P.mean_idle(H,st,keep,ke);Msw=Mst if F(pre)==F(post) else P.mean_idle(H,sw,keep,ke)
+                dh=P.combine(Msw,Mst,subtract=True)
+                if F(pre)==F(post):
+                    for value in (d,dh):
+                        value['modes']=[(np.array([0,1],dtype=np.int64),np.zeros(2,dtype=P.LD)) for _ in (0,1)];value['error']=P.LD(0)
+                old_d=P.age(d,120*ref,st,keep,ke,error_budget_raw=raw_budget)
+                old_h=P.age(dh,120*ref,st,keep,ke,error_budget_raw=raw_budget)
+                profiles=dict(Wst=Wst,d=d,dh=dh,old_d=old_d,old_h=old_h)
+                flat={name+f'_{axis}{m}':value['modes'][m][i] for name,value in profiles.items() for m in (0,1) for i,axis in enumerate(('x','y'))}
+                temporary=folder/(key+'.tmp.'+str(os.getpid())+'.npz');np.savez(temporary,**flat);temporary.rename(data)
+                record=dict(parameters=params,source=source,quantum=str(q),factor=int(factor),scale=str(scale),H=H,dt=str(dt),
+                            increments_st=list(st),increments_sw=list(sw),
+                            saturation_cost=str((F(pre)-F(post))*dt*dt*H*(H+1)/2),
+                            saturation_OFF_max_index=max(-1,min(-st[0],-sw[0])) if F(lam)+max(F(pre),F(post))&lt;10 else -1,
+                            identical_actions=F(pre)==F(post),
+                            profiles={name:dict(error=str(v['error']),peak_knots=v['peak_knots'],knots=[len(x) for x,y in v['modes']]) for name,v in profiles.items()},
+                            sha256=hashlib.sha256(data.read_bytes()).hexdigest())
+                children=resource.getrusage(resource.RUSAGE_CHILDREN)
+                constructed=time.process_time()+children.ru_utime+children.ru_stime-started
+                record['cold_cpu_seconds']=constructed
+                meta.write_text(json.dumps(record,indent=2)+'\n');progress('cost_profiles_completed',key=key,profiles=record['profiles'])
+&gt;       return dict(**record,profiles=profiles,key=key,created_cpu_seconds=constructed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: dict() got multiple values for keyword argument 'profiles'
+
+experiments/R3R_08_population_numerics/profiles.py:74: TypeError</failure></testcase><testcase classname="tests.test_population_complete_backend" name="test_zero_action_population_preserves_all_six_exact_zeros" time="0.036"><failure message="TypeError: dict() got multiple values for keyword argument 'profiles'">tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-31/test_zero_action_population_pr0')
+
+    def test_zero_action_population_preserves_all_six_exact_zeros(tmp_path):
+&gt;       result=P.evaluate(['TOY_ZERO','8','8','1/10','0','1/40',1,16,'0'],tmp_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_population_complete_backend.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/R3R_08_population_numerics/population.py:88: in evaluate
+    A=side(lamA,u,F(0),kappa,h,ref,K,cache,progress)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/R3R_08_population_numerics/population.py:25: in side
+    costs=profiles.get(lam,pre,post,kappa,h,ref,unit,Path(cache)/'profiles',cost_budget=budget,progress=progress)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+lam = Fraction(8, 1), pre = Fraction(0, 1), post = Fraction(0, 1)
+kappa = Fraction(1, 10), h = Fraction(1, 40), ref = 1, unit = Fraction(1, 30)
+cache = PosixPath('/tmp/pytest-of-vantai/pytest-31/test_zero_action_population_pr0/profiles')
+cost_budget = Fraction(1, 16000000000)
+progress = &lt;function &lt;lambda&gt; at 0x7d42efb668d0&gt;
+
+    def get(lam,pre,post,kappa,h,ref,unit,cache,*,cost_budget='1/10000',progress=lambda *a,**k:None):
+        dt=F(1,120*ref);H=F(h)/dt
+        if H.denominator!=1:raise ValueError('physical horizon not on selected grid')
+        H=int(H);params=[str(F(x)) for x in (lam,pre,post,kappa,h,unit,F(cost_budget))]+[ref]
+        sources=[__file__,P.__file__,str(Path(P.__file__).with_name('native')/'piecewise.cpp'),'src/smr/stationary.py']
+        source=hashlib.sha256(''.join(hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in sources).encode()).hexdigest()
+        key=hashlib.sha256(json.dumps([params,source]).encode()).hexdigest();folder=Path(cache);folder.mkdir(parents=True,exist_ok=True)
+        meta=folder/(key+'.json');data=folder/(key+'.npz')
+        constructed=0.
+        with (folder/(key+'.lock')).open('a') as lock:
+            fcntl.flock(lock,fcntl.LOCK_EX)
+            if meta.exists():
+                record=json.loads(meta.read_text())
+                if record['source']!=source or record['parameters']!=params or hashlib.sha256(data.read_bytes()).hexdigest()!=record['sha256']:
+                    raise ValueError('cost profile checkpoint provenance/bytes mismatch')
+                arrays=np.load(data);profiles={}
+                for name,item in record['profiles'].items():
+                    profiles[name]=dict(modes=[(arrays[name+f'_x{m}'],arrays[name+f'_y{m}']) for m in (0,1)],error=P.LD(item['error']),peak_knots=item['peak_knots'])
+                progress('cost_profiles_cache_hit',key=key)
+            else:
+                children=resource.getrusage(resource.RUSAGE_CHILDREN)
+                started=time.process_time()+children.ru_utime+children.ru_stime
+                amounts=[(F(lam)+s*6+F(load)-10)*dt for s in (-1,1) for load in (pre,post)]
+                q=quantum([*amounts,unit]);factor=unit/q
+                if factor.denominator!=1:raise ArithmeticError('unaligned action lattice')
+                st=tuple(int((F(lam)+s*6+F(pre)-10)*dt/q) for s in (-1,1))
+                sw=tuple(int((F(lam)+s*6+F(post)-10)*dt/q) for s in (-1,1))
+                keep,ke=r2_keep(dt,F(kappa));scale=P.number(q*dt);raw_budget=P.number(F(cost_budget))/scale
+                progress('cost_profiles_started',parameters=params,H=H,increments_st=st,increments_sw=sw)
+                Wst=P.idle(H,st,keep,ke,error_budget_raw=raw_budget)
+                Wsw=Wst if F(pre)==F(post) else P.idle(H,sw,keep,ke,error_budget_raw=raw_budget)
+                d=P.combine(Wsw,Wst,subtract=True)
+                Mst=P.mean_idle(H,st,keep,ke);Msw=Mst if F(pre)==F(post) else P.mean_idle(H,sw,keep,ke)
+                dh=P.combine(Msw,Mst,subtract=True)
+                if F(pre)==F(post):
+                    for value in (d,dh):
+                        value['modes']=[(np.array([0,1],dtype=np.int64),np.zeros(2,dtype=P.LD)) for _ in (0,1)];value['error']=P.LD(0)
+                old_d=P.age(d,120*ref,st,keep,ke,error_budget_raw=raw_budget)
+                old_h=P.age(dh,120*ref,st,keep,ke,error_budget_raw=raw_budget)
+                profiles=dict(Wst=Wst,d=d,dh=dh,old_d=old_d,old_h=old_h)
+                flat={name+f'_{axis}{m}':value['modes'][m][i] for name,value in profiles.items() for m in (0,1) for i,axis in enumerate(('x','y'))}
+                temporary=folder/(key+'.tmp.'+str(os.getpid())+'.npz');np.savez(temporary,**flat);temporary.rename(data)
+                record=dict(parameters=params,source=source,quantum=str(q),factor=int(factor),scale=str(scale),H=H,dt=str(dt),
+                            increments_st=list(st),increments_sw=list(sw),
+                            saturation_cost=str((F(pre)-F(post))*dt*dt*H*(H+1)/2),
+                            saturation_OFF_max_index=max(-1,min(-st[0],-sw[0])) if F(lam)+max(F(pre),F(post))&lt;10 else -1,
+                            identical_actions=F(pre)==F(post),
+                            profiles={name:dict(error=str(v['error']),peak_knots=v['peak_knots'],knots=[len(x) for x,y in v['modes']]) for name,v in profiles.items()},
+                            sha256=hashlib.sha256(data.read_bytes()).hexdigest())
+                children=resource.getrusage(resource.RUSAGE_CHILDREN)
+                constructed=time.process_time()+children.ru_utime+children.ru_stime-started
+                record['cold_cpu_seconds']=constructed
+                meta.write_text(json.dumps(record,indent=2)+'\n');progress('cost_profiles_completed',key=key,profiles=record['profiles'])
+&gt;       return dict(**record,profiles=profiles,key=key,created_cpu_seconds=constructed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: dict() got multiple values for keyword argument 'profiles'
+
+experiments/R3R_08_population_numerics/profiles.py:74: TypeError</failure></testcase><testcase classname="tests.test_population_complete_backend" name="test_identical_model_policies_preserve_exact_model_gains" time="0.045"><failure message="TypeError: dict() got multiple values for keyword argument 'profiles'">tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-31/test_identical_model_policies_0')
+
+    def test_identical_model_policies_preserve_exact_model_gains(tmp_path):
+&gt;       result=P.evaluate(['TOY_IDENTICAL','7','8','1/10','1/2','1/40',1,16,'0'],tmp_path,identical_models=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_population_complete_backend.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/R3R_08_population_numerics/population.py:88: in evaluate
+    A=side(lamA,u,F(0),kappa,h,ref,K,cache,progress)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/R3R_08_population_numerics/population.py:25: in side
+    costs=profiles.get(lam,pre,post,kappa,h,ref,unit,Path(cache)/'profiles',cost_budget=budget,progress=progress)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+lam = Fraction(7, 1), pre = Fraction(1, 1), post = Fraction(0, 1)
+kappa = Fraction(1, 10), h = Fraction(1, 40), ref = 1, unit = Fraction(1, 30)
+cache = PosixPath('/tmp/pytest-of-vantai/pytest-31/test_identical_model_policies_0/profiles')
+cost_budget = Fraction(1, 16000000000)
+progress = &lt;function &lt;lambda&gt; at 0x7d42efb668d0&gt;
+
+    def get(lam,pre,post,kappa,h,ref,unit,cache,*,cost_budget='1/10000',progress=lambda *a,**k:None):
+        dt=F(1,120*ref);H=F(h)/dt
+        if H.denominator!=1:raise ValueError('physical horizon not on selected grid')
+        H=int(H);params=[str(F(x)) for x in (lam,pre,post,kappa,h,unit,F(cost_budget))]+[ref]
+        sources=[__file__,P.__file__,str(Path(P.__file__).with_name('native')/'piecewise.cpp'),'src/smr/stationary.py']
+        source=hashlib.sha256(''.join(hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in sources).encode()).hexdigest()
+        key=hashlib.sha256(json.dumps([params,source]).encode()).hexdigest();folder=Path(cache);folder.mkdir(parents=True,exist_ok=True)
+        meta=folder/(key+'.json');data=folder/(key+'.npz')
+        constructed=0.
+        with (folder/(key+'.lock')).open('a') as lock:
+            fcntl.flock(lock,fcntl.LOCK_EX)
+            if meta.exists():
+                record=json.loads(meta.read_text())
+                if record['source']!=source or record['parameters']!=params or hashlib.sha256(data.read_bytes()).hexdigest()!=record['sha256']:
+                    raise ValueError('cost profile checkpoint provenance/bytes mismatch')
+                arrays=np.load(data);profiles={}
+                for name,item in record['profiles'].items():
+                    profiles[name]=dict(modes=[(arrays[name+f'_x{m}'],arrays[name+f'_y{m}']) for m in (0,1)],error=P.LD(item['error']),peak_knots=item['peak_knots'])
+                progress('cost_profiles_cache_hit',key=key)
+            else:
+                children=resource.getrusage(resource.RUSAGE_CHILDREN)
+                started=time.process_time()+children.ru_utime+children.ru_stime
+                amounts=[(F(lam)+s*6+F(load)-10)*dt for s in (-1,1) for load in (pre,post)]
+                q=quantum([*amounts,unit]);factor=unit/q
+                if factor.denominator!=1:raise ArithmeticError('unaligned action lattice')
+                st=tuple(int((F(lam)+s*6+F(pre)-10)*dt/q) for s in (-1,1))
+                sw=tuple(int((F(lam)+s*6+F(post)-10)*dt/q) for s in (-1,1))
+                keep,ke=r2_keep(dt,F(kappa));scale=P.number(q*dt);raw_budget=P.number(F(cost_budget))/scale
+                progress('cost_profiles_started',parameters=params,H=H,increments_st=st,increments_sw=sw)
+                Wst=P.idle(H,st,keep,ke,error_budget_raw=raw_budget)
+                Wsw=Wst if F(pre)==F(post) else P.idle(H,sw,keep,ke,error_budget_raw=raw_budget)
+                d=P.combine(Wsw,Wst,subtract=True)
+                Mst=P.mean_idle(H,st,keep,ke);Msw=Mst if F(pre)==F(post) else P.mean_idle(H,sw,keep,ke)
+                dh=P.combine(Msw,Mst,subtract=True)
+                if F(pre)==F(post):
+                    for value in (d,dh):
+                        value['modes']=[(np.array([0,1],dtype=np.int64),np.zeros(2,dtype=P.LD)) for _ in (0,1)];value['error']=P.LD(0)
+                old_d=P.age(d,120*ref,st,keep,ke,error_budget_raw=raw_budget)
+                old_h=P.age(dh,120*ref,st,keep,ke,error_budget_raw=raw_budget)
+                profiles=dict(Wst=Wst,d=d,dh=dh,old_d=old_d,old_h=old_h)
+                flat={name+f'_{axis}{m}':value['modes'][m][i] for name,value in profiles.items() for m in (0,1) for i,axis in enumerate(('x','y'))}
+                temporary=folder/(key+'.tmp.'+str(os.getpid())+'.npz');np.savez(temporary,**flat);temporary.rename(data)
+                record=dict(parameters=params,source=source,quantum=str(q),factor=int(factor),scale=str(scale),H=H,dt=str(dt),
+                            increments_st=list(st),increments_sw=list(sw),
+                            saturation_cost=str((F(pre)-F(post))*dt*dt*H*(H+1)/2),
+                            saturation_OFF_max_index=max(-1,min(-st[0],-sw[0])) if F(lam)+max(F(pre),F(post))&lt;10 else -1,
+                            identical_actions=F(pre)==F(post),
+                            profiles={name:dict(error=str(v['error']),peak_knots=v['peak_knots'],knots=[len(x) for x,y in v['modes']]) for name,v in profiles.items()},
+                            sha256=hashlib.sha256(data.read_bytes()).hexdigest())
+                children=resource.getrusage(resource.RUSAGE_CHILDREN)
+                constructed=time.process_time()+children.ru_utime+children.ru_stime-started
+                record['cold_cpu_seconds']=constructed
+                meta.write_text(json.dumps(record,indent=2)+'\n');progress('cost_profiles_completed',key=key,profiles=record['profiles'])
+&gt;       return dict(**record,profiles=profiles,key=key,created_cpu_seconds=constructed)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: dict() got multiple values for keyword argument 'profiles'
+
+experiments/R3R_08_population_numerics/profiles.py:74: TypeError</failure></testcase></testsuite></testsuites>

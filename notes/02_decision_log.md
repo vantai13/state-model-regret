@@ -1488,3 +1488,38 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   [CSV](../results/lessons/l3r_7/extended_capacity/candidate_metrics.csv),
   [verification](../results/lessons/l3r_7/verification.json),
   [baseline partial](../results/lessons/l3r_7/extended_capacity/report.md).
+
+### DL-086 — Thực hiện đầy đủ L3R.7: đăng ký full population numerics trước chạy (29/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả yêu cầu “chạy đầy đủ hoàn thành
+  lesson này cho tôi đi”. Tiếp tục phần kỹ thuật còn DEFERRED; không biến yêu
+  cầu này thành xác nhận Understanding, human review hoặc quyền chạyCFPhase4.
+- Numerics route vẫn là lựa chọn mở trong contractv1.3. Chọn S1directπ, Stay
+  cost hEπQ có separate moment certificate, và K-quadrature giữ atom/tail đầy đủ.
+  Kernel Bellman giữ integer lattice/dynamics; piecewise compression có uniform
+  error riêng. Native dyadic products giữ80digits, residual và acceptance1e-10.
+  [Đặc tả/proof/phạm vi](design/population_numerics_v1_3_1_candidate.md).
+- 33tests component mới và2tests arithmetic/R6; **668fulltestsPASS local**.
+  Lỗi test ban đầu dùng decimal display thay exactbinary đã giữlog và sửa test;
+  cacheAPI duplicatekeyword đã sửa trước physicalcalibration, giữfailurelog.
+  Không nới probability/posterior/R1 thresholds hoặc đổi metric/card/measure.
+- [Prereg full01](../experiments/R3R_08_population_numerics/prereg.json):3legacy
+  replays +6native marginal regressions trước fullpopulation.114cases gồm104
+  corner/auditrecords đãkhai,8rational-rate designs cốđịnh (khôngrandomCFtrial),
+  2zero controls theo design. Mọicase cómain/coarseK/coarsedt. Globalcandidates
+  hữu hạn80/2→160/2→160/4; chọnfirstallready, nếukhông thìHOLD khôngtag/seed.
+- Chỉ xem numerical readiness/coverage/timing để chọnmức; không dùng tỷlệ
+  effect/harm thuậnlợi đểchọnn. Timing cold-componentcharges theo unique cache
+  keys; p95(methodhigher) của hai lớp corners/audit vàrationalrate lấy lớn hơn,
+  khai trước outcomes, không nhận là populationp95. B48CPUh vàluật n giữnguyên.
+- Calibration budget riêng12CPUh,3600CPU-s/4800wall-s/3GiBRSS/6GiBAS mỗijob.
+  Controllerđộc lập mỗi job tránh doublecount RUSAGE_CHILDREN; durable cloud
+  parent, đơnluồngBLAS; profile1→2 rồi tốiđa4 theo measuredmemorypool6GiB.
+  CF0/root0/nnull tới lúc cóclosure thật; không tự mởPhase4 hoặc sửa tags cũ.
+- GCPđangRUNNING do tácgiả bật. SSHrule tạmchỉcurrentIP/32,tcp22,targetVM;
+  sẽxóa saucollection. Builddependency libboost1.74-dev lấy quaapt vàextract
+  vào workspace riêng (khônginstallsystem/đổiCondaenvcũ),debSHA ghi prereg.
+  Môi trường riêngPython3.13.13/sáupackagepin; GCPphảiPASS668tests trướcrun.
+- Exposure mới chỉcác calibration đãkhai; sẽ reserve toàn bộjointkeys mới
+  trong collisioninventory trướcCFdraw. R09/R10giữniêmphong; frozen card/contract
+  và scorerprimary giữbyte. Thiết kế/nguồn đượccommit trước physicalrun mới.

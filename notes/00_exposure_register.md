@@ -824,3 +824,12 @@ không researchMC hoặc CFsampling. Hai rawcloudfolders tải về,29files kh�
 R09/R10khôngmở,CF0/root0/newjointoutcomes0; src/card/contract giữbyte. Chưa chọn
 globalK*/ref*/n hoặc tagv1.3.1. CloudVMdo tácgiả bật; temporarySSHrule/32tạo riêng
 để kết nối rồiđãxóa,không đổi rulecũ hoặc cloudsystem/Condaenv đang có.
+
+## L3R.7 — trước full population numerics, DL-086 (29/10/2026)
+
+Prereg full01 sẽcommit trước outcomes. Đăng ký3oldanchor replay,6marginal
+regressions và114populationcase records (104corner/audit+8fixedrational+2zero).
+Không sample thử từ Ω−; khôngCF/root/newseed. Các jointcalibration chưa thấy
+sẽ trở thành exposed discovery/calibration vàreserve trướcCFdraw. Numerical
+selection chỉ theo rules/time đãkhai, không theo pattern thuậnlợi. Giữ frozen
+card/contract vàR09/R10. Full668tests dùngoldregressiontoys vànewmath references.

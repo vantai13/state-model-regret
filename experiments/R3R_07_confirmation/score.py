@@ -25,6 +25,9 @@ def label_result(criterion, result):
     checks = [compare_levels(fine,result[k]) for k in ('coarse_K','coarse_dt')]
     ready = all(c['ready'] for c in checks) and result.get('arithmetic_pass') is True
     d = max(c['deltas'][metric] for c in checks if c['deltas'] is not None) if all(c['deltas'] for c in checks) else F(0)
+    # Arithmetic enclosures are separate from empirical refinement. Either can
+    # make a threshold unresolved; neither is silently treated as an exact tie.
+    d=max(d,F(fine.get('normalized_error',{}).get(metric,0)))
     # Exact threshold certificates, if any, must be validated by the audited adapter.
     return V.regime_label(criterion,F(fine[metric])/cf,d,r1_ready=ready,certified_exact=False)
 
