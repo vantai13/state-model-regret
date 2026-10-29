@@ -1417,3 +1417,7 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   Bất kỳ failure giữ raw và dừng chuỗi; không tự mở312global jobs, đổi source,
   tạo n/seed/CF/tagv1.3.1 hoặc suy certificate một law thành full accuracy.
   Đây tiếp tục calibration theo ủy quyền đo máy; GCP không khởi động.
+- Làm rõ trước execution03/04: raw worker chỉ lưu `posterior_errors`, không lưu
+  posterior point estimates. Vì vậy chỉ kiểm quantiles khớp và các error bounds
+  posterior đạt1e-8/law đạt1e-10; không tuyên bố posterior point estimates đã
+  đối chiếu trực tiếp. Không yêu cầu hai thuật toán có error bound bằng nhau.
