@@ -1072,3 +1072,10 @@ Báo cáo kết thúc L3.6: [freeze_report](../results/lessons/l3_6/freeze_repor
   giữ exactrationaltie, không sửaphysicalpilot. 1mutant bị mathguard từ chối phải
   ghi rõ cơ chế, không lẫn với runtimeerror hoặc assertionkill.
 - Audit chưa đóngPASS; Understanding/read-backOPEN,Phase4HOLD,G1giữ nguyên.
+
+
+Bổ sung DL-067 ngày29/10/2026: tiếp tục sau lần tác giả ngắt phiên. Không rerun
+các job đã hoàn tất. C3stationary X2065khớp vềmean nhưng SE=.103446939ppC>.1,
+giữ nguyênUNRESOLVED. Khai [precision extension](../experiments/R3R_02_audit/precision_extension.json)
+N=4×262144,seed mới đã cấp, trước khi chạy thêm. Đây là kiểm thêm sau quan sát,
+không sửaNđãkhóa hoặc ngưỡng, không gọi kết quả cũ là PASS.
