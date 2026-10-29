@@ -43,7 +43,16 @@ def quadrature(rid):
     write(out, row); print(json.dumps({'id': rid, 'K': 320, 'wall_s': row['wall_s']}))
 
 
+def escalation():
+    out = ROOT / 'results/lessons/l3r_3/numerical_escalation/X2065_ref2_K80.json'
+    if out.exists(): raise ValueError('preserve completed numerical escalation')
+    out.parent.mkdir(parents=True, exist_ok=True)
+    row, _ = B.P.evaluate(B.spec('X2065', 2, 80))
+    write(out, dict(row, audit_scope='one K doubling after failed original K20/K40 pair; prereg6499d7f'))
+    print(json.dumps({'id': 'X2065', 'ref': 2, 'K': 80, 'wall_s': row['wall_s']}))
+
+
 if __name__ == '__main__':
-    p = argparse.ArgumentParser(); p.add_argument('kind', choices=('precision', 'K320')); p.add_argument('--id', choices=('X1008', 'X1009'))
+    p = argparse.ArgumentParser(); p.add_argument('kind', choices=('precision', 'K320', 'escalation')); p.add_argument('--id', choices=('X1008', 'X1009'))
     a = p.parse_args()
-    precision() if a.kind == 'precision' else quadrature(a.id)
+    precision() if a.kind == 'precision' else escalation() if a.kind == 'escalation' else quadrature(a.id)
