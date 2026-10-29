@@ -1,7 +1,14 @@
 # Numerics v1.3.1 — bổ sung coverage từ L3R.7
 
-Người phụ trách: **Doan Van Tai** · 29/10/2026 · trạng thái **REQUIRED_NOT_EXECUTED**.
+Người phụ trách: **Doan Van Tai** · 29/10/2026 · trạng thái **STAGE0_EXECUTED_HOLD**.
 Đây là addendum, không sửa kế hoạch đã khóa trong contract-v1.3, không tạo tag mới.
+
+DL-078–079: đã đo probe degree1200/12000 theo prereg0efddcc. Cảba chưahoàn tất
+trong120CPU-s/job;hai degree12000 đạt khoảng2.21GiBRSS nhưng vẫnởnumpy_roots.
+312globaljobs chưa mở;κ3marginalPASS không auditκ3h16costs. Các yêu cầu coverage
+dưới đây vẫn phải đóng trước sampling. [Kết quả](../../results/lessons/l3r_7/numerics_report.md).
+Mục2 là snapshot lập luận trước run; nay runtime/RSS của feasibility probes có
+ởCSV,khôngchuyểnthành p95của toàn measure hoặc runtimecủa fullregime.
 
 1. Giữ coverage κ=3,h=16 của cả vùng control, các cực trị load và tám audit IDs.
    Góc κ/h không thay thế coverage theo độ phân giải của rate.

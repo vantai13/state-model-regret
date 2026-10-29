@@ -792,3 +792,14 @@ savedpilotCSV/pairs tại taga7435e9. Sẽđo6stationarymarginals thiết kếc�
 theoprereg,khôngjointoutcomes/tỉ lệMEETS ởrateinteriors. Coverage96corners/
 312jobs chỉmetadata; nếu gate0khôngPASS thìkhôngmởglobalcalibration.
 Không CF/root/sampletestđểđoengine,R09/R10khôngđụng; khôngthaymetric/measure.
+
+### L3R.7 — sau calibration, DL-079 (29/10/2026)
+
+Prereg0efddcc trước run. Đãrerun populationcostengine3lần trênoldanchorsX2065/
+X1008/X1009,đọcexpectedCSV/pairsstage1–2 tagfrozenđểso,4879pairs khớp. Đây
+outcomesđãthấyđược táilập,khôngnewjointregimeoutcomes. Sáu stationarymarginal
+attempts tínhlaw/certificate/quantile/posterior hoặcđụngCPUceiling; khôngJ/gap/
+regret/contrast/tỉlệMEETS ởrateinteriors. Metadata312globaljobs chỉcoverageplan,
+khôngexecute saugateHOLD. CF0/root0/MC0/R09R10outcomes0. Src/card/contractgiữbyte.
+595fulltests gồmoldregressionđãexposed;8newlimit tests chỉsynthetic subprocess.
+Lần gián đoạn saurun không làm rerun calibration; giữ raw9attempts vàUNRESOLVED.

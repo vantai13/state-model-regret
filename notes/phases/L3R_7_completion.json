@@ -1,16 +1,36 @@
 {
   "owner": "Doan Van Tai",
   "date": "2026-10-29",
-  "status": "PREPARATION_COMPLETE_SAMPLING_BLOCKED",
+  "status": "NUMERICS_ATTEMPTED_HOLD_FEASIBILITY",
   "lesson": "L3R.7 Parts 1–3",
-  "decisions": ["DL-075", "DL-076", "DL-077"],
+  "decisions": [
+    "DL-075",
+    "DL-076",
+    "DL-077",
+    "DL-078",
+    "DL-079"
+  ],
   "contract": "contract-v1.3",
   "card_commit": "1414d9299d767b2abd56642c4d56048867b83095",
   "frozen_contract_and_card_changed": false,
   "receipt_checker_fixed": true,
-  "tests": {"new_targeted": 38, "full_suite": 587, "negative_receipt_cases_rejected": 10},
-  "inventory": {"source_records": 308, "distinct_reserved_v13_keys": 245, "scope": "includes conservative reserves; non-v1.3/generic namespaces separate"},
-  "sampler": {"status": "TEST_ONLY_NO_ENGINE", "test_root": 318700001, "verification_draws": 10000, "kappa_below_point2_frequency": 0.625},
+  "tests": {
+    "new_targeted": 38,
+    "full_suite": 595,
+    "negative_receipt_cases_rejected": 10,
+    "numerics_targeted": 8
+  },
+  "inventory": {
+    "source_records": 308,
+    "distinct_reserved_v13_keys": 245,
+    "scope": "includes conservative reserves; non-v1.3/generic namespaces separate"
+  },
+  "sampler": {
+    "status": "TEST_ONLY_NO_ENGINE",
+    "test_root": 318700001,
+    "verification_draws": 10000,
+    "kappa_below_point2_frequency": 0.625
+  },
   "power_scenarios": 36,
   "dry_run_A": "SYNTHETIC_AND_UNPAIRED_PILOT_ADAPTER_PASS",
   "dry_run_C": "REFUSAL_TESTS_PASS; 3 real CLI refusals",
@@ -28,9 +48,9 @@
   "n_bnd": null,
   "confirmation_root": null,
   "new_CF_regimes": 0,
-  "new_research_engine_or_MC_runs": 0,
+  "new_research_engine_or_MC_runs": 3,
   "sealed_R09_R10": "coordinates reserved only; outcomes remain sealed",
-  "numerics_v1_3_1": "NOT_FROZEN",
+  "numerics_v1_3_1": "HOLD_FEASIBILITY_STAGE0",
   "D22_implementation_and_audit": "DEFERRED",
   "audit_L3R3": "HOLD",
   "realism": "HOLD_UNSOURCED; disposition at Gate3R",
@@ -47,5 +67,15 @@
   },
   "design": "notes/design/confirmation_v1_3.md",
   "report": "results/lessons/l3r_7/report.md",
-  "verification": "results/lessons/l3r_7/verification.json"
+  "verification": "results/lessons/l3r_7/verification.json",
+  "research_engine_scope": "three replays of previously seen population anchors; no new joint-regime outcomes; MC=0",
+  "stationary_only_attempts": 6,
+  "stationary_completed": 3,
+  "stationary_unresolved": 3,
+  "numerics_prereg_commit": "0efddcc6703c3d729eb005b6d36e65da783aeb84",
+  "numerics_verification": "results/R3R_numerics/20261029_01/verification.json",
+  "numerics_report": "results/lessons/l3r_7/numerics_report.md",
+  "numerics_cpu_seconds": 396.116187,
+  "global_calibration_jobs_not_run_by_stop_rule": 312,
+  "new_regime_population_outcomes": 0
 }

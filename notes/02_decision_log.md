@@ -1318,3 +1318,29 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   Giữ failed/partial vàtracephase. Đâybudgetcalibration riêng,khôngđổi B48CPUhCF.
 - Giữcard/contract/enginecore byte; khônghạ rategrid1/1000 hoặc tựđổi phươngpháp.
   Nếu khôngđạt, báoHOLD chứkhônggánconvergence smallness thànhtotalerrorbound.
+
+### DL-079 — Calibration đã chạy; giữ HOLD theo stop rule (2026-10-29)
+
+- Người phụ trách: **Doan Van Tai**. Prereg commit **0efddcc** trước mọi run;
+  full595/8numerics testsPASS. Đã hoàn tất9jobattempts trong1worker theoceiling.
+- X2065/X1008/X1009 replayPASS,scalarsvà**4879pairs** khớp, numericpaircolumns
+  theobitpattern sauparse. Không phải NPZcontainerbytes hoặc fullframeverification.
+- Stationary3/6complete(base,degree120,κ3/ref2);degree1200 vàhai degree12000
+  **UNRESOLVED/CPU_LIMIT**. Degree1200 dừngkhiLU437×437;degree12000A/B dừng
+  khinumpy_roots,CPU120.406/120.449s,RSSmẫu2267.4/2267.5MiB. KhôngvượttrầnRSS4GiB.
+- Tổng396.116CPU-s/394.422elapsed-s nối tiếp. Đâykhôngp95bundletime,khôngr của
+  measureCF,không chứng minh mọithuậttoán bấtkhảthi hoặcB48CPUh khôngđủ.
+- **HOLD_NUMERICS_FEASIBILITY** theo stoprule đãkhai:312conditionalglobaljobs
+  chưamở,khôngtagv1.3.1 hoặc K*/ref*/n/root/CF. Khôngnới ceiling sauquan sát,
+  khôngthay rounding/measure/route đểlấyPASS. Tailcost/fullaccuracy/dry-runB
+  vàD22/human/Gate3R giữmở. Muốnmethod/ceilingmới phải cóversion/DL trước runmới.
+- Tất cảfailed/partial/stdout/progress/resource được giữ. Cần engineering/audit
+  thuậttoán stationary ởresolutionđãkhóa trướcfullglobalaudit;κ3marginalcomplete
+  khôngchứng nhậnκ3h16costs. KhôngchấmHyp-MV/Hyp-SH hoặcđóngrealism/novelty.
+- Kiểm sau run phát hiện cut_value helperV13_step1/regime.py thiếu explicit45-file
+  manifest. Hash hiện tại khớp runcommit0efddcc;3anchorbitwisereplays cungcấp thêm
+  evidence. Ghi làpost-runcheck,khôngsửaprereg hồi tố. Fullaudit phải khóa complete
+  dependencyclosure; provenance này không đủ mởv1.3.1.
+- [Report](../results/lessons/l3r_7/numerics_report.md),
+  [CSV](../results/R3R_numerics/20261029_01/metrics.csv),
+  [JSON](../results/R3R_numerics/20261029_01/verification.json).

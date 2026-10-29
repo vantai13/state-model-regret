@@ -7,6 +7,16 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.7 — numerics đã đo, HOLD (29/10/2026, DL-078–079)
+
+Prereg0efddcc trước run9jobs. Full595/8targetedPASS;3legacyreplays khớp4879pairs
+theobitpattern. Stationary3/6complete;degree1200CPUlimit khiLU437×437,hai
+degree12000CPUlimit khinumpy_roots;maxRSSmẫu2267.5MiB,CPUtotal396.116s.
+312globaljobs chưa chạy theo stoprule;không K*/dt*/r/p95/n/root/CF/tagv1.3.1.
+Giữ UNRESOLVED,khôngnới ceiling hoặc hạgrid đểcứu. Phase4HOLD/G1;D22/humanOPEN.
+[Report](../results/lessons/l3r_7/numerics_report.md) ·
+[CSV](../results/R3R_numerics/20261029_01/metrics.csv).
+
 ## L3R.7 — bổ sung duyệt luật n và ngân sách máy (29/10/2026, DL-077)
 
 Tác giả trả lời “Đồng ý khóa luật này”,ủyquyền B/concurrency theo máy. Snapshot

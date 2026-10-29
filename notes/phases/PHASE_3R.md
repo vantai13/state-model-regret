@@ -1,5 +1,15 @@
 # Addendum triển khai — L3R.7, 29/10/2026
 
+**Cập nhật DL-078–079:** đã thực thi gate numerics,không còn chỉarithmetic.
+Prereg0efddcc trước9jobs;3/3legacyanchorskhớp,stationary3/6complete,3/6CPUlimit.
+595full/8numerics testsPASS;396.116CPU-s,2.21GiBmaxRSSmẫu.312globalcalibration
+jobs dừng trước activation theo prereg. Numericsv1.3.1HOLD_FEASIBILITY_STAGE0;
+chưa fullκ3h16costs/r/p95/D22/dry-runB. n/root/CF giữnull/0,Phase4HOLD/G1.
+[Report numerics](../../results/lessons/l3r_7/numerics_report.md),
+[CSV](../../results/R3R_numerics/20261029_01/metrics.csv).
+
+Snapshot chuẩn bị trước calibration:
+
 Phần chuẩn bị hoàn tất; **toàn bộ sampling gate chưa hoàn tất**. DL-075 sửa checker
 receipt thiếu manifest mà không sửa card/receipt; DL-076 ghi design/power/sampler/
 collision inventory/runner guard.587full/38targetedPASS;10kdraws test-only;

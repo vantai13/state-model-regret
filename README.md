@@ -2,7 +2,16 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Phase 3R — L3R.7 đã hoàn thành phần chuẩn bị, chưa sinh confirmation**
+**L3R.7 — numerics đã chạy, kết quả HOLD** (29/10/2026, DL-078–079):
+prereg `0efddcc` trước run; **595/595 full tests,8/8 numerics tests PASS**.
+Replay **3/3 anchor khớp**, stationary **3/6 hoàn tất,3/6 UNRESOLVED do CPU ceiling**.
+Hai probe degree12000 dừng ở numpy_roots, khoảng2.21GiBRSS; degree1200 dừng ở
+mpmath LU437×437. Tổng396.116CPU-s;312globaljobs chưa mở theo stop rule.
+**Chưa khóa v1.3.1, chưa cấp n/root/CF; Phase4 HOLD/G1.**
+[Báo cáo numerics](results/lessons/l3r_7/numerics_report.md) ·
+[Số đo CSV](results/R3R_numerics/20261029_01/metrics.csv).
+
+**Snapshot L3R.7 trước calibration — phần chuẩn bị hoàn tất, chưa sinh confirmation**
 (29/10/2026, DL-075–076): **587/587 full tests,38/38 targeted PASS**; sửa checker
 receipt thiếu manifest, giữ nguyên10file cardv1 và21file contract. Sampler dùng
 seed thử,10.000draws; inventory308records/245reservedv1.3keys; power36scenarios;

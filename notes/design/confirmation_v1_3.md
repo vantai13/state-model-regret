@@ -2,6 +2,12 @@
 
 Người phụ trách/người soạn: **Doan Van Tai** · 29/10/2026.
 Trạng thái: **PREPARATION_ONLY / N_RULE_ADOPTED_NUMERICS_DEFERRED** (DL-077).
+
+**Cập nhật DL-078–079:** gate numerics đã chạy9jobs sau prereg0efddcc;
+3legacyanchorskhớp,stationary3/6complete và3/6CPUlimit. Kết quả
+**HOLD_FEASIBILITY_STAGE0**;312globalcalibrationjobs chưa mở. Các mục fullaudit,
+timing/r/levels, n/root/CF phía dưới vẫn DEFERRED.
+[Report](../../results/lessons/l3r_7/numerics_report.md).
 Triển khai theo ba phần lesson; không phải prereg cuối hoặc Gate3R GO.
 Card v1 `1414d92` và contract v1.3 `3d2359b` giữ nguyên byte/tag.
 G1 không đổi; Phase4 HOLD; Understanding do tác giả tự đánh giá, vẫn OPEN.
@@ -207,7 +213,8 @@ tên prereg.json/regimes_cf.json chứa placeholders để tránh bị hiểu l�
 
 Numerics v1.3.1 phải phủ κ=3,h=16 **và** interior rational rate1/1000. Tính từ
 tham số λA=7.123,u=1.234 cho degree12000 so maxpilot24, ref2 không giảm degree;
-chưa chạy engine/RAM/timing. Không benchmark trên mẫu thử CF. Calibration phải
+DL-078–079 đã chạy marginalA/B:CPUlimit ởbước tìmnghiệm,RSSmẫu≈2.21GiB;
+chưa có timingcủafullregime hoặc p95measure. Không benchmark trên mẫu thử CF. Calibration phải
 khai design trước computation. Nếu đổi measure/rounding để giảm chi phí, cần
 cardv2+DL, không sửa ngầm cardv1.
 

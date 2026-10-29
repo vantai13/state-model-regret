@@ -1,6 +1,14 @@
 # L3R.7 — báo cáo thực hiện phần chuẩn bị confirmation
 
 Người phụ trách/người soạn: **Doan Van Tai** · 29/10/2026.
+
+**Kết quả mới nhất DL-078–079:** đã chạy9calibrationjobs theo prereg0efddcc;
+3legacyanchorskhớp và3/6stationarycomplete,3/6CPUlimit. Full595/8numerics tests
+PASS; tổng396.116CPU-s;312globaljobs chưa chạy theo stoprule. **Numerics HOLD**,
+chưa chọnK*/dt*/n/root/CF. Xem [report numerics](numerics_report.md) và
+[CSV thực đo](../../R3R_numerics/20261029_01/metrics.csv).
+Các số587/38 vàengine0 bên dưới là **snapshot của phần chuẩn bị trước calibration**.
+
 **Cập nhật DL-077 sau commit chuẩn bị c4b4bf5:** tác giả đã duyệt luật chọn n và
 ủy quyền chọn B/concurrency theo máy. Chọn **48CPU-giờ**, profile1worker rồi bắt
 đầu2/tốiđa4 khi đủRAM,1BLAS/OpenMPthread mỗiworker. n/root/CF vẫn chưa cấp.

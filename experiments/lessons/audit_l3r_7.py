@@ -60,6 +60,31 @@ def main():
                 test_results='recorded in preparation commit c4b4bf5; no full-suite rerun for metadata-only approval update',
                 remaining=['numerics v1.3.1 and actual coverage/timing/r',
                            'final n/seed/prereg/CF list','audited backend + dry-run B','D22 audit/human/Gate3R'])
+    numeric_path=Path('results/R3R_numerics/20261029_01/verification.json')
+    if numeric_path.exists():
+        numeric=json.loads(numeric_path.read_text())
+        from experiments.R3R_07_numerics.run import verify_prereg
+        verify_prereg(Path('experiments/R3R_07_numerics/prereg.json'))
+        assert numeric['legacy_exact_pass']==3 and numeric['stationary_attempts']==6
+        assert numeric['CF_generated']==0 and numeric['K_star'] is numeric['n'] is numeric['confirmation_root'] is None
+        assert numeric['status']=='HOLD_NUMERICS_FEASIBILITY'
+        numeric_full=count(root/'numerics_logs/full_suite_final.xml')
+        numeric_targeted=count(root/'numerics_logs/targeted.xml')
+        assert numeric_full==595 and numeric_targeted==8
+        assert completion['numerics_v1_3_1']=='HOLD_FEASIBILITY_STAGE0'
+        dependency=json.loads((root/'numerics_logs/post_run_dependency_check.json').read_text())
+        assert dependency['in_preregistered_manifest'] is False and dependency['unchanged_against_run_commit'] is True
+        assert digest(dependency['path'])==dependency['sha256_current']==dependency['sha256_at_run_commit']
+        raw=Path('results/R3R_numerics/20261029_01')
+        for p,h in json.loads((raw/'artifact_index.json').read_text()).items():assert digest(p)==h,p
+        result.update(status='VERIFIED_PROCESS_NUMERICS_HOLD',full_tests=numeric_full,
+                      numerics_targeted_tests=numeric_targeted,preparation_full_tests_historical=full,
+                      test_results='595 full / 8 numerics targeted PASS before calibration; original 587/38 retained historical',
+                      research_engine_runs=3,population_engine_scope='replay of three previously exposed anchors',
+                      stationary_only_attempts=6,stationary_unresolved=3,new_regime_population_outcomes=0,
+                      numerics_status=numeric['status'],numerics_verification=str(numeric_path),
+                      dependency_manifest_limitation='cut_value omitted; post-run verified against source commit; full-audit closure required',
+                      calibration_cpu_seconds=numeric['cpu_seconds'])
     (root/'verification.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     # The live stdout log and this index cannot hash their own final contents.
     index={str(p):digest(p) for p in sorted(root.rglob('*')) if p.is_file() and p.name!='artifact_index.json' and not p.name.endswith('audit.log')}
