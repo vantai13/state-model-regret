@@ -1,0 +1,47 @@
+{
+  "responsible": "Doan Van Tai",
+  "status": "DRAFT_PENDING_AUTHOR_CHOICE",
+  "version": "L4.5-screen-v1",
+  "purpose": "discovery feasibility only, no card verdict or population-frequency estimate",
+  "n": 60,
+  "alpha": "1/40",
+  "pi0": "1/2",
+  "haircut": "1/10",
+  "min_power": "1/2",
+  "max_unresolved": "1/20",
+  "max_boxes_per_candidate": 3,
+  "planning_method": "robust_conditional_multinomial",
+  "SV": {
+    "metric": "G_S",
+    "relation": ">=",
+    "threshold": "1/100",
+    "design": "two_region",
+    "p_minus_plan": "1/5",
+    "r_minus": "MEASURE_SEPARATELY_NOT_COPY_PLUS"
+  },
+  "SUB": {
+    "metric": "Gamma",
+    "relation": "<=",
+    "threshold": "-1/100",
+    "design": "one_region"
+  },
+  "unresolved": "exclude from conditional MEETS rate, enter r separately; no resolved points -> NO_RESOLVED",
+  "undefined": "report separately; reject planning until resolved or separate policy prereg, because power assumes UNDEFINED=0",
+  "weighting": "equal unique normalized physical keys; fixed haircut, no sample split or measure weighting in v1",
+  "baseline_filter": "report candidate-region GS_margin/deltaL10/recovery under a preregistered rho policy; no automatic card verdict change or discard when controller worsens",
+  "required_before_any_box_counts": [
+    "author-adopted and committed rules",
+    "complete native readiness for candidate support, not pilot substitutions",
+    "candidate-region baseline readiness and frozen rho policy",
+    "committed exact bounds and independent minus policy for SV",
+    "CF-v2 and R09/R10 guards",
+    "append-only max-three box ledger"
+  ],
+  "exposure": "Khi viết luật này tôi đã thấy các p̂ pilot minh họa trong PHASE_4: 72,8% cho một hộp vùng A, 94,9% cho dải δ. Chỉ thấy số trong nguồn; chưa tái tính bất kỳ hộp nào.",
+  "real_boxes_evaluated": 0,
+  "F1_unchanged": true,
+  "F2_max_cards": 2,
+  "F2_alpha_each": "1/40",
+  "F2_FWER_bound": "1/20",
+  "F1_union_F2_FWER_bound": "1/10"
+}
