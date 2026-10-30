@@ -1588,3 +1588,18 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Exposure hiện gồm toàn bộ calibration03 đã lưu; không CF/R09/R10 mới,
   không chọn mức bằng effect/harm thuận lợi. Nếu ba candidate không đủ thì
   báo HOLD đúng evidence; chưa tạo tag/n/root/CF khi numerics chưa đóng.
+
+### DL-090 — Candidate interval point evaluator và benchmark trên cache đã thấy (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Tiếp tục theo ủy quyền hoàn thiệnL3R.7;
+  recovery04 vẫn chạy nguyên source/prereg. Candidate riêng
+  `experiments/R3R_10_interval_evaluation/` đánh giá cùng stored-decimal spectral
+  sums bằng dyadic384bits, giữ law/certificate/posterior1e-8, không thay estimand.
+- Đã có11targetedtests so Fraction/reference/guards; đây chưa là adoption hoặc
+  fullnumericsPASS. [Derivation/scope](design/native_point_evaluation_candidate.md).
+- Trước benchmark khóa ba q916318/1341550/1450400 từ diagnosticDL088, cachedlaw
+  lambda7123/1000,managed617/500,kappa3,ref2; ba lượt mỗi evaluator trênlocal,
+  báo toàn bộ CPU/wall,median vàsetupcompile riêng. Chỉ đọc cache đã có và
+  kiểmSHA/source; không tạo law/jointoutcome/CF/seed mới, không claim cloudp95.
+- Candidate NOT_ADOPTED. Muốn dùng trong population phải version/prereg mới và
+  kiểm toàn batch; không đổi source114files của recovery04 hoặc sửa card/ngưỡng.
