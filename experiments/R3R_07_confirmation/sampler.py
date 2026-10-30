@@ -34,7 +34,7 @@ def inside(regime, region):
                for key, (lo, hi) in region['bounds'].items())
 
 
-def sample_region(root, name, region, n, taken, *, purpose, max_redraw=1000):
+def sample_region(root, name, region, n, taken, *, purpose, max_redraw=1000, steps=None):
     if isinstance(root, bool) or not isinstance(root, int) or root < 0:
         raise ValueError('nonnegative integer root required')
     if isinstance(n, bool) or not isinstance(n, int) or n < 0:
@@ -45,7 +45,7 @@ def sample_region(root, name, region, n, taken, *, purpose, max_redraw=1000):
     rows, redraws = [], 0
     while len(rows) < n:
         values = {key: draw(rng, *region['bounds'][key], region['measure'].get(key, 'pinned'), step)
-                  for key, step in STEP.items()}
+                  for key, step in (steps or STEP).items()}
         reg = dict(id=f'{name}:{len(rows) + 1:04d}', contract_id='contract-v1.3', role='confirmation',
                    **{key: str(value) for key, value in values.items()}, c_sw='0')
         validate(reg, primary=True)
@@ -62,11 +62,23 @@ def sample_region(root, name, region, n, taken, *, purpose, max_redraw=1000):
     return rows, redraws
 
 
+def card_steps(card):
+    """Rounding steps from the card's measure_rules (card v2, DL-095); card v1 gives exactly STEP."""
+    rounding = card.get('measure_rules', {}).get('rounding')
+    if rounding is None:
+        return dict(STEP)
+    steps = {key: F(rounding[key]) for key in STEP}
+    if any(step <= 0 for step in steps.values()):
+        raise ValueError('positive rounding steps required')
+    return steps
+
+
 def sample_all(root, card, n, bnd, taken, *, purpose):
     rows, redraws = [], {}
+    steps = card_steps(card)
     for name in ORDER:
         batch, count = sample_region(root, name, card['regions'][name],
-                                     bnd if name.endswith('BND') else n, taken, purpose=purpose)
+                                     bnd if name.endswith('BND') else n, taken, purpose=purpose, steps=steps)
         rows.extend(batch)
         redraws[name] = count
     return rows, redraws

@@ -72,3 +72,20 @@ def test_write_once(tmp_path):
     engine.write_once(tmp_path / 'x.json', dict(a=1))
     with pytest.raises(FileExistsError):
         engine.write_once(tmp_path / 'x.json', dict(a=2))
+
+
+def test_sampler_uses_card_v2_rounding_test_root_only():
+    from experiments.R3R_07_confirmation.sampler import sample_all, inside
+    from experiments.R3R_07_confirmation.common import TEST_RANGE
+    from experiments.R3R_14_lean_close.cards_v2 import load
+    card = load()
+    root = 318700001
+    assert root in TEST_RANGE                                            # never a confirmation root
+    rows, _ = sample_all(root, card, 5, 2, set(), purpose='TEST_ONLY_NO_ENGINE')
+    assert len(rows) == 4 * 5 + 2 * 2
+    for row in rows:
+        reg = row['regime']
+        assert inside(reg, card['regions'][row['origin_region']])
+        for key, step in (('lambdaA', F(1, 100)), ('lambdaB', F(1, 100)), ('u', F(1, 100)),
+                          ('kappa', F(1, 1000)), ('h', F(1, 120))):
+            assert (F(reg[key]) / step).denominator == 1
