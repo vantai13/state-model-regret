@@ -31,13 +31,15 @@ Feasibility rubric (written before the scan; thresholds of v1.2 reused as readin
                (Spearman >= 0.7) and the picture is stable under K and dt refinement.
 """
 from fractions import Fraction as F
+from functools import lru_cache
 import math
 import time
 
 import numpy as np
 
-from smr.cells import law_for, queue_D
+from smr.cells import lattice
 from smr.stationary import r2_keep
+from smr.stationary_spectral import SpectralLaw
 from experiments.A00_engine.physical import side_from_law
 from experiments.V13_step1.regime import cut_value
 
@@ -45,21 +47,69 @@ LD = np.longdouble
 COVERAGE = 1 - 1e-4
 
 
-def make_regime(lamA, lamB, kappa, eta, h, rid):
-    lamA, lamB, kappa, eta, h = map(F, (lamA, lamB, kappa, eta, h))
+def make_regime(lamA, lamB, kappa, eta, h, rid, age=1, amp=6):
+    """age = staleness of the observation (s); amp = ON/OFF background amplitude (+/-amp packet/s).
+    Defaults are the inherited plant (age 1 s, +/-6); other values are exploration-only extensions."""
+    lamA, lamB, kappa, eta, h, age, amp = map(F, (lamA, lamB, kappa, eta, h, age, amp))
     u = 2 * eta
-    if lamA - 6 < 0 or lamB - 6 < 0 or lamA + u >= 10 or lamB + u >= 10:
+    if lamA - amp < 0 or lamB - amp < 0 or lamA + u >= 10 or lamB + u >= 10:
         raise ValueError('regime outside the stable nonnegative two-mode family')
-    return dict(id=rid, kappa=kappa, eta=eta, u=u, age=F(1), ratesA=(lamA - 6, lamA + 6),
-                ratesB=(lamB - 6, lamB + 6), h=h, H_coarse=int(h * 120), lambdaA=lamA, lambdaB=lamB)
+    if lamA + amp + u <= 10 or lamB + amp <= 10:
+        raise ValueError('ON mode must overload each queue (otherwise the stationary law is a point mass)')
+    if age <= 0 or (age * 120).denominator != 1:
+        raise ValueError('age must be a positive multiple of the coarse dt 1/120 s')
+    return dict(id=rid, kappa=kappa, eta=eta, u=u, age=age, amp=amp, ratesA=(lamA - amp, lamA + amp),
+                ratesB=(lamB - amp, lamB + amp), h=h, H_coarse=int(h * 120), lambdaA=lamA, lambdaB=lamB)
+
+
+@lru_cache(None)
+def law(rates, u, kappa, ref):
+    """smr.cells.law_for with the two mode rates given explicitly (law_for fixes them at lam +/- 6)."""
+    dt = F(1, 120 * ref)
+    unit, inc = lattice(rates, u, dt)
+    return unit, SpectralLaw(inc, *r2_keep(dt, kappa))
+
+
+def queue_D(cell, which, ref):
+    """smr.cells.queue_D with tau = age/dt instead of the fixed 1 s; same arithmetic otherwise.
+    At age 1 and +/-6 it must agree bitwise with smr.cells.queue_D (tests/test_explore_v13.py)."""
+    rates = tuple(cell['rates' + which]); u = cell['u'] if which == 'A' else F(0); dt = F(1, 120 * ref)
+    unit, inc = lattice(rates, u, dt); index = cell['y' + which] / unit
+    if index.denominator != 1: raise ValueError('observation outside stationary sublattice')
+    tau = cell['age'] / dt
+    if tau.denominator != 1: raise ValueError('age is not a multiple of dt')
+    index = int(index); tau = int(tau); s, e = r2_keep(dt, cell['kappa'])
+    _, lw = law(rates, u, cell['kappa'], ref); prior, bound = lw.posterior(index)
+    size = index + tau * max(0, *inc) + 1
+    mass = np.zeros((size, 2), dtype=np.longdouble); support = np.zeros((size, 2), dtype=bool)
+    mass[index] = 1 - np.longdouble(prior), np.longdouble(prior); support[index] = True
+    p = np.longdouble(str(s.numerator)) / np.longdouble(str(s.denominator))
+    for _ in range(tau):
+        after = np.zeros_like(mass); active = np.zeros_like(support)
+        for m, a in enumerate(inc):
+            if a < 0:
+                after[0] += mass[:min(-a + 1, size), m].sum(dtype=np.longdouble) * np.array([p if m == 0 else 1 - p, p if m == 1 else 1 - p])
+                active[0] |= np.any(support[:min(-a + 1, size), m])
+                source = mass[-a + 1:, m]; reach = support[-a + 1:, m]; dest = slice(1, size + a)
+            elif a > 0:
+                source = mass[:-a, m]; reach = support[:-a, m]; dest = slice(a, None)
+                assert not np.any(support[-a:, m])
+            else: source = mass[:, m]; reach = support[:, m]; dest = slice(None)
+            for mode in (0, 1):
+                after[dest, mode] += source * (p if m == mode else 1 - p); active[dest, mode] |= reach
+        mass, support = after, active
+    assert not np.any(support & (mass == 0)), 'positive support underflow'
+    total = mass.sum(dtype=np.longdouble); assert abs(total - 1) < 1e-12
+    error = bound + float((tau * (8 + 2 * max(map(abs, inc))) + 4 * size) * np.finfo(np.longdouble).eps)
+    return unit, mass, support, error
 
 
 def observation_bins(cell, which, ref, K):
     rates = cell['rates' + which]
     u = cell['u'] if which == 'A' else F(0)
-    unit, law = law_for(sum(rates) / 2, u, cell['kappa'], ref)
-    N = law.plan['cutoff']
-    pmf = law.mass(N).sum(axis=1)
+    unit, lw = law(tuple(rates), u, cell['kappa'], ref)
+    N = lw.plan['cutoff']
+    pmf = lw.mass(N).sum(axis=1)
     cdf = np.cumsum(pmf)
     last = int(np.searchsorted(cdf, COVERAGE)) + 1
     pmf = pmf[:last]
@@ -138,9 +188,9 @@ def contrasts(L):
 
 def evaluate(spec):
     rid, lamA, lamB, kappa, eta, h, ref, K, *rest = spec
-    c_sw = F(rest[0]) if rest else F(0)
+    c_sw, age, amp = (*map(F, rest), *(F(0), F(1), F(6))[len(rest):])
     t0 = time.monotonic()
-    cell = make_regime(lamA, lamB, kappa, eta, h, rid)
+    cell = make_regime(lamA, lamB, kappa, eta, h, rid, age, amp)
     uA, repA, wA, trA = observation_bins(cell, 'A', ref, K)
     uB, repB, wB, trB = observation_bins(cell, 'B', ref, K)
     A = side_rows(cell, 'A', ref, repA, uA)
@@ -168,7 +218,7 @@ def evaluate(spec):
     G = contrasts(Lbar)
     C = Lbar['11']
     out = dict(id=rid, lambdaA=float(F(lamA)), lambdaB=float(F(lamB)), kappa=float(F(kappa)), eta=float(F(eta)),
-               h=float(F(h)), c_sw=float(c_sw), ref=ref, K=K, nA=len(repA), nB=len(repB), truncated_A=trA, truncated_B=trB,
+               h=float(F(h)), c_sw=float(c_sw), age=float(age), amp=float(amp), ref=ref, K=K, nA=len(repA), nB=len(repB), truncated_A=trA, truncated_B=trB,
                Cbar=C, Sbar=S, P_flip=P_flip, E_stakes_given_flip=flip_stakes / P_flip if P_flip > 0 else 0.0,
                P_wrong_ranking=wrong, P_reversal=P_rev, wall_s=time.monotonic() - t0)
     for g, val in G.items():
