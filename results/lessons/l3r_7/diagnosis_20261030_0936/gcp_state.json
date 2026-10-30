@@ -1,0 +1,21 @@
+{
+  "command": [
+    "gcloud",
+    "compute",
+    "instances",
+    "describe",
+    "dt4n-research-01",
+    "--project=project-6b9ba053-75ff-440b-a6b",
+    "--zone=asia-southeast1-b",
+    "--format=json(name,status,machineType,lastStartTimestamp,lastStopTimestamp)"
+  ],
+  "returncode": 0,
+  "checked_at": "2026-10-30T09:38:19.413389+07:00",
+  "instance": {
+    "lastStartTimestamp": "2026-10-29T19:19:08.186-07:00",
+    "lastStopTimestamp": "2026-10-29T09:53:31.081-07:00",
+    "machineType": "https://www.googleapis.com/compute/v1/projects/project-6b9ba053-75ff-440b-a6b/zones/asia-southeast1-b/machineTypes/n2-standard-8",
+    "name": "dt4n-research-01",
+    "status": "RUNNING"
+  }
+}

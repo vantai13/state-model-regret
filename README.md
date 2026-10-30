@@ -2,13 +2,15 @@
 
 Tác giả: **Doan Van Tai**.
 
-**L3R.7 — native05 đang chạy trên GCP, 30/10/2026 (DL-091–092):** local và cloud
-đều693testsPASS. Replay toàn9reference/marginal+114calibrationcases với interval
-fallback mới, giữ108source gốc/card/contract/ngưỡng. Lịch global resolution hữu
-hạn tới640/ref8 đãprereg; chưa numerics freeze/n/root/CF. Recovery04 giữpartial:
-112newreceiptsCOMPLETED,1UNRESOLVED do dừng có chủ đích;910exportfiles khớpSHA.
-[Prereg native05](experiments/R3R_11_native_population/prereg.json) ·
-[Trạng thái tự thu](results/lessons/l3r_7/full_numerics/native05/watcher_state.json).
+**L3R.7 — tạm dừng theo yêu cầu tác giả, 30/10/2026 (DL-094):** native05 đã
+kết thúc **HOLD**:286receiptsCOMPLETED,2lỗi JSONserialize ởCAL_CORNER_049/050,
+6972.840511CPU-s,peak183.691MiB. Local701testsPASS/GCPpreflight693PASS;
+2410exportfiles khớpSHA,3948same-levelcomparisons khớp trong arithmeticenclosures.
+Không còn researchworker; temporarySSHrule đãxóa,VMvẫnRUNNING. **Lesson7 chưa
+hoàn tất**, chưa v1.3.1/n/root/CF;Phase4HOLD. Các snapshot dưới đây là lịch sử.
+[Báo cáo tạm dừng](results/lessons/l3r_7/pause_report_20261030.md) ·
+[Metrics](results/lessons/l3r_7/full_numerics/native05/report/metrics.csv) ·
+[Prereg](experiments/R3R_11_native_population/prereg.json).
 
 **L3R.7 — bản đồng bộ ngày 30/10/2026:** đã lưu mã, thiết kế, prereg và các
 kết quả hiện có. Lần kiểm hash này xác nhận contract21/card10/numerical-source108

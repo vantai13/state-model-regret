@@ -1,6 +1,6 @@
 # Experiment index — evidence v1.2 và thiết kế population v1.3
 
-Người phụ trách: **Doan Van Tai** · cập nhật 29/10/2026 (L3R.6).
+Người phụ trách: **Doan Van Tai** · cập nhật 30/10/2026 (tạm dừng L3R.7).
 [Bản hiện hành](../README.md) · [Phase 3R](phases/PHASE_3R.md) ·
 [contract v1.3](01_definitions_v1_3.md). Kết quả A01/A04/A05 giữ
 [contract v1.2](01_definitions_v1_2.md) và [protocol cũ](design/v1_2_protocol.md).
@@ -22,6 +22,7 @@ Người phụ trách: **Doan Van Tai** · cập nhật 29/10/2026 (L3R.6).
 | R3R_07 / L3R.7 | Thiết kế confirmation có tránh chọn lại mẫu và đủ khả năng phân biệt? | Preparation/tooling + hypothetical power, không confirmation | **PREPARATION_COMPLETE / SAMPLING_BLOCKED**;587full/38targetedPASS ởc4b4bf5;10ktestdraws;308records/245reservedkeys;CF0/engine0;DL077luật n đãduyệt/B48CPU-giờ; n/root/numericsv1.3.1 chưa có | [Design](design/confirmation_v1_3.md),[budget](design/confirmation_compute_budget_v1.json),[power CSV](../results/lessons/l3r_7/preparation/power.csv),[report](../results/lessons/l3r_7/report.md),[completion](phases/L3R_7_completion.json) |
 | R3R_07_NUM / L3R.7 numerics | Engine hiện tại có giải được lattice1/1000 trong ceiling đăng ký? | Calibration/feasibility, chưa global numerical audit | **HOLD** DL078–079;prereg0efddcc;3anchorsPASS,3/6stationarycomplete,3/6CPUlimit;595full/8targetedPASS;312globaljobs chưa mở | [Prereg](../experiments/R3R_07_numerics/prereg.md),[metrics](../results/R3R_numerics/20261029_01/metrics.csv),[report](../results/lessons/l3r_7/numerics_report.md) |
 | R3R_07_CAP / L3R.7 capacity | Có thể giải các marginal lớn bằng candidate đã chứng nhận và GCP? | Numerical engineering/calibration, không confirmation | **BALANCED3/3 COMPLETE; NOT_ADOPTED**, DL084–085;local/cloud633tests mỗi nơi;cloud902,514/329,654s;v2B giữpartial,02ERROR/03–04khôngrun;fullaudit/n/root/CF cònHOLD | [Configs](../experiments/R3R_07_fast_stationary/),[CSV](../results/lessons/l3r_7/extended_capacity/candidate_metrics.csv),[report](../results/lessons/l3r_7/extended_capacity/candidate_report.md) |
+| R3R_11 / L3R.7 native05 | Global numerics có đủ để freeze? | Calibration/numerical engineering, không confirmation | **HOLD/PAUSED_BY_AUTHOR**,DL094;286complete/2JSONerrors;local701/GCP693testsPASS;CF0,khôngfreeze/n/root | [Prereg](../experiments/R3R_11_native_population/prereg.json),[CSV](../results/lessons/l3r_7/full_numerics/native05/report/metrics.csv),[pause report](../results/lessons/l3r_7/pause_report_20261030.md) |
 
 **Tên có phạm vi:** các script `run_v1_1_a1.py`, `run_v1_1_a4.py`, `run_v1_1_a5.py`
 là các bước A1/A4/A5 của quy trình dựng lưới v1.1, **không phải A01/A04/A05 của

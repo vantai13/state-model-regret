@@ -1,0 +1,23 @@
+{
+  "owner": "Doan Van Tai",
+  "utc": "2026-10-30T04:34:09.615337+00:00",
+  "cleanup_command": [
+    "gcloud",
+    "compute",
+    "firewall-rules",
+    "delete",
+    "dt4n-research-lesson7-ssh-20261029",
+    "--project=project-6b9ba053-75ff-440b-a6b",
+    "--quiet"
+  ],
+  "delete_exit_code": 0,
+  "verify_exit_code": 0,
+  "remaining_temporary_rules": [],
+  "status": "DELETED_VERIFIED_API",
+  "VM": {
+    "machineType": "https://www.googleapis.com/compute/v1/projects/project-6b9ba053-75ff-440b-a6b/zones/asia-southeast1-b/machineTypes/n2-standard-8",
+    "name": "dt4n-research-01",
+    "status": "RUNNING"
+  },
+  "VM_start_resize_stop_by_agent": false
+}

@@ -1,0 +1,105 @@
+{
+  "owner": "Doan Van Tai",
+  "checked_at": "2026-10-30T09:38:19.418007+07:00",
+  "scope": "Diagnosis only; no source changes, new engine runs or infrastructure mutations",
+  "local_hash_checks": [
+    {
+      "manifest": "notes/phases/contract_v1_3.lock.json",
+      "files": 21,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "manifest": "notes/phases/PHASE_3R_hypothesis_cards.lock.json",
+      "files": 10,
+      "mismatches": [],
+      "status": "PASS"
+    },
+    {
+      "manifest": "experiments/R3R_08_population_numerics/prereg_03.json",
+      "files": 108,
+      "mismatches": [],
+      "status": "PASS"
+    }
+  ],
+  "remote_receipts": {
+    "returncode": 0,
+    "stderr": "",
+    "remote": {
+      "receipts_total": 122,
+      "status_counts": {
+        "COMPLETED": 122
+      },
+      "non_completed": [],
+      "remote_source_check": {
+        "files": 108,
+        "mismatches": []
+      }
+    }
+  },
+  "gcp_state": {
+    "command": [
+      "gcloud",
+      "compute",
+      "instances",
+      "describe",
+      "dt4n-research-01",
+      "--project=project-6b9ba053-75ff-440b-a6b",
+      "--zone=asia-southeast1-b",
+      "--format=json(name,status,machineType,lastStartTimestamp,lastStopTimestamp)"
+    ],
+    "returncode": 0,
+    "checked_at": "2026-10-30T09:38:19.413389+07:00",
+    "instance": {
+      "lastStartTimestamp": "2026-10-29T19:19:08.186-07:00",
+      "lastStopTimestamp": "2026-10-29T09:53:31.081-07:00",
+      "machineType": "https://www.googleapis.com/compute/v1/projects/project-6b9ba053-75ff-440b-a6b/zones/asia-southeast1-b/machineTypes/n2-standard-8",
+      "name": "dt4n-research-01",
+      "status": "RUNNING"
+    }
+  },
+  "remote_workers": 0,
+  "remote_controllers": [],
+  "remote_progress": {
+    "utc": "2026-10-29T16:51:54.026931+00:00",
+    "completed": 122,
+    "active": [
+      "RATE_SH_EDGE_K3_H16"
+    ],
+    "queued": 0,
+    "cpu_seconds": 4060.270453,
+    "CF_generated": 0
+  },
+  "historical_tests_xml_checked": {
+    "tests": 672,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "tests_rerun_this_session": false,
+  "new_engine_runs": 0,
+  "new_MC_runs": 0,
+  "source_files_modified": 0,
+  "local_freeze_artifacts_present": {
+    "notes/design/numerics_v1_3_1.json": false,
+    "notes/phases/contract_v1_3_1.lock.json": false,
+    "notes/phases/CF_execution.lock.json": false,
+    "results/R3R_population_numerics/20261029_03/summary.json": false
+  },
+  "full02_max_sampled_RSS_MiB": 165.3125,
+  "full02_unresolved": [
+    {
+      "id": "RATE_SH_BASE_K3_H16",
+      "stage": "base",
+      "status": "UNRESOLVED",
+      "cpu_seconds": "171.006578",
+      "wall_seconds": "171.04460773900064",
+      "peak_rss_MiB": "134.05078125"
+    }
+  ],
+  "confirmation_generated": 0,
+  "n": null,
+  "confirmation_root": null,
+  "Phase4": "HOLD",
+  "causal_limit": "VM stop/start and absent processes are observed; reason for VM stop and exact worker termination are not established."
+}
