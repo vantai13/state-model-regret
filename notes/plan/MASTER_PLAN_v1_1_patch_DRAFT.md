@@ -6,7 +6,7 @@
 Người phụ trách: **Doan Van Tai**. AI (Claude) soạn theo lesson L3R.8 Bước 8 và PHASE_3R Phụ lục D.
 
 - **File gốc không bị sửa:** `~/dacn/quá trình thực hiện/MASTER_PLAN_RESEARCH.md` (v1.0, 06/10/2026, ngoài repo).
-- Tác giả áp bản vá này bằng tay sau khi duyệt.
+- Bản vá đã được AI áp thành file v1.1 mới (xem dòng đầu); tác giả có thể sửa tiếp trên file đó.
 - Nguyên tắc: bản tối thiểu, chỉ để MASTER PLAN không còn mâu thuẫn với PHASE_3R (file phase thắng, XIX.5).
 
 ## §0 Bảng trạng thái — thay các dòng sau
