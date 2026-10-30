@@ -1,0 +1,57 @@
+{
+ "owner": "Doan Van Tai",
+ "status": "CLOSED_WITH_DECLARED_SCOPE",
+ "version": "v1.3.1-lean",
+ "card_version": 2,
+ "decision": [
+  "DL-095",
+  "DL-096"
+ ],
+ "contract": "contract-v1.3",
+ "K_star": 640,
+ "ref_star": 4,
+ "dt_star": "1/480",
+ "S1_route": "direct_stationary_state",
+ "stay_cost_route": "exact_stationary_first_moment",
+ "quadrature_tail_policy": "retain q0 and exact complete probability; tail atom at zero gap beyond proved feature support; unbounded stay cost via separately certified stationary first moment; no renormalization",
+ "acceptance": "contract R1 (both coarse axes) + normalized arithmetic width <= 1/4000 + consistency within TOL_NUM=1/400 of Cref",
+ "calibration_cases": 118,
+ "calibration_all_pass": true,
+ "p95_bundle_cpu_seconds": 456.747064,
+ "fixed_validation_cpu_seconds": 2301.317688,
+ "allocation": {
+  "status": "RULE_EVALUATED_NOT_PREREG",
+  "n": 60,
+  "bnd": 15,
+  "planned_cpu_hours": "68045805191/1500000000"
+ },
+ "r_coverage_report": "results/lessons/l3r_7/lean_close/representation_selection.json",
+ "coverage": {
+  "kappa_3_h_16": true,
+  "rational_rate_resolution_1_100": true,
+  "interior_lattice_feasibility": true
+ },
+ "freeze_paths": [
+  "notes/design/numerics_v1_3_1_lean.json",
+  "experiments/R3R_14_lean_close/prereg.json",
+  "results/lessons/l3r_7/lean_close/numerics_selection.json",
+  "results/lessons/l3r_7/lean_close/timing_summary.json",
+  "results/lessons/l3r_7/lean_close/representation_selection.json",
+  "results/lessons/l3r_7/lean_close/replay_report.json",
+  "notes/phases/PHASE_3R_hypothesis_cards_v2.lock.json",
+  "experiments/R3R_14_lean_close/checks.py",
+  "experiments/R3R_14_lean_close/engine.py",
+  "experiments/R3R_14_lean_close/run.py",
+  "experiments/R3R_14_lean_close/analyze.py",
+  "experiments/R3R_14_lean_close/frame_v2.py",
+  "experiments/R3R_08_population_numerics/population.py",
+  "experiments/R3R_10_interval_evaluation/evaluator.py",
+  "experiments/R3R_05_contract/rules.py"
+ ],
+ "scope": [
+  "card v2 frame only (rates on the 1/100 grid); card v1 numerics stay open",
+  "R1/R7: refinement differences are diagnostics, not certified error bounds",
+  "escalation R3 for scoring: (640,4) -> (1280,4) -> (1280,8), computed only for regimes left UNRESOLVED",
+  "no CF outcome computed or read"
+ ]
+}

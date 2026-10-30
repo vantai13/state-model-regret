@@ -1,0 +1,42 @@
+{
+ "level": [
+  640,
+  4
+ ],
+ "bundles_cpu_seconds": {
+  "CAL_CORNER_001": 14.609121000000002,
+  "CAL_CORNER_002": 35.035979,
+  "CAL_CORNER_033": 20.527445999999998,
+  "CAL_CORNER_034": 28.632797,
+  "X2065": 59.291179,
+  "X1008": 5.690760000000001,
+  "RATE_SH_BASE_K1_10_H8_R": 135.338483,
+  "RATE_SH_BASE_K1_10_H16_R": 354.10035799999986,
+  "RATE_SH_BASE_K3_H8_R": 86.85538700000002,
+  "RATE_SH_BASE_K3_H16_R": 151.93759699999998,
+  "RATE_MV_EDGE_K1_10_H16_R": 194.44465899999997,
+  "RATE_MV_EDGE_K3_H16_R": 110.197632,
+  "RATE_SH_EDGE_K1_10_H16_R": 195.26783499999996,
+  "RATE_SH_EDGE_K3_H16_R": 122.14318799999998,
+  "RINT_MV_K1_10_H16": 304.30337599999996,
+  "RINT_MV_K3_H16": 111.74235700000001,
+  "RINT_SH_K1_10_H16": 456.747064,
+  "RINT_SH_K3_H16": 148.991668
+ },
+ "p95_by_class": {
+  "corner_audit": 59.291179,
+  "r_rate": 456.747064
+ },
+ "planning_p95_bundle_cpu_seconds": 456.747064,
+ "fixed_validation_cpu_seconds": 2301.317688,
+ "fixed_rule": "2 x max corner bundle (zero controls) + 3 anchors x 2 levels x max corner bundle + 4 x max r_rate bundle (identical-model checks, DL-093 rule)",
+ "budget_cpu_hours": 48,
+ "allocation": {
+  "status": "RULE_EVALUATED_NOT_PREREG",
+  "n": 60,
+  "bnd": 15,
+  "planned_cpu_hours": "68045805191/1500000000"
+ },
+ "rule": "DL-077 via power.select_allocation",
+ "caveat": "cold cache per bundle, local WSL2 machine, one call per bundle level; not a population p95"
+}

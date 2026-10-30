@@ -1713,3 +1713,25 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Giữ nguyên: card v1 byte; claim, vùng, measure, ngưỡng, α, π₀, R4/R5, verdict; contract v1.3; code tính
   122 file native05 (kiểm hash). Không engine trên CF, không R09/R10, không đổi r/mức/n/root sau khi rút.
   L3R.8 (D22, người đọc thật, realism, Gate 3R) và Phase 4 HOLD giữ nguyên. Cơ chế/validation là lesson sau.
+
+### DL-096 — Kết quả đóng gọn L3R.7: r = 1/100, card v2, numerics v1.3.1-lean (640, 4), n = 60 (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. AI (Claude) chạy theo DL-095; mọi luật đã commit ở `1c0cab0` trước khi tính.
+- Đối chiếu môi trường: 4 ca chạy lại trên local (Python 3.14) trùng **chính xác** native05 (GCP, Python 3.13).
+- Chọn r: 1/10, 1/20, 1/40 rớt vì RATE_MV_EDGE_K1_10_H16 (λA 7,483 → lưới) đổi Ḡ_S 0,66/0,66/0,41 pp;
+  **1/100 đạt** (lệch tối đa 0,145 pp, không đổi tiêu chí). Lưới 1/100 rẻ hơn 1/1000 khoảng 4–8 lần, không phải
+  1000 lần như kỳ vọng ban đầu.
+- Card v2 (`b62f329`, lock `dcfa01c`) = card v1 với bước λA/λB/u = 1/100; 9/9 kiểm L3R.6 đạt; card v1 nguyên byte, verify PASS.
+  Thay đổi sampler (`ebe81c9`) đã **revert** (`fc6accd`) vì sampler nằm trong manifest hash native05; card v2 dùng
+  sampler gốc với bước làm tròn đặt tạm trong `frame_v2.card_rounding`.
+- Numerics: 118 ca calibration (106 ca thô native05, 8 ca tốc độ lẻ làm tròn về 1/100, 4 điểm nội vùng bậc lớn nhất),
+  1062 phép tính, 0 UNRESOLVED.
+  - Theo luật đã khai, các mức (80,2), (160,2), (160,4), (320,4) lần lượt rớt ở 17, 9, 6, 2 ca. Ở (320,4) chỉ còn
+    CAL_CORNER_049/050, rớt vì cận số học ở láng giềng (160,4) là 2,77·10⁻⁴ > 1/4000.
+  - **(640, 4) đạt cả 118 ca** (dt = 1/480).
+- Thời gian (cache lạnh, local): p95 bundle 59 s (góc) / 457 s (tốc độ lẻ); chi phí cố định 2301 s.
+  `power.select_allocation` cho **n = 60, BND = 15**, dự toán 45,4 CPU-giờ ≤ 48.
+- Spec `notes/design/numerics_v1_3_1_lean.json`, tag `numerics-v1.3.1-lean` (local, chưa push), receipt riêng.
+  Phạm vi: chỉ cho card v2; numerics của card v1 vẫn mở. R1/R7: chênh lệch làm mịn là chẩn đoán, không phải cận
+  sai số được chứng nhận.
+- Chưa có outcome CF nào. L3R.8 (D22, người đọc thật, realism, Gate 3R) và Phase 4 HOLD giữ nguyên.

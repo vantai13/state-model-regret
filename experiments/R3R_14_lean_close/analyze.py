@@ -115,6 +115,11 @@ def main():
             for cid, why in list(r['failing'].items())[:12]:
                 print('   ', cid, why[:3])
         print('selected level:', level)
+        if level is not None:
+            write_once(OUT / 'numerics_selection.json',
+                       dict(rule=cfg['calibration']['selection'], candidates=cfg['calibration']['candidates'],
+                            selected_level=list(level), dt=str(F(1, 120 * level[1])), cases=len(report[-1:] and case_table(cfg)),
+                            report=report, status='SELECTED'))
 
 
 if __name__ == '__main__':
