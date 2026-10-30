@@ -930,3 +930,28 @@ tính CF/A05-T. Không outcome R09/R10 mới, không tái sinh CF, không đổi
 [Technical note](verification/l4_2/reading_note.md) ·
 [Report](../results/lessons/l4_2/report.md).
 T07 P4 chỉ có khung trống; không ghi AI-work thành bài tác giả hoặc Understanding PASS.
+
+
+## L4.3 — Native audit dừng đúng prereg, HOLD (30/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Phạm vi A466/AB218 do tác giả chọn; forecast
+AI soạn thay theo ủy quyền, không independent author prediction. Prereg ae174d0
+trước physical calls; resource amendment 35e902e và sealed guard 1db060f trước
+các calls tương ứng. Đã thấy 14 replay và native của ba điểm discovery đã lộ,
+đủ chín level rows: XM2S189, XM2S110, XM2X000. Đây là verification, G1.
+
+Part A 14/14, 126 trường khớp bit; native có hai PASS riêng tại điểm và một HOLD.
+XM2S110 đổi point estimate A→D nhưng R6 UNRESOLVED. XM2X000 fail Cref dt R1:
+0.3105391881% > 0.25%; không nới dung sai, không mở ca thứ tư/full/MC/budget.
+Không có ước lượng toàn vùng hoặc forecast score từ mẫu benchmark thiếu.
+
+Khi kiểm niêm phong chỉ dùng tọa độ thiết kế R09/R10; lần rg ban đầu cũng đã
+hiển thị metadata psi/p_sw/budget cũ, không dùng cho feature/design. XA097 quy
+age1 trùng physical key R10 nên SEALED_BLOCKED trước native; không tính outcome
+mới tại key đó. Giữ đủ 666 tọa độ/684 aliases: 2 PASS, 1 HOLD, 1 SEALED_BLOCKED,
+662 chưa chạy (680 aliases). Không tính CF mới hoặc outcome R09/R10 mới.
+
+[Forking #6–12](../results/lessons/l4_3/forking_paths.jsonl) ·
+[Báo cáo](../results/lessons/l4_3/report.md) ·
+[Ledger](../results/lessons/l4_3/execution_ledger/cases.csv).
+Nhãn audit tác giả chưa xác nhận; không dùng output HOLD để vẽ hộp/thêm card L4.5.

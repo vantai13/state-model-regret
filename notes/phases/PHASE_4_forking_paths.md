@@ -35,3 +35,21 @@ Số thứ tự 2–5 nối sau 0–1; `logged_utc` là lúc ghi, không giả l
 Giữ nguyên cardv2/CF/inventory và phần log L4.1. Các mốc .15/.1/.5/1% là descriptive
 thresholds đã có trong input, không native tolerance hoặc CF scoring mới. Cùng δ=.5
 còn 40AB/1A/1B; plurality8/18 không majority. Không xóa fork hoặc chỉ giữ kết quả thuận lợi.
+
+
+## Addendum L4.3 (30/10/2026) — #6–12, giữ mọi lần lỗi
+
+[Log máy đọc](../../results/lessons/l4_3/forking_paths.jsonl) giữ chi tiết #6–12.
+#6–9: input/exposure, prereg ae174d0, interruption/resume và diagnostic E11/coverage.
+#10: original XPR0D SIGXCPU (13/14 PASS,117 actual fields), amendment 35e902e
+chỉ tăng CPU để retry; failure gốc giữ nguyên. #11: R09/R10 coordinate check,
+XA097 trùng R10 nên sealed guard 1db060f trước native; không thay điểm khác.
+
+#12: retry thành công, Part A14/14/126bits; đã thấy native ba discovery keys,
+chín mức, một point flip A→D/R6 UNRESOLVED, và XM2X000 Cref dt R1 fail
+0.3105391881% >0.25%. Audit kỹ thuật HOLD, dừng trước ca thứ tư/full/budget/MC.
+Ledger vẫn đủ666/684, gồm1SEALED_BLOCKED và662distinct chưa chạy; không thu hẹp
+mẫu số để báo PASS. Forecast toàn scope NOT_EVALUABLE; CF/R09/R10 outcomes mới0.
+
+Không chọn baseline/card/budgetCF-v3/Gate4; G1. Nhãn audit tác giả và
+Understanding/P0-V10/L8 vẫn OPEN. [Report](../../results/lessons/l4_3/report.md).

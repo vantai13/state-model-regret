@@ -476,3 +476,23 @@ ghi append-only. G1; chưa native map audit/CF/R09R10 outcomes, E11/E12 chờ L4
 Understanding/ownership/P0-V10/L8 OPEN; không tự chọn baseline/card/CF-v3/Gate4.
 Có thể học L4.3; chưa chạy audit native hoặc chọn tolerance.
 [Report](../results/lessons/l4_2/report.md) · [Completion](phases/L4_2_completion.json).
+
+
+## L4.3 — Đã thực thi tới điều kiện dừng HOLD (30/10/2026)
+
+Prereg ae174d0 trước calls; tác giả chọn A466/AB218, tổng684aliases/666tọa độ.
+Part A14/14 và126/126bitfields PASS sau retry resource-only35e902e; giữ XPR0D
+SIGXCPU gốc. Recount10/10; fulltests779PASS100.17s. Sealed guard1db060f chặn
+XA097/P43_0628 trùng physical key R10 trước native, không đổi scope gốc.
+
+Native benchmark3/4,9rawrows,2PASS/1HOLD;40.116782CPU-s. XM2S110 point A→D,
+R6UNRESOLVED. XM2X000 fail frozen Cref dt R1:0.3105391881%>.25%, dù max five
+pilot/native shifts.196111pp và max contrast refinement.046850pp đều dưới.25pp.
+Raw arithmetic9/9True,validity9/9[],CF9/9False. Full/MC/budget/ca4 chưa chạy;
+forecasts NOT_EVALUABLE. Ledger2PASS/1HOLD/1SEALED_BLOCKED/662NOT_RUN, đủ666.
+
+TechnicalHOLD không phải MainRQ FALSIFY; G1, không CF hoặc sealed outcomes mới,
+không dùng nhãn cho L4.5. K2/K6 lịch sử còn thiếu; author label/Understanding/
+P0-V10/L8 giữ OPEN. Có thể học L4.4; xử lý numerical coverage với prereg mới
+trước dùng nhãn audit. [Report](../results/lessons/l4_3/report.md) ·
+[Completion](phases/L4_3_completion.json).

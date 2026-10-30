@@ -1,0 +1,89 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-30",
+  "status": "L4_3_EXECUTED_TO_PREREG_STOP_HOLD",
+  "technical_recommendation": "HOLD",
+  "author_audit_label": "NOT_CONFIRMED",
+  "provenance": "AI thực hiện theo ủy quyền; tác giả chọn scope; forecast AI soạn thay theo yêu cầu",
+  "commits": {
+    "initial_prereg": "ae174d0",
+    "resource_only_amendment": "35e902e",
+    "sealed_guard_before_native": "1db060f"
+  },
+  "scope": {
+    "A_aliases": 466,
+    "A_distinct": 450,
+    "AB_aliases": 218,
+    "AB_distinct": 216,
+    "total_aliases": 684,
+    "total_distinct": 666,
+    "sealed_blocked": 1,
+    "allowed_distinct": 665
+  },
+  "partA": {
+    "status": "PASS",
+    "passed_rows": 14,
+    "exact_float64_fields": 126,
+    "pilot_identity_checks": 10,
+    "original_attempt": "HOLD_RESOURCE_SIGXCPU",
+    "original_actual_fields": 117,
+    "retry_cpu_seconds": 945.816274361
+  },
+  "native": {
+    "status": "HOLD",
+    "benchmark_planned": 4,
+    "benchmark_completed": 3,
+    "completed_level_rows": 9,
+    "point_PASS": 2,
+    "point_HOLD": 1,
+    "arithmetic_true": 9,
+    "validity_empty": 9,
+    "CF_false": 9,
+    "cpu_seconds": 40.116782,
+    "wall_seconds": 42.47635854100372,
+    "reason": "XM2X000/P43_0000 fails frozen R1 on Cref dt difference",
+    "Cref_dt_difference_percent": 0.31053918811129205,
+    "Cref_limit_percent": 0.25,
+    "max_five_metric_pilot_native_shift_pp": 0.1961110258933272,
+    "class_flip": "XM2S110 A to D point estimate; R6 UNRESOLVED",
+    "sealed_blocked": "XA097/P43_0628 normalizes to R10; no new outcome computed",
+    "not_run_distinct": 662,
+    "not_run_aliases": 680
+  },
+  "full_audit": "NOT_RUN_AFTER_HOLD",
+  "fourth_benchmark": "NOT_RUN_AFTER_HOLD",
+  "budget": "NOT_CLOSED",
+  "MC": "NOT_RUN",
+  "forecasts": "NOT_EVALUABLE_PARTIAL_SCOPE",
+  "tests": {
+    "full_passed": 779,
+    "seconds": 100.17,
+    "new_tests": 22
+  },
+  "new_CF_outcomes": 0,
+  "new_native_sealed_R09_R10_outcomes": 0,
+  "G_level": "G1",
+  "L45_box_card_use": "BLOCKED_BY_AUDIT_HOLD",
+  "open": [
+    "Historical six K2 IDs unavailable",
+    "Original eight K6 probe file unavailable",
+    "Author audit label",
+    "Understanding/ownership",
+    "T07 P4 author addendum",
+    "P0-V10",
+    "L8",
+    "Four author decisions reserved by DL-103"
+  ],
+  "confirmed": "Sample bit reproducibility, pilot bookkeeping, three native input/source/identity checks; one Cref convergence failure at fixed levels",
+  "not_confirmed": [
+    "Full-map native accuracy",
+    "RQ/card hypothesis",
+    "Network realism",
+    "Mechanism",
+    "Novelty"
+  ],
+  "next": "May study L4.4; new numerical coverage prereg needed to resolve HOLD before using native labels for L4.5",
+  "report": "results/lessons/l4_3/report.md",
+  "metrics": "results/lessons/l4_3/report_data/pilot_native_metrics.csv",
+  "log": "results/lessons/l4_3/native_benchmark.log"
+}

@@ -1,0 +1,194 @@
+{
+  "responsible": "Doan Van Tai",
+  "technical_recommendation": "HOLD",
+  "author_audit_label": "NOT_CONFIRMED",
+  "prereg_commit": "ae174d0",
+  "parts": {
+    "partA/summary.json": {
+      "status": "PASS",
+      "rows": 14,
+      "passed": 14
+    },
+    "benchmark_summary.json": {
+      "status": "HOLD",
+      "planned": 4,
+      "completed": 3,
+      "cpu_seconds": 40.116782,
+      "wall_seconds": 42.47635854100372
+    }
+  },
+  "planned_native_distinct": 666,
+  "observed_native_distinct": 3,
+  "native_level_files": 9,
+  "native_completed_levels": 9,
+  "observed_class_flips": 1,
+  "failed_native_cases": [
+    "P43_0000"
+  ],
+  "zones": {
+    "A": {
+      "planned_rows": 466,
+      "planned_distinct": 450,
+      "observed_rows": 2,
+      "observed_distinct": 2,
+      "complete": false,
+      "class_flips": 1,
+      "pilot_A_to_other": 1,
+      "criterion_unresolved": 1,
+      "unresolved_observed_fraction": 0.5,
+      "unresolved_is_full_zone_estimate": false,
+      "metric": "G_S",
+      "shifts": {
+        "G_S": {
+          "n": 2,
+          "median": -0.06712589134759342,
+          "max_absolute": 0.0958190870252949,
+          "negative": 2,
+          "negative_fraction": 1.0
+        },
+        "G_M": {
+          "n": 2,
+          "median": -0.03306785173379341,
+          "max_absolute": 0.06631168340771969,
+          "negative": 1,
+          "negative_fraction": 0.5
+        },
+        "G_SM": {
+          "n": 2,
+          "median": -0.06452462626805129,
+          "max_absolute": 0.0925275646770985,
+          "negative": 2,
+          "negative_fraction": 1.0
+        },
+        "Gamma": {
+          "n": 2,
+          "median": 0.03566911681333577,
+          "max_absolute": 0.0696032057559164,
+          "negative": 0,
+          "negative_fraction": 0.0
+        },
+        "G_S_M1": {
+          "n": 2,
+          "median": -0.03145677453425798,
+          "max_absolute": 0.03669766779913696,
+          "negative": 2,
+          "negative_fraction": 1.0
+        },
+        "G_M_S1": {
+          "n": 2,
+          "median": 0.0026012650795423546,
+          "max_absolute": 0.0032915223481967105,
+          "negative": 0,
+          "negative_fraction": 0.0
+        }
+      },
+      "R6_fraction_note": "observed-only diagnostic; excludes neither validity failures nor uncomputed scope from reporting",
+      "unusable_validity_rows": 0,
+      "unknown_for_use_observed": 1
+    },
+    "AB": {
+      "planned_rows": 218,
+      "planned_distinct": 216,
+      "observed_rows": 1,
+      "observed_distinct": 1,
+      "complete": false,
+      "class_flips": 0,
+      "pilot_A_to_other": 0,
+      "criterion_unresolved": 0,
+      "unresolved_observed_fraction": 0.0,
+      "unresolved_is_full_zone_estimate": false,
+      "metric": "Gamma",
+      "shifts": {
+        "G_S": {
+          "n": 1,
+          "median": -0.0996696066294807,
+          "max_absolute": 0.0996696066294807,
+          "negative": 1,
+          "negative_fraction": 1.0
+        },
+        "G_M": {
+          "n": 1,
+          "median": 0.0991888092802134,
+          "max_absolute": 0.0991888092802134,
+          "negative": 0,
+          "negative_fraction": 0.0
+        },
+        "G_SM": {
+          "n": 1,
+          "median": 0.0964414192638485,
+          "max_absolute": 0.0964414192638485,
+          "negative": 0,
+          "negative_fraction": 0.0
+        },
+        "Gamma": {
+          "n": 1,
+          "median": 0.09692221661311581,
+          "max_absolute": 0.09692221661311581,
+          "negative": 0,
+          "negative_fraction": 0.0
+        },
+        "G_S_M1": {
+          "n": 1,
+          "median": -0.0027473900163641853,
+          "max_absolute": 0.0027473900163641853,
+          "negative": 1,
+          "negative_fraction": 1.0
+        },
+        "G_M_S1": {
+          "n": 1,
+          "median": 0.1961110258933272,
+          "max_absolute": 0.1961110258933272,
+          "negative": 0,
+          "negative_fraction": 0.0
+        }
+      },
+      "R6_fraction_note": "observed-only diagnostic; excludes neither validity failures nor uncomputed scope from reporting",
+      "unusable_validity_rows": 1,
+      "unknown_for_use_observed": 1
+    }
+  },
+  "completed_native_cpu_seconds": 40.116782,
+  "predictions_evaluable": false,
+  "CF_outcomes": 0,
+  "G_level": "G1",
+  "historical_K2": "UNVERIFIED: missing original six IDs",
+  "historical_K6": "UNVERIFIED: missing original eight probe file",
+  "use_for_L45": "BLOCKED",
+  "limitations": [
+    "Empirical refinement differences are not certified total error bounds",
+    "Raw validity guard can be stricter than lean confirmation adapter",
+    "Partial-zone proportions must not be read as full-zone estimates",
+    "Resource failures are not proof of a numerical or physical bug"
+  ],
+  "resource_amendment_commit": "35e902e",
+  "sealed_guard_commit": "1db060f",
+  "original_scope_distinct": 666,
+  "allowed_scope_distinct": 665,
+  "sealed_blocked": [
+    {
+      "native_id": "P43_0628",
+      "aliases": [
+        "XA097"
+      ],
+      "key": [
+        "15/2",
+        "8",
+        "1",
+        "3/5",
+        "4",
+        "0"
+      ],
+      "status": "SEALED_BLOCKED"
+    }
+  ],
+  "original_partA": "HOLD",
+  "original_partA_actual_bit_checks": 117,
+  "resource_resolved_partA_bit_checks": 126,
+  "raw_native_arithmetic_pass_count": 9,
+  "raw_native_validity_empty_count": 9,
+  "raw_native_CF_false_count": 9,
+  "report_note": "Point class/R6 interval classifications are not usable when R1/status fails; all L4.5 use blocked by audit HOLD",
+  "full_run": "NOT_RUN_AFTER_BENCHMARK_HOLD",
+  "budget": "NOT_CLOSED: benchmark stopped at case3 of4",
+  "MC": "NOT_RUN: R1 convergence already failed; no pilot/native shift exceeded.25pp; no new SUB card selected"
+}

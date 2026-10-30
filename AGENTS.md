@@ -230,3 +230,16 @@ T07_P4_author_addendum.md chỉ khung trống theo Part3§6 tác giả tự vi�
 author proof/Understanding PASS. Bảngδ đã lộ, forking#2–5; optionalA-by-δ NOT_RUN,
 chưa có author prediction. Không native audit/CF/R09R10/hộp mới, E11/E12 chờ L4.3;
 G1,P0-V10/L8/ownership OPEN, bốn quyết định DL103 giữ tác giả. Report results/lessons/l4_2/report.md.
+
+
+L4.3/30-10: thực thi tới prereg stop **HOLD**, không full-map PASS. Scope tác giả
+chọn A466/AB218=684aliases/666keys; prereg ae174d0. PartA14/14,126bitfields PASS;
+XPR0D SIGXCPU900s giữ nguyên, resource-only35e902e retry945.816CPU-s. Recount10/10,
+779fulltestsPASS100.17s. Sealed guard1db060f trước native chặnXA097/P43_0628
+physical key R10; scope gốc giữ đủ. Native benchmark3/4,9levels,2PASS/1HOLD,
+40.116782CPU-s; XM2S110 A→D estimate/R6UNRESOLVED. XM2X000 Cref dt .3105391881%
+>.25% nênR1HOLD dù shift max.196111pp/contrast refinement.046850pp đều≤.25pp.
+Raw9/9 arithmeticTrue/validity[]/CFfalse; khôngca4/full/MC/budget/CF/newsealedoutcomes.
+Ledger2PASS/1HOLD/1SEALED_BLOCKED/662NOT_RUN,666keys/684aliases; forecastsNOTEVALUABLE.
+K2sixIDs/K6eightfileUNVERIFIED; author auditlabel/Understanding/P0-V10/L8OPEN.
+G1, L4.5box/cardBLOCKED; có thể họcL4.4. Report results/lessons/l4_3/report.md.

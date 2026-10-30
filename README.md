@@ -2,7 +2,18 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.2, 30/10/2026:** hoàn tất phần kỹ thuật đọc map: 8/8 golden checks,
+**Hiện tại — L4.3, 30/10/2026: HOLD theo điều kiện dừng đã đăng ký.**
+Part A 14/14 replay và 126/126 trường khớp bit; 779 full tests PASS (100.17 s).
+Native benchmark chạy 3/4 điểm, đủ 9 level rows: 2 PASS, 1 HOLD tại XM2X000
+vì Cref lệch theo dt **0.310539% > 0.25%**. XM2S110 có point estimate A→D,
+nhưng R6 còn UNRESOLVED. XA097 trùng physical key R10 được chặn trước native.
+Giữ toàn scope 666 tọa độ/684 aliases; full audit, MC, CF và ca benchmark thứ tư
+chưa chạy. G1, chưa dùng nhãn cho L4.5 hoặc đóng Understanding/P0-V10/L8.
+[Báo cáo và số đo](results/lessons/l4_3/report.md) ·
+[Pilot/native CSV](results/lessons/l4_3/report_data/pilot_native_metrics.csv) ·
+[Completion](notes/phases/L4_3_completion.json).
+
+**Snapshot L4.2, 30/10/2026:** hoàn tất phần kỹ thuật đọc map: 8/8 golden checks,
 2/2 implementation mutants KILLED, 26 test mới và 757 full tests PASS (85.29 s),
 10/10 numeric checks. 18/18 age pairs cùng lớp (max 0.200989 pp); AB không đồng nhất,
 δ không phải luật tất định. T07 P4 là khung trống cho tác giả tự viết;
