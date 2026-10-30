@@ -1595,7 +1595,7 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   recovery04 vẫn chạy nguyên source/prereg. Candidate riêng
   `experiments/R3R_10_interval_evaluation/` đánh giá cùng stored-decimal spectral
   sums bằng dyadic384bits, giữ law/certificate/posterior1e-8, không thay estimand.
-- Đã có11targetedtests so Fraction/reference/guards; đây chưa là adoption hoặc
+- Đã có12targetedtests so Fraction/reference/guards/fast-path; đây chưa là adoption hoặc
   fullnumericsPASS. [Derivation/scope](design/native_point_evaluation_candidate.md).
 - Trước benchmark khóa ba q916318/1341550/1450400 từ diagnosticDL088, cachedlaw
   lambda7123/1000,managed617/500,kappa3,ref2; ba lượt mỗi evaluator trênlocal,
@@ -1603,3 +1603,8 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   kiểmSHA/source; không tạo law/jointoutcome/CF/seed mới, không claim cloudp95.
 - Candidate NOT_ADOPTED. Muốn dùng trong population phải version/prereg mới và
   kiểm toàn batch; không đổi source114files của recovery04 hoặc sửa card/ngưỡng.
+
+- DL-090 execution note: lần chuẩn bị đầu gọi systemPython thiếu mpmath; prereg
+  chưa được ghi nên benchmark entrypoint từ chối ở check_committed trước đọc law.
+  Giữ benchmark_resource/WORKER_FAILED (0.333CPU-s), không có phép đánh giá mới.
+  Đã chuyển đúng .venv, commit prereg trước lần đánh giá lại; không sửa run lỗi.
