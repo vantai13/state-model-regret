@@ -1690,3 +1690,26 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Kiểmkhôngownedworkers/controllers. TemporarySSHrule đãxóa/APIxácnhận;VMvẫn
   RUNNING,agentkhôngstart/resize/stopVM. Pushmain thường, khôngforce/amendtag.
   [Pause report](../results/lessons/l3r_7/pause_report_20261030.md).
+
+### DL-095 — Đóng L3R.7 bằng đường gọn: card v2 đổi bước làm tròn tốc độ, numerics theo R1 của contract (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả dán một hướng dẫn do phiên AI khác viết ("confirmation vẫn
+  giữ, nhưng làm gọn"; card v2 nếu lưới 1/1000 là nguyên nhân bùng nổ chi phí) và yêu cầu nguyên văn
+  “bạn hãy làm theo hương dẫn và đống lesson này giúp tôi đi”, rồi chốt phạm vi “tôi chỉ muốn đóng lesson 7
+  này thôi, làm sao cho phù hợp đi”. VM GCP: “tôi đã tắt rồi bạn yên tâm”. AI soạn và chạy theo ủy quyền;
+  không phải human review, không ghi tác giả đã dự đoán hay đọc card ([nguyên văn](../results/lessons/l3r_7/lean_close/author_choices.json)).
+- Lý do đo được: trên native05 ca tốc độ lưới thô 0,2–1 s/mức, ca tốc độ 1/1000 230–780 s/mức; theo luật
+  DL-077 (n ≥ 30, 48 CPU-giờ) card v1 sẽ HOLD_BUDGET kể cả khi numerics đóng. Tính lại native05 chỉ bằng
+  R1 của contract: (160,2) 107/114 đạt, (160,4) 49/49 đạt, không ca nào vi phạm đồng nhất thức > 0,25 pp.
+- Quyết định:
+  - **card v2** = card v1, chỉ đổi bước làm tròn λA/λB/u thành r chọn theo luật khai trước (thô nhất trong
+    {1/10, 1/20, 1/40, 1/100} mà 8 ca tốc độ lẻ lệch ≤ 1/400 và không đổi tiêu chí);
+  - **numerics** chọn mức đầu tiên trong thứ tự native05 mà mọi ca calibration qua R1 (hai trục),
+    sai số số học ≤ 1/4000 và kiểm nhất quán theo TOL_NUM × C̄ (thay cho cận số học);
+  - n, kiểm cố định và dry-run theo đúng DL-077/DL-093.
+
+  Mọi luật nằm trong [prereg](../experiments/R3R_14_lean_close/prereg.json) và
+  [ghi chú](design/l3r7_lean_close.md), commit **trước** mọi phép tính của bước này.
+- Giữ nguyên: card v1 byte; claim, vùng, measure, ngưỡng, α, π₀, R4/R5, verdict; contract v1.3; code tính
+  122 file native05 (kiểm hash). Không engine trên CF, không R09/R10, không đổi r/mức/n/root sau khi rút.
+  L3R.8 (D22, người đọc thật, realism, Gate 3R) và Phase 4 HOLD giữ nguyên. Cơ chế/validation là lesson sau.
