@@ -1,0 +1,122 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "DESIGN_ONLY_AWAITING_VERIFIED_GLOBAL_LEVELS",
+  "parent_design": "results/lessons/l3r_7/full_numerics/native05/fixed_validation_design.json",
+  "parent_sha256": "5ecba1b58c2271f8a60354c768372e358821043ddee56a6fca9541205e28a6f6",
+  "dry_run_B_discovery_cases": {
+    "MV+A": [
+      {
+        "id": "CAL_CORNER_033",
+        "parameters": [
+          "7",
+          "8",
+          "1/10",
+          "1/2",
+          "12",
+          "0"
+        ],
+        "origin_region": "MV+A"
+      },
+      {
+        "id": "CAL_CORNER_034",
+        "parameters": [
+          "7",
+          "8",
+          "1/10",
+          "1/2",
+          "16",
+          "0"
+        ],
+        "origin_region": "MV+A"
+      }
+    ],
+    "SH+A": [
+      {
+        "id": "CAL_CORNER_001",
+        "parameters": [
+          "7",
+          "6",
+          "1/10",
+          "1/2",
+          "8",
+          "0"
+        ],
+        "origin_region": "SH+A"
+      },
+      {
+        "id": "CAL_CORNER_002",
+        "parameters": [
+          "7",
+          "6",
+          "1/10",
+          "1/2",
+          "16",
+          "0"
+        ],
+        "origin_region": "SH+A"
+      }
+    ]
+  },
+  "identical_model_timing_cases": [
+    {
+      "id": "RATE_MV_EDGE_K1_10_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7483/1000",
+        "8",
+        "1/10",
+        "187/250",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_MV_EDGE_K3_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7483/1000",
+        "8",
+        "3",
+        "187/250",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_SH_EDGE_K1_10_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7997/1000",
+        "6999/1000",
+        "1/10",
+        "747/1000",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_SH_EDGE_K3_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7997/1000",
+        "6999/1000",
+        "3",
+        "747/1000",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    }
+  ],
+  "timing_case_selection": "four predeclared rational-rate edge designs, both card families at kappa .1/3,h16; selected by coordinates and runtime stress, no effect/harm outcome use",
+  "fixed_cost_policy": "record legacy anchor costs; main-level zero controls/new anchors from verified calibration; measure identical-model main calls; use four times the maximum cold-adjusted identical-call cost as a conservative planning charge for first-two-per-positive-region checks; report measured actuals and planning charges separately",
+  "no_CF_sampling_or_engine_on_test_seeds": true,
+  "Phase4": "HOLD"
+}

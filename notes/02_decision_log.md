@@ -1651,3 +1651,24 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Giữ tổng calibration budget12CPUh với carryledger03/04; tốiđa13levels/case
   (1482populationevaluations nếu chạy hết), stopbudget/resource/error cũ vẫn có
   hiệu lực. Nếu không đủ thì ghi HOLD có evidence; không tự tạo v1.3.1/n/root/CF.
+
+### DL-093 — Khóa design validation/timing còn thiếu trước khi chọn global levels (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Trong khi full05 còn chạy, chốt design-only
+  cho bước sau numerical selection; chưa chạy engine bổ sung hay tạo freeze/n/seed.
+  File `full_numerics/native05/fixed_validation_design_v2.json` giữ checksum bảnv1.
+- Dry-run B chỉ dùng bốn discovery coordinates đã có trong pilot: hai ID
+  lexicographic đầu, không trùng physical key, trong mỗi MV+A/SH+A và đồng thời
+  nằm trong calibration. Kết quả chọn bằng metadata: CAL_CORNER_033/034 và001/002.
+  Không chọn theo giá trị gain/harm; không dùng mẫu thử từ measure hoặc CF.
+- Timing bookkeeping identical-model dùng bốn rational-rate edge designs đã
+  đăng ký: MV/SH × kappa.1/3,h16. Đây stress/timing trên calibration đã thấy,
+  không là dry-runB hoặc estimatep−. Dùng same validated levels/source sau selection;
+  GM vàGM|S1 phải zero chính xác. Ghi actual và cold-component planning charges
+  riêng; fixed planning cho bốn checks lấy4×maximum cold-adjusted measuredcall.
+- Cộng controls/anchors hai mức từ real receipts và measured candidate timings;
+  không điền số giả vào fixedcost. Chỉ freezev1.3.1 khi fullaudit/coverage/validations
+  đủ evidence; dry-runB/scorer sau freeze, rồi mới áp luật n/commitroot/prereg/CFlist.
+- R1/card/CF-R3/B48/Phase4/human/Understanding giữ nguyên. Bản này không phải
+  confirmation prereg hoặc evidence hypothesis; mọi physical call sau phải có
+  source/design/levels/resource prereg cụ thể commit trước execution.
