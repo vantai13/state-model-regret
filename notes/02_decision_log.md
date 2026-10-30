@@ -1565,3 +1565,26 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   process237625 sau khoảng26CPU-s, không coi là prereg experiment hoặcPASS.
   Diagnostic sau chỉ đọc completedprofiles; không có profileB thì ghi chưa có.
   Các diagnostic không phải dữ liệu confirmation. Raw/diagnostic được giữ riêng.
+
+### DL-089 — Tác giả yêu cầu hoàn tất L3R.7; khôi phục full03 trên GCP (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả yêu cầu “tôi muốn chạy và hoàn thành
+  lesson 7 luôn ... cá nhân hay server gcp của tôi và tự bạn hoàn thiện luôn đi”.
+  Chọn GCP đang có môi trường/cache; không resize/start VM hoặc mở Phase4.
+- Kiểm trực tiếp: VM đã stop/start, SSH hiện PASS, không controller/worker;
+  122 receipts COMPLETED =9 reference/marginal+113/114 base, chưa refinement,
+  chưa final summary. Vì sao VM dừng chưa xác định. Giữ nguyên interrupted03.
+  Sao lưu1087files từ03/preflight, SHA256 khớp; SCP từng file timeout được giữ
+  partial, chuyển tar stream thành công. Không biến progress cũ thành live state.
+- Đăng ký recovery04 trước execution, controller mới ở
+  `experiments/R3R_09_numerics_resume/`;108 estimator files cũ giữ byte. Kiểm
+  snapshot/receipt/kind/level trước reuse, ca hạ tầng ngắt chạy lại ở output04;
+  sau đó thực hiện đúng schedule80/2→160/2→160/4,114cases, ngưỡng và stoprule cũ.
+  Không reuse failed/empty payload. Parent raw không sửa/ghi đè.
+- Bảo toàn budget12CPUh: tính4060.270453CPU-s của122receipt cũ và dự phòng
+  3605CPU-s cho ca ngắt thiếu final CPU; CPU thật của ca này vẫn unknown.
+  Dùng luật RAM đã khóa, tốiđa4workers/1BLASthread. Cloud phải PASS680tests
+  (672 cũ+8 recovery regression) trước computation. Code/prereg commit trước run.
+- Exposure hiện gồm toàn bộ calibration03 đã lưu; không CF/R09/R10 mới,
+  không chọn mức bằng effect/harm thuận lợi. Nếu ba candidate không đủ thì
+  báo HOLD đúng evidence; chưa tạo tag/n/root/CF khi numerics chưa đóng.
