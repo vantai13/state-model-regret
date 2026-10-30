@@ -184,3 +184,18 @@ Record và recount đã có; E11/E12/K2 chưa audit; chưa thiết kế baseline
 DL-103 áp numbering theo lựa chọn tác giả, không ký thay bốn quyết định khoa học.
 Record → DL-103 → exposure/forking phải được commit trước native audit L4.3 Part B
 hoặc tính hộp mới L4.5. P0-V10, L8, author-written mục8 và Understanding còn OPEN.
+
+## 9. Addendum kiểm chứng và nhãn provenance (cùng ngày, sau ba commit prerequisite)
+
+21/21test mới và731/731full suite PASS (84.52s);10/10recountchecks PASS.
+Full tests là regression/fixture, không native audit mới trên map hoặc CF run.
+[Báo cáo](../../results/lessons/l4_1/report.md) ·
+[Integrity check](../../results/lessons/l4_1/integrity_check.json) ·
+[CSV giả](../../results/lessons/l4_1/synthetic_fixture.csv).
+
+| Nhãn provenance | Áp dụng trong phiên này |
+|---|---|
+| Tác giả viết | Chưa có bài viết riêng cho mục8; không gán nhãn này cho record |
+| Author-attested | Không có attestation tự đọc/tự hiểu mới; lịch sử cũ giữ nguyên |
+| AI soạn, tác giả duyệt/chọn | DL-103: tác giả chọn rõ numbering v1.2; không suy ra tác giả kiểm mọi số trong record |
+| AI theo ủy quyền | Code, fixture, recount, phân loại, errata, record và log; chưa author verification |

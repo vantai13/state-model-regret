@@ -208,3 +208,14 @@ ngoại suy h12 FALSIFY, **K5 bị bác ở R04** (GM/Cref.528%), C1 đứng R05
 10 ô R đã mở là dữ liệu đã thấy; R09/R10 niêm phong; "R10" trong output là khóa regret.
 Không chạy lại A05-T. Kỳ vọng tác giả trước run/người đọc thật: không có. Gate A (L3.8) do
 tác giả chọn; Phase4 HOLD tới P0-V10; L8/T05/Understanding OPEN. Report results/lessons/l3_7/report.md.
+
+L4.1/30-10 (DL-103): tác giả chọn v1.2 trực tiếp: **Phase4(hợp nhất discovery),
+Phase5(confirmation),Phase6(mechanism)**; bảng ánh xạ6dòng ở PHASE_4_entry_decision.md.
+Không sửa số trong văn bản frozen; D22 trước phase mechanism, L8 trước finalnovelty,
+P0-V10 OPEN trước CF. Record7385015→DL87d6f83→exposurec3aa70b. Recounttag574a36f:
+1430→1376,54duplicatekhớp;10checks/21newtests/731fulltestsPASS;A301/B43/AB161/
+J14/C334/D523. q90A2.444124%,nearAB33(<.1pp)/24(<.05pp),X2065C,MV+A11C7B.
+DiscoveryG1, khôngnativeaudit/CF/hộpmới;E11/E12/K2chờL4.3,8unsavedprobes chưa
+chứng minh làK6. Mục8recordAIsoạn, chưa tácgiảtựviết/hiểu;P0-V10/L8/Understanding
+OPEN. Baseline+luậtđọc,số/vùngcard,CF-v3budget,Gate4chỉtácgiảchọn. ThiếuPHASE_4.md
+v1.1/góinativeprobe,khôngtựnhậnđãápfullplan. Report results/lessons/l4_1/report.md.

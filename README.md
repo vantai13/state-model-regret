@@ -2,6 +2,16 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Hiện tại — L4.1,30/10/2026 (DL-103):** đã lập record regime map và exposure/forking#0;
+tác giả chọn **v1.2: Phase4(hợp nhất discovery),5(confirmation),6(mechanism)**.
+Recount1430→1376,54duplicate khớp;10/10checks,21test mới và731fulltests PASS.
+Đây là discovery, G1; E11/E12 chưa audit native, mục tác giả tự viết/Understanding
+và P0-V10/L8 còn OPEN. Chưa có outcome CF mới hoặc baseline/card mới.
+[Report/số đo/log](results/lessons/l4_1/report.md) ·
+[Record](notes/phases/PHASE_4_regime_map_discovery_record.md) ·
+[DL-103/ánh xạ phase](notes/phases/PHASE_4_entry_decision.md).
+Các mục dưới là snapshot lịch sử, dùng nghĩa phase cũ trừ khi có ghi ánh xạ.
+
 **L3R.7 — tạm dừng theo yêu cầu tác giả, 30/10/2026 (DL-094):** native05 đã
 kết thúc **HOLD**:286receiptsCOMPLETED,2lỗi JSONserialize ởCAL_CORNER_049/050,
 6972.840511CPU-s,peak183.691MiB. Local701testsPASS/GCPpreflight693PASS;

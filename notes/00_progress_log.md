@@ -443,3 +443,18 @@ Quyết định:
 
 AI chọn theo ủy quyền; tác giả xác nhận ngoài vở phần tự đọc/viết (author-attested, không lưu nội dung).
 Không engine/CF outcome mới; G1. [Gate note](phases/PHASE_3R_gate_note.md) · [Closeout](phases/PHASE_3R_closeout.md).
+
+## L4.1 — Regime map re-entry, phần kỹ thuật hoàn tất (30/10/2026, DL-103)
+
+Đã đọc ba input, ghim tag574a36f, viết recount từgitblobs và record8mục/errataE1–E14.
+1430raw→1376,54duplicate khớp;A301/B43/AB161/J14/C334/D523. q90A=2.444124%,
+near-substitution33/161(<.1pp),24/161(<.05pp);X2065=C;MV+A11C/7B.
+10/10checks,21newtests,731fulltestsPASS84.52s;58receiptentries ở4locks và12CF
+preregartifacts khớp (có overlap, không cộng thành70file phân biệt).
+
+Tác giả trả lời chọnv1.2:Phase4hợpnhất,5confirmation,6mechanism. Record7385015→
+DL10387d6f83→exposure/forkingc3aa70b, trước nativeaudit/hộpmới. Khôngmergeexplore,
+khôngCF/R09/R10outcomes;G1. E11/E12/K2chưaaudit;8unsavedprobes chưa link đượcK6.
+Mục8/tựhiểu tácgiả chưa làm;P0-V10/L8OPEN;baseline/card/CFv3/Gate4do tácgiảchọn.
+ThiếuPHASE_4.mdv1.1, áp đúng ba lesson, không tự nhận fullplan. HọcL4.2được.
+[Report](../results/lessons/l4_1/report.md) · [Completion](phases/L4_1_completion.json).

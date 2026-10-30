@@ -1,0 +1,49 @@
+{
+  "responsible": "Doan Van Tai",
+  "status": "PASS",
+  "recount": {
+    "tag_pinned": true,
+    "duplicates_exact": true,
+    "archived_table_matches": true,
+    "S11_state": true,
+    "S11_model": true,
+    "S07_S08": true,
+    "Gamma_lower_bound": true,
+    "S12": true,
+    "inventory_covers_all_raw": true,
+    "inventory_distinct_count": true
+  },
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_p4_01_recount.py",
+      "exit_code": 0,
+      "passed": 21,
+      "log": "results/lessons/l4_1/targeted_tests.log"
+    },
+    {
+      "command": ".venv/bin/python -m experiments.P4_01_recount.recount_map --out results/P4_01_recount/20261030_01",
+      "exit_code": 0,
+      "log": "results/lessons/l4_1/recount.log"
+    },
+    {
+      "command": ".venv/bin/python -m experiments.P4_01_recount.verify_artifacts",
+      "exit_code": 0,
+      "output": "results/lessons/l4_1/integrity_check.json"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "passed": 731,
+      "seconds": 84.52,
+      "log": "results/lessons/l4_1/full_tests.log"
+    }
+  ],
+  "routine_issues": [
+    "python executable not on PATH (127); used existing .venv/bin/python",
+    "default git whitespace check saw byte-preserved CRLF (2); cr-at-eol check passed"
+  ],
+  "limitations": [
+    "Not a native map audit or confirmation",
+    "No new human authorship/understanding attestation"
+  ]
+}
