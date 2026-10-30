@@ -2,6 +2,13 @@
 
 Tác giả: **Doan Van Tai**.
 
+**L3R.7 — recovery04 đang chạy trên GCP, 30/10/2026 (DL-089):** local và cloud
+đều680testsPASS. Đã sao lưu1087files full03/preflight, SHA256 khớp; khôi phục
+122receipts hợp lệ và chạy nốt ca hạ tầng bị ngắt, rồi tiếp tục lịch refinement
+đã đăng ký.108estimatorfiles/card/contract giữ byte; chưa numerics freeze/n/root/CF.
+[Prereg recovery](experiments/R3R_09_numerics_resume/prereg.json) ·
+[Trạng thái tự thu](results/lessons/l3r_7/full_numerics/recovery04/watcher_state.json).
+
 **L3R.7 — bản đồng bộ ngày 30/10/2026:** đã lưu mã, thiết kế, prereg và các
 kết quả hiện có. Lần kiểm hash này xác nhận contract21/card10/numerical-source108
 khớp; không chạy lại thí nghiệm. Preflight GCP gần nhất ghi **672 tests PASS**.

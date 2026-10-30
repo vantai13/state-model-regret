@@ -7,6 +7,14 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L3R.7 — recovery04 đang chạy trên GCP (30/10/2026, DL-089)
+
+680testsPASS local vàGCP. Đã sao lưu1087files03/preflight và soSHA256;122receipts
+COMPLETED đượckiểm/reuse. Ca bịngắt đãxong, tiếp tục đúng114cases và candidates
+80/2→160/2→160/4; không đổi108estimatorfiles/ngưỡng/card/contract. Cócollector+
+independentrescorer; chưa freezev1.3.1, n/root/CF. Xem
+[watcher](../results/lessons/l3r_7/full_numerics/recovery04/watcher_state.json).
+
 ## L3R.7 — capacity local/GCP và balanced candidate (29/10/2026, DL-084–085)
 
 Local633tests/GCP633testsPASS. Sau candidate02 không certify normalizer, giữ
