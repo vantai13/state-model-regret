@@ -1794,3 +1794,28 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   - không phải REFORMULATE/PIVOT/DROP, vì không có bằng chứng estimand sai hay tín hiệu đã mất.
 - Ba bảng, hash và điều kiện vào Phase 4: [gate note](phases/PHASE_3R_gate_note.md).
 - G1 không đổi. Phase 4 mở sau Bước 0 (runner) và P0-V10.
+
+### DL-103 — Mở Phase 4 (hợp nhất discovery), numbering v1.2 (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả yêu cầu triển khai cả ba phần L4.1;
+  AI soạn [entry decision](phases/PHASE_4_entry_decision.md), trình hai phương án
+  rồi nhận lựa chọn nguyên văn **“Chọn v1.2: Phase 4 hợp nhất, Phase 5 confirmation,
+  Phase 6 mechanism (khuyến nghị)”** ([record](../results/lessons/l4_1/author_decision.json)).
+  Đây là lựa chọn của tác giả; phần lời giải/record do AI soạn không được nâng
+  thành tác giả tự viết hoặc Understanding PASS.
+- Có hiệu lực từ DL này: **Phase 4 (hợp nhất discovery)** → **Phase 5 (confirmation)**
+  → **Phase 6 (mechanism)** → Phase 7 (independent validation) → Phase 8 (practical
+  relevance) → Phase 9 (synthesis + final novelty audit) → Phase 10 (paper).
+  Bảng ánh xạ sáu dòng ở entry decision; số cũ trong DL-097–102, contract/card
+  frozen và MASTER PLAN v1.1 ngoài repo giữ nguyên. Luôn đọc kèm tên phase.
+- D22 có hạn **trước phase mechanism**, nay Phase 6; L8 trước final novelty audit,
+  nay Phase 9; P0-V10 OPEN trước lần tính CF đầu tiên ở Phase 5 (confirmation).
+  Đây là ánh xạ tên, không thay nội dung amendment hay scientific thresholds.
+- Baseline và luật đọc; số/vùng card mới; ngân sách CF-v3; nhãn Gate 4 là **bốn
+  quyết định dành cho tác giả**, AI chỉ chuẩn bị. DL này không chọn chúng.
+- [Discovery record](phases/PHASE_4_regime_map_discovery_record.md) commit `7385015`
+  trước DL: raw1430→1376,54duplicate khớp,10/10recountchecksPASS. Chỉ câu6/7
+  là discovery ứng viên; chưa native/baseline/novelty, G1 giữ nguyên.
+- Không có `PHASE_4.md` v1.1/gói kiểm đi kèm trong input; entry này áp phạm vi ba
+  lesson đã cung cấp, không giả đã tiếp nhận full plan. Exposure/forking phải
+  commit trước L4.3 Part B hoặc hộp mới L4.5. Không CF/R09/R10 outcomes mới.
