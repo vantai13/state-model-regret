@@ -243,3 +243,18 @@ Raw9/9 arithmeticTrue/validity[]/CFfalse; khôngca4/full/MC/budget/CF/newsealedo
 Ledger2PASS/1HOLD/1SEALED_BLOCKED/662NOT_RUN,666keys/684aliases; forecastsNOTEVALUABLE.
 K2sixIDs/K6eightfileUNVERIFIED; author auditlabel/Understanding/P0-V10/L8OPEN.
 G1, L4.5box/cardBLOCKED; có thể họcL4.4. Report results/lessons/l4_3/report.md.
+
+
+L4.4/30-10 (DL-104): tácgiả chọn gói baseline margin+Stay,ρ{0,.005,.01,.02,.05},
+per-region MV00/SH10argmin normalizedregret,18MV/72SH đều keys; luậtđọcMV≥.5,
+SH|GSθ|<.5% kèmΔL10<0, verdictv2khôngđổi. ForecastAIsoạn theo mệnhlệnh riêng,
+khôngindependentauthor. Prereg75037cc trướcplant;18targeted/200synthetic/8golden,
+797fulltestsPASS83.17s;u0controlPASS. HaiMVbundlesPASS;P44_000/X2000SHfail
+oracle-bound sanity ởρ0/ô00: L11−L00.000126275632 >errorsum.000099073938packet·s.
+RawSHarithmeticFalse,GSM/GS_M1negative;leanwidth/consistencymain đạt nhưngchưaR1
+vì dừngtrướccoarse. Khôngkếtluậnmargin dươngbug/hypothesisfalse; chưarootcause.
+7discovery levels+1control;2PASS/1HOLD/87NOT_RUN;khôngca4/full/budget/ρ*freeze,
+forecastsNOTEVALUABLE. EvalCPU127.024557s gồmcontrol;summarygốcCPUbỏsótfailedcall
+9.907439s,đínhchínhreadonlymeasured_summary.json. Descriptorinterfaceimplemented,
+L4.8integrationPENDING. G1/L4.3HOLD/cardv2giữ;khôngCF/newsealedoutcomes.
+DL103#1đãchọn;#2–4/Understanding/P0V10/L8OPEN. Report results/lessons/l4_4/report.md.

@@ -2,7 +2,18 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.3, 30/10/2026: HOLD theo điều kiện dừng đã đăng ký.**
+**Hiện tại — L4.4, 30/10/2026: baseline chạy tới sanity HOLD.**
+Tác giả duyệt margin+Stay/lướiρ/per-region selection và luật đọc trước plant;
+forecast AI soạn theo ủy quyền. 18 targeted tests/200synthetic trials và797fulltests
+PASS83.17s; u0 control thật PASS. Benchmark2MV PASS/1SH HOLD tạiP44_000/X2000:
+ô00 gốc thấp hơn oracle0.000126276packet·s, vượt tổng arithmetic errors0.000099074.
+Không full90/ρ*freeze; ledger2PASS/1HOLD/87NOT_RUN. L4.3 HOLD giữ nguyên;
+G1, cardv2/verdict không đổi, khôngCF/newsealedoutcomes.
+[Báo cáo/số đo](results/lessons/l4_4/report.md) ·
+[Spec đã duyệt](experiments/P4_04_baseline/spec.md) ·
+[Completion](notes/phases/L4_4_completion.json).
+
+**Snapshot L4.3, 30/10/2026: HOLD theo điều kiện dừng đã đăng ký.**
 Part A 14/14 replay và 126/126 trường khớp bit; 779 full tests PASS (100.17 s).
 Native benchmark chạy 3/4 điểm, đủ 9 level rows: 2 PASS, 1 HOLD tại XM2X000
 vì Cref lệch theo dt **0.310539% > 0.25%**. XM2S110 có point estimate A→D,

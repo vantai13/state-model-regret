@@ -65,3 +65,18 @@ không independent author prediction. Margin/Stay/grid/per-region argmin và lu�
 Đã chạy18targeted tests/200synthetic trials; không tính baseline physical points.
 [Log #13–14](../../results/lessons/l4_4/forking_paths.jsonl).
 L4.3 HOLD giữ nguyên, A/AB ngoài scope này DEFERRED, không CF/card mới.
+
+
+### L4.4 #15 — Sau benchmark, dừng và giữ failure
+
+75037cc trước plant; u0control PASS. Đã thấy baseline trênP44_024/X2025 và
+P44_065/X2071, đủ3mức×5ρ; cảhaiPASS. P44_000/X2000 SH fail sanity ởρ0/ô00,
+main640/4: L11−L00=.000126275632 > errorsum.000099073938. Chưa chạy hai coarse
+neighbors của SH, không gọi R1/bit sanity tại SH làPASS. Native gốc đã có hai
+validityflags; chưa kết luận positive-margin bug hoặc hypothesis fail.
+
+Tổng3discovery cases/7levels +1controllevel;87casesNOT_RUN, khôngca4/full/budget,
+khôngρ*freeze; forecastsNOTEVALUABLE. Không thay tiêu chí/số để cứu kết quả.
+CPUreadonly accounting127.024557evalCPU-s gồmcontrol; summary runner gốc bỏ sót
+failedcall9.907439CPU-s, giữ nguyên và đính chính riêng. G1/cardv2/L4.3HOLD giữ.
+KhôngCF/sealedoutcomes mới. [Report](../../results/lessons/l4_4/report.md).

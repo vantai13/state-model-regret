@@ -1,0 +1,99 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-30",
+  "status": "L4_4_EXECUTED_TO_PREREG_SANITY_STOP_HOLD",
+  "experimental_gate": "HOLD",
+  "proposal_commit": "daa0f92",
+  "prereg_before_plant_commit": "75037cc",
+  "author_decision": "ADOPTED_BY_AUTHOR_CHOICE",
+  "decision": "DL-104",
+  "forecasts_provenance": "AI drafted under explicit author command; not independently author-written",
+  "forecasts_status": "NOT_EVALUABLE",
+  "scope": {
+    "MV+A": 18,
+    "SH+A": 72,
+    "total": 90
+  },
+  "tests": {
+    "targeted_pass": 18,
+    "synthetic_trials": 200,
+    "synthetic_seed": 44004,
+    "full_pass": 797,
+    "full_seconds": 83.17
+  },
+  "control": {
+    "status": "PASS",
+    "id": "P44_CONTROL_U0",
+    "level": [
+      640,
+      4
+    ],
+    "cpu_seconds": 4.325888
+  },
+  "native": {
+    "benchmark_planned": 4,
+    "cases_observed": 3,
+    "cases_PASS": 2,
+    "cases_HOLD": 1,
+    "cases_NOT_RUN": 87,
+    "discovery_level_rows": 7,
+    "baseline_sanity_pass_rows": 6,
+    "baseline_sanity_failed_rows": 1,
+    "failed_case": "P44_000/X2000",
+    "failed_criterion": "oracle bound with reported arithmetic errors at rho0/cell00",
+    "L00": 4.898833610912514,
+    "L11": 4.898959886544443,
+    "L11_minus_L00": 0.000126275631928552,
+    "sum_arithmetic_errors": 9.907393823550931e-05,
+    "excess": 2.720169369304269e-05,
+    "R1_at_failed_case": "NOT_EVALUATED: stopped before coarse neighbours",
+    "raw_arithmetic_pass_discovery_rows": 6,
+    "raw_arithmetic_failed_discovery_rows": 1,
+    "CF_false_all_rows_including_control": 8
+  },
+  "full_run": "NOT_RUN_AFTER_SANITY_HOLD",
+  "budget": "NOT_CREATED",
+  "rho_star": "NOT_SELECTED_OR_FROZEN",
+  "descriptive_reading_rule": "ADOPTED_BEFORE_OUTCOMES; no claim narrowing inferred from partial scope",
+  "Phase5_descriptor": "IMPLEMENTED_INTERFACE; L4_8_RUNNER_INTEGRATION_PENDING",
+  "card_v2_verdict_unchanged": true,
+  "L43_HOLD": "UNCHANGED",
+  "new_CF_outcomes": 0,
+  "new_sealed_R09_R10_outcomes": 0,
+  "G_level": "G1",
+  "eval_cpu_seconds": 127.024557,
+  "benchmark_wall_seconds": 125.00372190199414,
+  "resource_note": "original benchmark summary omits failed call9.907439CPU-s; readonly measured_summary.json corrects accounting without editing original",
+  "confirmed": [
+    "Author-approved baseline and reading specification before outcomes",
+    "200synthetic/8golden rows and797fulltests",
+    "Exactzero plant control",
+    "Two MV bundles pass R1 and baseline sanity",
+    "Original SH cell00 exceeds oracle arithmetic-bound allowance"
+  ],
+  "not_confirmed": [
+    "Full-region margin behavior",
+    "rho_star",
+    "RQ/MV/SH claim verdict",
+    "Root cause of quadrature-oracle discrepancy",
+    "Network realism or novelty",
+    "Understanding/ownership"
+  ],
+  "next": "Preregister oracle-bound/quadrature coverage diagnosis; preserve failure and threshold before new calls; no full/tuning from this partial sample",
+  "report": "results/lessons/l4_4/report.md",
+  "metrics": "results/lessons/l4_4/observed_baselines.csv",
+  "log": "results/lessons/l4_4/benchmark.log",
+  "open_author_decisions": [
+    "DL103 #2 card count/regions",
+    "#3 CFv3 budget",
+    "#4 Gate4"
+  ],
+  "still_open": [
+    "P0-V10",
+    "L8",
+    "Understanding/ownership",
+    "Full L4.3 audit",
+    "L4.4 full run/rho freeze",
+    "L4.8 integration"
+  ]
+}

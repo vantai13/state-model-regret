@@ -1819,3 +1819,16 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Không có `PHASE_4.md` v1.1/gói kiểm đi kèm trong input; entry này áp phạm vi ba
   lesson đã cung cấp, không giả đã tiếp nhận full plan. Exposure/forking phải
   commit trước L4.3 Part B hoặc hộp mới L4.5. Không CF/R09/R10 outcomes mới.
+
+
+### DL-104 — Baseline margin + Stay, luật đọc do tác giả duyệt (30/10/2026)
+
+- Tác giả chọn nguyên văn “Chọn gói đặc tả đã soạn (khuyến nghị)” trước outcomes;
+  spec/author choice/prereg commit75037cc. [Decision note](phases/PHASE_4_baseline_reading_decision.md).
+- ρ={0,.005,.01,.02,.05}; tune riêng18MV/72SH với target00/10, đều distinct keys,
+  regret/Cref, tieρnhỏ. θ từStay, khôngoracle hoặc cộngvàocost.
+- MVmedianR_M≥.5 và SHmedian|GSθ|/Cref<.005 kèmmedianΔL10<0 làluật câuclaim;
+  không đổi verdictv2. Forecast AIsoạn theoủyquyền cụthể, khôngselfprediction.
+- Run dừngsanityHOLD ởSH đầu; **chưa chọn/freezeρ***, chưa dùng luật mô tả để
+  kết luận toànvùng/CF. Giữfailure/threshold, không thêmcard hoặc gỡL4.3HOLD.
+- [Results](../results/lessons/l4_4/report.md), G1; DL103decision#2–4 còn tácgiảchọn.

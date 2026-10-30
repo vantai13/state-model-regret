@@ -1,0 +1,191 @@
+{
+  "stage": "benchmark",
+  "status": "HOLD",
+  "planned": 4,
+  "completed": 3,
+  "cpu_seconds": 112.79122999999998,
+  "wall_seconds": 125.00372190199414,
+  "results": [
+    {
+      "native_id": "P44_024",
+      "aliases": [
+        "X2025"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "status": "PASS",
+      "reasons": [],
+      "native_R1_ready": true,
+      "baseline_refinement": [
+        {
+          "rho": "0",
+          "normalized_difference": {
+            "L00": 0.0004488572900454565,
+            "L10": 0.00044777346588763104,
+            "GS_theta": 0.00034724643340380444,
+            "deltaL10": 0.0
+          }
+        },
+        {
+          "rho": "1/200",
+          "normalized_difference": {
+            "L00": 0.0005672039772252259,
+            "L10": 0.00037787887974428415,
+            "GS_theta": 0.0002139403910865155,
+            "deltaL10": 0.00025466337607596705
+          }
+        },
+        {
+          "rho": "1/100",
+          "normalized_difference": {
+            "L00": 0.0006239195050694002,
+            "L10": 0.0005968473798861562,
+            "GS_theta": 0.00011561286229859928,
+            "deltaL10": 0.000484158253405451
+          }
+        },
+        {
+          "rho": "1/50",
+          "normalized_difference": {
+            "L00": 0.0005235868970019455,
+            "L10": 0.0006412866343722043,
+            "GS_theta": 0.00011769973737025879,
+            "deltaL10": 0.0005375294315150314
+          }
+        },
+        {
+          "rho": "1/20",
+          "normalized_difference": {
+            "L00": 0.0005326335163158875,
+            "L10": 0.0005223725133720917,
+            "GS_theta": 2.676485379417101e-05,
+            "deltaL10": 0.00042569682075457144
+          }
+        }
+      ],
+      "raw_flags": [
+        {
+          "level": [
+            640,
+            4
+          ],
+          "arithmetic_pass": true,
+          "validity_errors": []
+        },
+        {
+          "level": [
+            320,
+            4
+          ],
+          "arithmetic_pass": true,
+          "validity_errors": []
+        },
+        {
+          "level": [
+            640,
+            2
+          ],
+          "arithmetic_pass": true,
+          "validity_errors": []
+        }
+      ],
+      "cpu_seconds": 19.736685
+    },
+    {
+      "native_id": "P44_065",
+      "aliases": [
+        "X2071"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "status": "PASS",
+      "reasons": [],
+      "native_R1_ready": true,
+      "baseline_refinement": [
+        {
+          "rho": "0",
+          "normalized_difference": {
+            "L00": 0.0010968371085026444,
+            "L10": 6.352535887952604e-05,
+            "GS_theta": 0.0011089314645045408,
+            "deltaL10": 0.0
+          }
+        },
+        {
+          "rho": "1/200",
+          "normalized_difference": {
+            "L00": 0.00025897608744444037,
+            "L10": 5.057103826205329e-05,
+            "GS_theta": 0.00020840504918238705,
+            "deltaL10": 6.30995032670798e-05
+          }
+        },
+        {
+          "rho": "1/100",
+          "normalized_difference": {
+            "L00": 0.0001159852687138614,
+            "L10": 4.527113601658448e-05,
+            "GS_theta": 7.071413269727691e-05,
+            "deltaL10": 5.801981514408035e-05
+          }
+        },
+        {
+          "rho": "1/50",
+          "normalized_difference": {
+            "L00": 0.00019355308250510565,
+            "L10": 5.098057424363012e-05,
+            "GS_theta": 0.0001691199672904654,
+            "deltaL10": 6.400669785682475e-05
+          }
+        },
+        {
+          "rho": "1/20",
+          "normalized_difference": {
+            "L00": 6.516215316255211e-05,
+            "L10": 5.640378667172359e-05,
+            "GS_theta": 4.580014097001884e-05,
+            "deltaL10": 6.983946773486647e-05
+          }
+        }
+      ],
+      "raw_flags": [
+        {
+          "level": [
+            640,
+            4
+          ],
+          "arithmetic_pass": true,
+          "validity_errors": []
+        },
+        {
+          "level": [
+            320,
+            4
+          ],
+          "arithmetic_pass": true,
+          "validity_errors": []
+        },
+        {
+          "level": [
+            640,
+            2
+          ],
+          "arithmetic_pass": true,
+          "validity_errors": []
+        }
+      ],
+      "cpu_seconds": 93.05454499999999
+    },
+    {
+      "native_id": "P44_000",
+      "status": "HOLD",
+      "reasons": [
+        "RuntimeError: margin beats oracle outside arithmetic error"
+      ]
+    }
+  ],
+  "stopped_without_scheduling_more": true,
+  "note": "full CPU counts every registered case once, including reused benchmark cases; wall excludes their earlier runs"
+}

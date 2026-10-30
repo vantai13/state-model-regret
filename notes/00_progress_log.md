@@ -496,3 +496,18 @@ không dùng nhãn cho L4.5. K2/K6 lịch sử còn thiếu; author label/Unders
 P0-V10/L8 giữ OPEN. Có thể học L4.4; xử lý numerical coverage với prereg mới
 trước dùng nhãn audit. [Report](../results/lessons/l4_3/report.md) ·
 [Completion](phases/L4_3_completion.json).
+
+
+## L4.4 — Đặc tả đã duyệt, plant chạy tới sanity HOLD (30/10/2026, DL-104)
+
+Proposaldaa0f92; tácgiả chọn gói margin+Stay/grid/per-region argmin vàluật đọc.
+Forecast AI soạn theo mệnh lệnh riêng, không author-independent. Prereg/source
+75037cc trước plant. 18targeted/200synthetic/8golden và797fulltestsPASS83.17s;
+u0control thậtPASS. Hai MV bundlesPASS; SH đầu X2000/P44_000 fail oracle-bound
+arithmetic sanity ngayρ0/ô00: .000126275632 > .000099073938packet·s. ChưaR1 ởSH.
+7discovery levels+1control; ledger2PASS/1HOLD/87NOT_RUN; khôngca4/full/budget/ρ*.
+ForecastsNOTEVALUABLE. EvaluationCPU127.024557s gồmcontrol; giữ vàđínhchính riêng
+summaryCPU bỏ sótfailedcall. G1/cardv2/verdict/L4.3HOLD giữ, khôngCF/sealedoutcomes.
+DL103decision1 nayđãchọn;#2–4/Understanding/P0V10/L8 cònOPEN. Descriptor interface
+đã có, L4.8 integrationPENDING. [Report](../results/lessons/l4_4/report.md) ·
+[Completion](phases/L4_4_completion.json).

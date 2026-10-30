@@ -966,3 +966,15 @@ lại200synthetic trials,18tests và8toy rows. Metadata scope18MV/72SH đã lộ
 L4.1; chưa có baseline plant outcome. Không đọc outcome CF/R09/R10. Nguồn:
 [spec](../experiments/P4_04_baseline/spec.md), [DL-104](phases/PHASE_4_baseline_reading_decision.md),
 [forking #13–14](../results/lessons/l4_4/forking_paths.jsonl).
+
+
+### L4.4 — Outcomes đã thấy, sanity HOLD
+
+Đã chạy u0control và baseline trên3discovery coordinates đã lộ: X2025/X2071 có
+3mức đủ5ρ, X2000 main640/4 dừng ởρ0/ô00 vì oracle-bound sanity. Raw SH gốc đã
+có GSM/GS_M1 âm ngoài arithmetic error; không kết luận margin dương gây lỗi.
+Giữ87/90casesNOT_RUN, không dùng2MV để tuneρ*, không chấm forecast từsubset.
+KhôngCF/R09/R10 outcomes, khôngnewbox/card; G1 vàL4.3HOLD giữ nguyên.
+[CSV mọiρ đã quan sát](../results/lessons/l4_4/observed_baselines.csv) ·
+[Ledger90](../results/lessons/l4_4/summary/case_ledger.csv) ·
+[Forking#15](../results/lessons/l4_4/forking_paths.jsonl).
