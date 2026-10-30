@@ -53,3 +53,15 @@ mẫu số để báo PASS. Forecast toàn scope NOT_EVALUABLE; CF/R09/R10 outco
 
 Không chọn baseline/card/budgetCF-v3/Gate4; G1. Nhãn audit tác giả và
 Understanding/P0-V10/L8 vẫn OPEN. [Report](../../results/lessons/l4_3/report.md).
+
+
+## L4.4 trước plant run — #13–14 (30/10/2026)
+
+Đọc hai input, đã thấy đáp án toy/synthetic nhưng chưa có baseline plant nào.
+Scope chỉ18MV⁺/72SH⁺ discovery, không lọc pilot class; CF/R09/R10 guard không giao.
+Tác giả duyệt gói tại proposal daa0f92; forecast do AI soạn theo mệnh lệnh riêng,
+không independent author prediction. Margin/Stay/grid/per-region argmin và luật
+đọc MV≥.5/SH<.5% kèmΔL10<0 khóa trước outcomes; DL-104 ghi riêng.
+Đã chạy18targeted tests/200synthetic trials; không tính baseline physical points.
+[Log #13–14](../../results/lessons/l4_4/forking_paths.jsonl).
+L4.3 HOLD giữ nguyên, A/AB ngoài scope này DEFERRED, không CF/card mới.

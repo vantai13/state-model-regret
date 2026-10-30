@@ -1,9 +1,9 @@
 # L4.4 — Đặc tả baseline để tác giả duyệt trước khi chạy
 
-Người phụ trách dự kiến: **Doan Van Tai** · 30/10/2026.
-Provenance: **AI soạn; CHƯA được tác giả duyệt hoặc ký**.
-Trạng thái: **DRAFT_PENDING_AUTHOR_CHOICE**, chưa cho phép baseline trên plant.
-Đây là đề xuất cụ thể cho quyết định #1 DL-103, không tự ký thay tác giả.
+Người ký duyệt đặc tả: **Doan Van Tai** · 30/10/2026.
+Provenance: **AI soạn, tác giả duyệt gói nguyên văn trong chat**.
+Trạng thái: **ADOPTED_BY_AUTHOR_CHOICE** cho quyết định #1 DL-103.
+Còn phải commit source/prereg trước plant run; không xác nhận author ownership.
 
 Đã thấy: hai input L4.4; output L4.1–L4.3, gồm ba điểm native benchmark và
 HOLD tại κ=.05. Chưa tính baseline trên bất kỳ điểm plant nào. Input đã cho
@@ -104,17 +104,28 @@ trước engine import; resume kiểm receipt/spec/ID/params. Không CF evaluati
 - Trước plant cần spec/author choice/source manifests commit; synthetic sanity
   được phép với spec DRAFT đã commit, không sinh hoặc mở physical outcomes.
 
-## 7. Dự đoán của tác giả — chưa điền
+## 7. Dự đoán trước plant run — AI soạn thay theo ủy quyền trực tiếp
 
-**MV:** OPEN — tác giả tự viết trước plant run.
+Tác giả yêu cầu nguyên văn: “bạn hãy đống vai trò là tôi và ghi cho tôi, đây là
+mệnh lệnh”. Yêu cầu này thay việc tự viết được lesson khuyến nghị; không hỏi lại.
+Hai câu dưới là forecast AI theo ủy quyền, không tác giả tự dự đoán độc lập.
 
-**SH:** OPEN — tác giả tự viết trước plant run.
+**MV:** “Tôi dự đoán margin được chọn theo luật sẽ lấy lại ít nhất một nửa giá trị
+model ở trung vị Ω_MV⁺, tức median R_M(ρ*) ≥ 1/2, vì lỗi clipping của M0 có thể
+làm các lần Switch với lợi dự báo nhỏ trở thành các lần đổi sai.”
 
-Không chép forecast AI thành lời tác giả. Nếu tác giả chọn bỏ qua forecast thì
-ghi rõ NOT_PROVIDED, không chấm hoặc tự nhận Understanding/ownership PASS.
+**SH:** “Tôi dự đoán tại ρ=1%, margin xóa ít hơn một nửa tác hại của state ở
+trung vị Ω_SH⁺, vì margin nhỏ có thể không chặn được các dự báo lợi sai lớn;
+ở ρ* được tối ưu, tôi dự đoán median |GSθ|/Cref vẫn ≥0.5%.”
+
+Chấm forecast SH1 bằng median mức giảm harm theo điểm ở những điểm GS0<0:
+`1 − max(0,−GSρ=1%)/abs(GS0)`; giữ cả số âm nếu hại tăng. Báo N, không dùng
+như prevalence. Chấm toàn scope chỉ khi hoàn tất; partial thì NOT_EVALUABLE.
+Không nâng Understanding/ownership từ hai câu này.
 
 ## 8. Trạng thái ký
 
-Chưa có xác nhận lựa chọn từ tác giả. Không ghi tên Doan Van Tai như một chữ ký
-đã xảy ra. Câu trả lời trực tiếp chọn gói này có thể được lưu nguyên văn thành
-author choice/approval; provenance khi đó là “AI soạn, tác giả duyệt”.
+Tác giả chọn nguyên văn **“Chọn gói đặc tả đã soạn (khuyến nghị)”** trước plant
+run. Đây là author choice/approval trong chat, không chữ ký điện tử hoặc xác
+nhận tự viết/tự hiểu. Forecast được AI soạn sau ủy quyền riêng, trước outcomes.
+Xem `author_choices.json`. Không đổi bốn ô/card/contract hoặc gỡ HOLD L4.3.

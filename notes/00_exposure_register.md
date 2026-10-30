@@ -955,3 +955,14 @@ mới tại key đó. Giữ đủ 666 tọa độ/684 aliases: 2 PASS, 1 HOLD, 1
 [Báo cáo](../results/lessons/l4_3/report.md) ·
 [Ledger](../results/lessons/l4_3/execution_ledger/cases.csv).
 Nhãn audit tác giả chưa xác nhận; không dùng output HOLD để vẽ hộp/thêm card L4.5.
+
+
+## L4.4 — Trước baseline plant (30/10/2026)
+
+Người phụ trách **Doan Van Tai**. Tác giả duyệt gói margin+Stay/per-region selection
+và luật đọc tại spec trước plant run; forecast AI soạn theo mệnh lệnh trực tiếp,
+không author self-prediction. Hai input đã cho kết quả toys/synthetic; repo kiểm
+lại200synthetic trials,18tests và8toy rows. Metadata scope18MV/72SH đã lộ từ CSV
+L4.1; chưa có baseline plant outcome. Không đọc outcome CF/R09/R10. Nguồn:
+[spec](../experiments/P4_04_baseline/spec.md), [DL-104](phases/PHASE_4_baseline_reading_decision.md),
+[forking #13–14](../results/lessons/l4_4/forking_paths.jsonl).
