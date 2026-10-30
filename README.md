@@ -2,6 +2,17 @@
 
 Tác giả: **Doan Van Tai**.
 
+**L3R.7 — bản đồng bộ ngày 30/10/2026:** đã lưu mã, thiết kế, prereg và các
+kết quả hiện có. Lần kiểm hash này xác nhận contract21/card10/numerical-source108
+khớp; không chạy lại thí nghiệm. Preflight GCP gần nhất ghi **672 tests PASS**.
+Trạng thái đợt full03 hiện **chưa xác minh được vì SSH timeout**; tiến trình thu
+kết quả local không còn chạy. Snapshot cuối23:50:47 ngày29/10 ghi120lượt hoàn tất,
+3ca còn chạy ở vòng đầu; chưa có export cuối của03 trong repo.
+**Chưa khóa v1.3.1/n/seed/CF; Lesson7 chưa hoàn tất, Phase4 HOLD.**
+[Trạng thái lần push](results/lessons/l3r_7/full_numerics/push_snapshot_20261030.json) ·
+[Giải thích bài7](notes/lessons/L3R.7_explained_vi.md) ·
+[Báo cáo đợt02](results/lessons/l3r_7/full_numerics/report02/report.md).
+
 **L3R.7 — đã chạy hai probe lớn trên GCP** (29/10/2026, DL-084–085):
 633/633 tests PASS trên local và 633/633 PASS riêng trên GCP. Balanced candidate:
 medium local **19,926 s** (baseline806,568s, quantiles khớp); hai marginal degree12000

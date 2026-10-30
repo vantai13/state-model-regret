@@ -2,6 +2,13 @@
 
 Người phụ trách/người soạn: **Doan Van Tai** · 29/10/2026.
 
+**Cập nhật đồng bộ30/10:** mã/numerics và lịch sử lỗi tới DL-088 đã lưu.
+Preflight GCP gần nhất672testsPASS; full03 hiện chưa xác minh được vì SSHtimeout,
+collectorlocal không còn chạy, chưa có finalexport03.120lượt hoàn tất/3ca đang
+chạy chỉ là snapshot23:50:47 ngày29/10 ở vòng đầu. Không ghi lesson hoàn tất,
+không cấp n/root hoặcCF. Xem [snapshot lần push](full_numerics/push_snapshot_20261030.json)
+và [báo cáo02 đã kiểm chứng](full_numerics/report02/report.md).
+
 **Cập nhật DL-084–085:** đã chạy balanced05 trên local và06/07 trên GCP sau
 633testsPASS mỗi môi trường. Ba probe hiện tại complete; medium19,926s,
 hai degree12000 là902,514/329,654s. Candidate chưaadopt/fullnumericsaudit chưađóng,
