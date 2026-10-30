@@ -1,0 +1,507 @@
+{
+ "owner": "Doan Van Tai",
+ "card": "notes/phases/PHASE_3R_hypothesis_cards_v2.md",
+ "card_sha256": "60335b61dcc68710e7c6d68896abaf750d396b386346a0ca50d0ed2c912f5ac4",
+ "checks": {
+  "1_falsifiable": {
+   "ok": true,
+   "detail": "n=30: <=9 MEETS in plus gives R+ -> FALSIFY for any minus state"
+  },
+  "2_not_identity": {
+   "ok": true,
+   "detail": {
+    "MV": "identity only gives 0<=G_M<=sigma; >=1% Cref fails in discovery (MV-i 32/32 below)",
+    "SH": "identity only bounds |G_S|<=sigma; SH+A has 15/72 FAILS in discovery",
+    "excluded": "Gamma>0 in harm, G_M|S1, G_S|M1 not used as card metrics"
+   }
+  },
+  "3_couplings_declared": {
+   "ok": true,
+   "detail": "Gamma>=-min(G_S,G_M); MV regions lambdaB=8 vs SH regions lambdaB in [6,7]: disjoint"
+  },
+  "4_prior_filtered": {
+   "ok": true,
+   "detail": {
+    "MV": "P11/P12/AIS22/P13; axes E,M,R; obviousness handled by kappa-only flip",
+    "SH": "K-RM1/K-RM3/V1; axes M,E,R; claim only where/how much"
+   }
+  },
+  "5_design_only_regions": {
+   "ok": true,
+   "detail": {
+    "MV+A": {
+     "design_only": true,
+     "identity_complete": true,
+     "all_corners_valid_primary": true,
+     "round_or_grid_bounds": true,
+     "measure_covers_free_coords": true,
+     "rounding_divides_bounds": true,
+     "matches_logged_rule": true,
+     "sealed_inside": [],
+     "v12_cells_inside": [
+      "R11"
+     ]
+    },
+    "MV-ii": {
+     "design_only": true,
+     "identity_complete": true,
+     "all_corners_valid_primary": true,
+     "round_or_grid_bounds": true,
+     "measure_covers_free_coords": true,
+     "rounding_divides_bounds": true,
+     "matches_logged_rule": true,
+     "sealed_inside": [],
+     "v12_cells_inside": []
+    },
+    "MV-BND": {
+     "design_only": true,
+     "identity_complete": true,
+     "all_corners_valid_primary": true,
+     "round_or_grid_bounds": true,
+     "measure_covers_free_coords": true,
+     "rounding_divides_bounds": true,
+     "matches_logged_rule": true,
+     "sealed_inside": [],
+     "v12_cells_inside": [
+      "R11"
+     ]
+    },
+    "SH+A": {
+     "design_only": true,
+     "identity_complete": true,
+     "all_corners_valid_primary": true,
+     "round_or_grid_bounds": true,
+     "measure_covers_free_coords": true,
+     "rounding_divides_bounds": true,
+     "matches_logged_rule": true,
+     "sealed_inside": [],
+     "v12_cells_inside": []
+    },
+    "SH-ii": {
+     "design_only": true,
+     "identity_complete": true,
+     "all_corners_valid_primary": true,
+     "round_or_grid_bounds": true,
+     "measure_covers_free_coords": true,
+     "rounding_divides_bounds": true,
+     "matches_logged_rule": true,
+     "sealed_inside": [],
+     "v12_cells_inside": []
+    },
+    "SH-BND": {
+     "design_only": true,
+     "identity_complete": true,
+     "all_corners_valid_primary": true,
+     "round_or_grid_bounds": true,
+     "measure_covers_free_coords": true,
+     "rounding_divides_bounds": true,
+     "matches_logged_rule": "DECLARED_NO_DATA",
+     "sealed_inside": [],
+     "v12_cells_inside": []
+    }
+   }
+  },
+  "6_control_can_fail": {
+   "ok": true,
+   "detail": {
+    "flipped": {
+     "Hyp-MV": [
+      "kappa"
+     ],
+     "Hyp-SH": [
+      "kappa"
+     ]
+    },
+    "Y_minus_at_n30": ">=21 MEETS",
+    "discovery_in_minus": {
+     "MV": 0,
+     "SH": 0
+    }
+   }
+  },
+  "7_mechanism": {
+   "ok": true,
+   "status": "MET_AS_AI_DRAFTED_AUTHOR_APPROVED; AUTHOR_OWN_WORDS_OPEN",
+   "detail": "source vs magnitude separated in both cards; magnitude marked untested"
+  },
+  "8_verdict_table_covers_all": {
+   "ok": true,
+   "detail": {
+    "table_cells": 12,
+    "verdicts_reached": [
+     "FALSIFY",
+     "INCONCLUSIVE",
+     "PASS",
+     "WEAKEN"
+    ],
+    "violations": [],
+    "n_violations": 0,
+    "full_pipeline_cases": 12400,
+    "full_pipeline_verdicts": [
+     "FALSIFY",
+     "INCONCLUSIVE",
+     "PASS",
+     "WEAKEN"
+    ],
+    "four_corners_vs_two_uniform_differences": 0
+   }
+  },
+  "9_can_pass": {
+   "ok": true,
+   "detail": {
+    "rows": [
+     {
+      "n_each": 20,
+      "p_plus": "0.6",
+      "p_minus": "0.1",
+      "P_PASS": 0.1242,
+      "P_S_plus": 0.1256,
+      "P_N_minus": 0.9887
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.6",
+      "p_minus": "0.2",
+      "P_PASS": 0.101,
+      "P_S_plus": 0.1256,
+      "P_N_minus": 0.8042
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.6",
+      "p_minus": "0.3",
+      "P_PASS": 0.0523,
+      "P_S_plus": 0.1256,
+      "P_N_minus": 0.4164
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.7",
+      "p_minus": "0.1",
+      "P_PASS": 0.4117,
+      "P_S_plus": 0.4164,
+      "P_N_minus": 0.9887
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.7",
+      "p_minus": "0.2",
+      "P_PASS": 0.3348,
+      "P_S_plus": 0.4164,
+      "P_N_minus": 0.8042
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.7",
+      "p_minus": "0.3",
+      "P_PASS": 0.1734,
+      "P_S_plus": 0.4164,
+      "P_N_minus": 0.4164
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.8",
+      "p_minus": "0.1",
+      "P_PASS": 0.7952,
+      "P_S_plus": 0.8042,
+      "P_N_minus": 0.9887
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.8",
+      "p_minus": "0.2",
+      "P_PASS": 0.6468,
+      "P_S_plus": 0.8042,
+      "P_N_minus": 0.8042
+     },
+     {
+      "n_each": 20,
+      "p_plus": "0.8",
+      "p_minus": "0.3",
+      "P_PASS": 0.3348,
+      "P_S_plus": 0.8042,
+      "P_N_minus": 0.4164
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.6",
+      "p_minus": "0.1",
+      "P_PASS": 0.1762,
+      "P_S_plus": 0.1763,
+      "P_N_minus": 0.9995
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.6",
+      "p_minus": "0.2",
+      "P_PASS": 0.1655,
+      "P_S_plus": 0.1763,
+      "P_N_minus": 0.9389
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.6",
+      "p_minus": "0.3",
+      "P_PASS": 0.1038,
+      "P_S_plus": 0.1763,
+      "P_N_minus": 0.5888
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.7",
+      "p_minus": "0.1",
+      "P_PASS": 0.5885,
+      "P_S_plus": 0.5888,
+      "P_N_minus": 0.9995
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.7",
+      "p_minus": "0.2",
+      "P_PASS": 0.5528,
+      "P_S_plus": 0.5888,
+      "P_N_minus": 0.9389
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.7",
+      "p_minus": "0.3",
+      "P_PASS": 0.3467,
+      "P_S_plus": 0.5888,
+      "P_N_minus": 0.5888
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.8",
+      "p_minus": "0.1",
+      "P_PASS": 0.9385,
+      "P_S_plus": 0.9389,
+      "P_N_minus": 0.9995
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.8",
+      "p_minus": "0.2",
+      "P_PASS": 0.8816,
+      "P_S_plus": 0.9389,
+      "P_N_minus": 0.9389
+     },
+     {
+      "n_each": 30,
+      "p_plus": "0.8",
+      "p_minus": "0.3",
+      "P_PASS": 0.5528,
+      "P_S_plus": 0.9389,
+      "P_N_minus": 0.5888
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.6",
+      "p_minus": "0.1",
+      "P_PASS": 0.2112,
+      "P_S_plus": 0.2112,
+      "P_N_minus": 1.0
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.6",
+      "p_minus": "0.2",
+      "P_PASS": 0.2071,
+      "P_S_plus": 0.2112,
+      "P_N_minus": 0.9806
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.6",
+      "p_minus": "0.3",
+      "P_PASS": 0.1485,
+      "P_S_plus": 0.2112,
+      "P_N_minus": 0.7032
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.7",
+      "p_minus": "0.1",
+      "P_PASS": 0.7032,
+      "P_S_plus": 0.7032,
+      "P_N_minus": 1.0
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.7",
+      "p_minus": "0.2",
+      "P_PASS": 0.6896,
+      "P_S_plus": 0.7032,
+      "P_N_minus": 0.9806
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.7",
+      "p_minus": "0.3",
+      "P_PASS": 0.4946,
+      "P_S_plus": 0.7032,
+      "P_N_minus": 0.7032
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.8",
+      "p_minus": "0.1",
+      "P_PASS": 0.9806,
+      "P_S_plus": 0.9806,
+      "P_N_minus": 1.0
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.8",
+      "p_minus": "0.2",
+      "P_PASS": 0.9616,
+      "P_S_plus": 0.9806,
+      "P_N_minus": 0.9806
+     },
+     {
+      "n_each": 40,
+      "p_plus": "0.8",
+      "p_minus": "0.3",
+      "P_PASS": 0.6896,
+      "P_S_plus": 0.9806,
+      "P_N_minus": 0.7032
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.6",
+      "p_minus": "0.1",
+      "P_PASS": 0.2568,
+      "P_S_plus": 0.2568,
+      "P_N_minus": 1.0
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.6",
+      "p_minus": "0.2",
+      "P_PASS": 0.2563,
+      "P_S_plus": 0.2568,
+      "P_N_minus": 0.998
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.6",
+      "p_minus": "0.3",
+      "P_PASS": 0.2153,
+      "P_S_plus": 0.2568,
+      "P_N_minus": 0.8382
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.7",
+      "p_minus": "0.1",
+      "P_PASS": 0.8382,
+      "P_S_plus": 0.8382,
+      "P_N_minus": 1.0
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.7",
+      "p_minus": "0.2",
+      "P_PASS": 0.8365,
+      "P_S_plus": 0.8382,
+      "P_N_minus": 0.998
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.7",
+      "p_minus": "0.3",
+      "P_PASS": 0.7025,
+      "P_S_plus": 0.8382,
+      "P_N_minus": 0.8382
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.8",
+      "p_minus": "0.1",
+      "P_PASS": 0.998,
+      "P_S_plus": 0.998,
+      "P_N_minus": 1.0
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.8",
+      "p_minus": "0.2",
+      "P_PASS": 0.9959,
+      "P_S_plus": 0.998,
+      "P_N_minus": 0.998
+     },
+     {
+      "n_each": 60,
+      "p_plus": "0.8",
+      "p_minus": "0.3",
+      "P_PASS": 0.8365,
+      "P_S_plus": 0.998,
+      "P_N_minus": 0.8382
+     }
+    ],
+    "false_pass_plus_at_p_half": {
+     "20": 0.0207,
+     "30": 0.0214,
+     "40": 0.0192,
+     "60": 0.0137
+    },
+    "planning_point": "p+=0.7 (below discovery), p-=0.2",
+    "smallest_n_each_with_P_PASS_ge_half": 30,
+    "note": "preliminary; L3R.7 picks n after numerics v1.3.1 and runtime; unresolved/undefined assumed 0"
+   }
+  }
+ },
+ "extra": {
+  "contract_tag_commit_ok": true,
+  "author_choices_sha_ok": true,
+  "forking_log_sha_ok": true,
+  "forking_log_entries_ok": true,
+  "sealed_none": true,
+  "v12_claim_ok": true,
+  "no_secondary": true
+ },
+ "all_ok": true,
+ "outcomes_read": false,
+ "label": "pre-freeze card checks; not evidence",
+ "v2_vs_v1": {
+  "identical_keys": {
+   "card_set_id": true,
+   "status": true,
+   "responsible": true,
+   "date": true,
+   "contract": true,
+   "contract_commit": true,
+   "allocation": true,
+   "family": true,
+   "provenance": true,
+   "forking_log": true,
+   "discovery_basis": true,
+   "regions": true,
+   "cards": true,
+   "per_regime": true,
+   "verdict_maps": true,
+   "validity_step0": true,
+   "sealed": true,
+   "v12_cells_inside": true
+  },
+  "all_other_keys_identical": true,
+  "rounding_changes": {
+   "lambdaA": [
+    "1/1000",
+    "1/100"
+   ],
+   "lambdaB": [
+    "1/1000",
+    "1/100"
+   ],
+   "u": [
+    "1/1000",
+    "1/100"
+   ]
+  },
+  "added_keys": [
+   "supersedes",
+   "v2_change"
+  ]
+ }
+}
