@@ -72,3 +72,42 @@ def test_write_once(tmp_path):
     engine.write_once(tmp_path / 'x.json', dict(a=1))
     with pytest.raises(FileExistsError):
         engine.write_once(tmp_path / 'x.json', dict(a=2))
+
+
+def test_card_v2_rounding_patches_sampler_only_while_drawing_test_root():
+    from experiments.R3R_07_confirmation import sampler as S
+    from experiments.R3R_07_confirmation.common import TEST_RANGE
+    from experiments.R3R_14_lean_close import frame_v2
+    from experiments.R3R_14_lean_close.cards_v2 import load
+    card, before = load(), dict(S.STEP)
+    root = 318700001
+    assert root in TEST_RANGE                                            # never a confirmation root
+    with frame_v2.card_rounding(card):
+        rows, _ = S.sample_all(root, card, 5, 2, set(), purpose='TEST_ONLY_NO_ENGINE')
+    assert S.STEP == before                                              # original module state restored
+    assert len(rows) == 4 * 5 + 2 * 2
+    for row in rows:
+        reg = row['regime']
+        assert S.inside(reg, card['regions'][row['origin_region']])
+        for key, step in (('lambdaA', F(1, 100)), ('lambdaB', F(1, 100)), ('u', F(1, 100)),
+                          ('kappa', F(1, 1000)), ('h', F(1, 120))):
+            assert (F(reg[key]) / step).denominator == 1
+
+
+def test_adapter_lean_flag_and_escalation():
+    from experiments.R3R_14_lean_close import frame_v2
+    ok = dict(row(), status='COMPLETED')
+    levels = {(160, 4): ok, (80, 4): ok, (160, 2): ok}
+    res = frame_v2.adapter_result(levels, (160, 4))
+    assert res['arithmetic_pass'] is True and res['coarse_K'] is ok
+    tiny_violation = dict(ok, G_SM='-0.001')                             # strict flag would fail; lean passes
+    assert frame_v2.adapter_result({**levels, (80, 4): tiny_violation}, (160, 4))['arithmetic_pass'] is True
+    assert frame_v2.adapter_result({(160, 4): ok}, (160, 4))['coarse_K'] is None
+    near = dict(ok, G_M='0.1005')                                         # 1.005 % of Cref: within R6 distance
+    far = dict(ok, G_M='0.5')
+    label, trail = frame_v2.label_with_escalation('effect', {(160, 4): far, (80, 4): far, (160, 2): far}, 160, 4)
+    assert label == 'MEETS' and len(trail) == 1
+    lv = {(160, 4): near, (80, 4): dict(ok, G_M='0.098'), (160, 2): near}
+    label, trail = frame_v2.label_with_escalation('effect', lv, 160, 4)
+    assert label == 'UNRESOLVED' and len(trail) == 1                    # next step not computed -> stays unresolved
+    assert frame_v2.escalation_plan(160, 4) == [(160, 4), (320, 4), (320, 8)]
