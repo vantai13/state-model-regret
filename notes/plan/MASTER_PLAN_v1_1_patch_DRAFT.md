@@ -1,4 +1,7 @@
-# Bản vá đề xuất MASTER PLAN v1.0 → v1.1 (NHÁP, chờ tác giả)
+# Bản vá MASTER PLAN v1.0 → v1.1
+
+> **Đã áp 30/10/2026** (L3R.8, theo ủy quyền "đóng lesson cho tôi") thành **file mới**
+> `~/dacn/quá trình thực hiện/MASTER_PLAN_RESEARCH_v1.1.md`. File v1.0 không bị sửa. Nội dung vá như dưới.
 
 Người phụ trách: **Doan Van Tai**. AI (Claude) soạn theo lesson L3R.8 Bước 8 và PHASE_3R Phụ lục D.
 
