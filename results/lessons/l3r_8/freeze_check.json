@@ -1,0 +1,185 @@
+{
+ "owner": "Doan Van Tai",
+ "scope": "read-only freeze check before Gate 3R; no engine, no CF outcome",
+ "head": "38bc6d0219badb381ecf06bd8491e8ca3702ec69",
+ "locks": {
+  "contract_v1_3": {
+   "files": 21,
+   "mismatched": [],
+   "ok": true
+  },
+  "cards_v1": {
+   "files": 10,
+   "mismatched": [],
+   "ok": true
+  },
+  "cards_v2": {
+   "files": 12,
+   "mismatched": [],
+   "ok": true
+  },
+  "numerics_lean": {
+   "files": 15,
+   "mismatched": [],
+   "ok": true
+  }
+ },
+ "cf_prereg_artifacts": {
+  "inventory": {
+   "path": "results/lessons/l3r_7/lean_close/collision_inventory_v3.json",
+   "ok": true,
+   "sha256": "085d41bce3dcd604332202264883db33ae4ee2b33fa753b32c5b57571d87852a"
+  },
+  "card_receipt": {
+   "path": "notes/phases/PHASE_3R_hypothesis_cards_v2.lock.json",
+   "ok": true,
+   "sha256": "4998f66a6d71a909577eb8e3321b6278c7eaeb62c374c1d0f8da565cc4053839"
+  },
+  "card": {
+   "path": "notes/phases/PHASE_3R_hypothesis_cards_v2.md",
+   "ok": true,
+   "sha256": "60335b61dcc68710e7c6d68896abaf750d396b386346a0ca50d0ed2c912f5ac4"
+  },
+  "sampler": {
+   "path": "experiments/R3R_07_confirmation/sampler.py",
+   "ok": true,
+   "sha256": "2af934ff9e6cf7a8e226299e353fc62534a01b52ee633f768b9bf4fd60a2e19c"
+  },
+  "scorer": {
+   "path": "experiments/R3R_06_cards/verdict.py",
+   "ok": true,
+   "sha256": "f777cadb7edcdedcc06a4a89a0aa38c5b9612c50d087c6a4dfa57b3ad66e41e7"
+  },
+  "score_adapter": {
+   "path": "experiments/R3R_07_confirmation/score.py",
+   "ok": true,
+   "sha256": "5140a002ca1146b5da573c925dccb448cf3fa73e0b0ea63cfd565fb187d2187e"
+  },
+  "frame": {
+   "path": "experiments/R3R_14_lean_close/frame_v2.py",
+   "ok": true,
+   "sha256": "106da7cbcd1f8e6f37ab225b851dfde6b136efca107eee3c9e8be466b4cd5a28"
+  },
+  "checks": {
+   "path": "experiments/R3R_14_lean_close/checks.py",
+   "ok": true,
+   "sha256": "95ba53196c47de5c8715490b6ca8c4af990b0990deb77467122535ac7acf9465"
+  },
+  "numerics_receipt": {
+   "path": "notes/phases/numerics_v1_3_1_lean.lock.json",
+   "ok": true,
+   "sha256": "b20ea1a6065529b0bd50d2d4108b44ffac9075f2d0eceacd8165c9600b186d37"
+  },
+  "numerics_spec": {
+   "path": "notes/design/numerics_v1_3_1_lean.json",
+   "ok": true,
+   "sha256": "e1ed82b20cd634bbd8d1aae13a2f6eb59220bf535c0a0e0862804d9e484ae486"
+  },
+  "seed_allocation": {
+   "path": "results/lessons/l3r_7/lean_close/seed_allocation.json",
+   "ok": true,
+   "sha256": "63f61337a2d517329b781536c9fe0ac1b7e2688341a4da06ea72743323b49da2"
+  },
+  "dry_run": {
+   "path": "results/lessons/l3r_7/lean_close/dry_run_B.json",
+   "ok": true,
+   "sha256": "72144cf07a95930f522f2b663c24a23836745832fdb30aae8853a261761a304f"
+  }
+ },
+ "commits": {
+  "cards_v1": "1414d9299d767b2abd56642c4d56048867b83095",
+  "cards_v2": "b62f3291edc35b5ff58ed51a4a41175c2455a38a",
+  "numerics_spec": "5d20cb83b70df9d8b84fae91e127ff5f18000fb3",
+  "seed": "ef6ca774b14d05cc49c96698fc57ab7921ff78fc",
+  "cf_prereg": "16cfa60de4bf718ab9f7dcb654d00dc09570dae4",
+  "cf_list": "7173d7077f08edbef9ced9f032312d397a6cae89"
+ },
+ "ancestry_in_order": true,
+ "tags": {
+  "contract-v1.3": "3d2359b32d7bd24f9e9072d5b5b8131bd33fffa0",
+  "numerics-v1.3.1-lean": "5d20cb83b70df9d8b84fae91e127ff5f18000fb3",
+  "explore-v13-pilot": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "explore-v13-regime-map": "574a36fb4213a79d3d2aa305a489701cfc3059f2"
+ },
+ "realism_envelope_before_labels": true,
+ "cf_list": {
+  "sha256": "b1003a0f9ae6e12d93bce65a5b714cd04e29a83f0cae4518adde82001aa873fd",
+  "rows": 270,
+  "per_region": {
+   "MV+A": 60,
+   "MV-ii": 60,
+   "MV-BND": 15,
+   "SH+A": 60,
+   "SH-ii": 60,
+   "SH-BND": 15
+  },
+  "attempts": [
+   "attempt01"
+  ],
+  "outcome_files": 0
+ },
+ "exposure_inside_regions": {
+  "MV+A": {
+   "stage2": 16,
+   "experiments": 1,
+   "regime_map": 2,
+   "lean_close": 3,
+   "distinct_keys": 22
+  },
+  "MV-ii": {
+   "experiments": 17,
+   "regime_map": 4,
+   "lean_close": 3,
+   "distinct_keys": 24
+  },
+  "MV-BND": {
+   "stage2": 8,
+   "experiments": 8,
+   "regime_map": 4,
+   "distinct_keys": 20
+  },
+  "SH+A": {
+   "stage2": 72,
+   "experiments": 3,
+   "lean_close": 10,
+   "distinct_keys": 85
+  },
+  "SH-ii": {
+   "experiments": 35,
+   "lean_close": 10,
+   "distinct_keys": 45
+  },
+  "SH-BND": {
+   "stage2": 36,
+   "experiments": 16,
+   "distinct_keys": 52
+  }
+ },
+ "power_n60": [
+  {
+   "n": "60",
+   "p_plus": "3/5",
+   "p_minus": "1/10",
+   "pass_probability": "0.2568058346405683"
+  },
+  {
+   "n": "60",
+   "p_plus": "3/5",
+   "p_minus": "1/5",
+   "pass_probability": "0.25628105003235263"
+  },
+  {
+   "n": "60",
+   "p_plus": "7/10",
+   "p_minus": "1/10",
+   "pass_probability": "0.8381820897698116"
+  },
+  {
+   "n": "60",
+   "p_plus": "7/10",
+   "p_minus": "1/5",
+   "pass_probability": "0.8364692585165464"
+  }
+ ],
+ "all_ok": true
+}
