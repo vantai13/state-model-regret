@@ -1735,3 +1735,4 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   Phạm vi: chỉ cho card v2; numerics của card v1 vẫn mở. R1/R7: chênh lệch làm mịn là chẩn đoán, không phải cận
   sai số được chứng nhận.
 - Chưa có outcome CF nào. L3R.8 (D22, người đọc thật, realism, Gate 3R) và Phase 4 HOLD giữ nguyên.
+- Đính chính (AI, cùng ngày): số phép tính calibration là **1298** (118 ca × 11 mức), không phải 1062 như dòng trên.

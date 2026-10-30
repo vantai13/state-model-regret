@@ -860,3 +860,23 @@ DL088, không law/enginejoint mới; outputcomponent không populationp95.
 newCF/seed hoặc outcomeR09/R10. Modelcards/ngưỡng khôngsửa; globalreadiness
 72/114 ở80/2,80/114 ở160/2;160/4 mới49complete(41ready), không gán các mức
 chưa chạy làFAIL. Phần còn lại tạm dừng theo tác giả, không tự mởrunmới.
+
+
+## L3R.7 đóng gọn (DL-095–096, 30/10/2026)
+
+Đã tính và thấy outcome:
+- 118 ca calibration v2 ở 11 mức (106 ca thô native05, 8 ca tốc độ lẻ làm tròn về 1/100, 4 điểm nội vùng RINT);
+- 32 điểm kiểm đại diện (4 mức r × 8 ca);
+- 4 ca replay;
+- 18 bundle đo thời gian;
+- dry-run B trên 4 góc discovery;
+- 4 phép kiểm model đồng nhất.
+
+Toàn bộ là calibration/discovery đã đăng ký.
+
+Inventory v3 ghi thêm:
+- regime map (nhánh `explore/v13-regime-map`, 1376 dòng) quy về age 1, trong đó **10 điểm map3age nằm trong vùng
+  Hyp-MV**: XA081/XA093 ở MV+A, XA100/112/129/141 ở MV-ii, XA076/088/105/117 ở MV-BND;
+- 8 regime AI chạy thử trong phiên, đã thấy số nhưng không lưu file.
+
+270 regime CF mới chỉ có tham số; **không outcome CF, không R09/R10**.

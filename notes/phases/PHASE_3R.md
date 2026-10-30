@@ -1,3 +1,13 @@
+# Addendum triển khai — L3R.7 đóng gọn, 30/10/2026
+
+**DL-095–096:** đóng L3R.7 bằng card v2. Card v2 khác v1 đúng bước làm tròn λA/λB/u = 1/100, do luật khai trước chọn;
+card v1 giữ nguyên byte. Numerics v1.3.1-lean chọn (640, 4) trên 118 ca calibration, 0 UNRESOLVED.
+n 60/BND 15 theo DL-077; root đã commit trước khi rút; 270 regime CF chỉ tham số, sinh một lần; dry-run B thông.
+Chưa có outcome CF. Còn mở: D22, P0-V10/L8, realism HOLD_UNSOURCED, Gate 3R; Phase4 HOLD, G1.
+[Report](../../results/lessons/l3r_7/lean_close/report.md). Phần bên dưới giữ nguyên byte.
+
+---
+
 # Addendum triển khai — L3R.7, 29/10/2026
 
 **Cập nhật DL-078–079:** đã thực thi gate numerics,không còn chỉarithmetic.

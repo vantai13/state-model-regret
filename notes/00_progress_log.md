@@ -414,3 +414,16 @@ L1.8 **Part B** (22/10/2026): **13/13 test mới, 124/124 toàn repo PASS**. Toy
 L1.8 **Parts C–E** (22/10/2026): đã chọn profile stable OFF.2μ/ON1.4μ, conditional stationary prior vô hạn, lưới24main+2negative+2stress, calibration3 và reserve16 chỉ tọa độ. Ngưỡng chính1%/equivalence.5%/numerical budget.25%, Cref=Lstar cùng ô/cùng dt. Contract v1 giữ25term; brief/card/decision log/closeout và exception V11 có record. [Report và số đo thực](../results/lessons/l1_8_cde/report.md) · [22 tests mới](../tests/test_l1_8_contract.py) · [11 thẻ+6b](../notes/lessons/L1.8D_decision_cards.md) · [Index/audit/git receipt](../notes/verification/l1_8_cde/README.md). Chỉ screen/budget/timescales trên lưới mới; chưa chạy contrast hoặc margin, chưa sinh reserve. A01 final dt/full-grid computational feasibility và human feedback vẫn pending; không xem freeze là hypothesis/network validation.
 
 Kết quả CDE thực chạy: **146/146 tests PASS**,5.832 idle pairs không mismatch; backward/forward132 giá trị sai số tối đa7.11e-15. Main s_bt0,hai controls≈1; M20/M22/M24 báo alarm conservative budget, chưa chứng nhận full-grid feasibility. Artifact auditor dựng lại28D/6.776state rows PASS.
+
+## L3R.7 — đóng gọn bằng card v2 (DL-095–096, 30/10/2026)
+
+AI chạy theo ủy quyền "làm sao cho phù hợp". Prereg `1c0cab0` có trước mọi phép tính. Kết quả:
+- replay local/GCP khớp chính xác;
+- r = 1/100 (1/10–1/40 rớt);
+- card v2 `b62f329` (chỉ đổi bước làm tròn), lock `dcfa01c`;
+- 1298 phép tính calibration, 0 UNRESOLVED, mức chọn (640, 4);
+- p95 457 s, n 60 / BND 15 (45,4 CPU-giờ);
+- dry-run B thông; root đã commit; 270 regime CF chỉ tham số, sinh một lần.
+
+710/710 test PASS. Chưa có outcome CF. L3R.8 (D22, người đọc thật, realism, Gate 3R) còn mở; Phase 4 HOLD.
+[Report](../results/lessons/l3r_7/lean_close/report.md).

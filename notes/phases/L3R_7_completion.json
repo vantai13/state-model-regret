@@ -1,7 +1,7 @@
 {
   "owner": "Doan Van Tai",
   "date": "2026-10-30",
-  "status": "PAUSED_BY_AUTHOR_AFTER_NATIVE05_HOLD",
+  "status": "CLOSED_LEAN_CARD_V2",
   "lesson": "L3R.7 Parts 1–3",
   "decisions": [
     "DL-075",
@@ -22,7 +22,9 @@
     "DL-090",
     "DL-091",
     "DL-092",
-    "DL-094"
+    "DL-094",
+    "DL-095",
+    "DL-096"
   ],
   "contract": "contract-v1.3",
   "card_commit": "1414d9299d767b2abd56642c4d56048867b83095",
@@ -50,7 +52,7 @@
   "power_scenarios": 36,
   "dry_run_A": "SYNTHETIC_AND_UNPAIRED_PILOT_ADAPTER_PASS",
   "dry_run_C": "REFUSAL_TESTS_PASS; 3 real CLI refusals",
-  "dry_run_B": "DEFERRED_UNTIL_NUMERICS_V1_3_1",
+  "dry_run_B": "DONE on DL-093 discovery corners (pipeline only, not evidence); zero controls exact; identical-model checks exact; anchors PASS",
   "production_backend": "DEFERRED_UNTIL_NUMERICS_D22_AUDIT",
   "n_rule_status": "AUTHOR_ADOPTED",
   "budget_cpu_hours": 48,
@@ -60,13 +62,13 @@
   "workers_max": 4,
   "workers_final": null,
   "compute_budget": "notes/design/confirmation_compute_budget_v1.json",
-  "n": null,
-  "n_bnd": null,
-  "confirmation_root": null,
-  "new_CF_regimes": 0,
+  "n": 60,
+  "n_bnd": 15,
+  "confirmation_root": 4178537126615856961,
+  "new_CF_regimes": "270 parameter-only regimes for card v2 (60 per scored region, 15 per BND), generated once, 0 redraws; no engine",
   "new_research_engine_or_MC_runs": 3,
   "sealed_R09_R10": "coordinates reserved only; outcomes remain sealed",
-  "numerics_v1_3_1": "HOLD_SERIALIZATION_AND_REMAINING_ACCURACY_AUDIT",
+  "numerics_v1_3_1": "LEAN_CLOSED_FOR_CARD_V2: K*=640, ref*=4, dt*=1/480; tag numerics-v1.3.1-lean (local); card v1 numerics remain open",
   "D22_implementation_and_audit": "DEFERRED",
   "audit_L3R3": "HOLD",
   "realism": "HOLD_UNSOURCED; disposition at Gate3R",
@@ -105,7 +107,7 @@
   "numerics_v1_prereg_commit": "0efddcc6703c3d729eb005b6d36e65da783aeb84",
   "GCP_used": true,
   "GCP_started_by_agent": false,
-  "GCP_left_running": true,
+  "GCP_left_running": "author reported the VM stopped (30/10, author_choices)",
   "temporary_SSH_rule": "DELETED_VERIFIED_API",
   "raw_export_files_verified": 29,
   "numerics_scope": "stationary probes only; full costs/tails/quadrature/D22/global accuracy not audited",
@@ -264,5 +266,41 @@
     "confirmation_root": null,
     "CF_generated": 0,
     "temporary_SSH_rule_cleanup": "PENDING_FINAL_COLLECTION"
-  }
+  },
+  "status_history": [
+    "PAUSED_BY_AUTHOR_AFTER_NATIVE05_HOLD"
+  ],
+  "card_v2_commit": "b62f3291edc35b5ff58ed51a4a41175c2455a38a",
+  "card_v2_lock": "notes/phases/PHASE_3R_hypothesis_cards_v2.lock.json",
+  "tests_lean_close": {
+    "full_suite": 710,
+    "new": 9
+  },
+  "lean_close": {
+    "report": "results/lessons/l3r_7/lean_close/report.md",
+    "design": "notes/design/l3r7_lean_close.md",
+    "prereg": "experiments/R3R_14_lean_close/prereg.json",
+    "cf_prereg": "experiments/R3R_14_lean_close/cf_prereg.json",
+    "representation_r": "1/100",
+    "level": [
+      640,
+      4
+    ],
+    "p95_bundle_cpu_seconds": 456.747064,
+    "fixed_validation_cpu_seconds": 2301.317688,
+    "planned_cpu_hours": 45.4,
+    "calibration_evaluations": 1298,
+    "unresolved": 0,
+    "author_role": "requested the lean closure verbatim; did not predict, read or write the card or rules",
+    "ai_error": "edited sampler.py (in native05 hash manifest); reverted in fc6accd before any draw"
+  },
+  "still_open": [
+    "D22 audit",
+    "P0-V10 / L8 human reader",
+    "realism HOLD_UNSOURCED decision",
+    "Gate 3R label",
+    "Understanding / T05 author writing",
+    "Phase 4 HOLD",
+    "push of tag numerics-v1.3.1-lean"
+  ]
 }
