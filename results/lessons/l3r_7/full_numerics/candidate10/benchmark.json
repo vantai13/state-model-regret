@@ -1,0 +1,136 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "PASS_COMPONENT_PARITY_ONLY_NOT_ADOPTED",
+  "utc": "2026-10-30T03:23:14.855329+00:00",
+  "source_commit": "a58a7303f05c3828e4fa8bb16b2ba6201c418ccf",
+  "prereg_sha256": "28ccf5ced8f95fd2efc64729ab6abf9ecaacb07cf3dd9ed69c8f06ec90125899",
+  "python": "3.14.5",
+  "mpmath": "1.3.0",
+  "machine": "Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "parameters": [
+    "7123/1000",
+    "617/500",
+    "3",
+    2
+  ],
+  "indices": [
+    916318,
+    1341550,
+    1450400
+  ],
+  "roots": 4357,
+  "law_error": "8.7211380123189775032237059380943255379637762309010629794807126604441057272605324e-31",
+  "setup": {
+    "cpu_seconds": 0.0009412210000000476,
+    "wall_seconds": 0.0009251310002582613,
+    "scope": "native library load/compile; excluded from warm evaluator ratio"
+  },
+  "measurements": [
+    {
+      "method": "original_interval",
+      "repeat": 0,
+      "cpu_seconds": 10.264025039000002,
+      "wall_seconds": 10.264661370001704,
+      "values": [
+        "0.20045735005405832",
+        "0.2578297715284116",
+        "0.2745831141077739"
+      ],
+      "error_bounds": [
+        "4.0000007535901644e-16",
+        "4.0000005462989194e-16",
+        "4.0000003643295665e-16"
+      ]
+    },
+    {
+      "method": "original_interval",
+      "repeat": 1,
+      "cpu_seconds": 10.257424295,
+      "wall_seconds": 10.258008003998839,
+      "values": [
+        "0.20045735005405832",
+        "0.2578297715284116",
+        "0.2745831141077739"
+      ],
+      "error_bounds": [
+        "4.0000007535901644e-16",
+        "4.0000005462989194e-16",
+        "4.0000003643295665e-16"
+      ]
+    },
+    {
+      "method": "original_interval",
+      "repeat": 2,
+      "cpu_seconds": 10.229225111000002,
+      "wall_seconds": 10.229445635000957,
+      "values": [
+        "0.20045735005405832",
+        "0.2578297715284116",
+        "0.2745831141077739"
+      ],
+      "error_bounds": [
+        "4.0000007535901644e-16",
+        "4.0000005462989194e-16",
+        "4.0000003643295665e-16"
+      ]
+    },
+    {
+      "method": "native_dyadic",
+      "repeat": 0,
+      "cpu_seconds": 0.7046601439999982,
+      "wall_seconds": 0.704661791000035,
+      "values": [
+        "0.20045735005405832194",
+        "0.25782977152841158631",
+        "0.27458311410777389423"
+      ],
+      "error_bounds": [
+        "4.0346952231097007297e-16",
+        "4.034695015818455465e-16",
+        "4.0346948338491025565e-16"
+      ]
+    },
+    {
+      "method": "native_dyadic",
+      "repeat": 1,
+      "cpu_seconds": 0.6812948300000059,
+      "wall_seconds": 0.6813066560007428,
+      "values": [
+        "0.20045735005405832194",
+        "0.25782977152841158631",
+        "0.27458311410777389423"
+      ],
+      "error_bounds": [
+        "4.0346952231097007297e-16",
+        "4.034695015818455465e-16",
+        "4.0346948338491025565e-16"
+      ]
+    },
+    {
+      "method": "native_dyadic",
+      "repeat": 2,
+      "cpu_seconds": 0.6790755159999975,
+      "wall_seconds": 0.6793590470006166,
+      "values": [
+        "0.20045735005405832194",
+        "0.25782977152841158631",
+        "0.27458311410777389423"
+      ],
+      "error_bounds": [
+        "4.0346952231097007297e-16",
+        "4.034695015818455465e-16",
+        "4.0346948338491025565e-16"
+      ]
+    }
+  ],
+  "median_cpu_seconds": {
+    "original_interval": 10.257424295,
+    "native_dyadic": 0.6812948300000059
+  },
+  "median_cpu_ratio": 15.055778854214864,
+  "scope": "same local machine, three fixed previously seen q values, all repeats reported; no cloud speedup/p95 claim",
+  "new_laws": 0,
+  "new_joint_regimes": 0,
+  "CF_generated": 0,
+  "candidate_adopted": false
+}

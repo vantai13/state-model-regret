@@ -1,0 +1,34 @@
+{
+  "owner": "Doan Van Tai",
+  "decision": "DL-091",
+  "utc": "2026-10-30T03:30:55.711779+00:00",
+  "reason": "versioned performance optimization; full batch will be replayed with same numerical targets",
+  "signals": [
+    {
+      "pid": 60486,
+      "signal": "SIGTERM worker process group"
+    },
+    {
+      "pid": 15683,
+      "signal": "SIGKILL paused controller after worker receipt wait"
+    }
+  ],
+  "workers_before": [
+    {
+      "pid": 60486,
+      "job": "RATE_SH_EDGE_K3_H16",
+      "stage": "raise_K",
+      "sampled_CPU_seconds": 287.48
+    }
+  ],
+  "new04_receipts": 113,
+  "completed04_receipts": 112,
+  "unresolved04_receipts": 1,
+  "new04_recorded_CPU_seconds": 5304.045715000004,
+  "parent03_recorded_CPU_seconds": 4060.270453,
+  "unknown_interrupted03_reserve_seconds": 3605,
+  "carried_cpu_reserve_seconds": 12969.316168000005,
+  "cpu_scope": "resource receipts for04; original interrupted03 CPU unknown and reserve is planning only",
+  "summary_exists": false,
+  "remaining_owned_workers": []
+}

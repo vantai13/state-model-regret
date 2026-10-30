@@ -1,0 +1,2224 @@
+{
+  "owner": "Doan Van Tai",
+  "id": "R3R_POPULATION_NATIVE_FULL_05",
+  "declared_at": "2026-10-30T03:34:54.568327+00:00",
+  "status": "PREREGISTERED_CALIBRATION_ONLY",
+  "decision": "DL-091/DL-092",
+  "pilot_commit": "a7435e9a3cb0d1625479c942041ec6748444014a",
+  "CF_allowed": false,
+  "confirmation_root": null,
+  "n": null,
+  "output": "results/R3R_population_numerics/20261030_05",
+  "environment": {
+    "python": "3.13.13",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "pandas": "3.0.6",
+      "matplotlib": "3.11.2",
+      "mpmath": "1.3.0",
+      "pytest": "9.1.1"
+    },
+    "build_dependency": "libboost1.74-dev_1.74.0-14ubuntu3_amd64.deb",
+    "boost_deb_sha256": "4d9c90e43f0d25db6280d1ee326771cbb76462f73b9430f06bac1de8d05b7a78"
+  },
+  "limits": {
+    "job_cpu_seconds": 3600,
+    "job_wall_seconds": 4800,
+    "rss_bytes": 3221225472,
+    "address_space_bytes": 6442450944,
+    "total_cpu_seconds": 43200
+  },
+  "max_workers": 4,
+  "worker_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1",
+    "CPLUS_INCLUDE_PATH": "/home/ubuntu/state-model-regret-l3r7-full-20261029/deps/boost/usr/include"
+  },
+  "legacy_jobs": [
+    {
+      "id": "X2065",
+      "kind": "legacy_anchor",
+      "stage": "stage2",
+      "spec": [
+        "X2065",
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        1,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X1008",
+      "kind": "legacy_anchor",
+      "stage": "stage1",
+      "spec": [
+        "X1008",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "2",
+        1,
+        40,
+        "0"
+      ]
+    },
+    {
+      "id": "X1009",
+      "kind": "legacy_anchor",
+      "stage": "stage1",
+      "spec": [
+        "X1009",
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "8",
+        1,
+        40,
+        "0"
+      ]
+    }
+  ],
+  "marginals": [
+    {
+      "id": "CAL_BASE_A",
+      "kind": "stationary_only",
+      "lambda": "15/2",
+      "managed": "3/2",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "old anchor marginal",
+      "expected_quantiles": [
+        114,
+        452
+      ],
+      "reference_sha256": "25f0b4b163f064afb5e8f4d1e5dde22cbde52265240e6c07e03ac9cd8d1f0a3f"
+    },
+    {
+      "id": "CAL_RATE_10_A",
+      "kind": "stationary_only",
+      "lambda": "71/10",
+      "managed": "6/5",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "fixed deterministic rate-resolution calibration",
+      "expected_quantiles": [
+        516,
+        2407
+      ],
+      "reference_sha256": "3dc61a2a23d553e75a450312a559efcfe4c5daad229083bae4ca30659cdf523a"
+    },
+    {
+      "id": "CAL_RATE_100_A",
+      "kind": "stationary_only",
+      "lambda": "178/25",
+      "managed": "5/4",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "fixed deterministic rate-resolution calibration",
+      "expected_quantiles": [
+        5647,
+        25370
+      ],
+      "reference_sha256": "6b1a2c31ebd102d0fb75ea92d9900abf87b057c802ad7f16b16618f5dd6c30b9"
+    },
+    {
+      "id": "CAL_RATE_1000_A",
+      "kind": "stationary_only",
+      "lambda": "7123/1000",
+      "managed": "617/500",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "fixed deterministic rate-resolution calibration",
+      "expected_quantiles": [
+        55424,
+        251343
+      ],
+      "reference_sha256": "98d3044d70e8d3a5679f28c000e8051e7881263cafefb92dd174915b6079f4a8"
+    },
+    {
+      "id": "CAL_RATE_1000_B",
+      "kind": "stationary_only",
+      "lambda": "6543/1000",
+      "managed": "0",
+      "kappa": "1/10",
+      "ref": 1,
+      "role": "fixed deterministic rate-resolution calibration",
+      "expected_quantiles": [
+        10172,
+        77322
+      ],
+      "reference_sha256": "ea4a21fb40a73d23f7c80a34c0b6b59eb61ae48a778573b7f9d1d3228fdc0d70"
+    },
+    {
+      "id": "CAL_KAPPA3_A",
+      "kind": "stationary_only",
+      "lambda": "15/2",
+      "managed": "3/2",
+      "kappa": "3",
+      "ref": 2,
+      "role": "kappa3 marginal; DOES NOT audit h16 costs",
+      "expected_quantiles": [
+        6791,
+        27070
+      ],
+      "reference_sha256": "ae5c63e74bf3ffe9b9c27a0ef1393af198b1c21e5ee348b9af091f01f0408789"
+    }
+  ],
+  "cases": [
+    {
+      "id": "CAL_CORNER_001",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_002",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_003",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_004",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_005",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_006",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_007",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_008",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_009",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_010",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_011",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_012",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_013",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_014",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_015",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_016",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_017",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_018",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_019",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_020",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_021",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_022",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_023",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_024",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_025",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_026",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_027",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_028",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_029",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_030",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_031",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_032",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_033",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_034",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_035",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_036",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_037",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_038",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_039",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_040",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_041",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_042",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_043",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_044",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_045",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_046",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_047",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_048",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_049",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_050",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_051",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_052",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_053",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_054",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_055",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_056",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_057",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_058",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_059",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_060",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_061",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_062",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_063",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_064",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "3",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "MV-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_065",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_066",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_067",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_068",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_069",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_070",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_071",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_072",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_073",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_074",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_075",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_076",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_077",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_078",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "1",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_079",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_080",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "6",
+        "3",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_081",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_082",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_083",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_084",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_085",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_086",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_087",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_088",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_089",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_090",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_091",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_092",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH+A"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_093",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_094",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "1",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_095",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "CAL_CORNER_096",
+      "kind": "global_calibration",
+      "parameters": [
+        "8",
+        "7",
+        "3",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [
+        "SH-ii"
+      ],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X2065",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X2029",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "8",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X2041",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X1001",
+      "kind": "global_calibration",
+      "parameters": [
+        "6",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X3001",
+      "kind": "global_calibration",
+      "parameters": [
+        "13/2",
+        "8",
+        "3/10",
+        "1/2",
+        "8",
+        "4"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X1008",
+      "kind": "global_calibration",
+      "parameters": [
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X2012",
+      "kind": "global_calibration",
+      "parameters": [
+        "7",
+        "7",
+        "1/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "X1009",
+      "kind": "global_calibration",
+      "parameters": [
+        "6",
+        "8",
+        "3",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "regions": [],
+      "role": "corner_or_old_audit"
+    },
+    {
+      "id": "RATE_SH_BASE_K1_10_H8",
+      "kind": "global_calibration",
+      "parameters": [
+        "7123/1000",
+        "6543/1000",
+        "1/10",
+        "617/1000",
+        "8",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_SH_BASE_K1_10_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7123/1000",
+        "6543/1000",
+        "1/10",
+        "617/1000",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_SH_BASE_K3_H8",
+      "kind": "global_calibration",
+      "parameters": [
+        "7123/1000",
+        "6543/1000",
+        "3",
+        "617/1000",
+        "8",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_SH_BASE_K3_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7123/1000",
+        "6543/1000",
+        "3",
+        "617/1000",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_MV_EDGE_K1_10_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7483/1000",
+        "8",
+        "1/10",
+        "187/250",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_MV_EDGE_K3_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7483/1000",
+        "8",
+        "3",
+        "187/250",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_SH_EDGE_K1_10_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7997/1000",
+        "6999/1000",
+        "1/10",
+        "747/1000",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "RATE_SH_EDGE_K3_H16",
+      "kind": "global_calibration",
+      "parameters": [
+        "7997/1000",
+        "6999/1000",
+        "3",
+        "747/1000",
+        "16",
+        "0"
+      ],
+      "regions": [],
+      "role": "rational_rate_timing_accuracy"
+    },
+    {
+      "id": "ZERO_MV",
+      "kind": "global_calibration",
+      "parameters": [
+        "29/4",
+        "8",
+        "173/1000",
+        "0",
+        "1663/120",
+        "0"
+      ],
+      "regions": [],
+      "role": "zero_control"
+    },
+    {
+      "id": "ZERO_SH",
+      "kind": "global_calibration",
+      "parameters": [
+        "15/2",
+        "13/2",
+        "173/1000",
+        "0",
+        "679/60",
+        "0"
+      ],
+      "regions": [],
+      "role": "zero_control"
+    }
+  ],
+  "stage_levels": {
+    "marginal": [],
+    "base": [
+      [
+        80,
+        2
+      ],
+      [
+        40,
+        2
+      ],
+      [
+        80,
+        1
+      ]
+    ],
+    "raise_K": [
+      [
+        160,
+        2
+      ],
+      [
+        160,
+        1
+      ]
+    ],
+    "raise_ref": [
+      [
+        160,
+        4
+      ],
+      [
+        80,
+        4
+      ]
+    ],
+    "global_K320": [
+      [
+        320,
+        4
+      ],
+      [
+        320,
+        2
+      ]
+    ],
+    "global_K640": [
+      [
+        640,
+        4
+      ],
+      [
+        640,
+        2
+      ]
+    ],
+    "global_ref8": [
+      [
+        640,
+        8
+      ],
+      [
+        320,
+        8
+      ]
+    ]
+  },
+  "candidates": [
+    [
+      "base",
+      80,
+      2
+    ],
+    [
+      "raise_K",
+      160,
+      2
+    ],
+    [
+      "raise_ref",
+      160,
+      4
+    ],
+    [
+      "global_K320",
+      320,
+      4
+    ],
+    [
+      "global_K640",
+      640,
+      4
+    ],
+    [
+      "global_ref8",
+      640,
+      8
+    ]
+  ],
+  "on_failure": "HOLD; preserve partials; never freeze/sample by a ready boolean",
+  "selection": "first candidate where every registered case passes both R1 axes, arithmetic and validity; no relaxed thresholds",
+  "timing_policy": "report p95(method=higher) per corner/audit and rational-rate class; planning p95=max of predeclared class p95; cold unique component charges, no claim of population p95",
+  "arithmetic_fraction_max": "1/4000",
+  "cost_interpolation_budget": "min(1/10000,h^2/10000000) per action/age in packet*s",
+  "scientific_changes": false,
+  "S1_route": "direct_stationary_state",
+  "tail_policy": "retain q0 and exact complete probability; tail atom at zero gap beyond proved feature support; unbounded stay cost via separately certified stationary first moment; no renormalization",
+  "full_tests_required": 693,
+  "stage0_cases": [
+    "ZERO_MV",
+    "ZERO_SH",
+    "X2065",
+    "X1009",
+    "RATE_SH_BASE_K1_10_H16",
+    "RATE_SH_BASE_K3_H16"
+  ],
+  "source_sha256": {
+    "experiments/A00_engine/cells_adapter.py": "ef272dd76beafd5e83506288fcffb6af3f0f49b78c721a879e055ef6aec7a9b1",
+    "experiments/A00_engine/evaluate.py": "77326ab19b86a29dd6cef5f728747e50242ac27fbdcf93ddd88b1a91a0487117",
+    "experiments/A00_engine/factorial_core.py": "7507293e27ef68882d75d40b72861d7ab1ac3ebd88bb917f6f1cf87475cf8d3e",
+    "experiments/A00_engine/guard.py": "79b19fd64b07ffb917c542b812bc0b2446a840db56e54794bb81bb4f4fdc5ec5",
+    "experiments/A00_engine/physical.py": "cf78f3e361acc190099d7b5d4f75dbffffb3808694d0121736ef9f9264dc17ee",
+    "experiments/A00_engine/precision.py": "4330e4b2d887a2770d6ef3c612f5e46cd66a3f4d5094d70f286ec37270b028ab",
+    "experiments/A00_engine/report_verification.py": "273af50ff5892db401729105d371a38a07f8f7b3efe16e7f8d67a1e5970c7b65",
+    "experiments/A00_engine/run_mutants.py": "190ed51ee2f2e80fd494ef8c3b0c419c71683019a6b3a555073a5d13d1210ca3",
+    "experiments/A00_engine/toy_physics.py": "44e120207c0e76ba2342708fd582aac0d4aba82d79aeeb52b2c13f143cca3732",
+    "experiments/A00_engine/toy_refinement.py": "a7c9e93ae3e4668b7e1daa2b2f95fe2a41afd6cfb12a27c5161d6e0dbb0ce612",
+    "experiments/R3R_02_audit/__init__.py": "951eaa5c6658537318828c1106bee1b1da9fb104ab64e87087f504a57e1ff8d1",
+    "experiments/R3R_02_audit/bridge.py": "a1655a1071c3bbae8cce20a0729a49366f53f7351a09095f734018757feb9a5b",
+    "experiments/R3R_02_audit/independent_mc.py": "110a6256e615d51798a728821379c9c01bd817bbd3e33025e2c875f3551589d8",
+    "experiments/R3R_02_audit/independent_mc_native.cpp": "cf6e8b8263119391204b00e2edfe9c5086b788cfb2a306da611745773d9452df",
+    "experiments/R3R_02_audit/pilot_population.py": "cc80bb61668e86fab68f76655059a497b3900d810d1c23ff6e99ace5369df332",
+    "experiments/R3R_02_audit/pilot_tests_original.py": "5b36674895c96c801a8916cba206cb9a63adfe28100a28d4c9b01c453f19b860",
+    "experiments/R3R_02_audit/reproduction_worker.py": "606c41d0c963b2c170e9e266960925e49fcc5ca805b8aeb20d3f1856bbeccb4c",
+    "experiments/R3R_02_audit/resume_reproduction.py": "c0e5bf6a6e76b0f574f8b6ec1cb99e5c24089057308c2613645b76da9cb33ff2",
+    "experiments/R3R_02_audit/run_engine_audit.py": "99f79df541ed4ea98decc1490ee46030284d95ec1d07f9783e8a462c10788d98",
+    "experiments/R3R_02_audit/run_extensions.py": "a187e20c7c27d9c14d0d6110230547d09acef18b6760f5651d7787b1e4d93173",
+    "experiments/R3R_02_audit/run_mc.py": "5fdea7681d68d3fcb040aabc597a41cc680ac4226214eeb86e6946f87c6a2975",
+    "experiments/R3R_02_audit/run_mutants.py": "62388770ac6fe2d51111cf74c187ae019bff4711e232ae252897c349dd0dfaf3",
+    "experiments/R3R_02_audit/run_pilot_original_tests.py": "9620b460131cb295b8350b81d9bfb7863f3e9e42b66396d7a1b8d8fdea7d5652",
+    "experiments/R3R_02_audit/setup_reproduction.py": "1569c94b9f26f2cdf1d9fb16dae7421bdc8f06b40ed2065a108a47b5c21d5c30",
+    "experiments/R3R_05_contract/__init__.py": "05315b7d3e2f56153094f05f1ebcf6687ec0077c72746151e0471ccbd477cfd3",
+    "experiments/R3R_05_contract/freeze.py": "69182d338b3b20893b0ca5d7f69cbb0b2a94697c33fab651418073019b70e4a1",
+    "experiments/R3R_05_contract/rules.py": "058ec031566aedf698996e2e4e35dbc85a8f4f0725b2763abe9282706d3bad53",
+    "experiments/R3R_05_contract/run_checks.py": "47b5206255061189d12081c933ac95cb39417cdc31a05391c16e1f1302c176eb",
+    "experiments/R3R_05_contract/schema.py": "4fd4a456f3d047dd693c48433ad322701857745f034489c76e815021147a034a",
+    "experiments/R3R_06_cards/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/R3R_06_cards/check_cards.py": "aaf5bebed734a572b951a4b0c10f53dc100e219477e10799385f820e7286af08",
+    "experiments/R3R_06_cards/discovery.py": "93d3770d13d989924440ff30ea34dc566f35ab7f0fa15ed430302730a251191e",
+    "experiments/R3R_06_cards/regions.py": "ba4755e7686f587ad7dd0254389d70fbfbd54ede800e38038aa76333f7341938",
+    "experiments/R3R_06_cards/render_log.py": "15085a894f668741064f77bb313da5ae0f757e271f341b870f855b79bbce11da",
+    "experiments/R3R_06_cards/run_discovery.py": "3aa5e7db5bdda3cfd85cdf73c5acc6946ce92e4f7b3e18f1b308c608410b0fab",
+    "experiments/R3R_06_cards/stats.py": "2453f565af5c809807e4b394e0d2c560fa559a79cedf3eacfc54412c52e7ec47",
+    "experiments/R3R_06_cards/verdict.py": "f777cadb7edcdedcc06a4a89a0aa38c5b9612c50d087c6a4dfa57b3ad66e41e7",
+    "experiments/R3R_06_cards/verify_cards.py": "e2490b1f541d85ebe23ace451d771d4b86baa475b2d761177b5c775511a3efd9",
+    "experiments/R3R_07_confirmation/__init__.py": "c8e264c8046c3226e8b0f9c6ca4edbeba17974d40885214f7c9076bbf5b91b8f",
+    "experiments/R3R_07_confirmation/common.py": "e4f6b0594ea5d3310dd3255ae212759e626679cdbb6365dd175e37e75ee751e9",
+    "experiments/R3R_07_confirmation/feasibility.py": "80ff8c1a53c4c3136b3fd521097e0816a874a0787ab7858354b5a4966cc94745",
+    "experiments/R3R_07_confirmation/frame.py": "754940ce44a48469cc070b58d608284a9a8245a722db236b1c676ef8222dc62d",
+    "experiments/R3R_07_confirmation/gates.py": "5b35496e178d83eb44de78f17c0806efbe02adac10d6e39a1127fe03bae53b87",
+    "experiments/R3R_07_confirmation/inventory.py": "2f8e1ec45ea2ddf3a7ba57ebaa8740d8cf01b283eb7f69f2da6b797f3aeaa464",
+    "experiments/R3R_07_confirmation/power.py": "c200396f518f3d32e739a1a53d18b33fa03ef96627ced2eb55e78c511179e8ea",
+    "experiments/R3R_07_confirmation/prepare.py": "dd52a9f7bf29c8984def66865c27435cc0e6b06bda63eb69bf041b935ac90393",
+    "experiments/R3R_07_confirmation/run.py": "c4ce9592fe0ed7988574f0ca3849e744f0c59aa5557f09f73ca5b2c80164436a",
+    "experiments/R3R_07_confirmation/sampler.py": "2af934ff9e6cf7a8e226299e353fc62534a01b52ee633f768b9bf4fd60a2e19c",
+    "experiments/R3R_07_confirmation/score.py": "5140a002ca1146b5da573c925dccb448cf3fa73e0b0ea63cfd565fb187d2187e",
+    "experiments/R3R_07_fast_stationary/__init__.py": "70fbd8628e3d2cc96f33b1bf88075a2c8d701ef9babfe8d12db424508a224d49",
+    "experiments/R3R_07_fast_stationary/algebraic_certificate.py": "8a33376ff76bc406d4d6b6fa97697aa4796e8e26563213b6248c25d6014cb3ff",
+    "experiments/R3R_07_fast_stationary/balanced_certificate.py": "9250214f6d31150427a5c357b0bf5cee35d131152bb9281cccc93c03fe4d2a75",
+    "experiments/R3R_07_fast_stationary/balanced_run.py": "aaf1e9d5f866ec1facad5c8d2a80229eb7b00c26b5e428e64cd330b90d213983",
+    "experiments/R3R_07_fast_stationary/balanced_worker.py": "9d14925ad63b3cc7f939724b2f47eef451675df57ba8ca962c8df2b782080cb8",
+    "experiments/R3R_07_fast_stationary/cloud_pipeline.py": "764bb0ee1114c3750725bcc43323a295a528b676245143849911783541658b77",
+    "experiments/R3R_07_fast_stationary/law.py": "9009b90164f8c5e8efd31477fc5be482a22ba511ca3887999c2543698c0563ef",
+    "experiments/R3R_07_fast_stationary/root_proposal.py": "c8b8412b73ddc573a268649c58b54952b6f61d1ceb9e2d34be5adbc53db31892",
+    "experiments/R3R_07_fast_stationary/run.py": "d6597bac5212e6b9ff244a61e3bbfbc543cba8c0cf8308ae59914e69a19cb5be",
+    "experiments/R3R_07_fast_stationary/sparse_run.py": "6dd8d0c5ed045f6f58dff014c6b02940655beda35b6d2a13e5388860f0369e2e",
+    "experiments/R3R_07_fast_stationary/sparse_worker.py": "87541488b344522edffd98213db7d2c7b5302586655c66fbb1b8ad964f6cfdde",
+    "experiments/R3R_07_fast_stationary/worker.py": "cb64902ad9aa57c4e1d4064b7f364b68563231a6255001e82b5a95ef1a8fd060",
+    "experiments/R3R_07_numerics/__init__.py": "8355a45f55191617218cfd63ed320d6634f6ef3aed56ded9165506a4a41a0202",
+    "experiments/R3R_07_numerics/budget.py": "3b628b097006eed44f19e0313d77e256fff0f4892d1ce1d1015977acc8f9a6ef",
+    "experiments/R3R_07_numerics/run.py": "90bc587e5be7067a0a1eacf9fc6c9e2989c9508afddaddceb21fb1f9c32cb6b8",
+    "experiments/R3R_07_numerics/worker.py": "f1b632b73ce6b8f63d02a6fcd712f7638862a340d74af1910f85f731b6f48925",
+    "experiments/R3R_08_population_numerics/__init__.py": "acce7684702f0c10cda4a8a6bfb89779330f301bea61df8f5eb3400f1801c00a",
+    "experiments/R3R_08_population_numerics/checks.py": "19e8da21e89b596f4f1af705b28cc2038aba46460b5bf287199d4a6130ee9359",
+    "experiments/R3R_08_population_numerics/cloud_pipeline.py": "8018d4d34229ead620d3c07be8b58d03d5f448091fb849e08411cc282766f98c",
+    "experiments/R3R_08_population_numerics/dyadic.py": "ab1d9b227e6a545dbaa5415123de5d561033685d913c9123f12baabc36e00055",
+    "experiments/R3R_08_population_numerics/fast_law.py": "151184b16422bcc1675cc2f25ecf35d637930fe920f6bd1d9a508cb6bbe87d9c",
+    "experiments/R3R_08_population_numerics/law_cache.py": "224c158b07c61a7bb2ff1d72f437a4c66b6adbcb472e149752a27a98b971eb0e",
+    "experiments/R3R_08_population_numerics/native/dyadic_products.cpp": "0b8b1b772d13dc68f273dc33e8bc8161e5ad79bb8c92683ff0bd3c8f01ff74bb",
+    "experiments/R3R_08_population_numerics/native/piecewise.cpp": "6bb3e1184b1a83132b9f2beddbf62e53264d6833d180eed1fd110e0e657af5c1",
+    "experiments/R3R_08_population_numerics/native_certificate.py": "09690214c0bc5b67e67b752d144efa91d7e08bd1133bf88e8d881d73dc88a605",
+    "experiments/R3R_08_population_numerics/native_law.py": "9d8c2f5c6d349d27f538763fe797e4e2e294946cb9feaf3a02ce12d612da29ab",
+    "experiments/R3R_08_population_numerics/piecewise.py": "e058d3dcff727e1159d9e6a716d96e7f054492c038e7a8e9522ce070254ad023",
+    "experiments/R3R_08_population_numerics/population.py": "071f1afd992bd26c720f104f760d88993dd2ee3c3bfae51a94ecc230f35f4de9",
+    "experiments/R3R_08_population_numerics/profiles.py": "94ad4cb848e0b7af7b5cc8a499f3a53e579c1185be000391e06c6bddfa659716",
+    "experiments/R3R_08_population_numerics/quadrature.py": "4dc0563aa1f5a55e7da4d4afcd9df471426d831baa3c459895ae966edfa4c42f",
+    "experiments/R3R_08_population_numerics/run.py": "e3bb236dc493193b81462b585b56e1fb7475690ba9f637f1e3b23784b941155b",
+    "experiments/R3R_08_population_numerics/run_job.py": "c2d20a5d31c12688d0067a364afbaf1e19f8b5c9b94267830f7e0f3ae111b3f3",
+    "experiments/R3R_08_population_numerics/worker.py": "d49fbed25fd709646283620dbddd55af1250c564a935f5569305e030308f84ad",
+    "experiments/V13_step1/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "experiments/V13_step1/regime.py": "f0ff322db1f993c90b7f0b466511a9d7d55a6ec83796246654d6dfd9cb57efa6",
+    "experiments/V13_step1/run.py": "3b732c9e6d433b14662eb1356dc9bd2b8368c8643a2676c9335454c3b79b2206",
+    "src/smr/__init__.py": "2b624922ab07c40dc83ae46d9ec095f765e27c8631a42bc359b50b61d0c0d1dd",
+    "src/smr/anchoring.py": "8eb042671765614c4fd81b1a8238879a0c596d4b3d3bfa0ae7e717cae46a59b0",
+    "src/smr/cells.py": "2be7f50e48b5dabaa7886f6a31a5a2cb4de958aa7d785c8f67dd75c261e0a3bc",
+    "src/smr/design.py": "a0afa5d2e473ec87ed377b65ae7c3bdd8f7c43d634662a75165a62cc91d5402e",
+    "src/smr/dominance.py": "91ba3526e449d05ea18236f595ec7674433fd7084e52410bd8f862ffb8ff9603",
+    "src/smr/exact.py": "c3216f0a318e5212882d1e1980dc5b69b7688486b7662c3b009d131366192f5b",
+    "src/smr/gap_screen.py": "b85ca281910cfbbe5ebe810d77570f88927ce0e9b1f3b5f3d582aded0270ad38",
+    "src/smr/idle_gap.py": "b749bbf5c85270a76c3d89dd19f582051625e87f91fbf5185dfec5ff0c92af47",
+    "src/smr/native/idle_backward.cpp": "8a76d84abf8fd0c1b59c247d2ae8555ac9803dfde117cd8105cf8e988f0b9c84",
+    "src/smr/single_observation.py": "3d5cdcf5ffea436ceca3b7770c07f52bdda9e9dc731f22d642882f71a5a66726",
+    "src/smr/stationary.py": "7d8a850f8aa26d132b179b54bea1bab7293f321093c73d776baf00a1e4b0f31a",
+    "src/smr/stationary_spectral.py": "cc7c3f82f88cbc99013130b580dc3374075d021c884e77b3bf382caf10d8cb6c",
+    "src/smr/stationary_v2.py": "60639e6fc33eb16ee3b55b196ba6fcab00715d28f2a72b5501915834513b627a",
+    "src/smr/thresholds.py": "cb26e33cca88064ef13fef41e7675a7cc4eafb5198a901c8f6f2eced27839bbf",
+    "tests/test_population_arithmetic_threshold.py": "cc15869341d8e95ed849de88b17e2b769d2489f82d7d654b76a31aa854f49661",
+    "tests/test_population_complete_backend.py": "7aa4071944e3e1b1704fb29ebf33c787d356ed702f9a5e2c4d7555b340f014a5",
+    "tests/test_population_dispatch.py": "4775bea9f35181731606d08aa21f0a771f0a7d77a07c0cb68d3853ad9d6715d4",
+    "tests/test_population_dyadic.py": "90a69021801615eb7b22623acb4b4086ae631207c7430c823ce1cbabba4c5fc9",
+    "tests/test_population_fast_law.py": "f31bf2a4458bb387b36d7ae98e9cb02a50f5fbb14c6050d443998df9226aebce",
+    "tests/test_population_piecewise_kernel.py": "e3a6ffa5c1a0c6c2470f65344c588f53facbd4d630744b9fe4b433c545257e4e",
+    "tests/test_population_toys.py": "1d47540ad23005f80d65748e1b96677cfa6472aac30d6d9e3a1bdef0958f4d80",
+    "tests/test_r3r_numerics_budget.py": "610bf9660656b3660bd6528870bc1b3b630a3cf51e4e10264bd4eff97eb7f97e",
+    "tests/test_population_posterior_fallback.py": "4f5cbe0f38d9112352beed47ff0ebc02115d06640a07916ca75e4067bd4a2f38",
+    "experiments/R3R_10_interval_evaluation/__init__.py": "61e6b23617597f3bdb2d04273547d42ec9eedfcddbdecad8479b1dfeadf818a0",
+    "experiments/R3R_10_interval_evaluation/evaluator.py": "6d17eeb58dcb10bebeb520e989c3ac4fc2ea0f25cd5b0c0f22a3df854a28379e",
+    "experiments/R3R_10_interval_evaluation/benchmark.py": "2ab2a454cc526ffb453335e51f14105943eb1b00828b946544b8cccafb2c91f7",
+    "experiments/R3R_10_interval_evaluation/native/points.cpp": "55192ecab25a1e1c98044b8e8abb31ae1207ad97c5a09ebf0e82dc2d64059053",
+    "experiments/R3R_11_native_population/worker.py": "3498da08fdac167c8e4a9f2ff600b33636f27f31b32430ff3d26243c0e353a84",
+    "experiments/R3R_11_native_population/run_job.py": "6a6166e840720bf15cf8ab871e8bc6c37b4ccf0ca6548828bbc27eb4a5b0bed9",
+    "experiments/R3R_11_native_population/run.py": "2dcbbe18c3342cd2c224b0d47b4a6c6c4281886e45c15ba8a8bc95fe4bd349f6",
+    "experiments/R3R_11_native_population/__init__.py": "f4406e5ac620614491d7e9f1877442a8df6e4ef85b77992f1d71bf0aa2354f2e",
+    "experiments/R3R_11_native_population/cloud_pipeline.py": "ce1d01cafe39b810d9adf357ede0f180dbd31e77510252c5989d2bb391311d4e",
+    "tests/test_native_interval_points.py": "0b9037f3ac13b0ac6502edceaa299a25f843360fe5e3ee3f191dd27f71954111",
+    "tests/test_native_population_integration.py": "1176ffc6390de474dfd409920f62b6e14ea797944e5de63e344a5455773b3705",
+    "notes/design/native_point_evaluation_candidate.md": "7a2235bd52b7345adb2f10058e4fbe741111c0b0e7ee847d2c3061d1f806008b",
+    "results/lessons/l3r_7/full_numerics/recovery04/stop_DL091.json": "792f0565b18c01b903257f9e9c82f6a0079df4dc6ab92128c1755cb4cb087d4d",
+    "results/lessons/l3r_7/full_numerics/recovery04/partial_export.json": "b004ae134663b49f4d48da066c5d870d490001f9e9dd4234d59c4c52acba4edd"
+  },
+  "cache_path": "/home/ubuntu/state-model-regret-l3r7-full-20261029/cache",
+  "deviation": "Full replay after switching precision-fallback evaluator. Prior calibration03/04 exposed; finite global-level search extended before this run per DL-092. No changes to scientific plant, estimand, metrics, thresholds, card measure/rounding, or two-step per-regime CF R3.",
+  "prior_attempt": {
+    "prereg": "experiments/R3R_08_population_numerics/prereg_02.json",
+    "status": "HOLD_NUMERICAL_AUDIT",
+    "summary": "results/R3R_population_numerics/20261029_02/summary.json",
+    "reason": "Binary forward-error posterior guard; retain 1e-8 threshold and use original 80-digit interval posterior only when needed."
+  },
+  "carried_cpu_reserve_seconds": 12969.316168000005,
+  "carry_ledger": {
+    "path": "results/lessons/l3r_7/full_numerics/recovery04/stop_DL091.json",
+    "sha256": "792f0565b18c01b903257f9e9c82f6a0079df4dc6ab92128c1755cb4cb087d4d",
+    "recorded_receipt_seconds_03_04": 9364.316168000005,
+    "unknown_interrupted03_planning_reserve_seconds": 3605,
+    "scope": "recorded receipt CPU plus planning reserve; unmeasured03 interruption not transformed into measured CPU"
+  },
+  "numerical_evaluator": "R3R_11 worker explicitly injects NativePosteriorFastLaw; original binary guard and native384-bit fallback for same stored-decimal spectral sums; law/profile caches unchanged"
+}

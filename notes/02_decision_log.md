@@ -1608,3 +1608,46 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   chưa được ghi nên benchmark entrypoint từ chối ở check_committed trước đọc law.
   Giữ benchmark_resource/WORKER_FAILED (0.333CPU-s), không có phép đánh giá mới.
   Đã chuyển đúng .venv, commit prereg trước lần đánh giá lại; không sửa run lỗi.
+
+### DL-091 — Chuyển full calibration sang native interval evaluator, replay toàn batch (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Theo ủy quyền tự hoàn thiệnL3R.7. Candidate
+  có13targeted/integration và693fulltestsPASS local. Benchmark đã prereg trên
+  cachedlaw4357terms/3q đã thấy,3repeat/method: medianCPU reference10.257424s,
+  native0.681295s,ratio15.0558; values khớp trong bounds. Chỉ componentlocal,
+  không claim speedup toàn engine/GCP hoặc thay infinite-law certificate.
+- Để tránh tiếp tục trả chi phí evaluator cũ trong calibration, pause riêng
+  controller04, giữ các worker/receipt tới checkpoint; sau tests sẽ dừng riêng
+  jobs còn thiếu với stoprecord và export toàn partial. Giữ đúng COMPLETED,
+  INTERRUPTED/UNRESOLVED và missing summary; không biến04 thành numericalPASS.
+- Đăng ký full05 ở `experiments/R3R_11_native_population/`, injection tường minh
+  `law_cache.FastLaw=NativePosteriorFastLaw` trước computation, graph đượchash.
+  Rerun toàn9reference/marginal+114cases, cùng80/2→160/2→160/4, sameplant/metric/
+  thresholds/cards/rounding. Không reuse old population results, chỉ cache law/
+  profiles có cùngparameters/source/SHA. Native chỉ đánh giá precisionfallback
+  của cùng storeddecimal sums; arithmetic/posterior acceptance giữ nguyên.
+- Giữ calibrationbudget12CPUh, carry CPU receipts03/04 thực ghi được và reserve
+  cho interruption03 chưa biết CPU. Resourceledger ghi riêng measured/reserve,
+  không coi declaredceiling là đo CPU. Cloud phải PASS693tests trước full05;
+  source/prereg commit trước execution. Không start/resize VM hoặc đổienv.
+- Đây numerical engineering trướcCF, không chấm card/pickn theo tỷ lệ effect/
+  harm. Candidate chỉ adopt/freeze nếu toàn registered accuracy audit đủ.
+  Hếtcandidate/budget thì HOLD, không mở CF/seed hoặc nới ngưỡng để hoàn tất.
+
+### DL-092 — Khai thêm mức global K/ref trong numerics còn DEFERRED, trước full05 (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Đã thấy calibration03/04: base80/2 không
+  đạt toàn bộ R1/validity (71/113completedbase ready khi kiểm lại03). Đây là
+  numerical calibration exposure, không CF. Chọn resolution bằng accuracy,
+  không bằng tỷ lệ effect/harm. Không nhận proposal này đã có trong prereg03/04.
+- Để hoàn thiện phần numerical levels cònDEFERRED theo ủy quyền, full05 khai
+  một lịch hữu hạn trước computation:80/2→160/2→160/4 (ba mức cũ), rồi chỉ khi
+  chưa đóng được mới320/4→640/4→640/8. Mỗi mức có hai coarse-axis neighbours;
+  vẫn chọn **mức đầu mọi114case đạt** cùng ngưỡng R1/arithmetic/validity cũ.
+  Không thêm framecases, bỏ ca khó, giảmprecision/threshold hoặc đổi plant/card.
+- Đây mở rộng **calibration global resolution search trước numerics freeze**,
+  không tăng R3 cho mỗi regimeCF: R3 vẫn đúng hai bước từ K*/ref* cuối. Thay đổi
+  được version trong prereg05, không sửa historicalprereg hoặc coi là confirmation.
+- Giữ tổng calibration budget12CPUh với carryledger03/04; tốiđa13levels/case
+  (1482populationevaluations nếu chạy hết), stopbudget/resource/error cũ vẫn có
+  hiệu lực. Nếu không đủ thì ghi HOLD có evidence; không tự tạo v1.3.1/n/root/CF.
