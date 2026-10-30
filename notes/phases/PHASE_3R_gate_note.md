@@ -1,27 +1,35 @@
-# Gate 3R — ⟨NHÃN: tác giả chọn⟩ · ⟨ngày⟩ · DL-101 (BẢN NHÁP)
+# Gate 3R — NARROW · 30/10/2026 · DL-102
 
-> **Trạng thái: NHÁP do AI (Claude) soạn theo lesson L3R.8, chờ tác giả.**
->
-> Tác giả tự điền nhãn, lý do và trạng thái các điều kiện quy trình. Ba bảng dưới đây dựng từ bằng chứng trong repo;
-> AI đã tự kiểm hash, thứ tự commit và số đếm ([freeze_check.json](../../results/lessons/l3r_8/freeze_check.json)).
-> Review của AI không tính là đọc độc lập (rủi ro ER3).
+> Người phụ trách: **Doan Van Tai**. Provenance:
+> - AI (Claude) soạn và chọn nhãn **theo ủy quyền** ("bạn hãy mở ra và đống lesson cho tôi đi đây là yêu cầu"), theo
+>   khuyến nghị lesson L3R.8 (DL-097–102).
+> - Tác giả xác nhận **ngoài vở** đã tự đọc card/contract và tự viết phần closeout của mình
+>   ([author-attested](../../results/lessons/l3r_8/author_attestation.json), DL-032); nội dung đó không lưu trong repo.
+> - Ba bảng dựng từ bằng chứng trong repo; AI tự kiểm hash, thứ tự commit và số đếm
+>   ([freeze_check.json](../../results/lessons/l3r_8/freeze_check.json)).
+> - Review của AI không tính là đọc độc lập (rủi ro ER3); P0-V10 còn mở.
 
-## Claim gắn kèm (gợi ý của lesson; tác giả sửa hoặc xác nhận)
+## Claim gắn kèm
 
 > Phase 4 kiểm Hyp-MV và Hyp-SH (card v2, sha `60335b61…`) trên 270 regime CF, ở **mức mô hình** (plant fluid đã
 > khai báo trong contract §6). Không claim realism hay vận hành. S1 là benchmark có quyền oracle (biết mode).
-> D22 ⟨chuyển sang Phase 5 theo DL-097 / có trong Phase 4⟩.
+> D22 chuyển sang Phase 5 (DL-097, `contract-v1.3-amend1`).
 
-**Lý do (tác giả viết, 3–5 câu):** ⟨…⟩
+**Lý do** (AI soạn theo ủy quyền):
+- Hai primary vẫn đứng và đã đóng băng trước dữ liệu CF; engine đạt verification có giới hạn; thiết kế phân biệt
+  được trong ngân sách (n = 60).
+- Realism UNSOURCED nên **miền claim thu hẹp về mức mô hình**; không claim mạng thực hay vận hành.
+- Không phải GO, vì không vùng primary nào IN/EDGE ở bối cảnh nào.
+- Không phải HOLD, vì phần còn thiếu (runner, P0-V10) là điều kiện vào Phase 4, không phải lỗi validity.
 
 ## Validity (V3R-1…V3R-10)
 
 | ID | Đề xuất | Bằng chứng / giới hạn |
 |---|---|---|
 | V3R-1 Discovery đóng băng | PASS | Tag `explore-v13-pilot` → `a7435e9`; [discovery record](PHASE_3R_discovery_record.md); errata. Regime map: tag `explore-v13-regime-map` → `574a36f` (local, Bước 4) |
-| V3R-2 Engine | **PASS có giới hạn** | L3R.3: 467 test, 12 mutant bị bắt, 19 lần tái lập, MC độc lập C1 80/80, C2 80/80, C3 8/8 ([report](../../results/lessons/l3r_3/report.md)). Engine native ở (640, 4) đạt R1 trên 118 ca calibration, gồm X2065/X1008/X1009; anchor pilot PASS; zero-action và identical-model ra 0 chính xác ([dry-run B](../../results/lessons/l3r_7/lean_close/dry_run_B.json)). **Conservation: không áp dụng dưới P1** (mọi regime có nguyên tử tại q = 0; thay bằng identical-model). Giới hạn: chênh lệch làm mịn là chẩn đoán, không phải cận được chứng nhận; **chưa chạy MC độc lập trên engine native ở (640, 4)**. Lý do HOLD về numerics của L3R.3 được giải trong phạm vi card v2; read-back của tác giả vẫn mở |
+| V3R-2 Engine | **PASS có giới hạn** | L3R.3: 467 test, 12 mutant bị bắt, 19 lần tái lập, MC độc lập C1 80/80, C2 80/80, C3 8/8 ([report](../../results/lessons/l3r_3/report.md)). Engine native ở (640, 4) đạt R1 trên 118 ca calibration, gồm X2065/X1008/X1009; anchor pilot PASS; zero-action và identical-model ra 0 chính xác ([dry-run B](../../results/lessons/l3r_7/lean_close/dry_run_B.json)). **Conservation: không áp dụng dưới P1** (mọi regime có nguyên tử tại q = 0; thay bằng identical-model). Giới hạn: chênh lệch làm mịn là chẩn đoán, không phải cận được chứng nhận; **chưa chạy MC độc lập trên engine native ở (640, 4)**. **L3R.3 đóng có phạm vi card v2 (DL-101)** |
 | V3R-3 Chính sách số | PASS | Contract R1–R8; [receipt numerics lean](numerics_v1_3_1_lean.lock.json); leo thang R3 trong `frame_v2.label_with_escalation` |
-| V3R-4 Contract | PASS | Tag `contract-v1.3` → `3d2359b`; mục D22 theo DL-097 |
+| V3R-4 Contract | PASS | Tag `contract-v1.3` → `3d2359b`; mục D22 theo DL-097, tag `contract-v1.3-amend1` |
 | V3R-5 Realism | PASS về quy trình | Envelope `6bef959` có trước nhãn `1164500` (đã kiểm ancestry). **Outcome: UNSOURCED**, nằm ở bảng outcome, không phải lỗi validity |
 | V3R-6 Card | PASS | 9/9 kiểm cho cả v1 ([checks](../../results/lessons/l3r_6/card_checks.json)) và v2 ([checks](../../results/lessons/l3r_7/lean_close/card_v2_checks.json)); forking log |
 | V3R-7 Thiết kế | PASS | Root commit trước khi rút; 0 outcome CF; power; control; scorer có test; dry-run B. Runner là điều kiện vào Phase 4 (mục cuối) |
@@ -33,11 +41,11 @@
 
 | Điều kiện | Trạng thái |
 |---|---|
-| Tác giả tự đọc card (Bước 1) | ⟨[phiếu đọc](../../results/lessons/l3r_8/author_reading_sheet.md): đã đọc / chưa⟩ |
-| P0-V10 người đọc độc lập | ⟨đạt (a) / miễn bằng DL-099 (b)⟩ |
+| Tác giả tự đọc card (Bước 1) | **Author-attested ngoài vở** (30/10); câu trả lời không lưu trong repo |
+| P0-V10 người đọc độc lập | **OPEN** (DL-099): lần gọi CF đầu tiên chờ người đọc (a) hoặc DL miễn do tác giả (b) |
 | V9 heads-up GVHD | WAIVED (DL-054) |
-| L8 người đọc prior boundary | ⟨dời sang Phase 8 theo DL-100⟩ |
-| Closeout tự viết | ⟨Bước 7⟩ |
+| L8 người đọc prior boundary | Dời sang Phase 8 (DL-100) |
+| Closeout tự viết | **Author-attested ngoài vở**; nội dung không lưu trong repo |
 | MASTER PLAN X.3 #2 | Engine giữ ở `experiments/`, cố định bằng hash; không cần promote để chạy Phase 4 |
 
 ## Outcome của Phase 3R
@@ -83,7 +91,7 @@
      đầu tiên.
 2. Kiểm hash mọi file đã đóng băng ngay lúc bắt đầu.
 3. Chạy control và anchor trước; sai thì dừng theo chính sách deviation.
-4. D22 và người đọc theo DL-097/DL-099.
+4. D22: Phase 5 (DL-097). **P0-V10 OPEN (DL-099):** lần gọi CF đầu tiên chờ P0-V10.
 
 ## Phase 3R cho phép nói gì
 

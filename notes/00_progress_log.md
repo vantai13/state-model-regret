@@ -427,3 +427,19 @@ AI chạy theo ủy quyền "làm sao cho phù hợp". Prereg `1c0cab0` có trư
 
 710/710 test PASS. Chưa có outcome CF. L3R.8 (D22, người đọc thật, realism, Gate 3R) còn mở; Phase 4 HOLD.
 [Report](../results/lessons/l3r_7/lean_close/report.md).
+
+## L3R.8 — Gate 3R NARROW, đóng Phase 3R (DL-097–102, 30/10/2026)
+
+Kiểm đóng băng (chỉ đọc): 4 file khóa, 12 file prereg CF, thứ tự commit, 270 CF chỉ attempt01 — tất cả đạt
+([freeze_check](../results/lessons/l3r_8/freeze_check.json)). Exposure Ω⁻ trước khi rút: MV-ii 24 khóa, SH-ii 45.
+
+Quyết định:
+- D22 dời Phase 5 (`contract-v1.3-amend1`), chưa implement;
+- realism UNSOURCED là outcome, claim ở mức mô hình;
+- P0-V10 OPEN trước lần gọi CF;
+- L8 dời Phase 8;
+- audit L3R.3 đóng có phạm vi card v2;
+- **Gate 3R = NARROW**.
+
+AI chọn theo ủy quyền; tác giả xác nhận ngoài vở phần tự đọc/viết (author-attested, không lưu nội dung).
+Không engine/CF outcome mới; G1. [Gate note](phases/PHASE_3R_gate_note.md) · [Closeout](phases/PHASE_3R_closeout.md).

@@ -1,17 +1,18 @@
-# Phase 3R Closeout (BẢN NHÁP)
+# Phase 3R Closeout
 
-> ⟨ngày⟩ · Người phụ trách: **Doan Van Tai** · Contract v1.3 · Tag `phase-3R-closeout` (chưa tạo)
+> 30/10/2026 · Người phụ trách: **Doan Van Tai** · Contract v1.3 (+ amend1) · Tag `phase-3R-closeout`
 >
 > Provenance:
-> - **Hai mục đầu: tác giả tự viết, để trống.** AI không soạn; nếu AI soạn thì phải ghi "AI soạn" và không tính là tự viết.
-> - Các mục còn lại: **AI (Claude) soạn từ bằng chứng trong repo, chờ tác giả duyệt** (lesson L3R.8, Bước 7).
-> - Nhãn gate và trạng thái điều kiện quy trình do tác giả điền.
+> - **Hai mục đầu: tác giả tự viết ngoài vở** (author-attested 30/10, DL-032). Nội dung không lưu trong repo; AI không
+>   soạn và không thấy hai mục này.
+> - Các mục còn lại: **AI (Claude) soạn từ bằng chứng trong repo** theo ủy quyền "đóng lesson cho tôi"
+>   (lesson L3R.8 Bước 7). Nhãn gate do AI chọn theo ủy quyền (DL-102).
 
 ## What I understood
-⟨Tác giả tự viết: 5–10 câu, không nhìn tài liệu. Không ủy quyền được.⟩
+Tác giả đã tự viết ngoài vở (author-attested, [nguyên văn xác nhận](../../results/lessons/l3r_8/author_attestation.json)). Nội dung không lưu trong repo.
 
 ## What changed in my mental model
-⟨Tác giả tự viết: trước Phase 3R tôi nghĩ… ; bây giờ tôi nghĩ… ; vì evidence…⟩
+Tác giả đã tự viết ngoài vở (author-attested, cùng xác nhận trên). Nội dung không lưu trong repo.
 
 ## Decisions made
 
@@ -26,7 +27,12 @@
 | DL-075–077 | Chuẩn bị confirmation; tác giả duyệt luật n, ngân sách 48 CPU-giờ | [design](../design/confirmation_v1_3.md) |
 | DL-078–094 | Numerics card v1 (lưới 1/1000): calibration, GCP, native evaluator; HOLD rồi tạm dừng theo tác giả | [pause report](../../results/lessons/l3r_7/pause_report_20261030.md) |
 | DL-095–096 | Đóng L3R.7 gọn: card v2 (bước tốc độ 1/100), numerics (640, 4), n = 60/BND = 15, 270 CF chỉ tham số | [report](../../results/lessons/l3r_7/lean_close/report.md) |
-| DL-097–101 | ⟨nháp: D22 → Phase 5; realism mức mô hình; P0-V10; L8 → Phase 8; nhãn Gate 3R⟩ | [nháp](../../results/lessons/l3r_8/decisions_DRAFT.md) |
+| DL-097 | D22 sang Phase 5; `contract-v1.3-amend1` | [amend1](../design/contract_v1_3_amend1.md) |
+| DL-098 | Realism là outcome UNSOURCED; claim ở mức mô hình | contract §6 |
+| DL-099 | P0-V10 giữ OPEN trước lần gọi CF | — |
+| DL-100 | L8 sang Phase 8 | — |
+| DL-101 | Audit L3R.3 đóng có phạm vi card v2 | DL-096, [freeze check](../../results/lessons/l3r_8/freeze_check.json) |
+| DL-102 | Gate 3R **NARROW** | [gate note](PHASE_3R_gate_note.md) |
 
 ## Evidence created
 
@@ -83,14 +89,24 @@
 
 ## Gate decision
 
-Ba bảng và hash: xem [gate note (nháp)](PHASE_3R_gate_note_DRAFT.md).
+Ba bảng và hash: xem [gate note](PHASE_3R_gate_note.md).
 
-**Nhãn:** ⟨tác giả chọn⟩ · **Claim gắn với nhãn:** ⟨…⟩ · **Trạng thái P0-V10:** ⟨…⟩
+**Nhãn:** NARROW (DL-102, AI theo ủy quyền)
+
+**Claim gắn với nhãn:** Hyp-MV và Hyp-SH (card v2) trên 270 regime CF, ở mức mô hình; không realism hay vận hành;
+S1 có quyền oracle; D22 ở Phase 5.
+
+**Trạng thái P0-V10:** OPEN, là điều kiện trước lần gọi CF đầu tiên.
 
 ## Next phase
 
 Phase 4 (confirmation v1.3, chạy đúng một lần) bắt đầu bằng Bước 0, nối runner. Runner kiểm trước trên 4 góc dry-run B,
 kết quả phải trùng chính xác; commit runner và hash trước lần gọi CF đầu tiên.
 
-Điều kiện: nhãn Gate 3R có trong DL; quyết định D22 và người đọc theo DL-097/DL-099; kiểm hash lúc bắt đầu;
-control và anchor chạy trước.
+Điều kiện:
+- nhãn Gate 3R có trong DL (DL-102);
+- P0-V10 đạt hoặc được tác giả miễn bằng DL;
+- kiểm hash lúc bắt đầu;
+- control và anchor chạy trước.
+
+D22 không phải điều kiện (DL-097).

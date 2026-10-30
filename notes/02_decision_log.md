@@ -1736,3 +1736,61 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
   sai số được chứng nhận.
 - Chưa có outcome CF nào. L3R.8 (D22, người đọc thật, realism, Gate 3R) và Phase 4 HOLD giữ nguyên.
 - Đính chính (AI, cùng ngày): số phép tính calibration là **1298** (118 ca × 11 mức), không phải 1062 như dòng trên.
+
+### DL-097 — D22 chuyển từ điều kiện vào Phase 4 sang Phase 5; contract-v1.3-amend1 (30/10/2026)
+
+- Người phụ trách: **Doan Van Tai**. Tác giả yêu cầu nguyên văn "… bạn hãy mở ra và đống lesson cho tôi đi đây là
+  yêu cầu" ([attestation](../results/lessons/l3r_8/author_attestation.json)). AI (Claude) chọn theo khuyến nghị lesson
+  L3R.8 §4.1 và ghi đây là **quyết định AI theo ủy quyền**, không phải lựa chọn tác giả tự viết.
+- Mâu thuẫn G4: contract §7 đòi D22 implement + audit trước Phase 4; card v2 dòng 191 cho F̄/V̄ = null nếu chưa có.
+- Quyết định: Phase 4 chạy không có D22, F̄/V̄ = null. Hạn D22 dời sang trước Phase 5
+  ([amend1](design/contract_v1_3_amend1.md), tag `contract-v1.3-amend1`; tag `contract-v1.3` nguyên byte).
+  Câu SH giữ "state repair (backlog + mode oracle) dưới M0"; không nói "backlog tươi/telemetry tươi có hại".
+- D22 **chưa được implement**; đây là việc của Phase 5. Không đổi card, numerics, n, root hay danh sách CF.
+
+### DL-098 — Realism HOLD_UNSOURCED là outcome; Phase 4 claim ở mức mô hình (30/10/2026)
+
+- AI theo ủy quyền (cùng yêu cầu), khuyến nghị lesson §4.3 (b).
+- HOLD_UNSOURCED là outcome của L3R.4, không phải lỗi validity: envelope `6bef959` có trước nhãn `1164500` (ancestry đã kiểm).
+- Phase 4 không bị chặn. Mọi claim kèm câu phạm vi contract §6. Không claim realism, tần suất ngoài đời hay vận hành.
+  Realism chuyển Phase 6/7.
+
+### DL-099 — P0-V10 giữ OPEN làm điều kiện trước lần chạy Phase 4 (30/10/2026)
+
+- P0-V10 cần **một người khác** có quyền nói "không" đọc contract/card; tác giả hoặc AI không thay được (rủi ro ER3).
+- AI **không tự miễn** luật tác giả đặt. Trạng thái: OPEN. Phase 4 Bước 0 (nối và kiểm runner) được làm; **lần gọi CF
+  đầu tiên chờ** P0-V10 đạt (a, có người đọc) hoặc tác giả tự miễn bằng DL (b, như V9/DL-054).
+
+### DL-100 — L8 dời sang Phase 8 (30/10/2026)
+
+- AI theo ủy quyền, khuyến nghị lesson §4.2. L8 (người đọc ranh giới prior/novelty) ảnh hưởng claim novelty, không
+  ảnh hưởng validity Phase 4. Dời tới final novelty audit Phase 8. Không claim novelty trước đó; Gate L giữ "GO có điều kiện".
+
+### DL-101 — Đóng audit engine L3R.3 có phạm vi (card v2) (30/10/2026)
+
+- AI theo ủy quyền. Bốn lý do HOLD của DL-068:
+  - (i) read-back của tác giả: phủ bởi xác nhận ngoài vở chung của tác giả (attestation; nội dung không ở repo);
+  - (ii) numerics và chi phí S1 ở κ = 3 vượt 0,25 pp ở K160: giải cho card v2 bằng engine native, lối S1 trực tiếp,
+    mức (640, 4) đạt R1 trên 118 ca, gồm κ = 3, h = 16 (DL-096);
+  - (iii) cận population: engine native có cận số học từng contrast (≤ 1/4000);
+  - (iv) D22: dời Phase 5 (DL-097).
+- Trạng thái: **CLOSED_WITH_SCOPE_CARD_V2**.
+- Giới hạn còn ghi:
+  - chênh lệch làm mịn là chẩn đoán, không phải cận được chứng nhận;
+  - chưa chạy MC độc lập trên engine native ở (640, 4);
+  - numerics card v1 (lưới 1/1000) vẫn mở.
+
+### DL-102 — Gate 3R: NARROW (30/10/2026)
+
+- AI chọn nhãn theo ủy quyền "đóng lesson cho tôi", khuyến nghị lesson §4.4. Tác giả xác nhận ngoài vở các phần tự
+  đọc/tự viết (attestation).
+- **Claim gắn kèm:** Phase 4 kiểm Hyp-MV và Hyp-SH (card v2, sha `60335b61…`) trên 270 regime CF, ở mức mô hình
+  (plant fluid đã khai báo, contract §6). Không claim realism hay vận hành. S1 là benchmark có quyền oracle.
+  D22 chuyển Phase 5.
+- Vì sao NARROW:
+  - không phải GO, vì realism chưa IN/EDGE ở bối cảnh nào (UNSOURCED);
+  - không phải HOLD, vì những gì còn thiếu (runner, P0-V10) là điều kiện vào Phase 4, không phải lỗi validity
+    của Phase 3R;
+  - không phải REFORMULATE/PIVOT/DROP, vì không có bằng chứng estimand sai hay tín hiệu đã mất.
+- Ba bảng, hash và điều kiện vào Phase 4: [gate note](phases/PHASE_3R_gate_note.md).
+- G1 không đổi. Phase 4 mở sau Bước 0 (runner) và P0-V10.

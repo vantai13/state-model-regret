@@ -1,4 +1,8 @@
-# L3R.8 — các DL soạn sẵn (BẢN NHÁP, CHỜ TÁC GIẢ DUYỆT)
+# L3R.8 — các DL soạn sẵn (bản nháp lịch sử)
+
+> **Đã chốt 30/10/2026 ở DL-097–102** trong decision log, theo yêu cầu nguyên văn của tác giả "… đống lesson cho tôi
+> đi đây là yêu cầu". Khác bản nháp: DL-099 giữ P0-V10 **OPEN** (AI không tự miễn luật của tác giả); DL-101 là đóng
+> audit L3R.3; Gate 3R là DL-102. File dưới đây giữ nguyên nội dung nháp.
 
 Người phụ trách: **Doan Van Tai**. AI (Claude) soạn theo lesson L3R.8 và yêu cầu "làm những cái bạn có thể tự làm".
 **Chưa có DL nào dưới đây được ghi vào `notes/02_decision_log.md`.** Mỗi DL chỉ vào log khi tác giả trả lời nguyên văn

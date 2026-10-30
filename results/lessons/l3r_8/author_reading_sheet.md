@@ -1,4 +1,7 @@
-# L3R.8 Bước 1 — phiếu tự đọc của tác giả (ĐỂ TRỐNG cho tác giả điền)
+# L3R.8 Bước 1 — phiếu tự đọc của tác giả
+
+> **30/10/2026:** tác giả xác nhận đã tự đọc và trả lời **ngoài vở** ([author-attested](author_attestation.json)).
+> Câu trả lời không lưu trong repo; phiếu dưới đây giữ nguyên dạng trống.
 
 Người phụ trách: **Doan Van Tai**. AI (Claude) chỉ dựng phiếu và đường dẫn; **mọi câu trả lời do tác giả tự viết**.
 AI không điền, không gợi ý đáp án. Phần đã điền mới được ghi là "tác giả đã đọc card".

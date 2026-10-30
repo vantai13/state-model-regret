@@ -1,3 +1,13 @@
+# Addendum triển khai — L3R.8 và đóng Phase 3R, 30/10/2026
+
+**DL-097–102: Gate 3R = NARROW.** Phase 4 kiểm Hyp-MV/Hyp-SH (card v2) trên 270 CF ở mức mô hình.
+D22 dời Phase 5 (`contract-v1.3-amend1`); realism UNSOURCED là outcome; audit L3R.3 đóng có phạm vi card v2;
+L8 dời Phase 8. **P0-V10 OPEN** trước lần gọi CF; Phase 4 Bước 0 là nối runner (tái lập đúng dry-run B).
+Tác giả xác nhận ngoài vở phần tự đọc/viết; nhãn AI chọn theo ủy quyền. G1. [Gate note](PHASE_3R_gate_note.md),
+[closeout](PHASE_3R_closeout.md). Phần bên dưới giữ nguyên byte.
+
+---
+
 # Addendum triển khai — L3R.7 đóng gọn, 30/10/2026
 
 **DL-095–096:** đóng L3R.7 bằng card v2. Card v2 khác v1 đúng bước làm tròn λA/λB/u = 1/100, do luật khai trước chọn;
