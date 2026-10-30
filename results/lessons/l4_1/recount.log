@@ -1,0 +1,76 @@
+$ .venv/bin/python -m experiments.P4_01_recount.recount_map --out results/P4_01_recount/20261030_01
+{
+  "status": "PASS",
+  "raw_count": 1430,
+  "table_count": 1376,
+  "duplicates_dropped": 54,
+  "classes": {
+    "A": 301,
+    "B": 43,
+    "AB": 161,
+    "J": 14,
+    "C": 334,
+    "D": 523
+  },
+  "map1_raw_classes": {
+    "A": 21,
+    "B": 4,
+    "AB": 7,
+    "J": 1,
+    "C": 68,
+    "D": 243
+  },
+  "identities": {
+    "tolerance_pp": 1e-12,
+    "S11_state_max_abs_pp": 3.552713678800501e-15,
+    "S11_model_max_abs_pp": 7.105427357601002e-15,
+    "minima_pp": {
+      "G_M_pctC": 0.0,
+      "G_SM_pctC": -1.5078512110871295e-14,
+      "G_S_M1_pctC": -1.5078512110871295e-14,
+      "G_M_S1_pctC": 3.5269246660915154e-07
+    },
+    "lower_bound_violations": 0,
+    "S12_harm_violations": 0,
+    "harm_min_Gamma_pp": 1.092041956542203
+  },
+  "A_age1_amp6": {
+    "n": 211,
+    "median_GS_pp": 1.531432881906426,
+    "q90_linear_GS_pp": 2.444123770919021,
+    "max_GS_pp": 4.010867687227691,
+    "median_GM_pp": 0.01215133680564079
+  },
+  "AB": {
+    "n": 161,
+    "gamma_negative": 155,
+    "median_GS_pp": 4.959355698161272,
+    "median_GS_M1_pp": 0.7092850750326067,
+    "near_substitution": {
+      "0.1": 33,
+      "0.05": 24
+    }
+  },
+  "MV_plus_classes": {
+    "A": 0,
+    "B": 7,
+    "AB": 0,
+    "J": 0,
+    "C": 11,
+    "D": 0
+  },
+  "checks": {
+    "tag_pinned": true,
+    "duplicates_exact": true,
+    "archived_table_matches": true,
+    "S11_state": true,
+    "S11_model": true,
+    "S07_S08": true,
+    "Gamma_lower_bound": true,
+    "S12": true,
+    "inventory_covers_all_raw": true,
+    "inventory_distinct_count": true
+  }
+}
+
+exit_code=0
