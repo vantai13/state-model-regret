@@ -880,3 +880,32 @@ Inventory v3 ghi thêm:
 - 8 regime AI chạy thử trong phiên, đã thấy số nhưng không lưu file.
 
 270 regime CF mới chỉ có tham số; **không outcome CF, không R09/R10**.
+
+## L4.1 — Regime map re-entry và phân tích đã thấy (30/10/2026, DL-103)
+
+Numbering v1.2: **Phase 4 (hợp nhất discovery)**, Phase 5 (confirmation).
+Người phụ trách: **Doan Van Tai**. AI recount/soạn theo ủy quyền, không có author
+self-check hoặc human review. Nguồn bất biến: annotated tag `explore-v13-regime-map`
+→ `574a36fb4213a79d3d2aa305a489701cfc3059f2`; record commit `7385015`,
+DL-103 commit `87d6f83`. Không merge nhánh hoặc chỉnh raw/inventory/CF frozen.
+
+Đã thấy trong input dạy L4.1: bảngδ, MV+A composition, A/AB/near-substitution,
+amp ratios và monotonic age. Input báo E11/K5, E12/K6 native numbers nhưng thiếu
+receipt/output; đó là exposure thông tin có sẵn, **không phải native đã kiểm lại**.
+
+Thực tế phiên triển khai đọc sáu raw ở tag, đếm1430→1376,54duplicate khớp;
+kiểm identity, bảng lớp, q90linear, AB, hộp MV+A **đã có** (11C/7B), bảngδ theo
+lát trong input,54/54nhóm age và54cặp amp. **Không tạo tọa độ mới, không gọi engine
+để audit map, không rút/sửa CF, không mở outcome CF hoặc R09/R10**.
+
+[Inventoryv3](../results/lessons/l3r_7/lean_close/collision_inventory_v3.json) vẫn
+có1396khóa v1.3; mọi rawcoordinate được bao phủ. Bốn batch map chính có1262
+source records, không nhầm với1396distinctkeys toàn inventory. Amp≠6 giữ namespace
+riêng; age quy về1. Tám `ai_session_probe_unsaved` đã có tọa độ reserve, nhưng
+**chưa xác định là tám điểm K6**, vì input không có danh sách native tương ứng.
+Không dựng file native_probe_summary giả hoặc bỏ reserve khi thiếu outcome.
+
+[Recount/manifest](../results/P4_01_recount/20261030_01/manifest.json) ·
+[Forking log #0](phases/PHASE_4_forking_paths.md) ·
+[Discovery record](phases/PHASE_4_regime_map_discovery_record.md).
+Các bảng này đã lộ trước bất kỳ L4.3/L4.5; không dùng lại làm fresh confirmation.
