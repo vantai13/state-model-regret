@@ -1,0 +1,12 @@
+{
+  "command": [
+    "/home/vantai/state-model-regret/.venv/bin/python",
+    "-m",
+    "experiments.P4_01_recount.recount_map",
+    "--out",
+    "/home/vantai/state-model-regret/results/lessons/l4_3/partA/recount"
+  ],
+  "exit_code": 0,
+  "stdout": "{\n  \"status\": \"PASS\",\n  \"raw_count\": 1430,\n  \"table_count\": 1376,\n  \"duplicates_dropped\": 54,\n  \"classes\": {\n    \"A\": 301,\n    \"B\": 43,\n    \"AB\": 161,\n    \"J\": 14,\n    \"C\": 334,\n    \"D\": 523\n  },\n  \"map1_raw_classes\": {\n    \"A\": 21,\n    \"B\": 4,\n    \"AB\": 7,\n    \"J\": 1,\n    \"C\": 68,\n    \"D\": 243\n  },\n  \"identities\": {\n    \"tolerance_pp\": 1e-12,\n    \"S11_state_max_abs_pp\": 3.552713678800501e-15,\n    \"S11_model_max_abs_pp\": 7.105427357601002e-15,\n    \"minima_pp\": {\n      \"G_M_pctC\": 0.0,\n      \"G_SM_pctC\": -1.5078512110871295e-14,\n      \"G_S_M1_pctC\": -1.5078512110871295e-14,\n      \"G_M_S1_pctC\": 3.5269246660915154e-07\n    },\n    \"lower_bound_violations\": 0,\n    \"S12_harm_violations\": 0,\n    \"harm_min_Gamma_pp\": 1.092041956542203\n  },\n  \"A_age1_amp6\": {\n    \"n\": 211,\n    \"median_GS_pp\": 1.531432881906426,\n    \"q90_linear_GS_pp\": 2.444123770919021,\n    \"max_GS_pp\": 4.010867687227691,\n    \"median_GM_pp\": 0.01215133680564079\n  },\n  \"AB\": {\n    \"n\": 161,\n    \"gamma_negative\": 155,\n    \"median_GS_pp\": 4.959355698161272,\n    \"median_GS_M1_pp\": 0.7092850750326067,\n    \"near_substitution\": {\n      \"0.1\": 33,\n      \"0.05\": 24\n    }\n  },\n  \"MV_plus_classes\": {\n    \"A\": 0,\n    \"B\": 7,\n    \"AB\": 0,\n    \"J\": 0,\n    \"C\": 11,\n    \"D\": 0\n  },\n  \"checks\": {\n    \"tag_pinned\": true,\n    \"duplicates_exact\": true,\n    \"archived_table_matches\": true,\n    \"S11_state\": true,\n    \"S11_model\": true,\n    \"S07_S08\": true,\n    \"Gamma_lower_bound\": true,\n    \"S12\": true,\n    \"inventory_covers_all_raw\": true,\n    \"inventory_distinct_count\": true\n  }\n}\n",
+  "stderr": ""
+}
