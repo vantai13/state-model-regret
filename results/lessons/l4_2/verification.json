@@ -1,0 +1,58 @@
+{
+  "responsible": "Doan Van Tai",
+  "status": "PASS",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_p4_02_toys.py tests/test_p4_02_read_map.py",
+      "exit_code": 0,
+      "passed": 26,
+      "log": "results/lessons/l4_2/targeted_tests.log"
+    },
+    {
+      "command": ".venv/bin/python -m experiments.P4_02_reading.run --out results/lessons/l4_2/reading",
+      "exit_code": 0,
+      "log": "results/lessons/l4_2/reading.log"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "passed": 757,
+      "seconds": 85.29,
+      "log": "results/lessons/l4_2/full_tests.log"
+    },
+    {
+      "command": ".venv/bin/python -m experiments.P4_01_recount.verify_artifacts",
+      "exit_code": 0,
+      "output": "results/lessons/l4_2/integrity_after.json"
+    }
+  ],
+  "artifact_validation": {
+    "outputs_checked": 12,
+    "sources_checked": 16,
+    "inputs_checked": 3,
+    "bad_outputs": [],
+    "bad_sources": [],
+    "bad_inputs": [],
+    "markdown_links_checked": 36,
+    "broken": []
+  },
+  "numeric_checks": {
+    "age_pairs_18_same_class": true,
+    "age_pair_max_rounds_to_point201": true,
+    "near_boundary_148": true,
+    "fragile_A_28_of_211": true,
+    "MV_18_meet_GM": true,
+    "C_information_small_255_of_334": true,
+    "A_model_small_286_of_301": true,
+    "AB_heterogeneous_67_each": true,
+    "delta_slice_238": true,
+    "oracle_inequalities": true
+  },
+  "initial_targeted_failure": {
+    "passed": 24,
+    "failed": 1,
+    "test": "test_plurality_is_not_majority_and_rate_delta_has_normalized_counterpart",
+    "cause": "synthetic fixture changed class label but left GS/GM zero; corrected fixture contrasts, no raw/rule change"
+  },
+  "author_exercises": "OPEN/NOT_RUN; not covered by technical PASS"
+}

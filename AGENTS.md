@@ -219,3 +219,14 @@ DiscoveryG1, khôngnativeaudit/CF/hộpmới;E11/E12/K2chờL4.3,8unsavedprobes 
 chứng minh làK6. Mục8recordAIsoạn, chưa tácgiảtựviết/hiểu;P0-V10/L8/Understanding
 OPEN. Baseline+luậtđọc,số/vùngcard,CF-v3budget,Gate4chỉtácgiảchọn. ThiếuPHASE_4.md
 v1.1/góinativeprobe,khôngtựnhậnđãápfullplan. Report results/lessons/l4_1/report.md.
+
+L4.2/30-10: technical 8/8 goldens, 2/2 implementation mutants KILLED, 26 new tests
+và757 full PASS85.29s; 10/10 lesson counts khớp L4.1 CSV. 18/18 age pairs,
+max.200988994pp, 148 near-boundary, 28/211 A, MV18/18 GM≥1%. C255/334 GS|M1<.1%,
+A286/301 GM|S1<.5%; AB67<.5% và67≥1%; δ slice238, δ=.5 có40AB/1A/1B;
+8/18 plurality≠majority. S10 population=E_Y min(P,N); lậtκ tự nó không ép GS/GM nhỏ;
+toyAB/C′ cùng action error, khác numeric prediction errors. T07 frozen không sửa;
+T07_P4_author_addendum.md chỉ khung trống theo Part3§6 tác giả tự viết. AI-work không
+author proof/Understanding PASS. Bảngδ đã lộ, forking#2–5; optionalA-by-δ NOT_RUN,
+chưa có author prediction. Không native audit/CF/R09R10/hộp mới, E11/E12 chờ L4.3;
+G1,P0-V10/L8/ownership OPEN, bốn quyết định DL103 giữ tác giả. Report results/lessons/l4_2/report.md.

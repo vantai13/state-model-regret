@@ -458,3 +458,21 @@ khôngCF/R09/R10outcomes;G1. E11/E12/K2chưaaudit;8unsavedprobes chưa link đư
 Mục8/tựhiểu tácgiả chưa làm;P0-V10/L8OPEN;baseline/card/CFv3/Gate4do tácgiảchọn.
 ThiếuPHASE_4.mdv1.1, áp đúng ba lesson, không tự nhận fullplan. HọcL4.2được.
 [Report](../results/lessons/l4_1/report.md) · [Completion](phases/L4_1_completion.json).
+
+## L4.2 — Đọc bản đồ: phần kỹ thuật hoàn tất, bài tác giả OPEN (30/10/2026)
+
+Đã triển khai ba toy Fraction, ví dụ T-B do AI bổ sung, 8 golden checks và hai
+implementation mutations thật: 8/8 PASS, 2/2 KILLED. 26 test mới và 757 full tests
+PASS trong 85.29 s; 10/10 số kiểm trong lesson khớp CSV L4.1. 18/18 scaled-age pairs
+cùng lớp, max 0.200988994 pp; 148 near-boundary, 28/211 A; MV 18/18 có GM≥1%.
+Trong C có 255/334 GS|M1<.1%, A có 286/301 GM|S1<.5%, AB có 67 dưới .5% và 67
+từ 1% trở lên. Lát δ có 238 điểm; δ=.5 có 40AB/1A/1B; AB8/18 là plurality.
+Đính chính S10 population cần E_Y min, lật κ không tự ép Γ control; phân biệt
+hai input perturbations với implementation mutations. Đã xem hai PNG gốc tại tag.
+
+T07 frozen giữ nguyên; P4 chỉ là khung trống vì Part3 §6 yêu cầu tác giả tự viết.
+Bảng δ đã lộ, không blind prediction; optional A-by-δ NOT_RUN. Forking#2–5/exposure
+ghi append-only. G1; chưa native map audit/CF/R09R10 outcomes, E11/E12 chờ L4.3.
+Understanding/ownership/P0-V10/L8 OPEN; không tự chọn baseline/card/CF-v3/Gate4.
+Có thể học L4.3; chưa chạy audit native hoặc chọn tolerance.
+[Report](../results/lessons/l4_2/report.md) · [Completion](phases/L4_2_completion.json).

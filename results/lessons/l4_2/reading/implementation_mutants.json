@@ -1,0 +1,89 @@
+[
+  {
+    "mutant": "default_tie_switches",
+    "status": "KILLED",
+    "caught_by": [
+      "test_mutant_tie_rule"
+    ],
+    "tests": [
+      {
+        "test": "test_toy_table[T-A]",
+        "status": "PASS"
+      },
+      {
+        "test": "test_toy_table[T-AB]",
+        "status": "PASS"
+      },
+      {
+        "test": "test_toy_table[T-C']",
+        "status": "PASS"
+      },
+      {
+        "test": "test_identities[T-A]",
+        "status": "PASS"
+      },
+      {
+        "test": "test_identities[T-AB]",
+        "status": "PASS"
+      },
+      {
+        "test": "test_identities[T-C']",
+        "status": "PASS"
+      },
+      {
+        "test": "test_mutant_mechanism",
+        "status": "PASS"
+      },
+      {
+        "test": "test_mutant_tie_rule",
+        "status": "FAIL_ASSERTION"
+      }
+    ]
+  },
+  {
+    "mutant": "S0_leaks_current_state",
+    "status": "KILLED",
+    "caught_by": [
+      "test_toy_table[T-A]",
+      "test_toy_table[T-AB]",
+      "test_toy_table[T-C']",
+      "test_identities[T-A]",
+      "test_mutant_mechanism",
+      "test_mutant_tie_rule"
+    ],
+    "tests": [
+      {
+        "test": "test_toy_table[T-A]",
+        "status": "FAIL_ASSERTION"
+      },
+      {
+        "test": "test_toy_table[T-AB]",
+        "status": "FAIL_ASSERTION"
+      },
+      {
+        "test": "test_toy_table[T-C']",
+        "status": "FAIL_ASSERTION"
+      },
+      {
+        "test": "test_identities[T-A]",
+        "status": "FAIL_ASSERTION"
+      },
+      {
+        "test": "test_identities[T-AB]",
+        "status": "PASS"
+      },
+      {
+        "test": "test_identities[T-C']",
+        "status": "PASS"
+      },
+      {
+        "test": "test_mutant_mechanism",
+        "status": "FAIL_ASSERTION"
+      },
+      {
+        "test": "test_mutant_tie_rule",
+        "status": "FAIL_ASSERTION"
+      }
+    ]
+  }
+]

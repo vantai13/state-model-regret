@@ -2,7 +2,16 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.1,30/10/2026 (DL-103):** đã lập record regime map và exposure/forking#0;
+**Hiện tại — L4.2, 30/10/2026:** hoàn tất phần kỹ thuật đọc map: 8/8 golden checks,
+2/2 implementation mutants KILLED, 26 test mới và 757 full tests PASS (85.29 s),
+10/10 numeric checks. 18/18 age pairs cùng lớp (max 0.200989 pp); AB không đồng nhất,
+δ không phải luật tất định. T07 P4 là khung trống cho tác giả tự viết;
+Understanding/P0-V10/L8 OPEN, G1. Chưa chạy native audit, CF hoặc bài optional A-by-δ.
+[Report/log/metrics](results/lessons/l4_2/report.md) ·
+[Reading note](notes/verification/l4_2/reading_note.md) ·
+[Author template](notes/theory/T07_P4_author_addendum.md).
+
+**Snapshot L4.1, 30/10/2026 (DL-103):** đã lập record regime map và exposure/forking#0;
 tác giả chọn **v1.2: Phase4(hợp nhất discovery),5(confirmation),6(mechanism)**.
 Recount1430→1376,54duplicate khớp;10/10checks,21test mới và731fulltests PASS.
 Đây là discovery, G1; E11/E12 chưa audit native, mục tác giả tự viết/Understanding

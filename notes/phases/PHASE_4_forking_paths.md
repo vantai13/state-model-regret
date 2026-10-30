@@ -19,3 +19,19 @@ Inventoryv3 frozen giữ nguyên, kể cả namespace amp khác plant và tám p
 lưu outcome. Không biết K6 có cùng tám probe ấy, không nâng trạng thái chỉ do đều có8.
 Log này và [exposure register](../00_exposure_register.md) phải commit trước native
 audit L4.3 Part B hoặc mọi tính hộp mới L4.5; L4.1 không thực hiện các bước đó.
+
+## Addendum L4.2 (30/10/2026) — chỉ ghi thêm
+
+Nguồn máy đọc tiếp theo: [L4.2 JSONL](../../results/lessons/l4_2/forking_paths.jsonl).
+Số thứ tự 2–5 nối sau 0–1; `logged_utc` là lúc ghi, không giả là prereg trước phân tích.
+
+| # | Đã nhìn / đã thử | Quyết định và giới hạn |
+|---|---|---|
+| 2 | Ba input L4.2 đã in 18 age pairs, near148, A28, MV18; toy; mechanism255/286/67; crossδ238 và alternative headroom | Ghi pre-existing exposure, không blind prediction |
+| 3 | Tính lại từ CSV L4.1 có SHA: age pairs, near-boundary, MV, mechanism, crossλAλB, δ và δ/μ, headroom; đọc hai PNG/plot source tại tag | Toàn bộ pilot đã lộ; không hộp/card mới; δ không là cơ chế/luật lớp tất định |
+| 4 | Exact toys, AI example T-B, recurrence fixture, counterexamples, S10, hai implementation mutants | Chỉ teaching/implementation; không new physical coordinates/engine audit/confirmation |
+| 5 | Bài optional A-by-δ và bài T07P4 author | **NOT_RUN/OPEN**; không tạo thay lời dự đoán hoặc bài tự viết của tác giả |
+
+Giữ nguyên cardv2/CF/inventory và phần log L4.1. Các mốc .15/.1/.5/1% là descriptive
+thresholds đã có trong input, không native tolerance hoặc CF scoring mới. Cùng δ=.5
+còn 40AB/1A/1B; plurality8/18 không majority. Không xóa fork hoặc chỉ giữ kết quả thuận lợi.

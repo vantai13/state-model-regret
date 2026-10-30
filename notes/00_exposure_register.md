@@ -909,3 +909,24 @@ Không dựng file native_probe_summary giả hoặc bỏ reserve khi thiếu ou
 [Forking log #0](phases/PHASE_4_forking_paths.md) ·
 [Discovery record](phases/PHASE_4_regime_map_discovery_record.md).
 Các bảng này đã lộ trước bất kỳ L4.3/L4.5; không dùng lại làm fresh confirmation.
+
+## L4.2 — Đọc map, exact toys và ghi rõ đã thấy trước (30/10/2026)
+
+Người phụ trách: **Doan Van Tai**. AI theo ủy quyền, không author self-check.
+Đọc ba input mới, frozen T07/contract và CSV L4.1 (1376 dòng); không sửa T07 frozen.
+Phân tích lại 18 age pairs, 148 near-boundary, 28/211 A, MV18/18 GM≥1%, các số
+mechanism, λA×λB/δ/δ/μ/headroom trên lát 238 điểm đã lộ; xem hai PNG và plot source
+tại574a36f. Bảng δ đã thấy từ L4.1, **không phải dự đoán mù**. Không mở lát optional
+short-horizon A-by-δ vì chưa có dự đoán tác giả trước phép xem đó; không dùng lại
+các bảng như fresh CF.
+
+Toy T-A/T-AB/T-C′, T-B do AI bổ sung, recurrence fixtures/mutations là teaching
+cases không có physical regime coordinates; không gọi native audit map hoặc
+tính CF/A05-T. Không outcome R09/R10 mới, không tái sinh CF, không đổi inventoryv3
+(card/numerics frozen). Hai PNG là bản sao nguyên byte từ tag, không biểu đồ native mới.
+
+[Manifest/scope](../results/lessons/l4_2/reading/manifest.json) ·
+[Forking#2–5](../results/lessons/l4_2/forking_paths.jsonl) ·
+[Technical note](verification/l4_2/reading_note.md) ·
+[Report](../results/lessons/l4_2/report.md).
+T07 P4 chỉ có khung trống; không ghi AI-work thành bài tác giả hoặc Understanding PASS.
