@@ -7,13 +7,23 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
-## L3R.7 — recovery04 đang chạy trên GCP (30/10/2026, DL-089)
+## L3R.7 — native05 đang chạy trên GCP (30/10/2026, DL-091–092)
 
-680testsPASS local vàGCP. Đã sao lưu1087files03/preflight và soSHA256;122receipts
-COMPLETED đượckiểm/reuse. Ca bịngắt đãxong, tiếp tục đúng114cases và candidates
-80/2→160/2→160/4; không đổi108estimatorfiles/ngưỡng/card/contract. Cócollector+
-independentrescorer; chưa freezev1.3.1, n/root/CF. Xem
-[watcher](../results/lessons/l3r_7/full_numerics/recovery04/watcher_state.json).
+693testsPASS local/GCP; native point evaluator có13targeted/integrationPASS.
+Benchmarklocal trêncachedlaw4357terms,3q cũ×3repeat: medianCPU10.257424s→.681295s;
+ratio15.0558 chỉ component, không wholeengine/cloudp95. Đãprereg replay toàn
+9reference/marginal+114cases; lịch globallevels80/2→160/2→160/4→320/4→640/4→640/8.
+Chọn firstallready, giữ R1/arithmetic/validity; CF-R3 vẫn2bước. Carry12969.316168s
+gồm9364.316168s receipts03/04+3605s planningreserve cho03 bịngắt CPUunknown;
+budgetcalibration43200s giữ. Chưa freeze/n/root/CF,Phase4HOLD.
+[Live](../results/lessons/l3r_7/full_numerics/native05/watcher_state.json).
+
+## L3R.7 — recovery04 khôi phục và dừng có chủ đích (30/10/2026, DL-089/091)
+
+680testsPASS local/GCP. Sao lưu1087files03/preflight khớpSHA, reuse122receipts;
+ca bịngắt đãxong. Recovery04 có112newCOMPLETED và1UNRESOLVED khi dừng theoDL091
+để replay với evaluator mới; giữ910exportfiles khớpSHA, không summary/PASSgiả.
+Source108/card/contract khôngsửa; chưa freezev1.3.1,n/root/CF.
 
 ## L3R.7 — capacity local/GCP và balanced candidate (29/10/2026, DL-084–085)
 

@@ -840,3 +840,14 @@ X2065/X1009 và RATE_SH_BASE_K1_10_H16 có ba mức outcomes; K3_H16 dừng trư
 vì posterior guard. Designs đúngprereg02,khôngCF; inventory phải reserve đủ114
 calibrationdesigns trước CF sampling. Full03 chỉ rerun cùngdesigns với precision
 fallback, trước khi chốt n/seed; không dùng gain thuận lợi để chọn thiết kế.
+
+
+## L3R.7 — recovery04/native05, DL-089–092 (30/10/2026)
+
+Đã đọc/reuse122receipts03, sao lưu1087files. Recovery04 chạy thêm112COMPLETED
+và1UNRESOLVED khi dừng có chủ đích theoDL091; raw910files giữ và khớpSHA.
+Full05 replay đúng9reference/marginal+114designs đã reserve trong collisioninventoryv2;
+không tạo tọa độ joint mới bằng RNG hoặc mẫu thử từ vùngCF. Các mức mới640/ref8
+là calibration numerical resolution, không xác nhận hypothesis. Không CF/R09/R10
+outcome mới, không n/confirmationroot. Benchmarklocal chỉ lawcache đãthấy và3q
+DL088, không law/enginejoint mới; outputcomponent không populationp95.

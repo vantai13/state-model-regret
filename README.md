@@ -2,12 +2,13 @@
 
 Tác giả: **Doan Van Tai**.
 
-**L3R.7 — recovery04 đang chạy trên GCP, 30/10/2026 (DL-089):** local và cloud
-đều680testsPASS. Đã sao lưu1087files full03/preflight, SHA256 khớp; khôi phục
-122receipts hợp lệ và chạy nốt ca hạ tầng bị ngắt, rồi tiếp tục lịch refinement
-đã đăng ký.108estimatorfiles/card/contract giữ byte; chưa numerics freeze/n/root/CF.
-[Prereg recovery](experiments/R3R_09_numerics_resume/prereg.json) ·
-[Trạng thái tự thu](results/lessons/l3r_7/full_numerics/recovery04/watcher_state.json).
+**L3R.7 — native05 đang chạy trên GCP, 30/10/2026 (DL-091–092):** local và cloud
+đều693testsPASS. Replay toàn9reference/marginal+114calibrationcases với interval
+fallback mới, giữ108source gốc/card/contract/ngưỡng. Lịch global resolution hữu
+hạn tới640/ref8 đãprereg; chưa numerics freeze/n/root/CF. Recovery04 giữpartial:
+112newreceiptsCOMPLETED,1UNRESOLVED do dừng có chủ đích;910exportfiles khớpSHA.
+[Prereg native05](experiments/R3R_11_native_population/prereg.json) ·
+[Trạng thái tự thu](results/lessons/l3r_7/full_numerics/native05/watcher_state.json).
 
 **L3R.7 — bản đồng bộ ngày 30/10/2026:** đã lưu mã, thiết kế, prereg và các
 kết quả hiện có. Lần kiểm hash này xác nhận contract21/card10/numerical-source108
