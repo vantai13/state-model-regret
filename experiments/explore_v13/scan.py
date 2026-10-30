@@ -75,8 +75,20 @@ def inside_frozen_cards(a, b, k, e, hh, c='0'):
     return mv or sh
 
 
+def inside_frozen_cards_scaled(a, b, k, e, hh, c='0', age='1', amp='6'):
+    """Card-box test up to the fluid plant's time scaling. Multiplying age, kappa (mode time constant,
+    seconds) and h by the same factor leaves every % Cbar contrast unchanged (rates fixed; backlog and
+    cost scale), so (age, kappa, h) is the age-1 regime (1, kappa/age, h/age). The cards are written at
+    age 1 on the +/-6 plant; another amplitude is a different plant and is never inside a card box.
+    Errata 30/10/2026: the map3age stage was filtered on raw coordinates, which let 10 regimes through."""
+    if F(amp) != 6:
+        return False
+    return inside_frozen_cards(a, b, F(k) / F(age), e, F(hh) / F(age), c)
+
+
 def outside(specs):
-    return [s for s in specs if not inside_frozen_cards(*s[1:6], s[8] if len(s) > 8 else '0')]
+    return [s for s in specs
+            if not inside_frozen_cards_scaled(*s[1:6], *(s[8:11] if len(s) > 8 else ('0',)))]
 
 
 MAP_ROBUST = [('15/2', '8', '1/10', '3/4', '2'), ('13/2', '7', '3/10', '3/4', '2'), ('13/2', '7', '1/10', '3/4', '8'),
@@ -156,7 +168,8 @@ def main():
     part = out / 'partial'
     part.mkdir(exist_ok=True)
     done = {q.stem for q in part.glob('*.pkl')}
-    # slow regimes (old observation, long h, slow mode switching) first, so the pool does not end on one straggler
+    # slow regimes (old observation, long h, small kappa = fast mode switching) first, so the pool does not end
+    # on one straggler
     todo = sorted((s for s in specs if s[0] not in done),
                   key=lambda s: (-(F(s[9]) if len(s) > 9 else 1), -F(s[5]), F(s[3])))
     start = time.monotonic()

@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from fractions import Fraction as F
 
 from experiments.explore_v13.regime_map import EPS, ORDER, load
-from experiments.explore_v13.scan import inside_frozen_cards
+from experiments.explore_v13.scan import inside_frozen_cards_scaled
 
 COORDS = ('lambdaA', 'lambdaB', 'kappa', 'eta', 'h', 'age', 'amp')
 
@@ -48,7 +48,7 @@ def unique(rows):
         k = tuple(str(F(r[c]).limit_denominator(1000)) for c in COORDS)
         if k not in seen:
             seen.add(k)
-            r['in_card'] = inside_frozen_cards(*k[:5])   # card boxes ignore age/amp: conservative
+            r['in_card'] = inside_frozen_cards_scaled(*k[:5], '0', *k[5:])   # up to time scaling (age)
             out.append(r)
     return out
 
@@ -69,7 +69,7 @@ def scatter(ax, rows, xkey, ykey):
                        label=None if hollow else f"{st['label']} · {len(pts)}",
                        zorder=3 if cls != 'NEITHER' else 2)
     ax.scatter([], [], s=30, c='none', marker='o', edgecolors=MUTED, linewidths=0.9,
-               label='Rỗng = regime pilot nằm trong hộp card Phase 3R (đã lộ)')
+               label='Rỗng = trong hộp card khi quy về age 1 (đã lộ)')
 
 
 LEFT = {'XM2X077'}   # label to the left where the right edge is crowded
@@ -147,7 +147,12 @@ def main(out_dir, *paths):
 
     keys = ['id', 'source', 'class', 'lambdaA', 'lambdaB', 'kappa', 'eta', 'h', 'age', 'amp', 'G_S_pctC', 'G_M_pctC',
             'Gamma_pctC', 'G_SM_pctC', 'G_S_M1_pctC', 'G_M_S1_pctC', 'G_S_pctS', 'G_M_pctS', 'P_flip',
-            'P_wrong_ranking', 'in_card']
+            'P_wrong_ranking', 'in_card', 'kappa_over_age', 'h_over_age', 'lamA_over_mu', 'lamB_over_mu',
+            'u_over_mu', 'amp_over_mu']
+    for r in rows:   # dimensionless coordinates (mu = 10 packet/s); equal rows describe the same regime
+        r['kappa_over_age'], r['h_over_age'] = r['kappa'] / r['age'], r['h'] / r['age']
+        r['lamA_over_mu'], r['lamB_over_mu'] = r['lambdaA'] / 10, r['lambdaB'] / 10
+        r['u_over_mu'], r['amp_over_mu'] = 2 * r['eta'] / 10, r['amp'] / 10
     with open(out / 'regime_map_table.csv', 'w', newline='') as f:
         w = csv.DictWriter(f, fieldnames=keys, extrasaction='ignore')
         w.writeheader()
@@ -157,7 +162,7 @@ def main(out_dir, *paths):
 def composition(out_dir, path):
     """Class shares along each design axis, factorial grid only (a focused grid would bias shares)."""
     rows = unique(load([path]))
-    axes_keys = [('kappa', 'κ (tốc độ đổi mode)'), ('eta', 'η (biên độ nền)'), ('h', 'h (horizon, s)'),
+    axes_keys = [('kappa', 'κ: mode kéo dài (s)'), ('eta', 'η: luồng u = 2η'), ('h', 'h (horizon, s)'),
                  ('lambdaA', 'λA'), ('lambdaB', 'λB')]
     fig, axs = plt.subplots(1, len(axes_keys), figsize=(11, 3.6), dpi=160, sharey=True)
     fig.patch.set_facecolor(SURFACE)
@@ -185,10 +190,10 @@ def composition(out_dir, path):
             handles.setdefault(l, h)
     labels = [STYLE[c]['label'] for c in ORDER if STYLE[c]['label'] in handles]
     fig.legend([handles[l] for l in labels], labels, fontsize=7, frameon=False, loc='lower center',
-               ncol=len(labels), labelcolor=INK)
+               ncol=3, labelcolor=INK)
     fig.suptitle('Nhóm regime theo từng trục thiết kế (map1: lưới đủ tổ hợp ngoài hộp card, c_sw = 0)',
                  color=INK, fontsize=10, x=0.01, ha='left')
-    fig.tight_layout(rect=(0, 0.08, 1, 0.95))
+    fig.tight_layout(rect=(0, 0.13, 1, 0.95))
     fig.savefig(Path(out_dir) / 'regime_composition_map1.png', facecolor=SURFACE)
     plt.close(fig)
 
@@ -223,6 +228,9 @@ def design_map(out_dir, axis, levels, fixed, name, title, *paths):
                         continue
                     cls = r['class']
                     ax.add_patch(plt.Rectangle((x - .46, y - .46), .92, .92, color=STYLE[cls]['color'], linewidth=0))
+                    if r['in_card']:   # inside a Phase 3R card box once rescaled to age 1 (exposed, see errata E3)
+                        ax.add_patch(plt.Rectangle((x - .43, y - .43), .86, .86, fill=False, edgecolor=INK,
+                                                   linestyle=(0, (2, 1.5)), linewidth=1.1))
                     ax.text(x, y + .12, CODE[cls], ha='center', va='center', fontsize=7, fontweight='bold',
                             color=TEXT_ON[cls])
                     ax.text(x, y - .22, f"{r['G_S_pctC']:+.1f}/{r['G_M_pctC']:.1f}", ha='center', va='center',
@@ -237,8 +245,11 @@ def design_map(out_dir, axis, levels, fixed, name, title, *paths):
             if i == len(PAIRS) - 1:
                 ax.set_xlabel(axis + (' (s)' if axis == 'age' else ' (±packet/s)'), fontsize=8, color=INK)
     handles = [plt.Rectangle((0, 0), 1, 1, color=STYLE[c]['color']) for c in ORDER]
-    fig.legend(handles, [f"{CODE[c]} · {STYLE[c]['label']}" for c in ORDER], fontsize=7, frameon=False,
-               loc='lower center', ncol=3, labelcolor=INK)
+    labels = [f"{CODE[c]} · {STYLE[c]['label']}" for c in ORDER]
+    if any(r['in_card'] for r in cell.values()):
+        handles.append(plt.Rectangle((0, 0), 1, 1, fill=False, edgecolor=INK, linestyle=(0, (2, 1.5))))
+        labels.append('viền đứt = trong hộp card khi quy về age 1 (đã lộ)')
+    fig.legend(handles, labels, fontsize=7, frameon=False, loc='lower center', ncol=3, labelcolor=INK)
     fig.suptitle(title + '  (số trong ô: Ḡ_S / Ḡ_M, % C̄_ref)', color=INK, fontsize=10, x=0.01, ha='left')
     fig.tight_layout(rect=(0, 0.05, 1, 0.97))
     fig.savefig(Path(out_dir) / name, facecolor=SURFACE)
@@ -250,7 +261,7 @@ if __name__ == '__main__':
         composition(sys.argv[2], sys.argv[3])
     elif sys.argv[1] == '--age':
         design_map(sys.argv[2], 'age', [0.25, 0.5, 1.0, 2.0, 4.0], {'amp': 6.0}, 'regime_design_age.png',
-                   'Bản đồ thiết kế: age (độ cũ của quan sát) × h, η', *sys.argv[3:])
+                   'Age × h, η (cột age a ≡ regime age 1 với κ/a, h/a: không phải trục mới)', *sys.argv[3:])
     elif sys.argv[1] == '--amp':
         design_map(sys.argv[2], 'amp', [4.0, 5.0, 6.0, 7.0], {'age': 1.0}, 'regime_design_amp.png',
                    'Bản đồ thiết kế: biên độ nền ON/OFF × h, η (age 1 s)', *sys.argv[3:])

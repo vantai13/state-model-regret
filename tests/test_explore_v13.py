@@ -102,3 +102,17 @@ def test_mode_posterior_forgets_the_observation_with_age():
         _, mass, _, _ = P.queue_D(dict(cell, yA=reps[-1] * unit), 'A', 1)
         gaps.append(abs(float(mass[:, 1].sum()) - .5))
     assert gaps[0] > gaps[1] > gaps[2]
+
+
+def test_card_filter_respects_time_scaling():
+    from experiments.explore_v13.scan import inside_frozen_cards, inside_frozen_cards_scaled, STAGES
+    # age 1/2, h 8, kappa 1/10 is the age-1 regime h 16, kappa 1/5: inside the Hyp-MV box
+    assert not inside_frozen_cards('15/2', '8', '1/10', '3/4', '8')
+    assert inside_frozen_cards_scaled('15/2', '8', '1/10', '3/4', '8', '0', '1/2', '6')
+    assert not inside_frozen_cards_scaled('15/2', '8', '1/10', '3/4', '8', '0', '1/2', '4')   # other plant
+    assert inside_frozen_cards_scaled('15/2', '8', '1/5', '3/4', '16') == inside_frozen_cards('15/2', '8', '1/5', '3/4', '16')
+    # the corrected filter removes exactly the 10 map3age regimes that slipped through on 29/10
+    import json
+    ran = {s[0] for s in json.load(open(ROOT / 'results/explore_v13/map3age/specs.json'))}
+    kept = {s[0] for s in STAGES['map3age']()}
+    assert sorted(ran - kept) == ['XA076', 'XA081', 'XA088', 'XA093', 'XA100', 'XA105', 'XA112', 'XA117', 'XA129', 'XA141']
