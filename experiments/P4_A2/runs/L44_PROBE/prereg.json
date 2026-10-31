@@ -1,0 +1,367 @@
+{
+  "status": "FROZEN_BEFORE_PLANT",
+  "run_id": "L44_PROBE",
+  "responsible": "Doan Van Tai",
+  "output": "results/lessons/l4_4/a2_probe",
+  "ladder": [
+    [
+      [
+        640,
+        4
+      ],
+      [
+        320,
+        4
+      ],
+      [
+        640,
+        2
+      ]
+    ],
+    [
+      [
+        1280,
+        4
+      ],
+      [
+        640,
+        4
+      ],
+      [
+        1280,
+        2
+      ]
+    ],
+    [
+      [
+        1280,
+        8
+      ],
+      [
+        640,
+        8
+      ],
+      [
+        1280,
+        4
+      ]
+    ]
+  ],
+  "rho": [
+    "0",
+    "1/200",
+    "1/100",
+    "1/50",
+    "1/20"
+  ],
+  "targets": [
+    {
+      "id": "P44_000",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "8",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "1",
+        "1/10",
+        "8",
+        "0"
+      ],
+      "target_rho": [
+        "1/100"
+      ]
+    },
+    {
+      "id": "P44_002",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "1/2",
+        "16",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "1",
+        "1/10",
+        "16",
+        "0"
+      ],
+      "target_rho": [
+        "1/200"
+      ]
+    },
+    {
+      "id": "P44_006",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "3/2",
+        "1/10",
+        "8",
+        "0"
+      ],
+      "target_rho": [
+        "1/50"
+      ]
+    },
+    {
+      "id": "P44_007",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "3/2",
+        "1/10",
+        "12",
+        "0"
+      ],
+      "target_rho": [
+        "1/50"
+      ]
+    },
+    {
+      "id": "P44_008",
+      "parameters": [
+        "7",
+        "6",
+        "1/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "3/2",
+        "1/10",
+        "16",
+        "0"
+      ],
+      "target_rho": [
+        "1/100"
+      ]
+    },
+    {
+      "id": "P44_009",
+      "parameters": [
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "8",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "3/2",
+        "3/10",
+        "8",
+        "0"
+      ],
+      "target_rho": [
+        "1/20"
+      ]
+    },
+    {
+      "id": "P44_010",
+      "parameters": [
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "12",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "3/2",
+        "3/10",
+        "12",
+        "0"
+      ],
+      "target_rho": [
+        "1/50"
+      ]
+    },
+    {
+      "id": "P44_011",
+      "parameters": [
+        "7",
+        "6",
+        "3/10",
+        "3/4",
+        "16",
+        "0"
+      ],
+      "key": [
+        "7",
+        "6",
+        "3/2",
+        "3/10",
+        "16",
+        "0"
+      ],
+      "target_rho": [
+        "1/50"
+      ]
+    }
+  ],
+  "control": {
+    "id": "A2_CONTROL_U0",
+    "parameters": [
+      "7",
+      "6",
+      "1/10",
+      "0",
+      "8",
+      "0"
+    ],
+    "key": [
+      "7",
+      "6",
+      "0",
+      "1/10",
+      "8",
+      "0"
+    ]
+  },
+  "decisions": {
+    "ladder_resolves_if_at_least": 7,
+    "ladder_fails_if_at_most": 4,
+    "branch_if_ladder_fails": "B1_CLAIM_LEVEL_ROBUSTNESS",
+    "cpu_cap_hours": 3
+  },
+  "resources": {
+    "case_cpu_seconds": 3600,
+    "case_wall_seconds": 4800,
+    "address_space_bytes": 3221225472
+  },
+  "author_choices": "experiments/P4_A2/runs/L44_PROBE/author_choices.json",
+  "CF_computed": false,
+  "source_sha256": {
+    "experiments/P4_04_baseline/margin.py": "4b75f7d10fa3cbf6949e3c016a53a6fc29725a9cf800da9fda0ed24a3785dd4d",
+    "experiments/P4_A1/checks.py": "bac1acd30fee31f320c504a7ca6937bf7e5a8bf7b27b782568cc75714684aa86",
+    "experiments/P4_A1/config.py": "2e629a9b76a9088e28860c6c2e35d34e8c5a0247c73ead392c7a351eb709a059",
+    "experiments/P4_A1/evaluate.py": "c1ba4bdfb463dd1eeff6d0789848dd6ece3c188f8956b1e171440d87de913bfd",
+    "experiments/P4_A2/__init__.py": "41453598e04986e5ae943330e7c945ab3fd2f61cfa90f54d656a533cec640f1d",
+    "experiments/P4_A2/diagnose_l44.py": "4192f0e3166da93d0d3a7bdcd53e2f869f005aaeaeba1fc1e3de391bed6d3f95",
+    "experiments/P4_A2/guards.py": "74c8a232307faf046eb9ece11398f96a34f47c16bf4e7c43a0d5fd7da33a1e7d",
+    "experiments/P4_A2/probe.py": "7f88291c6ca7da78aa6cd31a75d48ac2265e77035a473d3a96d84a9df2728b1f",
+    "experiments/P4_A2/runs/L44_PROBE/amendment.md": "1a18ee1eb6968d945c23d5a3d25b32b1e91ab6878a24447afd802d1b588fc49f",
+    "experiments/P4_A2/runs/L44_PROBE/author_choices.json": "ed7b629a100806fb42e7fabd6be20b0926b39ad0945656be166e81d104efca62",
+    "experiments/P4_A2/runs/L44_PROBE/design.json": "c896f7108a64ae019fa5b978184bb08a0516ed96f51fea55af9168094a34ef96",
+    "notes/phases/P4_A2_author_delegation.json": "3101b5bcc2f88934992a91b1a1ca42aae55a75b0b59fefd6c9ed113691d5dd75",
+    "results/lessons/p4_a2/l44_diagnosis.json": "dc4f74e3c13ff7e3567a234b519b450152a0085360c0a6c4e393f9863c7d5ec6",
+    "tests/test_p4_a2.py": "6670369480255503b3669f1ac714c560ccc6e49a6ed13419192c54aba22775ea"
+  },
+  "preserved_history_sha256": {
+    "experiments/P4_A1/runs/L44_A1/prereg.json": "3a8f27837297d204c36eec6eee222f790faaa2b2848767515551ecad67cd18da",
+    "notes/phases/L4_4_A1_completion.json": "e6a97ddd7b513ca3ee1d3deed298b94a02047515d395361ddf87c4b4e0c1b870",
+    "results/lessons/l4_4/a1/full_summary.json": "d1e3f61435d0399bba2c7c7cddba7a6e0ae6c6196fe622cfab57e020bec56bc9",
+    "results/lessons/l4_4/a1/native/P44_000/comparison.json": "eaf02ae031cb4a77c3282a2a9d5f9782c44f82779d1ef21ea12fe67a347a37ca",
+    "results/lessons/l4_4/a1/native/P44_000/level_320_4.json": "fdd839ad2a5e2c275ef176615273660883e60ae1b9c8c4bc87013c546e0bb883",
+    "results/lessons/l4_4/a1/native/P44_000/level_640_2.json": "a40137ef8f630fa867c553babc5396b66d2168021c9070a2532374228fcdf455",
+    "results/lessons/l4_4/a1/native/P44_000/level_640_4.json": "3f72d6ea69490b51389197afc2ec3d0139e3358b9206ca1e60059bc2f303c8a0",
+    "results/lessons/l4_4/a1/native/P44_001/comparison.json": "97a656522fa99afd60234316a12aca2e804da14e528641585f72bb3a8105b43e",
+    "results/lessons/l4_4/a1/native/P44_001/level_320_4.json": "7d113f3869a13c50fada7bf62c5f8d21464b5400feb25b7e9ad62754dc2dfaf6",
+    "results/lessons/l4_4/a1/native/P44_001/level_640_2.json": "805dabbf15d5d7f390d3cfe8eeb6f2cbd7dfe34df257708f3b202f0530617fca",
+    "results/lessons/l4_4/a1/native/P44_001/level_640_4.json": "772fe036f8ce107561efd686296295da4bf48b747544484145c2f57dc821e134",
+    "results/lessons/l4_4/a1/native/P44_002/comparison.json": "7b83e8b8eb1be048fbd4bb3ef49e1e308846d9b305973167343898f1cc6e3def",
+    "results/lessons/l4_4/a1/native/P44_002/level_320_4.json": "0129d35069e4b25de33632d8d78259749187770f9cd35e6b4bf4ce71397540c7",
+    "results/lessons/l4_4/a1/native/P44_002/level_640_2.json": "994fa7763f83b4dd6e3423caaa8545b91a773ea06a32818c3322319a69ab324c",
+    "results/lessons/l4_4/a1/native/P44_002/level_640_4.json": "327fedc363570d699e937309832dafa92ae4084e80268c3edd930b98ef5944be",
+    "results/lessons/l4_4/a1/native/P44_003/comparison.json": "c4c3a7a2f70e623e07d20dd609eadaf5946f126b468aabb74abeb7ee3c16f7d9",
+    "results/lessons/l4_4/a1/native/P44_003/level_320_4.json": "ce32968da1cc7614c4d15724900fce75f6f6dc32096ee800e36bc0f5238a959e",
+    "results/lessons/l4_4/a1/native/P44_003/level_640_2.json": "18a1c89eef195de4ed74be0d2cb8a5e3f50eb7823c169039b0fc3444df6e0822",
+    "results/lessons/l4_4/a1/native/P44_003/level_640_4.json": "8eefc0908b272ce80c2e0e4ed698fa87b0f0bb89a14e5cbab4f6427ab847489c",
+    "results/lessons/l4_4/a1/native/P44_004/comparison.json": "0282a149710cee17d1e2d8f586126948da215dbc459a225a53b09d2109aa5a63",
+    "results/lessons/l4_4/a1/native/P44_004/level_320_4.json": "abc0abc6209cfd96aa3d345d5fd029d734b0691c50fa7918b1b3d8638c3ba9f9",
+    "results/lessons/l4_4/a1/native/P44_004/level_640_2.json": "60ebd0571ab98e18fa9dc62c5438d6cbfc662afcff2902c875bba698eba089ee",
+    "results/lessons/l4_4/a1/native/P44_004/level_640_4.json": "12c9b24960fee72b1161f41c1aae246daf09b06a6d80f6bca9fd9e16390cf933",
+    "results/lessons/l4_4/a1/native/P44_005/comparison.json": "892f447bacaa59f9e26a223209745aeeae94dfc0e12aae06944228c41ff80306",
+    "results/lessons/l4_4/a1/native/P44_005/level_320_4.json": "b4ea5d77b9fda61679e72777a33be6246c72fc4b2316abd13e1558b1a5c30049",
+    "results/lessons/l4_4/a1/native/P44_005/level_640_2.json": "e354772928db3bd39cb2d60738b6b586e0ce55a7cecb7c4013846f7c05de5d5e",
+    "results/lessons/l4_4/a1/native/P44_005/level_640_4.json": "9fe5a78bd07cbdd09e3ab50385ea831c688a22b3306edc147f6a2abc19ea9a55",
+    "results/lessons/l4_4/a1/native/P44_006/comparison.json": "6bf592249374195ccdf658beffbb5cdb23162a6c9ce8d8f047a989fd3f5d4139",
+    "results/lessons/l4_4/a1/native/P44_006/level_320_4.json": "2e5501823cf8baa9ec44394720d80b6ea613557f6558e5205753fdda89ae0995",
+    "results/lessons/l4_4/a1/native/P44_006/level_640_2.json": "9d11ddf1781182c1f73444b0eaeeac0ac7fe20c8ae39902ed9cf33ea4a6f54d9",
+    "results/lessons/l4_4/a1/native/P44_006/level_640_4.json": "a66870570833756353080b6b56c04163fe8734dfa0b792006f6c4d247819f2b6",
+    "results/lessons/l4_4/a1/native/P44_007/comparison.json": "442dfd4781d9e821e643b9f2a7ffc2d4a8b49551865286d455c5a9987ce74ad9",
+    "results/lessons/l4_4/a1/native/P44_007/level_320_4.json": "dd334836b8612cbb2545731b92ade8db5e922786120797368fbf5153d1d42308",
+    "results/lessons/l4_4/a1/native/P44_007/level_640_2.json": "4befae1d6a8f4e8ead0c9df076473378262b3e484ac249ab46a296d6cbfe82af",
+    "results/lessons/l4_4/a1/native/P44_007/level_640_4.json": "2b14188f319bd77c265ec1b19f84f04f30d3a894eddf9d4b81d3ad2cf22a674e",
+    "results/lessons/l4_4/a1/native/P44_008/comparison.json": "b83d278210043667e8387ccaf4e67da19f59ab9b64612c13d23f379ea4ff22a8",
+    "results/lessons/l4_4/a1/native/P44_008/level_320_4.json": "387afca6e71e17117ceb0bf5809e5d2456a278b49c5a35fa0c43426ade3e67f9",
+    "results/lessons/l4_4/a1/native/P44_008/level_640_2.json": "282b48d1d92abf5beee543e08da0af1df68cf052a5b76226607c5871d066f035",
+    "results/lessons/l4_4/a1/native/P44_008/level_640_4.json": "7602bf1dc6136cf50af03ccc7c61bcdfcb526aafdb3514f61a6290a2619de6bb",
+    "results/lessons/l4_4/a1/native/P44_009/comparison.json": "d3f4b6aea51eeea75816e3bbeae0c61394bed0c5a4c961c2f9e999d86fd921c3",
+    "results/lessons/l4_4/a1/native/P44_009/level_320_4.json": "20fe2624b47b3e5e72b9e8ffe898ee05d7f2af5d247bcbb12e84d8ece034cac9",
+    "results/lessons/l4_4/a1/native/P44_009/level_640_2.json": "44b9986e505db691899e759d406de5848c90a3240f676ed40569595295a8ece5",
+    "results/lessons/l4_4/a1/native/P44_009/level_640_4.json": "5cf0483fa00919ac977f80bd7946eb11a963433efa324b30afaed45414921b6b",
+    "results/lessons/l4_4/a1/native/P44_010/comparison.json": "e189410fece253a98d66d43c1189527e735c3b7e3cb63e95903639f849353f32",
+    "results/lessons/l4_4/a1/native/P44_010/level_320_4.json": "a8e0bb0045f80f59cc08712a6ad196111ac617e400e4ab2c6ce4dfa2b1f1e52d",
+    "results/lessons/l4_4/a1/native/P44_010/level_640_2.json": "e105972f50ac640a09dd2e28fbb2114af2aabe652b13091e32e6d54aee8c3111",
+    "results/lessons/l4_4/a1/native/P44_010/level_640_4.json": "d4eb17885fb3ac5048272336698176ec04b093a1d2b439df13eacc067b6c3f19",
+    "results/lessons/l4_4/a1/native/P44_011/comparison.json": "065f1e71caf3a17f12749b1c1e140a4000ec8051f0fb8482cc44531031f0d89b",
+    "results/lessons/l4_4/a1/native/P44_011/level_320_4.json": "0bc4907801e7874ca6bc09247adf4ef69c86a0e9b5ca79c397d6a1a5bb9ff0b8",
+    "results/lessons/l4_4/a1/native/P44_011/level_640_2.json": "4f6780674c1be6702bcb219ca1b7e27a4e41a6829c7a089fba9accec48f254cb",
+    "results/lessons/l4_4/a1/native/P44_011/level_640_4.json": "5a13b821c1cef5f2dcd4ea5c7f1bb5de5061db43f6c25bb071dd538c6e396da8",
+    "results/lessons/l4_4/a1/native/P44_012/comparison.json": "ebbc44340332f6097965f4219cc9a277e91f62002c49e997997be90b35d70071",
+    "results/lessons/l4_4/a1/native/P44_012/level_320_4.json": "9579f98e10de068b751a3cbf29bfe89bca99b73171050a174c77c6b05440c12f",
+    "results/lessons/l4_4/a1/native/P44_012/level_640_2.json": "fa458b2ac67026f6d7509eefe1c8e37b346adef1fd6313e7b0c6671eef93234c",
+    "results/lessons/l4_4/a1/native/P44_012/level_640_4.json": "494a0383f42b681a9c79762be6856a634c13245d687e4f073bd9f58c5288de99",
+    "results/lessons/l4_4/a1/native/P44_013/comparison.json": "c6eb24f1b38d2219384c7d8d0682643565dad510ba153d63304cea371e136bdd",
+    "results/lessons/l4_4/a1/native/P44_013/level_320_4.json": "797968206eb4a0c14ba586c3aacd9115ec8ef3dd4a2b96f199865b7c7806c2e9",
+    "results/lessons/l4_4/a1/native/P44_013/level_640_2.json": "371b9ab4e2eb0d3a5283a8206d132414e42d5817606b5eeaea2be91638680288",
+    "results/lessons/l4_4/a1/native/P44_013/level_640_4.json": "785dfeab53608444895d9d344eef66e4fa1f699633165fe0c96f12e04373416f",
+    "results/lessons/l4_4/a1/native/P44_014/comparison.json": "b1621333fb8ab90c4d73087ffd58dd644d8f7a7cd456f489f7aa23b078c94cde",
+    "results/lessons/l4_4/a1/native/P44_014/level_320_4.json": "90a7dc3a4fb8f8c5f5ac1cf929cf931473755412945dc1cd79a2cfc4e1a0ba29",
+    "results/lessons/l4_4/a1/native/P44_014/level_640_2.json": "74a0857956c03c5a4415ff2c8b0d2c1976316805e698a613141945b6c823577d",
+    "results/lessons/l4_4/a1/native/P44_014/level_640_4.json": "69c503d0db01931ae6c735825306b693ec16f274134e96f8487e5161122fac96",
+    "results/lessons/l4_4/a1/native/P44_015/comparison.json": "436ff41f045546815f63d954f0bb05fd0fe26d93fc6b9c760fa02709c0ac7891",
+    "results/lessons/l4_4/a1/native/P44_015/level_320_4.json": "720ff7f9a0d8f40f1e6f61c49ce395e535bd76d035548e1c4f8e381fe5a66a43",
+    "results/lessons/l4_4/a1/native/P44_015/level_640_2.json": "f4a151b5fa4e174c7606b19f0b3eb2644c32ab8b7093911684b686fad527890b",
+    "results/lessons/l4_4/a1/native/P44_015/level_640_4.json": "ae0bb417ae2a3d873c3be0147511e9963a20cf86544fcb2ac55575a460255964",
+    "results/lessons/l4_4/a1/native/P44_024/comparison.json": "1c7e545167cdb549f21b48b3e3b862256996fa02c30a0cc6b15ff250ea04c244",
+    "results/lessons/l4_4/a1/native/P44_024/level_320_4.json": "325bcb898d064aa733627f2a386b209f4087dd2827569265c1bf27f1d6feced9",
+    "results/lessons/l4_4/a1/native/P44_024/level_640_2.json": "02bf4ba943a4faf42f2fdc972d898db94809bcbc2be8d83af4bbd96476e7ae1c",
+    "results/lessons/l4_4/a1/native/P44_024/level_640_4.json": "78b48d45c76029967998f290e8b68d72c762d55e0cc78612add91b1c0ca54cc8",
+    "results/lessons/l4_4/a1/native/P44_065/comparison.json": "b16f48b4f918750d0cee04e42daadfd0fb803c44f953369427ea46818e1418c1",
+    "results/lessons/l4_4/a1/native/P44_065/level_320_4.json": "ee806bb51c53063d2137288d319ada4164bbf32c551e889bcfdb5847824a235a",
+    "results/lessons/l4_4/a1/native/P44_065/level_640_2.json": "c71bd3342c8dd5daeb28602139704e0a0868eb75d88e5c4db7d24dea16a1fdc1",
+    "results/lessons/l4_4/a1/native/P44_065/level_640_4.json": "18eff5e1e23c403b4b18fd4993a91256692266976584d17c170a003ef5198877",
+    "results/lessons/l4_4/a1/native/P44_089/comparison.json": "3d1cf2f9b1a21511ab24664d39812cad738f39c1cb018708444d649d1ce168a4",
+    "results/lessons/l4_4/a1/native/P44_089/level_320_4.json": "8d2dbd097c0f58ea3f44ca98e14d9b436afe10624e8be81569d5e0506d216ad0",
+    "results/lessons/l4_4/a1/native/P44_089/level_640_2.json": "2b27fcedf9f95688e4a09426c9a08bf8b735bd4cb81b07b2982383c9faf30fb0",
+    "results/lessons/l4_4/a1/native/P44_089/level_640_4.json": "3dc69213f728d18b7ecf26c39f894b6de92196c9a6d22f2867f1dd9745963ddf",
+    "results/lessons/p4_a1/environment.json": "13e379ea245b3ac13dc3bc49b0a4d6356564461c136929bb51fd1b4a863d6131"
+  },
+  "replay_scope": "All saved numerical/error/baseline fields plus reparsed significant bits; exclude runtime metadata",
+  "cpu_accounting": "Unique level evaluation CPU incl control; cap checked before/after each point; process cap separately"
+}
