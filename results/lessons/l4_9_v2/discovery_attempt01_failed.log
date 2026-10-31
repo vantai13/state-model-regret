@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/P4_09_stationary/discovery.py", line 144, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/P4_09_stationary/discovery.py", line 118, in main
+    started=cpu();pred=predict(parameters,cache,ref=row['ref'],K=protocol['predictor']['K'])
+                       ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/P4_09_stationary/predictor.py", line 109, in predict
+    A = mean_side(a,u,F(0),k,h,ref,K,components[0][0],components[0][1])
+  File "/home/vantai/state-model-regret/experiments/P4_09_stationary/predictor.py", line 69, in mean_side
+    values = profiles.values(data,'dh',grid['indices'],mode)
+  File "/home/vantai/state-model-regret/experiments/R3R_08_population_numerics/profiles.py", line 79, in values
+    q=np.maximum(0,indices)*side['factor'];scale=P.LD(side['scale'])
+                                                 ~~~~^^^^^^^^^^^^^^^
+ValueError: invalid literal for long double: 1/230400

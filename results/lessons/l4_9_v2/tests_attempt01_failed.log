@@ -1,0 +1,49 @@
+........................................................................ [  7%]
+........................................................................ [ 14%]
+........................................................................ [ 22%]
+........................................................................ [ 29%]
+........................................................................ [ 37%]
+........................................................................ [ 44%]
+........................................................................ [ 52%]
+...................................F.................................... [ 59%]
+........................................................................ [ 67%]
+........................................................................ [ 74%]
+........................................................................ [ 82%]
+........................................................................ [ 89%]
+........................................................................ [ 97%]
+..........................                                               [100%]
+=================================== FAILURES ===================================
+_____________ test_mean_profile_path_cannot_call_finite_horizon_M1 _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d90e9ad5550>
+
+    def test_mean_profile_path_cannot_call_finite_horizon_M1(monkeypatch):
+        def forbidden(*a,**kw):raise AssertionError('finite-h M1 accessed')
+        monkeypatch.setattr(P.P,'idle',forbidden)
+        monkeypatch.setattr(P.profiles,'get',forbidden)
+        monkeypatch.setattr(P.quadrature,'build',lambda law,K,cap:dict(
+            indices=np.array([0,1,20,-1]),mass=np.array([[.25,0],[.1,.1],[.1,.1],[.1,.25]],dtype=np.longdouble),l1_error=np.longdouble(0)))
+>       side=P.mean_side(F(7),F(0),F(2),F(3,10),F(1,2),1,4,F(1,120),object())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_p4_09_stationary.py:52: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/P4_09_stationary/predictor.py:69: in mean_side
+    values = profiles.values(data,'dh',grid['indices'],mode)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+side = {'profiles': {'dh': {'modes': [(array([  0,   7,   9,  13,  14,  17,  18,  20,  21,  26,  27,  31,  32,
+        34,  3...le('1.8116386149893130292e-10'), 'peak_knots': 121}}, 'factor': 1, 'scale': '1/14400', 'identical_actions': False, ...}
+name = 'dh', indices = array([ 0,  1, 20, -1]), mode = 0
+
+    def values(side,name,indices,mode):
+        profile=side['profiles'][name];indices=np.asarray(indices,dtype=np.int64)
+>       q=np.maximum(0,indices)*side['factor'];scale=P.LD(side['scale'])
+                                                     ^^^^^^^^^^^^^^^^^^^
+E       ValueError: invalid literal for long double: 1/14400
+
+experiments/R3R_08_population_numerics/profiles.py:79: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_p4_09_stationary.py::test_mean_profile_path_cannot_call_finite_horizon_M1
+1 failed, 961 passed in 89.19s (0:01:29)
