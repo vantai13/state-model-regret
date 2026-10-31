@@ -1,0 +1,45 @@
+{
+  "status": "PAUSED_BY_AUTHOR_REQUEST",
+  "responsible": "Doan Van Tai",
+  "recorded_utc": "2026-10-31T08:30:58.016908+00:00",
+  "user_instruction_verbatim": "chạy lâu không vậy nếu lâu quá tạm dừng chạy các phần ngắn và push github cho tôi đi, ghi rõ rã",
+  "process_group": 257934,
+  "processes": [
+    {
+      "pid": 257934,
+      "ppid": 1802,
+      "state": "Ts",
+      "command": "/bin/bash -c set -e .venv/bin/python - <<'PY' from pathlib import Path import json from experiments.P4_A2.guards import reproduction case=json.loads(Path('experiments/P4_A1/runs/SUB_BOX/prereg.json').read_text())['cases'][0] old=json.loads(Path('experiments/P4_A1/runs/SUB_PROBE/prereg.json').read_text())['cases'] match=next(c for c in old if c['parameters']==case['parameters']) results=[] for k,r in ((640,8),(320,8),(640,4)):  a=json.loads(Path(f\"results/lessons/l4_3/a1_sub_probe/native/{match['id']}/level_{k}_{r}.json\").read_text())  b=json.loads(Path(f\"results/lessons/l4_5/sub_native/native/{case['id']}/level_{k}_{r}.json\").read_text())  assert a['parameters']==b['parameters']  rep=reproduction(a,b);assert rep['reparsed_significant_bits_equal']  results.append(dict(level=[k,r],**rep)) p=Path('results/lessons/l4_5/part_b/SUB_reference_replay.json') p.write_text(json.dumps(dict(status='PASS',old_case=match['id'],new_case=case['id'],rows=results),indent=2)+'\\n') print('SUB fixed first-benchmark reference replay: 3/3 PASS') PY git add results/lessons/l4_5/box_trials results/lessons/l4_5/sub_native results/lessons/l4_5/part_b git diff --cached --check git commit -q -m 'L4.5: preserve SV FAIL_SCREEN and authorize fixed 76-key SUB full run' set -o pipefail .venv/bin/python -m experiments.P4_A1.run full --run SUB_BOX 2>&1 | tee results/lessons/l4_5/part_b/SUB_full.log"
+    },
+    {
+      "pid": 258010,
+      "ppid": 257934,
+      "state": "Tl",
+      "command": ".venv/bin/python -m experiments.P4_A1.run full --run SUB_BOX"
+    },
+    {
+      "pid": 258011,
+      "ppid": 257934,
+      "state": "T",
+      "command": "tee results/lessons/l4_5/part_b/SUB_full.log"
+    },
+    {
+      "pid": 261556,
+      "ppid": 258010,
+      "state": "T",
+      "command": "/home/vantai/state-model-regret/.venv/bin/python -m experiments.P4_A1.run worker --run SUB_BOX --case SUB_0009"
+    },
+    {
+      "pid": 262015,
+      "ppid": 258010,
+      "state": "T",
+      "command": "/home/vantai/state-model-regret/.venv/bin/python -m experiments.P4_A1.run worker --run SUB_BOX --case SUB_0010"
+    }
+  ],
+  "method": "SIGSTOP process group; no further CPU or scheduling. Worker memory retained locally.",
+  "resume_live_group_command": "kill -CONT -- -257934",
+  "fallback": "If this process group no longer exists, verify frozen sources and resume the same A1 full command using saved rows. Never rerun concurrently with this group.",
+  "SUB_full_complete": false,
+  "SUB_screened": false,
+  "final_card_count": null
+}

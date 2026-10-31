@@ -1932,3 +1932,8 @@ Không readiness reason nào tại rho*; gap runner-up MV>=.94165%Cref/SH>=3.650
 ### DL-115 — Part B: một hộp mỗi candidate, SV không chờ SUB (31/10/2026)
 
 Tác giả chọn “Chạy một hộp SUB (khuyến nghị)”; AI theoủyquyền soạn chi tiết/forecast,khônghuman-selfwork. Hai hộp+76SUBkeys+luật0/1/2card khóa trước mọi count; SV chỉ449/48keys registered,7keys khác trongplus-envelope chưa cócoverage. Chỉ đổi screen/test để preflight riêng từngcandidate, kernel/threshold/power v1 nguyênbyte;0hộpthật lúcrelock. SUB dùngexplicit-case loader/runnerA1,main640/8+neighbors320/8,640/4,target00/readingMV+A,cap8CPUh,giữNR. MỗiPASS_SCREEN thêm1cardtheoủyquyền,baseline narrow chỉđổiwording;khôngthêmhộp/rerefine đểcứu,khôngCF.
+
+
+### DL-116 — SV FAIL_SCREEN; SUB tạm dừng theo yêu cầu, chưa quyết sốcard
+
+SV trial1: plus216MEETS/224FAILS/9UNRESOLVED trên449,minus0/48MEETS; p_cond27/55,r_plus9/449,p_plan43/110,power≈2.5655e-5<.5 ->FAIL_SCREEN. KhônghộpSVbổsung. Tácgiảyêucầu tạmdừngjobdài vàpush: SUBđã10/76completePASS,2inflight/64notstarted,group257934SIGSTOP. SUBchưa baseline/rho/manifest/screen;finalcardcount=null,khôngsuy0card. Checkpoint/report results/lessons/l4_5/part_b/. Chỉresume khi tácgiảyêucầu;khôngCF.

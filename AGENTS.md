@@ -309,3 +309,17 @@ narrowFalse, medianabsGS4.679597–4.701969%Cref,deltaL10=0. Khôngnumerics-solv
 claim; 0BUG/CF/sealed mới,cardv2/G1giữ. Nhánh numericalCLOSED,khôngA4. Chuyển
 L4.5PartB với candidate-specific evidence; SV/SUBkhôngtựgánREADY từMV/SH.
 Report results/lessons/p4_a3/report.md; JSON results/lessons/l4_4/a3/summary/b1_summary.json.
+
+
+L4.5PartB tạm dừng theo yêu cầu tác giả: SVtrial1 FAIL_SCREEN,plus216MEETS/
+224FAILS/9U trên449,minus0/48MEETS,p_cond27/55,r9/449,p_plan43/110,power
+2.5655e-5. Không thêmhộpSV. SUBauthor chọnchạy1hộp76keys coordinate-only,
+prerege27e327/main6408+3208/6404,target00/readingMV+A,runnerA1 nguyênbản.
+Đã10/76completePASS,2inflight/64notstarted;processgroup257934SIGSTOP theo
+yêucầupause+push. Chỉresume khi useryêucầumới;khôngchạyinstance2đồngthời.
+SUBchưafullsummary/rho/manifest/screen;finalcardcount=null,chưachọn0/1/2.
+880fulltestsPASS86.80s/17targetedPASS,SVauditPASS,3referenceSUBrowskhớp.
+Report/checkpoint results/lessons/l4_5/part_b/. KhôngCF/newsealed/cardv2change;
+A3numericalbranchclosed,G1. SVsupport449/48làdiscreteA1support,khônggiảcoverage
+7discoverykeys khác nằmtrongplus-envelope. Numericlabel/powerkernel/rulesv1
+nguyênbyte;chỉgỡSVchờSUB vàtestsnhạytrạngthái,relocktrước0counts (DL114–116).

@@ -2,7 +2,24 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — A3/B1, 31/10/2026: MV và SH đều STABLE; kết thúc nhánh numerical.**
+**Hiện tại — L4.5 Part B: SV FAIL_SCREEN; SUB tạm dừng theo yêu cầu.**
+
+SV đã sàng đúng một hộp trên support A1: plus 216 MEETS/224 FAILS/9 UNRESOLVED
+(449 keys), minus 0 MEETS/48 FAILS. p_cond=49,09%, r_plus=2,00%; sau haircut
+p_plan=39,09%, planning power≈0,0000257: **FAIL_SCREEN**, không thử hộp khác.
+
+SUB đã khóa một hộp 76 keys và dùng nguyên runner A1. Hiện **10/76 keys hoàn
+tất (10 PASS), 2 đang tính dở, 64 chưa bắt đầu**; job đã SIGSTOP, không chạy
+thêm CPU. SUB chưa có full summary, rho*, manifest hoặc screen. **Số card chưa
+quyết định**, không suy 0 card từ việc tạm dừng. Chỉ resume khi tác giả yêu cầu.
+
+880 full tests PASS; 17 screening tests PASS cả trước và sau SV screen.
+[Report](results/lessons/l4_5/part_b/report.md) ·
+[SV result](results/lessons/l4_5/box_trials/SV/trial_01.result.json) ·
+[SUB checkpoint](results/lessons/l4_5/part_b/SUB_checkpoint.json) ·
+[Pause/resume](results/lessons/l4_5/part_b/pause.json).
+
+**Snapshot A3/B1, 31/10/2026: MV và SH đều STABLE; kết thúc nhánh numerical.**
 
 Đã chạy đủ 90 keys × 3 levels và một control, giữ cả 36 điểm SH NOT_READY.
 Cả ba mức chọn MV ρ*=5% với narrow=True (median R_M 0,86297–0,86799),
