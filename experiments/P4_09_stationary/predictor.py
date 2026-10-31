@@ -58,7 +58,7 @@ def mean_side(lam, pre, post, kappa, h, ref, K, unit, law):
     keep,ke = r2_keep(dt,kappa)
     mst,msw = [P.mean_idle(H,i,keep,ke) for i in inc]
     dh = P.combine(msw,mst,subtract=True)
-    data = dict(profiles={'dh':dh},factor=int(factor),scale=str(quantum*dt),
+    data = dict(profiles={'dh':dh},factor=int(factor),scale=P.number(quantum*dt),
                 identical_actions=pre==post,
                 saturation_OFF_max_index=max(-1,min(-inc[0][0],-inc[1][0])) if lam+max(pre,post)<10 else -1,
                 saturation_cost=str((pre-post)*dt*dt*H*(H+1)/2))
