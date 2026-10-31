@@ -106,6 +106,24 @@ trên population/support, không suyGamma=0 toànpopulation từ vài state busy
 TừT07: |Gamma|<=max(GM,GM|S1)<=max(GM,S_clip). Không thay cận này bằng
 |Gamma|<=S_clip hoặc suy |Gamma|lớn bắt buộcGM|S1lớn khiGamma<0.
 
+### 4.1. Primary c_sw=0 làm S_clip bằng total stakes
+
+**Bổ sung sau khi triển khai diagnostic, không phải dự đoán đã freeze.**
+NgoàiClip, không path/action nào có regulator. Tổng hai queues ở mỗi endpoint
+làqA0+qB0+cumulative(backgroundA+backgroundB+u−2mu), độc lập việc đặt u
+trênA hayB. Vì objective là **tổng backlog không trọng số**, network linear
+terms triệt tiêu giữa actions. Do đó ngoàiClip, Delta=c_sw=0 trong primary.
+Suy ra |Delta|1{Clip}=|Delta| pointwise và **S_clip=sigma**, nênS_clip/sigma=1
+khisigma>0, cho mọi population dùng cùngcost. Tỷ số này không phải predictor
+phân biệt regime trong primary, và cậnGM|S1<=S_clip ở đây chính là cậnstakes
+đã có. Việc50/50estimate bằng1 minh họa identity, không phải một finding mới.
+
+Lập luận không áp nguyên dạng nếu thêm unequal queue-cost weights, drop cost,
+route-specific penalty hoặc đổi plant; c_sw>0 cũng làmDelta=c_sw ngoàiClip.
+Không thay contract chỉ để tạo variation cho predictor. Giữ P-clip như mỏ neo
+giải thích/test; độ lớn interaction còn phải kiểm bằng predictor thực sự khác
+hoặc giữ ở mức mô tả. Không tự tạo predictor mới trong lượt này.
+
 ## 5. Đối chiếu engine và chỗ dễ hiểu sai
 
 - `piecewise.mean_idle` dùng conditionalmean theoinitialmode, correlationr^k,

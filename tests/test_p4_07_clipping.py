@@ -102,3 +102,22 @@ def test_lesson_enumeration_normalizes_H_minus_one_transitions():
     assert all(r['paths']==512 and abs(r['probability_mass']-1)<1e-12 for r in rows)
     assert all(abs(r['M1_minus_M0'])<1e-12 for r in rows if r['outside'])
     assert all(r['M1_minus_M0']>0 for r in rows if not r['outside'])
+
+
+def test_primary_conserved_load_implies_Sclip_equals_total_stakes():
+    # Independent finite current population; theorem needs no stationarity.
+    # Managed load2 moves A->B; both true models share the conditional mode law.
+    H,p=3,F(3,4)
+    A_st,A_sw=(-5,7),(-7,5)
+    B_st,B_sw=(-7,5),(-5,7)
+    sigma=sclip=F(0)
+    for qa,qb,ma,mb in itertools.product((0,1,30),(0,1,30),(0,1),(0,1)):
+        delta=(C.exact_reference(H,A_sw,p,qa,ma)+C.exact_reference(H,B_sw,p,qb,mb)
+               -C.exact_reference(H,A_st,p,qa,ma)-C.exact_reference(H,B_st,p,qb,mb))
+        clipped=any(q<C.threshold(H,inc,m) for q,m,incs in
+                    ((qa,ma,(A_st,A_sw)),(qb,mb,(B_st,B_sw))) for inc in incs)
+        if not clipped:
+            assert delta==0
+        sigma+=abs(delta)/36
+        sclip+=abs(delta)*clipped/36
+    assert sigma==sclip>0
