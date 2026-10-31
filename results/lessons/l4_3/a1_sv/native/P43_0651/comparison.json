@@ -1,0 +1,132 @@
+{
+  "status": "PASS",
+  "bug_reasons": [],
+  "readiness_reasons": [],
+  "native_readiness_reasons": [],
+  "baseline_readiness_reasons": [],
+  "baseline_refinement": [
+    {
+      "rho": "0",
+      "normalized_difference": {
+        "L00": 7.105211659985286e-05,
+        "L10": 1.7291825869087088e-05,
+        "GS_theta": 5.377606710185367e-05,
+        "deltaL10": 0.0
+      }
+    },
+    {
+      "rho": "1/200",
+      "normalized_difference": {
+        "L00": 7.105211659985286e-05,
+        "L10": 8.255691686766074e-06,
+        "GS_theta": 6.74047795183594e-05,
+        "deltaL10": 1.3628712416505722e-05
+      }
+    },
+    {
+      "rho": "1/100",
+      "normalized_difference": {
+        "L00": 7.105211659985286e-05,
+        "L10": 1.6191671827394048e-05,
+        "GS_theta": 8.337827548791095e-05,
+        "deltaL10": 2.9602208386057276e-05
+      }
+    },
+    {
+      "rho": "1/50",
+      "normalized_difference": {
+        "L00": 7.105211659985286e-05,
+        "L10": 3.444312345487363e-05,
+        "GS_theta": 3.663597298123393e-05,
+        "deltaL10": 1.715129758578656e-05
+      }
+    },
+    {
+      "rho": "1/20",
+      "normalized_difference": {
+        "L00": 7.21473744046599e-05,
+        "L10": 8.28769341127099e-06,
+        "GS_theta": 6.511169297271139e-05,
+        "deltaL10": 1.3436531283775327e-05
+      }
+    }
+  ],
+  "pilot_flags": [],
+  "audit": [
+    {
+      "id": "XM1301",
+      "pilot_class": "D",
+      "native_class": "D",
+      "native_class_R6": "D",
+      "class_flipped": false,
+      "z_pctC": {
+        "G_S": -0.4027170687466583,
+        "G_M": 0.0,
+        "G_SM": -0.0022732894054035813,
+        "Gamma": 0.40044377934125475,
+        "G_S_M1": -0.0022732894054035813,
+        "G_M_S1": 0.40044377934125475
+      },
+      "d_pp": {
+        "G_S": 0.005377606710185367,
+        "G_M": 9.302530951463148e-05,
+        "G_SM": 0.006718660366051684,
+        "Gamma": 0.0013425965313511668,
+        "G_S_M1": 0.006718660366051684,
+        "G_M_S1": 0.0013425965313511668
+      },
+      "shift_pp": {
+        "G_S": -0.0010367036570073632,
+        "G_M": 0.0,
+        "G_SM": -0.0022789940903501296,
+        "Gamma": -0.0012422904333428083,
+        "G_S_M1": -0.0022789940903501296,
+        "G_M_S1": -0.0012422904333428083
+      },
+      "pilot_flags": [],
+      "r1": [
+        {
+          "ready": true,
+          "cref_delta": 3.865860555575396e-06
+        },
+        {
+          "ready": true,
+          "cref_delta": 3.970287188723205e-06
+        }
+      ]
+    }
+  ],
+  "cross_route_main": {
+    "00-11": "-420571563779249/18500572904600498010",
+    "01-11": "-420571563779249/18500572904600498010"
+  },
+  "raw_flags_report_only": {
+    "640_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "320_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "640_2": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    }
+  },
+  "native_id": "P43_0651",
+  "supports": [
+    "SV+"
+  ],
+  "cpu_seconds": 13.466256999999999,
+  "a1_prereg_sha256": "f8bcd6a90610b421ebad961ceaab652f6747ed347c490282a7d4804212737ab1"
+}

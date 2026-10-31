@@ -81,11 +81,21 @@ def verify_one(run):
         if len(rows)==3 and all(r['status']=='COMPLETED' for r in rows.values()):
             delta00.append(dict(id=c['id'],**extra_delta00_diagnostic(rows,main)))
     by_support={s:dict(Counter(l['status'] for l in ledger if s in l['supports'])) for s in cfg['supports']}
+    audit_diagnostics={}
+    for support in cfg['supports']:
+        mine=[records[c['id']] for c in cfg['cases'] if support in c['supports'] and c['id'] in records]
+        audit_diagnostics[support]=dict(
+            physical_cases_observed=len(mine),
+            physical_cases_with_pilot_flags=sum(bool(r.get('pilot_flags')) for r in mine),
+            physical_cases_with_class_flip=sum(any(a['class_flipped'] for a in r.get('audit',[])) for r in mine),
+            physical_cases_with_full_class_R6_unresolved=sum(any(a['native_class_R6']=='UNRESOLVED' for a in r.get('audit',[])) for r in mine),
+            note='Map-audit diagnostics, not candidate MEETS frequency or box screening')
     nr_reasons=Counter(reason.split(':')[0] for r in records.values() if r['status']=='NOT_READY'
                        for reason in r.get('readiness_reasons',[]))
     report=dict(status=full['status'],planned=len(cfg['cases']),observed_distinct_including_benchmark=len(records),
                 full_stage_completed=full['completed'],by_support=by_support,
                 not_ready_reason_events=dict(nr_reasons),
+                audited_map_diagnostics=audit_diagnostics,
                 stop_reasons=full['stop_reasons'],raw_flags_all_levels=dict(rawflags),
                 deltaL00_additional_diagnostic=dict(cases=len(delta00),not_meeting=sum(not d['would_meet_existing_tolerances'] for d in delta00),
                     max_refinement_ratio=max((d['refinement_ratio'] for d in delta00),default=None),
@@ -139,7 +149,13 @@ def verify_one(run):
                     cid=e['id']; row=levels_by_id[cid][main]; c=case_by_id[cid]
                     assert e['key']==c['key'] and e['CF_computed'] is False
                     assert e['source_kind']=='DISCOVERY_NATIVE'
-                    assert all(e[k]==row[k] for k in ('Cref','G_S','Gamma'))
+                    assert all(e[k]==row[k] for k in ('Cref','G_S','G_M','Gamma'))
+                    for metric in METRICS:
+                        cf=F(row['Cref']);gf=F(row[metric]);terms=[F(row['normalized_error'][metric])]
+                        for lv in ((main[0]//2,main[1]),(main[0],main[1]//2)):
+                            coarse=levels_by_id[cid][lv];cc=F(coarse['Cref']);gc=F(coarse[metric])
+                            terms.extend((abs(gf-gc)/cf,abs(gf/cf-gc/cc)))
+                        assert F(e['d_normalized'][metric])==max(terms)
                     assert e['r1_ready'] is (records[cid]['status']=='PASS')
                     if records[cid]['status']!='PASS':not_ready+=1
                     elif abs(F(e['G_S'])/F(e['Cref'])-F(1,100))<=F(e['d_normalized']['G_S']):near+=1

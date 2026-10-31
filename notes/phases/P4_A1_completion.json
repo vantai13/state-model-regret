@@ -1,0 +1,71 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-31",
+  "status": "TECHNICAL_EXECUTION_COMPLETE_F1_BASELINE_HOLD",
+  "tests": {
+    "targeted": 80,
+    "targeted_seconds": 2.9,
+    "full": 842,
+    "full_seconds": 88.76
+  },
+  "L44_A1": {
+    "status": "HOLD",
+    "full_completed": 16,
+    "planned": 90,
+    "PASS": 8,
+    "NOT_READY": 8,
+    "observed_including_benchmark": 19,
+    "rho_selected": false
+  },
+  "L43_A1_SV": {
+    "status": "PASS_WITH_ONE_NOT_READY",
+    "cases": 497,
+    "PASS": 496,
+    "NOT_READY": 1,
+    "BUG": 0,
+    "rho_star": "1/100",
+    "selection_scope": "448 READY SV+ points out of449; SV-minus48/48ready",
+    "median_GS_original_pctC": 0.9718413649525829,
+    "median_GS_theta_pctC": 1.0215452567941552,
+    "median_deltaL00_packet_s": 0.0005054760144173479,
+    "baseline_narrow": false,
+    "R6_plus_uncertainty": {
+      "N": 449,
+      "NOT_READY": 1,
+      "R6_near_GS_boundary": 8,
+      "unresolved_total": 9,
+      "scope": "Numerical uncertainty on predeclared support; no MEETS/FAILS tally or box counts"
+    },
+    "map_class_flips": 5,
+    "pilot_flag_cases": 0
+  },
+  "SUB_PROBE": {
+    "status": "COMPLETED",
+    "native_ready": 4,
+    "N": 5,
+    "max_bundle_cpu_seconds": 164.40476900000004,
+    "decision": "PROPOSE_KEEP_KAPPA_GE_1_20_FOR_FURTHER_COVERAGE"
+  },
+  "new_level_evaluations": 1566,
+  "evaluation_cpu_seconds_including_controls": 7077.098292,
+  "author_self_written": false,
+  "human_review": false,
+  "provenance": "AI drafted/executed under explicit author delegation; decision/predictions committed before new outcomes",
+  "new_CF_outcomes": 0,
+  "new_sealed_outcomes": 0,
+  "new_box_counts": 0,
+  "L45_PartB": "BLOCKED_PENDING_COMBINED_SUB_SUPPORT_RECEIPTS_AND_F1_BASELINE_HOLD",
+  "final_card_count": null,
+  "still_open": [
+    "F1 baseline numerics",
+    "SUB combined support baseline/numerics",
+    "candidate_readiness",
+    "P0-V10",
+    "L8",
+    "Understanding/ownership",
+    "Gate4"
+  ],
+  "G_level": "G1",
+  "report": "results/lessons/p4_a1/report.md",
+  "verification": "results/lessons/p4_a1/verification.json"
+}

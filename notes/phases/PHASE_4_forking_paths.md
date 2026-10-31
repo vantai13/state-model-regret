@@ -97,3 +97,11 @@ không tựcắtκ=.05 đểnéoutcome. Final0/1/2card cònpending; G1/F1/HOLD c
 
 Đã thấy hướng dẫn/patch nguồn, kết quả 1298 calibration rows và sanity17/33SH,0/16MV; xem phạm vi SV-minus48/124 chỉ theo tọa độ. Nới tolerance hoặc xóa toàn bộ oracle/controller checks: không áp dụng. Đề xuất tách same-route BUG khỏi numerical NOT_READY, báo cross-route raw flags; chưa gọi engine mới lúc ghi dòng này.
 Patch gốc thiếu newline cuối được chuẩn hóa; 72targeted gốc PASS. Đã sửa trước freeze lỗi manifest NOT_READY, S11 bookkeeping, resume guards, dừng bundle sau BUG và provenance ủy quyền. Một lượt test fixture mới FAIL NameError đã giữ log, sửa setup;80targeted/842full PASS. Không sửa frozen source/card/CF hoặc lịch sử HOLD. Chưa gán tác giả tự viết hoặc Understanding PASS. Diagnosis + note này phải commit trước mọi prereg A1.
+
+
+## P4-A1 #21–24 — ghi sau thực thi, không backdate (31/10/2026)
+
+#21: tácgiảủyquyền rõ sau3câuhỏi;AIsoạnchoices/forecast195672a,ba preregscommit trước outcomes. Chọncaps10%/10%/100%,SVκflip,target00,SUBB;nhậnREADYsubset làđổiphạmviselection. GiữprovenanceAI,khônghumanownership.
+#22: independent schedulingmax2/2/1 theo5efc715;L44HOLD8/72NR,giữ19observed/71NOT_RUN,no rho;SUB5/5complete,native4/5,max164.405CPU-s,rule đềxuấtκ>=.05 đểkiểm tiếp.
+#23: SV497/497complete,496PASS/1NR;rho1% từ448READY,GSmedian .971841→1.021545%,deltaL00+.000505476,no narrow. Map5flips/19classR6unknown;GScriterionU9/449,khôngMEETS/p-hatbox hoặcboxtrial. Khôngchọnbounds mới sauoutputs.
+#24: arithmetic/rescore/export và6receiptSHA kiểmPASS. ExtraδL00diagnostic chỉfail cùngcaseđãNR;khôngsửa criterion/codedA1 saufreeze.0CF/sealed/boxoutcomes;F1baselineHOLD/L45PartB/combinedSUB/readiness/cards/Gate4cònmở. ForecastsAI,khôngtựgánUnderstanding.

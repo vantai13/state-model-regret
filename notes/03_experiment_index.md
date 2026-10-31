@@ -63,3 +63,10 @@ L3.8 là tổng hợp quyết định, không phải run mới: [Gate REFORMULAT
 [closeout](phases/PHASE_3_closeout.md), [audit](../results/lessons/l3_8/report.md), DL-061.
 391 tests local PASS; hai mục closeout AI soạn ngôi “tôi” theo ủy quyền, ownership OPEN.
 Phase4 thực thi HOLD tới P0-V10 và contract mới khóa; [proposal v1.3](01_definitions_v1_3_draft.md).
+
+
+## P4-A1 — 31/10/2026, trạng thái thực thi hiện hành
+
+TheoDL106–111 vàủyquyềnAI,khôngauthor-selfprediction. Source `experiments/P4_A1/`, ba preregs riêng trướcoutcomes.
+L44_A1:HOLD16/90stage,8PASS/8NR;19observed/no rho. L43_A1_SV:497/497,496PASS/1NR,rho1% trên448READYplus,baseline khôngnarrow. SUB_PROBE:5/5complete,4nativeReady,max164.405CPU-s,đềxuấtκ>=.05 đểkiểmcoverage tiếp.
+842testsPASS;rescore/export/receiptsPASS;0CF/sealed/boxcounts. Report `results/lessons/p4_a1/report.md`, CSV `measured_runs.csv`, completion `notes/phases/P4_A1_completion.json`. F1baselineHOLD/L45PartB/combinedSUB/readiness/Gate4/G1/P0V10/L8/Understanding giữ theo completion.

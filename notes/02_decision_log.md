@@ -1863,3 +1863,18 @@ Không sàng hộp/p-hat/card; manifest NOT_READY phải UNRESOLVED; L45 còn c�
 
 AI chọn theo lệnh ủy quyền, không tác giả tự chọn độc lập.5AB points kappa1/20 đều trên sorted exact key, gồmP43_0000; main640/ref8,neighbors320/ref8 và640/ref4. Caps NOT_READY/pilot1,2CPUh; BUG dừng ngay.
 Luật trước run:>=4/5 đạt **native** R1 hai trục+width+lean và max bundleCPU<=600s thì đề xuất giữkappa>=1/20 cho coverage L4.7 tiếp, ngược lại đề xuất thu hẹp>=1/10. Baseline readiness báo riêng, không thay native criterion bằng combined status; không claim coverage toàn vùng hoặc hiệu ứngSUB. Cardv2/CF giữ nguyên, chưa có cardv3/runSUBcombined/readiness receipt.
+
+
+### DL-109 — L44_A1 dừng theo cap, F1 baseline vẫn HOLD (31/10/2026)
+
+ControlPASS;benchmark3PASS/1NR;budget2.929164CPUh/8commit3cef246 trướcfull. Full16/90:8PASS/8NOT_READY,SH8/72>10%,0BUG. Tổng19observed(11PASS/8NR),71NOT_RUN;19native-ready nhưngbaseline9arithmetic/12R1events. Khôngrho/claimnarrow/forecastmedian toànvùng;guard summarizeexit1 giữlog.829.655796evalCPU-s gồmcontrol. Khôngrerun/nới tolerance;newcompletion khôngđèhistory.
+
+### DL-110 — SV combined A1 hoàn tất kỹ thuật, baseline không narrow (31/10/2026)
+
+Full497/497:496PASS/1NOT_READY(P43_0605,baselineR1 rho5%);449SV+ gồm448READY,48minusREADY. Prereg7c7c956,budget5.539996CPUh/8commit4bf82f8;5821.730407evalCPU-s gồmcontrol. Rho1% chọnđúngargmin/tie trên448READY:medianGS/Cref.97184136495%→1.02154525679%,medianΔL00+.000505476packet·s. KhôngnarrowtheoluậtSV;khôngsuykémmọiregimevìmeanargmin khácmedian. Map5physicalclassflips,19full-classR6unknown,0pilotflagcases;criterionGS uncertainty9/449(1NR+8near),minus0/48. Đây numericaldiagnostic trênsupport đãkhai,khôngboxMEETSfrequency hoặccardconfirmation.
+Export497rows/hash/deltas/scoring kiểm độc lập về phép tính PASS;0boxcounts. ExtraΔL00diagnostic chỉfail đúngP43_0605 đãNOT_READY,448READY đềuđạt; không đổi readinesscriterion sauoutcome. ForecastAI R6 10–30% khôngđứng ở dữliệu support đãkhai(~2% tổngU),khôngđổi luật đểcứuforecast.
+
+### DL-111 — Áp nguyên văn luật SUBprobe; chưa globalcoverage (31/10/2026)
+
+Preregbf767f2,budget.348006CPUh/2commit6686b28. Full5/5complete,4PASS/1NR,0BUG;native4/5ready,maxbundle164.404769CPU-s<=600;425.712089evalCPU-s gồmcontrol. Đềxuấtgiữκ>=1/20 choL4.7coverage tiếp,theo DL108;khôngnativePASSmọivùng/SUBeffect. P43_0595 failR1K/dt/width;Crefdt tấtcả5đạt khôngthaythếmọiR1. XM2X000Crefdt .310539%→.077918% ởref8,khôngsuyglobalconvergenceorder.
+F1baselineHOLD,combinedSUB/candidate_readiness/L45PartB/0-1-2cards/Gate4 cònmở.0CF/sealedoutcomes/boxcounts,cardv2/contract/F1/ngưỡng giữ nguyên;G1/P0V10/L8/Understanding khôngnâng.

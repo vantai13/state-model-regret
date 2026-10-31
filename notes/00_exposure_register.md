@@ -997,3 +997,9 @@ entrypoint exit1 cóchủđích, trước dữliệu. Không chọn0/1/2card, F1
 Đã đọc hai input người dùng (hướng dẫn + patch), các code/guard/prereg L4.3–L4.5 và 1298 calibration rows L3R.7; tái tính diagnosis từ artifact đã commit. Same-route0/0, cross-route236/279; 17/33SH và0/16MV fail sanity cũ trên tọa độ trùng calibration. Chỉ đọc tham số CF-v2, không outcomes.
 Tests trước freeze kiểm support đối chứng SV48/124 theo tọa độ, không đếm p-hat; 842full tests PASS88.76s. Input báo đã thử pipeline bằng engine giả trong sandbox: đây là lời nguồn, không nhận phiên này đã tái lập sandbox đó. Phiên này chạy synthetic/mutant/read-only tests thực trên máy,0research engine calls/0new coordinates/0CF outcomes.
 Đã đọc reanalysis của phiên trước (361 hashed inputs, kết quả lưu /tmp); diagnosis chính thức nay ở results/lessons/p4_a1/diagnosis/diagnosis.json, đầy đủ input SHA. Forecast và lựa chọn sắp tới do AI theo ủy quyền chat, không author-independent prediction.
+
+
+## P4-A1 thực thi đã kết thúc — 31/10/2026
+
+Sau choices195672a vàpreregsd1c2879/7c7c956/bf767f2, đã gọi1566evaluatelevels (L4458,SV1492,SUB16,gồm3controls) trên inventorydiscovery;0tọađộmới ngoài scope,khôngRNGresearch. Đã xem đầyđủ outputsL44partial19keys/SV497keys/SUB5keys;0CF/R09R10outcomes/boxcounts. L44HOLD16/90stagecap;SV496PASS/1NR;SUB4/5nativeReady. Tổng7077.098292evalCPU-s gồmcontrols,khônggồm mọi import/compiler/launcher cost.
+Đã chọnrho1% từ448READY SV+ theo luật đãcommit trướcoutcomes;baselineGSmedian.971841%→1.021545%,deltaL00positive,no narrow. R6supportU9/449 chỉnumericaluncertainty,khôngMEETS/p-hatbox;0trial registry mới. ĐãkiểmextraδL00trênartifact (diagnosticonly),khôngđổi A1source/criterion. ChưacombinedSUB hoặccandidate_readiness;khôngCFv3/Gate4/carddecision. Source/history cũgiữSHA;AIwork khôngauthor-self/Understanding.

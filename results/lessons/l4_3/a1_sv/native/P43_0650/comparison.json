@@ -1,0 +1,126 @@
+{
+  "status": "PASS",
+  "bug_reasons": [],
+  "readiness_reasons": [],
+  "native_readiness_reasons": [],
+  "baseline_readiness_reasons": [],
+  "baseline_refinement": [
+    {
+      "rho": "0",
+      "normalized_difference": {
+        "L00": 4.8773932842441065e-05,
+        "L10": 5.216026446923899e-06,
+        "GS_theta": 5.219301575906676e-05,
+        "deltaL10": 0.0
+      }
+    },
+    {
+      "rho": "1/200",
+      "normalized_difference": {
+        "L00": 4.8773932842441065e-05,
+        "L10": 7.500912664088254e-06,
+        "GS_theta": 4.8907538949453274e-05,
+        "deltaL10": 3.5015535159356967e-06
+      }
+    },
+    {
+      "rho": "1/100",
+      "normalized_difference": {
+        "L00": 4.8773932842441065e-05,
+        "L10": 7.0479331152060525e-06,
+        "GS_theta": 4.3691972554700476e-05,
+        "deltaL10": 8.501976717951233e-06
+      }
+    },
+    {
+      "rho": "1/50",
+      "normalized_difference": {
+        "L00": 4.8773932842441065e-05,
+        "L10": 1.5960182700830552e-05,
+        "GS_theta": 6.293717201297343e-05,
+        "deltaL10": 1.074415625390667e-05
+      }
+    },
+    {
+      "rho": "1/20",
+      "normalized_difference": {
+        "L00": 0.00036201724482723283,
+        "L10": 1.3663111864393314e-05,
+        "GS_theta": 0.00034835413296283957,
+        "deltaL10": 9.663752716240741e-06
+      }
+    }
+  ],
+  "pilot_flags": [],
+  "audit": [
+    {
+      "id": "XM1300",
+      "pilot_class": "D",
+      "native_class": "D",
+      "native_class_R6": "D",
+      "class_flipped": false,
+      "z_pctC": {
+        "G_S": -0.09492041970778745,
+        "G_M": 0.0,
+        "G_SM": 0.002717879665365316,
+        "Gamma": 0.09763829937315276,
+        "G_S_M1": 0.002717879665365316,
+        "G_M_S1": 0.09763829937315276
+      },
+      "d_pp": {
+        "G_S": 0.005219301575906676,
+        "G_M": 3.4533557483078096e-05,
+        "G_SM": 0.004877393284244106,
+        "Gamma": 0.000341921938902612,
+        "G_S_M1": 0.004877393284244106,
+        "G_M_S1": 0.000341921938902612
+      },
+      "shift_pp": {
+        "G_S": -0.0022277746162138305,
+        "G_M": 0.0,
+        "G_SM": -0.0022567795391175,
+        "Gamma": -2.900492290367332e-05,
+        "G_S_M1": -0.0022567795391175,
+        "G_M_S1": -2.900492290367332e-05
+      },
+      "pilot_flags": [],
+      "r1": [
+        {
+          "ready": true,
+          "cref_delta": 1.796807057897748e-06
+        },
+        {
+          "ready": true,
+          "cref_delta": 4.1179780040170165e-06
+        }
+      ]
+    }
+  ],
+  "cross_route_main": {
+    "00-11": "533586278721394/19632446775367942587",
+    "01-11": "533586278721394/19632446775367942587"
+  },
+  "raw_flags_report_only": {
+    "640_4": {
+      "arithmetic_pass": true,
+      "validity_errors": []
+    },
+    "320_4": {
+      "arithmetic_pass": true,
+      "validity_errors": []
+    },
+    "640_2": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    }
+  },
+  "native_id": "P43_0650",
+  "supports": [
+    "SV+"
+  ],
+  "cpu_seconds": 9.404603999999999,
+  "a1_prereg_sha256": "f8bcd6a90610b421ebad961ceaab652f6747ed347c490282a7d4804212737ab1"
+}

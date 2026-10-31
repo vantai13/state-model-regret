@@ -1,0 +1,179 @@
+{
+  "responsible": "Doan Van Tai",
+  "checks": "PASS",
+  "runs": {
+    "L44_A1": {
+      "status": "HOLD",
+      "planned": 90,
+      "observed_distinct_including_benchmark": 19,
+      "full_stage_completed": 16,
+      "by_support": {
+        "MV+A": {
+          "PASS": 2,
+          "NOT_RUN": 16
+        },
+        "SH+A": {
+          "NOT_READY": 8,
+          "PASS": 9,
+          "NOT_RUN": 55
+        }
+      },
+      "not_ready_reason_events": {
+        "baseline_arithmetic": 9,
+        "baseline_R1": 12
+      },
+      "audited_map_diagnostics": {
+        "MV+A": {
+          "physical_cases_observed": 2,
+          "physical_cases_with_pilot_flags": 0,
+          "physical_cases_with_class_flip": 0,
+          "physical_cases_with_full_class_R6_unresolved": 0,
+          "note": "Map-audit diagnostics, not candidate MEETS frequency or box screening"
+        },
+        "SH+A": {
+          "physical_cases_observed": 17,
+          "physical_cases_with_pilot_flags": 0,
+          "physical_cases_with_class_flip": 0,
+          "physical_cases_with_full_class_R6_unresolved": 0,
+          "note": "Map-audit diagnostics, not candidate MEETS frequency or box screening"
+        }
+      },
+      "stop_reasons": [
+        "SH+A:NOT_READY 8/72 > 1/10"
+      ],
+      "raw_flags_all_levels": {
+        "negative_nonnegative_contrast:G_SM": 19,
+        "negative_nonnegative_contrast:G_S_M1": 22
+      },
+      "deltaL00_additional_diagnostic": {
+        "cases": 19,
+        "not_meeting": 8,
+        "max_refinement_ratio": 0.009339795245283132,
+        "max_width_ratio": 0.002732081991070529
+      },
+      "independent_rho_rescore": "NOT_SELECTED_ON_PARTIAL_OR_HOLD",
+      "unique_evaluation_cpu_seconds_including_control": 829.655796
+    },
+    "L43_A1_SV": {
+      "status": "PASS",
+      "planned": 497,
+      "observed_distinct_including_benchmark": 497,
+      "full_stage_completed": 497,
+      "by_support": {
+        "SV+": {
+          "PASS": 448,
+          "NOT_READY": 1
+        },
+        "SV-": {
+          "PASS": 48
+        }
+      },
+      "not_ready_reason_events": {
+        "baseline_R1": 2
+      },
+      "audited_map_diagnostics": {
+        "SV+": {
+          "physical_cases_observed": 449,
+          "physical_cases_with_pilot_flags": 0,
+          "physical_cases_with_class_flip": 5,
+          "physical_cases_with_full_class_R6_unresolved": 19,
+          "note": "Map-audit diagnostics, not candidate MEETS frequency or box screening"
+        },
+        "SV-": {
+          "physical_cases_observed": 48,
+          "physical_cases_with_pilot_flags": 0,
+          "physical_cases_with_class_flip": 0,
+          "physical_cases_with_full_class_R6_unresolved": 0,
+          "note": "Map-audit diagnostics, not candidate MEETS frequency or box screening"
+        }
+      },
+      "stop_reasons": [],
+      "raw_flags_all_levels": {
+        "negative_nonnegative_contrast:G_SM": 9,
+        "negative_nonnegative_contrast:G_S_M1": 9
+      },
+      "deltaL00_additional_diagnostic": {
+        "cases": 497,
+        "not_meeting": 1,
+        "max_refinement_ratio": 0.003818062019605577,
+        "max_width_ratio": 6.214865318000894e-05
+      },
+      "independent_rho_rescore": {
+        "SV+": {
+          "N_ready": 448,
+          "rho_star": "1/100",
+          "median_GS_original_pctC": 0.9718413649525829,
+          "median_GS_theta_pctC": 1.0215452567941552,
+          "descriptive_narrow": false,
+          "median_deltaL00": 0.0005054760144173479
+        }
+      },
+      "unique_evaluation_cpu_seconds_including_control": 5821.730407,
+      "native_export_integrity": "PASS",
+      "predeclared_support_R6_uncertainty": {
+        "plus": {
+          "N": 449,
+          "NOT_READY": 1,
+          "R6_near_GS_boundary": 8,
+          "unresolved_total": 9,
+          "scope": "Numerical uncertainty on predeclared support; no MEETS/FAILS tally or box counts"
+        },
+        "minus": {
+          "N": 48,
+          "NOT_READY": 0,
+          "R6_near_GS_boundary": 0,
+          "unresolved_total": 0,
+          "scope": "Numerical uncertainty on predeclared support; no MEETS/FAILS tally or box counts"
+        }
+      }
+    },
+    "SUB_PROBE": {
+      "status": "PASS",
+      "planned": 5,
+      "observed_distinct_including_benchmark": 5,
+      "full_stage_completed": 5,
+      "by_support": {
+        "SUB_PROBE": {
+          "PASS": 4,
+          "NOT_READY": 1
+        }
+      },
+      "not_ready_reason_events": {
+        "R1_K": 1,
+        "R1_dt": 1,
+        "arithmetic_width": 3,
+        "baseline_arithmetic": 4,
+        "baseline_R1": 2
+      },
+      "audited_map_diagnostics": {
+        "SUB_PROBE": {
+          "physical_cases_observed": 5,
+          "physical_cases_with_pilot_flags": 2,
+          "physical_cases_with_class_flip": 1,
+          "physical_cases_with_full_class_R6_unresolved": 1,
+          "note": "Map-audit diagnostics, not candidate MEETS frequency or box screening"
+        }
+      },
+      "stop_reasons": [],
+      "raw_flags_all_levels": {},
+      "deltaL00_additional_diagnostic": {
+        "cases": 5,
+        "not_meeting": 1,
+        "max_refinement_ratio": 0.006025795656604276,
+        "max_width_ratio": 0.002525513578400104
+      },
+      "independent_rho_rescore": {},
+      "unique_evaluation_cpu_seconds_including_control": 425.712089,
+      "predeclared_native_decision": {
+        "native_ready": 4,
+        "N": 5,
+        "max_bundle_cpu_seconds": 164.40476900000004,
+        "decision": "PROPOSE_KEEP_KAPPA_GE_1_20_FOR_FURTHER_COVERAGE",
+        "note": "No assertion about SUB effects or global coverage"
+      }
+    }
+  },
+  "new_CF_outcomes": 0,
+  "new_sealed_outcomes": 0,
+  "new_box_counts": 0
+}

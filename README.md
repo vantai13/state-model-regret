@@ -2,7 +2,23 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.5, chốt 31/10/2026: Part A/rules đã khóa; Part B bị chặn.**
+**Hiện tại — P4-A1, 31/10/2026: đã chạy engine thật; F1 baseline vẫn HOLD.**
+
+842 full tests PASS (88,76 s), 3 controls PASS; rescore, export và 6 bộ receipt khớp.
+L44 full dừng đúng cap ở 16/90 điểm (8 PASS, 8 NOT_READY); tổng 19 điểm đã quan sát
+kể cả benchmark, 71 NOT_RUN, chưa chọn ρ*.
+SV hoàn tất 497/497 điểm: 496 PASS, 1 NOT_READY. Trên 448 điểm SV+ READY, ρ*=1%;
+median GS/Cref tăng từ 0,971841% lên 1,021545%, median ΔL00 dương: baseline không
+thu hẹp SV theo luật đã khóa. SUB probe có 4/5 điểm native-ready; max bundle
+164,405 CPU-s: chỉ đề xuất giữ κ≥0,05 để kiểm coverage tiếp.
+
+Quyết định/dự đoán do AI soạn theo ủy quyền, không phải tác giả tự viết.
+Không có CF/sealed outcomes hoặc box counts mới; L4.5 Part B, combined SUB,
+readiness receipts và Gate 4 còn mở. G1 giữ nguyên.
+[Báo cáo](results/lessons/p4_a1/report.md) · [CSV](results/lessons/p4_a1/measured_runs.csv) ·
+[Verification](results/lessons/p4_a1/verification.json) · [Completion](notes/phases/P4_A1_completion.json).
+
+**Snapshot L4.5, chốt 31/10/2026: Part A/rules đã khóa; Part B bị chặn.**
 Tác giả giữ SV/SUB có điều kiện, duyệt luật robust/haircut.10/power≥.5/U≤5%,
 tối đa3hộp/candidate (DL-105, lock624a9be). 16tests mới và813fulltests PASS82.29s;
 14/14dòng power thiết kế khớp lesson, n60 cần≥39MEETS ởΩ⁺/≤21ởΩ⁻.
