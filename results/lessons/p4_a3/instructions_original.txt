@@ -1,0 +1,639 @@
+Tôi sẽ pull repo về, xem bạn đã làm tới bước nào (chẩn đoán, prereg, probe, decision) rồi hướng dẫn tiếp.
+
+Bạn đã chạy xong probe và rơi vào nhánh B1. Tôi dọn bản nháp sandbox của mình ra ngoài rồi pull bản thật của bạn.
+
+Môi trường test chạy được. Giờ tôi viết gói B1.
+
+Giờ viết test. Test dùng dữ liệu tổng hợp cho phần chọn ρ; dữ liệu thật của A1 chỉ dùng để kiểm hàm replay.
+
+Freeze chạy đúng: 90 điểm (18 MV, 72 SH), benchmark trùng với A1. Tiếp theo chạy control → benchmark → replay → budget → full bằng engine giả.
+
+# Sau probe A2: probe cho thấy gì, và A3 (nhánh B1) đã sẵn sàng để bạn chạy
+
+Tôi đã pull 6 commit mới (tới `98a7ca3`). Probe đã chạy đủ, có kiểm chứng độc lập, và áp đúng nhánh B1 đã khóa trước. Bước tiếp theo là A3. Tôi đã viết và kiểm A3 trong sandbox:
+
+- **Test:** 9 test mới đều đạt; toàn bộ 169 test Phase 4 cũng đạt.
+- **Chạy thử plumbing:** toàn bộ chuỗi freeze → control → benchmark → replay → budget → full 90 điểm → summarize chạy được với **engine giả** (số liệu là nhiễu, không phải kết quả). Lần chạy này bắt được **một lỗi thật trong code của tôi**: `replay` khi chưa có row nào vẫn báo PASS. Tôi đã sửa trước khi đưa code cho bạn.
+- **Những gì tôi không làm:** không commit, không push, không tính ρ\* hay median trên dữ liệu thật. Phần chọn ρ chỉ được test trên dữ liệu tổng hợp.
+- **Sự cố trong sandbox:** tôi lỡ ghi đè trình Python của container qua một symlink, đã khôi phục và kiểm lại. Máy bạn và repo không bị ảnh hưởng.
+
+---
+
+## 1. Probe cho thấy gì
+
+**Kết quả:** ở bậc mịn nhất, 0/8 điểm READY. Hai điểm READY ở bậc giữa rồi fail lại ở bậc cuối. Không có ρ fail mới.
+
+**Cách đọc một refinement study.** Nếu một đại lượng trơn (smooth), mỗi lần chia đôi bước lưới thì chênh lệch giữa hai mức giảm theo một tỉ lệ gần cố định; với hội tụ bậc 1 tỉ lệ đó ≈ 2. Dữ liệu của bạn có đúng hai kiểu hành vi khác nhau.
+
+**P44_000 (loại W), trục dt:**
+
+| So sánh | Chênh L̄00 (% Cref) |
+|---|---|
+| ref 2 → 4, K = 640 | 0,174 |
+| ref 2 → 4, K = 1280 | 0,174 |
+| ref 4 → 8, K = 1280 | 0,083 |
+
+- Tỉ lệ 0,174 / 0,083 ≈ 2,1, đúng dáng hội tụ bậc 1 theo dt, và luôn dưới ngưỡng 0,25%. Theo trục này điểm hoàn toàn bình thường.
+- Điểm fail vì **độ rộng**: 0,066% → 0,066% → 0,060% Cref, gần như không đổi.
+- Độ rộng không phải sai số rời rạc hóa. Nó là phần khối lượng mà action chưa quyết được dưới sai số số học, tức các nút có ĝ quá sát −θ. Làm mịn lưới không nhắm vào phần này. Cụ thể là nút nào và vì sao nó sát −θ thì chưa kiểm.
+
+**P44_010 (loại K/D), trục K:**
+
+| So sánh | Chênh (% Cref) |
+|---|---|
+| K 320 → 640, ref 4 | 1,04 |
+| K 640 → 1280, ref 4 | 0,57 |
+| K 640 → 1280, ref 8 | 1,13 |
+
+- Hai dòng đầu trông như đang hội tụ. Dòng thứ ba phá vỡ điều đó: **cùng cặp K**, chỉ đổi dt mịn hơn, mà chênh lệch lại gấp đôi.
+- Với đại lượng trơn, sai số theo K không nên phụ thuộc mạnh vào dt. Ở đây "vách" xê dịch theo cách lưới đặt nút, nên chênh lệch dao động chứ không giảm.
+- P44_006 và P44_007 READY ở bậc giữa chỉ vì lần dao động đó tình cờ rơi xuống dưới ngưỡng.
+
+**Ý nghĩa cho bước tiếp theo.** Tại các ρ đó, thang refinement hữu hạn không làm từng điểm READY được. Điều này phù hợp với H_cliff trong phạm vi probe, nhưng không chứng minh cơ chế vật lý. Câu hỏi đúng vì thế chuyển từ "từng con số đã hội tụ chưa?" sang **"kết luận mà claim dựa vào có đổi theo numerics không?"**. Đó chính là B1.
+
+**Lỗi đi vào claim ở đâu.** Phần này đọc trực tiếp từ code `analysis.objective`, không phải suy đoán:
+
+| Support | ρ\* chọn bằng | Luật đọc dùng |
+|---|---|---|
+| SH | L̄10^θ (ô chưa từng fail) | median \|Ḡ_S^θ\| và ΔL10 (Ḡ_S^θ tính từ L̄00^θ nên fail cùng nó) |
+| MV | L̄00^θ (đúng ô từng fail) | R_M (cũng tính từ L̄00^θ) |
+
+Suy ra hai điều. Với SH, việc chọn ρ\* gần như miễn nhiễm với vách, chỉ phần đọc là có rủi ro. Với MV thì cả hai đều có rủi ro, nhưng 16/18 điểm MV **chưa từng được quan sát**.
+
+Một ước lượng thô để có trực giác: một điểm nhảy khoảng 1% Cref tại một ρ chỉ dịch điểm số trung bình của ρ đó khoảng 1% / 72 ở SH. Vì vậy ρ\* chỉ đổi khi hai ρ có điểm số rất sát nhau, và B1 kiểm đúng trường hợp đó.
+
+> **Ghi chú về Understanding (không phải gate):** forecast A2 là do AI soạn theo ủy quyền. Nếu bạn tự viết được hai câu giải thích vì sao P44_006 READY ở 1280/4 rồi fail ở 1280/8, bạn đã nắm phần khó nhất của bài này.
+
+---
+
+## 2. Thiết kế A3: không viết runner mới
+
+Runner của A1 chạy theo config (đã chạy 3 run thật), nên A3 chỉ là **một run mới của chính runner đó**: `experiments/P4_A1/runs/L44_A3/`. Viết runner mới đồng nghĩa với rủi ro bug mới mà không thu thêm được thông tin gì.
+
+| | L44_A1 | L44_A3 |
+|---|---|---|
+| Engine, `evaluate_level`, readiness, BUG checks, dung sai | — | giữ nguyên |
+| 90 điểm, lưới ρ, ba mức, luật benchmark, luật budget | — | giữ nguyên |
+| Cap NOT_READY | 1/10 | **1**: không bao giờ dừng vì NOT_READY; BUG vẫn dừng |
+| Phạm vi chọn ρ | tập READY | **mọi điểm, tính riêng ở từng mức** |
+| Summarizer | `P4_A1/summarize.py` | **`P4_A3/b1_summary.py`** (mới, bị prereg khóa hash) |
+
+**Vì sao cap = 1 không làm yếu kiểm tra.** Cap tồn tại để bảo vệ việc chọn ρ trên tập READY: loại quá nhiều điểm thì phép chọn bị lệch. B1 không loại điểm nào. Thay vào cổng theo từng điểm là một kiểm tra ở cấp claim, đã khai trong DL-112/113 **trước** mọi outcome của A3. Lý do này nói ra được mà không cần biết ρ\* hay median nào, nên qua được honesty test.
+
+**Luật verdict, ví dụ nhỏ:**
+
+| Mức | ρ\* SH | narrow? | Verdict |
+|---|---|---|---|
+| 640/4 | 1/50 | không | |
+| 320/4 | 1/50 | không | |
+| 640/2 | 1/100 | không | **UNRESOLVED_RHO** (ρ\* đổi theo numerics) |
+
+Chỉ khi cả ba dòng giống hệt nhau thì verdict mới là STABLE.
+
+**Kiểm tra tái lập (replay).** 19 điểm đã chạy ở A1 × 3 mức = 57 row phải trùng bit với A1. Cả 4 điểm benchmark đều nằm trong 19 điểm đó, nên chạy `replay` ngay sau benchmark (12 row). Nếu môi trường bị trôi, bạn phát hiện ra trước khi tốn CPU cho bước full.
+
+> ⚠️ **Tuyệt đối không chạy** `python -m experiments.P4_A1.summarize --run L44_A3`. Cả hai summarizer cùng ghi vào `summary/`, và cái nào chạy trước sẽ chặn cái kia. Nếu summarizer của A1 chạy trước, bạn nhận một ρ\* chọn trên tập READY (sai luật) và B1 bị chặn; khi đó phải làm prereg mới.
+
+---
+
+## 3. Code
+
+### `experiments/P4_A3/__init__.py`
+
+```python
+"""Doan Van Tai — Phase 4 amendment A3: nhánh B1 (claim-level robustness) đã khóa ở DL-112/DL-113.
+
+Không có runner mới: 90 điểm chạy bằng runner config-driven của P4_A1 với run L44_A3.
+Gói này chỉ thay bước tổng hợp (summarize) cho run đó. Không sửa byte nào của P4_A1/P4_A2.
+"""
+```
+
+### `experiments/P4_A3/b1_summary.py`
+
+Vai trò khoa học của từng hàm:
+- `level_reading`: áp luật DL-104 **nguyên văn** (`select_rho`, `describe`, `reading` không đổi một byte) tại một mức.
+- `verdict`: chính là luật B1.
+- `score_spread`: chỉ để mô tả. Nó cho biết argmin có mong manh không: khoảng cách giữa ρ\* và ρ đứng thứ hai có lớn hơn độ trôi của điểm số giữa các mức không.
+- `not_ready_failing_at_main_rho_star`: cho biết các lỗi của điểm NOT_READY có rơi đúng vào ρ\* hay không. Nếu danh sách rỗng, lỗi không chạm tới phần đọc.
+
+Bất biến được kiểm: lưới ρ trùng DL-104; cap phải bằng 1; full phải PASS đủ 90 điểm; replay phải đủ 57/57; output chỉ ghi một lần.
+
+```python
+"""Doan Van Tai — A3 / nhánh B1: đọc baseline L4.4 ở cấp claim trên ba mức numerics. Không gọi engine, không đọc CF.
+
+Luật B1 (amendment A2, DL-112/113, khóa trước A3):
+  - giữ ĐỦ 90 điểm; NOT_READY không bị loại khỏi chọn rho hay luật đọc;
+  - tại MỖI mức 640/4, 320/4, 640/2: rho* = argmin mean normalized regret của support
+    (MV -> controller 00, SH -> controller 10; mỗi key một phiếu; hòa chính xác -> rho nhỏ hơn),
+    rồi luật đọc DL-104 với rho* của chính mức đó;
+  - support STABLE chỉ khi ba mức cùng rho* và cùng narrow/not-narrow
+    (+ cùng claim_readiness nếu tác giả chọn); khác -> UNRESOLVED vì validity, không vì outcome.
+
+python -m experiments.P4_A3.b1_summary replay     # read-only, chạy lúc nào cũng được: row A3 vs row L44_A1
+python -m experiments.P4_A3.b1_summary summarize  # một lần, sau full PASS -> <output>/summary/
+"""
+import argparse
+import csv
+from fractions import Fraction as F
+import json
+import os
+from pathlib import Path
+
+from experiments.P4_03_map_audit.common import ROOT, sha, require, write_once
+from experiments.P4_04_baseline.common import RHOS
+from experiments.P4_04_baseline.analysis import select_rho, describe, reading
+from experiments.P4_A1.config import RUNS, load, verify_run
+from experiments.P4_A2.guards import reproduction
+
+RUN_ID = 'L44_A3'
+A1_NATIVE = Path('results/lessons/l4_4/a1/native')
+VERDICTS = ('STABLE', 'UNRESOLVED_RHO_DEPENDS_ON_NUMERICS', 'UNRESOLVED_READING_DEPENDS_ON_NUMERICS',
+            'UNRESOLVED_CLAIM_READINESS_DEPENDS_ON_NUMERICS')
+
+
+def level_name(lv):
+    return f'{lv[0]}_{lv[1]}'
+
+
+# ---------------------------------------------------------------- hàm thuần (test bằng dữ liệu tổng hợp)
+
+def level_reading(rows, target, support):
+    """Một support tại MỘT mức numerics: rho* trên mọi row được đưa vào, rồi luật đọc DL-104 với rho* đó."""
+    rho, scores = select_rho(rows, target)                     # helper DL-104 nguyên văn, không sửa
+    ranked = sorted(RHOS, key=lambda r: (scores[r], F(r)))
+    require(ranked[0] == rho, 'ranking disagrees with select_rho')
+    described = [describe(r, rho, target) for r in rows]
+    return dict(rho_star=rho, runner_up=ranked[1], gap_to_runner_up=scores[ranked[1]] - scores[rho],
+                scores=scores, reading=reading(support, described), described=described)
+
+
+def verdict(per_level, require_same_claim_readiness):
+    """per_level: {tên mức: kết quả level_reading}. STABLE chỉ khi mọi mức cho cùng một kết luận."""
+    rhos = {v['rho_star'] for v in per_level.values()}
+    narrow = {v['reading']['descriptive_narrow'] for v in per_level.values()}
+    claim = {v['reading'].get('claim_readiness') for v in per_level.values()}
+    if len(rhos) > 1:
+        return VERDICTS[1]
+    if len(narrow) > 1:
+        return VERDICTS[2]
+    if require_same_claim_readiness and len(claim) > 1:
+        return VERDICTS[3]
+    return VERDICTS[0]
+
+
+def score_spread(per_level, main):
+    """Mô tả, không quyết định: điểm số mỗi rho trôi bao nhiêu giữa các mức, so với khoảng cách giữa
+    rho* và rho đứng thứ hai ở mức chính. Khoảng cách nhỏ hơn độ trôi -> argmin mong manh."""
+    base = per_level[main]
+    spread = {r: max(abs(v['scores'][r] - base['scores'][r]) for v in per_level.values()) for r in RHOS}
+    return dict(max_score_change_across_levels={r: str(s) for r, s in spread.items()},
+                gap_main=str(base['gap_to_runner_up']),
+                gap_exceeds_every_spread=all(base['gap_to_runner_up'] > s for s in spread.values()))
+
+
+def failing_rho(reason):
+    """'baseline_arithmetic:(640, 4):1/100' -> '1/100'; 'baseline_R1:1/50:L00' -> '1/50'; còn lại -> None."""
+    if reason.startswith('baseline_arithmetic:'):
+        return reason.rsplit(':', 1)[1]
+    if reason.startswith('baseline_R1:'):
+        return reason.split(':')[1]
+    return None
+
+
+def jsonable(level_result):
+    out = {k: v for k, v in level_result.items() if k not in ('scores', 'described', 'gap_to_runner_up')}
+    out['scores_exact'] = {r: str(s) for r, s in level_result['scores'].items()}
+    out['scores_float'] = {r: float(s) for r, s in level_result['scores'].items()}
+    out['gap_to_runner_up_exact'] = str(level_result['gap_to_runner_up'])
+    return out
+
+
+# ---------------------------------------------------------------- replay với L44_A1 (môi trường có trôi không?)
+
+def a1_overlap():
+    return sorted(os.listdir(ROOT / A1_NATIVE))
+
+
+def replay(cfg):
+    """Mọi row A3 đã có của 19 điểm L44_A1 phải trùng số (saved fields + significant bits) với row A1."""
+    fp = sha(ROOT / RUNS / RUN_ID / 'prereg.json')
+    out = []
+    for cid in a1_overlap():
+        for lv in cfg['levels']:
+            path = Path(cfg['output']) / 'native' / cid / f'level_{lv[0]}_{lv[1]}.json'
+            if not (ROOT / path).exists():
+                continue
+            new = load(path)
+            require(new.get('a1_prereg_sha256') == fp and new.get('id') == cid, 'row not produced by L44_A3 prereg')
+            if new.get('status') != 'COMPLETED':
+                out.append(dict(id=cid, level=lv, equal=False, unequal_fields=['status'], bit_mismatch_fields=[]))
+                continue
+            r = reproduction(load(A1_NATIVE / cid / f'level_{lv[0]}_{lv[1]}.json'), new)
+            out.append(dict(id=cid, level=lv, equal=r['reparsed_significant_bits_equal'],
+                            unequal_fields=r['unequal_fields'], bit_mismatch_fields=r['bit_mismatch_fields']))
+    return out
+
+
+# ---------------------------------------------------------------- summarize (một lần)
+
+def table(path, rows):
+    if rows:
+        with path.open('x', newline='') as stream:
+            w = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
+            w.writeheader(); w.writerows(rows)
+
+
+def summarize():
+    from experiments.P4_A1.run import verify_saved_comparison
+    cfg = verify_run(RUN_ID); out = ROOT / cfg['output']
+    decisions = load(cfg['author_choices'])['decisions']
+    require(list(cfg['rho']) == list(RHOS), 'rho grid differs from DL-104')
+    require(F(cfg['caps']['max_not_ready_fraction']) == 1, 'B1 run must keep every NOT_READY point')
+    full = load(Path(cfg['output']) / 'full_summary.json')
+    require(full['status'] == 'PASS' and full['completed'] == len(cfg['cases']), 'full stage not complete: no reading')
+    dest = out / 'summary'
+    require(not dest.exists(), 'summary/ exists (A1 READY-subset summarizer or an earlier B1 run): never overwrite')
+    levels = [tuple(lv) for lv in cfg['levels']]; main = level_name(levels[0])
+    records, rows = {}, {}
+    for c in cfg['cases']:
+        folder = out / 'native' / c['id']
+        saved = load((folder / 'comparison.json').relative_to(ROOT))
+        records[c['id']] = verify_saved_comparison(RUN_ID, cfg, c, False, folder, saved)
+        require(records[c['id']]['status'] in ('PASS', 'NOT_READY'), 'unexpected status ' + c['id'])
+        rows[c['id']] = {lv: load((folder / f'level_{lv[0]}_{lv[1]}.json').relative_to(ROOT)) for lv in levels}
+    rep = replay(cfg)
+    summary = dict(run_id=RUN_ID, responsible='Doan Van Tai', branch='B1_CLAIM_LEVEL_ROBUSTNESS',
+                   prereg_sha256=sha(ROOT / RUNS / RUN_ID / 'prereg.json'),
+                   replay=dict(rows_compared=len(rep), rows_equal=sum(r['equal'] for r in rep),
+                               mismatches=[r for r in rep if not r['equal']]),
+                   CF_outcomes=0, G_level='G1', card_v2_verdict_unchanged=True, supports={})
+    dest.mkdir(parents=True)
+    if len(rep) != len(levels) * len(a1_overlap()) or summary['replay']['mismatches']:
+        summary['status'] = 'HOLD_REPRODUCTION'                     # môi trường trôi: không chọn rho
+        write_once(dest / 'b1_summary.json', summary)
+        print('HOLD_REPRODUCTION', summary['replay'], flush=True)
+        return 1
+    summary['status'] = 'COMPLETED'
+    freeze, ledger, described = {}, [], {level_name(lv): [] for lv in levels}
+    for name, spec in cfg['supports'].items():
+        members = [c for c in cfg['cases'] if name in c['supports']]
+        per = {level_name(lv): level_reading([rows[c['id']][lv] for c in members], spec['target'], spec['reading'])
+               for lv in levels}
+        v = verdict(per, decisions['b1_stable_requires_same_claim_readiness'])
+        not_ready = [c['id'] for c in members if records[c['id']]['status'] == 'NOT_READY']
+        rho_main = per[main]['rho_star']
+        hits = [c['id'] for c in members
+                if any(failing_rho(x) is not None and F(failing_rho(x)) == F(rho_main)
+                       for x in records[c['id']]['readiness_reasons'])]
+        summary['supports'][name] = dict(
+            N=len(members), N_ready=len(members) - len(not_ready), not_ready=not_ready, target=spec['target'],
+            verdict=v, rho_star=rho_main if v == 'STABLE' else None,
+            per_level={lv: jsonable(r) for lv, r in per.items()},
+            descriptive=dict(score_spread(per, main), not_ready_failing_at_main_rho_star=hits))
+        freeze[name] = dict(status=v, rho_star=rho_main if v == 'STABLE' else None, target=spec['target'],
+                            N=len(members), N_not_ready=len(not_ready))
+        for lv, r in per.items():
+            described[lv] += [dict(support=name, level=lv, **d) for d in r['described']]
+        for c in members:
+            rec = records[c['id']]
+            ledger.append(dict(id=c['id'], support=name, status=rec['status'],
+                               reasons='|'.join(rec.get('readiness_reasons', []))))
+    write_once(dest / 'b1_summary.json', summary)
+    table(dest / 'case_ledger.csv', ledger)
+    for lv, ds in described.items():
+        table(dest / f'b1_described_{lv}.csv', ds)
+    write_once(ROOT / RUNS / RUN_ID / 'rho_freeze.json', dict(
+        responsible='Doan Van Tai', status='FROZEN_BY_PREDECLARED_B1_RULE', run_id=RUN_ID, supports=freeze,
+        prereg_sha256=summary['prereg_sha256'], not_CF_verdict=True,
+        note='rho_star is null when the support is UNRESOLVED; downstream must not substitute another rho'))
+    for name, s in summary['supports'].items():
+        print(name, 'N', s['N'], 'NOT_READY', len(s['not_ready']), '->', s['verdict'],
+              {lv: (r['rho_star'], r['reading']['descriptive_narrow']) for lv, r in s['per_level'].items()},
+              flush=True)
+    return 0
+
+
+def main():
+    p = argparse.ArgumentParser(); p.add_argument('step', choices=['replay', 'summarize']); a = p.parse_args()
+    if a.step == 'summarize':
+        return summarize()
+    rep = replay(verify_run(RUN_ID))
+    print(json.dumps(dict(rows_compared=len(rep), rows_equal=sum(r['equal'] for r in rep),
+                          mismatches=[r for r in rep if not r['equal']]), default=str), flush=True)
+    return 0 if rep and all(r['equal'] for r in rep) else 1          # 0 row so sánh = chưa kiểm gì, không phải PASS
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
+```
+
+### `tests/test_p4_a3.py`
+
+Có hai test quan trọng nhất:
+- `test_level_reading_uses_every_row...`: bỏ một row đi thì ρ\* đổi, chứng tỏ B1 thật sự giữ mọi điểm.
+- `test_design_changes_only_what_b1_declares`: thiết kế A3 không lén đổi gì so với A1 ngoài những chỗ đã khai.
+
+```python
+"""A3/B1 tests. Chọn rho và luật đọc chỉ được test trên row TỔNG HỢP (không chọn rho trên 19 điểm đã thấy).
+Row thật của L44_A1 chỉ dùng cho test replay (so sánh từng trường, không chọn gì)."""
+from copy import deepcopy
+from fractions import Fraction as F
+import json
+
+import pytest
+
+from experiments.P4_03_map_audit.common import ROOT
+from experiments.P4_04_baseline.common import RHOS
+from experiments.P4_A3 import b1_summary as B
+
+A3 = 'experiments/P4_A1/runs/L44_A3'
+A1 = 'experiments/P4_A1/runs/L44_A1'
+
+
+def rd(path):
+    return json.loads((ROOT / path).read_text())
+
+
+def fake_row(cid, l10_by_rho, l00_by_rho=None, gs=F(1, 4), d10=F(-1), gm=F(4), certified=True):
+    """Cref=100, L11=50. objective(rho, '10') = (L10^theta - 50)/100."""
+    l00_by_rho = l00_by_rho or {r: 55 for r in RHOS}
+    return dict(id=cid, Cref='100', Stay='60', G_M=str(gm), G_S='3',
+                losses={'00': '58', '01': '52', '10': '57', '11': '50'},
+                baseline=[dict(rho=r, L00=str(l00_by_rho[r]), L10=str(l10_by_rho[r]), GS_theta=str(gs),
+                               deltaL10=str(d10), R_M_denominator_certified=certified) for r in RHOS])
+
+
+def flat(v):
+    return {r: v for r in RHOS}
+
+
+# ---------------------------------------------------------------- selection / reading (synthetic)
+
+def test_level_reading_uses_every_row_and_breaks_exact_ties_to_smaller_rho():
+    a = fake_row('a', {'0': 60, '1/200': 54, '1/100': 54, '1/50': 58, '1/20': 59})
+    b = fake_row('b', {'0': 60, '1/200': 56, '1/100': 56, '1/50': 51, '1/20': 59})
+    r = B.level_reading([a, b], '10', 'SH+A')
+    # mean objective: 1/200 -> (4+6)/200 = 1/20 ; 1/100 -> 1/20 ; 1/50 -> (8+1)/200 = 9/200
+    assert r['rho_star'] == '1/50' and r['runner_up'] == '1/200'          # tie 1/200 vs 1/100 -> smaller
+    assert r['gap_to_runner_up'] == F(1, 20) - F(9, 200)
+    only_a = B.level_reading([a], '10', 'SH+A')                            # dropping a row changes rho*
+    assert only_a['rho_star'] == '1/200'
+
+
+def test_reading_rule_is_dl104_unchanged():
+    rows = [fake_row(str(i), flat(55), gs=F(1, 10), d10=F(-1)) for i in range(3)]
+    assert B.level_reading(rows, '10', 'SH+A')['reading']['descriptive_narrow'] is True     # 0.1% < 0.5%, delta<0
+    rows = [fake_row(str(i), flat(55), gs=F(1), d10=F(-1)) for i in range(3)]
+    assert B.level_reading(rows, '10', 'SH+A')['reading']['descriptive_narrow'] is False    # 1% >= 0.5%
+    mv = [fake_row(str(i), flat(55), l00_by_rho=flat(56), gm=F(4)) for i in range(3)]       # R_M=(58-56)/4=1/2
+    out = B.level_reading(mv, '00', 'MV+A')['reading']
+    assert out['descriptive_narrow'] is True and out['claim_readiness'] == 'DEFINED'
+
+
+def per(rho, narrow, claim='DEFINED'):
+    return dict(rho_star=rho, reading=dict(descriptive_narrow=narrow, claim_readiness=claim))
+
+
+def test_verdict_requires_agreement_of_every_level():
+    same = {'640_4': per('1/50', True), '320_4': per('1/50', True), '640_2': per('1/50', True)}
+    assert B.verdict(same, True) == 'STABLE'
+    rho = dict(same, **{'320_4': per('1/100', True)})
+    assert B.verdict(rho, True) == 'UNRESOLVED_RHO_DEPENDS_ON_NUMERICS'
+    narrow = dict(same, **{'640_2': per('1/50', False)})
+    assert B.verdict(narrow, True) == 'UNRESOLVED_READING_DEPENDS_ON_NUMERICS'
+    claim = dict(same, **{'640_2': per('1/50', True, 'DENOMINATOR_UNRESOLVED')})
+    assert B.verdict(claim, True) == 'UNRESOLVED_CLAIM_READINESS_DEPENDS_ON_NUMERICS'
+    assert B.verdict(claim, False) == 'STABLE'
+
+
+def test_score_spread_flags_fragile_argmin():
+    base = {r: F(i, 100) for i, r in enumerate(RHOS)}
+    moved = dict(base, **{'0': F(1, 200)})                     # rho '0' trôi 1/200 < gap 1/100
+    per_level = {'640_4': dict(scores=base, gap_to_runner_up=F(1, 100)),
+                 '320_4': dict(scores=moved, gap_to_runner_up=F(1, 100))}
+    assert B.score_spread(per_level, '640_4')['gap_exceeds_every_spread'] is True
+    per_level['320_4']['scores'] = dict(base, **{'0': F(1, 50)})                    # drift 1/50 > gap
+    assert B.score_spread(per_level, '640_4')['gap_exceeds_every_spread'] is False
+
+
+def test_failing_rho_parsing():
+    assert B.failing_rho('baseline_arithmetic:(640, 4):1/100') == '1/100'
+    assert B.failing_rho('baseline_R1:1/50:GS_theta') == '1/50'
+    assert B.failing_rho('R1_dt:cref=0.003') is None
+
+
+# ---------------------------------------------------------------- design / runner wiring
+
+def test_design_changes_only_what_b1_declares():
+    a1, a3 = rd(f'{A1}/design.json'), rd(f'{A3}/design.json')
+    for key in ('kind', 'levels', 'rho', 'supports', 'cases_source', 'audit_pilot', 'resources'):
+        assert a3[key] == a1[key], key
+    assert set(a1['input_files']) <= set(a3['input_files'])
+    assert 'experiments/P4_A3/b1_summary.py' in a3['input_files']       # summarizer hash-locked by the prereg
+    assert 'results/lessons/l4_4/a2_probe/decision.json' in a3['preserved_history']
+    assert a3['output'] != a1['output']
+
+
+def test_cap_one_never_stops_on_not_ready_but_bug_still_stops():
+    from experiments.P4_A1.freeze import validate_design
+    from experiments.P4_A1.checks import stop_decision
+    validate_design(rd(f'{A3}/design.json'), dict(caps=dict(max_not_ready_fraction='1'), cpu_cap_hours=8))
+    caps = dict(max_not_ready_fraction='1')
+    planned = {'SH+A': 72, 'MV+A': 18}
+    every_nr = [dict(native_id=f'x{i}', supports=['SH+A'], status='NOT_READY') for i in range(72)]
+    assert stop_decision(every_nr, planned, caps) == []
+    assert stop_decision(every_nr + [dict(native_id='y', supports=['MV+A'], status='BUG')], planned, caps) == ['y:BUG']
+
+
+def test_replay_detects_any_numerical_change_on_real_a1_rows():
+    from experiments.P4_A2.guards import reproduction
+    old = rd('results/lessons/l4_4/a1/native/P44_000/level_640_4.json')
+    assert reproduction(old, deepcopy(old))['reparsed_significant_bits_equal'] is True
+    new = deepcopy(old); new['baseline'][2]['L00'] = new['baseline'][3]['L00']
+    out = reproduction(old, new)
+    assert out['reparsed_significant_bits_equal'] is False and out['unequal_fields'] == ['baseline']
+    assert len(B.a1_overlap()) == 19
+
+
+def test_draft_cannot_freeze():
+    from experiments.P4_A1.config import check_author, load
+    if load(f'{A3}/author_choices.json')['status'].startswith('ADOPTED'):
+        pytest.skip('author already adopted')
+    with pytest.raises(RuntimeError, match='AUTHOR_NOT_ADOPTED'):
+        check_author(f'{A3}/author_choices.json')
+```
+
+### `experiments/P4_A1/runs/L44_A3/design.json`
+
+```json
+{
+  "run_id": "L44_A3",
+  "kind": "L44",
+  "provenance": "AI (Claude) soạn thiết kế theo nhánh B1 đã khóa ở DL-112/DL-113; mọi quyết định nằm trong author_choices.json",
+  "output": "results/lessons/l4_4/a3",
+  "levels": [[640, 4], [320, 4], [640, 2]],
+  "rho": ["0", "1/200", "1/100", "1/50", "1/20"],
+  "supports": {
+    "MV+A": {"target": "00", "reading": "MV+A"},
+    "SH+A": {"target": "10", "reading": "SH+A"}
+  },
+  "cases_source": "experiments/P4_04_baseline/cases.json",
+  "audit_pilot": false,
+  "resources": {
+    "case_cpu_seconds": 1800,
+    "case_wall_seconds": 2400,
+    "address_space_bytes": 3221225472,
+    "workers": 2
+  },
+  "unchanged_from_L44_A1": [
+    "engine, evaluate_level, row_readiness, baseline_readiness, BUG checks, tolerances",
+    "90 cases, rho grid, three levels, benchmark rule first/last per support, budget rule 1.5*max*N",
+    "selection helper select_rho and reading rule DL-104 (MV median R_M >= 1/2; SH median |GS_theta|/Cref < 1/200 AND median deltaL10 < 0)"
+  ],
+  "changed_from_L44_A1": {
+    "max_not_ready_fraction": "1/10 -> 1: NOT_READY never stops the run, BUG/execution/guard still stop it",
+    "selection_scope": "A1 READY-subset scope is replaced by B1: every point is kept; rho* and the DL-104 reading are computed separately at 640/4, 320/4, 640/2; a support is STABLE only if the three levels agree, otherwise UNRESOLVED",
+    "summarizer": "experiments/P4_A3/b1_summary.py replaces experiments/P4_A1/summarize.py for this run; both write <output>/summary/, so whichever runs first blocks the other"
+  },
+  "input_files": [
+    "experiments/P4_04_baseline/cases.json",
+    "experiments/P4_04_baseline/margin.py",
+    "experiments/P4_04_baseline/analysis.py",
+    "experiments/P4_04_baseline/common.py",
+    "experiments/P4_04_baseline/spec.md",
+    "notes/phases/PHASE_4_baseline_reading_decision.md",
+    "experiments/P4_A2/guards.py",
+    "experiments/P4_A3/__init__.py",
+    "experiments/P4_A3/b1_summary.py",
+    "tests/test_p4_a3.py"
+  ],
+  "preserved_history": [
+    "experiments/P4_04_baseline/prereg.json",
+    "results/lessons/l4_4/benchmark_summary.json",
+    "notes/phases/L4_4_completion.json",
+    "experiments/P4_A1/runs/L44_A1/prereg.json",
+    "results/lessons/l4_4/a1/full_summary.json",
+    "notes/phases/L4_4_A1_completion.json",
+    "experiments/P4_A2/runs/L44_PROBE/prereg.json",
+    "experiments/P4_A2/runs/L44_PROBE/amendment.md",
+    "results/lessons/l4_4/a2_probe/decision.json",
+    "notes/phases/P4_A2_completion.json"
+  ]
+}
+```
+
+### `experiments/P4_A1/runs/L44_A3/author_choices.json` (bản nháp để bạn điền)
+
+```json
+{
+  "responsible": "Doan Van Tai",
+  "status": "DRAFT_AWAITING_AUTHOR",
+  "decision_verbatim": "<tác giả viết>",
+  "prediction_verbatim": "<tác giả viết TRƯỚC control/benchmark>",
+  "why_not_posthoc_in_author_words": "<tác giả viết>",
+  "decisions": {
+    "caps": {"max_not_ready_fraction": null},
+    "cpu_cap_hours": null,
+    "b1_stable_requires_same_claim_readiness": null
+  }
+}
+```
+
+---
+
+## 4. Quyết định của bạn
+
+| Quyết định | Khuyến nghị | Lý do |
+|---|---|---|
+| `max_not_ready_fraction` | `"1"` | B1 bắt buộc giá trị này; summarizer từ chối mọi giá trị khác |
+| `cpu_cap_hours` | 8 | Luật budget ở A1 ước khoảng 2,9 giờ. Nếu lấy trung bình đo được 39 CPU-s/điểm của 16 điểm ở góc (7, 6) thì khoảng 1–1,5 giờ. Đây là ước lượng thô, giả định các vùng khác có chi phí tương tự |
+| `b1_stable_requires_same_claim_readiness` | `true` | `claim_readiness` (mẫu số R_M đã được chứng nhận chưa) vốn là một trường của luật đọc DL-104. Khai trước bây giờ thì tránh được một nhánh forking sau này. MV chưa được đọc nên quyết định này không dựa vào outcome. Chọn `false` thì kiểm tra lỏng hơn |
+
+**Câu hỏi để bạn tự dự đoán, viết trước khi chạy control.** Tôi cố ý không đưa con số của mình để không neo bạn.
+1. Bao nhiêu điểm NOT_READY trong 90, và ở vùng nào?
+2. ρ\* của SH có giống nhau ở cả ba mức không? (Nhớ: SH chọn ρ bằng L̄10^θ.)
+3. Median |Ḡ_S^θ| của SH có gần ngưỡng 0,5% không? Nếu gần thì narrow/not có thể đổi theo mức numerics.
+4. ρ\* của MV có ổn định không? (MV chọn ρ bằng L̄00^θ, đúng ô từng fail.)
+5. Replay có trùng đủ 57/57 không?
+
+**Khung `amendment.md`** (bạn viết; mỗi mục 2–4 câu):
+1. Tiền đề: kết quả A2 (0/8 ở bậc cuối, lỗi dao động, không ρ fail mới) và việc áp nhánh B1 theo DL-113.
+2. Cái giữ nguyên và cái đổi: dùng bảng ở mục 2.
+3. Luật B1 đầy đủ, kèm luật cho `claim_readiness`.
+4. Những gì STABLE **không** chứng minh: không phải certificate, ba mức thô có thể cùng lệch, không phải R1 theo từng điểm.
+5. Điều kiện dừng: BUG, execution, replay lệch, vượt CPU cap.
+6. Diễn giải định trước cho từng kết quả: bảng ở mục 6 dưới đây.
+
+---
+
+## 5. Thứ tự làm và output mong đợi
+
+```bash
+# C1 — code + test + thiết kế + bản nháp lựa chọn
+.venv/bin/python -m pytest -q tests/test_p4_a3.py          # 9 passed
+.venv/bin/python -m pytest -q                              # kỳ vọng 879 passed (870 + 9)
+git add experiments/P4_A3 tests/test_p4_a3.py experiments/P4_A1/runs/L44_A3/design.json experiments/P4_A1/runs/L44_A3/author_choices.json
+git commit -m "P4-A3: B1 summarizer, tests and L44_A3 design (draft choices); no plant call"
+
+# C2 — điền author_choices (ADOPTED) + viết amendment.md + DL-114 + forking #27
+git add experiments/P4_A1/runs/L44_A3 notes/02_decision_log.md notes/phases/PHASE_4_forking_paths.md
+git commit -m "P4-A3: adopt B1 run choices and prediction before any call (DL-114)"
+
+# C3 — freeze
+.venv/bin/python -m experiments.P4_A1.freeze --run L44_A3
+#   phải in: cases 90, aliases 0, MV+A 18, SH+A 72, benchmark [P44_024, P44_065, P44_000, P44_089]
+git add experiments/P4_A1/runs/L44_A3/prereg.json && git commit -m "P4-A3: freeze L44_A3 prereg"
+
+# R1 — chạy
+.venv/bin/python -m experiments.P4_A1.run control   --run L44_A3     # status PASS
+.venv/bin/python -m experiments.P4_A1.run benchmark --run L44_A3     # PASS, 4/4
+.venv/bin/python -m experiments.P4_A3.b1_summary replay              # rows_compared 12, rows_equal 12, exit 0
+.venv/bin/python -m experiments.P4_A1.run budget    --run L44_A3     # AUTHORIZED_BY_PREREG_RULE
+git add results/lessons/l4_4/a3/budget.json && git commit -m "P4-A3: budget receipt"
+.venv/bin/python -m experiments.P4_A1.run full      --run L44_A3     # PASS, completed 90, stop_reasons []
+git add results/lessons/l4_4/a3 && git commit -m "P4-A3: full 90-point run (B1, no NOT_READY cap)"
+
+# R2 — đọc theo B1 (một lần duy nhất)
+.venv/bin/python -m experiments.P4_A3.b1_summary summarize           # 2 dòng verdict; replay 57/57
+git add results/lessons/l4_4/a3/summary experiments/P4_A1/runs/L44_A3/rho_freeze.json
+git commit -m "P4-A3: B1 claim-level reading and rho freeze"
+```
+
+**Khi có sự cố:**
+
+| Thấy gì | Nghĩa | Làm gì |
+|---|---|---|
+| Replay sau benchmark có `rows_equal` < 12 | Môi trường đã đổi so với A1 | **Dừng** trước budget/full; so sánh `environment.json` |
+| Full HOLD vì BUG/execution | Giống A1: bất biến cùng tuyến bị vi phạm, hoặc lỗi khi chạy | Dừng; gửi tôi `comparison.json` của điểm đó |
+| Full HOLD vì `cpu_cap` | Chi phí thật vượt ước lượng | Làm prereg tài nguyên mới; chưa đọc gì |
+| `HOLD_REPRODUCTION` khi summarize | Có row lệch A1 | Không có ρ\*; tìm nguyên nhân trước |
+
+---
+
+## 6. Đọc kết quả A3: khóa diễn giải ngay bây giờ
+
+| SH | MV | Nghĩa | Bước tiếp |
+|---|---|---|---|
+| STABLE | STABLE | ρ\* được đóng băng cho cả hai; luật đọc DL-104 dùng được ở cấp claim | L4.5 Part B |
+| STABLE | UNRESOLVED | Bỏ claim baseline của MV **vì validity, không vì outcome**; SH tiếp tục | L4.5 Part B, ghi MV là UNRESOLVED |
+| UNRESOLVED | bất kỳ | Bỏ claim baseline của SH vì validity | Như trên, đổi vai trò hai support |
+
+Không có "chạy thêm để cứu". Một lần chạy mới chỉ hợp lệ nếu có prereg mới với lý do phát biểu được mà không cần biết outcome. Đây đúng là stop rule bạn đã đặt.
+
+**STABLE không chứng minh được:** rằng numerics của từng điểm đã ổn. Ba mức thô có thể cùng lệch một hướng; probe cho thấy ở mức mịn hơn, các điểm nằm ở vách còn dịch tới khoảng 1,1% Cref. STABLE chỉ nói một điều: **kết luận không đổi trong phạm vi biến thiên numerics đã quan sát.** Trường `gap_exceeds_every_spread` cho bạn biết kết luận đó vững hay mong manh.
+
+## ⚠️ Bẫy
+
+- Chạy `P4_A1.summarize` cho L44_A3 (xem cảnh báo ở mục 2).
+- Đọc ρ\* = 1/20 từ phép chạy giả trong sandbox của tôi. Đó là nhiễu, tôi không đưa nó vào đâu cả.
+- Thấy median SH sát 0,5% rồi muốn đổi ngưỡng, hoặc thêm "mức thứ tư cho chắc". Mọi thay đổi như vậy sau khi đã thấy số đều là forking.
+- Gọi STABLE là "baseline numerics đã được giải quyết".
+
+## Trạng thái
+
+- **Understanding:** sau bài này, bạn nên đọc được tỉ lệ hội tụ từ một bảng refinement, và giải thích được vì sao ở SH lỗi nằm ở phần đọc chứ không ở việc chọn ρ.
+- **Execution:** A2 đã xong. A3 sẵn sàng làm từ C1.
+- **Dependency:** L4.5 Part B, SUB kết hợp và Gate 4 đều chờ `b1_summary.json`. SV giữ nguyên.
+- **G-level:** G1, không đổi.
+
+Khi có `b1_summary.json`, gửi tôi. Bước sau đó là L4.5 Part B với ρ\* đã đóng băng, hoặc ghi biên bản UNRESOLVED cho support nào không ổn định.

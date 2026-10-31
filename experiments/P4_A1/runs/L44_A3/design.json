@@ -1,0 +1,63 @@
+{
+  "kind": "L44",
+  "levels": [
+    [
+      640,
+      4
+    ],
+    [
+      320,
+      4
+    ],
+    [
+      640,
+      2
+    ]
+  ],
+  "rho": [
+    "0",
+    "1/200",
+    "1/100",
+    "1/50",
+    "1/20"
+  ],
+  "supports": {
+    "MV+A": {
+      "target": "00",
+      "reading": "MV+A"
+    },
+    "SH+A": {
+      "target": "10",
+      "reading": "SH+A"
+    }
+  },
+  "cases_source": "experiments/P4_04_baseline/cases.json",
+  "audit_pilot": false,
+  "resources": {
+    "case_cpu_seconds": 1800,
+    "case_wall_seconds": 2400,
+    "address_space_bytes": 3221225472,
+    "workers": 2
+  },
+  "run_id": "L44_A3",
+  "output": "results/lessons/l4_4/a3",
+  "provenance": "A3/B1 source supplied by AI (Claude); simplified according to the current user instruction; unchanged A1 runner",
+  "input_files": [
+    "experiments/P4_04_baseline/cases.json",
+    "experiments/P4_04_baseline/margin.py",
+    "experiments/P4_04_baseline/analysis.py",
+    "experiments/P4_04_baseline/spec.md",
+    "notes/phases/PHASE_4_baseline_reading_decision.md",
+    "experiments/P4_04_baseline/common.py",
+    "experiments/P4_A2/guards.py",
+    "experiments/P4_A3/__init__.py",
+    "experiments/P4_A3/b1_summary.py",
+    "tests/test_p4_a3.py"
+  ],
+  "preserved_history": [
+    "experiments/P4_A1/runs/L44_A1/prereg.json",
+    "results/lessons/l4_4/a2_probe/decision.json"
+  ],
+  "selection_scope": "All 90 original keys, including NOT_READY. Per support and per level apply unchanged select_rho/reading DL-104. STABLE iff same rho and same narrow boolean at all three levels.",
+  "stop": "This is the final numerical sensitivity check. STABLE -> retain bounded reading; UNRESOLVED -> withhold that baseline claim. Continue other evidence; no A4/extra refinement to obtain STABLE."
+}

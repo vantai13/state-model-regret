@@ -290,3 +290,13 @@ giữreport-only,khôngBUG/leanreadinessfail. F1HOLDchờA3package/preregfull90,
 regionalmedians/CF/sealed/newcoordinates/boxcounts. G1/cardv2/contract/ngưỡng,
 SV/SUB/P0V10/L8/Understanding/L45PartB/readiness/Gate4giữnguyên. Report:
 results/lessons/p4_a2/report.md;completion notes/phases/P4_A2_completion.json.
+
+
+## Workflow hiện hành — tác giả yêu cầu rút gọn process (A3, 31/10/2026)
+
+Ưu tiên protocol đủ cho câu hỏi khoa học; tái dùng runner/helpers hiện có, không
+thêm lesson, diagnostic hoặc lock framework khi không cần. A3 là sensitivity
+check cuối của baseline: cùng 90 keys, 3 levels, rho grid, selection và reading;
+STABLE iff cùng rho* và cùng narrow/not-narrow, khác thì UNRESOLVED. Sau A3 dừng
+nhánh numerical này; không tạo A4/thêm mức để cứu STABLE. Giữ limitation về
+shared bias, chuyển evidence còn sống sang L4.5 Part B.
