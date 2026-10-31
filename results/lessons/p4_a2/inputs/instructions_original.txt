@@ -1,0 +1,726 @@
+# Gỡ HOLD baseline L4.4: chẩn đoán 8 điểm NOT_READY và chạy probe leo thang
+
+Tôi đã pull repo bản mới nhất (`a481db7`) để đọc. Từ kết quả A1, tôi chạy chẩn đoán read-only, rồi viết code cho bước tiếp theo trong sandbox và kiểm như sau:
+- 7 test mới chạy trên dữ liệu A1 đã commit, đều đạt.
+- Toàn bộ đường ống chạy trọn với **engine giả**, chỉ để bắt lỗi plumbing; số liệu từ đó vô nghĩa. Lần chạy này bắt được một chỗ không khớp với `guard_case` bạn đã sửa trong A1, và tôi đã sửa code cho khớp.
+- Tôi **không push, không commit vào repo của bạn, không tính ρ* hay median**. Mọi file dưới đây bạn tự tạo, đọc và commit.
+
+## Đánh giá plan của bạn
+
+Thứ tự bạn đề xuất hợp lý, tôi theo đúng: chẩn đoán → prereg mới → probe nhỏ → chỉ khi qua validity mới chọn ρ\*. Có ba điều chỉnh, mỗi điều có lý do riêng:
+
+1. **Probe cả 8 điểm, đừng chọn "vài điểm đại diện".** Cả 8 nằm ở cùng một góc tham số và cùng một cơ chế (mục 1). Chạy hết chỉ tốn cỡ 0,5–1 CPU-giờ (ước lượng thô). Tự chọn đại diện thì thêm một nhánh forking không cần thiết.
+2. **"Refinement mạnh hơn" là một giả thuyết, chưa phải cách sửa.** Chẩn đoán cho thấy hai giả thuyết đều hợp lý, và probe chính là phép thử giữa chúng. Vì vậy prereg phải khóa trước cả hai nhánh, kể cả nhánh "làm mịn không cứu được".
+3. **8/72 không phải là một tỷ lệ.** Full run chạy theo thứ tự khóa đã sắp, nên 16 ca đầu gồm 12 điểm ở góc λA = 7, λB = 6. Cap bị kích hoạt bởi một cụm cục bộ, còn 55 điểm SH và 16 điểm MV chưa hề được quan sát.
+
+```text
+F1 baseline (L4.4) ⛔ HOLD: 8 NOT_READY, 0 BUG     ← bài này
+  Bước 1  chẩn đoán read-only (đã làm sẵn, bạn chạy lại để kiểm)
+  Bước 2  prereg A2: probe leo thang 8 điểm, hai giả thuyết, luật quyết định khóa trước
+  Bước 3  chạy probe → decision.json
+  Bước 4  nhánh: rerun full (A3) theo đúng nhánh đã khóa → ρ* → đọc MV/SH
+SV: để yên ✓      SUB: quay lại sau F1      L4.5 Part B / card / Gate 4: sau cùng
+```
+
+---
+
+## Bước 1: Chẩn đoán 8 điểm NOT_READY (không gọi engine)
+
+### Kết quả chẩn đoán
+
+| id | λA | λB | κ | η | h | ρ fail | Loại | Độ rộng ×10⁴ (giới hạn 2,5) | dK L̄00 % | ddt L̄00 % | Nhảy L̄00 % |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| P44_000 | 7 | 6 | 1/10 | 1/2 | 8 | 1/100 | W | 3,79 | 0,005 | 0,174 | 10,7 |
+| P44_002 | 7 | 6 | 1/10 | 1/2 | 16 | 1/200 | W | 24,74 | 0,002 | 0,185 | 11,4 |
+| P44_006 | 7 | 6 | 1/10 | 3/4 | 8 | 1/50 | K | 0,44 | 0,366 | 0,120 | 22,9 |
+| P44_007 | 7 | 6 | 1/10 | 3/4 | 12 | 1/50 | K | 1,43 | 0,321 | 0,162 | 26,1 |
+| P44_008 | 7 | 6 | 1/10 | 3/4 | 16 | 1/100 | WK | 4,90 | 0,409 | 0,123 | 22,7 |
+| P44_009 | 7 | 6 | 3/10 | 3/4 | 8 | 1/20 | KD | 0,04 | 0,816 | 0,376 | 10,5 |
+| P44_010 | 7 | 6 | 3/10 | 3/4 | 12 | 1/50 | KD | 0,18 | 1,041 | 0,517 | 10,8 |
+| P44_011 | 7 | 6 | 3/10 | 3/4 | 16 | 1/50 | KD | 0,23 | 0,881 | 0,594 | 12,1 |
+
+Loại lỗi: **W** là độ rộng sai số số học vượt 1/4000; **K** là chênh refinement theo trục K vượt 0,25%; **D** là chênh theo trục dt vượt 0,25%.
+
+### Đọc bảng như thế nào
+
+**(1) Mỗi điểm chỉ fail ở đúng một ρ**, bốn ρ còn lại sạch. Đây không phải "điểm này numerics kém" mà là "**ρ này rơi vào chỗ xấu**".
+
+**(2) Chỉ ô L̄00^θ hỏng** (và Ḡ_S^θ, vì nó tính từ L̄00^θ). L̄10^θ và ΔL10 không bao giờ hỏng. Lỗi nằm ở controller margin chạy trên tuyến snapshot cũ.
+
+**(3) Mọi cặp fail đều nằm ở "vách" của đường L̄00^θ theo ρ.** Giữa ρ đó và ρ kề bên, chi phí nhảy 10–26% C̄ref. Ở các cặp sạch, trung vị độ nhảy chỉ 0,5%. Tuy vậy vẫn có 25 cặp sạch có độ nhảy > 5%: đứng ở vách là điều kiện gần như cần, nhưng chưa đủ để fail.
+
+**(4) Cả 8 điểm ở cùng một góc λA = 7, λB = 6**, tức đường B nhẹ hơn A nên đổi đường hấp dẫn. 6/6 điểm có η = ¾ fail; 2/6 điểm có η = ½ fail.
+
+### Vì sao chi phí của controller margin có "vách"
+
+Viết lại công thức của L4.4:
+
+  L̄00^θ = E[J_Stay] + Σ_j w_j · g_j · 1[ĝ_j < −θ]
+
+Mỗi nút j của lưới snapshot cũ có trọng số w_j, gap thật g_j và gap dự báo ĝ_j của M0. Nút j bị loại khỏi tập Switch đúng lúc θ vượt qua −ĝ_j. Trên một lưới hữu hạn, L̄^θ vì thế là một **cầu thang**. Nếu nhiều nút nặng có ĝ gần nhau, cầu thang có một bậc cao: đó là cái vách.
+
+Ví dụ hai số: một nút có w = 0,3, ĝ = −0,059, g = −1, và θ = 0,060.
+- Nút đứng ngay sát vách, nên controller chọn Stay và mất lợi ích 0,3.
+- Nếu làm mịn lưới đẩy ĝ thành −0,061, nút chuyển sang Switch và chi phí đổi 0,3, tức khoảng 6% C̄ref. Đó là triệu chứng **K/D**.
+- Nếu sai số dự báo của nút là 0,002 > |−0,059 + 0,060|, nút bị gắn nhãn "mơ hồ" và chứng chỉ phải cộng thêm 0,3 × |g|. Đó là triệu chứng **W**.
+
+Một hiện tượng, hai triệu chứng.
+
+**Hai giả thuyết, đưa ra dự đoán khác nhau:**
+- **H_res (độ phân giải):** đường "thật" dốc nhưng liên tục; lưới mịn hơn thì chênh refinement tại đúng ρ đó giảm xuống dưới 0,25% và độ rộng giảm.
+- **H_cliff (điều kiện xấu, ill-conditioned):** vách là thật, ví dụ do một nút xác suất lớn như snapshot "hàng đợi rỗng". Đây là ứng viên cơ chế, **chưa kiểm**. Khi đó làm mịn không làm chênh hội tụ tại ρ đó, hoặc vách chỉ trôi sang ρ khác.
+
+### Code bước 1
+
+Tạo `experiments/P4_A2/__init__.py`:
+
+```python
+"""Doan Van Tai — Phase 4 amendment A2: chẩn đoán và sửa numerics của baseline L4.4 (sau HOLD của L44_A1).
+
+Gói mới, không sửa byte nào của P4_A1 (đã khóa hash bởi ba prereg). Chỉ import lại P4_A1.
+"""
+```
+
+Tạo `experiments/P4_A2/diagnose_l44.py`. Hàm `pair_record` dùng **đúng công thức** của `P4_A1.checks.baseline_readiness`, chỉ khác là tách riêng từng trục và từng đại lượng để biết lỗi đến từ đâu.
+
+```python
+"""Bước 1 — chẩn đoán read-only 8 điểm NOT_READY của L44_A1. Không import engine, không gọi engine.
+
+Với mỗi cặp (điểm, rho): độ rộng sai số số học ở ba mức, chênh refinement theo trục K và trục dt
+cho từng đại lượng baseline, khối lượng nút "mơ hồ" (ambiguous) và độ dốc của L00^theta theo rho.
+python -m experiments.P4_A2.diagnose_l44   -> results/lessons/p4_a2/l44_diagnosis.json (ghi một lần)
+"""
+from fractions import Fraction as F
+import json
+import os
+from pathlib import Path
+
+from experiments.P4_03_map_audit.common import ROOT, sha, write_once, require
+from experiments.R3R_05_contract.rules import TOL_NUM
+from experiments.R3R_14_lean_close.checks import ARITH_MAX
+
+SRC = Path('results/lessons/l4_4/a1/native')
+OUT = Path('results/lessons/p4_a2/l44_diagnosis.json')
+LEVELS = {'main': '640_4', 'K': '320_4', 'dt': '640_2'}
+FIELDS = {'L00': 'error00', 'L10': 'error10', 'GS_theta': 'GS_theta_error', 'deltaL10': 'deltaL10_error'}
+
+
+def load(path):
+    return json.loads((ROOT / path).read_text())
+
+
+def pair_record(rows, i):
+    """Một cặp (điểm, rho): cùng công thức với P4_A1.checks.baseline_readiness, tách theo trục."""
+    main = rows['main']; cf = F(main['Cref']); b = main['baseline'][i]
+    rec = dict(rho=b['rho'])
+    for name, row in rows.items():
+        bb = row['baseline'][i]; c = F(row['Cref'])
+        rec[f'width_{name}'] = max(F(bb[e]) / c for e in FIELDS.values())
+        rec[f'ambiguous00_{name}'] = bb['uncertain_action_mass']['00']
+        rec[f'ambiguous10_{name}'] = bb['uncertain_action_mass']['10']
+    for axis in ('K', 'dt'):
+        coarse = rows[axis]; cc = F(coarse['Cref'])
+        for field in FIELDS:
+            gf, gc = F(b[field]), F(coarse['baseline'][i][field])
+            rec[f'd_{axis}_{field}'] = max(abs(gf - gc) / cf, abs(gf / cf - gc / cc))
+    curve = [F(x['L00']) / cf for x in main['baseline']]           # L00^theta / Cref trên lưới rho
+    rec['jump_L00'] = max(abs(curve[i] - curve[j]) for j in (i - 1, i + 1) if 0 <= j < len(curve))
+    kinds = []
+    if any(rec[f'width_{n}'] > ARITH_MAX for n in LEVELS):
+        kinds.append('W')                                          # độ rộng sai số số học
+    if any(rec[f'd_K_{f}'] > TOL_NUM for f in FIELDS):
+        kinds.append('K')                                          # refinement theo K
+    if any(rec[f'd_dt_{f}'] > TOL_NUM for f in FIELDS):
+        kinds.append('D')                                          # refinement theo dt
+    rec['failure'] = ''.join(kinds)
+    rec['fields_over_tol'] = sorted({f for f in FIELDS for a in ('K', 'dt') if rec[f'd_{a}_{f}'] > TOL_NUM})
+    return rec
+
+
+def main():
+    points, pairs = [], []
+    for cid in sorted(os.listdir(ROOT / SRC)):
+        folder = SRC / cid
+        comparison = load(folder / 'comparison.json')
+        rows = {name: load(folder / f'level_{lv}.json') for name, lv in LEVELS.items()}
+        recs = [pair_record(rows, i) for i in range(len(rows['main']['baseline']))]
+        failing = [r for r in recs if r['failure']]
+        points.append(dict(id=cid, status=comparison['status'], parameters=rows['main']['parameters'],
+                           failing_rho=[r['rho'] for r in failing]))
+        for r in recs:
+            pairs.append(dict(id=cid, status=comparison['status'], **r))
+    bad = [p for p in pairs if p['failure']]
+    good = [p for p in pairs if not p['failure']]
+    jump = lambda ps: sorted(float(p['jump_L00']) for p in ps)
+    summary = dict(
+        observed_points=len(points), observed_pairs=len(pairs), failing_pairs=len(bad),
+        failing_points=len({p['id'] for p in bad}),
+        failing_pairs_per_point={p['id']: p['failing_rho'] for p in points if p['failing_rho']},
+        failure_kinds={k: sum(k in p['failure'] for p in bad) for k in 'WKD'},
+        fields_over_tol=sorted({f for p in bad for f in p['fields_over_tol']}),
+        jump_L00_median=dict(failing=jump(bad)[len(bad) // 2] if bad else None, passing=jump(good)[len(good) // 2]),
+        passing_pairs_with_jump_over_5pct=sum(float(p['jump_L00']) > .05 for p in good),
+        consistent_with_A1_status=all((p['status'] == 'NOT_READY') == bool(p['failing_rho']) for p in points))
+    report = dict(responsible='Doan Van Tai', engine_calls=0, CF_outcomes=0, rho_selection_computed=False,
+                  summary=summary, points=points,
+                  pairs=[{k: (float(v) if isinstance(v, F) else v) for k, v in p.items()} for p in pairs],
+                  inputs_sha256={str(SRC / c / f'level_{lv}.json'): sha(ROOT / SRC / c / f'level_{lv}.json')
+                                 for c in sorted(os.listdir(ROOT / SRC)) for lv in LEVELS.values()})
+    (ROOT / OUT).parent.mkdir(parents=True, exist_ok=True)
+    if (ROOT / OUT).exists():
+        require(json.loads((ROOT / OUT).read_text()) == json.loads(json.dumps(report)), 'diagnosis differs; never overwrite')
+    else:
+        write_once(ROOT / OUT, report)
+    print(json.dumps(summary, indent=1, ensure_ascii=False))
+    print('\n id      lambdaA lambdaB kappa eta  h  | rho    loại  width(main)x1e4  dK_L00%  ddt_L00%  amb00  jump%')
+    for p in bad:
+        prm = next(x['parameters'] for x in points if x['id'] == p['id'])
+        print(f" {p['id']}  {prm[0]:>4} {prm[1]:>5}  {prm[2]:>5} {prm[3]:>4} {prm[4]:>3} | {p['rho']:6} {p['failure']:4}"
+              f"  {float(p['width_main'])*1e4:9.2f}  {float(p['d_K_L00'])*100:8.3f}  {float(p['d_dt_L00'])*100:8.3f}"
+              f"  {p['ambiguous00_main']:.4f} {float(p['jump_L00'])*100:6.2f}")
+
+
+if __name__ == '__main__':
+    main()
+```
+
+### Chạy và kiểm
+
+```bash
+git add experiments/P4_A2/__init__.py experiments/P4_A2/diagnose_l44.py
+git commit -m "P4-A2: read-only L44 baseline diagnosis script (no engine)"
+.venv/bin/python -m experiments.P4_A2.diagnose_l44
+```
+
+**Đúng khi:**
+- `failing_pairs: 8`, `failing_points: 8`, mỗi điểm đúng 1 ρ.
+- `fields_over_tol: ["GS_theta","L00"]`.
+- `failure_kinds: {W:3, K:6, D:3}`.
+- `consistent_with_A1_status: true`.
+- Bảng in ra khớp bảng ở trên.
+
+Chạy lại lần hai phải im lặng (file đã tồn tại và khớp). Nếu số khác, dừng lại.
+
+**Tự ghi lại:**
+- Một dòng exposure: đọc các row A1 đã commit, 0 engine call, không tính ρ\* hay median.
+- Mục forking #25: đã thấy bảng trên; các phương án đã cân nhắc là nới dung sai (bỏ), probe leo thang (chọn).
+
+Sau đó commit:
+
+```bash
+git add results/lessons/p4_a2 notes/00_exposure_register.md notes/phases/PHASE_4_forking_paths.md
+git commit -m "P4-A2 step 1: L44 NOT_READY diagnosis (8 points, one rho each, L00 only) before any amendment"
+```
+
+---
+
+## Bước 2: Prereg probe (viết trước mọi lần gọi engine)
+
+### Experiment card
+
+| Trường | Nội dung |
+|---|---|
+| Câu hỏi | 8 điểm NOT_READY có thành READY khi leo thang (640,4) → (1280,4) → (1280,8) không? |
+| Vì sao thang này | Đây đúng là thang R3 của scorer đóng băng (`frame_v2.escalation_plan`; test kiểm điều này). Sửa bằng chính thước của confirmation chứ không bằng một luật mới |
+| Biến độc lập | Mức numerics (ba bậc) |
+| Biến phụ thuộc | Mỗi điểm có READY ở bậc nào không (mọi ρ cùng lúc); chênh refinement L̄00 tại ρ đã fail ở từng bậc |
+| Giữ cố định | Engine, code A1, lưới ρ, công thức readiness, 8 tọa độ |
+| Kiểm cài đặt | Bậc 0 phải **tái lập trùng bit** row A1. Nếu không khớp thì môi trường đã đổi: dừng |
+| H_res đúng thì | Chênh tại ρ đó giảm ở bậc 1–2, phần lớn điểm READY |
+| H_cliff đúng thì | Chênh không giảm, hoặc lỗi chuyển sang ρ khác; ít điểm READY |
+| Chứng minh được | Thang có sửa được loại lỗi này hay không, ở góc λA = 7, λB = 6 |
+| Không chứng minh được | Bất cứ điều gì về MV/SH, ρ\*, các điểm chưa quan sát |
+| Chi phí (ước lượng thô) | (640,4) của 8 điểm tổng 333 CPU-s; ref 8 có lẽ ~3,6× ref 4 (tỷ lệ ref 4/ref 2 đo được ~3,6) → cỡ 0,5–1 CPU-giờ. Đặt cap 3 giờ |
+
+### Quyết định bạn ký
+
+Điền vào `author_choices.json`:
+
+| Quyết định | Khuyến nghị | Lý do |
+|---|---|---|
+| `ladder_resolves_if_at_least` | 7 | ≥ 7/8 READY nghĩa là thang gần như luôn sửa được; full rerun dùng thang cho mọi điểm NOT_READY |
+| `ladder_fails_if_at_most` | 4 | Thang sửa không quá một nửa thì không phải cách sửa đáng tin |
+| `branch_if_ladder_fails` | `B1_CLAIM_LEVEL_ROBUSTNESS` hoặc `B2_READY_SUBSET_NARROW` | Xem dưới |
+| `cpu_cap_hours` | 3 | |
+
+Nếu kết quả rơi vào 5–6/8, run ghi `INCONCLUSIVE` và bạn quyết bằng một DL mới, ghi rõ là quyết sau probe.
+
+**Hai lựa chọn cho nhánh thất bại.** Phải chọn **bây giờ**, trước probe:
+
+- **B1 — kiểm độ bền ở cấp claim (tôi khuyến nghị).**
+  - Rerun full 90 điểm, giữ mọi điểm, BUG vẫn dừng run.
+  - Tính ρ\* và luật đọc DL-104 ba lần, lần lượt bằng số của (640,4), (320,4) và (640,2).
+  - Kết luận đọc chỉ hợp lệ nếu **cả ba lần cho cùng ρ\* và cùng quyết định thu hẹp/không thu hẹp**; nếu không, thì UNRESOLVED vì lý do validity.
+  - Đây vẫn là tinh thần của R1 ("kết quả không được phụ thuộc vào độ mịn"), nhưng áp lên đúng thứ claim dựa vào: một quyết định ở cấp vùng dựa trên median, không phải từng con số.
+  - Spec L4.4 §3 vốn đã có ý "báo độ nhạy argmin giữa ba mức".
+- **B2 — thu hẹp về tập READY.**
+  - Chọn ρ\* chỉ trên các điểm READY.
+  - Claim baseline chỉ áp cho phần đó; các điểm NOT_READY được liệt kê là "chưa phân giải được về số".
+  - Đơn giản hơn, nhưng loại đúng những điểm mà quyết định margin mong manh nhất. Reviewer có thể nói baseline chỉ được đánh giá ở nơi nó "dễ".
+
+Dù nhánh nào, rerun full đều cần **gói A3 mới**, vì cap của A1 sẽ lại dừng run. Tôi sẽ in code A3 sau khi có `decision.json`.
+
+### Ba trường văn bản bạn tự viết
+
+- `prediction_verbatim`: bạn nghiêng về H_res hay H_cliff? Đoán bao nhiêu điểm READY trong 8? Loại W hay loại K dễ được sửa hơn? Có lỗi mới xuất hiện ở ρ khác không? Tôi cố ý không ghi dự đoán của mình để không neo bạn.
+- `decision_verbatim` và `why_not_posthoc_in_author_words`: viết bằng lời của bạn. Ý chính cần có: probe dùng thước của scorer, chạy cả 8 điểm, và luật quyết định được khóa trước khi có kết quả.
+
+### File thiết kế
+
+`experiments/P4_A2/runs/L44_PROBE/design.json`:
+
+```json
+{
+ "run_id": "L44_PROBE",
+ "provenance": "AI (Claude) soạn thiết kế; ngưỡng quyết định và nhánh khi thất bại là quyết định của tác giả",
+ "question": "Do the 8 L44_A1 NOT_READY points become READY along the frozen scorer ladder (640,4)->(1280,4)->(1280,8)?",
+ "output": "results/lessons/l4_4/a2_probe",
+ "targets_rule": "every L44_A1 point with status NOT_READY (8/8, no sub-selection), with the rho values that failed",
+ "resources": {"case_cpu_seconds": 3600, "case_wall_seconds": 4800, "address_space_bytes": 3221225472},
+ "not_computed": ["rho selection", "R_M / GS_theta medians", "any CF / R09 / R10 outcome", "new coordinates"]
+}
+```
+
+`experiments/P4_A2/runs/L44_PROBE/author_choices.json` (bạn điền, rồi đổi `status` thành `ADOPTED_BY_AUTHOR`):
+
+```json
+{
+ "responsible": "Doan Van Tai",
+ "status": "DRAFT_AWAITING_AUTHOR",
+ "decision_verbatim": "<tác giả viết>",
+ "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy>",
+ "why_not_posthoc_in_author_words": "<tác giả viết>",
+ "decisions": {
+  "ladder_resolves_if_at_least": null,
+  "ladder_fails_if_at_most": null,
+  "branch_if_ladder_fails": null,
+  "cpu_cap_hours": null
+ }
+}
+```
+
+`experiments/P4_A2/runs/L44_PROBE/amendment.md`: bạn viết. Khung gợi ý:
+1. Chẩn đoán: chép các fact của Bước 1.
+2. Hai giả thuyết và dự đoán của chúng.
+3. Đổi gì: chỉ thêm bậc numerics theo thang R3 cho 8 điểm.
+4. Không đổi gì: engine, A1, công thức readiness, lưới ρ, luật đọc.
+5. Luật quyết định và định nghĩa đầy đủ của nhánh B1 hoặc B2 bạn chọn.
+6. Kết quả nào bác bỏ: BUG hoặc lệch tái lập.
+
+### Code probe
+
+`experiments/P4_A2/probe.py`. Ba ý quan trọng trong code:
+- Mọi guard (CF, R09/R10, định danh đúng như đăng ký ở L44_A1) chạy **trước khi import engine**.
+- Bậc 0 tự kiểm tái lập trùng bit với A1.
+- `decide` dùng **đúng** `row_readiness` và `baseline_readiness` của A1, chỉ đổi mức chính. Test chứng minh ở bậc 0 nó tái tạo y nguyên lý do NOT_READY của A1.
+
+```python
+"""A2 probe — leo thang (escalate) 8 điểm NOT_READY của L44_A1 theo đúng thang R3 của scorer đóng băng.
+
+Thang: (640,4) -> (1280,4) -> (1280,8); mỗi bậc kiểm với hai láng giềng (K/2,ref) và (K,ref/2).
+Câu hỏi: lỗi baseline có giảm khi làm mịn (H_res) hay đứng yên ở các "vách" của L00^theta (H_cliff)?
+
+python -m experiments.P4_A2.probe freeze    # tạo prereg.json một lần (sau khi tác giả ADOPTED và đã commit)
+python -m experiments.P4_A2.probe control   # u=0 ở mức mịn nhất
+python -m experiments.P4_A2.probe run       # 8 điểm, tuần tự, ghi một lần, chạy tiếp được
+python -m experiments.P4_A2.probe decide    # áp luật quyết định đã khóa -> decision.json
+"""
+import argparse
+from fractions import Fraction as F
+import json
+import os
+from pathlib import Path
+import resource
+import subprocess
+import sys
+
+from experiments.P4_03_map_audit.common import ROOT, sha, require, write_once
+from experiments.P4_A1.config import load, committed, check_author, guard_case
+from experiments.P4_A1.checks import row_readiness, baseline_readiness
+
+RUN = Path('experiments/P4_A2/runs/L44_PROBE')
+A1_PREREG = Path('experiments/P4_A1/runs/L44_A1/prereg.json')
+A1_OUT = Path('results/lessons/l4_4/a1')
+DIAGNOSIS = Path('results/lessons/p4_a2/l44_diagnosis.json')
+LADDER = (((640, 4), (320, 4), (640, 2)),
+          ((1280, 4), (640, 4), (1280, 2)),
+          ((1280, 8), (640, 8), (1280, 4)))
+CONTROL = dict(id='A2_CONTROL_U0', parameters=['7', '6', '1/10', '0', '8', '0'], key=['7', '6', '0', '1/10', '8', '0'])
+
+
+def all_levels():
+    seen = []
+    for step in LADDER:
+        for lv in step:
+            if lv not in seen:
+                seen.append(lv)
+    return seen                                    # thứ tự: bậc 0 trước, rồi phần mới của bậc 1, bậc 2
+
+
+# ---------------------------------------------------------------- freeze / verify
+
+def freeze():
+    design = load(RUN / 'design.json'); choice = check_author(RUN / 'author_choices.json')
+    from experiments.P4_A1.freeze import require_filled
+    require_filled(choice['decisions'], 'decisions')
+    for path in (RUN / 'design.json', RUN / 'author_choices.json', RUN / 'amendment.md', DIAGNOSIS):
+        committed(path)
+    require(not (ROOT / design['output'] / 'native').exists(), 'probe output already exists')
+    a1 = load(A1_PREREG); diag = load(DIAGNOSIS)
+    targets = []
+    for cid, rhos in sorted(diag['summary']['failing_pairs_per_point'].items()):
+        case = next(c for c in a1['cases'] if c['id'] == cid)
+        guard_case(case, a1)                       # CF, R09/R10, discovery đã lộ, có trong scope L44_A1
+        targets.append(dict(id=cid, parameters=case['parameters'], key=case['key'], target_rho=rhos))
+    sources = sorted({'experiments/P4_A2/__init__.py', 'experiments/P4_A2/diagnose_l44.py', 'experiments/P4_A2/probe.py',
+                      'tests/test_p4_a2.py', str(RUN / 'design.json'), str(RUN / 'author_choices.json'),
+                      str(RUN / 'amendment.md'), str(DIAGNOSIS), 'experiments/P4_A1/checks.py',
+                      'experiments/P4_A1/evaluate.py', 'experiments/P4_A1/config.py',
+                      'experiments/P4_04_baseline/margin.py'})
+    for s in sources:
+        committed(s)
+    history = sorted({str(A1_PREREG), str(A1_OUT / 'full_summary.json'), 'notes/phases/L4_4_A1_completion.json',
+                      *[str(A1_OUT / 'native' / t['id'] / 'comparison.json') for t in targets]})
+    cfg = dict(status='FROZEN_BEFORE_PLANT', run_id='L44_PROBE', responsible='Doan Van Tai',
+               output=design['output'], ladder=[[list(lv) for lv in step] for step in LADDER], rho=a1['rho'],
+               targets=targets, control=CONTROL, decisions=choice['decisions'], resources=design['resources'],
+               author_choices=str(RUN / 'author_choices.json'), CF_computed=False,
+               source_sha256={s: sha(ROOT / s) for s in sources},
+               preserved_history_sha256={h: sha(ROOT / h) for h in history})
+    write_once(ROOT / RUN / 'prereg.json', cfg)
+    print(json.dumps(dict(targets=[(t['id'], t['target_rho']) for t in targets], levels=all_levels()), default=str))
+
+
+def verify():
+    path = RUN / 'prereg.json'
+    require((ROOT / path).exists(), 'A2_PREREG_NOT_FROZEN'); committed(path)
+    cfg = load(path)
+    require(cfg['status'] == 'FROZEN_BEFORE_PLANT', 'prereg status')
+    for name, digest in cfg['source_sha256'].items():
+        require(sha(ROOT / name) == digest, 'source changed: ' + name); committed(name)
+    for name, digest in cfg['preserved_history_sha256'].items():
+        require(sha(ROOT / name) == digest, 'HISTORY_CHANGED: ' + name)
+    check_author(cfg['author_choices'])
+    from experiments.P4_03_map_audit.common import verify_prereg as verify_frozen
+    verify_frozen()
+    return cfg
+
+
+# ---------------------------------------------------------------- physical calls (worker = 1 điểm)
+
+def worker(cid):
+    cfg = verify(); a1 = load(A1_PREREG)
+    control = cid == cfg['control']['id']
+    case = cfg['control'] if control else next(t for t in cfg['targets'] if t['id'] == cid)
+    if control:
+        guard_case(case, cfg, control=True)                        # control đã đăng ký trong prereg A2
+    else:
+        registered = next(c for c in a1['cases'] if c['id'] == cid)
+        require(registered['parameters'] == case['parameters'], 'target differs from L44_A1 registration')
+        guard_case(registered, a1)                                 # CF, R09/R10, đã lộ, đúng định danh L44_A1
+    if not control:
+        require(load(Path(cfg['output']) / 'control_summary.json')['status'] == 'PASS', 'control not passed')
+    lim = cfg['resources']
+    resource.setrlimit(resource.RLIMIT_CPU, (lim['case_cpu_seconds'], lim['case_cpu_seconds'] + 5))
+    resource.setrlimit(resource.RLIMIT_AS, (lim['address_space_bytes'], lim['address_space_bytes']))
+    from experiments.P4_A1.evaluate import evaluate_level           # mọi guard chạy TRƯỚC import engine
+    fp = sha(ROOT / RUN / 'prereg.json')
+    folder = ROOT / cfg['output'] / ('controls' if control else 'native') / cid
+    folder.mkdir(parents=True, exist_ok=True)
+    ignore = ROOT / cfg['output'] / '.gitignore'
+    if not ignore.exists():
+        ignore.write_text('native_cache/\n')                       # cache lớn, không đưa vào Git
+    levels = [tuple(cfg['ladder'][-1][0])] if control else all_levels()
+    for lv in levels:
+        path = folder / f'level_{lv[0]}_{lv[1]}.json'
+        if path.exists():
+            row = load(path.relative_to(ROOT))
+            require(row.get('a2_prereg_sha256') == fp and row.get('id') == cid, 'stale resumed row')
+        else:
+            try:
+                row = evaluate_level(case, lv, ROOT / cfg['output'] / 'native_cache', cfg['rho']); row['status'] = 'COMPLETED'
+            except Exception as exc:
+                row = dict(id=cid, K=lv[0], ref=lv[1], status='HOLD_EXECUTION', error=f'{type(exc).__name__}: {exc}')
+            row.update(parameters=case['parameters'], a2_prereg_sha256=fp, CF_computed=False)
+            write_once(path, row)
+        if row['status'] != 'COMPLETED' or row.get('a1_bug_reasons'):
+            print(cid, lv, 'STOP', row.get('error') or row.get('a1_bug_reasons'), flush=True)
+            return 1                                                  # BUG/lỗi chạy: dừng, không chạy mức tiếp
+        if not control and lv in ((640, 4), (320, 4), (640, 2)):     # tái lập bit với L44_A1
+            old = load(A1_OUT / 'native' / cid / f'level_{lv[0]}_{lv[1]}.json')
+            same = old['losses'] == row['losses'] and [b['L00'] for b in old['baseline']] == [b['L00'] for b in row['baseline']]
+            if not same:
+                print(cid, lv, 'STOP REPRODUCTION_MISMATCH', flush=True)
+                return 1
+    if control:
+        ok = row.get('zero_action_certificate') is True
+        write_once(ROOT / cfg['output'] / 'control_summary.json',
+                   dict(status='PASS' if ok else 'BUG', level=list(levels[0]), cpu_seconds=row['call_cpu_seconds']))
+        return 0 if ok else 1
+    print(cid, 'COMPLETED all levels', flush=True)
+    return 0
+
+
+def launch(cid, cfg):
+    env = dict(os.environ, OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1', NUMEXPR_NUM_THREADS='1')
+    cmd = [sys.executable, '-m', 'experiments.P4_A2.probe', 'worker', '--case', cid]
+    try:
+        p = subprocess.run(cmd, cwd=ROOT, env=env, capture_output=True, text=True,
+                           timeout=cfg['resources']['case_wall_seconds'])
+        log, code = p.stdout + p.stderr, p.returncode
+    except subprocess.TimeoutExpired as exc:
+        log, code = str(exc), 'TIMEOUT'
+    folder = ROOT / cfg['output'] / 'logs'; folder.mkdir(parents=True, exist_ok=True)
+    n = len(list(folder.glob(f'{cid}_*.log')))
+    (folder / f'{cid}_{n + 1:02d}.log').write_text(log)
+    return code
+
+
+def run(stage):
+    cfg = verify()
+    if stage == 'control':
+        if not (ROOT / cfg['output'] / 'control_summary.json').exists():
+            launch(cfg['control']['id'], cfg)
+        print(load(Path(cfg['output']) / 'control_summary.json')); return 0
+    cpu = 0.0
+    for t in cfg['targets']:
+        code = launch(t['id'], cfg)
+        folder = ROOT / cfg['output'] / 'native' / t['id']
+        cpu += sum(load(p.relative_to(ROOT)).get('call_cpu_seconds', 0) for p in folder.glob('level_*.json'))
+        print(t['id'], 'exit', code, 'cumulative CPU-s', round(cpu, 1), flush=True)
+        if code != 0:
+            print('STOP: BUG / execution / reproduction failure; không chạy điểm tiếp theo'); return 1
+        if cpu > cfg['decisions']['cpu_cap_hours'] * 3600:
+            print('STOP: cpu cap'); return 1
+    return 0
+
+
+# ---------------------------------------------------------------- quyết định (không gọi engine)
+
+def rho_of(reason):
+    """'baseline_arithmetic:(640, 4):1/100' -> '1/100'; 'baseline_R1:1/50:L00' -> '1/50'; khác -> None."""
+    if reason.startswith('baseline_arithmetic:'):
+        return reason.rsplit(':', 1)[1]
+    if reason.startswith('baseline_R1:'):
+        return reason.split(':')[1]
+    return None
+
+
+def step_status(levels, main, rhos):
+    """Đúng luật readiness của A1, nhưng với mức chính = bậc của thang."""
+    row_reasons = row_readiness(levels, main)
+    base_reasons, refinement = baseline_readiness(levels, main, rhos)
+    failing = sorted({rho_of(r) for r in base_reasons if rho_of(r)}, key=F)
+    return dict(main=list(main), point_ready=not row_reasons and not base_reasons,
+                row_reasons=row_reasons, baseline_reasons=base_reasons, failing_rho=failing,
+                L00_refinement={r['rho']: r['normalized_difference']['L00'] for r in refinement})
+
+
+def classify(n_ready, n, decisions):
+    if n_ready >= decisions['ladder_resolves_if_at_least']:
+        return 'LADDER_RESOLVES'
+    if n_ready <= decisions['ladder_fails_if_at_most']:
+        return decisions['branch_if_ladder_fails']
+    return 'INCONCLUSIVE_AUTHOR_DECIDES_WITH_NEW_DL'
+
+
+def decide():
+    cfg = verify(); out = Path(cfg['output'])
+    require(load(out / 'control_summary.json')['status'] == 'PASS', 'control HOLD')
+    per_point = []
+    for t in cfg['targets']:
+        folder = out / 'native' / t['id']
+        missing = [lv for lv in all_levels() if not (ROOT / folder / f'level_{lv[0]}_{lv[1]}.json').exists()]
+        require(not missing, f'RUN_INCOMPLETE {t["id"]}: {missing}; không quyết định trên dữ liệu thiếu')
+        levels = {lv: load(folder / f'level_{lv[0]}_{lv[1]}.json') for lv in all_levels()}
+        steps = [step_status(levels, tuple(step[0]), cfg['rho']) for step in cfg['ladder']]
+        first = next((i for i, s in enumerate(steps) if s['point_ready']), None)
+        per_point.append(dict(id=t['id'], target_rho=t['target_rho'], ready_at_step=first,
+                              steps=steps, target_L00_refinement_by_step=[
+                                  {r: s['L00_refinement'][r] for r in t['target_rho']} for s in steps]))
+    n_ready = sum(p['ready_at_step'] is not None for p in per_point)
+    decision = dict(run_id='L44_PROBE', n_targets=len(per_point), n_ready_within_ladder=n_ready,
+                    branch=classify(n_ready, len(per_point), cfg['decisions']), points=per_point,
+                    prereg_sha256=sha(ROOT / RUN / 'prereg.json'), rho_selection_computed=False, CF_outcomes=0)
+    write_once(ROOT / out / 'decision.json', decision)
+    print('n_ready_within_ladder', n_ready, '/', len(per_point), '->', decision['branch'])
+    for p in per_point:
+        print(p['id'], 'ready_at_step', p['ready_at_step'], 'target L00 refinement by step:',
+              [{k: round(v * 100, 3) for k, v in d.items()} for d in p['target_L00_refinement_by_step']])
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument('step', choices=['freeze', 'control', 'run', 'decide', 'worker']); p.add_argument('--case')
+    a = p.parse_args()
+    if a.step == 'freeze':
+        return freeze()
+    if a.step == 'worker':
+        return worker(a.case)
+    if a.step == 'decide':
+        return decide()
+    return run(a.step)
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
+```
+
+### Test
+
+`tests/test_p4_a2.py`. Test quan trọng nhất là `test_step0_of_ladder_reproduces_A1_readiness_exactly`: nếu nó fail, logic quyết định của probe không còn đo cùng một thứ với A1.
+
+```python
+"""A2 tests: chỉ đọc artifact đã commit + hàm thuần. Không gọi engine."""
+from fractions import Fraction as F
+import json
+import os
+
+import pytest
+
+from experiments.P4_03_map_audit.common import ROOT
+from experiments.P4_A2 import diagnose_l44 as D
+from experiments.P4_A2 import probe as P
+
+A1 = 'results/lessons/l4_4/a1'
+
+
+def rd(path):
+    return json.loads((ROOT / path).read_text())
+
+
+def a1_points():
+    for cid in sorted(os.listdir(ROOT / A1 / 'native')):
+        rows = {lv: rd(f'{A1}/native/{cid}/level_{lv[0]}_{lv[1]}.json') for lv in ((640, 4), (320, 4), (640, 2))}
+        yield cid, rd(f'{A1}/native/{cid}/comparison.json'), rows
+
+
+def test_diagnosis_one_failing_rho_per_point_only_old_route_cell():
+    failing = {}
+    for cid, cmp, rows in a1_points():
+        named = {'main': rows[(640, 4)], 'K': rows[(320, 4)], 'dt': rows[(640, 2)]}
+        recs = [D.pair_record(named, i) for i in range(5)]
+        bad = [r for r in recs if r['failure']]
+        assert bool(bad) == (cmp['status'] == 'NOT_READY')
+        for r in bad:
+            assert set(r['fields_over_tol']) <= {'L00', 'GS_theta'}       # không bao giờ L10 / deltaL10
+        if bad:
+            failing[cid] = [r['rho'] for r in bad]
+            assert rows[(640, 4)]['parameters'][:2] == ['7', '6']            # cùng một góc lambdaA=7, lambdaB=6
+    assert len(failing) == 8 and all(len(v) == 1 for v in failing.values())
+
+
+def test_step0_of_ladder_reproduces_A1_readiness_exactly():
+    rhos = rd('experiments/P4_A1/runs/L44_A1/prereg.json')['rho']
+    for cid, cmp, rows in a1_points():
+        s = P.step_status(rows, (640, 4), rhos)
+        assert s['point_ready'] == (cmp['status'] == 'PASS')
+        assert s['row_reasons'] + s['baseline_reasons'] == cmp['readiness_reasons']
+
+
+def test_rho_parsing():
+    assert P.rho_of('baseline_arithmetic:(640, 4):1/100') == '1/100'
+    assert P.rho_of('baseline_R1:1/50:GS_theta') == '1/50'
+    assert P.rho_of('R1_dt:cref=0.003') is None
+
+
+def test_classification_thresholds():
+    d = dict(ladder_resolves_if_at_least=7, ladder_fails_if_at_most=4, branch_if_ladder_fails='B2_NARROW')
+    assert P.classify(8, 8, d) == 'LADDER_RESOLVES' and P.classify(7, 8, d) == 'LADDER_RESOLVES'
+    assert P.classify(5, 8, d).startswith('INCONCLUSIVE') and P.classify(6, 8, d).startswith('INCONCLUSIVE')
+    assert P.classify(4, 8, d) == 'B2_NARROW' and P.classify(0, 8, d) == 'B2_NARROW'
+
+
+def test_ladder_is_the_frozen_scorer_ladder_with_contract_neighbours():
+    from experiments.R3R_14_lean_close.frame_v2 import escalation_plan
+    assert [step[0] for step in P.LADDER] == escalation_plan(640, 4)
+    for main, k_nb, dt_nb in P.LADDER:
+        assert k_nb == (main[0] // 2, main[1]) and dt_nb == (main[0], main[1] // 2)
+    assert P.all_levels()[:3] == [(640, 4), (320, 4), (640, 2)] and len(P.all_levels()) == 7
+
+
+def test_draft_cannot_freeze():
+    from experiments.P4_A1.config import check_author, load
+    if load(P.RUN / 'author_choices.json')['status'] == 'ADOPTED_BY_AUTHOR':
+        pytest.skip('author already adopted')
+    with pytest.raises(RuntimeError, match='AUTHOR_NOT_ADOPTED'):
+        check_author(P.RUN / 'author_choices.json')
+
+
+def test_control_is_exact_zero_action_and_not_cf():
+    from experiments.P4_03_map_audit.common import canonical, cf_keys
+    c = P.CONTROL
+    assert F(c['parameters'][3]) == 0 and canonical(c['parameters']) == tuple(c['key'])
+    assert tuple(c['key']) not in cf_keys()
+```
+
+### Commit theo thứ tự
+
+```bash
+.venv/bin/python -m pytest -q tests/test_p4_a2.py        # 7 passed
+.venv/bin/python -m pytest -q                            # kỳ vọng 849 passed (842 + 7)
+git add experiments/P4_A2/probe.py tests/test_p4_a2.py experiments/P4_A2/runs/L44_PROBE/
+git commit -m "P4-A2: escalation probe code, tests, design and draft author file; no plant call"
+# điền author_choices (ADOPTED) + viết amendment.md + DL-112 vào decision log, rồi:
+git add experiments/P4_A2/runs/L44_PROBE notes/02_decision_log.md
+git commit -m "P4-A2: author adopts L44 probe rule, prediction and failure branch before any call (DL-112)"
+.venv/bin/python -m experiments.P4_A2.probe freeze
+git add experiments/P4_A2/runs/L44_PROBE/prereg.json
+git commit -m "P4-A2: freeze L44 probe prereg (8 targets, ladder 640/4->1280/4->1280/8)"
+```
+
+Khi freeze, phần in ra phải liệt kê đúng 8 điểm với ρ như bảng ở Bước 1.
+
+---
+
+## Bước 3: Chạy probe và đọc kết quả
+
+```bash
+.venv/bin/python -m experiments.P4_A2.probe control     # {'status': 'PASS', 'level': [1280, 8], ...}
+.venv/bin/python -m experiments.P4_A2.probe run         # 8 dòng "exit 0", CPU cộng dồn
+.venv/bin/python -m experiments.P4_A2.probe decide      # n_ready_within_ladder X / 8 -> nhánh
+git add results/lessons/l4_4/a2_probe && git commit -m "P4-A2: L44 probe results and predeclared decision"
+```
+
+**Đọc `decision.json`:**
+- `branch` là quyết định. Áp đúng nhánh đã khóa, không chọn lại.
+- `target_L00_refinement_by_step` là bằng chứng phân biệt hai giả thuyết. Nếu con số giảm dần qua các bậc (ví dụ 0,82% → 0,2% → 0,05%) thì nghiêng về H_res. Nếu nó đứng yên, hoặc lỗi xuất hiện ở ρ khác (`failing_rho` ở bậc sau khác bậc trước) thì nghiêng về H_cliff.
+- So từng dòng với `prediction_verbatim` của bạn và ghi lại chỗ khớp, chỗ lệch.
+
+**Khi có sự cố:**
+
+| Thấy | Nghĩa | Làm gì |
+|---|---|---|
+| `REPRODUCTION_MISMATCH` | Môi trường đổi (Python/NumPy/compiler) so với lúc chạy A1 | Dừng; so `environment.json`. Đừng chạy tiếp |
+| `STOP` kèm `a1_bug_reasons` | Bất biến cùng tuyến bị vi phạm ở mức mịn | Bug thật, hoặc chẩn đoán A1 sai: dừng, gửi tôi row |
+| `HOLD_EXECUTION` có MemoryError ở (1280, 8) | 3 GiB không đủ | Prereg mới chỉ đổi tài nguyên (giống resource amendment của L4.3) |
+| `RUN_INCOMPLETE` khi decide | Run dừng giữa chừng | Đừng decide; xử lý lý do dừng trước |
+
+---
+
+## Bước 4: Sau probe
+
+- **`LADDER_RESOLVES`**: gói A3 rerun full 90 điểm với luật như A1, nhưng điểm nào NOT_READY thì leo thang R3 trước khi bị tính NOT_READY; cap giữ nguyên. Sau đó chọn ρ\* và đọc MV/SH theo DL-104.
+- **B1 hoặc B2**: gói A3 rerun full theo định nghĩa đã viết trong `amendment.md`.
+- **INCONCLUSIVE**: viết DL mới, ghi rõ là quyết sau probe, rồi mới viết A3.
+
+Gửi tôi `decision.json` khi có; tôi sẽ in code A3 cho đúng nhánh. SV giữ nguyên. SUB và L4.5 Part B chỉ làm sau khi F1 baseline qua validity.
+
+## ⚠️ Bẫy riêng của bước này
+
+- Tính ρ\* hoặc median R_M trên 19 điểm đã có "để xem trước". Đó là tune trên tập con, chính luật của bạn đã cấm.
+- Chọn "đại diện" trong 8 điểm sau khi đã thấy bảng.
+- Rerun L44_A1, hoặc sửa bất kỳ file nào trong `P4_A1/`. Ba prereg đã khóa hash của chúng.
+- Đọc "8/72 > 10%" như một tỷ lệ của vùng SH.
+- Gọi H_cliff là "phát hiện vật lý". Nó là một tính chất của đại lượng baseline trên lưới, chưa phải cơ chế của mạng.
+
+## 🧠 Tư duy researcher
+
+Khi một kiểm tra fail, trước khi sửa hãy hỏi: **lỗi nằm ở đâu theo từng chiều** (điểm nào, ρ nào, đại lượng nào, trục nào)? Ở đây, nhìn theo ρ cho thấy vấn đề không phải "numerics kém" mà là "đại lượng có vách". Hai chẩn đoán đó dẫn tới hai cách sửa khác nhau. Và nếu chưa biết chẩn đoán nào đúng, đừng chọn cách sửa; hãy thiết kế một phép thử rẻ mà hai chẩn đoán dự đoán khác nhau.
+
+## Trạng thái
+
+- **Understanding:** sau bài này, bạn nên giải thích được vì sao chi phí của controller margin là một cầu thang, và vì sao "W" và "K/D" là hai triệu chứng của cùng một vách.
+- **Execution:** chưa bắt đầu (Bước 1 → 3 ở trên).
+- **Scientific dependency:** ρ\* và mọi câu thu hẹp MV/SH chỉ có sau A3 qua validity.
+- **G-level:** G1, không đổi.
