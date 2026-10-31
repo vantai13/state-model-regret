@@ -126,6 +126,30 @@ def verify_one(run):
             rescored[support]=dict(N_ready=len(rows),rho_star=rho,median_GS_original_pctC=float(before),
                                    median_GS_theta_pctC=float(after),descriptive_narrow=narrow,**detail)
         report['independent_rho_rescore']=rescored
+        if run=='L43_A1_SV':
+            manifest=read(out/'summary/native_manifest.json')
+            assert manifest['source_kind']=='DISCOVERY_NATIVE_BUNDLE_V1'
+            exported=0; uncertain={}
+            case_by_id={c['id']:c for c in cfg['cases']}
+            for role,path in manifest['rows'].items():
+                payload=(ROOT/path).read_bytes()
+                assert hashlib.sha256(payload).hexdigest()==manifest['source_sha256'][path]
+                entries=read(path); near=not_ready=0
+                for e in entries:
+                    cid=e['id']; row=levels_by_id[cid][main]; c=case_by_id[cid]
+                    assert e['key']==c['key'] and e['CF_computed'] is False
+                    assert e['source_kind']=='DISCOVERY_NATIVE'
+                    assert all(e[k]==row[k] for k in ('Cref','G_S','Gamma'))
+                    assert e['r1_ready'] is (records[cid]['status']=='PASS')
+                    if records[cid]['status']!='PASS':not_ready+=1
+                    elif abs(F(e['G_S'])/F(e['Cref'])-F(1,100))<=F(e['d_normalized']['G_S']):near+=1
+                exported+=len(entries)
+                uncertain[role]=dict(N=len(entries),NOT_READY=not_ready,R6_near_GS_boundary=near,
+                    unresolved_total=not_ready+near,
+                    scope='Numerical uncertainty on predeclared support; no MEETS/FAILS tally or box counts')
+            assert exported==len(cfg['cases'])
+            report['native_export_integrity']='PASS'
+            report['predeclared_support_R6_uncertainty']=uncertain
     if run=='SUB_PROBE' and full['status']=='PASS':
         ready=sum(not r['native_readiness_reasons'] for r in records.values())
         mx=max(r['cpu_seconds'] for r in records.values())
