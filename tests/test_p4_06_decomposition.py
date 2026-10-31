@@ -39,6 +39,8 @@ def test_d22_retaining_Y_changes_policy_even_at_stationarity():
     assert F(toy['wrong_F']) == F(-2,5)
     assert F(toy['wrong_V']) == F(1,2)
     assert toy['Q_only_one_hot_recovers_L10'] is True
+    assert toy['stationary_transition_preserves_pi'] is True
+    assert toy['old_current_backlog_marginals_match'] is True
     assert toy['native_F'] is toy['native_V'] is None
 
 

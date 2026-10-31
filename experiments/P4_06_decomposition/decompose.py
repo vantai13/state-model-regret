@@ -234,29 +234,42 @@ def summarize(rows):
 
 
 def d22_counterexample():
-    """Exact stationary joint toy: X=(constant Q,mode), old Y informs mode.
+    """Exact stationary Markov joint toy: X=(Q,mode), old Y informs mode.
 
     Costs given X are Markov. Stationarity of the current marginal does not
     erase information in Y conditional only on Q. This is not a native probe.
     """
-    atoms = [(0, 0, F(9,20)), (0, 1, F(1,20)), (1, 0, F(1,20)), (1, 1, F(9,20))]
+    # pi(Q,m)=1/4. From old (y,m_old), draw Q uniformly and set m=y with
+    # probability9/10. This transition preserves pi; old Y and current Q
+    # therefore have the SAME backlog marginal, as stationarity requires.
+    atoms = [(y, q, m, F(9 if y == m else 1, 40))
+             for y in (0,1) for q in (0,1) for m in (0,1)]
+    stationary = all(sum(F(1,4)*F(1,2)*F(9 if m == y else 1,10)
+                         for y in (0,1) for old_mode in (0,1)) == F(1,4)
+                     for q in (0,1) for m in (0,1))
+    same_backlog_marginal = all(sum(p for y,q,m,p in atoms if y == value)
+                                == sum(p for y,q,m,p in atoms if q == value) == F(1,2)
+                                for value in (0,1))
     true, model = (F(-1), F(1)), (F(-2), F(1))
     def loss(group):
         sums = defaultdict(lambda: [F(0), F(0)])
-        for y, m, p in atoms:
-            key = group(y, m)
+        for y, q, m, p in atoms:
+            key = group(y, q, m)
             sums[key][0] += p*model[m]
             sums[key][1] += p*true[m]
         return F(10)+sum(d for h, d in sums.values() if h < 0)
-    l00 = loss(lambda y,m:y)
-    l10 = loss(lambda y,m:m)
-    correct = loss(lambda y,m:(y,0))
-    q_only = loss(lambda y,m:0)
+    l00 = loss(lambda y,q,m:y)
+    l10 = loss(lambda y,q,m:(q,m))
+    correct = loss(lambda y,q,m:(y,q))
+    q_only = loss(lambda y,q,m:q)
     return dict(status='EXACT_SEMANTIC_COUNTEREXAMPLE', L00=str(l00), L10=str(l10),
                 correct_Lcb0=str(correct), wrong_Q_only_Lcb0=str(q_only),
                 correct_F=str(l00-correct), correct_V=str(correct-l10),
                 wrong_F=str(l00-q_only), wrong_V=str(q_only-l10),
-                both_telescoping=True, Q_only_one_hot_recovers_L10=loss(lambda y,m:(0,m))==l10,
+                both_telescoping=True, Q_only_one_hot_recovers_L10=loss(lambda y,q,m:(q,m))==l10,
+                stationary_transition_preserves_pi=stationary,
+                old_current_backlog_marginals_match=same_backlog_marginal,
+                model_scope='generic finite Markov counterexample, not production fluid evidence',
                 native_D22='DEFERRED_MISSING_Y_Q_MODE_JOINT', native_F=None, native_V=None,
                 native_probe_calls=0, units='toy cost; not packet·s measurements')
 
