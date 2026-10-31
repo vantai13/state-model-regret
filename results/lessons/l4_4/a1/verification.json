@@ -1,0 +1,36 @@
+{
+  "status": "HOLD",
+  "planned": 90,
+  "observed_distinct_including_benchmark": 19,
+  "full_stage_completed": 16,
+  "by_support": {
+    "MV+A": {
+      "PASS": 2,
+      "NOT_RUN": 16
+    },
+    "SH+A": {
+      "NOT_READY": 8,
+      "PASS": 9,
+      "NOT_RUN": 55
+    }
+  },
+  "not_ready_reason_events": {
+    "baseline_arithmetic": 9,
+    "baseline_R1": 12
+  },
+  "stop_reasons": [
+    "SH+A:NOT_READY 8/72 > 1/10"
+  ],
+  "raw_flags_all_levels": {
+    "negative_nonnegative_contrast:G_SM": 19,
+    "negative_nonnegative_contrast:G_S_M1": 22
+  },
+  "deltaL00_additional_diagnostic": {
+    "cases": 19,
+    "not_meeting": 8,
+    "max_refinement_ratio": 0.009339795245283132,
+    "max_width_ratio": 0.002732081991070529
+  },
+  "independent_rho_rescore": "NOT_SELECTED_ON_PARTIAL_OR_HOLD",
+  "unique_evaluation_cpu_seconds_including_control": 829.655796
+}

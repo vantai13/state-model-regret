@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/P4_A1/summarize.py", line 101, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/P4_A1/summarize.py", line 40, in main
+    require(full['status'] == 'PASS', 'full stage HOLD: no selection, no manifest')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/P4_03_map_audit/common.py", line 21, in require
+    if not ok: raise RuntimeError(message)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: full stage HOLD: no selection, no manifest
