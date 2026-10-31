@@ -990,3 +990,10 @@ Realboxes0,p-hat0,researchenginecalls0,CF/sealedoutcomes mới0. Preflight exit2
 entrypoint exit1 cóchủđích, trước dữliệu. Không chọn0/1/2card, F1/G1/HOLD cũ giữ.
 [Forking#16–19](../results/lessons/l4_5/forking_paths.jsonl) ·
 [Report](../results/lessons/l4_5/report.md).
+
+
+## P4-A1 Bước 0 — 31/10/2026, trước amendment/plant
+
+Đã đọc hai input người dùng (hướng dẫn + patch), các code/guard/prereg L4.3–L4.5 và 1298 calibration rows L3R.7; tái tính diagnosis từ artifact đã commit. Same-route0/0, cross-route236/279; 17/33SH và0/16MV fail sanity cũ trên tọa độ trùng calibration. Chỉ đọc tham số CF-v2, không outcomes.
+Tests trước freeze kiểm support đối chứng SV48/124 theo tọa độ, không đếm p-hat; 842full tests PASS88.76s. Input báo đã thử pipeline bằng engine giả trong sandbox: đây là lời nguồn, không nhận phiên này đã tái lập sandbox đó. Phiên này chạy synthetic/mutant/read-only tests thực trên máy,0research engine calls/0new coordinates/0CF outcomes.
+Đã đọc reanalysis của phiên trước (361 hashed inputs, kết quả lưu /tmp); diagnosis chính thức nay ở results/lessons/p4_a1/diagnosis/diagnosis.json, đầy đủ input SHA. Forecast và lựa chọn sắp tới do AI theo ủy quyền chat, không author-independent prediction.

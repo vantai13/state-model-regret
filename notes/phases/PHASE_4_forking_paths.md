@@ -91,3 +91,9 @@ SV/SUB cóđiềukiện +rules; proposal736633a/lock624a9be trước mọi realc
 #19resume sau gitwhitespacecheck rawtraceback, giữlog; preflightblocked saucommit
 vớiruleslockedTrue, entrypoint từchối trước filedata. Khôngbounds/p-hat mới,
 không tựcắtκ=.05 đểnéoutcome. Final0/1/2card cònpending; G1/F1/HOLD cũ giữ.
+
+
+## P4-A1 #20 — diagnosis trước amendment/plant, 31/10/2026
+
+Đã thấy hướng dẫn/patch nguồn, kết quả 1298 calibration rows và sanity17/33SH,0/16MV; xem phạm vi SV-minus48/124 chỉ theo tọa độ. Nới tolerance hoặc xóa toàn bộ oracle/controller checks: không áp dụng. Đề xuất tách same-route BUG khỏi numerical NOT_READY, báo cross-route raw flags; chưa gọi engine mới lúc ghi dòng này.
+Patch gốc thiếu newline cuối được chuẩn hóa; 72targeted gốc PASS. Đã sửa trước freeze lỗi manifest NOT_READY, S11 bookkeeping, resume guards, dừng bundle sau BUG và provenance ủy quyền. Một lượt test fixture mới FAIL NameError đã giữ log, sửa setup;80targeted/842full PASS. Không sửa frozen source/card/CF hoặc lịch sử HOLD. Chưa gán tác giả tự viết hoặc Understanding PASS. Diagnosis + note này phải commit trước mọi prereg A1.
