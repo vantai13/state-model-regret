@@ -1003,3 +1003,8 @@ Tests trước freeze kiểm support đối chứng SV48/124 theo tọa độ, k
 
 Sau choices195672a vàpreregsd1c2879/7c7c956/bf767f2, đã gọi1566evaluatelevels (L4458,SV1492,SUB16,gồm3controls) trên inventorydiscovery;0tọađộmới ngoài scope,khôngRNGresearch. Đã xem đầyđủ outputsL44partial19keys/SV497keys/SUB5keys;0CF/R09R10outcomes/boxcounts. L44HOLD16/90stagecap;SV496PASS/1NR;SUB4/5nativeReady. Tổng7077.098292evalCPU-s gồmcontrols,khônggồm mọi import/compiler/launcher cost.
 Đã chọnrho1% từ448READY SV+ theo luật đãcommit trướcoutcomes;baselineGSmedian.971841%→1.021545%,deltaL00positive,no narrow. R6supportU9/449 chỉnumericaluncertainty,khôngMEETS/p-hatbox;0trial registry mới. ĐãkiểmextraδL00trênartifact (diagnosticonly),khôngđổi A1source/criterion. ChưacombinedSUB hoặccandidate_readiness;khôngCFv3/Gate4/carddecision. Source/history cũgiữSHA;AIwork khôngauthor-self/Understanding.
+
+
+## P4-A2 diagnosis — 31/10/2026, trước amendment/probe
+
+Đọc hướng dẫn mới và A1 artifacts đãcommit:19điểm/95cặp,8failingpairs/8points,mỗiđiểm1rho,W3/K6/D3,L00/GS_theta. Đã thấy bảng8điểm và25passingcliffs>5% tronginput trước tái tính.0enginecalls,0ρselection/regionmedians,0CF/sealed/boxcounts. Diagnosticjumpmedian sửa upper-middle thành median chuẩn, phương pháp ghiJSON. Không gọi cap8/72 là estimateprevalence.

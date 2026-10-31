@@ -105,3 +105,8 @@ Patch gốc thiếu newline cuối được chuẩn hóa; 72targeted gốc PASS.
 #22: independent schedulingmax2/2/1 theo5efc715;L44HOLD8/72NR,giữ19observed/71NOT_RUN,no rho;SUB5/5complete,native4/5,max164.405CPU-s,rule đềxuấtκ>=.05 đểkiểm tiếp.
 #23: SV497/497complete,496PASS/1NR;rho1% từ448READY,GSmedian .971841→1.021545%,deltaL00+.000505476,no narrow. Map5flips/19classR6unknown;GScriterionU9/449,khôngMEETS/p-hatbox hoặcboxtrial. Khôngchọnbounds mới sauoutputs.
 #24: arithmetic/rescore/export và6receiptSHA kiểmPASS. ExtraδL00diagnostic chỉfail cùngcaseđãNR;khôngsửa criterion/codedA1 saufreeze.0CF/sealed/boxoutcomes;F1baselineHOLD/L45PartB/combinedSUB/readiness/cards/Gate4cònmở. ForecastsAI,khôngtựgánUnderstanding.
+
+
+## P4-A2 #25 — diagnosis, ghi sau thao tác nhưng trước amendment/probe (31/10/2026)
+
+Đã thấy bảng8điểm củainput; tái lập đúngW3/K6/D3,mỗiđiểm1rho,19observed/95pairs; source/hashes lưu results/lessons/p4_a2/l44_diagnosis.json. Nới tolerance:không chọn; probe toàn8theothangfrozenR3:tiếp tục. Chưa biết H_res/H_cliff đúng; khôngtựsuy atom cơchế từcliff trênlưới.0enginecalls/ρselection/regionmedians/CF/sealed/boxcounts. SV/SUBvàA1giữ nguyên.
