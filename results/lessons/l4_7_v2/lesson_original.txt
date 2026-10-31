@@ -1,0 +1,338 @@
+Trước khi dạy L4.7, tôi kiểm một điểm nền móng mà mệnh đề của lesson này phụ thuộc vào: **M0 trong engine có rollout bằng mean *có điều kiện theo mode* không?** Tôi chỉ đọc code, không tạo file nào.
+
+Mệnh đề đã được kiểm trên ví dụ nhỏ: khi không thể clipping, M0 và M1 khớp tới 10⁻¹⁴. Lỗi "gấp đôi" ở lần chạy trước là bug của chính code minh họa, và mệnh đề đã bắt được nó. Tôi dùng cả hai chuyện này trong lesson.
+
+---
+
+# LESSON 4.7 (v2) — Mỏ neo cơ chế: tương tác chỉ sinh ra qua clipping ở biên rỗng
+
+**Map của lesson:** (1) backlog = phần tuyến tính + capacity bỏ phí; engine của bạn tính đúng theo cách này → (2) mệnh đề P-clip và chứng minh → (3) vì sao M0 luôn đánh giá *thấp* cost, nhưng sai số trên gap có thể mang dấu bất kỳ → (4) hai hệ quả: không clipping thì không có tương tác, và cận của Ḡ_M|S1 → (5) khi nào clipping có thể xảy ra → (6) code kiểm. Lesson vừa đủ một lượt.
+
+## 1. Big picture
+
+```text
+L4.6 ✓ tách nguồn: Ḡ_S = Ḡ_S|M1 − Γ̄  (trục x = giá trị riêng, trục y = tương tác)
+   ↓
+L4.7 Vì sao trục y (Γ̄) tồn tại?   ← BẠN Ở ĐÂY
+   ↓
+L4.8 realism → L4.9 hypothesis + freeze
+```
+
+## 2. Lesson này trả lời câu hỏi gì?
+
+> Trong plant của bạn, **cái gì vật lý** làm M0 sai, và vì thế làm hai repair tương tác với nhau? Có phải "chỉ là ngưỡng argmin" không?
+
+## 3. Tại sao cần lesson này?
+
+- **Research-level.** Final Review §2.3 đã chứng minh Γ ≠ 0 có thể xuất hiện mà *không cần* queue, chỉ cần một quyết định nhị phân có ngưỡng. Reviewer sẽ hỏi: "Tương tác của anh có phải chỉ là vậy?" (attack số 2, được ghi "đã chứng minh có nguy cơ"). Lesson này cho một câu trả lời *có cơ chế*: trong plant này, mọi sai số của M0, và do đó mọi tương tác, **chỉ** sinh ra qua một hiện tượng hàng đợi cụ thể.
+- **Practical-level.** Bạn có một mệnh đề (có thể vào paper), một cận tính được, một tiêu chí bằng tham số, và một test exact cho code.
+
+## 4. Connection to Main RQ
+
+```text
+L4.7
+ → quantity: capacity bị bỏ phí ở biên rỗng (idle); tập Clip; S_clip
+ → "interact" (Γ̄) chỉ khác 0 nhờ cơ chế này; Ḡ_M|S1 ≤ S_clip
+ → RQ2: "when do models of action-induced queue dynamics provide additional predictive power"
+ → evidence sau này: predictor dựa trên cơ chế, so với null 1-NN, trên held-out (Phase 5)
+```
+
+Đây là quan hệ **trực tiếp** với RQ2 và với chữ "interact".
+
+**Nếu bỏ lesson này,** đây là chuyện có thể xảy ra. Bạn báo "Γ̄ < 0 ở dải δ". Reviewer dựng lại phản ví dụ của Final Review với hai sai số cộng đơn giản và hỏi "chỗ nào là networking?". Bạn không có câu trả lời ngoài "trong simulator của tôi nó như vậy".
+
+## 5. Prerequisites — recap
+
+- **Recurrence Lindley** (MASTER PLAN F1): q_{k+1} = max(0, q_k + X_k), với X_k = (tốc độ nền + managed − μ)·δ là lượng thay đổi trong một slot.
+- **Đẳng thức F1:** backlog = q₀ + ΣX + **tổng capacity bỏ phí**. Bạn đã gặp đẳng thức này ở Phase 1.
+- **Jensen (F9):** E[max(0, X)] ≥ max(0, E[X]).
+- **Regret nhị phân:** ở mỗi state, regret bằng 0 nếu chọn đúng, bằng |Δ| nếu chọn sai.
+
+## 6. Mental model trước tiên
+
+> **Hàng đợi là một cái bồn có lỗ xả.** Chừng nào bồn còn nước, mực nước = mực ban đầu + vào − ra: một phép cộng. Phép cộng thì lấy trung bình trước hay sau đều như nhau. Chỉ khi bồn **cạn**, lỗ xả "chạy không" và lượng xả đó *mất đi*. Lúc ấy lấy trung bình trước (M0) sẽ sai.
+
+## 7. Concepts & terminology
+
+- **Clipping, hay phản xạ ở biên rỗng (reflection).** Chỗ max(0, ·) cắt: queue không thể âm.
+- **Idle (capacity bỏ phí).** Phần capacity không dùng được vì queue rỗng. Ví dụ: queue rỗng, μ = 10, chỉ có 1 packet/s tới, nên 9 packet/s capacity bị phí.
+- **Tuyến tính.** Nhân đôi input thì output nhân đôi, cộng input thì output cộng. Kỳ vọng "đi xuyên qua" được hàm tuyến tính: E[f(X)] = f(E[X]).
+- **Lồi (convex).** Đồ thị cong lên, như max(0, x). Với hàm lồi, E[f(X)] ≥ f(E[X]).
+- **Mean-field / mean rollout.** Thay cái ngẫu nhiên bằng trung bình của nó, rồi chạy một đường duy nhất. Đây chính là M0.
+- **Kỳ vọng có điều kiện (conditional mean).** Trung bình *cho trước* một thông tin. Ví dụ: tốc độ nền trung bình sau t giây, *biết* lúc này đang ON, là λ + a·e^{−2t/κ}. Nó khác trung bình không điều kiện λ.
+- **Điều kiện đủ và điều kiện cần.** "Không thể clipping" là điều kiện **đủ** để M0 = M1. "Có thể clipping" là điều kiện **cần** để M0 ≠ M1. Đây là hai mệnh đề khác nhau.
+
+## 8. Tiny networking example — cái bồn
+
+Path B dưới Switch: λB = 7 và a = 6, nên OFF = 1, ON = 13 packet/s; thêm u = 2; μ = 10. Tốc độ ròng khi OFF là −7, khi ON là +5. Giả sử có hai tương lai đồng khả năng trong h = 0,5 s: *luôn OFF* hoặc *luôn ON*. M0 dùng tốc độ trung bình −1.
+
+| q₀ | Luôn OFF | Luôn ON | Trung bình thật | M0 (đường trung bình) |
+|---|---:|---:|---:|---:|
+| 5 | ∫(5 − 7t) = 1,625 | ∫(5 + 5t) = 3,125 | **2,375** | ∫(5 − t) = **2,375** ✓ |
+| 1 | cạn ở t = 1/7, ∫ = 1/14 ≈ 0,071 | ∫(1 + 5t) = 1,125 | **0,598** | ∫(1 − t) = **0,375** ✗ |
+
+Đơn vị là packet·s, tức ∫ q dt. Ở q₀ = 1, nhánh OFF làm bồn cạn. Phần "xả mà không có nước để xả" bị mất, nên M0 đánh giá thiếu 0,223.
+
+## 9. Theory
+
+### 9.1 Engine của bạn tính đúng theo phân tách này
+
+Tôi đã đọc `experiments/R3R_08_population_numerics/`. Cost của mỗi path được tính qua profile **idle**:
+- `idle(...)`: kỳ vọng *thật* của capacity bỏ phí, tính bằng Bellman exact (C++).
+- `mean_idle(...)`: capacity bỏ phí *trên đường trung bình*.
+
+Code của `mean_idle`:
+
+```python
+p, pe = probability(keep, keep_error); r = 2*p[0] - 1           # tương quan mode sau một slot
+powers = np.r_[LD(1), np.cumprod(np.full(max(0, H-1), r))]       # r^k
+mean = sum(increments)/2; amp = (increments[1] - increments[0])/2
+for m in (0, 1):                                                 # TỪNG mode ban đầu
+    cumulative = np.cumsum(mean + (2*m - 1)*amp*powers)          # tổng tăng TRUNG BÌNH CÓ ĐIỀU KIỆN
+    maxima = np.maximum.accumulate(np.maximum(0, -cumulative))   # idle tích lũy trên đường trung bình
+```
+
+Ba điều đọc ra từ đây:
+1. M0 dùng **mean có điều kiện theo mode**: `mean ± amp·r^k`. Đây chính là điều kiện mà mệnh đề P-clip cần (PHASE_4_v2, L4.7, Khái niệm 1).
+2. M0 vẫn có clipping, nhưng là clipping *của đường trung bình* (`maximum.accumulate`). Vì vậy M0 không ngây thơ.
+3. M0 và M1 dùng **chung** phần tuyến tính và chỉ khác nhau ở idle. Nói cách khác, sai số của M0 nằm *trọn* trong capacity bỏ phí. Thêm một bằng chứng từ code: khi path bão hòa, engine trả cho M0 đúng `saturation_cost` = (pre − post)·dt²·H(H+1)/2. Đó là cost thuần tuyến tính, vì queue không bao giờ cạn.
+
+### 9.2 Mệnh đề P-clip và chứng minh
+
+**Câu hỏi.** Khi nào cost theo M0 bằng đúng cost kỳ vọng thật?
+
+**Mệnh đề.** Cố định một state đã cho x̂ (backlog + mode) và một action. Nếu trên **mọi** đường đi của nền (theo luật thật, xuất phát từ x̂), queue không bao giờ chạm 0 trong horizon, thì cost theo M0 bằng cost kỳ vọng thật. Nếu điều này đúng cho cả hai action thì Δ̂_M0(x̂) = Δ(x̂).
+
+**Chứng minh từng bước.**
+1. *Trên một đường đi:* nếu đối số của max luôn ≥ 0 thì max không cắt, nên q_k = q̂ + Σ_{j<k} X_j. Đây là một tổng, tuyến tính theo các X_j.
+2. *Lấy kỳ vọng:* E[q_k] = q̂ + Σ_{j<k} E[X_j | x̂]. Phép này được phép vì kỳ vọng của một tổng bằng tổng các kỳ vọng (tuyến tính của kỳ vọng).
+3. *Đường của M0:* q̄_{k+1} = max(0, q̄_k + E[X_k | x̂]). Giả sử quy nạp q̄_k = E[q_k]. Khi đó đối số của max bằng E[q_k + X_k], tức trung bình của các số ≥ 0 (bước 1), nên cũng ≥ 0. Vậy max không cắt, và q̄_{k+1} = E[q_{k+1}].
+4. *Cost* = δ·Σ q_k là tuyến tính theo q, nên cost của M0 bằng cost kỳ vọng thật. ∎
+
+**Kiểm bằng phép liệt kê exact.** Code dưới đây liệt kê mọi đường mode của một chuỗi Markov hai mức (κ = 0,3 s, dt = 0,05 s, H = 10). Nó không phụ thuộc engine:
+
+```python
+import itertools, math
+mu, lam, a, u = 10.0, 7.0, 6.0, 2.0          # path B dưới Switch
+kappa, dt, H = 0.3, 0.05, 10                 # h = 0,5 s
+p = (1 + math.exp(-2*dt/kappa))/2            # xác suất giữ mode mỗi slot (contract v1.3)
+r = 2*p - 1
+
+def true_cost(q0, m0):                       # M1: liệt kê mọi đường
+    tot, total_prob = 0.0, 0.0
+    for flips in itertools.product((0, 1), repeat=H-1):   # slot 1..H-1 có thể đổi mode
+        m, prob, q, cost = m0, 1.0, q0, 0.0
+        for k in range(H):
+            if k > 0:
+                f = flips[k-1]; prob *= (1-p) if f else p; m = 1-m if f else m
+            q = max(0.0, q + (lam + (a if m else -a) + u - mu)*dt); cost += q*dt
+        tot += prob*cost; total_prob += prob
+    assert abs(total_prob - 1) < 1e-12       # INVARIANT: xác suất cộng lại bằng 1
+    return tot
+
+def mean_rollout(q0, m0):                    # M0: một đường, mean có điều kiện theo mode
+    q, cost = q0, 0.0
+    for k in range(H):
+        q = max(0.0, q + (lam + (a if m0 else -a)*r**k + u - mu)*dt); cost += q*dt
+    return cost
+```
+
+Kết quả, với h·D = 0,5 × 7 = 3,5 packet (D giải thích ở 9.5):
+
+```text
+q0=5 OFF | M1=1.962326 M0=1.962326 chênh=+3.8e-15   không thể clipping
+q0=5 ON  | M1=2.762674 M0=2.762674 chênh=-1.1e-14   không thể clipping
+q0=1 OFF | M1=0.233943 M0=0.061835 chênh=+1.7e-01   CÓ THỂ clipping
+q0=1 ON  | M1=0.796482 M0=0.762674 chênh=+3.4e-02   CÓ THỂ clipping
+```
+
+**Một bài học thật từ chính lần chạy này.** Phiên bản đầu của tôi lặp qua 2^H đường thay vì 2^(H−1). Slot 0 không đổi mode, nên mỗi đường bị đếm hai lần. Kết quả là ở q₀ = 5, M1 ra **đúng gấp đôi** M0. Mệnh đề nói hai số phải *bằng nhau*, nên sai lệch hiện ra ngay; hệ số tròn 2 trỏ thẳng vào lỗi chuẩn hóa. Sau khi thêm invariant "tổng xác suất = 1" và sửa, chênh lệch về 10⁻¹⁴.
+
+> **Một định lý cho giá trị chính xác là một test cực mạnh cho code.** Đó là một lý do nữa để mệnh đề này đáng có, ngoài giá trị giải thích của nó.
+
+### 9.3 M0 luôn đánh giá *thấp* cost, nhưng sai số trên gap có thể mang dấu bất kỳ
+
+Bảng trên có một quy luật: ở các trường hợp có thể clipping, luôn có M1 ≥ M0. Điều này không phải ngẫu nhiên.
+
+- *Vì sao:* Lindley cho q_n = max(q₀ + S_n, max_j (S_n − S_j)), trong đó S là các tổng riêng phần của X. Đó là **max của các hàm tuyến tính**, nên là hàm **lồi** theo các X. Cost là tổng các q, nên cũng lồi. Jensen cho E[cost(X)] ≥ cost(E[X]). Vậy với **mọi action, ở mọi state, M0 ≤ M1**: M0 luôn đánh giá thiếu tắc nghẽn.
+- *Nhưng* quyết định dùng **gap**: Δ̂ − Δ = (sai số của M0 cho Switch) − (sai số của M0 cho Stay). Hai sai số đều cùng dấu (đều thiếu), nên hiệu của chúng **có thể dương hoặc âm**, tùy action nào đẩy queue tới gần biên rỗng nhiều hơn.
+
+Đây là gốc rễ ứng viên của chuyện AB và C có Γ̄ trái dấu nhau. Ghi rõ: đây là **inference**; L4.9 sẽ biến nó thành dự đoán có thể kiểm.
+
+### 9.4 Hai hệ quả
+
+**Hệ quả H1 (mức state).** M0 và M1 chỉ có thể khác nhau ở x̂ nếu từ x̂ **có thể** xảy ra clipping dưới ít nhất một action. Gọi tập các state như vậy là **Clip**.
+
+**Hệ quả H2 (mức population).** Câu hỏi: tối đa model đúng đáng bao nhiêu?
+1. Ngoài Clip, M0 chọn đúng như oracle (Δ̂ = Δ), nên đóng góp regret bằng 0.
+2. Trong Clip, regret nhị phân ≤ |Δ(x)|.
+3. Lấy kỳ vọng theo π:
+
+```text
+Ḡ_M|S1 = L̄10 − L̄11 = E_π[regret của M0 tại X] ≤ S_clip := E_π[ |Δ(X)| · 1{X ∈ Clip} ]
+```
+
+4. Từ S11: Γ̄ = Ḡ_M|S1 − Ḡ_M, với cả hai số đều ≥ 0. Do đó **|Γ̄| ≤ max(Ḡ_M, Ḡ_M|S1)**.
+
+> **Bằng lời:** nếu không có clipping thì không có model error, nên cũng không có tương tác. Khi đó state chỉ còn giá trị riêng của nó (Ḡ_S = Ḡ_S|M1).
+
+### 9.5 Khi nào clipping có thể xảy ra?
+
+**Muốn tính:** từ backlog q̂ trên path l, dưới action act, queue có thể chạm 0 trong h không?
+
+- Nhanh nhất là khi nền chuyển sang OFF ngay và ở OFF suốt thời gian đó. Biến cố này có xác suất dương, vì chuỗi Markov có thể giữ mode bao lâu cũng được.
+- Tốc độ xả khi đó:
+
+```text
+D_l(act) = μ − (λ_l − a) − u_l(act)          [packet/s]
+Clipping có thể xảy ra  ⟺  D_l(act) > 0  và  q̂_l < h · D_l(act)
+```
+
+- *Ví dụ:* λB = 7, u = 2 khi Switch: D_B = 10 − 1 − 2 = 7 packet/s. Với h = 0,5 s thì ngưỡng là 3,5 packet. Đó chính là ranh giới giữa q₀ = 5 và q₀ = 1 ở 9.2.
+- *Quan sát quan trọng.* Trong miền hợp lệ của contract (λ ≥ a, λA + u < 10, λB < 10), luôn có D > 0. Ngoài ra π có khối lượng ở sát 0, vì các đợt OFF làm queue cạn. Vậy **luôn có clipping với xác suất dương**. Mệnh đề **không** vẽ ra được "vùng không có tương tác" bên trong miền. Nó cho bạn: (i) một **cơ chế**, (ii) một **cận**, (iii) một **test exact**. Còn *độ lớn* của tương tác phải được dự báo bằng một đại lượng khác.
+
+### 9.6 P-clip trả lời attack "chỉ là argmin" đến đâu?
+
+| Câu hỏi của reviewer | P-clip trả lời được? |
+|---|---|
+| "Có cơ chế mạng nào đứng sau Γ̄ không, hay chỉ là hai sai số cộng?" | **Có:** sai số chỉ sinh ra từ capacity bỏ phí ở biên rỗng, và luôn cùng một hướng (đánh giá thiếu) cho từng action |
+| "Cơ chế đó có *dự báo* được Γ̄ ở đâu, lớn bao nhiêu không?" | **Chưa:** cần một predictor (Part C và L4.9) |
+| "Ngưỡng argmin có đóng vai trò không?" | Vẫn có. Clipping tạo sai số, còn ngưỡng biến sai số thành đổi quyết định. Đây là hai mắt xích nối tiếp nhau, không loại trừ nhau |
+
+## 10. Math foundations
+
+- **Must know now:** tuyến tính của kỳ vọng; hàm lồi và Jensen; quy nạp đơn giản.
+- **Useful while doing:** "max của các hàm tuyến tính là hàm lồi", vì nó cho kết quả ở 9.3.
+- **Later:** lý thuyết fluid queue điều biến Markov một cách hình thức. Không cần cho lesson này.
+
+## 11. Variables & units
+
+| Symbol | Ý nghĩa vật lý | Đơn vị | Biết bởi | Khi nào | Vì sao tách riêng |
+|---|---|---|---|---|---|
+| X_k | Thay đổi backlog trong slot k | packet | plant (ngẫu nhiên) | sau action | Đối tượng của tuyến tính / lồi |
+| idle | Capacity bỏ phí tích lũy | packet | evaluator | sau khi tính | Nơi duy nhất M0 và M1 khác nhau |
+| D_l(act) | Tốc độ xả nhanh nhất của path l | packet/s | thiết kế | trước khi tính | Quyết định khi nào có thể cạn |
+| Clip | Tập state mà clipping có thể xảy ra | — | evaluator | trước khi tính M0/M1 | Chỗ duy nhất M0 có thể sai |
+| S_clip | E_π[\|Δ\|·1{Clip}] | % C̄_ref | evaluator | cần π và M1 | Cận trên của Ḡ_M\|S1 |
+| P_clip | π(Clip) | — | evaluator | chỉ cần π | Predictor ứng viên "tiên nghiệm" |
+
+## 12. Assumptions
+
+**ASSUMPTION — cost tuyến tính theo backlog** (∫ q dt).
+- *Giả định:* cost chỉ phụ thuộc tuyến tính vào backlog.
+- *Vì sao cần:* bước 4 của chứng minh.
+- *Nếu sai:* ví dụ cost là tail latency hoặc có phạt drop. Khi đó M0 có thể sai cả khi không clipping, và mệnh đề phải viết lại.
+- *Nới được ở:* Phase 6–7 (finite buffer có drop).
+
+**ASSUMPTION — buffer vô hạn.**
+- *Vì sao cần:* đây là biên **duy nhất**, nên mọi phi tuyến đến từ đáy.
+- *Nếu sai:* finite buffer thêm một biên trên (drop). Khi đó có cơ chế clipping thứ hai, và tiêu chí Clip phải thêm điều kiện "chạm trần".
+
+**ASSUMPTION — M0 dùng mean có điều kiện theo mode.** Đã kiểm trong `mean_idle`. Nếu một baseline khác dùng mean không điều kiện, nó sai ngay cả khi không có clipping, và không được áp P-clip cho nó.
+
+**ASSUMPTION — plant fluid.**
+- *Vì sao cần:* tốc độ trong mỗi mode cố định, nên clipping chỉ đến từ mode switching.
+- *Nếu sai:* với packet Poisson, nhiễu trong mỗi mode cũng gây clipping. Tập Clip sẽ lớn hơn, và độ lớn của sai số M0 sẽ đổi. Đây là lý do representation độc lập ở Phase 6 nhắm đúng vào assumption này.
+
+## 13. 🔗 Liên hệ với spike/repo cũ
+
+- **Phase 1** (MASTER PLAN F1, F9, L1.6): bạn đã học "backlog = tuyến tính + capacity bỏ phí" và "Jensen ở biên rỗng". Lúc đó chúng là bài tập riêng lẻ. Lesson này nối chúng thành một mệnh đề về **tương tác**.
+- **A02** (linear-response null) được plan đặt ở Phase 3 nhưng repo **chưa làm**: MASTER PLAN ghi "repo không có thí nghiệm riêng". Các note `T01_single_observation.md` và `T02_stationary_certificate.md` hiện có là chủ đề khác. Vậy P-clip là việc mới. Nếu viết note, nên lấy số tiếp theo, không ghi đè.
+- **Thế hệ 2** dùng đường cong delay M/D/1/K *dừng* áp lên tải dự báo. Model đó bỏ hẳn backlog ban đầu, nên nó sai vì một lý do khác hẳn (thiếu transient state), không phải vì clipping của đường trung bình. M0 của v1.3 mạnh hơn nhiều: nó có transient, có mode, có clipping của đường trung bình. Đó là lý do "M0 không phải strawman" vẫn đứng.
+
+## 14. Research task (nếu thực hiện)
+
+**Part A — Chứng minh (MUST cho paper; khoảng nửa ngày).** Tự viết lại 9.2–9.4 bằng lời mình, rồi tự tính tay bảng ở mục 8.
+
+**Part B — Kiểm trên engine (SHOULD; khoảng 2 giờ).** Ý tưởng: lấy profile `d` (thật) và `dh` (M0) của một path, đánh giá ở các backlog ngoài Clip và trong Clip, rồi so sánh. Code dưới đây là **khung**; các chỗ ghi `KIỂM` là chi tiết của engine mà tôi chưa xác minh, nên bạn cần đọc lại khi implement.
+
+```python
+# Kiểm P-clip ở mức state trên engine native (chỉ đọc engine, không sửa)
+from fractions import Fraction as F
+import numpy as np
+from experiments.R3R_08_population_numerics import law_cache, profiles
+
+def pclip_state_check(lam, pre, post, kappa, h, ref=4, cache='cache', mu=10, a=6):
+    """Path có tải nền lam; managed = pre khi Stay, post khi Switch.
+       Dự đoán: ngoài Clip, |d − dh| ≤ sai số số học; trong Clip, có thể khác."""
+    noop = lambda *x, **y: None
+    unit, law, _ = law_cache.get(F(lam), F(pre), F(kappa), ref, f'{cache}/stationary', noop)
+    costs = profiles.get(F(lam), F(pre), F(post), F(kappa), F(h), ref, unit, f'{cache}/profiles', progress=noop)
+    D_max = mu - (F(lam) - a) - min(F(pre), F(post))         # action xả nhanh nhất
+    threshold = F(h) * D_max                                 # packet
+    for backlog in (threshold * F(3, 2), threshold * 2, threshold / 4, F(0)):   # 2 ngoài Clip, 2 trong Clip
+        idx = np.array([int(backlog / unit)])                # KIỂM: index = backlog / unit?
+        for m in (0, 1):
+            d, ed, *_ = profiles.values(costs, 'd', idx, m)
+            hh, eh, *_ = profiles.values(costs, 'dh', idx, m)
+            outside = backlog >= threshold
+            print(f'q={float(backlog):7.2f} mode={m} |d−dh|={float(abs(d[0]-hh[0])):.2e} '
+                  f'sai số≈{float(ed[0]+eh[0]):.1e} {"NGOÀI Clip → phải ≈ 0" if outside else "trong Clip"}')
+```
+
+**Part C — Thử predictor trên discovery (OPTIONAL; time-box 1 ngày).** Trên khoảng 50 điểm discovery: tính P_clip và S_clip/E_π|Δ|, rồi Spearman của chúng với Ḡ_M|S1 và |Γ̄|.
+
+**Spearman** là tương quan giữa *thứ hạng*. Nó hỏi: "điểm nào có predictor lớn hơn thì có Ḡ_M|S1 lớn hơn không?", và không quan tâm hai đại lượng có cùng thang đo hay không.
+
+**Cảnh báo trung thực:** theo 9.5, P_clip có thể gần 1 ở nhiều regime. Khi đó nó không phân biệt được gì. Đó cũng là một kết quả đáng ghi lại.
+
+## 15. Prediction before execution (khuyến nghị)
+
+1. *Part B:* với các backlog ngoài Clip, |d − dh| sẽ ở cỡ nào so với sai số số học? Nếu nó lớn hơn hẳn thì bạn nghi gì trước: mệnh đề sai, cách đổi index sai, hay M0 trong engine khác bạn nghĩ?
+2. *Part C:* P_clip sẽ biến thiên nhiều hay ít giữa các điểm SV? Còn giữa các điểm AB/C? Gợi ý: lớp A có h/τ ngắn.
+
+## 16. Verification
+
+- **Hiểu:** tự chứng minh lại P-clip; tự giải thích vì sao M0 ≤ M1 cho từng action nhưng sai số gap có thể mang dấu bất kỳ.
+- **Code minh họa:** invariant tổng xác suất = 1; ngoài Clip thì chênh lệch ở cỡ 10⁻¹⁴ (đã đạt).
+- **Engine (Part B):** ngoài Clip thì |d − dh| ≤ sai số; cận Ḡ_M|S1 ≤ S_clip không bao giờ bị vi phạm. Nếu bị vi phạm, đi theo escalation ladder; nghi phép đổi index trước khi nghi engine.
+
+## 17. Được claim và không được claim
+
+- **Được:** "Trong plant đã khai (fluid, buffer vô hạn, cost tuyến tính, M0 = rollout trung bình có điều kiện), sai số của M0, và do đó Γ̄, chỉ sinh ra từ capacity bỏ phí ở biên rỗng; Ḡ_M|S1 ≤ S_clip; M0 không bao giờ đánh giá cao cost của một action."
+- **Không được:** "clipping giải thích độ lớn của Γ̄"; "có vùng không có tương tác"; bất cứ điều gì ngoài plant fluid. Cũng không được claim P-clip là novelty: đây là hệ quả của queueing cơ bản, và giá trị của nó nằm ở vai trò trong *lập luận* của paper.
+
+## 18. Reviewer could ask
+
+1. *"Interaction chỉ là ngưỡng argmin?"* → **Trả lời một phần:** có một cơ chế vật lý cần thiết; chưa có dự báo.
+2. *"Mệnh đề này chẳng phải hiển nhiên sao?"* → Đúng, phần toán là quen thuộc. Phần có giá trị là nó *định vị* nguồn của tương tác và cho một cận kiểm được.
+3. *"Với packet Poisson thì sao?"* → Chưa trả lời; đó là Phase 6.
+4. *"Cận S_clip có chặt không?"* → Chưa biết. Part C hoặc Phase 5 sẽ trả lời.
+
+## 19. ⚠️ Bẫy người mới
+
+- **Nhầm điều kiện đủ với điều kiện cần.** "Có thể clipping" *không* có nghĩa M0 sai; nó chỉ cho phép M0 sai.
+- **Nghĩ rằng vì M0 luôn đánh giá thấp nên M0 luôn "thích Switch".** Sai: chiều sai của *gap* phụ thuộc action nào bị đánh giá thấp nhiều hơn.
+- **Áp P-clip cho một baseline dùng mean không điều kiện**, hoặc cho cost có phạt drop.
+- **Thấy hệ số tròn (×2, ×0,5) mà đi tìm vật lý.** Hệ số tròn thường là dấu hiệu của bug chuẩn hóa, như ở 9.2.
+
+## 20. 🧠 Tư duy researcher
+
+> **Đừng dừng ở "model đơn giản sai". Hãy hỏi: nó sai *ở đâu, theo chiều nào*, và điều gì làm nó *đúng*?** Một điều kiện mà ở đó model đơn giản *chắc chắn đúng* thường có giá trị hơn mười heatmap về nơi nó sai. Nó cho bạn một cơ chế, một cận và một test.
+
+## 21. Personal understanding artifact (khuyến nghị)
+
+Bằng lời mình, trong 6–8 dòng: vì sao cái bồn ở q₀ = 5 cho M0 đúng mà ở q₀ = 1 thì sai; điều đó dẫn tới "không clipping thì không tương tác" thế nào; và vì sao điều này **chưa** đủ để dự báo Γ̄ lớn ở đâu.
+
+## 22. Self-check (tùy chọn)
+
+1. *(Recall)* Clipping là gì? Idle là gì?
+2. *(Understand)* Bước nào của chứng minh P-clip dùng tính tuyến tính của kỳ vọng? Bước nào cần cost tuyến tính?
+3. *(Apply)* λA = 8, a = 6, u = 1,5, h = 2 s. Dưới Stay, path A có thể cạn khi backlog dưới bao nhiêu packet?
+4. *(Research)* Vì sao M0 ≤ M1 cho từng action, mà Γ̄ vẫn có thể dương ở nơi này và âm ở nơi khác?
+5. *(Reviewer)* Một reviewer nói: "P-clip đúng nhưng vô dụng, vì clipping luôn có thể xảy ra trong miền của anh." Bạn đồng ý đến đâu, và phản biện thế nào?
+
+## 23. Lesson Gate
+
+- **Understanding** — sau lesson, bạn nên hiểu:
+  - backlog = phần tuyến tính + idle, và engine tính đúng theo cách đó;
+  - chứng minh P-clip;
+  - M0 ≤ M1 cho từng action (lồi + Jensen), nhưng sai số trên gap có thể mang dấu bất kỳ;
+  - hai hệ quả (không clipping thì không tương tác; cận S_clip);
+  - tiêu chí D·h, và vì sao trong miền contract luôn có clipping;
+  - P-clip trả lời attack argmin đến đâu.
+- **Recommended execution:** Part A (chứng minh, viết thành note với số tiếp theo); Part B (khoảng 2 giờ, sửa các chỗ `KIỂM`). Part C chỉ khi còn time-box.
+- **Scientific dependency:** để đưa P-clip vào paper cần Part A, và nên có Part B làm bằng chứng engine khớp. Để viết hypothesis H-clip ở L4.9 cần Part C. Nếu không có predictor nào theo kịp, giữ P-clip như mệnh đề giải thích.
+- **Can I study the next lesson?** **Yes.** L4.8 (realism) độc lập với lesson này.
+
+Khi bạn muốn, nói "tiếp tục lesson tiếp theo".
