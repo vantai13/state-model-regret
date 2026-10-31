@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "date": "2026-10-31",
+  "checks": {
+    "all_597_native_hashes_costs_flags_match": true,
+    "input_source_hashes_match": true,
+    "numpy_independent_quantiles_match_all_groups": true,
+    "all_97_negative_estimates_retained": true,
+    "frozen_A1_A2_A3_SUB_screen_rules_unchanged": true,
+    "SUB_only_10_parked_keys_no_new_physical_outcomes": true,
+    "D22_toy_preserves_stationary_pi_and_backlog_marginals": true
+  },
+  "max_independent_cost_difference_pp": 2.220446049250313e-16,
+  "rows": 1715,
+  "native_rows": 597,
+  "analysis_commit": "56b6090d41288f5dc3d336f9177ce14cb701daa7",
+  "predictions_commit": "59971ae",
+  "python": "3.14.5",
+  "code_sha256": "af2dc90b43478be9e6ae8b3efa0d5609c3da24d03114a96711b6f6adb47cd779",
+  "negative_estimand_property": "NOT_PASS_AS_EXACT; 97 estimates on 54 keys retained; no nonnegativity certificate",
+  "independent_human_review": false,
+  "author_understanding": "OPEN",
+  "native_D22": "DEFERRED",
+  "initial_final_summary_comparison": "Rows CSV byte-identical and decomposition conclusions unchanged after flag/tick and stationary-toy corrections",
+  "figure_files_visually_checked": [
+    "P1.png",
+    "P2.png",
+    "P3.png"
+  ],
+  "D22_model_scope": "generic finite Markov counterexample, not production fluid evidence",
+  "tests": {
+    "targeted_passed": 16,
+    "targeted_seconds": 0.09,
+    "full_passed": 896,
+    "full_seconds": 84.92,
+    "final_log": "results/lessons/l4_6_v2/tests_final.log"
+  }
+}

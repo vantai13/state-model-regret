@@ -1978,3 +1978,41 @@ Báo cả lịch sử này trong freeze L4.9; không đọc R09/R10 hoặc outco
 PHASE_4.md v1.1/PHASE_4_v2; tạo pointer và bản triển khai tối thiểu từ lesson,
 không giả đã sửa toàn văn/Phụ lục B. Chỉnh lý toán học được ghi riêng với raw
 lesson nguyên byte. Lesson này không tạo scientific evidence; tiếp theo L4.6.
+
+
+### DL-118 — L4.6 (v2): decomposition discovery, chỉnh lý D22 và bound (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Thực hiện theo yêu cầu tiếp lesson6 và ủy
+quyền trước đó; AI soạn predictions/learning note, không author-self hoặc human
+review. Predictions59971ae trước phân tích; source cuối56b6090. Không đổi Main
+RQ, contract, bốn costs, metric/normalization, reading thresholds hoặc baseline.
+
+Đọc được Part1/Part2; attachment code ở UUIDa33f61c8 không có tại đường dẫn
+được cung cấp. Dựng script theo đặc tả hai phần, không nhận đã chạy code thiếu.
+Pilot map1/map2/map3age amp6:1136raw→1118unique,18duplicates khớp, giữ các age
+experiments. Native597keys riêng:449SV+/48SV−,18MV/72SH tại640/4;10SUBpark
+tại640/8. Không pool resolution/engine vào một prevalence estimate.
+
+Kết quả median%Cref: SV+GS|M1=1.169907,GS=.969564,Gamma=.126433. Pilot
+A/AB/C medianGS|M1=1.677613/.682230/.013852; ABq10–q90=.026992–2.583081
+không được gom toàn bộ thành “chỉ tương tác”. SUB10medianGS=6.775916,
+GS|M1=.056896,Gamma=−6.683420. P1/P3/P4 đúng theo prediction đã ghi; P2 sai,
+peak median marginal ởkappa/tau=.075,n18,không chứng nhận S10mechanism.
+
+Identity/export/source/quantile checks PASS; giữ97negative metric estimates
+trên54keys(3SV+/51SH),50rawarithmeticFalse. MinimumGS|M1=−.104205109pp ở
+P44_009; nhỏ hơn.25pp không là certified error bound hay S07PASS. Khôngclamp
+hoặc refine/A4 để cứu. Fulltests/commands/diagnostics xem report.
+
+Hai chỉnh lý logic: |Gamma|<=max(GM,GM|S1) không suy |Gamma|lớn⇒GM|S1lớn
+khiGamma<0. D22contract giữY trongE[gap_hat|Y,Q], không phảiP(mode|Q).
+Finite stationary Markov toy cócùngY/Qmarginals chohaiLcbs khác nhau dù cả
+haiqua telescoping/one-hot; đây chỉ làsemantic counterexample, khôngfluid
+measurement. Savedoutputs khônggiữjointcầnthiết nên nativeD22/F/V vẫn
+DEFERRED/null,0probes. Khôngsửa frozencontract đểkhớp policyQ-only.
+
+0physicalcalls/CF/sealedoutcomes mới; chỉ10SUBdiscoveryđãpark, không66keys.
+G1/Understanding/T07authoraddendum/L8vàCF-v2parkinggiữ. Được tiếpL4.7;
+khôngnângclaim practicalfreshness khiD22chưacó. [Report](../results/lessons/l4_6_v2/report.md),
+[learningnote/chỉnh lý](lessons/L4.6_v2_learning_note.md),
+[CSV/JSON/figures](../results/lessons/l4_6_v2/analysis/summary.json).

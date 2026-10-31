@@ -339,3 +339,16 @@ MVnarrowrho5%/recovery≈86%,SHrho0 vàSVkhôngnarrow. Deterministickhôngexact/
 continuous;FAIL_SCREENkhôngtươngđươngmedian;0/48MEETSkhôngeffect0.
 Learningnote doAI soạn,khôngauthor-self/UnderstandingPASS;G1giữ.
 Report results/lessons/l4_5_v2/report.md;parking.json cùngthưmục.
+
+
+L4.6(v2)/31-10(DL118): coredecompositionxong,1136pilotraw→1118unique,
+597nativekeys(497SV+90MV/SH+10SUBpark),3figures/quantiles. PredictionsAI
+59971ae,source56b6090;khôngauthor-self. SV+medianGS|M1=1.169907%soGS=.969564%;
+ABpilotq10–q90GS|M1=.026992–2.583081%,khôngtấtcảchỉinteraction. P2forecast
+sai(.075marginalmedianpeak,n18). Giữ97negativeestimates/54keys,50rawflags;
+identity/exportPASSkhôngS07exactPASS,minGS|M1−.104205109pp. Khôngrefine/A4.
+D22phảigiữYtrongE[gap_hat|Y,Q];proposalP(mode|Q)kháccontract. NativeF/Vnull,
+DEFERRED;stationaryMarkovtoy chỉsemanticcounterexample,khôngfluidmeasurement.
+Bound|Gamma|<=max(GM,GM|S1)khôngépGM|S1lớnkhiGammaâm.0newphysical/CF/sealed,
+SUB/CF-v2vẫnpark,không66keys/G1/UnderstandingautoPASS. L4.7tiếp;report
+results/lessons/l4_6_v2/report.md;sourceexperiments/P4_06_decomposition/.

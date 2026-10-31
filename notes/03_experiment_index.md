@@ -88,3 +88,15 @@ F1 vẫn HOLD, SV/SUB và G1/human gates giữ nguyên; 0 CF/sealed/box outcomes
 [CSV](../results/lessons/p4_a2/point_summary.csv) ·
 [Decision](../results/lessons/l4_4/a2_probe/decision.json) ·
 [Completion](phases/P4_A2_completion.json).
+
+
+## L4.6 (v2) — discovery decomposition, 31/10/2026
+
+Source `experiments/P4_06_decomposition/decompose.py`; predictions59971ae,
+analysis source56b6090. 1136pilot raw→1118unique;597saved native keys,3figures,
+quantiles10/50/90. Khôngenginecalls/CFoutcomes/SUBrerun. Identity/export checks
+PASS,97negative estimates/54keysgiữnguyên; khôngS07exactPASS. NativeD22/F/V
+DEFERRED/null doQ-onlyproposalbỏYtráicontract; cóstationarysemantictoy.
+P2forecast sai đượcghiđủ; corexong, L4.7tiếp. [Report](../results/lessons/l4_6_v2/report.md),
+[CSV](../results/lessons/l4_6_v2/analysis/rows.csv),
+[summary](../results/lessons/l4_6_v2/analysis/summary.json).

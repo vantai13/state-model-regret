@@ -95,7 +95,7 @@ Self-check do AI trả lời để tác giả tự đối chiếu, không chấm
 
 | Lesson | Công việc | Trạng thái |
 |---|---|---|
-| L4.6 | Tách G_S_M1,G_M_S1,Gamma trên dữ liệu đã có; xem D22 native/cb0 với audit đúngjoint | Chưa chạy; D22 prototype không đồng nghĩa population implementation đã đủ |
+| L4.6 | Tách G_S_M1,G_M_S1,Gamma trên dữ liệu đã có; xem D22 native/cb0 với audit đúngjoint | Core đã chạy:1118pilot+597native,3figures; [report](../../results/lessons/l4_6_v2/report.md). NativeD22DEFERRED: Q-only trong hướng dẫn bỏY, chưa có joint estimator đúng |
 | L4.7 | Kiểm mệnh đề clipping, predictor/null/knockout với điều kiện rõ | Chưa chứng minh/chạy; mean path không clipping chưa đủ cho mọi stochastic trajectories |
 | L4.8 | Realism nhẹ, chọn use case và miền có lý do | Chưa có nguồn mới; áp search protocol khi làm |
 | L4.9 | Freeze hypothesis có cơ chế và held-out condition chưa dùng | Chưa khóa hypothesis/design/held-out; ghi cả lịch sử SV FAIL và SUB partial |

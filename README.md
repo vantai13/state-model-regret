@@ -2,7 +2,23 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.5 (v2): đổi loại evidence, SUB và CF-v2 đã park (DL-117).**
+**Hiện tại — L4.6 (v2): đã tách nguồn và vẽ3hình trên discovery (DL-118).**
+
+1.136pilot rows→1.118unique;597native keys(497SV+90MV/SH+10SUB đã park).
+Trên449SV+, medianGS|M1=1,169907%Cref, medianGS=.969564%; AB pilot có
+GS|M1q10–q90=.026992–2.583081%, không đồng nhất. Giữ mọi raw flags/negative
+estimates; không chứng nhận numerics đã giải quyết. D22 native cònDEFERRED:
+hướng dẫn trộnP(mode|Q) bỏY khác contract(Y,Q), đã kiểm bằng stationary toy.
+Không engine/CF/R09/R10 outcomes mới; SUB/CF-v2 vẫnpark, G1/UnderstandingOPEN.
+
+[Báo cáo/số đo](results/lessons/l4_6_v2/report.md) ·
+[CSV](results/lessons/l4_6_v2/analysis/rows.csv) ·
+[P1](results/lessons/l4_6_v2/analysis/P1.png) ·
+[P2](results/lessons/l4_6_v2/analysis/P2.png) ·
+[P3](results/lessons/l4_6_v2/analysis/P3.png).
+Tiếp theo **L4.7 clipping**; không coi plots là evidence cơ chế hoặc realism.
+
+**Snapshot L4.5 (v2): đổi loại evidence, SUB và CF-v2 đã park (DL-117).**
 
 Chọn **0 card mới trong hướng hiện tại** vì chuyển sang tách nguồn, mechanism
 và held-out điều kiện; đây không phải kết luận SUB FAIL. Giữ SV FAIL_SCREEN,

@@ -1023,3 +1023,22 @@ Không chọn ρ*, không tính R_M/GS regional medians, không gọi A3/A1 reru
 CF/R09/R10/new coordinates/box outcomes. Forecast AI được chấm cả phần sai;
 không gán author-self hoặc Understanding. SV/SUB giữ nguyên; F1 HOLD chờ A3
 validity, G1 và các human gates còn mở. Report `results/lessons/p4_a2/report.md`.
+
+
+## L4.6 (v2) — 31/10/2026, đọc lại discovery để tách nguồn
+
+Đọc hai lessoninputs; codeattachmentUUIDa33f61c8 không có tại đường dẫn, không
+nhận đãkiểm nó. Inputs đã nêu3SVnegative vàL4.2đãlộABheterogeneity. Predictions
+59971ae doAIsoạntrướcscriptmới, khôngblind/independentauthor forecast.
+
+Đã xem3figures/quantiles trên1118unique pilot(map1/2/3ageamp6,1136raw) và
+597native keys có sẵn:497SV,90MV/SH,10SUBpark. Khôngcónewcoordinates/native
+calls/CF/sealedoutcomes; chỉđọctọađộ270CFđểcollisionguard. Không chạy66SUB.
+
+ĐãthấymedianSV+GS|M1=1.169907%soGS=.969564%, ABpilotq10–q90GS|M1
+.026992–2.583081%; P2forecast sai(peakmarginalmedian tại.075,n18). Đãgiữ
+97negative metric values/54keys, minimum−.104205109pp và50rawflags. Không
+đổithreshold/refine. D22toyMarkovstationarychỉsemantic, nativeF/Vnull;
+khônggántoylàprobefluid. Nhữngsummarynày naylàinputđãthấychoL4.9,không
+held-out/confirmation/mechanismevidence. G1/Understanding/P0V10/L8giữ.
+[Report](../results/lessons/l4_6_v2/report.md) · [provenance](../results/lessons/l4_6_v2/analysis/provenance.json).
