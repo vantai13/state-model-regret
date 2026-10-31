@@ -4,6 +4,23 @@ Người phụ trách: **Doan Van Tai** · 30/10/2026.
 Provenance: AI soạn; **DRAFT_CONDITIONAL_NOT_CARD_DECISION**.
 Không sửa contract/cardv2 hoặc claim boundaryv1.3 frozen. Chưa có outcomeCF.
 
+## Baseline đã khóa trước confirmation — cập nhật 31/10/2026
+
+A3/B1: MV rho=1/20 ở cả ba mức, median recovery0,862967–0,867986. Nếu card MV
+PASS ở Phase5, câu claim bắt buộc ghi **“so với controller mean-field không
+margin”**; margin đơn giản đã lấy lại khoảng86% model gain trên discovery.
+SH rho=0, median abs(GSθ)/Cref4,679597–4,701969%,deltaL10=0: không thu hẹp
+theo lưới baseline đã thử. SV rho=1/100 trên448READY, baseline không thu hẹp
+theo luật SV đã khóa (DL110). Những câu này không phải verdictCF.
+
+SUB được tác giả chọn chạy một hộp native+baseline. Áp nguyên readingMV+A:
+nếu medianR_M>=1/2 thì câu SUB phải kèm **“so với controller không margin”**;
+không đổi Gamma, metric hoặc card verdict vì điều này. Chỉ ghi kết quả sau run.
+
+Không giả định recovery đơn điệu theo rho. rho=5% đã là witness đủ để thu hẹp
+MV trong lưới đã thử; không cần mở rộng lưới hoặc A4. Ba numerical levels có thể
+cùng bias; STABLE không là convergence/certificate từng point.
+
 | Nhánh tương lai | Câu có thể viết nếu phép kiểm tương ứng PASS | Giới hạn |
 |---|---|---|
 | 0card mới | Regime map là discovery thích nghi do AI thiết kế/chạy; không có confirmation cho SV/SUB. NếuF1PASS chỉ nói về MV/SH đúng vùng/metric đã khóa | Không claim state value dương/substitution đã xác nhận; không suy0card từ thiếu dữliệu |

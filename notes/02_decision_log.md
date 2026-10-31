@@ -1921,3 +1921,14 @@ không đồng nghĩa BUG hoặc lean readiness FAIL. G1, card v2/contract/ngư�
 SV/SUB giữ nguyên; 0 CF/sealed/new coordinates/box counts. L4.5 Part B/combined
 SUB/readiness/Gate 4/P0-V10/L8/Understanding còn mở. Report:
 `results/lessons/p4_a2/report.md`; completion `notes/phases/P4_A2_completion.json`.
+
+
+### DL-114 — A3/B1 chốt baseline và đóng nhánh numerical (31/10/2026)
+
+MV/SH đều STABLE ở3mức: rho5%/0, MV narrow với medianR_M.862967–.867986; SH khôngnarrow.
+Không readiness reason nào tại rho*; gap runner-up MV>=.94165%Cref/SH>=3.65091%, max score drift từmain .03352%/.01323%.
+Đây finite sensitivity, không convergence proof; không giả recovery đơn điệu theo rho. Không A4, giữ mọi failure lịch sử.
+
+### DL-115 — Part B: một hộp mỗi candidate, SV không chờ SUB (31/10/2026)
+
+Tác giả chọn “Chạy một hộp SUB (khuyến nghị)”; AI theoủyquyền soạn chi tiết/forecast,khônghuman-selfwork. Hai hộp+76SUBkeys+luật0/1/2card khóa trước mọi count; SV chỉ449/48keys registered,7keys khác trongplus-envelope chưa cócoverage. Chỉ đổi screen/test để preflight riêng từngcandidate, kernel/threshold/power v1 nguyênbyte;0hộpthật lúcrelock. SUB dùngexplicit-case loader/runnerA1,main640/8+neighbors320/8,640/4,target00/readingMV+A,cap8CPUh,giữNR. MỗiPASS_SCREEN thêm1cardtheoủyquyền,baseline narrow chỉđổiwording;khôngthêmhộp/rerefine đểcứu,khôngCF.

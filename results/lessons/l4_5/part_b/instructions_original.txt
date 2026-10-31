@@ -1,0 +1,250 @@
+Tôi sẽ pull repo, kiểm kết quả A3, rồi đọc tình trạng L4.5 Part B và kế hoạch Phase 5 dưới nguyên tắc chống over-engineering của bạn.
+
+A3 hoàn tất và gọn hơn bản tôi đề xuất, đúng tinh thần bạn muốn. Giờ tôi xem trạng thái L4.5 (Part A, luật sàng, ứng viên SV/SUB) và kế hoạch Phase 5.
+
+# A3 đã ổn và nhánh numerics có thể đóng; L4.5 Part B rút gọn còn ba bước
+
+Tôi đã pull 4 commit mới (tới `c686259`) và làm những việc sau:
+
+- **Kiểm lại A3 độc lập:** tôi tự tính lại ρ\* và median ở cả ba mức từ các row bạn đã commit. Kết quả khớp 6/6 với report của bạn.
+- **Viết một bản vá nhỏ cho `screen.py`:** để SV được sàng mà không phải chờ SUB. Tôi kiểm nó trong một bản clone tạm: 170 test Phase 4 đều đạt; `preflight('SV')` cho READY; SUB vẫn BLOCKED.
+- **Những gì tôi không làm:** không chạy sàng thật, không tính p̂, không push gì cả.
+
+---
+
+## 1. A3: vì sao đóng nhánh numerics là có cơ sở
+
+| Support | ρ\* (cả 3 mức) | Median | Đọc |
+|---|---|---|---|
+| MV | 1/20 | R_M = 0,863 – 0,868 | Thu hẹp |
+| SH | 0 | \|Ḡ_S^θ\| = 4,68 – 4,70% Cref, ΔL10 = 0 | Không thu hẹp |
+
+"Ba mức cho cùng kết luận" là điều kiện cần. Hai fact tôi kiểm thêm cho thấy kết quả này không phải do may mắn:
+
+1. **Không lỗi nào rơi đúng vào ρ\*.** Các lỗi của 36 điểm SH NOT_READY phân bố như sau: 1/200: 3, 1/100: 18, 1/50: 47, 1/20: 22, và **0 lỗi tại ρ = 0**. MV không có điểm NOT_READY nào. Nghĩa là các vách mà A2 tìm thấy không chạm tới con số claim dùng.
+2. **Argmin không mong manh.** Khoảng cách giữa ρ\* và ρ đứng thứ hai là 0,94% Cref ở MV và 3,67% ở SH. Khoảng cách đó chỉ trôi chừng 0,005–0,02% giữa các mức, nhỏ hơn hơn trăm lần.
+
+**Hai điểm diễn giải đáng ghi lại:**
+
+- **ρ\* của MV nằm ở rìa lưới (1/20).** Câu cần hỏi là "điều này có đổi claim không?". Không: ρ lớn hơn chỉ có thể lấy lại *nhiều hơn*, nên kết luận "thu hẹp" chỉ mạnh thêm. Vì vậy không cần mở rộng lưới. Đây đúng là phép thử trong nguyên tắc của bạn: issue này không làm đổi hướng của claim.
+- **Kết quả khoa học quan trọng nhất của cả L4.4 không nằm ở numerics, mà ở con số R_M ≈ 0,86.** Trong vùng MV, một margin đơn giản lấy lại khoảng 86% lợi ích của model repair.
+  - Nếu MV PASS ở Phase 5, câu claim **bắt buộc** phải kèm "so với controller mean-field không margin".
+  - Reviewer gần như chắc chắn sẽ hỏi: "sao không dùng margin là đủ?".
+  - SH thì ngược lại: margin không giúp gì cho controller 10 (ρ\* = 0), nên claim về tác hại vẫn đứng nguyên.
+
+**Một quan sát không cần điều tra:** điểm số SH tăng 3,67% Cref chỉ vì chuyển từ ρ = 0 sang ρ = 1/200. Một margin rất nhỏ đã làm controller 10 tệ hẳn đi, phù hợp với hiện tượng vách. Quan sát này không đổi claim nào, nên nằm ngoài critical path.
+
+**Còn thiếu một thứ nhỏ:** decision log chưa có mục cho A3. Phase 5 phụ thuộc vào ρ\* đã đóng băng, nên nên thêm **DL-114** dài 3–4 dòng: verdict, ρ\*, hai fact ở trên, và "không A4".
+
+---
+
+## 2. Bài L4.5 Part 2 (file bạn gửi): nên sửa gì
+
+| Mục trong bài | Giữ hay đổi | Lý do |
+|---|---|---|
+| §2.3 đề xuất 2 (tách mẫu) và 3 (gán trọng số theo measure) | **Bỏ** | Luật v1 đã khóa là không dùng; hai đề xuất không đổi quyết định nào |
+| §3 baseline | **Cập nhật** | SV đã có baseline (ρ\* = 1%, không thu hẹp); F1 đã chốt. Với SUB, dùng lại nguyên luật đọc `MV+A` (median R_M ≥ ½ thì câu SUB phải kèm "so với controller không margin"). Không viết luật mới |
+| §7 trình tự | **Rút gọn** | Bước (1)–(3) đã xong. Lần chạy native ở bước (4) giờ **chỉ còn cần cho SUB**. SV đã có native + baseline (L43_A1_SV) nên sàng được ngay |
+| Tối đa 3 hộp | **Siết lại** | Khai mọi hộp **một lần, trước khi đếm**, không thử từng hộp nối tiếp. Khuyến nghị 1 hộp cho mỗi ứng viên |
+| §8 code skeleton | **Đã có sẵn** | Chỉ cần gỡ ràng buộc khiến SV phải chờ SUB (bản vá ở mục 3) |
+| §15–16 bài tập, tự kiểm | Tùy chọn | Có ích cho việc hiểu, không nằm trên critical path |
+
+---
+
+## 3. Part B tối giản
+
+**Câu hỏi:** có nên dùng một suất F2 cho SV và/hoặc SUB trong lần confirmation duy nhất không?
+
+**Khi nào dừng:** khi mỗi ứng viên đã có một kết quả sàng (hoặc được bạn bỏ, có ghi lý do), và bạn đã ký DL 0/1/2 card. Không thêm hộp nào "để xem".
+
+### Bước 1: sàng SV (không tốn compute, khoảng 30 phút)
+
+**Đánh giá trước.** Đây là suy luận từ một con số đã công khai, không phải tính mới.
+- DL-110 ghi median G_S/Cref trên 448 điểm READY của SV+ là **0,972% < 1%**. Vậy nhiều nhất một nửa số điểm đạt ngưỡng, tức p̂ của toàn support ≲ 0,5.
+- Theo report Part A của bạn, để qua sàng cần p_plan ≥ 0,641, tức **p̂ ≥ khoảng 0,74** (hoặc ≥ 0,78 nếu U = 5%).
+- Vì vậy hộp toàn support gần như chắc chắn FAIL_SCREEN.
+
+**Vậy sao vẫn chạy?** Vì nó tốn vài phút và đo được r̂. Quan trọng hơn, nó biến "bỏ SV" thành **quyết định theo luật đã khóa** thay vì theo cảm giác.
+
+**Lựa chọn của bạn:**
+
+- **(A) Một hộp duy nhất, đúng bằng hai support đã đóng băng.** Tôi khuyến nghị cách này: không thêm bậc tự do nào.
+- **(B) Thêm một hộp con của vùng A, khai ngay bây giờ cùng lúc với (A).** Cái giá: hộp con này được chọn khi bạn đã thấy toàn bộ bản đồ (median, hộp pilot 72,8%). Nhãn native lại thấp hơn nhãn pilot một cách hệ thống. Vì thế khả năng qua sàng thấp, và nếu qua thì claim nằm trên một vùng chọn hậu kiểm. Đây đúng là đường winner's curse.
+
+**Bản vá `screen.py`** (đã kiểm; bạn tự áp):
+
+```diff
+-def candidate_receipt_ready():
+-    """A future combined run must supply complete, committed scope receipts."""
++def candidate_receipt_ready(candidate=None):
++    """Committed scope receipt for the candidate being screened (None = every approved candidate).
++    SV and SUB are screened independently: one candidate may wait for its own run without blocking the other."""
+ ...
+-    for candidate in approved:
+-        detail=receipt['candidates'][candidate]
++    targets=approved if candidate is None else [candidate]
++    for name in targets:
++        require(name in approved,'candidate not retained by author: '+name)
++        detail=receipt['candidates'].get(name)
++        if detail is None:return False                   # no committed run for this candidate yet
+         require(detail['native_readiness']=='PASS' and detail['baseline_readiness']=='PASS' and
+                 detail['support_complete'] is True and detail['rho_policy_frozen'] is True,
+-                'incomplete candidate-specific data: '+candidate)
++                'incomplete candidate-specific data: '+name)
+         require(detail['native_manifest'] in receipt['source_sha256'] and
+-                detail['rho_policy_path'] in receipt['source_sha256'],'missing input bindings')
++                detail['rho_policy_path'] in receipt['source_sha256'],'missing input bindings: '+name)
+     return True
+ 
+-def preflight():
++def preflight(candidate=None):
+ ...
+-    ready=candidate_receipt_ready()
++    ready=candidate_receipt_ready(candidate)
+ ...
+-    status=preflight()                                  # trong screen_registered
++    status=preflight(candidate)
+ ...
+-        result=preflight();print(json.dumps(...))       # trong main
++        result=preflight(args.candidate);print(json.dumps(...))
+```
+
+**Sửa test trong `tests/test_p4_05_candidates.py`.**
+
+Test cũ `test_no_real_boxes_or_engine_calls_in_current_preflight` chụp lại trạng thái "chưa có hộp nào", nên nó sẽ sai ngay khi bạn sàng SV. Thay nó bằng hai test sau:
+
+```python
+def test_preflight_never_calls_engine_or_reads_cf():
+    status=S.preflight()
+    assert status['engine_calls']==0 and status['new_CF_outcomes']==0 and status['final_card_count'] is None
+
+
+def test_each_candidate_is_screened_independently(tmp_path,monkeypatch):
+    """A receipt for SV alone makes SV ready; SUB and the project-level check still wait for SUB's own run."""
+    (tmp_path/S.HERE).mkdir(parents=True)
+    (tmp_path/S.HERE/'author_choices.json').write_text(json.dumps(dict(approved_candidates=['SV','SUB'])))
+    for name in ('prereg.json','scope.json','manifest.json','rho.json'):(tmp_path/name).write_text(name)
+    receipt=dict(status='READY_FOR_SCREENING',scope_supersedes_historical_HOLD=True,
+                 new_prereg_path='prereg.json',author_scope_decision_path='scope.json',
+                 source_sha256={n:S.sha(tmp_path/n) for n in ('prereg.json','scope.json','manifest.json','rho.json')},
+                 candidates=dict(SV=dict(native_readiness='PASS',baseline_readiness='PASS',support_complete=True,
+                                         rho_policy_frozen=True,native_manifest='manifest.json',rho_policy_path='rho.json')))
+    (tmp_path/S.HERE/'candidate_readiness.json').write_text(json.dumps(receipt))
+    monkeypatch.setattr(S,'ROOT',tmp_path)
+    monkeypatch.setattr(S,'committed_json',lambda path:json.loads((tmp_path/path).read_text()))
+    monkeypatch.setattr(S,'git',lambda *a:(tmp_path/a[1].split(':',1)[1]).read_bytes())
+    assert S.candidate_receipt_ready('SV') is True
+    assert S.candidate_receipt_ready('SUB') is False and S.candidate_receipt_ready() is False
+    receipt['candidates']['SV']['baseline_readiness']='HOLD'
+    (tmp_path/S.HERE/'candidate_readiness.json').write_text(json.dumps(receipt))
+    with pytest.raises(RuntimeError,match='incomplete candidate-specific data: SV'):S.candidate_receipt_ready('SV')
+```
+
+Ngoài ra, trong `test_registered_pipeline_with_mocked_readiness_and_synthetic_files`, sửa dòng monkeypatch thành `lambda candidate=None: dict(status='READY',reasons=[])`.
+
+**File hộp SV** `experiments/P4_05_candidates/boxes/SV_01_full_support.json`.
+
+Bounds ở đây chính là khung bao tọa độ của hai support. Tôi chỉ dùng tọa độ, không dùng nhãn, và đã kiểm rằng hộp chạm 0 khóa CF (mọi khóa CF có h ≥ 8):
+
+```json
+{
+ "candidate": "SV",
+ "id": "SV_01_FULL_REGISTERED_SUPPORT",
+ "status": "REGISTERED_BEFORE_BOX_COUNTS",
+ "reason": "Đúng hai support SV+ và SV- đã đóng băng ở L43_A1_SV (DL-107); không chọn bounds mới.",
+ "exposure": "Khi khai hộp này đã thấy DL-110: median G_S/Cref trên 448 điểm READY của SV+ = 0,972%; pilot box vùng A 72,8%.",
+ "plus":  {"lambdaA": ["6", "17/2"], "lambdaB": ["6", "17/2"], "u": ["1", "7/4"], "kappa": ["1/5", "1"], "h": ["1", "4"], "c_sw": ["0", "0"]},
+ "minus": {"lambdaA": ["6", "17/2"], "lambdaB": ["6", "17/2"], "u": ["1", "3/2"], "kappa": ["2", "3"],   "h": ["2", "4"], "c_sw": ["0", "0"]}
+}
+```
+
+**Receipt cho SV và khóa lại `rules.lock.json`.** Chạy đoạn này một lần, sau khi đã sửa code và test. Hash được tính từ file thật, không gõ tay:
+
+```bash
+.venv/bin/python - <<'EOF'
+import json, hashlib
+def sha(p): return hashlib.sha256(open(p,'rb').read()).hexdigest()
+src=['experiments/P4_A1/runs/L43_A1_SV/prereg.json','experiments/P4_A1/runs/L43_A1_SV/author_choices.json',
+     'experiments/P4_A1/runs/L43_A1_SV/rho_freeze.json','results/lessons/l4_3/a1_sv/summary/summary.json',
+     'results/lessons/l4_3/a1_sv/summary/native_manifest.json']
+receipt=dict(responsible='Doan Van Tai', status='READY_FOR_SCREENING', scope_supersedes_historical_HOLD=True,
+  scope_note='SV dùng run native+baseline L43_A1_SV (DL-107/DL-110), không dùng audit pilot L4.3 cũ; file HOLD lịch sử giữ nguyên. SUB chưa có receipt.',
+  new_prereg_path=src[0], author_scope_decision_path=src[1],
+  candidates=dict(SV=dict(native_readiness='PASS', baseline_readiness='PASS', support_complete=True, rho_policy_frozen=True,
+     native_manifest=src[4], rho_policy_path=src[2],
+     evidence='497/497 completed: 496 PASS, 1 NOT_READY (P43_0605) vào sàng dưới nhãn UNRESOLVED; rho*=1/100, target 00')),
+  source_sha256={p:sha(p) for p in src})
+json.dump(receipt, open('experiments/P4_05_candidates/candidate_readiness.json','w'), ensure_ascii=False, indent=1)
+lock=json.load(open('experiments/P4_05_candidates/rules.lock.json'))
+for p in ('experiments/P4_05_candidates/screen.py','tests/test_p4_05_candidates.py'):
+    lock['source_sha256'][p]=sha(p)
+lock['relock_note']='Chỉ đổi screen.py/test để sàng SV và SUB độc lập; không đổi ngưỡng, power, nhãn hoặc luật hộp; 0 hộp thật khi khóa lại.'
+json.dump(lock, open('experiments/P4_05_candidates/rules.lock.json','w'), ensure_ascii=False, indent=2)
+EOF
+```
+
+**Thứ tự làm và kết quả mong đợi:**
+
+```bash
+.venv/bin/python -m pytest -q tests/test_p4_05_candidates.py     # 17 passed
+.venv/bin/python -m pytest -q                                    # 880 passed (879 + 1)
+# chạy đoạn receipt/relock ở trên, viết DL-114 (A3) và DL-115 (một dòng: gỡ ràng buộc SV–SUB, 0 hộp thật)
+git add experiments/P4_05_candidates tests/test_p4_05_candidates.py notes/02_decision_log.md
+git commit -m "L4.5 Part B: screen SV independently of SUB; SV receipt and full-support box before counts"
+.venv/bin/python -m experiments.P4_05_candidates.screen preflight --candidate SV   # "status": "READY"
+.venv/bin/python -m experiments.P4_05_candidates.screen screen --candidate SV \
+    --box experiments/P4_05_candidates/boxes/SV_01_full_support.json \
+    --native-manifest results/lessons/l4_3/a1_sv/summary/native_manifest.json
+git add results/lessons/l4_5/box_trials && git commit -m "L4.5 Part B: SV screen result (trial 1)"
+```
+
+Ghi chú: lệnh `preflight` không kèm `--candidate` sẽ vẫn báo BLOCKED (vì SUB chưa có receipt), và exit 2 là đúng. Script `verify_results.py` cũ chỉ dùng để kiểm trạng thái trước Part B, nên nó sẽ từ chối sau bước này; đó là hành vi mong đợi, không cần sửa.
+
+### Bước 2: SUB, quyết định của bạn: có chạy native hay không
+
+| | |
+|---|---|
+| **Giá trị** | Là đường **duy nhất** để "interact" được kiểm ở mức confirmatory. Nếu PASS, nó còn kéo theo G_S ≥ 1% và G_M ≥ 1% trong Ω_SUB: state value dương, dù không phải phân ly kép |
+| **Rủi ro** | Hộp chọn khi đã thấy bảng δ của pilot (94,9%), trong khi nhãn native thấp hơn pilot. Ở vùng MV, margin lấy lại 86% G_M; nếu ở dải δ cũng vậy, câu SUB sẽ hẹp ("so với controller không margin") |
+| **Chi phí** | Một run native + baseline chỉ trên các khóa nằm trong hộp SUB. Ước lượng thô: ≤ N × 164 CPU-s (dựa trên bundle lớn nhất của SUB_PROBE), ví dụ N ≈ 80 thì khoảng ≤ 3,6 CPU-giờ |
+
+**Nếu chạy**, phiên bản tối giản là:
+1. Khai **một** hộp SUB trước run, ghi rõ exposure.
+2. Chạy **một lần** native + baseline cho các khóa trong hộp, ở một mức (640, 8), vì κ = 1/20 cần ref 8 theo SUB_PROBE.
+3. Support khai target `00`, reading `MV+A`. Toàn bộ dùng lại runner của A1.
+4. Sàng SUB.
+
+Phần duy nhất cần code mới là một freeze nhỏ chọn khóa theo hộp. Lý do: file `P4_A1/freeze.py` đã bị bốn prereg khóa hash, nên không thêm "kind" vào đó được. Tôi sẽ in code này khi bạn đã quyết.
+
+**Nếu không chạy:** ghi một dòng DL: "Không sàng SUB vì [lý do]; 'interact' giữ ở mức chẩn đoán."
+
+### Bước 3: DL 0/1/2 card (bạn ký)
+
+| SV | SUB | Số card | Bước tiếp |
+|---|---|---|---|
+| FAIL | không chạy, hoặc FAIL | 0 | Bỏ L4.6–L4.7 → L4.8 → Gate 4 → Phase 5 chỉ có F1 |
+| FAIL | PASS_SCREEN | 1 (SUB) | L4.6 (card v3, ngắn) + L4.7 (numerics cho riêng hộp SUB) |
+| PASS | bất kỳ | 1–2 | Như trên, thêm frame cho vùng A |
+
+---
+
+## 4. Phase 5 có cần sửa không?
+
+Tôi không thấy file kế hoạch Phase 5 trong repo (MASTER_PLAN v1.1 nằm ngoài repo). Nếu bạn gửi, tôi sẽ làm complexity audit cho nó. Với những gì đã biết thì:
+
+- **Không giảm rigor** ở đúng một chỗ: lần confirmation duy nhất (card v2 đã đóng băng, CF-v2, scorer). Đây là chỗ nguyên tắc của bạn nói phải giữ.
+- **Một thay đổi bắt buộc nhưng rẻ:** đưa câu baseline vào claim boundary v1.4 ngay bây giờ. MV thu hẹp (R_M ≈ 0,86 tại ρ = 5%); SH và SV không thu hẹp.
+- **Đừng thêm** baseline mới, mức numerics mới, hay card mới sau khi đã thấy bất kỳ outcome nào.
+- **Nếu ra 0 card,** Phase 5 chỉ là: chạy CF-v2 một lần và báo cả hai verdict kèm câu baseline đã đóng băng.
+
+## ⚠️ Bẫy
+
+- Thấy SV FAIL rồi mới khai thêm hộp con. Mọi hộp phải được khai **trước** lần đếm đầu tiên.
+- Khai hộp SUB "cho đẹp" theo bảng δ của pilot mà không ghi exposure.
+- Gọi "0 card" là thất bại. Đó là một kết quả có record đầy đủ, và câu về "differ" sẽ là "mới thấy một nửa".
+
+## Trạng thái
+
+- **Understanding:** sau phần này, bạn nên tự giải thích được vì sao A3 STABLE không phải do may mắn (hai fact ở mục 1), và vì sao R_M ≈ 0,86 làm đổi cách viết claim MV.
+- **Execution:** A3 xong. Bước 1 (SV) sẵn sàng làm ngay. Bước 2 (SUB) chờ bạn quyết.
+- **G-level:** G1, không đổi.

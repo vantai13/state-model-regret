@@ -1,8 +1,7 @@
 """Pure screening kernel plus a fail-closed entrypoint. No research-engine calls.
 
-Synthetic tests exercise the kernel. Real box screening additionally requires
-adopted rules and complete candidate-specific native/baseline receipts; those
-receipts do not exist in the current project state.
+Synthetic tests exercise the kernel. Real screening requires adopted rules and
+complete native/baseline receipts for the candidate being screened.
 """
 from collections import Counter
 from fractions import Fraction as F
@@ -129,8 +128,8 @@ def committed_json(path):
     return json.loads(path.read_text())
 
 
-def candidate_receipt_ready():
-    """A future combined run must supply complete, committed scope receipts."""
+def candidate_receipt_ready(candidate=None):
+    """Check the selected candidate, or every retained candidate when None."""
     path=ROOT/HERE/'candidate_readiness.json'
     if not path.exists():return False
     receipt=committed_json(path)
@@ -142,21 +141,24 @@ def candidate_receipt_ready():
         require(sha(ROOT/name)==digest,'candidate input hash changed: '+name)
         require(git('show','HEAD:'+name)==(ROOT/name).read_bytes(),'uncommitted candidate receipt source')
     approved=json.loads((ROOT/HERE/'author_choices.json').read_text())['approved_candidates']
-    for candidate in approved:
-        detail=receipt['candidates'][candidate]
+    targets=approved if candidate is None else [candidate]
+    for name in targets:
+        require(name in approved,'candidate not retained by author: '+name)
+        detail=receipt['candidates'].get(name)
+        if detail is None:return False
         require(detail['native_readiness']=='PASS' and detail['baseline_readiness']=='PASS' and
                 detail['support_complete'] is True and detail['rho_policy_frozen'] is True,
-                'incomplete candidate-specific data: '+candidate)
+                'incomplete candidate-specific data: '+name)
         require(detail['native_manifest'] in receipt['source_sha256'] and
-                detail['rho_policy_path'] in receipt['source_sha256'],'missing input bindings')
+                detail['rho_policy_path'] in receipt['source_sha256'],'missing input bindings: '+name)
     return True
 
 
-def preflight():
+def preflight(candidate=None):
     l43=json.loads((ROOT/'notes/phases/L4_3_completion.json').read_text())
     l44=json.loads((ROOT/'notes/phases/L4_4_completion.json').read_text())
     adopted=rules_adopted()
-    ready=candidate_receipt_ready()
+    ready=candidate_receipt_ready(candidate)
     reasons=[]
     if not adopted:reasons.append('SCREEN_RULES_NOT_ADOPTED_AND_LOCKED')
     if not ready:
@@ -176,11 +178,10 @@ def preflight():
 def screen_registered(candidate,box_path,native_manifest):
     """Refuse before opening candidate data while scientific dependencies HOLD.
 
-    New combined-run receipts/bindings must be registered before this preflight
-    can become READY. The pure kernel is ready for synthetic verification only
-    in the current project state; there is no fallback to pilot labels.
+    Committed receipts/bindings are required for this candidate. There is no
+    fallback to pilot labels or to another candidate's receipt.
     """
-    status=preflight()
+    status=preflight(candidate)
     require(status['status']=='READY','PART_B_BLOCKED: '+';'.join(status['reasons']))
     require(rules_adopted(),'rules not author-adopted/locked')
     rules=json.loads((ROOT/HERE/'screening_rules.json').read_text())
@@ -222,7 +223,7 @@ def main():
     parser.add_argument('--candidate',choices=['SV','SUB']);parser.add_argument('--box');parser.add_argument('--native-manifest')
     args=parser.parse_args()
     if args.step=='preflight':
-        result=preflight();print(json.dumps(result,ensure_ascii=False,indent=2))
+        result=preflight(args.candidate);print(json.dumps(result,ensure_ascii=False,indent=2))
         return 0 if result['status']=='READY' else 2
     require(args.candidate and args.box and args.native_manifest,'screen arguments required')
     print(json.dumps(screen_registered(args.candidate,args.box,args.native_manifest),ensure_ascii=False,indent=2))

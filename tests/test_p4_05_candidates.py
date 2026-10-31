@@ -137,14 +137,35 @@ def test_three_boxes_count_empty_failures_and_do_not_double_count_result_files(t
     assert len(list((tmp_path/'SUB').glob('trial_[0-9][0-9].json')))==3
 
 
-def test_no_real_boxes_or_engine_calls_in_current_preflight():
+def test_preflight_never_calls_engine_or_reads_cf():
     status=S.preflight()
-    assert status['status']=='BLOCKED_PART_B' and status['real_boxes_evaluated']==0
-    assert not status['p_hat_computed'] and status['engine_calls']==0
-    assert any('L4_3' in r for r in status['reasons']) and any('L4_4' in r for r in status['reasons'])
+    assert status['engine_calls']==0 and status['new_CF_outcomes']==0 and status['final_card_count'] is None
 
 
-def test_real_entrypoint_refuses_before_reading_candidate_data():
+def test_each_candidate_is_screened_independently(tmp_path,monkeypatch):
+    (tmp_path/S.HERE).mkdir(parents=True)
+    (tmp_path/S.HERE/'author_choices.json').write_text(json.dumps(dict(approved_candidates=['SV','SUB'])))
+    names=('prereg.json','scope.json','manifest.json','rho.json')
+    for name in names:(tmp_path/name).write_text(name)
+    receipt=dict(status='READY_FOR_SCREENING',scope_supersedes_historical_HOLD=True,
+        new_prereg_path='prereg.json',author_scope_decision_path='scope.json',
+        source_sha256={n:S.sha(tmp_path/n) for n in names},
+        candidates=dict(SV=dict(native_readiness='PASS',baseline_readiness='PASS',support_complete=True,
+            rho_policy_frozen=True,native_manifest='manifest.json',rho_policy_path='rho.json')))
+    (tmp_path/S.HERE/'candidate_readiness.json').write_text(json.dumps(receipt))
+    monkeypatch.setattr(S,'ROOT',tmp_path)
+    monkeypatch.setattr(S,'committed_json',lambda path:json.loads((tmp_path/path).read_text()))
+    monkeypatch.setattr(S,'git',lambda *a:(tmp_path/a[1].split(':',1)[1]).read_bytes())
+    assert S.candidate_receipt_ready('SV') is True
+    assert S.candidate_receipt_ready('SUB') is False and S.candidate_receipt_ready() is False
+    receipt['candidates']['SV']['baseline_readiness']='HOLD'
+    (tmp_path/S.HERE/'candidate_readiness.json').write_text(json.dumps(receipt))
+    with pytest.raises(RuntimeError,match='incomplete candidate-specific data: SV'):
+        S.candidate_receipt_ready('SV')
+
+
+def test_real_entrypoint_refuses_before_reading_candidate_data(monkeypatch):
+    monkeypatch.setattr(S,'preflight',lambda candidate=None:dict(status='BLOCKED_PART_B',reasons=['missing receipt']))
     with pytest.raises(RuntimeError,match='PART_B_BLOCKED'):
         S.screen_registered('SUB','NONEXISTENT_BOX_FILE','NONEXISTENT_NATIVE_MANIFEST')
 
@@ -164,7 +185,7 @@ def test_registered_pipeline_with_mocked_readiness_and_synthetic_files(tmp_path,
     (tmp_path/'fixture_box.json').write_text(json.dumps(dict(candidate='SUB',id='SYNTHETIC_BOX',
         status='REGISTERED_BEFORE_BOX_COUNTS',plus={})))
     monkeypatch.setattr(S,'ROOT',tmp_path)
-    monkeypatch.setattr(S,'preflight',lambda:dict(status='READY',reasons=[]))
+    monkeypatch.setattr(S,'preflight',lambda candidate=None:dict(status='READY',reasons=[]))
     monkeypatch.setattr(S,'rules_adopted',lambda:True)
     monkeypatch.setattr(S,'cf_keys',lambda:set())
     monkeypatch.setattr(S,'committed_json',lambda path:json.loads((tmp_path/path).read_text()))

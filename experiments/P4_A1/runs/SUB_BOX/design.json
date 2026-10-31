@@ -1,0 +1,54 @@
+{
+  "run_id": "SUB_BOX",
+  "kind": "L44",
+  "provenance": "Use existing explicit-case loader (kind L44 is only its adapter name), unchanged A1 freeze/runner; this is SUB, not the F1 support",
+  "output": "results/lessons/l4_5/sub_native",
+  "levels": [
+    [
+      640,
+      8
+    ],
+    [
+      320,
+      8
+    ],
+    [
+      640,
+      4
+    ]
+  ],
+  "rho": [
+    "0",
+    "1/200",
+    "1/100",
+    "1/50",
+    "1/20"
+  ],
+  "supports": {
+    "SUB+": {
+      "target": "00",
+      "reading": "MV+A",
+      "manifest_role": "plus"
+    }
+  },
+  "cases_source": "experiments/P4_A1/runs/SUB_BOX/cases.json",
+  "audit_pilot": false,
+  "resources": {
+    "case_cpu_seconds": 3600,
+    "case_wall_seconds": 4800,
+    "address_space_bytes": 3221225472,
+    "workers": 2
+  },
+  "input_files": [
+    "experiments/P4_A1/runs/SUB_BOX/cases.json",
+    "experiments/P4_05_candidates/boxes/SUB_01_delta.json",
+    "notes/phases/L4_5_part_b_scope.json",
+    "experiments/P4_05_candidates/screening_rules.json",
+    "experiments/P4_04_baseline/margin.py",
+    "experiments/P4_04_baseline/analysis.py"
+  ],
+  "preserved_history": [
+    "experiments/P4_A1/runs/SUB_PROBE/prereg.json",
+    "notes/phases/SUB_PROBE_completion.json"
+  ]
+}
