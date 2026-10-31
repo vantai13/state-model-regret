@@ -2016,3 +2016,38 @@ G1/Understanding/T07authoraddendum/L8vàCF-v2parkinggiữ. Được tiếpL4.7;
 khôngnângclaim practicalfreshness khiD22chưacó. [Report](../results/lessons/l4_6_v2/report.md),
 [learningnote/chỉnh lý](lessons/L4.6_v2_learning_note.md),
 [CSV/JSON/figures](../results/lessons/l4_6_v2/analysis/summary.json).
+
+
+### DL-119 — L4.7 (v2): P-clip, native checks và dừng predictor constant (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. User yêu cầu tiếp lesson; AI triển khai
+PartA/B/C theo ủy quyền, không author-self proof/Understanding/human review.
+Protocol29d5422trước diagnostic; source1aca4a4. Không đổi frozencontract,
+M0/M1/metric/threshold, không khởi động lạiSUB/CF.
+
+T08chứng minh slottedP-clip/conditionalJensen vàGM|S1<=S_clip. Chỉnh hai lỗi
+hướng dẫn: initialmodeON bắt buộcslot0 nên exactthreshold=max(0,hD−12dt),
+không iff q<hD cho mọimode; saturation_OFF áp meanqueues rỗng, khôngbusy.
+Weightedidlecost cópacket·s, khác totalunusedcapacity(packet). Pathd/dh chỉ
+idlecostdifferences; networklinearparts triệt tiêu khi chuyển cùngu.
+
+Finiteenumeration512paths tái lậpsuppliedexample; maxoutsidecostdifference
+1.11e−14packet·s. PartB48states trên3oldkeys/cả2paths:24/24outside cód−dh=0,
+96/96per-actionJensenPASS;insideabs(d−dh)max3.757970725packet·s, gaperrorhai dấu.
+
+PartC đủ50prespecifieddiscoverykeys(18A/16AB/16C),34.530743CPU-s,khôngnew
+law/Bellman/fullregimeevaluation. Bound50/50khôngvi phạm cùngquadrature;
+replayGM|S1max7.4476e−18pp. P_cliprange.9964763→1,35/50near1within1e−9.
+SpearmanvớiGM|S1/absGamma=.775788/.762484chỉdescriptive,496/1225rankpairs
+khôngtáchtheoCDFerrors. Giữ8rawflags;khôngchứngnhậntotalnumerics đãsolved.
+
+Sau diagnostic bổ sungproof36d32c0: ngoàiClip, tổngbacklogcost không đổi theo
+action vàc_sw0 nênDelta0. **S_clip=sigma** trongprimary;ratio1ở50/50làidentity,
+khôngfinding/predictormới. Cậnchínhlàstakesboundđãcó,khôngtựnhậnchặt. Không
+đổi cost/plant/refine đểcứupredictor,khôngkhóaH-cliphoặctạoalternativemới.
+GiữP-cliplàm mỏneo giải thích/test; predictorheldout/null1NN/knockout chưa làm.
+
+34targeted/930fulltestsPASS; source/history/ruleschecksPASS.0CF/sealedoutcomes,
+SUBdùng9keys từ10đãpark,không66keys. D22nativeF/Vnull/G1/Understanding/L8giữ;
+L4.8đượctiếp. [Report](../results/lessons/l4_7_v2/report.md),
+[proof](theory/T08_clipping_anchor.md), [protocol](lessons/L4.7_v2_protocol.json).

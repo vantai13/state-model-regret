@@ -352,3 +352,16 @@ DEFERRED;stationaryMarkovtoy chỉsemanticcounterexample,khôngfluidmeasurement.
 Bound|Gamma|<=max(GM,GM|S1)khôngépGM|S1lớnkhiGammaâm.0newphysical/CF/sealed,
 SUB/CF-v2vẫnpark,không66keys/G1/UnderstandingautoPASS. L4.7tiếp;report
 results/lessons/l4_6_v2/report.md;sourceexperiments/P4_06_decomposition/.
+
+
+L4.7(v2)/31-10(DL119):T08P-clip/conditionalJensenproofAI,theoủyquyền,không
+author-self. Protocol29d5422→source1aca4a4trướcrun;postdiagnosticidentityproof
+36d32c0:ngoàiClipDelta0khi c_sw0/totalbacklog nênS_clip=sigma,ratio1không
+predictormới. InitialONthreshold=max(0,hD−12dt),OFF=hD;strictreflectionkhác
+touchzero. saturation_OFFlàmeanpathrỗng,khôngbusy;d/dhchỉidlecostdifferences.
+PartB48states:24outsideabs(d−dh)0,96JensenPASS;PartC50oldkeys(18A/16AB/16C),
+34.53CPU-s,bounds50/50,GMreplay7.4476e−18pp. P_clip.9964763→1;Spearman
+.775788/.762484chỉdescriptive,ranks có496/1225pairs khôngtáchtheoCDFerrors.
+34new/930fulltestsPASS;giữ8rawflags/SUBCFpark/D22nativeF/Vnull/G1/Understanding.
+Khôngnewlaw/Bellman/fullregime/CF/sealedoutcomes;không66SUB/A4/tunepredictor.
+L4.8tiếp;H-clip/heldout/null1NN/knockoutchưakhóa.Reportresults/lessons/l4_7_v2/report.md.

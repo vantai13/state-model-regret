@@ -2,7 +2,21 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.6 (v2): đã tách nguồn và vẽ3hình trên discovery (DL-118).**
+**Hiện tại — L4.7 (v2): P-clip đã chứng minh/kiểm native; predictor có giới hạn (DL-119).**
+
+34tests mới/930fulltestsPASS. NgoàiClip24/24statechecks cód=dh;96per-action
+JensenchecksPASS. Diagnostic50discoverykeys hoàn tất trong34.53CPU-s,không
+tạo nativekernels/fullregimerun mới. P_clip=.996476–1; S_clip/sigma=1cả50điểm
+và làidentity của primaryc_sw0/totalbacklog, không phải predictor mới. Rawrank
+correlations chỉdescriptive, chưaheld-out. Giữ8rawflags, G1/UnderstandingOPEN;
+SUB/CF vẫnpark, nativeD22DEFERRED. Tiếp theo **L4.8realism**.
+
+[ProofT08](notes/theory/T08_clipping_anchor.md) ·
+[Report](results/lessons/l4_7_v2/report.md) ·
+[CSV/summary](results/lessons/l4_7_v2/analysis/summary.json) ·
+[Plot](results/lessons/l4_7_v2/analysis/predictors.png).
+
+**Snapshot L4.6 (v2): đã tách nguồn và vẽ3hình trên discovery (DL-118).**
 
 1.136pilot rows→1.118unique;597native keys(497SV+90MV/SH+10SUB đã park).
 Trên449SV+, medianGS|M1=1,169907%Cref, medianGS=.969564%; AB pilot có

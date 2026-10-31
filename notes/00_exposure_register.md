@@ -1042,3 +1042,18 @@ calls/CF/sealedoutcomes; chỉđọctọađộ270CFđểcollisionguard. Không c
 khônggántoylàprobefluid. Nhữngsummarynày naylàinputđãthấychoL4.9,không
 held-out/confirmation/mechanismevidence. G1/Understanding/P0V10/L8giữ.
 [Report](../results/lessons/l4_6_v2/report.md) · [provenance](../results/lessons/l4_6_v2/analysis/provenance.json).
+
+
+## L4.7 (v2) — 31/10/2026, clipping diagnostics
+
+Lessoninput đã nêu4finiteenumerationcosts trước run,khôngblindreplication.
+Protocol29d5422:3PartBkeys+50PartCkeys chọn từL46nativeCSV theooldpilotclasses
+18A/16AB/16C, khôngtốiưu trênP_clipchưatính. PredictionsAI,khôngauthor-self.
+Đãxem48statechecks/96Jensencostchecks và50CDF/quadraturediagnostics, gồm9SUB
+savedkeys;khôngrun66keys/newfullregime/CF/sealedoutcomes. Source/cachecũgiữ.
+
+ĐãthấyP_clip.9964763→1,Spearman.775788/.762484vớiGM|S1/absGamma, nhưng
+35/50near1 và496/1225rankpairs khôngtáchtheoCDFerrors. S_clip/sigma1ở50/50;
+identityprimary được viết rõsau diagnostic(36d32c0),khôngnhậnđãforecasttrước.
+Đây làdiscoveryđãthấy choL49,khôngheld-out/novelty/mechanismpredictionproof.
+Giữ8rawflags, G1/Understanding/D22DEFERRED. [Report](../results/lessons/l4_7_v2/report.md).

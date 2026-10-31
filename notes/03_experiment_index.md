@@ -100,3 +100,14 @@ DEFERRED/null doQ-onlyproposalbỏYtráicontract; cóstationarysemantictoy.
 P2forecast sai đượcghiđủ; corexong, L4.7tiếp. [Report](../results/lessons/l4_6_v2/report.md),
 [CSV](../results/lessons/l4_6_v2/analysis/rows.csv),
 [summary](../results/lessons/l4_6_v2/analysis/summary.json).
+
+
+## L4.7 (v2) — P-clip,31/10/2026
+
+[T08proof](theory/T08_clipping_anchor.md),source`experiments/P4_07_clipping/`,
+protocol29d5422trướcdiagnostic. PartB48states/24outside/96JensenPASS;PartC50/50
+oldkeys,34.53CPU-s,0newnativephysicalkernels/fullregime/CFoutcomes. BoundPASS
+trênquadrature;P_clipgần1,S_clip/sigma1cấu trúctrongprimary,khôngpredictormới.
+34new/930fulltestsPASS;8rawflagsgiữ. Chưaheldout/null1NN/knockout/D22native.
+[Report](../results/lessons/l4_7_v2/report.md),[CSV](../results/lessons/l4_7_v2/analysis/diagnostics.csv),
+[summary](../results/lessons/l4_7_v2/analysis/summary.json).
