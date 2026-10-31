@@ -27,6 +27,12 @@ Sourceheader/DOI/venue được đối chiếu Crossref phiên này;0nguồn m�
 BaPDFlocal khớp catalogSHA; không đọc abstract thay fulltext cho các claim trên.
 Đây là targeted, không full-read, không systematic search hoặc saturation.
 
+ZLK17§4.2/PDF3 và§6.1/PDF5 cũng cần đọc cùng nhau: link10Gb/s được nêu
+làserver-ToR, còn cácuplinks dùngloadbalancing là40/100Gb/s. Không ghép hai
+con số thành bằng chứng đã đo một cặp alternative routingqueues10Gb/s cùng
+destination. Capacity10Gb/s chỉ làcontext/unitreference, còn jointusecase
+mapping vẫn thiếu. Không tự mở rộng contextDL008 sang100Gb/s để né điểm này.
+
 T00/realismworksheetv1 được đọc ở mức note: không nhận đã reread primary
 Planck/Hedera/Kuźniar trong phiên này. Vì vậy không dùng các thời gian ở đó
 như một phép đo end-to-end backlogAge + actuation mới.

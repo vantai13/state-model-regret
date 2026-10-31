@@ -1057,3 +1057,17 @@ savedkeys;khôngrun66keys/newfullregime/CF/sealedoutcomes. Source/cachecũgiữ.
 identityprimary được viết rõsau diagnostic(36d32c0),khôngnhậnđãforecasttrước.
 Đây làdiscoveryđãthấy choL49,khôngheld-out/novelty/mechanismpredictionproof.
 Giữ8rawflags, G1/Understanding/D22DEFERRED. [Report](../results/lessons/l4_7_v2/report.md).
+
+
+## L4.8 scope —31/10/2026
+
+Đãreread3existingapprovedsourcesZLK17/BAM10/NDT1,targeted15PDFpages và3DOI
+lookups;0newsource/download,nộidung/readinglevels khôngtựgánchoauthor. Đã
+thấythêmjointmeasurementgaps;khôngclaimcalibration/noveltyhoặcsourceabsence.
+
+Chỉdùngpreregcasecoordinates497SV/90MVSH vàparkinglist10SUB,597metadata
+projections. Khôngmởrawcost/newcontrasts/CF/R09R10 hoặcchọnnewbox. Supports
+đãđượctạoởdiscoverycũ,nênscopeL48làsauoutcome,khôngpre-discoveryprereg.
+Anchor10Gb/s,tau10msminhhọa,normalizedranges/designworkscale đãthấy;
+khônglàempiricalmeasurements hoặcheldout. SUB/CFvẫnpark,G1/D22/Understanding
+giữ. [Report](../results/lessons/l4_8_v2/report.md),[summary](../results/lessons/l4_8_v2/projection/summary.json).

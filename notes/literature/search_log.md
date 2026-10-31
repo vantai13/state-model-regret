@@ -495,3 +495,30 @@ Onlinequeries0/searchrecords0/newuniques0/proposals0/downloads0/newprimaryreads0
 PC3 đãauthor-attested DL043; K-S9/K-F1 giới hạn câu vềfreshness; noteWM26§5/F.1
 vàđínhchính§8/PDF9 giữscope. Không đổiExcel/catalog/PC/authorprogress hoặc novelty.
 Dừng đủscope note-level, khôngsaturation/field absence. [Record/giới hạn](../../results/lessons/l4_5/literature_review.md).
+
+
+## L4.8-R1 — existing-source lookup và primary reread,31/10/2026
+
+Người phụ trách **Doan Van Tai**; skillpaper-research. [Thẻ/Q/PC và stop](../../results/lessons/l4_8_v2/literature/session_card.md).
+Đãkiểmcatalog26,claims,log,T00,worksheetv1/approvalL3R.4 trướcqueries. Q:
+evidence có đủjointmapping choDCaggregate-routing/backlogage/holdh/inputlaw
+hay chỉmotivation? KhôngđổiPC/novelty/gatehoặcauthorreadingprogress.
+
+|Loại|Query/source|Thực sàng/đọc|Giữunique mới|Kết quả/giới hạn|
+|---|---|---|---:|---|
+|lookup|Crossref exactDOI10.1145/3131365.3131375|1metadata|0|ZLK17đúngtitle/authors/IMC2017; nguồn cũ |
+|lookup|Crossref exactDOI10.1145/1879141.1879175|1metadata|0|BAM10đúngtitle/authors/IMC2010; nguồn cũ |
+|lookup|Crossref exactDOI10.1109/MCOM.001.2200012|1metadata|0|NDT1journalidentity60(11):22–27; bản đọcacceptedarxivv2 giữ riêng |
+|targeted reread|paper-pilot/get_pdf_page_text trên3PDFlocalSHAkhớpcatalog|3calls/15PDFpages:ZLK1/3/4/5/7,BAM1/3/6/7/9,NDT1/2/4/5/6|0|AI-T,khôngfullread. XemảnhZLKTable2/PDF4,BAMTable4/PDF7,NDTFig4/PDF5 |
+
+Onlinequeries3;metadatarecords3;existinguniques3;newuniques0/newproposals0/
+downloads0.0keyword/backward/forward/author-venuequeries,khôngfieldcoverage
+hoặcsaturation. Cácnguồnđãđượcduyệt từtrước nênkhôngyêucầuduyệtlại.0lỗi
+tool/access tronglượt này. T00 lànote-levelreview,khôngrereadprimaryPlanck/
+Hedera/Kuźniar. Không gán throughput/peakbuffer/hotduration thànhofferedinput/
+instantbacklog/meanmode hoặcτ; NDT1syntheticrouting khôngempiricalvalidation.
+10Gb/sserver-ToR khôngtựthànhcặpuplinkalternatives40/100Gb/s. Thiếujoint
+numericdomainvẫngiữUNRESOLVED,khôngIN/OUTgiả. Dừngbounded3nguồncũ; không
+tìmvôhạnđểépPASS. KhôngđổiExcel/catalog26/authorlevels/envelopev1.
+[Access/reading record vàrawmetadata](../../results/lessons/l4_8_v2/literature/review.json),
+[source review/claim boundary](../realism/L4_8_source_review.md).

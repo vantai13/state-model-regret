@@ -2051,3 +2051,37 @@ GiữP-cliplàm mỏneo giải thích/test; predictorheldout/null1NN/knockout ch
 SUBdùng9keys từ10đãpark,không66keys. D22nativeF/Vnull/G1/Understanding/L8giữ;
 L4.8đượctiếp. [Report](../results/lessons/l4_7_v2/report.md),
 [proof](theory/T08_clipping_anchor.md), [protocol](lessons/L4.7_v2_protocol.json).
+
+
+### DL-120 — L4.8 scope/domain, empirical mapping chưa xác nhận (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Theo user“tiếp tục” sauL4.7, AIthực hiện
+roadmaprealism/declareddomain,khôngcófulllesson4.8mớiđểchấmchecklist. Không
+author-self/humanreview/UnderstandingPASS. GiữtheoremP-clip,khôngtuneclip
+predictorhoặcfreezeH-clipthànhmagnitudehypothesis.
+
+Workingnarrative:DC-inspiredone-shotmanagedaggregatesteering trênhaiqueue
+equalcapacitytrongfrozenplant. Giữcontexta/bDL008/realismv1;DCchỉlànarrative
+ưu tiên,khôngdeploymentvalidation. Physicaldomainvẫncontract;Bpostoverload
+finiteh đượcphép,currentenginechỉsupportBpoststable. Khôngchọnhộp/heldoutmới.
+
+Skillpaper-research,đọcprotocol/catalog26/logtrước;lookup3existingDOIs và
+reread15PDFpages từZLK17/BAM10/NDT1,AI-T.0newsource/0download/0proposal,
+catalog/Excel/authorlevels nguyênbyte. Sourcesupportcontext/motivation nhưng
+khôngjointbacklogage/hold/inputmode/buffer/actuation.10Gb/sserver-ToR không
+tựthànhcặpalternativeuplinks40/100Gb/s. Empiricalrangesnull/UNRESOLVED,không
+IN/OUTmớihoặcđổithành0feasibleregimes. Khôngclaimlatestrepresentativeness.
+
+Sourcead78946 chiếu597designkeys(497SV,90MV/SH,10SUBpark),khôngoutcomesmới:
+physical/currentengine/lattice597/597. Illustrativeanchor10Gb/s,tau10ms:
+managed1–1.75Gb/s,T.5–30ms,h10–160ms,backlogunit1.25MBfluidwork. Rate×r,
+time×s,backlog×rs,cost×rs²;ratioinvariancekhôngempiricalvalidation. Giữtau
+measurednull;khôngchọnanchorđểcứukếtquả. Miềnmin/maxkhônglàsamplingboxmới.
+
+12new/33combinedrealism/942fulltestsPASS;source/oldlabel/freezerulechecksPASS.
+0simulation/CF/sealedoutcomes,SUB/CFpark,D22nativeF/Vnull,G1/Understanding/L8
+giữ. **Scopingcomplete;empiricaldomainunresolved**,khôngtựđóngtoànL4.8hoặc
+Gate4. L4.9cóthểchuẩnbịmodel-conditionedprediction;applicationclaims cần
+measurementbridge đúngschema,khôngchỉtheorem/saturationidentity.
+[Report](../results/lessons/l4_8_v2/report.md),[domain](realism/declared_domain_l4_8.json),
+[source review](realism/L4_8_source_review.md).

@@ -2,7 +2,23 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.7 (v2): P-clip đã chứng minh/kiểm native; predictor có giới hạn (DL-119).**
+**Hiện tại — L4.8 scope: use case/domain đã ghi; empirical realism cònUNRESOLVED (DL-120).**
+
+Chọn narrativeDC-inspiredone-shotaggregatesteering trong frozenplant;không
+nhậnproductioncontroller. Reread3nguồncũ,15targetedPDFpages,0newpaper/PDF.
+597designkeys được kiểm schema/quyđổi units,khôngsimulation. Anchor10Gb/s,
+tau10mschỉminhhọa:managed1–1.75Gb/s,h10–160ms,mộtmodelbacklogunit=1.25MB
+fluidwork. Khôngbiếnscalingthànhempiricalvalidation hoặcgánIN/OUTkhi thiếu
+jointmeasurement.12new/942fulltestsPASS. SUB/CFpark,D22nativeDEFERRED,G1giữ.
+
+[Report/trạng thái thật](results/lessons/l4_8_v2/report.md) ·
+[Declared domain](notes/realism/declared_domain_l4_8.json) ·
+[Source review](notes/realism/L4_8_source_review.md) ·
+[CSV/JSON](results/lessons/l4_8_v2/projection/summary.json).
+Khôngcófulllesson4.8mới;đây làscope roadmap,khôngtựđóngGate4. L4.9chỉđược
+chuẩnbịpredictioncóđiềukiệntrênmodel;empiricalclaimscònthiếuevidence.
+
+**Snapshot L4.7 (v2): P-clip đã chứng minh/kiểm native; predictor có giới hạn (DL-119).**
 
 34tests mới/930fulltestsPASS. NgoàiClip24/24statechecks cód=dh;96per-action
 JensenchecksPASS. Diagnostic50discoverykeys hoàn tất trong34.53CPU-s,không

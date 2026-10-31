@@ -365,3 +365,17 @@ PartB48states:24outsideabs(d−dh)0,96JensenPASS;PartC50oldkeys(18A/16AB/16C),
 34new/930fulltestsPASS;giữ8rawflags/SUBCFpark/D22nativeF/Vnull/G1/Understanding.
 Khôngnewlaw/Bellman/fullregime/CF/sealedoutcomes;không66SUB/A4/tunepredictor.
 L4.8tiếp;H-clip/heldout/null1NN/knockoutchưakhóa.Reportresults/lessons/l4_7_v2/report.md.
+
+
+L4.8scope/31-10(DL120):khôngfulllesson4.8mớitronginput,thực hiệnroadmapusecase/
+declareddomain. AIworkingnarrativeDC-inspiredone-shotaggregatesteering,không
+productionclaim/author-self.3existingDOIlookups/15targetedpagesZLK17/BAM10/
+NDT1,0newpapers/PDF;catalog/Excel/oldrealismv1giữnguyên. Empiricaldomainvẫn
+UNRESOLVED:nullτ/holdh/inputlaw/buffer/actuation,khôngIN/OUTgiả. Physicaldomain
+vẫncontract(cófiniteBpostoverload),engineextrasubsetBpoststable. Sourcead78946
+597designprojections;12new/33combined/942fulltestsPASS. Anchor10Gb/s,tau10ms
+minhhọa,managed1–1.75Gb/s,T.5–30ms,h10–160ms,1modelbacklogunit1.25MBfluid.
+Scalingrates×r,time×s,Q×rs,cost×rs²khôngrealismvalidation.0simulation/CF/sealed,
+SUBCFpark,D22nativeF/Vnull,G1/Understandinggiữ. ScopingcompletekhôngfullL48/
+Gate4PASS;L49cóthểchuẩnbịmodel-conditionedprediction,khôngfreezeP-cliptheorem/
+S_clipidentitythànhnovelmagnitudepredictor.Reportresults/lessons/l4_8_v2/report.md.

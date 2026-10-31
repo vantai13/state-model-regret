@@ -111,3 +111,14 @@ trênquadrature;P_clipgần1,S_clip/sigma1cấu trúctrongprimary,khôngpredicto
 34new/930fulltestsPASS;8rawflagsgiữ. Chưaheldout/null1NN/knockout/D22native.
 [Report](../results/lessons/l4_7_v2/report.md),[CSV](../results/lessons/l4_7_v2/analysis/diagnostics.csv),
 [summary](../results/lessons/l4_7_v2/analysis/summary.json).
+
+
+## L4.8 scope —31/10/2026
+
+`experiments/P4_08_scope/project_domain.py`,sourcead78946;declaredcontext/model
+domainvàexisting-source review,khôngfullunprovidedlessonchecklist.597design
+metadata rows,noengine/CFoutcomes.12new/942fulltestsPASS;ratio/units/formal
+validitykhôngempiricalvalidation. RealisticdomainUNRESOLVED,giữoldv1labels.
+Khôngnewhypothesis,clipretry/SUBresume;L49chỉmodel-conditionedpreparation.
+[Report](../results/lessons/l4_8_v2/report.md),[CSV](../results/lessons/l4_8_v2/projection/illustrative_projection.csv),
+[config](realism/declared_domain_l4_8.json).

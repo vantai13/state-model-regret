@@ -97,7 +97,7 @@ Self-check do AI trả lời để tác giả tự đối chiếu, không chấm
 |---|---|---|
 | L4.6 | Tách G_S_M1,G_M_S1,Gamma trên dữ liệu đã có; xem D22 native/cb0 với audit đúngjoint | Core đã chạy:1118pilot+597native,3figures; [report](../../results/lessons/l4_6_v2/report.md). NativeD22DEFERRED: Q-only trong hướng dẫn bỏY, chưa có joint estimator đúng |
 | L4.7 | Kiểm mệnh đề clipping, predictor/null/knockout với điều kiện rõ | [T08](../theory/T08_clipping_anchor.md),48statechecks/50discoverydiagnostics đã chạy; S_clip/sigma=1cấu trúc primary, P_clipgần1/ranks chưaheldout. Khôngnull/knockout mới, chưakhóaH-clip. [Report](../../results/lessons/l4_7_v2/report.md) |
-| L4.8 | Realism nhẹ, chọn use case và miền có lý do | Chưa có nguồn mới; áp search protocol khi làm |
+| L4.8 | Realism nhẹ, chọn use case và miền có lý do | [Scope/domain](../realism/declared_domain_l4_8.json) và3existing-source reviews đã làm;597designprojections. **Empirical domainUNRESOLVED**, khôngfullunprovidedlessonPASS/IN/OUTmới. [Report](../../results/lessons/l4_8_v2/report.md) |
 | L4.9 | Freeze hypothesis có cơ chế và held-out condition chưa dùng | Chưa khóa hypothesis/design/held-out; ghi cả lịch sử SV FAIL và SUB partial |
 | Gate4 / evaluation sau | Dựa trên freeze mới và evidence đúng phạm vi | Chưa được thông qua hoặc chạy trong lesson này |
 
