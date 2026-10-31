@@ -70,7 +70,7 @@ def pilot_rows(sources):
                    h_tau=float(h/age), delta=float(b-a), eta=float(e), Cref=r['Cbar'],
                    K=40, ref=1, dt='1/120', old_class=R.cls(r), label_origin='pilot',
                    native_class='', arithmetic_pass='', validity_errors='',
-                   bundle_status='PILOT_NOT_NATIVE_AUDITED', native_ready='',
+                   bundle_status='PILOT_NOT_NATIVE_AUDITED', native_refinement_reasons_empty='',
                    source=f'{R.COMMIT}:results/explore_v13/{r["batch"]}/regimes.csv',
                    source_sha256=sources[f'{R.COMMIT}:results/explore_v13/{r["batch"]}/regimes.csv'])
         row.update({m+'_pctC': r[m+'_pctC'] for m in METRICS})
@@ -108,7 +108,7 @@ def native_row(raw, case, level, run_id, path, comparison, pilot_labels):
                native_class=cls, arithmetic_pass=raw['arithmetic_pass'],
                validity_errors='|'.join(raw['validity_errors']),
                bundle_status=comparison['status'],
-               native_ready=not comparison['native_readiness_reasons'],
+               native_refinement_reasons_empty=not comparison['native_readiness_reasons'],
                source=str(path), source_sha256=digest((ROOT/path).read_bytes()),
                loss_export_max_error_pp=cost_error, **z)
     for m in METRICS:
@@ -209,7 +209,7 @@ def summarize(rows):
     bound_violations = [r['id'] for r in rows if abs(r['Gamma_pctC']) >
                         max(r['G_M_pctC'], r['G_M_S1_pctC']) + TOL_PP]
     bad_native = [r for r in rows if r['engine'] == 'native' and not r['arithmetic_pass']]
-    good_sv = [r for r in by['SV+'] if r['arithmetic_pass'] and r['native_ready']]
+    good_sv = [r for r in by['SV+'] if r['arithmetic_pass'] and r['bundle_status'] == 'PASS']
     peak = max(k_summary, key=lambda d:d['G_S_M1']['q50'])
     cp = classes['pilot']
     p1 = (cp['A']['G_S_M1']['q50'] > max(cp['AB']['G_S_M1']['q50'], cp['C']['G_S_M1']['q50'])
@@ -221,7 +221,7 @@ def summarize(rows):
                 raw_native_arithmetic_false=[f'{r["cohort"]}/{r["id"]}' for r in bad_native],
                 max_bound_violation_ids=bound_violations,
                 max_identity_error_pp=max(max(check_identities(r).values()) for r in rows),
-                SV_plus_sensitivity_no_raw_flags_native_ready=distribution(good_sv),
+                SV_plus_sensitivity_no_raw_flags_bundle_PASS=distribution(good_sv),
                 SV_plus_difference_of_medians_pp=difference,
                 forecasts=dict(P1=p1, P2=.1 <= peak['kappa_tau'] <= .3,
                                P3=delta['negative']['Gamma']['q50'] > delta['positive']['Gamma']['q50'],
@@ -267,6 +267,7 @@ def figures(rows, out):
     import matplotlib.pyplot as plt
     from matplotlib.colors import LogNorm, Normalize
     from matplotlib.lines import Line2D
+    from matplotlib.ticker import FixedLocator, FuncFormatter, NullFormatter
     plt.rcParams.update({'font.size': 10, 'savefig.dpi': 160})
     panels = [('Pilot map1/2/3age (amp6)', [r for r in rows if r['engine']=='pilot']),
               ('SV native 640/4', [r for r in rows if r['cohort'] in ('SV+','SV-')]),
@@ -289,6 +290,14 @@ def figures(rows, out):
                                 c=[r['h_tau'] for r in rs], norm=hnorm, cmap='viridis', s=17, alpha=.65)
                 ax.axhline(1, c='black', ls=':', lw=.8)
                 ax.set(xscale='log', xlabel='kappa / tau', ylabel='GS|M1 (% Cref)')
+                ticks = [x for x in (.025, .05, .1, .2, .3, .5, 1, 2, 3, 4)
+                         if min(r['kappa_tau'] for r in rs) <= x <= max(r['kappa_tau'] for r in rs)]
+                # Sparse readable ticks; default log minor labels collide in SV.
+                if len(ticks) > 7:
+                    ticks = ticks[::2]
+                ax.xaxis.set_major_locator(FixedLocator(ticks))
+                ax.xaxis.set_major_formatter(FuncFormatter(lambda x, pos: f'{x:g}'))
+                ax.xaxis.set_minor_formatter(NullFormatter())
             else:
                 sc = ax.scatter([r['delta'] for r in rs], [r['Gamma_pctC'] for r in rs],
                                 c=[r['G_M_S1_pctC'] for r in rs], norm=mnorm, cmap='plasma', s=17, alpha=.65)

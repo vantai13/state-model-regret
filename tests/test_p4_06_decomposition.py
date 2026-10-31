@@ -107,7 +107,7 @@ def test_raw_flag_retained_without_clamping_or_readiness_upgrade(native):
     row = D.native_row(raw, case, (640,4), 'fixture', path, comparison, {})
     assert row['G_S_M1_pctC'] == -.1
     assert row['arithmetic_pass'] is False
-    assert row['native_ready'] is False
+    assert row['native_refinement_reasons_empty'] is False
     assert row['bundle_status'] == 'NOT_READY'
     assert row['validity_errors']
 
