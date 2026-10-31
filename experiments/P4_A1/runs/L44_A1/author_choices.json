@@ -1,0 +1,17 @@
+{
+ "responsible": "Doan Van Tai",
+ "status": "DRAFT_AWAITING_AUTHOR",
+ "how_to_adopt": "Đọc amendment.md. Tự viết 3 trường *_verbatim/*_words bằng lời của bạn (>= 20 ký tự, không bắt đầu bằng '<'), điền mọi giá trị trong decisions, rồi đổi status thành ADOPTED_BY_AUTHOR. AI không được điền các trường này thay bạn.",
+ "decision_verbatim": "<tác giả viết: tôi chấp nhận/không chấp nhận amendment A1 và vì sao>",
+ "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy: dự đoán về bất biến cùng tuyến, raw flag, và kết quả nào sẽ bác bỏ chẩn đoán>",
+ "why_not_posthoc_in_author_words": "<tác giả viết: vì sao đây là sửa đặc tả chứ không phải nới luật sau khi thấy kết quả>",
+ "decisions": {
+  "caps": {"max_not_ready_fraction": null},
+  "cpu_cap_hours": null
+ },
+ "recommended_by_AI_not_adopted": {
+  "caps": {"max_not_ready_fraction": "1/10"},
+  "cpu_cap_hours": 8,
+  "why": "1/10 mirrors card-v2 R5 u_max; 8 CPU-h is the cap already used in L4.3/L4.4. 49/90 four-cell rows are identical to frozen calibration rows that already passed R1+lean, so NOT_READY should be rare."
+ }
+}

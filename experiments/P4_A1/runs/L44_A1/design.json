@@ -1,0 +1,25 @@
+{
+ "run_id": "L44_A1",
+ "kind": "L44",
+ "provenance": "AI (Claude) soạn thiết kế; mọi quyết định khoa học nằm trong author_choices.json",
+ "output": "results/lessons/l4_4/a1",
+ "levels": [[640, 4], [320, 4], [640, 2]],
+ "rho": ["0", "1/200", "1/100", "1/50", "1/20"],
+ "supports": {
+  "MV+A": {"target": "00", "reading": "MV+A"},
+  "SH+A": {"target": "10", "reading": "SH+A"}
+ },
+ "cases_source": "experiments/P4_04_baseline/cases.json",
+ "audit_pilot": false,
+ "resources": {"case_cpu_seconds": 1800, "case_wall_seconds": 2400, "address_space_bytes": 3221225472, "workers": 2},
+ "unchanged_from_DL104": ["rho grid", "selection rule per region (MV target 00, SH target 10, equal key weights, exact tie -> smaller rho)",
+                          "reading rule (MV median R_M >= 1/2; SH median |GS_theta|/Cref < 1/200 AND median deltaL10 < 0)",
+                          "90 cases", "benchmark rule first/last per region", "budget rule 1.5*max*N"],
+ "input_files": ["experiments/P4_04_baseline/cases.json", "experiments/P4_04_baseline/margin.py",
+                 "experiments/P4_04_baseline/analysis.py", "experiments/P4_04_baseline/spec.md",
+                 "notes/phases/PHASE_4_baseline_reading_decision.md"],
+ "preserved_history": ["experiments/P4_04_baseline/prereg.json", "experiments/P4_04_baseline/evaluate.py",
+                       "results/lessons/l4_4/benchmark_summary.json", "results/lessons/l4_4/native/P44_000/comparison.json",
+                       "results/lessons/l4_4/native/P44_000/level_640_4.json", "results/lessons/l4_4/sanity_diagnosis.json",
+                       "notes/phases/L4_4_completion.json"]
+}

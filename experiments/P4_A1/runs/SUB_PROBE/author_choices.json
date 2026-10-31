@@ -1,0 +1,22 @@
+{
+ "responsible": "Doan Van Tai",
+ "status": "DRAFT_AWAITING_AUTHOR",
+ "how_to_adopt": "Chỉ dùng nếu bạn chọn phương án (B). Tự viết 3 trường văn bản, điền decisions (gồm luật quyết định SAU probe, viết TRƯỚC probe), đổi status thành ADOPTED_BY_AUTHOR.",
+ "decision_verbatim": "<tác giả viết: vì sao chọn (B) thay vì thu hẹp hay bỏ SUB>",
+ "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy: dự đoán chênh C̄ref giữa ref 8 và ref 4, và chi phí>",
+ "why_not_posthoc_in_author_words": "<tác giả viết: luật chọn 5 điểm và luật quyết định vùng được khóa trước khi thấy kết quả probe>",
+ "decisions": {
+  "probe_n": null,
+  "region_decision_rule": null,
+  "caps": {"max_not_ready_fraction": null, "max_pilot_flag_fraction": null},
+  "cpu_cap_hours": null
+ },
+ "recommended_by_AI_not_adopted": {
+  "probe_n": 5,
+  "probe_selection": "evenly spaced by sorted exact key among the exposed AB coordinates with kappa/age = 1/20 (always includes XM2X000 = P43_0000, the first)",
+  "region_decision_rule": "Nếu >= 4/5 điểm đạt readiness (R1 hai trục ở main (640,8), độ rộng, lean consistency) và max bundle CPU <= 600 s thì giữ SUB với kappa/age >= 1/20 và đề xuất main (640,8) cho numerics frame v3 (L4.7 xác nhận); ngược lại thu hẹp SUB về kappa/age >= 1/10.",
+  "caps": {"max_not_ready_fraction": "1", "max_pilot_flag_fraction": "1"},
+  "caps_why": "NOT_READY is the outcome being measured: never stop the probe on it; BUG still stops at once",
+  "cpu_cap_hours": 2
+ }
+}

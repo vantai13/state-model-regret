@@ -1,0 +1,22 @@
+{
+ "run_id": "L43_A1_SV",
+ "kind": "L43_SV",
+ "provenance": "AI (Claude) soạn thiết kế; vùng đối chứng SV, controller đích, luật đọc và cap là quyết định của tác giả",
+ "purpose": "Combined native relabel + margin baseline on the SV support (plus = audited A region, minus = author-chosen control region), producing the DISCOVERY_NATIVE manifest and rho policy that experiments/P4_05_candidates/screen.py requires. Discovery only; no box, no p-hat, no card.",
+ "output": "results/lessons/l4_3/a1_sv",
+ "levels": [[640, 4], [320, 4], [640, 2]],
+ "rho": ["0", "1/200", "1/100", "1/50", "1/20"],
+ "supports": {
+  "SV+": {"target": "AUTHOR", "reading": "SV", "manifest_role": "plus"},
+  "SV-": {"manifest_role": "minus"}
+ },
+ "plus_source": "experiments/P4_03_map_audit/cases.json",
+ "audit_pilot": true,
+ "resources": {"case_cpu_seconds": 1800, "case_wall_seconds": 2400, "address_space_bytes": 3221225472, "workers": 2},
+ "input_files": ["experiments/P4_03_map_audit/cases.json", "results/P4_01_recount/20261030_01/recounted_regimes.csv",
+                 "experiments/P4_05_candidates/screening_rules.json", "experiments/P4_04_baseline/margin.py",
+                 "experiments/P4_04_baseline/analysis.py"],
+ "preserved_history": ["experiments/P4_03_map_audit/prereg.json", "experiments/P4_03_map_audit/resource_amendment.json",
+                       "experiments/P4_03_map_audit/sealed_scope.json", "results/lessons/l4_3/resource_v2/benchmark_summary.json",
+                       "results/lessons/l4_3/resource_v2/native/P43_0000/comparison.json", "notes/phases/L4_3_completion.json"]
+}

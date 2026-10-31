@@ -1,0 +1,242 @@
+Tôi sẽ đọc kỹ code của L4.3, L4.4 (runner, guard, test, prereg) để hướng dẫn sửa đúng từng file. Phần sửa code tôi thử trước trên bản clone trong sandbox, không push gì vào repo của bạn.
+
+Gói sửa đã xong và nằm trong file **p4_a1_amendment.patch**. Có 18 file mới trong `experiments/P4_A1/` cộng `tests/test_p4_a1.py`; **không file đã đóng băng nào bị sửa**. Bạn áp bằng `git apply` lên `5043b4d`; tôi đã thử và patch áp sạch.
+
+**Tôi đã kiểm được gì:**
+- 21 test mới đều đạt; 51 test cũ của L4.3, L4.4, L4.5 vẫn đạt.
+- Đường ống control → benchmark → budget → full → summarize chạy trọn cho cả ba loại run, nhưng với **engine giả tổng hợp**. Mục đích chỉ là bắt lỗi đường ống; số liệu ra từ đó vô nghĩa.
+
+**Chưa kiểm được:** engine thật. Sandbox bị chặn cài `mpmath`, nên test chạy với một stub chỉ có trong sandbox. Trên máy bạn, full suite phải ra **834 passed** (813 cũ + 21 mới). Lần chạy control u = 0 đầu tiên sẽ là phép thử thật đầu tiên.
+
+**Ba điều tôi sửa lại so với lượt trước.** Tôi phát hiện chúng khi đọc kỹ code L4.5 đã khóa:
+1. **SV phải chạy nhãn native và baseline cùng lúc**, không làm baseline sau như tôi đã khuyên. `candidate_receipt_ready()` đòi nhãn native, baseline và ρ policy cho *mọi* ứng viên trước khi đếm hộp. Chạy gộp cũng rẻ hơn, vì margin dùng lại mảng của cùng lời gọi engine (L4.4 đo được chỉ ~4,6 CPU-s thêm cho 7 lời gọi).
+2. **SV là card hai vùng, nên cần nhãn native của vùng đối chứng.** Vùng này không nằm trong scope L4.3 (A + AB), nên bạn phải chọn nó *trước* khi chạy.
+3. **Đối chứng "lật h" (h/τ ∈ [8; 16]) bị chặn trong thực tế.** Mọi CF-v2 có h ≥ 8,025, và kernel L4.5 từ chối hộp nào chạm vào hình học của khóa CF. Tôi đã viết test cho điều này. Đối chứng "lật κ" ở h/τ ≤ 4 thì an toàn.
+
+---
+
+## 1. Thứ tự làm và commit
+
+```text
+C0  git apply → pytest (834) → commit gói (các file author_choices vẫn DRAFT)
+C1  Bước 0: diagnose → ghi chú chẩn đoán + exposure + forking → commit
+C2  L4.4-A1: bạn điền author_choices + DL-106 → commit → freeze → commit prereg
+    control → benchmark → budget → commit budget → full → summarize → commit kết quả
+C3  L4.3-A1 (SV): bạn chọn 5 quyết định + DL-107 → commit → freeze → … như trên
+C4  SUB: DL-108 chọn (A)/(B)/(C); nếu (B) thì chạy SUB_PROBE theo cùng quy trình
+```
+
+**Luật cứng:** mỗi prereg khóa hash của mọi file trong `experiments/P4_A1/` và `tests/test_p4_a1.py`. Sau khi freeze run đầu tiên, **đừng sửa file code nào trong gói**. Nếu buộc phải sửa, hãy làm gói mới (P4_A2) và run mới.
+
+## 2. Mỗi file bảo vệ điều gì
+
+| File | Bảo vệ |
+|---|---|
+| `diagnose.py` | Ghi lại bằng chứng "vì sao sửa" *trước* mọi amendment. Chỉ đọc artifact, không gọi engine |
+| `checks.py` | Tách BUG (bất biến đúng chính xác trên một lưới) khỏi NOT_READY (luật số của scorer). Logic nhãn/R6 của L4.3 port nguyên, có test so khớp |
+| `evaluate.py` | Gọi engine đóng băng, tính margin trên cùng mảng. Kiểm bit θ0 **trước tiên**. Ghi lỗi chứ không ném lỗi, nên row gốc luôn được giữ |
+| `config.py` | Chặn chạy nếu: prereg chưa commit, source đổi, hồ sơ HOLD cũ bị sửa, tác giả chưa tự viết, hoặc chạm CF/R09/R10 |
+| `freeze.py` | Đóng băng danh sách điểm, benchmark, cap và mọi hash, đúng một lần, trước khi chạy plant |
+| `run.py` | Chạy control → benchmark → budget → full với luật dừng hai tầng |
+| `summarize.py` | Chọn ρ* theo luật đã khóa, chỉ trên điểm READY; xuất manifest đúng định dạng L4.5 |
+
+Hai đoạn code then chốt:
+
+```python
+# Đúng CHÍNH XÁC trên một lưới: mọi luật quyết định ≥ luật dùng model đúng, trên cùng các nút
+SAME_ROUTE = (('00', '01'), ('10', '11'))
+if F(losses[hi]) + F(errors[hi]) < F(losses[lo]) - F(errors[lo]):
+    out.append(f'{label}:same_route:{hi}<{lo}')          # → BUG, dừng ngay
+```
+
+```python
+# NOT_READY chỉ dừng run khi cap không còn đạt được; n = số điểm DỰ KIẾN của vùng
+if nr > F(caps['max_not_ready_fraction']) * n:
+```
+
+Trên 1298 row calibration, kiểm cùng tuyến cho 0 vi phạm. Test cũng xác nhận phép kiểm này bắt được một mutant "margin gian lận" và một ô engine bị sửa 10⁻⁶. Mẫu số là N dự kiến để một NOT_READY xuất hiện sớm không tự làm dừng run; nhưng khi cap chắc chắn không đạt được nữa thì run dừng ngay.
+
+---
+
+## 3. Bước 0: Chẩn đoán (khoảng 1 giờ, không gọi engine)
+
+**Vì sao làm trước:** git history phải đọc được theo thứ tự HOLD → chẩn đoán → amendment → chạy lại. Nếu amendment đi trước, reviewer không phân biệt được "sửa vì hiểu" với "sửa để qua".
+
+```bash
+git checkout main && git pull
+git apply --check p4_a1_amendment.patch && git apply p4_a1_amendment.patch
+.venv/bin/python -m pytest -q                       # kỳ vọng: 834 passed
+git add experiments/P4_A1 tests/test_p4_a1.py
+git commit -m "P4-A1: amendment package (code, tests, draft author files); no plant call"
+.venv/bin/python -m experiments.P4_A1.diagnose
+```
+
+Kết quả in ra phải khớp với số tôi đã tính:
+- `losses_bit_identical: true`
+- cùng tuyến `0 / 0`, khác tuyến `236 / 279`
+- `would_fail: {'SH+A': 17}`
+
+Nếu khác, dừng lại: nghĩa là repo của bạn khác bản tôi đã đọc.
+
+Tiếp theo, viết `notes/verification/p4_a1/hold_diagnosis.md` theo khung dưới. Phần **Inference** bạn tự viết bằng lời mình (3–5 câu). Một câu trả lời tốt nói được ba điều: (i) vì sao bất biến cùng tuyến đúng chính xác còn khác tuyến thì không; (ii) mỗi HOLD thuộc loại báo động nào; (iii) điều gì còn chưa biết.
+
+```markdown
+# Chẩn đoán HOLD L4.3/L4.4 trước amendment A1 (31/10/2026)
+Người phụ trách: Doan Van Tai. Số liệu: results/lessons/p4_a1/diagnosis/diagnosis.json (đọc artifact, 0 engine call).
+## Fact (chép từ diagnosis.json)
+## Inference (tác giả viết)
+## Không được nói
+## Hệ quả: L4.4-A1, L4.3-A1 (SV), quyết định SUB
+```
+
+Thêm một mục vào `notes/00_exposure_register.md`:
+
+> Phiên AI (Claude) 31/10 đọc lại 1298 row calibration L3R.7, các row L4.4/L4.3 đã có, và cột tham số của CF-v2. Phiên đó cũng đếm số điểm discovery theo tọa độ cho hai phương án đối chứng SV (lật κ: 48, lật h: 124). Đường ống được kiểm bằng engine giả, không lưu gì vào repo. 0 engine call thật, 0 CF outcome, 0 tọa độ mới.
+
+Thêm mục forking #20 vào `PHASE_4_forking_paths.md`: đã thấy kết quả chẩn đoán; các phương án đã cân nhắc là nới tolerance (bỏ), xóa kiểm oracle (bỏ), sửa bất biến (chọn). Sau đó commit:
+
+```bash
+git add results/lessons/p4_a1 notes/verification/p4_a1 notes/00_exposure_register.md notes/phases/PHASE_4_forking_paths.md
+git commit -m "P4-A1 step 0: read-only diagnosis of L4.3/L4.4 HOLDs before any amendment"
+```
+
+`freeze` sẽ từ chối chạy nếu `diagnosis.json` chưa được commit.
+
+---
+
+## 4. Bước 1: L4.4-A1
+
+**4.1 Đọc `runs/L44_A1/amendment.md`.** Tự kiểm: bạn giải thích được vì sao phép kiểm mới *không lỏng hơn* phép cũ, bằng phân rã L̄00^θ − L̄11 = (L̄00^θ − L̄01) + Ḡ_S|M1.
+
+**4.2 Điền `runs/L44_A1/author_choices.json`.** Ba trường văn bản bạn tự viết:
+
+| Trường | Một câu trả lời tốt có |
+|---|---|
+| `decision_verbatim` | Chấp nhận hay không, và lý do bằng lời bạn |
+| `prediction_verbatim` (viết **trước** khi chạy) | (a) Câu có thể bác bỏ chẩn đoán: bất biến cùng tuyến có bị vi phạm không. (b) Ước lượng tỷ lệ raw flag ở SH; base rate là 17/33 trên các điểm trùng tọa độ calibration. (c) Số NOT_READY dự kiến; 49/90 row đã biết là đạt R1 + lean. (d) Khuyến nghị thêm một câu cho MV và một câu cho SH theo luật đọc DL-104; đây là lần đầu bạn tự dự đoán. Ghi rõ bạn đã thấy X2025 và X2071 |
+| `why_not_posthoc_in_author_words` | Lý do sửa nêu được mà không cần nhắc tới R_M hay Ḡ_S^θ (năm điều kiện ở lượt trước) |
+
+Hai quyết định:
+- `caps.max_not_ready_fraction`: tôi khuyến nghị `"1/10"`, giống R5. Đặt `"0"` nếu bạn muốn giữ hành vi cũ "cứ có lỗi số là dừng".
+- `cpu_cap_hours`: tôi khuyến nghị `8`.
+
+Cuối cùng đổi `status` thành `ADOPTED_BY_AUTHOR`. Gói sẽ từ chối nếu một trường văn bản ngắn hơn 20 ký tự, còn bắt đầu bằng "<", hoặc còn `null` ở bất kỳ đâu trong `decisions`. Lưu ý: gói **không phân biệt được ai đã viết** các trường đó. Phần này dựa hoàn toàn vào bạn.
+
+**4.3 Thêm DL-106 vào decision log:**
+
+```markdown
+### DL-106 — L4.4-A1: sửa đặc tả sanity sau HOLD X2000 (31/10/2026)
+- Tác giả tự viết quyết định/dự đoán: experiments/P4_A1/runs/L44_A1/author_choices.json. Premise: diagnosis.json.
+- Loại: design revision sau HOLD; hồ sơ HOLD cũ bị khóa bằng hash, không sửa.
+- Đổi: kiểm bit θ0 trước; bất biến cùng tuyến cho ô gốc và mọi ρ; khác tuyến chỉ báo cáo (lean chấm);
+  lỗi số → NOT_READY, dừng khi vượt cap × N.
+- Không đổi: lưới ρ, luật chọn ρ*, luật đọc DL-104, 90 điểm, benchmark (P44_024/065/000/089), budget, engine/card/CF.
+- Bác bỏ chẩn đoán nếu: có bất kỳ vi phạm cùng tuyến nào.
+```
+
+**4.4 Chạy:**
+
+```bash
+git add experiments/P4_A1/runs/L44_A1/author_choices.json notes/02_decision_log.md
+git commit -m "L4.4-A1: author adopts sanity amendment and prediction before any new call (DL-106)"
+.venv/bin/python -m experiments.P4_A1.freeze --run L44_A1
+git add experiments/P4_A1/runs/L44_A1/prereg.json && git commit -m "L4.4-A1: freeze prereg before plant"
+.venv/bin/python -m experiments.P4_A1.run control   --run L44_A1
+.venv/bin/python -m experiments.P4_A1.run benchmark --run L44_A1
+.venv/bin/python -m experiments.P4_A1.run budget    --run L44_A1
+git add results/lessons/l4_4/a1 && git commit -m "L4.4-A1: control, benchmark, budget receipt before full"
+.venv/bin/python -m experiments.P4_A1.run full      --run L44_A1
+.venv/bin/python -m experiments.P4_A1.summarize     --run L44_A1
+git add results/lessons/l4_4/a1 experiments/P4_A1/runs/L44_A1/rho_freeze.json
+git commit -m "L4.4-A1: full discovery baseline; rho* frozen by rule"
+```
+
+Thư mục `native_cache/` đã nằm trong `.gitignore` do runner tự tạo. Chi phí ước lượng thô: full cỡ 1–3 CPU-giờ, dựa trên hai bundle MV đã đo là 20 và 93 CPU-s.
+
+**4.5 Đọc kết quả:**
+- `full_summary.json`: trạng thái, số PASS/NOT_READY, `stop_reasons`.
+- `summary/summary.json`: mỗi vùng có N, N_ready, ρ*, `reading.descriptive_narrow`.
+- `case_ledger.csv`: cột raw validity. Nếu dự đoán của bạn đúng, cột này chỉ chứa G_SM/G_S_M1.
+- Ngoài luật đọc, nên xem thêm cột `Stay_headroom_pctC` trong `selected_baseline.csv`: có bao nhiêu điểm MV mà oracle gần như luôn chọn Stay.
+
+Sau đó:
+- Ghi DL đọc kết quả. Áp đúng luật DL-104, viết sẵn câu claim-boundary sẽ dùng nếu Phase 5 cho kết quả tương tự, và ghi rõ đây là discovery, không phải tần suất, không đổi verdict v2.
+- Tạo file **mới** `notes/phases/L4_4_A1_completion.json`; không sửa file completion cũ.
+- Khi làm runner L4.8, runner phải dùng `P4_A1/evaluate.py` + `checks.py`. Nếu dùng phép kiểm cũ, Phase 5 sẽ dừng ở các regime SH.
+
+---
+
+## 5. Bước 2: L4.3-A1 cho SV (vùng A + vùng đối chứng)
+
+Run này khác L4.3 cũ ở ba điểm:
+- Chỉ chứa phần hỗ trợ của SV: SV+ là 449 điểm vùng A (450 trừ một điểm niêm phong).
+- Validator dùng đúng thước của scorer (lean + R1); raw flag chỉ báo cáo. Logic nhãn và R6 giữ nguyên.
+- Tính gộp native và baseline. Output: nhãn native, ρ policy, manifest cho L4.5.
+
+**Năm quyết định của bạn** (trong `runs/L43_A1_SV/author_choices.json`):
+
+| Quyết định | Khuyến nghị | Vì sao | Lưu ý |
+|---|---|---|---|
+| `sv_minus_bounds` | Lật κ: κ/τ ∈ [2; 3], h/τ ∈ [1; 4], η ≥ ½, mọi λ, amp 6. Có 48 điểm đã lộ | Giữ cùng h với SV+. Cơ chế: mode sống lâu nên snapshot cũ 1 s đã cho biết mode, state tươi thêm ít giá trị. Không chạm CF-v2 | Lật h bị kernel L4.5 chặn và lẫn với vùng state gây hại |
+| `sv_target_controller` | `"00"` | Giải thích thay thế cho SV là "controller cũ, nếu bảo thủ, đã tự lấy được giá trị". Controller cần được "cứu" là S0M0, giống MV | Chọn `"10"` là hỏi một câu khác |
+| `sv_reading_rule` | Thu hẹp khi median Ḡ_S^θ/C̄ref < 0,5% **và** median ΔL00 < 0 | Gương của luật SH trong DL-104. Điều kiện ΔL00 < 0 loại trường hợp Ḡ_S^θ nhỏ chỉ vì margin làm controller tệ đi | Phải viết trước khi chạy |
+| `caps` | NOT_READY 1/10; pilot flag 1/10 | Lệch pilot–native > 0,25 pp là phát hiện về *bản đồ*, không làm hỏng nhãn native. Nhưng nếu vượt 10% thì có thể là vấn đề hệ thống | Khi sàng, NOT_READY tính như UNRESOLVED, mà luật sàng chỉ cho phép ≤ 5% mỗi vùng |
+| `cpu_cap_hours` | 8 | Ước lượng cỡ 2–3 CPU-giờ: một bundle vùng A tốn ~11–13 CPU-s | |
+
+**Gợi ý cho `prediction_verbatim`:**
+- Số NOT_READY dự kiến ở SV+, vùng nằm trong coverage của numerics.
+- Dấu của shift pilot→native ở Ḡ_S; mọi điểm đã thử (K6 và L4.3) đều âm.
+- Tỷ lệ điểm SV+ sẽ UNRESOLVED theo R6. Vùng A sát ngưỡng, nên đây là con số quyết định khả thi của SV.
+
+**Chạy:** viết DL-107 theo khung của DL-106, rồi chạy đúng chuỗi lệnh ở mục 4.4 với `--run L43_A1_SV`. Output nằm ở `results/lessons/l4_3/a1_sv/`.
+
+**Đọc kết quả:**
+- `summary/native_manifest.json` và hai bảng `native_rows_SV+.json`, `native_rows_SV-.json`.
+- `runs/L43_A1_SV/rho_freeze.json`.
+- Trong `case_ledger.csv`: số NOT_READY, số điểm lật lớp, cờ pilot.
+
+⚠️ **Đừng mở manifest để "ngó" p̂ của một hộp.** p̂ chỉ được tính qua `screen.py screen`, vì lệnh đó đăng ký trial trước khi đếm (tối đa 3 hộp mỗi ứng viên). Một lần "ngó" là một nhánh forking không có log.
+
+Mẹo thực hành cho lúc sàng: hộp minus phải ghi cả giới hạn h (ví dụ h ∈ [1; 4]). Trong sandbox, một hộp chỉ ghi κ ∈ [2; 3] đã bị kernel từ chối vì chạm hình học CF-v2.
+
+---
+
+## 6. Bước 3: Quyết định SUB
+
+| Phương án | Làm gì | Cái giá |
+|---|---|---|
+| **(A) Thu hẹp** về κ/τ ≥ 1/10 | Chạy một run gộp SUB trên phần AB thỏa κ ≥ 1/10 (tôi soạn khi bạn chọn) | Claim hẹp hơn |
+| **(B) Probe trước** | `runs/SUB_PROBE` đã có sẵn trong gói: 5 điểm ở κ/τ = 1/20, chọn đều theo khóa đã sắp (luôn gồm XM2X000), mức (640, 8) với láng giềng (320, 8) và (640, 4) | Vài phút CPU (ước lượng, chưa đo) + một prereg |
+| **(C) Bỏ SUB** | DL-108, rồi sửa `approved_candidates` trong `P4_05_candidates/author_choices.json` và khóa lại `rules.lock.json`. Hợp lệ vì chưa có hộp nào được đếm | "interact" không được kiểm ở confirmation |
+
+**Tôi khuyến nghị (B)**, vì probe rẻ và kết quả của nó đổi được quyết định. Probe chạy ref 8 chứ không tăng K, vì ở XM2X000 trục K đã hội tụ (0,002%); lỗi nằm hoàn toàn ở trục dt.
+
+Nếu chọn (B), ba điều cần lưu ý:
+- Cap NOT_READY đặt `"1"`, vì NOT_READY chính là đại lượng probe đang đo. BUG vẫn làm dừng ngay.
+- `region_decision_rule` phải viết **trước** khi chạy. Bản nháp gợi ý của tôi có sẵn trong file.
+- Chạy cùng chuỗi lệnh với `--run SUB_PROBE`, rồi áp luật quyết định nguyên văn lên `comparison.json` của từng điểm.
+
+---
+
+## 7. Khi có sự cố
+
+| Thấy | Nghĩa | Làm gì |
+|---|---|---|
+| Test < 834 passed | Môi trường lỗi hoặc patch áp thiếu | Chưa chạy gì cả; gửi tôi log |
+| `diagnose` ra số khác | Repo khác bản tôi đọc | Dừng, so lại commit |
+| `AUTHOR_*` khi freeze | Bạn chưa tự điền đủ | Điền, commit, freeze lại |
+| Control `BUG` / `HOLD_EXECUTION` | Engine hoặc môi trường có vấn đề | Không chạy benchmark; xem `worker_*.log` |
+| `BUG` ở một điểm | Bất biến chính xác bị vi phạm: chẩn đoán của tôi sai, hoặc có bug thật | Dừng, không sửa luật; gửi tôi `comparison.json` |
+| NOT_READY dưới cap | Bình thường | Đọc `readiness_reasons` và ghi vào báo cáo |
+| HOLD vì vượt cap | Vùng đó có vấn đề numerics hệ thống | Không chọn ρ*; chẩn đoán lại như Bước 0 |
+| `HISTORY_CHANGED` | Hồ sơ HOLD cũ đã bị sửa | Khôi phục bằng git |
+| `HOLD_BUDGET` | Vượt cap CPU | Ghi cap mới bằng một DL trước khi chạy full |
+
+## 8. Sau bốn bước
+
+- Có ρ* và kết quả đọc baseline MV/SH trên discovery (bộ lọc baseline của F1).
+- Có nhãn native + baseline cho SV.
+- Có quyết định SUB.
+- G1 không đổi; chưa có outcome CF nào.
+
+Bước kế tiếp là run gộp cho SUB (nếu giữ SUB), rồi tạo `candidate_readiness.json`, rồi đến L4.5 Part B. Khi bạn xong Bước 0 và đã có DL-108, gửi tôi; tôi sẽ soạn tiếp run gộp SUB và file `candidate_readiness.json`.

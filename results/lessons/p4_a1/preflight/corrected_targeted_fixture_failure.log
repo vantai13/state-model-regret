@@ -1,0 +1,28 @@
+............................F........................................... [ 90%]
+........                                                                 [100%]
+=================================== FAILURES ===================================
+__________ test_delegated_choices_require_matching_committed_evidence __________
+
+tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-2/test_delegated_choices_require0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x73b81b497530>
+
+    def test_delegated_choices_require_matching_committed_evidence(tmp_path, monkeypatch):
+        from experiments.P4_A1 import config as C
+        text='User explicitly delegates drafting and execution in this session.'
+        evidence=tmp_path/'delegation.json'; evidence.write_text(json.dumps({'user_instruction_verbatim':text}))
+        path=tmp_path/'choice.json'
+        choice=dict(status='ADOPTED_BY_AUTHOR_DELEGATION',author_self_written=False,drafted_by='AI',
+                    delegation_path=str(evidence),delegation_verbatim=text,
+                    **{k:'AI drafted under explicit delegation, not an author self-attestation.' for k in C.AUTHOR_FIELDS})
+        path.write_text(json.dumps(choice)); monkeypatch.setattr(C,'committed',lambda _:None)
+        assert C.check_author(path)['author_self_written'] is False
+        choice['delegation_verbatim']='This does not match the supplied instruction.'; path.write_text(json.dumps(choice))
+        with pytest.raises(RuntimeError,match='DELEGATION_EVIDENCE_MISMATCH'):C.check_author(path)
+>       require_filled({'caps': {'max_not_ready_fraction': '1/10'}, 'cpu_cap_hours': 8}, 'decisions')
+        ^^^^^^^^^^^^^^
+E       NameError: name 'require_filled' is not defined
+
+tests/test_p4_a1.py:320: NameError
+=========================== short test summary info ============================
+FAILED tests/test_p4_a1.py::test_delegated_choices_require_matching_committed_evidence
+1 failed, 79 passed in 3.30s

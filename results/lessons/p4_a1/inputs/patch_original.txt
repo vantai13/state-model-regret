@@ -1,0 +1,1588 @@
+diff --git a/experiments/P4_A1/__init__.py b/experiments/P4_A1/__init__.py
+new file mode 100644
+index 0000000..c747215
+--- /dev/null
++++ b/experiments/P4_A1/__init__.py
+@@ -0,0 +1,5 @@
++"""Doan Van Tai — Phase 4 amendment A1 (sau HOLD của L4.3/L4.4). AI (Claude) soạn code theo yêu cầu.
++
++Gói này KHÔNG sửa byte nào của file đã đóng băng. Mọi run mới có prereg riêng trong runs/<RUN_ID>/,
++output riêng, và chỉ chạy được khi tác giả đã tự điền author_choices.json (status ADOPTED_BY_AUTHOR).
++"""
+diff --git a/experiments/P4_A1/checks.py b/experiments/P4_A1/checks.py
+new file mode 100644
+index 0000000..1c15581
+--- /dev/null
++++ b/experiments/P4_A1/checks.py
+@@ -0,0 +1,163 @@
++"""Pure A1 checks (no engine import). Two failure kinds are never mixed:
++
++BUG        An inequality that is EXACT on one discretized grid failed: theta=0 bit identity,
++           same-route decision bounds (L00>=L01, L10>=L11, margin cells too), large-theta == Stay,
++           zero action. Arithmetic error is the right budget here. -> stop the schedule.
++NOT_READY  A numerical-readiness rule of the frozen confirmation failed at one point: contract R1 on
++           both axes, arithmetic width <= 1/4000, lean consistency within TOL_NUM (DL-095), or the
++           same refinement rule on baseline outputs. -> keep the point, it enters downstream as
++           UNRESOLVED; stop only when the per-support count can no longer meet the prereg cap.
++
++Cross-route differences (L00-L11, L01-L11) compare two different quadratures (old snapshot grid +
++posterior vs current-state grid); their mismatch is not inside the row's arithmetic error
++(row field `quadrature_error`). They are reported, and judged only by the frozen lean rule.
++"""
++from fractions import Fraction as F
++
++from experiments.R3R_05_contract.rules import TOL_NUM, compare_levels
++from experiments.R3R_14_lean_close.checks import level_ready, ARITH_MAX
++from experiments.P4_03_map_audit.common import point_class, pct, METRICS
++
++SAME_ROUTE = (('00', '01'), ('10', '11'))     # (higher, lower) computed on ONE quadrature
++CROSS_ROUTE = (('00', '11'), ('01', '11'))    # two quadratures: report only
++BASELINE_FIELDS = dict(L00='error00', L10='error10', GS_theta='GS_theta_error', deltaL10='deltaL10_error')
++PILOT_TOL_PP = F(1, 4)
++
++
++def same_route_violations(losses, errors, label='cell'):
++    """Decision-rule bound on one grid: any rule >= the true-model rule on the same nodes."""
++    out = []
++    for hi, lo in SAME_ROUTE:
++        if F(losses[hi]) + F(errors[hi]) < F(losses[lo]) - F(errors[lo]):
++            out.append(f'{label}:same_route:{hi}<{lo}')
++    return out
++
++
++def margin_violations(row, baseline):
++    """Margin cells vs the true-model cell of the SAME route: L00^theta>=L01, L10^theta>=L11."""
++    L, E = row['losses'], row['cost_error']
++    out = []
++    for cell, err, ref in (('L00', 'error00', '01'), ('L10', 'error10', '11')):
++        if F(baseline[cell]) + F(baseline[err]) < F(L[ref]) - F(E[ref]):
++            out.append(f'rho={baseline["rho"]}:same_route:{cell}<{ref}')
++    return out
++
++
++def cross_route_report(row):
++    c = F(row['Cref'])
++    return {f'{hi}-{lo}': str((F(row['losses'][hi]) - F(row['losses'][lo])) / c) for hi, lo in CROSS_ROUTE}
++
++
++def row_readiness(levels, main):
++    """Frozen confirmation acceptance (frame_v2 lean rule): R1 both axes + width + lean consistency."""
++    ready, reasons = level_ready(levels, tuple(main))
++    if ready is None:
++        return ['missing_levels'] + reasons
++    return list(reasons)
++
++
++def neighbours(main):
++    K, ref = main
++    return [(K // 2, ref), (K, ref // 2)]
++
++
++def baseline_readiness(levels, main, rhos):
++    """Same refinement/width rule as L4.4 compare_bundle, applied to margin outputs at every rho."""
++    main = tuple(main); reasons = []; refinement = []
++    fine_row = levels[main]; cf = F(fine_row['Cref'])
++    for lv in [main, *neighbours(main)]:
++        row = levels[lv]
++        for b in row['baseline']:
++            if max(F(b[e]) / F(row['Cref']) for e in BASELINE_FIELDS.values()) > ARITH_MAX:
++                reasons.append(f'baseline_arithmetic:{lv}:{b["rho"]}')
++    for i, rho in enumerate(rhos):
++        fine = fine_row['baseline'][i]; ds = {}
++        if fine['rho'] != rho:
++            raise ValueError('rho grid order changed')
++        for field in BASELINE_FIELDS:
++            gf = F(fine[field]); diffs = []
++            for lv in neighbours(main):
++                coarse = levels[lv]; cc = F(coarse['Cref']); gc = F(coarse['baseline'][i][field])
++                diffs.append(max(abs(gf - gc) / cf, abs(gf / cf - gc / cc)))
++            ds[field] = float(max(diffs))
++            if max(diffs) > TOL_NUM:
++                reasons.append(f'baseline_R1:{rho}:{field}')
++        refinement.append(dict(rho=rho, normalized_difference=ds))
++    return reasons, refinement
++
++
++def d_normalized(levels, main):
++    """R6 distance per metric (ratio of Cref): max refinement delta and arithmetic width (as L4.3/score.py)."""
++    main = tuple(main); fine = levels[main]
++    r1 = [compare_levels(fine, levels[lv]) for lv in neighbours(main)]
++    out = {}
++    for m in METRICS:
++        deltas = [c['deltas'][m] for c in r1 if c['deltas'] is not None]
++        out[m] = max(deltas + [F(fine['normalized_error'][m])])
++    return out, r1
++
++
++def audit_compare(alias, levels, main):
++    """Port of L4.3 compare() with the ONE intended change: no raw-validity / 1e-9 cross-route gate.
++    Readiness is judged elsewhere by row_readiness (lean). Labels, d and R6 logic are unchanged."""
++    main = tuple(main); row = levels[main]
++    d_ratio, r1 = d_normalized(levels, main)
++    z = {m: pct(row, m) for m in METRICS}
++    d = {m: 100 * d_ratio[m] for m in METRICS}
++    shift = {m: z[m] - F(alias['pilot_pctC'][m]) for m in METRICS}
++    keys = ('G_S', 'G_M', 'G_SM', 'Gamma')
++    native_class = point_class([z[m] for m in keys])
++    from itertools import product
++    candidates = {point_class(v) for v in product(*[(z[m] - d[m], z[m] + d[m]) for m in keys])}
++    boundaries = ((abs(z['G_S'] + 1), d['G_S']), (abs(z['G_S'] - 1), d['G_S']),
++                  (abs(z['G_M'] - 1), d['G_M']), (abs(z['G_SM'] - 1), d['G_SM']),
++                  (abs(z['Gamma'] - z['G_S']), d['Gamma'] + d['G_S']),
++                  (abs(z['Gamma'] - z['G_M']), d['Gamma'] + d['G_M']))
++    relevant = {'C': (0,), 'A': (0, 1, 2), 'AB': (0, 1, 2), 'B': (0, 1, 2), 'J': tuple(range(6)), 'D': tuple(range(6))}
++    if native_class == 'D' and z['G_SM'] < 1:
++        relevant['D'] = (0, 1, 2, 3)
++    ambiguous = len(candidates) != 1 or any(boundaries[i][0] <= boundaries[i][1] for i in relevant[native_class])
++    flags = ['PILOT_NATIVE:' + m for m in ('G_S', 'G_M', 'Gamma', 'G_S_M1', 'G_M_S1') if abs(shift[m]) > PILOT_TOL_PP]
++    return dict(id=alias['id'], pilot_class=alias['pilot_class'], native_class=native_class,
++                native_class_R6='UNRESOLVED' if ambiguous else native_class,
++                class_flipped=native_class != alias['pilot_class'],
++                z_pctC={m: float(v) for m, v in z.items()}, d_pp={m: float(v) for m, v in d.items()},
++                shift_pp={m: float(v) for m, v in shift.items()}, pilot_flags=flags,
++                r1=[dict(ready=bool(c['ready']), cref_delta=float(c['cref_delta'])) for c in r1])
++
++
++def manifest_row(case, levels, main, readiness_reasons):
++    """Row format required by experiments/P4_05_candidates/screen.native_label (DISCOVERY_NATIVE)."""
++    main = tuple(main); row = levels[main]
++    d_ratio, r1 = d_normalized(levels, main)
++    arithmetic = not any(r.startswith(('arithmetic_width', 'negative_', 'model_gain', 'state_gain', 'interaction'))
++                         for r in readiness_reasons)
++    return dict(id=case['id'], key=list(case['key']), Cref=row['Cref'], G_S=row['G_S'], Gamma=row['Gamma'],
++                G_M=row['G_M'], d_normalized={m: str(v) for m, v in d_ratio.items()},
++                r1_ready=all(c['ready'] for c in r1), arithmetic_ready=arithmetic,
++                certified_exact=False, CF_computed=False, source_kind='DISCOVERY_NATIVE')
++
++
++def classify(bug_reasons, readiness_reasons):
++    if bug_reasons:
++        return 'BUG'
++    return 'NOT_READY' if readiness_reasons else 'PASS'
++
++
++def stop_decision(results, planned_by_support, caps):
++    """BUG/execution -> stop now. NOT_READY or pilot flags -> stop only when the count already
++    exceeds cap * planned N of that support (the cap can no longer be met). Planned N, not completed
++    N, is the denominator so one early NOT_READY cannot stop a run by itself."""
++    reasons = []
++    for r in results:
++        if r['status'] in ('BUG', 'HOLD_EXECUTION', 'HOLD_RESOURCE_TIMEOUT', 'HOLD_GUARD'):
++            reasons.append(f'{r["native_id"]}:{r["status"]}')
++    for support, n in planned_by_support.items():
++        mine = [r for r in results if support in r.get('supports', [])]
++        nr = sum(r['status'] == 'NOT_READY' for r in mine)
++        if nr > F(caps['max_not_ready_fraction']) * n:
++            reasons.append(f'{support}:NOT_READY {nr}/{n} > {caps["max_not_ready_fraction"]}')
++        flagged = sum(bool(r.get('pilot_flags')) for r in mine)
++        if 'max_pilot_flag_fraction' in caps and flagged > F(caps['max_pilot_flag_fraction']) * n:
++            reasons.append(f'{support}:PILOT_NATIVE {flagged}/{n} > {caps["max_pilot_flag_fraction"]}')
++    return reasons
+diff --git a/experiments/P4_A1/config.py b/experiments/P4_A1/config.py
+new file mode 100644
+index 0000000..1441d07
+--- /dev/null
++++ b/experiments/P4_A1/config.py
+@@ -0,0 +1,70 @@
++"""Prereg loading and fail-closed guards for A1 runs (no engine import here).
++
++A run is runnable only if: its prereg.json is committed with status FROZEN_BEFORE_PLANT, every
++listed source hash matches and is committed, the author choice file is ADOPTED_BY_AUTHOR with the
++author-written fields non-empty, every preserved historical HOLD artifact is byte-unchanged, and the
++frozen engine/card/CF receipts still verify (reuses the L4.3 verifier, which checks them).
++"""
++from fractions import Fraction as F
++import json
++from pathlib import Path
++
++from experiments.P4_03_map_audit.common import ROOT, sha, git, require, canonical, cf_keys, forbid_cf
++
++PKG = Path('experiments/P4_A1')
++RUNS = PKG / 'runs'
++INVENTORY = Path('results/lessons/l3r_7/lean_close/collision_inventory_v3.json')
++SEALED = Path('experiments/P4_03_map_audit/sealed_scope.json')
++AUTHOR_FIELDS = ('decision_verbatim', 'prediction_verbatim', 'why_not_posthoc_in_author_words')
++
++
++def load(path):
++    return json.loads((ROOT / path).read_text())
++
++
++def committed(path):
++    path = Path(path)
++    require(git('show', 'HEAD:' + str(path)) == (ROOT / path).read_bytes(), 'uncommitted: ' + str(path))
++
++
++def check_author(choice_path):
++    choice = load(choice_path)
++    require(choice.get('status') == 'ADOPTED_BY_AUTHOR', 'AUTHOR_NOT_ADOPTED: ' + str(choice_path))
++    for field in AUTHOR_FIELDS:
++        text = str(choice.get(field, '')).strip()
++        require(len(text) >= 20 and not text.startswith('<'), 'AUTHOR_FIELD_EMPTY: ' + field)
++    return choice
++
++
++def verify_run(run_id):
++    path = RUNS / run_id / 'prereg.json'
++    require((ROOT / path).exists(), 'A1_PREREG_NOT_FROZEN: ' + run_id)
++    committed(path)
++    cfg = load(path)
++    require(cfg['status'] == 'FROZEN_BEFORE_PLANT' and cfg['run_id'] == run_id, 'prereg status/run id')
++    for name, digest in cfg['source_sha256'].items():
++        require(sha(ROOT / name) == digest, 'source changed: ' + name)
++        committed(name)
++    for name, digest in cfg['preserved_history_sha256'].items():
++        require(sha(ROOT / name) == digest, 'HISTORY_CHANGED (never edit old HOLD artifacts): ' + name)
++    check_author(cfg['author_choices'])
++    from experiments.P4_03_map_audit.common import verify_prereg as verify_frozen
++    verify_frozen()                         # frozen engine sources, cards, CF list, L4.1 integrity
++    return cfg
++
++
++def all_cases(cfg):
++    return [dict(c, supports=c['supports']) for c in cfg['cases']]
++
++
++def guard_case(case, cfg, *, control=False):
++    require(canonical(case['parameters']) == tuple(case['key']), 'wrong canonical parameters')
++    forbid_cf(case['parameters'], cf_keys())
++    sealed = {tuple(r['coordinates']) for r in load(SEALED)['sealed']}
++    require(tuple(case['key']) not in sealed, 'SEALED_R09_R10: refuse before engine import')
++    if control:
++        require(F(case['parameters'][3]) == 0, 'control must have u=0')
++        return
++    seen = {r['key'] for r in load(INVENTORY)['records'] if r['namespace'] == 'v1.3_fixed_plant'}
++    require('|'.join(case['key']) in seen, 'not an exposed discovery coordinate')
++    require(case['id'] in {c['id'] for c in cfg['cases']}, 'unregistered coordinate')
+diff --git a/experiments/P4_A1/diagnose.py b/experiments/P4_A1/diagnose.py
+new file mode 100644
+index 0000000..aa084cf
+--- /dev/null
++++ b/experiments/P4_A1/diagnose.py
+@@ -0,0 +1,124 @@
++"""Bước 0 — read-only diagnosis of the L4.3 and L4.4 HOLDs from COMMITTED artifacts only.
++
++No engine import, no new plant call, no CF outcome (CF list: parameter columns only).
++python -m experiments.P4_A1.diagnose        -> results/lessons/p4_a1/diagnosis/diagnosis.json (write-once)
++"""
++import glob
++import json
++import os
++from fractions import Fraction as F
++from pathlib import Path
++
++from experiments.P4_03_map_audit.common import ROOT, sha, write_once
++
++CAL = 'results/lessons/l3r_7/lean_close/calibration'
++OUT = Path('results/lessons/p4_a1/diagnosis')
++PAIRS = {'same_00_01': ('00', '01'), 'same_10_11': ('10', '11'),
++         'cross_00_11': ('00', '11'), 'cross_01_11': ('01', '11')}
++
++
++def rd(path):
++    return json.loads((ROOT / path).read_text())
++
++
++def key_of(params):
++    return tuple(str(F(p)) for p in params)
++
++
++def pct(row, k):
++    return 100 * F(row[k]) / F(row['Cref'])
++
++
++def route_test(rows):
++    viol = {k: 0 for k in PAIRS}; worst = {k: None for k in PAIRS}
++    for r in rows:
++        L = {k: F(v) for k, v in r['losses'].items()}; E = {k: F(v) for k, v in r['cost_error'].items()}
++        for k, (hi, lo) in PAIRS.items():
++            viol[k] += L[hi] + E[hi] < L[lo] - E[lo]
++            d = 100 * (L[hi] - L[lo]) / F(r['Cref'])
++            worst[k] = d if worst[k] is None else min(worst[k], d)
++    return dict(rows=len(rows), violations_beyond_arithmetic_error=viol,
++                most_negative_difference_pctCref={k: float(v) for k, v in worst.items()})
++
++
++def main():
++    files = sorted(glob.glob(str(ROOT / CAL / '*' / 'level_*.json')))
++    all_rows = [json.loads(Path(f).read_text()) for f in files]
++    all_rows = [r for r in all_rows if 'losses' in r]
++    main_rows = {Path(f).parent.name: json.loads(Path(f).read_text())
++                 for f in files if f.endswith('level_640_4.json')}
++    # (1) X2000 == CAL_CORNER_001 ?
++    a = main_rows['CAL_CORNER_001']; b = rd('results/lessons/l4_4/native/P44_000/level_640_4.json')
++    x2000 = dict(same_parameters=a['parameters'] == b['parameters'], losses_bit_identical=a['losses'] == b['losses'],
++                 calibration_raw_validity=a['validity_errors'], L11_minus_L00_pctCref=float(pct(b, 'G_SM') * -1),
++                 G_M_pctCref=float(pct(b, 'G_M')), G_M_S1_pctCref=float(pct(b, 'G_M_S1')))
++    # (2) falsification test of the route diagnosis on all calibration levels
++    routes = route_test(all_rows)
++    # (3) raw validity at the frozen level (640,4)
++    errs = [e.split(':')[1] for r in main_rows.values() for e in r['validity_errors']]
++    raw = dict(cases=len(main_rows), raw_invalid=sum(bool(r['validity_errors']) for r in main_rows.values()),
++               by_contrast={e: errs.count(e) for e in sorted(set(errs))},
++               most_negative_cross_route_pctCref=float(min(min(pct(r, 'G_SM'), pct(r, 'G_S_M1')) for r in main_rows.values())))
++    # (4) original L4.4 sanity (rho=0, cell00, arithmetic error only) on coinciding calibration rows
++    by_key = {key_of(r['parameters']): r for r in main_rows.values()}
++    coinc, fails = {}, {}
++    for c in rd('experiments/P4_04_baseline/cases.json')['cases']:
++        r = by_key.get(key_of(c['parameters']))
++        if r is None:
++            continue
++        reg = c['regions'][0]; coinc[reg] = coinc.get(reg, 0) + 1
++        if F(r['losses']['00']) + F(r['cost_error']['00']) < F(r['losses']['11']) - F(r['cost_error']['11']):
++            fails[reg] = fails.get(reg, 0) + 1
++    # (5) does the cross-route violation shrink with K? (honest: mostly not monotone)
++    shrink, total = 0, 0
++    for name, r6 in main_rows.items():
++        if not r6['validity_errors']:
++            continue
++        r3 = rd(f'{CAL}/{name}/level_320_4.json'); total += 1
++        shrink += abs(pct(r6, 'G_S_M1')) < abs(pct(r3, 'G_S_M1'))
++    # (6) XM2X000 common-mode dt shift (L4.3)
++    base = 'results/lessons/l4_3/resource_v2/native/P43_0000'
++    L = {lv: rd(f'{base}/level_{lv}.json') for lv in ('640_4', '320_4', '640_2')}
++    xm = dict(parameters=L['640_4']['parameters'],
++              Cref={lv: r['Cref'] for lv, r in L.items()},
++              cell_rel_change_dt_pct={k: float(100 * (F(L['640_2']['losses'][k]) / F(L['640_4']['losses'][k]) - 1)) for k in ('00', '01', '10', '11')},
++              max_contrast_change_dt_pp=float(max(abs(pct(L['640_4'], m) - pct(L['640_2'], m)) for m in ('G_S', 'G_M', 'G_SM', 'Gamma', 'G_S_M1', 'G_M_S1'))),
++              max_contrast_change_K_pp=float(max(abs(pct(L['640_4'], m) - pct(L['320_4'], m)) for m in ('G_S', 'G_M', 'G_SM', 'Gamma', 'G_S_M1', 'G_M_S1'))))
++    # (7) Cref dt refinement inside the calibrated frame vs A-region benchmark points
++    dt_cal = []
++    for name, r6 in main_rows.items():
++        r2 = rd(f'{CAL}/{name}/level_640_2.json'); dt_cal.append(abs(F(r6['Cref']) - F(r2['Cref'])) / F(r6['Cref']))
++    a_points = {}
++    for nid in ('P43_0379', 'P43_0114'):
++        r6 = rd(f'results/lessons/l4_3/resource_v2/native/{nid}/level_640_4.json')
++        r2 = rd(f'results/lessons/l4_3/resource_v2/native/{nid}/level_640_2.json')
++        a_points[nid] = float(100 * abs(F(r6['Cref']) - F(r2['Cref'])) / F(r6['Cref']))
++    # (8) CF-v2 kappa range: PARAMETER columns only
++    cf = rd('results/lessons/l3r_7/lean_close/cf_generation/attempt01/regimes_cf.json')['rows']
++    kappas = [F(r['regime']['kappa']) for r in cf]
++    report = dict(responsible='Doan Van Tai', provenance='AI (Claude) soạn script; chạy read-only',
++                  engine_calls=0, CF_outcomes=0, new_coordinates=0,
++                  X2000_vs_CAL_CORNER_001=x2000, route_falsification_all_calibration_levels=routes,
++                  raw_validity_at_640_4=raw,
++                  original_L44_sanity_on_coinciding_points=dict(coinciding=coinc, would_fail=fails),
++                  cross_route_K_convergence=dict(raw_invalid_cases=total, shrinks_320_to_640=shrink,
++                                                 note='not monotone in K: source not established'),
++                  XM2X000_common_mode=xm,
++                  Cref_dt_delta_pct=dict(calibration_max=float(100 * max(dt_cal)), A_benchmark=a_points),
++                  CF_v2_kappa_range=[float(min(kappas)), float(max(kappas))],
++                  inputs_sha256={p: sha(ROOT / p) for p in ['experiments/P4_04_baseline/cases.json',
++                                                            'results/lessons/l4_4/native/P44_000/level_640_4.json',
++                                                            f'{base}/level_640_4.json', f'{base}/level_640_2.json']})
++    (ROOT / OUT).mkdir(parents=True, exist_ok=True)
++    target = ROOT / OUT / 'diagnosis.json'
++    if target.exists():
++        if json.loads(target.read_text()) != json.loads(json.dumps(report)):
++            raise RuntimeError('diagnosis differs from the committed one; never overwrite')
++        print('diagnosis already recorded and reproduced exactly'); return
++    write_once(target, report)
++    print(json.dumps({k: report[k] for k in ('X2000_vs_CAL_CORNER_001', 'route_falsification_all_calibration_levels',
++                                              'original_L44_sanity_on_coinciding_points')}, indent=1, ensure_ascii=False))
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/experiments/P4_A1/evaluate.py b/experiments/P4_A1/evaluate.py
+new file mode 100644
+index 0000000..e34cd4e
+--- /dev/null
++++ b/experiments/P4_A1/evaluate.py
+@@ -0,0 +1,101 @@
++"""One frozen-engine evaluation per (case, level), plus margin/Stay outputs with A1 sanity.
++
++The physical numbers come from the unchanged native engine (R3R_14 engine.evaluate_level). The
++side() arrays are captured from that SAME call, so margin cells and the engine's own cells share
++nodes, weights and summation order. Failed checks are RECORDED (row['a1_bug_reasons']), never
++raised: the frozen row is always kept. Formulas for loss/error are byte-for-byte those of L4.4.
++"""
++from fractions import Fraction as F
++
++from experiments.P4_04_baseline.margin import pair_loss_margin, significant_bits, LD, EPS, number
++from .checks import same_route_violations, margin_violations, cross_route_report
++
++
++def margin_cells(A, B, base, ebase, rho):
++    r = number(F(rho)); theta = r * base
++    etheta = r * ebase + (64 * EPS * (abs(theta) + 1) if r else LD(0))
++    cells = {}
++    for key, kind in (('00', 'old'), ('10', 'current')):
++        gap, err, amb = pair_loss_margin(A[kind], B[kind], theta=theta, theta_error=etheta)
++        cells[key] = (base + gap, ebase + err + 64 * EPS * (abs(base) + abs(gap) + 1), amb, gap, err)
++    return theta, etheta, cells
++
++
++def add_baselines_a1(row, sides, h, rhos):
++    from experiments.R3R_08_population_numerics.population import pair_loss
++    bugs = []
++    if len(sides) != 2:
++        row.update(a1_bug_reasons=['side_capture_failed'], baseline=[]); return row
++    A, B = sides
++    base = number(h) * (A['mean'] + B['mean'])
++    ebase = abs(number(h)) * (A['mean_error'] + B['mean_error']) + 128 * EPS * (abs(base) + 1)
++    if base < 0:
++        bugs.append('negative_stay_scale')
++    # (1) theta = 0 must reproduce the engine bit-for-bit (strongest margin.py bug detector) -- FIRST.
++    _, _, zero = margin_cells(A, B, base, ebase, '0')
++    for key, kind in (('00', 'old'), ('10', 'current')):
++        loss, error, amb, gap, err = zero[key]
++        original = pair_loss(A[kind], B[kind], model='mean')
++        if significant_bits(gap) != significant_bits(original[0]) or significant_bits(err) != significant_bits(original[1]):
++            bugs.append(f'theta0_pair_loss_bits:{key}')
++        if amb != original[2] or amb != row['uncertain_action_mass'][key]:
++            bugs.append(f'theta0_ambiguity:{key}')
++        if significant_bits(loss) != significant_bits(LD(row['losses'][key])):
++            bugs.append(f'theta0_cell_bits:{key}')
++        if significant_bits(error) != significant_bits(LD(row['cost_error'][key])):
++            bugs.append(f'theta0_error_bits:{key}')
++    # (2) engine's own cells: same-route bounds are exact on the grid (cross-route only reported).
++    bugs += same_route_violations(row['losses'], row['cost_error'], label='engine')
++    # (3) every rho: margin cell vs the true-model cell of the same route.
++    outputs = []
++    for rho in rhos:
++        theta, etheta, cells = margin_cells(A, B, base, ebase, rho)
++        l00, e00, a00, _, _ = cells['00']; l10, e10, a10, _, _ = cells['10']
++        gm = LD(row['G_M']); gm_error = LD(row['contrast_error']['G_M'])
++        recovery = (LD(row['losses']['00']) - l00) / gm if gm > 0 else None
++        b = dict(rho=rho, theta=str(theta), theta_error=str(etheta), L00=str(l00), L10=str(l10),
++                 error00=str(e00), error10=str(e10), GS_theta=str(l00 - l10), GS_theta_error=str(e00 + e10),
++                 deltaL00=str(l00 - LD(row['losses']['00'])), deltaL00_error=str(e00 + LD(row['cost_error']['00'])),
++                 deltaL10=str(l10 - LD(row['losses']['10'])), deltaL10_error=str(e10 + LD(row['cost_error']['10'])),
++                 R_M=None if recovery is None else str(recovery), R_M_denominator_certified=bool(gm > gm_error),
++                 R_M_undefined=bool(gm <= 0), uncertain_action_mass={'00': a00, '10': a10})
++        bugs += margin_violations(row, b)
++        outputs.append(b)
++    # (4) very large margin == Stay on the same arrays; (5) exact zero action.
++    for kind in ('old', 'current'):
++        theta = max(abs(A[kind]['h'])) + max(abs(B[kind]['h'])) + LD(1)
++        gap, _, _ = pair_loss_margin(A[kind], B[kind], theta=theta)
++        if not (gap == 0 and base + gap == base):
++            bugs.append(f'large_margin_not_stay:{kind}')
++    if row.get('zero_action_certificate'):
++        if not all(LD(v) == base for v in row['losses'].values()):
++            bugs.append('u0_cells_differ')
++        if not all(LD(b[k]) == base for b in outputs for k in ('L00', 'L10')):
++            bugs.append('u0_baseline_differs')
++    row.update(Stay=str(base), Stay_error=str(ebase), baseline=outputs, a1_bug_reasons=bugs,
++               cross_route_report=cross_route_report(row), raw_flags_report_only=dict(
++                   arithmetic_pass=row.get('arithmetic_pass'), validity_errors=row.get('validity_errors')))
++    return row
++
++
++def evaluate_level(case, level, cache, rhos):
++    from experiments.R3R_14_lean_close import engine
++    from experiments.R3R_08_population_numerics import population
++    engine.configure()
++    sides = []; original = population.side
++
++    def capture(*args, **kwargs):
++        result = original(*args, **kwargs); sides.append(result); return result
++    begin = engine.cpu_seconds()
++    population.side = capture
++    try:
++        row = engine.evaluate_level(case['id'], case['parameters'], *level, cache)
++    finally:
++        population.side = original
++    try:
++        row = add_baselines_a1(row, sides, F(case['parameters'][4]), rhos)
++    except Exception as exc:                      # keep the frozen row; an exception is a BUG
++        row.update(a1_bug_reasons=[f'baseline_exception:{type(exc).__name__}: {exc}'], baseline=[])
++    row['native_only_cpu_seconds'] = row['call_cpu_seconds']
++    row['call_cpu_seconds'] = engine.cpu_seconds() - begin
++    return row
+diff --git a/experiments/P4_A1/freeze.py b/experiments/P4_A1/freeze.py
+new file mode 100644
+index 0000000..c19aa7b
+--- /dev/null
++++ b/experiments/P4_A1/freeze.py
+@@ -0,0 +1,156 @@
++"""Create runs/<RUN_ID>/prereg.json ONCE, before any plant call of that run.
++
++Refuses unless: Bước 0 diagnosis is committed; the author file is ADOPTED_BY_AUTHOR with the
++author-written fields and every author decision filled; the output folder has no plant results.
++The prereg pins exact case lists, benchmark/control, caps, and SHA-256 of every source/input and of
++every historical HOLD artifact that must stay byte-unchanged.
++"""
++import argparse
++from fractions import Fraction as F
++import json
++from pathlib import Path
++
++from experiments.P4_03_map_audit.common import ROOT, sha, require, write_once, canonical, cf_keys, forbid_cf, METRICS
++from .config import PKG, RUNS, SEALED, INVENTORY, load, committed, check_author, guard_case
++
++DIAGNOSIS = Path('results/lessons/p4_a1/diagnosis/diagnosis.json')
++CONTROL = dict(id='A1_CONTROL_U0', parameters=['7', '6', '1/10', '0', '8', '0'],
++               key=list(canonical(['7', '6', '1/10', '0', '8', '0'])),
++               purpose='exact zero-action plant sanity; not discovery or CF')
++
++
++def require_filled(value, where):
++    """Every author decision, including nested ones, must be filled (no null anywhere)."""
++    if isinstance(value, dict):
++        for k, v in value.items():
++            require_filled(v, f'{where}.{k}')
++    else:
++        require(value is not None, 'AUTHOR_DECISION_MISSING: ' + where)
++
++
++def sort_key(case):
++    return tuple(map(F, case['key']))
++
++
++def cases_l44(design):
++    doc = load(design['cases_source'])
++    return [dict(id=c['id'], parameters=c['parameters'], key=c['key'], supports=list(c['regions']))
++            for c in doc['cases']], []
++
++
++def in_bounds(a, b, k, e, h, amp, bounds):
++    def inside(name, value):
++        lo, hi = bounds[name]
++        return (lo is None or F(lo) <= value) and (hi is None or value <= F(hi))
++    return (amp == F(bounds['amp']) and inside('kappa_over_age', k) and inside('h_over_age', h)
++            and inside('eta', e) and inside('lambdaA', a) and inside('lambdaB', b))
++
++
++def cases_l43_sv(design, choice):
++    sealed = {tuple(r['coordinates']) for r in load(SEALED)['sealed']}
++    doc = load(design['plus_source'])
++    plus_ids = {a['native_id'] for a in doc['aliases'] if 'A' in a['zones']}
++    plus = [dict(id=c['id'], parameters=c['parameters'], key=c['key'], supports=['SV+'])
++            for c in doc['cases'] if c['id'] in plus_ids and tuple(c['key']) not in sealed]
++    keep = {c['id'] for c in plus}
++    aliases = [dict(a, supports=['SV+']) for a in doc['aliases'] if a['native_id'] in keep and 'A' in a['zones']]
++    from experiments.P4_02_reading.read_map import load_table
++    from experiments.P4_01_recount import recount_map as R
++    bounds = choice['sv_minus_bounds']; forbidden = cf_keys(); by = {}
++    plus_keys = {tuple(c['key']) for c in plus}
++    for row in load_table():
++        a, b, k, e, h, amp = R.scaled_key(row)
++        if not in_bounds(a, b, k, e, h, amp, bounds):
++            continue
++        parameters = list(map(str, (a, b, k, e, h, F(0))))
++        forbid_cf(parameters, forbidden)
++        key = canonical(parameters)
++        require(key not in plus_keys, 'SV minus overlaps SV plus: change bounds')
++        if key in sealed:
++            continue
++        by.setdefault(key, dict(parameters=parameters, key=list(key), rows=[]))['rows'].append(row)
++    minus = []
++    for i, key in enumerate(sorted(by, key=lambda k: tuple(map(F, k)))):
++        cid = f'A1M_{i:04d}'
++        minus.append(dict(id=cid, parameters=by[key]['parameters'], key=by[key]['key'], supports=['SV-']))
++        for row in by[key]['rows']:
++            aliases.append(dict(id=row['id'], native_id=cid, supports=['SV-'], key=by[key]['key'],
++                                pilot_class=row['class'], original_age=str(row['_key'][5]),
++                                pilot_pctC={m: str(row[m + '_pctC']) for m in METRICS}))
++    require(minus, 'SV minus bounds contain no exposed discovery coordinate')
++    return plus + minus, aliases
++
++
++def cases_sub_probe(design, choice):
++    doc = load(design['plus_source'])
++    sealed = {tuple(r['coordinates']) for r in load(SEALED)['sealed']}
++    ab = {a['native_id'] for a in doc['aliases'] if 'AB' in a['zones']}
++    pool = sorted([c for c in doc['cases'] if c['id'] in ab and F(c['parameters'][2]) == F(1, 20)
++                   and tuple(c['key']) not in sealed], key=sort_key)
++    n = int(choice['probe_n'])
++    require(2 <= n <= len(pool), 'probe_n out of range')
++    picked = [pool[round(i * (len(pool) - 1) / (n - 1))] for i in range(n)]
++    ids = {c['id'] for c in picked}
++    require(len(ids) == n, 'probe selection collapsed')
++    cases = [dict(id=c['id'], parameters=c['parameters'], key=c['key'], supports=['SUB_PROBE']) for c in picked]
++    aliases = [dict(a, supports=['SUB_PROBE']) for a in doc['aliases'] if a['native_id'] in ids and 'AB' in a['zones']]
++    return cases, aliases
++
++
++def main():
++    p = argparse.ArgumentParser(); p.add_argument('--run', required=True); a = p.parse_args()
++    folder = RUNS / a.run
++    design = load(folder / 'design.json'); require(design['run_id'] == a.run, 'design run id')
++    choice_path = folder / 'author_choices.json'
++    choice = check_author(choice_path)
++    require_filled(choice['decisions'], 'decisions')
++    for path in [DIAGNOSIS, folder / 'design.json', choice_path, folder / 'amendment.md']:
++        committed(path)
++    out = ROOT / design['output']
++    require(not (out / 'native').exists() and not (out / 'controls').exists(), 'plant output already exists')
++    if design['kind'] == 'L44':
++        cases, aliases = cases_l44(design)
++    elif design['kind'] == 'L43_SV':
++        cases, aliases = cases_l43_sv(design, choice['decisions'])
++    elif design['kind'] == 'SUB_PROBE':
++        cases, aliases = cases_sub_probe(design, choice['decisions'])
++    else:
++        raise ValueError('unknown run kind')
++    require(len({tuple(c['key']) for c in cases}) == len(cases), 'duplicate physical key')
++    cfg = dict(run_id=a.run, kind=design['kind'], output=design['output'], levels=design['levels'], rho=design['rho'],
++               cases=cases, aliases=aliases, audit_pilot=design['audit_pilot'], control=CONTROL)
++    for c in cases:
++        guard_case(c, cfg)
++    guard_case(CONTROL, cfg, control=True)
++    supports = {}
++    for name, spec in design['supports'].items():
++        spec = dict(spec)
++        if spec.get('target') == 'AUTHOR':
++            spec['target'] = choice['decisions']['sv_target_controller']
++        supports[name] = spec
++    benchmark = []
++    for name in supports:
++        group = sorted([c for c in cases if name in c['supports']], key=sort_key)
++        require(group, 'empty support: ' + name)
++        benchmark += [group[0]['id'], group[-1]['id']] if len(group) > 1 else [group[0]['id']]
++    resources = dict(design['resources'], cpu_cap_hours=choice['decisions']['cpu_cap_hours'])
++    sources = sorted({*map(str, (PKG / x for x in ('__init__.py', 'checks.py', 'config.py', 'evaluate.py',
++                                                    'run.py', 'summarize.py', 'freeze.py', 'diagnose.py'))),
++                      'tests/test_p4_a1.py', str(folder / 'design.json'), str(choice_path), str(folder / 'amendment.md'),
++                      str(DIAGNOSIS), str(SEALED), str(INVENTORY), *design['input_files']})
++    cfg.update(status='FROZEN_BEFORE_PLANT', responsible='Doan Van Tai', author_choices=str(choice_path),
++               supports=supports, benchmark_ids=benchmark, caps=choice['decisions']['caps'],
++               reading=dict(SV=choice['decisions'].get('sv_reading_rule')), resources=resources,
++               CF_computed=False, card_v2_verdict_unchanged=True,
++               source_sha256={s: sha(ROOT / s) for s in sources},
++               preserved_history_sha256={s: sha(ROOT / s) for s in design['preserved_history']})
++    for s in sources:
++        committed(s)
++    write_once(ROOT / folder / 'prereg.json', cfg)
++    print(json.dumps(dict(run=a.run, cases=len(cases), aliases=len(aliases),
++                          per_support={n: sum(n in c['supports'] for c in cases) for n in supports},
++                          benchmark=benchmark), indent=1), flush=True)
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/experiments/P4_A1/run.py b/experiments/P4_A1/run.py
+new file mode 100644
+index 0000000..253ab3a
+--- /dev/null
++++ b/experiments/P4_A1/run.py
+@@ -0,0 +1,249 @@
++"""A1 runner: control -> benchmark -> budget -> full, config-driven by runs/<RUN_ID>/prereg.json.
++
++python -m experiments.P4_A1.run control   --run RUN_ID
++python -m experiments.P4_A1.run benchmark --run RUN_ID
++python -m experiments.P4_A1.run budget    --run RUN_ID   (then COMMIT budget.json before full)
++python -m experiments.P4_A1.run full      --run RUN_ID
++
++Stop policy (checks.stop_decision): BUG / execution / guard -> stop scheduling at once.
++NOT_READY and pilot flags -> continue, stop only when the per-support cap can no longer be met.
++"""
++import argparse
++from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
++import os
++from pathlib import Path
++import resource
++import subprocess
++import time
++
++from experiments.P4_03_map_audit.common import ROOT, sha, git, require, write_once
++from .config import RUNS, load, verify_run, guard_case
++from .checks import (row_readiness, baseline_readiness, audit_compare, classify, stop_decision,
++                     cross_route_report, neighbours)
++
++
++def out_dir(cfg):
++    path = ROOT / cfg['output']
++    path.mkdir(parents=True, exist_ok=True)
++    ignore = path / '.gitignore'
++    if not ignore.exists():
++        ignore.write_text('native_cache/\n')
++    return path
++
++
++def fingerprint(run_id):
++    return sha(ROOT / RUNS / run_id / 'prereg.json')
++
++
++def budget_receipt(cfg):
++    path = Path(cfg['output']) / 'budget.json'
++    require((ROOT / path).exists(), 'full run needs budget receipt')
++    require(git('show', 'HEAD:' + str(path)) == (ROOT / path).read_bytes(), 'commit budget.json before full')
++    receipt = load(path)
++    require(receipt['status'] == 'AUTHORIZED_BY_PREREG_RULE', 'budget not authorized')
++    return receipt
++
++
++def case_of(cfg, cid):
++    if cid == cfg['control']['id']:
++        return cfg['control'], True
++    return next(c for c in cfg['cases'] if c['id'] == cid), False
++
++
++def worker(run_id, cid):
++    cfg = verify_run(run_id)
++    case, control = case_of(cfg, cid)
++    guard_case(case, cfg, control=control)
++    out = out_dir(cfg)
++    for stage in ('benchmark', 'full'):
++        if (out / f'{stage}_summary.json').exists():
++            require(load((out / f'{stage}_summary.json').relative_to(ROOT))['status'] == 'PASS',
++                    'previous stage HOLD: no new physical calls')
++    if not control:
++        require(load((out / 'control_summary.json').relative_to(ROOT))['status'] == 'PASS', 'control not passed')
++        if cid not in cfg['benchmark_ids']:
++            budget_receipt(cfg)
++    lim = cfg['resources']
++    resource.setrlimit(resource.RLIMIT_CPU, (lim['case_cpu_seconds'], lim['case_cpu_seconds'] + 5))
++    resource.setrlimit(resource.RLIMIT_AS, (lim['address_space_bytes'], lim['address_space_bytes']))
++    from .evaluate import evaluate_level            # every guard above runs BEFORE the engine import
++    main = tuple(cfg['levels'][0])
++    requested = [main] if control else [main, *neighbours(main)]
++    folder = out / ('controls' if control else 'native') / cid
++    folder.mkdir(parents=True, exist_ok=True)
++    fp = fingerprint(run_id); rows = {}
++    for lv in requested:
++        path = folder / f'level_{lv[0]}_{lv[1]}.json'
++        if path.exists():
++            row = load(path.relative_to(ROOT))
++            require(row.get('a1_prereg_sha256') == fp and row.get('id') == cid and
++                    row.get('parameters') == case['parameters'], 'stale or foreign resumed row')
++        else:
++            try:
++                row = evaluate_level(case, lv, out / 'native_cache', cfg['rho'])
++                row['status'] = 'COMPLETED'
++            except Exception as exc:
++                row = dict(id=cid, K=lv[0], ref=lv[1], status='HOLD_EXECUTION', error=f'{type(exc).__name__}: {exc}')
++            row.update(parameters=case['parameters'], a1_prereg_sha256=fp, CF_computed=False)
++            write_once(path, row)
++        rows[lv] = row
++    if any(r['status'] != 'COMPLETED' for r in rows.values()):
++        record = dict(native_id=cid, supports=case.get('supports', []), status='HOLD_EXECUTION',
++                      reasons=[r.get('error', r['status']) for r in rows.values() if r['status'] != 'COMPLETED'])
++    elif control:
++        row = rows[main]
++        ok = row.get('zero_action_certificate') is True and not row['a1_bug_reasons']
++        record = dict(native_id=cid, status='PASS' if ok else 'BUG', bug_reasons=row['a1_bug_reasons'],
++                      cpu_seconds=row['call_cpu_seconds'])
++    else:
++        bugs = sorted({b for r in rows.values() for b in r['a1_bug_reasons']})
++        readiness = row_readiness(rows, main)
++        base_reasons, refinement = baseline_readiness(rows, main, cfg['rho']) if not bugs else ([], [])
++        readiness += base_reasons
++        audits = [audit_compare(a, rows, main) for a in cfg.get('aliases', []) if a['native_id'] == cid] \
++            if cfg.get('audit_pilot') else []
++        record = dict(native_id=cid, supports=case['supports'], status=classify(bugs, readiness),
++                      bug_reasons=bugs, readiness_reasons=readiness, baseline_refinement=refinement,
++                      pilot_flags=sorted({f for a in audits for f in a['pilot_flags']}), audit=audits,
++                      cross_route_main=cross_route_report(rows[main]),
++                      raw_flags_report_only={f'{lv[0]}_{lv[1]}': r['raw_flags_report_only'] for lv, r in rows.items()},
++                      cpu_seconds=sum(r['call_cpu_seconds'] for r in rows.values()))
++    record['a1_prereg_sha256'] = fp
++    target = folder / 'comparison.json'
++    if target.exists():
++        require(load(target.relative_to(ROOT)) == record, 'comparison changed on resume')
++    else:
++        write_once(target, record)
++    print(cid, record['status'], record.get('bug_reasons') or record.get('readiness_reasons') or '', flush=True)
++    return 0 if record['status'] in ('PASS', 'NOT_READY') else 1
++
++
++def launch(run_id, cfg, cid):
++    case, control = case_of(cfg, cid)
++    folder = ROOT / cfg['output'] / ('controls' if control else 'native') / cid
++    target = folder / 'comparison.json'
++    if target.exists():
++        saved = load(target.relative_to(ROOT))
++        require(saved.get('a1_prereg_sha256') == fingerprint(run_id), 'comparison from another prereg')
++        return saved
++    env = dict(os.environ, OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1', NUMEXPR_NUM_THREADS='1')
++    cmd = [str(ROOT / '.venv/bin/python'), '-m', 'experiments.P4_A1.run', 'worker', '--run', run_id, '--case', cid]
++    try:
++        proc = subprocess.run(cmd, cwd=ROOT, env=env, capture_output=True, text=True,
++                              timeout=cfg['resources']['case_wall_seconds'])
++        log = proc.stdout + proc.stderr
++        failure = dict(native_id=cid, supports=case.get('supports', []), status='HOLD_EXECUTION',
++                       exit_code=proc.returncode, error=proc.stderr[-4000:])
++    except subprocess.TimeoutExpired as exc:
++        log = str(exc); failure = dict(native_id=cid, supports=case.get('supports', []), status='HOLD_RESOURCE_TIMEOUT')
++    folder.mkdir(parents=True, exist_ok=True)
++    attempts = list(folder.glob('worker_*.log'))
++    with (folder / f'worker_{len(attempts) + 1:02d}.log').open('x') as stream:
++        stream.write(log)
++    if not target.exists():
++        failure['a1_prereg_sha256'] = fingerprint(run_id)
++        write_once(target, failure)
++    return load(target.relative_to(ROOT))
++
++
++def planned_by_support(cfg, ids):
++    counts = {}
++    for c in cfg['cases']:
++        for s in c['supports']:
++            counts[s] = counts.get(s, 0) + 1
++    return counts
++
++
++def control(run_id, cfg):
++    target = out_dir(cfg) / 'control_summary.json'
++    if not target.exists():
++        write_once(target, launch(run_id, cfg, cfg['control']['id']))
++    result = load(target.relative_to(ROOT)); print(result, flush=True)
++    return result['status'] != 'PASS'
++
++
++def run_stage(run_id, cfg, stage):
++    out = out_dir(cfg)
++    require(load((out / 'control_summary.json').relative_to(ROOT))['status'] == 'PASS', 'control HOLD')
++    if stage == 'full':
++        budget_receipt(cfg)
++    target = out / f'{stage}_summary.json'
++    if target.exists():
++        result = load(target.relative_to(ROOT)); print(result['status'], flush=True)
++        return result['status'] != 'PASS'
++    ids = cfg['benchmark_ids'] if stage == 'benchmark' else [c['id'] for c in cfg['cases']]
++    planned = planned_by_support(cfg, ids)
++    begin = time.monotonic(); results = []; reasons = []
++    workers = 1 if stage == 'benchmark' else cfg['resources']['workers']
++    pending_ids = iter(ids)
++    with ThreadPoolExecutor(max_workers=workers) as pool:
++        active = {}
++
++        def schedule():
++            cid = next(pending_ids, None)
++            if cid is not None:
++                active[pool.submit(launch, run_id, cfg, cid)] = cid
++        for _ in range(workers):
++            schedule()
++        while active:
++            done, _ = wait(active, return_when=FIRST_COMPLETED)
++            for future in done:
++                cid = active.pop(future); result = future.result(); results.append(result)
++                print(stage, cid, result['status'], round(result.get('cpu_seconds', 0), 2), flush=True)
++            reasons = stop_decision(results, planned, cfg['caps'])
++            if sum(r.get('cpu_seconds', 0) for r in results) > cfg['resources']['cpu_cap_hours'] * 3600:
++                reasons.append('cpu_cap')
++            if not reasons:
++                while len(active) < workers:
++                    before = len(active); schedule()
++                    if len(active) == before:
++                        break
++    ok = not reasons and len(results) == len(ids)
++    summary = dict(stage=stage, status='PASS' if ok else 'HOLD', planned=len(ids), completed=len(results),
++                   counts={s: sum(r['status'] == s for r in results) for s in {r['status'] for r in results}},
++                   stop_reasons=reasons, cpu_seconds=sum(r.get('cpu_seconds', 0) for r in results),
++                   wall_seconds=time.monotonic() - begin, results=results, a1_prereg_sha256=fingerprint(run_id))
++    write_once(target, summary)
++    print({k: summary[k] for k in ('stage', 'status', 'planned', 'completed', 'counts', 'stop_reasons')}, flush=True)
++    return not ok
++
++
++def budget(run_id, cfg):
++    out = out_dir(cfg)
++    bench = load((out / 'benchmark_summary.json').relative_to(ROOT))
++    require(bench['status'] == 'PASS', 'benchmark HOLD: no budget')
++    by_id = {r['native_id']: r for r in bench['results']}
++    estimate = {}
++    for support, n in planned_by_support(cfg, None).items():
++        measured = [by_id[c['id']]['cpu_seconds'] for c in cfg['cases'] if c['id'] in by_id and support in c['supports']]
++        require(measured, 'every support needs a benchmark case: ' + support)
++        estimate[support] = dict(max_bundle_cpu_seconds=max(measured), N=n, conservative_cpu_seconds=1.5 * max(measured) * n)
++    total = sum(e['conservative_cpu_seconds'] for e in estimate.values()) + \
++        load((out / 'control_summary.json').relative_to(ROOT))['cpu_seconds']
++    cap = cfg['resources']['cpu_cap_hours']
++    receipt = dict(status='AUTHORIZED_BY_PREREG_RULE' if total <= cap * 3600 else 'HOLD_BUDGET',
++                   rule='1.5 * max benchmark bundle CPU per support * N(support) + control',
++                   supports=estimate, estimated_cpu_hours=total / 3600, cap_cpu_hours=cap,
++                   a1_prereg_sha256=fingerprint(run_id))
++    write_once(out / 'budget.json', receipt)
++    print(receipt, flush=True)
++    return receipt['status'] != 'AUTHORIZED_BY_PREREG_RULE'
++
++
++def main():
++    p = argparse.ArgumentParser()
++    p.add_argument('step', choices=['control', 'benchmark', 'budget', 'full', 'worker'])
++    p.add_argument('--run', required=True); p.add_argument('--case')
++    a = p.parse_args()
++    if a.step == 'worker':
++        return worker(a.run, a.case)
++    cfg = verify_run(a.run)
++    if a.step == 'control':
++        return control(a.run, cfg)
++    if a.step == 'budget':
++        return budget(a.run, cfg)
++    return run_stage(a.run, cfg, a.step)
++
++
++if __name__ == '__main__':
++    raise SystemExit(main())
+diff --git a/experiments/P4_A1/runs/L43_A1_SV/amendment.md b/experiments/P4_A1/runs/L43_A1_SV/amendment.md
+new file mode 100644
+index 0000000..8f1d4c6
+--- /dev/null
++++ b/experiments/P4_A1/runs/L43_A1_SV/amendment.md
+@@ -0,0 +1,29 @@
++# L4.3-A1 (SV) — Audit vùng A bằng đúng thước của scorer, kèm baseline, sau HOLD tại XM2X000
++
++Người phụ trách: **Doan Van Tai**. Provenance: AI (Claude) soạn; **tác giả quyết** trong `author_choices.json`.
++
++## Vì sao sửa (độc lập với kết quả)
++
++1. HOLD gốc ở XM2X000 (vùng AB, κ/τ = 1/20): chênh C̄ref theo dt 0,31% > 0,25% trong khi sáu contrast đổi
++   ≤ 0,044 pp. Calibration đóng băng (κ ≥ 1/10) có chênh C̄ref theo dt tối đa 0,073%; hai điểm vùng A
++   đã chạy chỉ 0,004% và 0,001%. Một giới hạn phân giải ở κ = 1/20 không mang thông tin về κ/τ ≥ 1/5.
++   → **Stop rule tách theo vùng ứng viên**: run này chỉ chứa hỗ trợ của SV; vùng AB (SUB) chờ quyết định riêng.
++2. Validator gốc đòi raw `arithmetic_pass`, raw `validity_errors = []` và S07/S08 ở 10⁻⁹ pp trên cả contrast
++   khác tuyến — chặt hơn scorer của confirmation (`frame_v2.adapter_result`: R1 + độ rộng ≤ 1/4000 + lean TOL_NUM).
++   Trên 1298 row calibration, khác tuyến âm nhẹ 236/279 lần dù numerics đóng băng chấp nhận chúng.
++   → **Validator = thước của scorer**; raw flag chỉ báo cáo. Nhãn, d, R6 giữ đúng logic L4.3 (`audit_compare`).
++3. Luật sàng L4.5 đã khóa (624a9be) đòi, cho từng ứng viên, nhãn native **và** baseline + ρ policy trước khi
++   đếm hộp; SV là thiết kế hai vùng nên cần nhãn native của **vùng đối chứng**, vốn không nằm trong scope L4.3.
++   → Một run gộp (native + margin trên cùng lời gọi engine) cho SV+ và SV−.
++
++## Đổi gì / không đổi
++
++- Đổi: phạm vi (chỉ SV+ = vùng A của L4.3 trừ điểm niêm phong, SV− do tác giả chọn); validator; stop rule
++  BUG vs NOT_READY (như L4.4-A1); cờ pilot/native > 0,25 pp thành phát hiện, dừng khi vượt cap × N.
++- Không đổi: engine, ba mức, R1, ngưỡng ±1%, R6, TOL_NUM, lưới ρ, luật budget, mọi file L4.3 cũ (khóa hash).
++- Không làm: vẽ hộp, tính p̂, chọn card, đụng CF/R09/R10.
++
++## Kết quả nào bác bỏ giả định của amendment
++
++Vi phạm cùng tuyến (BUG) bất kỳ; hoặc NOT_READY ở vùng A vượt cap — khi đó giả định "vùng A nằm trong
++coverage của (640, 4)" sai và phải xử lý numerics trước khi dùng nhãn.
+diff --git a/experiments/P4_A1/runs/L43_A1_SV/author_choices.json b/experiments/P4_A1/runs/L43_A1_SV/author_choices.json
+new file mode 100644
+index 0000000..73884f1
+--- /dev/null
++++ b/experiments/P4_A1/runs/L43_A1_SV/author_choices.json
+@@ -0,0 +1,84 @@
++{
++ "responsible": "Doan Van Tai",
++ "status": "DRAFT_AWAITING_AUTHOR",
++ "how_to_adopt": "Đọc amendment.md. Tự viết 3 trường văn bản bằng lời của bạn, chọn mọi giá trị trong decisions (có thể chép từ recommended nếu bạn đồng ý VÀ giải thích được vì sao), rồi đổi status thành ADOPTED_BY_AUTHOR. AI không điền thay.",
++ "decision_verbatim": "<tác giả viết: chấp nhận/không chấp nhận A1 cho vùng A, vùng đối chứng SV đã chọn và vì sao>",
++ "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy: dự đoán về NOT_READY ở vùng A, về dấu của shift pilot→native, về Ḡ_S^θ>",
++ "why_not_posthoc_in_author_words": "<tác giả viết: vì sao tách stop rule theo vùng và dùng thước lean không phải chọn điều kiện có lợi>",
++ "decisions": {
++  "sv_minus_bounds": null,
++  "sv_target_controller": null,
++  "sv_reading_rule": null,
++  "caps": {
++   "max_not_ready_fraction": null,
++   "max_pilot_flag_fraction": null
++  },
++  "cpu_cap_hours": null
++ },
++ "recommended_by_AI_not_adopted": {
++  "sv_minus_bounds_option_kappa_flip": {
++   "kappa_over_age": [
++    "2",
++    "3"
++   ],
++   "h_over_age": [
++    "1",
++    "4"
++   ],
++   "eta": [
++    "1/2",
++    null
++   ],
++   "lambdaA": [
++    null,
++    null
++   ],
++   "lambdaB": [
++    null,
++    null
++   ],
++   "amp": "6",
++   "exposed_distinct_points": 48,
++   "mechanism": "mode lasts long -> 1 s old snapshot already reveals the mode -> fresh state adds little; same horizon as SV+"
++  },
++  "sv_minus_bounds_option_h_flip": {
++   "kappa_over_age": [
++    "1/5",
++    "1"
++   ],
++   "h_over_age": [
++    "8",
++    "16"
++   ],
++   "eta": [
++    "1/2",
++    null
++   ],
++   "lambdaA": [
++    null,
++    null
++   ],
++   "lambdaB": [
++    null,
++    null
++   ],
++   "amp": "6",
++   "exposed_distinct_points": 124,
++   "caveat": "BLOCKED in practice: a box kappa/age in [1/5,1], h/age in [8,16] geometrically contains CF-v2 keys (every CF-v2 regime has h >= 8.025), and the locked L4.5 kernel refuses any box that touches a reserved key. It would also mix in the M0 state-harm regime (class C), i.e. the control could fail for a different reason."
++  },
++  "AI_preference": "kappa_flip: isolates one mechanism (old snapshot already reveals a long-lived mode), keeps the horizon of SV+, mirrors the card-v2 control logic, and with h/age <= 4 cannot touch any CF-v2 key (all have h >= 8.025)",
++  "sv_target_controller": "00",
++  "sv_target_why": "alternative explanation for SV = 'a conservative stale controller already gets the value'; the controller being rescued is S0M0, as for MV",
++  "sv_reading_rule": {
++   "median_GS_theta_pctC_below": "1/2",
++   "statement_if_narrow": "Giá trị state so với controller mean-field không margin; một margin đơn giản lấy lại phần lớn",
++   "statement_otherwise": "Không thu hẹp SV vì baseline theo luật đã duyệt; báo cả Ḡ_S^θ và ΔL00"
++  },
++  "sv_reading_note": "narrow only if median GS_theta/Cref < 0.5% AND median deltaL00 < 0 (margin really improves S0M0), mirror of DL-104 SH rule",
++  "caps": {
++   "max_not_ready_fraction": "1/10",
++   "max_pilot_flag_fraction": "1/10"
++  },
++  "cpu_cap_hours": 8
++ }
++}
+diff --git a/experiments/P4_A1/runs/L43_A1_SV/design.json b/experiments/P4_A1/runs/L43_A1_SV/design.json
+new file mode 100644
+index 0000000..13b9dab
+--- /dev/null
++++ b/experiments/P4_A1/runs/L43_A1_SV/design.json
+@@ -0,0 +1,22 @@
++{
++ "run_id": "L43_A1_SV",
++ "kind": "L43_SV",
++ "provenance": "AI (Claude) soạn thiết kế; vùng đối chứng SV, controller đích, luật đọc và cap là quyết định của tác giả",
++ "purpose": "Combined native relabel + margin baseline on the SV support (plus = audited A region, minus = author-chosen control region), producing the DISCOVERY_NATIVE manifest and rho policy that experiments/P4_05_candidates/screen.py requires. Discovery only; no box, no p-hat, no card.",
++ "output": "results/lessons/l4_3/a1_sv",
++ "levels": [[640, 4], [320, 4], [640, 2]],
++ "rho": ["0", "1/200", "1/100", "1/50", "1/20"],
++ "supports": {
++  "SV+": {"target": "AUTHOR", "reading": "SV", "manifest_role": "plus"},
++  "SV-": {"manifest_role": "minus"}
++ },
++ "plus_source": "experiments/P4_03_map_audit/cases.json",
++ "audit_pilot": true,
++ "resources": {"case_cpu_seconds": 1800, "case_wall_seconds": 2400, "address_space_bytes": 3221225472, "workers": 2},
++ "input_files": ["experiments/P4_03_map_audit/cases.json", "results/P4_01_recount/20261030_01/recounted_regimes.csv",
++                 "experiments/P4_05_candidates/screening_rules.json", "experiments/P4_04_baseline/margin.py",
++                 "experiments/P4_04_baseline/analysis.py"],
++ "preserved_history": ["experiments/P4_03_map_audit/prereg.json", "experiments/P4_03_map_audit/resource_amendment.json",
++                       "experiments/P4_03_map_audit/sealed_scope.json", "results/lessons/l4_3/resource_v2/benchmark_summary.json",
++                       "results/lessons/l4_3/resource_v2/native/P43_0000/comparison.json", "notes/phases/L4_3_completion.json"]
++}
+diff --git a/experiments/P4_A1/runs/L44_A1/amendment.md b/experiments/P4_A1/runs/L44_A1/amendment.md
+new file mode 100644
+index 0000000..ee36a84
+--- /dev/null
++++ b/experiments/P4_A1/runs/L44_A1/amendment.md
+@@ -0,0 +1,37 @@
++# L4.4-A1 — Sửa đặc tả sanity sau HOLD tại X2000 (design revision, không nới ngưỡng)
++
++Người phụ trách: **Doan Van Tai**. Provenance: AI (Claude) soạn; **tác giả quyết** trong `author_choices.json`.
++Trạng thái thật nằm trong file đó, không nằm ở đây.
++
++## Vì sao sửa (nêu được mà không cần nhắc tới R_M, Ḡ_S^θ hay verdict nào)
++
++1. Engine tính ô 00/01 trên lưới snapshot cũ + posterior, ô 10/11 trên lưới state hiện tại
++   (`population.side`: hai lời gọi `quadrature.build`). Sai lệch giữa hai lưới **không** nằm trong
++   `cost_error` (row tự ghi `quadrature_error = ... not a certified total error interval`).
++2. Sanity gốc so L̄00^θ (lưới cũ) với L̄11 (lưới hiện tại) bằng sai số số học → so khác tuyến bằng
++   ngân sách sai. DL-095 đã thay đúng loại kiểm này bằng TOL_NUM × C̄ref cho numerics đóng băng.
++3. Bằng chứng read-only (`results/lessons/p4_a1/diagnosis/diagnosis.json`, Bước 0): row X2000 trùng bit
++   ca calibration `CAL_CORNER_001` mà numerics đóng băng đã chấp nhận; trên 1298 row calibration
++   (118 ca × 11 mức) bất đẳng thức **cùng tuyến** vi phạm 0 lần, **khác tuyến** 236/279 lần (≤ 0,111% C̄ref);
++   luật gốc sẽ fail ở 17/33 điểm SH có row trùng tọa độ → HOLD là chắc chắn, không phụ thuộc kết quả khoa học.
++
++## Đổi gì
++
++| Trước (spec L4.4 §6) | Sau (A1) | Loại |
++|---|---|---|
++| Oracle bound L̄^θ + e ≥ L̄11 − e11 cho cả ô 00 và 10, kiểm TRƯỚC bit θ0 | Bit θ0 kiểm đầu tiên; L̄00^θ ≥ L̄01 và L̄10^θ ≥ L̄11 (cùng tuyến, sai số số học), mọi ρ | BUG → dừng |
++| — | Ô gốc của engine: L̄00 ≥ L̄01, L̄10 ≥ L̄11 cùng tuyến | BUG → dừng |
++| Mọi lỗi (sanity hay số) → HOLD toàn bộ | Lỗi số (lean `level_ready`, baseline R1/độ rộng) → điểm NOT_READY, ghi lại; dừng khi số NOT_READY > cap × N của vùng | NOT_READY |
++| Raw `arithmetic_pass`/`validity_errors` | Chỉ báo cáo; khác tuyến đã do lean consistency (TOL_NUM) chấm | báo cáo |
++
++Phân rã cho thấy không mất thông tin: L̄00^θ − L̄11 = (L̄00^θ − L̄01) + Ḡ_S|M1. Phần đầu là bất biến
++cùng tuyến (A1 kiểm, chặt hơn vì sàn L̄01 ≥ L̄11 trong toán), phần sau là Ḡ_S|M1 ≥ 0 của engine (lean kiểm).
++
++## Không đổi
++
++Lưới ρ, luật chọn ρ* theo vùng, luật đọc DL-104, 90 điểm, luật benchmark (đầu/cuối mỗi vùng, cùng 4 điểm
++cũ), luật budget, engine/card/CF/numerics. Hồ sơ HOLD cũ giữ nguyên byte (prereg A1 khóa hash của chúng).
++
++## Kết quả nào bác bỏ chẩn đoán
++
++Bất kỳ vi phạm **cùng tuyến** nào ở bất kỳ điểm/mức/ρ nào → chẩn đoán sai, đó là bug → dừng, điều tra.
+diff --git a/experiments/P4_A1/runs/L44_A1/author_choices.json b/experiments/P4_A1/runs/L44_A1/author_choices.json
+new file mode 100644
+index 0000000..31ac32c
+--- /dev/null
++++ b/experiments/P4_A1/runs/L44_A1/author_choices.json
+@@ -0,0 +1,17 @@
++{
++ "responsible": "Doan Van Tai",
++ "status": "DRAFT_AWAITING_AUTHOR",
++ "how_to_adopt": "Đọc amendment.md. Tự viết 3 trường *_verbatim/*_words bằng lời của bạn (>= 20 ký tự, không bắt đầu bằng '<'), điền mọi giá trị trong decisions, rồi đổi status thành ADOPTED_BY_AUTHOR. AI không được điền các trường này thay bạn.",
++ "decision_verbatim": "<tác giả viết: tôi chấp nhận/không chấp nhận amendment A1 và vì sao>",
++ "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy: dự đoán về bất biến cùng tuyến, raw flag, và kết quả nào sẽ bác bỏ chẩn đoán>",
++ "why_not_posthoc_in_author_words": "<tác giả viết: vì sao đây là sửa đặc tả chứ không phải nới luật sau khi thấy kết quả>",
++ "decisions": {
++  "caps": {"max_not_ready_fraction": null},
++  "cpu_cap_hours": null
++ },
++ "recommended_by_AI_not_adopted": {
++  "caps": {"max_not_ready_fraction": "1/10"},
++  "cpu_cap_hours": 8,
++  "why": "1/10 mirrors card-v2 R5 u_max; 8 CPU-h is the cap already used in L4.3/L4.4. 49/90 four-cell rows are identical to frozen calibration rows that already passed R1+lean, so NOT_READY should be rare."
++ }
++}
+diff --git a/experiments/P4_A1/runs/L44_A1/design.json b/experiments/P4_A1/runs/L44_A1/design.json
+new file mode 100644
+index 0000000..b1110fd
+--- /dev/null
++++ b/experiments/P4_A1/runs/L44_A1/design.json
+@@ -0,0 +1,25 @@
++{
++ "run_id": "L44_A1",
++ "kind": "L44",
++ "provenance": "AI (Claude) soạn thiết kế; mọi quyết định khoa học nằm trong author_choices.json",
++ "output": "results/lessons/l4_4/a1",
++ "levels": [[640, 4], [320, 4], [640, 2]],
++ "rho": ["0", "1/200", "1/100", "1/50", "1/20"],
++ "supports": {
++  "MV+A": {"target": "00", "reading": "MV+A"},
++  "SH+A": {"target": "10", "reading": "SH+A"}
++ },
++ "cases_source": "experiments/P4_04_baseline/cases.json",
++ "audit_pilot": false,
++ "resources": {"case_cpu_seconds": 1800, "case_wall_seconds": 2400, "address_space_bytes": 3221225472, "workers": 2},
++ "unchanged_from_DL104": ["rho grid", "selection rule per region (MV target 00, SH target 10, equal key weights, exact tie -> smaller rho)",
++                          "reading rule (MV median R_M >= 1/2; SH median |GS_theta|/Cref < 1/200 AND median deltaL10 < 0)",
++                          "90 cases", "benchmark rule first/last per region", "budget rule 1.5*max*N"],
++ "input_files": ["experiments/P4_04_baseline/cases.json", "experiments/P4_04_baseline/margin.py",
++                 "experiments/P4_04_baseline/analysis.py", "experiments/P4_04_baseline/spec.md",
++                 "notes/phases/PHASE_4_baseline_reading_decision.md"],
++ "preserved_history": ["experiments/P4_04_baseline/prereg.json", "experiments/P4_04_baseline/evaluate.py",
++                       "results/lessons/l4_4/benchmark_summary.json", "results/lessons/l4_4/native/P44_000/comparison.json",
++                       "results/lessons/l4_4/native/P44_000/level_640_4.json", "results/lessons/l4_4/sanity_diagnosis.json",
++                       "notes/phases/L4_4_completion.json"]
++}
+diff --git a/experiments/P4_A1/runs/SUB_PROBE/amendment.md b/experiments/P4_A1/runs/SUB_PROBE/amendment.md
+new file mode 100644
+index 0000000..07071ce
+--- /dev/null
++++ b/experiments/P4_A1/runs/SUB_PROBE/amendment.md
+@@ -0,0 +1,10 @@
++# SUB_PROBE — Probe phân giải số ở κ/τ = 1/20 (chỉ khi tác giả chọn phương án B)
++
++Người phụ trách: **Doan Van Tai**. Provenance: AI (Claude) soạn; **tác giả quyết** trong `author_choices.json`.
++
++- Câu hỏi: ở κ/τ = 1/20, làm mịn dt (ref 8) có đưa C̄ref về đạt R1 không, và tốn bao nhiêu CPU? Đây là việc
++  "numerics coverage cho frame mới" của L4.7, kéo lên sớm vì bộ lọc khả thi của L4.5 cần nó.
++- Vì sao ref chứ không K: ở XM2X000 trục K đã hội tụ (chênh C̄ref 0,002%); toàn bộ lỗi nằm ở trục dt (0,31%).
++  Thang R3 của card v2 tăng K trước, nên bước đầu không cứu được một điểm bị giới hạn bởi dt.
++- Không chứng minh: bất cứ điều gì về hiệu ứng SUB; mọi điểm κ = 1/20 khác ngoài các điểm probe.
++- Kết quả của probe chỉ được dùng qua `region_decision_rule` đã khóa trước khi chạy.
+diff --git a/experiments/P4_A1/runs/SUB_PROBE/author_choices.json b/experiments/P4_A1/runs/SUB_PROBE/author_choices.json
+new file mode 100644
+index 0000000..77e8a32
+--- /dev/null
++++ b/experiments/P4_A1/runs/SUB_PROBE/author_choices.json
+@@ -0,0 +1,22 @@
++{
++ "responsible": "Doan Van Tai",
++ "status": "DRAFT_AWAITING_AUTHOR",
++ "how_to_adopt": "Chỉ dùng nếu bạn chọn phương án (B). Tự viết 3 trường văn bản, điền decisions (gồm luật quyết định SAU probe, viết TRƯỚC probe), đổi status thành ADOPTED_BY_AUTHOR.",
++ "decision_verbatim": "<tác giả viết: vì sao chọn (B) thay vì thu hẹp hay bỏ SUB>",
++ "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy: dự đoán chênh C̄ref giữa ref 8 và ref 4, và chi phí>",
++ "why_not_posthoc_in_author_words": "<tác giả viết: luật chọn 5 điểm và luật quyết định vùng được khóa trước khi thấy kết quả probe>",
++ "decisions": {
++  "probe_n": null,
++  "region_decision_rule": null,
++  "caps": {"max_not_ready_fraction": null, "max_pilot_flag_fraction": null},
++  "cpu_cap_hours": null
++ },
++ "recommended_by_AI_not_adopted": {
++  "probe_n": 5,
++  "probe_selection": "evenly spaced by sorted exact key among the exposed AB coordinates with kappa/age = 1/20 (always includes XM2X000 = P43_0000, the first)",
++  "region_decision_rule": "Nếu >= 4/5 điểm đạt readiness (R1 hai trục ở main (640,8), độ rộng, lean consistency) và max bundle CPU <= 600 s thì giữ SUB với kappa/age >= 1/20 và đề xuất main (640,8) cho numerics frame v3 (L4.7 xác nhận); ngược lại thu hẹp SUB về kappa/age >= 1/10.",
++  "caps": {"max_not_ready_fraction": "1", "max_pilot_flag_fraction": "1"},
++  "caps_why": "NOT_READY is the outcome being measured: never stop the probe on it; BUG still stops at once",
++  "cpu_cap_hours": 2
++ }
++}
+diff --git a/experiments/P4_A1/runs/SUB_PROBE/design.json b/experiments/P4_A1/runs/SUB_PROBE/design.json
+new file mode 100644
+index 0000000..09412b0
+--- /dev/null
++++ b/experiments/P4_A1/runs/SUB_PROBE/design.json
+@@ -0,0 +1,16 @@
++{
++ "run_id": "SUB_PROBE",
++ "kind": "SUB_PROBE",
++ "provenance": "AI (Claude) soạn thiết kế; chỉ dùng nếu tác giả chọn phương án (B) cho SUB",
++ "purpose": "Numerical-coverage probe at kappa/age = 1/20 in the AB region: is R1 met with a finer dt (main (640,8), neighbours (320,8) and (640,4)), and at what CPU cost? Measures readiness and cost only; it says nothing about the SUB effect.",
++ "output": "results/lessons/l4_3/a1_sub_probe",
++ "levels": [[640, 8], [320, 8], [640, 4]],
++ "rho": ["0", "1/200", "1/100", "1/50", "1/20"],
++ "supports": {"SUB_PROBE": {}},
++ "plus_source": "experiments/P4_03_map_audit/cases.json",
++ "audit_pilot": true,
++ "resources": {"case_cpu_seconds": 3600, "case_wall_seconds": 4800, "address_space_bytes": 3221225472, "workers": 1},
++ "input_files": ["experiments/P4_03_map_audit/cases.json", "experiments/P4_04_baseline/margin.py"],
++ "preserved_history": ["experiments/P4_03_map_audit/prereg.json", "results/lessons/l4_3/resource_v2/benchmark_summary.json",
++                       "results/lessons/l4_3/resource_v2/native/P43_0000/comparison.json", "notes/phases/L4_3_completion.json"]
++}
+diff --git a/experiments/P4_A1/summarize.py b/experiments/P4_A1/summarize.py
+new file mode 100644
+index 0000000..76c209a
+--- /dev/null
++++ b/experiments/P4_A1/summarize.py
+@@ -0,0 +1,99 @@
++"""Write-once descriptive summary after a full PASS: rho* by the frozen rule, readings, manifests.
++
++rho* is selected ONLY on READY (status PASS) points of the support named in the prereg, with the
++author-adopted target controller, using the unchanged L4.4 helpers (select_rho / describe / reading).
++NOT_READY points are counted and listed, never silently dropped. For SV supports this also writes the
++DISCOVERY_NATIVE row tables and manifest that experiments/P4_05_candidates/screen.py expects.
++"""
++import argparse
++import csv
++from fractions import Fraction as F
++from statistics import median
++
++from experiments.P4_03_map_audit.common import ROOT, sha, require, write_once
++from experiments.P4_04_baseline.analysis import select_rho, describe, reading
++from .config import RUNS, load, verify_run
++from .checks import manifest_row, neighbours
++
++
++def reading_sv(descs, rule):
++    gs = [F(d['GS_theta_pctC_exact']) for d in descs]
++    d00 = [F(d['deltaL00']) for d in descs]
++    narrow = median(gs) < F(rule['median_GS_theta_pctC_below']) and median(d00) < 0
++    return dict(region='SV', median_GS_theta_pctC=float(median(gs)), median_deltaL00=float(median(d00)),
++                controller_improved=median(d00) < 0, descriptive_narrow=narrow,
++                statement=rule['statement_if_narrow'] if narrow else rule['statement_otherwise'])
++
++
++def table(path, rows):
++    if rows:
++        with path.open('x', newline='') as stream:
++            w = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
++            w.writeheader(); w.writerows(rows)
++
++
++def main():
++    p = argparse.ArgumentParser(); p.add_argument('--run', required=True); a = p.parse_args()
++    cfg = verify_run(a.run); out = ROOT / cfg['output']
++    full = load((out / 'full_summary.json').relative_to(ROOT))
++    require(full['status'] == 'PASS', 'full stage HOLD: no selection, no manifest')
++    dest = out / 'summary'
++    require(not dest.exists(), 'summary exists; never overwrite')
++    main_lv = tuple(cfg['levels'][0])
++    records, rows = {}, {}
++    for c in cfg['cases']:
++        folder = out / 'native' / c['id']
++        records[c['id']] = load((folder / 'comparison.json').relative_to(ROOT))
++        rows[c['id']] = {lv: load((folder / f'level_{lv[0]}_{lv[1]}.json').relative_to(ROOT))
++                         for lv in [main_lv, *neighbours(main_lv)]}
++    summary = dict(run_id=a.run, responsible='Doan Van Tai', supports={}, CF_outcomes=0, G_level='G1',
++                   card_v2_verdict_unchanged=True, prereg_sha256=sha(ROOT / RUNS / a.run / 'prereg.json'))
++    freeze, ledger, described, manifests = {}, [], [], {}
++    for name, spec in cfg['supports'].items():
++        members = [c for c in cfg['cases'] if name in c['supports']]
++        ready = [c for c in members if records[c['id']]['status'] == 'PASS']
++        not_ready = [c['id'] for c in members if records[c['id']]['status'] == 'NOT_READY']
++        info = dict(N=len(members), N_ready=len(ready), not_ready=not_ready)
++        if spec.get('target'):
++            main_rows = [rows[c['id']][main_lv] for c in ready]
++            rho, scores = select_rho(main_rows, spec['target'])
++            ds = [dict(support=name, **describe(r, rho, spec['target']),
++                       deltaL00=next(b for b in r['baseline'] if F(b['rho']) == F(rho))['deltaL00']) for r in main_rows]
++            described += ds
++            info.update(rho_star=rho, target=spec['target'], scores_float={k: float(v) for k, v in scores.items()},
++                        reading=reading_sv(ds, cfg['reading']['SV']) if spec.get('reading') == 'SV'
++                        else reading(spec['reading'], ds))
++            freeze[name] = dict(rho_star=rho, target=spec['target'], N_ready=len(ready), N_not_ready=len(not_ready))
++        if spec.get('manifest_role'):
++            mrows = [manifest_row(c, rows[c['id']], main_lv, records[c['id']].get('readiness_reasons', [])) for c in members]
++            path = dest / f'native_rows_{name}.json'
++            manifests[spec['manifest_role']] = (path, mrows)
++        summary['supports'][name] = info
++        for c in members:
++            r = records[c['id']]
++            ledger.append(dict(id=c['id'], support=name, status=r['status'], reasons='|'.join(r.get('readiness_reasons', [])),
++                               pilot_flags='|'.join(r.get('pilot_flags', [])),
++                               raw_validity_main=str(r['raw_flags_report_only'][f'{main_lv[0]}_{main_lv[1]}']['validity_errors'])))
++    dest.mkdir(parents=True)
++    write_once(dest / 'summary.json', summary)
++    table(dest / 'case_ledger.csv', ledger)
++    table(dest / 'selected_baseline.csv', described)
++    if freeze:
++        write_once(ROOT / RUNS / a.run / 'rho_freeze.json', dict(
++            responsible='Doan Van Tai', status='FROZEN_BY_PREDECLARED_SELECTION_RULE', run_id=a.run,
++            supports=freeze, prereg_sha256=summary['prereg_sha256'], not_CF_verdict=True))
++    if manifests:
++        import json
++        hashes = {}
++        for role, (path, mrows) in manifests.items():
++            write_once(path, mrows); hashes[str(path.relative_to(ROOT))] = sha(path)
++        write_once(dest / 'native_manifest.json', dict(
++            source_kind='DISCOVERY_NATIVE_BUNDLE_V1', run_id=a.run,
++            rows={role: str(path.relative_to(ROOT)) for role, (path, _) in manifests.items()},
++            source_sha256=hashes, note='NOT_READY points appear with r1_ready/arithmetic_ready False -> UNRESOLVED'))
++    print({k: (v['N'], v['N_ready'], v.get('rho_star'), (v.get('reading') or {}).get('descriptive_narrow'))
++           for k, v in summary['supports'].items()}, flush=True)
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/tests/test_p4_a1.py b/tests/test_p4_a1.py
+new file mode 100644
+index 0000000..c6fc3e6
+--- /dev/null
++++ b/tests/test_p4_a1.py
+@@ -0,0 +1,251 @@
++"""A1 tests: synthetic (exactness, mutants) + read-only real committed rows. No engine/plant calls."""
++from fractions import Fraction as F
++import glob
++import json
++
++import numpy as np
++import pytest
++
++from experiments.P4_03_map_audit.common import ROOT
++from experiments.P4_A1 import checks as K
++
++CAL = 'results/lessons/l3r_7/lean_close/calibration'
++L43 = 'results/lessons/l4_3/resource_v2/native'
++LEVELS = [(640, 4), (320, 4), (640, 2)]
++
++
++def rd(path):
++    return json.loads((ROOT / path).read_text())
++
++
++def levels_of(folder):
++    return {lv: rd(f'{folder}/level_{lv[0]}_{lv[1]}.json') for lv in LEVELS}
++
++
++# ---------- synthetic: the same-route bound is exact on one grid ----------
++
++def side(rng, n):
++    from experiments.R3R_08_population_numerics.piecewise import LD
++    w = rng.random(n).astype(LD); w /= w.sum(dtype=LD)
++    return dict(d=rng.normal(size=n).astype(LD), h=rng.normal(size=n).astype(LD),
++                ed=np.full(n, LD('1e-15')), eh=np.full(n, LD('1e-15')), w=w, w_error=LD('1e-17'),
++                zero_h=np.zeros(n, dtype=bool), sat_h=np.zeros(n, dtype=bool))
++
++
++def test_same_route_point_inequality_is_exact_for_every_margin():
++    from experiments.P4_04_baseline.margin import pair_loss_margin
++    from experiments.R3R_08_population_numerics.population import pair_loss
++    from experiments.R3R_08_population_numerics.piecewise import LD
++    rng = np.random.default_rng(20261031)
++    for trial in range(300):
++        A, B = side(rng, 1 + trial % 9), side(rng, 1 + (trial * 5) % 7)
++        truth = pair_loss(A, B, model='true')[0]
++        for theta in (LD(0), LD(str((trial % 13) / 7)), LD(50)):
++            assert pair_loss_margin(A, B, model='mean', theta=theta)[0] >= truth   # no tolerance at all
++
++
++def test_cross_route_mismatch_is_not_a_bug():
++    # two-state toy of the lesson: true G_S|M1 = 0, grids weigh the rare state 1.02% vs 0.98%
++    gap01, gap11 = F('0.0102') * F('-0.5'), F('0.0098') * F('-0.5')
++    losses = {'00': 10 + gap01, '01': 10 + gap01, '10': 10 + gap11 + F('0.3'), '11': 10 + gap11}
++    errors = {k: F(1, 10**15) for k in losses}
++    assert K.same_route_violations(losses, errors) == []                 # no BUG
++    report = K.cross_route_report(dict(losses={k: str(v) for k, v in losses.items()}, Cref=str(losses['11'])))
++    assert F(report['01-11']) < 0                                         # cross-route negative, reported only
++
++
++# ---------- real committed rows (read-only) ----------
++
++def test_X2000_original_rule_fails_but_A1_bug_checks_pass_and_lean_ready():
++    rows = levels_of(f'{CAL}/CAL_CORNER_001')
++    main = rows[(640, 4)]
++    assert main['losses'] == rd('results/lessons/l4_4/native/P44_000/level_640_4.json')['losses']
++    L, E = {k: F(v) for k, v in main['losses'].items()}, {k: F(v) for k, v in main['cost_error'].items()}
++    assert L['00'] + E['00'] < L['11'] - E['11']                          # original L4.4 sanity: fails
++    for row in rows.values():
++        assert K.same_route_violations(row['losses'], row['cost_error']) == []
++    assert K.row_readiness(rows, (640, 4)) == []                          # frozen lean acceptance: ready
++
++
++def test_diagnosis_survives_falsification_on_all_calibration_rows():
++    same = cross = 0
++    for path in glob.glob(str(ROOT / CAL / '*' / 'level_*.json')):
++        row = json.loads(open(path).read())
++        if 'losses' not in row:
++            continue
++        same += len(K.same_route_violations(row['losses'], row['cost_error']))
++        L, E = {k: F(v) for k, v in row['losses'].items()}, {k: F(v) for k, v in row['cost_error'].items()}
++        cross += L['01'] + E['01'] < L['11'] - E['11']
++    assert same == 0 and cross > 0
++
++
++def test_XM2X000_is_NOT_READY_not_BUG():
++    rows = levels_of(f'{L43}/P43_0000')
++    reasons = K.row_readiness(rows, (640, 4))
++    assert any(r.startswith('R1_dt') for r in reasons) and not any(r.startswith('R1_K') for r in reasons)
++    bugs = [b for row in rows.values() for b in K.same_route_violations(row['losses'], row['cost_error'])]
++    assert K.classify(bugs, reasons) == 'NOT_READY'
++
++
++@pytest.mark.parametrize('nid', ['P43_0379', 'P43_0114'])
++def test_audit_compare_reproduces_original_L43_labels(nid):
++    from experiments.P4_03_map_audit import common as C
++    doc = rd('experiments/P4_03_map_audit/cases.json')
++    case = next(c for c in doc['cases'] if c['id'] == nid)
++    rows = levels_of(f'{L43}/{nid}')
++    for alias in [a for a in doc['aliases'] if a['native_id'] == nid]:
++        old, new = C.compare(alias, case, rows), K.audit_compare(alias, rows, (640, 4))
++        for k in ('native_class', 'native_class_R6', 'class_flipped', 'z_pctC', 'd_pp', 'shift_pp'):
++            assert old[k] == new[k], k
++
++
++def test_manifest_rows_feed_the_locked_L45_label_function():
++    from experiments.P4_05_candidates.screen import native_label
++    doc = rd('experiments/P4_03_map_audit/cases.json')
++    labels = {}
++    for nid in ('P43_0379', 'P43_0114'):
++        case = next(c for c in doc['cases'] if c['id'] == nid)
++        rows = levels_of(f'{L43}/{nid}')
++        labels[nid] = native_label(K.manifest_row(case, rows, (640, 4), K.row_readiness(rows, (640, 4))), 'SV')
++    assert labels == {'P43_0379': 'MEETS', 'P43_0114': 'UNRESOLVED'}   # XM2S189 3.9%; XM2S110 0.970% within d
++
++
++def test_not_ready_point_enters_screen_as_unresolved():
++    from experiments.P4_05_candidates.screen import native_label
++    doc = rd('experiments/P4_03_map_audit/cases.json')
++    case = next(c for c in doc['cases'] if c['id'] == 'P43_0000')
++    rows = levels_of(f'{L43}/P43_0000')
++    row = K.manifest_row(case, rows, (640, 4), K.row_readiness(rows, (640, 4)))
++    assert row['r1_ready'] is False and native_label(row, 'SUB') == 'UNRESOLVED'
++
++
++# ---------- stop policy ----------
++
++def test_stop_policy_bug_now_not_ready_only_beyond_cap():
++    caps = dict(max_not_ready_fraction='1/10', max_pilot_flag_fraction='1/10')
++    plan = {'S': 20}
++    one_nr = [dict(native_id='a', supports=['S'], status='NOT_READY')]
++    assert K.stop_decision(one_nr, plan, caps) == []                     # 1 <= 2: continue
++    three_nr = one_nr * 3
++    assert K.stop_decision(three_nr, plan, caps)                         # 3 > 2: stop
++    assert K.stop_decision([dict(native_id='b', supports=['S'], status='BUG')], plan, caps)
++
++
++# ---------- mutants: the A1 wrapper must catch real bugs ----------
++
++def engine_like_row(A, B, h=8):
++    from experiments.R3R_08_population_numerics.population import pair_loss, contrasts
++    from experiments.R3R_08_population_numerics.piecewise import EPS, number
++    base = number(h) * (A['mean'] + B['mean'])
++    ebase = abs(number(h)) * (A['mean_error'] + B['mean_error']) + 128 * EPS * (abs(base) + 1)
++    losses, errors, amb = {}, {}, {}
++    for key, kind, model in [('00', 'old', 'mean'), ('01', 'old', 'true'), ('10', 'current', 'mean'), ('11', 'current', 'true')]:
++        gap, err, u = pair_loss(A[kind], B[kind], model=model)
++        losses[key] = base + gap; errors[key] = ebase + err + 64 * EPS * (abs(base) + abs(gap) + 1); amb[key] = u
++    G = contrasts(losses)
++    return dict(losses={k: str(v) for k, v in losses.items()}, cost_error={k: str(v) for k, v in errors.items()},
++                uncertain_action_mass=amb, G_M=str(G['G_M']), contrast_error={'G_M': str(errors['00'] + errors['01'])},
++                Cref=str(losses['11']), zero_action_certificate=False)
++
++
++def synthetic_sides(seed):
++    from experiments.R3R_08_population_numerics.piecewise import LD
++    rng = np.random.default_rng(seed)
++    A = dict(old=side(rng, 5), current=side(rng, 6), mean=LD('1.5'), mean_error=LD('1e-16'))
++    B = dict(old=side(rng, 4), current=side(rng, 7), mean=LD('0.7'), mean_error=LD('1e-16'))
++    return A, B
++
++
++RHOS = ('0', '1/200', '1/100', '1/50', '1/20')
++
++
++def test_wrapper_clean_on_consistent_synthetic_engine():
++    from experiments.P4_A1.evaluate import add_baselines_a1
++    for seed in range(40):
++        A, B = synthetic_sides(seed)
++        row = add_baselines_a1(engine_like_row(A, B), (A, B), F(8), RHOS)
++        assert row['a1_bug_reasons'] == [], row['a1_bug_reasons']
++
++
++def test_mutant_corrupted_engine_cell_is_killed():
++    from experiments.P4_A1.evaluate import add_baselines_a1
++    A, B = synthetic_sides(1)
++    row = engine_like_row(A, B)
++    from experiments.R3R_08_population_numerics.piecewise import LD
++    row['losses']['00'] = str(LD(row['losses']['00']) + LD('1e-6'))
++    assert any(r.startswith('theta0_cell_bits:00') for r in add_baselines_a1(row, (A, B), F(8), RHOS)['a1_bug_reasons'])
++
++
++def test_mutant_margin_that_beats_the_same_route_oracle_is_killed(monkeypatch):
++    from experiments.P4_A1 import evaluate as E
++    real = E.pair_loss_margin
++
++    def cheat(A, B, cost=F(0), *, model='mean', theta=0, theta_error=0):
++        loss, err, amb = real(A, B, cost, model=model, theta=theta, theta_error=theta_error)
++        return (loss - 1 if theta > 0 else loss), err, amb                # better than any rule can be
++    monkeypatch.setattr(E, 'pair_loss_margin', cheat)
++    A, B = synthetic_sides(2)
++    reasons = E.add_baselines_a1(engine_like_row(A, B), (A, B), F(8), RHOS)['a1_bug_reasons']
++    assert any('same_route:L00<01' in r for r in reasons) and any('same_route:L10<11' in r for r in reasons)
++
++
++# ---------- guards and author ownership ----------
++
++def test_guard_rejects_cf_and_sealed():
++    from experiments.P4_A1.config import guard_case, load, SEALED
++    from experiments.P4_03_map_audit.common import cf_keys
++    cfg = dict(cases=[])
++    for key in (next(iter(cf_keys())), tuple(load(SEALED)['sealed'][1]['coordinates'])):
++        a, b, u, k, h, c = map(F, key)
++        case = dict(id='X', parameters=list(map(str, (a, b, k, u / 2, h, c))), key=list(key))
++        with pytest.raises(RuntimeError, match='CF_COLLISION|SEALED_R09_R10'):
++            guard_case(case, cfg)
++
++
++@pytest.mark.parametrize('run', ['L44_A1', 'L43_A1_SV', 'SUB_PROBE'])
++def test_draft_author_choice_cannot_freeze(run, tmp_path):
++    from experiments.P4_A1.config import check_author, RUNS, load
++    draft = load(RUNS / run / 'author_choices.json')
++    if draft['status'] == 'ADOPTED_BY_AUTHOR':
++        pytest.skip('author already adopted this run')
++    with pytest.raises(RuntimeError, match='AUTHOR_NOT_ADOPTED'):
++        check_author(RUNS / run / 'author_choices.json')
++    draft['status'] = 'ADOPTED_BY_AUTHOR'                              # status alone is not enough
++    path = tmp_path / 'c.json'; path.write_text(json.dumps(draft))
++    with pytest.raises(RuntimeError, match='AUTHOR_FIELD_EMPTY'):
++        check_author(path)
++
++
++def test_sv_minus_options_support_sizes():
++    from experiments.P4_A1.freeze import in_bounds
++    from experiments.P4_02_reading.read_map import load_table
++    from experiments.P4_01_recount import recount_map as R
++    rec = rd('experiments/P4_A1/runs/L43_A1_SV/author_choices.json')['recommended_by_AI_not_adopted']
++    for option in ('sv_minus_bounds_option_kappa_flip', 'sv_minus_bounds_option_h_flip'):
++        bounds = rec[option]
++        keys = {tuple(R.scaled_key(r)) for r in load_table() if in_bounds(*R.scaled_key(r), bounds)}
++        assert len(keys) == bounds['exposed_distinct_points']
++
++
++def test_kappa_flip_control_cannot_touch_CF_but_h_flip_does():
++    from experiments.P4_05_candidates.screen import inside
++    from experiments.P4_03_map_audit.common import cf_keys
++    kappa_flip = {'kappa': ['2', '3'], 'h': ['1', '4']}
++    h_flip = {'kappa': ['1/5', '1'], 'h': ['8', '16']}
++    keys = cf_keys()
++    assert not any(inside(dict(key=list(k)), kappa_flip) for k in keys)
++    assert any(inside(dict(key=list(k)), h_flip) for k in keys)
++
++
++def test_sub_probe_selection_is_a_fixed_rule_on_kappa_one_twentieth():
++    from experiments.P4_A1.freeze import cases_sub_probe
++    cases, aliases = cases_sub_probe({'plus_source': 'experiments/P4_03_map_audit/cases.json'}, {'probe_n': 5})
++    assert len(cases) == 5 and cases[0]['id'] == 'P43_0000'
++    assert all(F(c['parameters'][2]) == F(1, 20) for c in cases) and aliases
++
++
++def test_nested_author_decisions_must_be_filled():
++    from experiments.P4_A1.freeze import require_filled
++    with pytest.raises(RuntimeError, match='decisions.caps.max_not_ready_fraction'):
++        require_filled({'caps': {'max_not_ready_fraction': None}, 'cpu_cap_hours': 8}, 'decisions')
++    require_filled({'caps': {'max_not_ready_fraction': '1/10'}, 'cpu_cap_hours': 8}, 'decisions')
