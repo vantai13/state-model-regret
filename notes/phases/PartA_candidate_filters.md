@@ -2,7 +2,8 @@
 
 Người phụ trách: **Doan Van Tai** · 30/10/2026.
 Provenance: AI soạn từ ghi chú/code đã có; không mở primary paper hoặc search mới.
-Trạng thái: **PROPOSED_PENDING_AUTHOR_CHOICE**, không quyết định0/1/2card.
+Trạng thái: **ADOPTED_BY_AUTHOR_CHOICE** cho Part A, không quyết định0/1/2card.
+Tác giả chọn nguyên văn “Giữ SV và SUB có điều kiện (khuyến nghị)”.
 
 ## 1. Độ phủ RQ với cách diễn đạt có điều kiện
 
@@ -22,7 +23,9 @@ về repair kia được kiểm. Không tự thêm conjunction/equivalence vào 
 
 [DL-073](../02_decision_log.md#dl-073--l3r6-phân-suất-d-vùng-lật-κ-và-gói-luật-card-theo-lựa-chọn-tác-giả-2026-10-29)
 chọn MV+SH, Γ diagnostic vì discovery trước đó chỉ3/162cấu hình có cảhai gains
-đủ lớn. Map thích nghi về sau có161AB trên toàn bảng dedup1376, không “161chỉ
+đủ lớn. DL-073 thực sự ghi `min(GS,GM)>.5%` (εE), không phải “cảhai≥1%”
+như cách kể lại của inputL4.5; giữ đúng ngưỡng lịch sử. Map thích nghi về sau
+có161AB trên toàn bảng dedup1376, không “161chỉ
 đến từ map2”. Premise thay đổi là **có support discovery đáng xem xét cho câu
 substitution**, không prevalence hoặc khả thi đã xác nhận. AB membership
 không tự épΓ≤−1%; không đếm161AB như161SUB. Không tái tính p-hat cho dảiδ.
@@ -33,8 +36,8 @@ không tự épΓ≤−1%; không đếm161AB như161SUB. Không tái tính p-ha
 
 | Ứng viên | Identity | Prior có phạm vi | Giá trị cho RQ | AI đề xuất | Tác giả quyết |
 |---|---|---|---|---|---|
-| SV:GS/Cref≥1% | Không bị ép; GS có thể âm/0/dương | Freshness theo downstream cost đã có (K-S9/K-F1; S11§III/Eq10); stale-link routing P04§V-A/Fig8. Chỉ còn “ở đâu/bao nhiêu” dưới D20/D21, đặt cạnh model repair | Bổ sung state value dương; chưa tự đủ cho double dissociation | Giữ có điều kiện qua1–3 | PENDING |
-| SUB:Γ/Cref≤−1% | Không bị ép; kéo theoGS,GM≥1% theoΓ≥−min(GS,GM). Một vùng theo định hướnglesson | PC3 đã được tác giả xác nhận KEEP câu chữ/framingNARROW ởDL-043. Ghi chúWM26§4.1/§5/F.1 có2×2repair, oracle tương lai thật; không nhận generic2×2 hoặc việc harm có thể xảy ra là mới | Bổ sung interaction qua negativeΓ dưới oracle không biết future | Giữ có điều kiện qua1–3 | PENDING |
+| SV:GS/Cref≥1% | Không bị ép; GS có thể âm/0/dương | Freshness theo downstream cost đã có (K-S9/K-F1; S11§III/Eq10); stale-link routing P04§V-A/Fig8. Chỉ còn “ở đâu/bao nhiêu” dưới D20/D21, đặt cạnh model repair | Bổ sung state value dương; chưa tự đủ cho double dissociation | Giữ có điều kiện qua1–3 | Giữ có điều kiện, author choice |
+| SUB:Γ/Cref≤−1% | Không bị ép; kéo theoGS,GM≥1% theoΓ≥−min(GS,GM). Một vùng theo định hướnglesson | PC3 đã được tác giả xác nhận KEEP câu chữ/framingNARROW ởDL-043. Ghi chúWM26§4.1/§5/F.1 có2×2repair, oracle tương lai thật; không nhận generic2×2 hoặc việc harm có thể xảy ra là mới | Bổ sung interaction qua negativeΓ dưới oracle không biết future | Giữ có điều kiện qua1–3 | Giữ có điều kiện, author choice |
 
 “Prior” ở đây là **đối chiếu note hiện có**, không claim đã đọc lại paper. Vị trí
 và mức đọc gốc theo các note; câu “không thấy contrast trong trang đã đọc” không

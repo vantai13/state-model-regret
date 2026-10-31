@@ -1,0 +1,50 @@
+...............F                                                         [100%]
+=================================== FAILURES ===================================
+______ test_registered_pipeline_with_mocked_readiness_and_synthetic_files ______
+
+tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-30/test_registered_pipeline_with_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x75034edc3490>
+
+    def test_registered_pipeline_with_mocked_readiness_and_synthetic_files(tmp_path,monkeypatch):
+        """Exercise complete plumbing in tmp_path; never a real box or native run."""
+        frozen_sealed=(S.ROOT/'experiments/P4_03_map_audit/sealed_scope.json').read_text()
+        rr=rules()
+        (tmp_path/S.HERE).mkdir(parents=True)
+        p=tmp_path/'experiments/P4_03_map_audit/sealed_scope.json';p.parent.mkdir(parents=True);p.write_text(frozen_sealed)
+        (tmp_path/S.HERE/'screening_rules.json').write_text(json.dumps(rr))
+        data=[dict(row(i),source_kind='DISCOVERY_NATIVE') for i in range(10)]
+        (tmp_path/'fixture_rows.json').write_text(json.dumps(data))
+        (tmp_path/'fixture_manifest.json').write_text(json.dumps(dict(source_kind='DISCOVERY_NATIVE_BUNDLE_V1',
+            source_sha256={'fixture_rows.json':S.sha(tmp_path/'fixture_rows.json')},rows={'plus':'fixture_rows.json'})))
+        (tmp_path/S.HERE/'candidate_readiness.json').write_text(json.dumps(dict(candidates={'SUB':dict(native_manifest='fixture_manifest.json')})))
+        (tmp_path/'fixture_box.json').write_text(json.dumps(dict(candidate='SUB',id='SYNTHETIC_BOX',
+            status='REGISTERED_BEFORE_BOX_COUNTS',plus={})))
+        monkeypatch.setattr(S,'ROOT',tmp_path)
+        monkeypatch.setattr(S,'preflight',lambda:dict(status='READY'))
+        monkeypatch.setattr(S,'rules_adopted',lambda:True)
+        monkeypatch.setattr(S,'committed_json',lambda path:json.loads((tmp_path/path).read_text()))
+>       result=S.screen_registered('SUB','fixture_box.json','fixture_manifest.json')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_p4_05_candidates.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+candidate = 'SUB', box_path = 'fixture_box.json'
+native_manifest = 'fixture_manifest.json'
+
+    def screen_registered(candidate,box_path,native_manifest):
+        """Refuse before opening candidate data while scientific dependencies HOLD.
+    
+        New combined-run receipts/bindings must be registered before this preflight
+        can become READY. The pure kernel is ready for synthetic verification only
+        in the current project state; there is no fallback to pilot labels.
+        """
+        status=preflight()
+>       require(status['status']=='READY','PART_B_BLOCKED: '+';'.join(status['reasons']))
+                                                                      ^^^^^^^^^^^^^^^^^
+E       KeyError: 'reasons'
+
+experiments/P4_05_candidates/screen.py:184: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_p4_05_candidates.py::test_registered_pipeline_with_mocked_readiness_and_synthetic_files
+1 failed, 15 passed in 0.58s

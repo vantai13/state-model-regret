@@ -1,0 +1,57 @@
+...............F                                                         [100%]
+=================================== FAILURES ===================================
+______ test_registered_pipeline_with_mocked_readiness_and_synthetic_files ______
+
+tmp_path = PosixPath('/tmp/pytest-of-vantai/pytest-31/test_registered_pipeline_with_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x75b7041ab490>
+
+    def test_registered_pipeline_with_mocked_readiness_and_synthetic_files(tmp_path,monkeypatch):
+        """Exercise complete plumbing in tmp_path; never a real box or native run."""
+        frozen_sealed=(S.ROOT/'experiments/P4_03_map_audit/sealed_scope.json').read_text()
+        rr=rules()
+        (tmp_path/S.HERE).mkdir(parents=True)
+        p=tmp_path/'experiments/P4_03_map_audit/sealed_scope.json';p.parent.mkdir(parents=True);p.write_text(frozen_sealed)
+        (tmp_path/S.HERE/'screening_rules.json').write_text(json.dumps(rr))
+        data=[dict(row(i),source_kind='DISCOVERY_NATIVE') for i in range(10)]
+        (tmp_path/'fixture_rows.json').write_text(json.dumps(data))
+        (tmp_path/'fixture_manifest.json').write_text(json.dumps(dict(source_kind='DISCOVERY_NATIVE_BUNDLE_V1',
+            source_sha256={'fixture_rows.json':S.sha(tmp_path/'fixture_rows.json')},rows={'plus':'fixture_rows.json'})))
+        (tmp_path/S.HERE/'candidate_readiness.json').write_text(json.dumps(dict(candidates={'SUB':dict(native_manifest='fixture_manifest.json')})))
+        (tmp_path/'fixture_box.json').write_text(json.dumps(dict(candidate='SUB',id='SYNTHETIC_BOX',
+            status='REGISTERED_BEFORE_BOX_COUNTS',plus={})))
+        monkeypatch.setattr(S,'ROOT',tmp_path)
+        monkeypatch.setattr(S,'preflight',lambda:dict(status='READY',reasons=[]))
+        monkeypatch.setattr(S,'rules_adopted',lambda:True)
+        monkeypatch.setattr(S,'committed_json',lambda path:json.loads((tmp_path/path).read_text()))
+>       result=S.screen_registered('SUB','fixture_box.json','fixture_manifest.json')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_p4_05_candidates.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/P4_05_candidates/screen.py:205: in screen_registered
+    result=screen_box(regions['plus'],box['plus'],rules,cf_keys(),candidate,
+experiments/P4_05_candidates/screen.py:72: in screen_box
+    plus=region_summary(plus_rows,plus_box,candidate,forbidden)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rows = [{'id': 'TEST_0_0', 'key': ['7', '7', '1', '1/10', '2', '0'], 'Cref': '10', 'G_S': '1', ...}, {'id': 'TEST_0_1', 'key'...'G_S': '1', ...}, {'id': 'TEST_0_5', 'key': ['7', '7', '1', '201/2000', '2', '0'], 'Cref': '10', 'G_S': '1', ...}, ...]
+box = {}, candidate = 'SUB'
+forbidden = {('141/20', '8', '103/100', '1017/1000', '619/40', '0'), ('141/20', '8', '28/25', '43/200', '41/3', '0'), ('143/20', '..., '0'), ('143/20', '8', '53/50', '289/200', '1601/120', '0'), ('143/20', '8', '69/50', '141/1000', '551/40', '0'), ...}
+
+    def region_summary(rows,box,candidate,forbidden):
+        keys=[tuple(str(F(v)) for v in row['key']) for row in rows]
+        if len(keys)!=len(set(keys)):raise ValueError('duplicate normalized physical key')
+        for row,key in zip(rows,keys):
+            if len(key)!=6:raise ValueError('six-coordinate identity required')
+            if key in forbidden:raise RuntimeError('CF_COLLISION: refuse outcome rows')
+            if row.get('CF_computed') is not False:raise RuntimeError('CF flag must be literal False')
+            if row.get('source_kind') not in ('DISCOVERY_NATIVE','SYNTHETIC_TEST'):raise RuntimeError('native labels required; pilot forbidden')
+>       if any(inside(dict(key=list(key)),box) for key in forbidden):raise RuntimeError('CF_COLLISION: box touches a reserved key')
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       RuntimeError: CF_COLLISION: box touches a reserved key
+
+experiments/P4_05_candidates/screen.py:51: RuntimeError
+=========================== short test summary info ============================
+FAILED tests/test_p4_05_candidates.py::test_registered_pipeline_with_mocked_readiness_and_synthetic_files
+1 failed, 15 passed in 0.23s

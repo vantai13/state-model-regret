@@ -1,0 +1,35 @@
+{
+  "SV_and_MV_both_hold": {
+    "losses": {
+      "00": "11",
+      "01": "10",
+      "10": "21/2",
+      "11": "10"
+    },
+    "GS": "1/2",
+    "GM": "1",
+    "Gamma": "-1/2",
+    "GS_M1": "0",
+    "GM_S1": "1/2",
+    "Cref": "10",
+    "unit": "arbitrary_teaching_cost"
+  },
+  "AB_without_SUB": {
+    "losses": {
+      "00": "12",
+      "01": "10",
+      "10": "23/2",
+      "11": "9"
+    },
+    "GS": "1/2",
+    "GM": "2",
+    "Gamma": "1/2",
+    "GS_M1": "1",
+    "GM_S1": "5/2",
+    "Cref": "9",
+    "unit": "arbitrary_teaching_cost"
+  },
+  "identity_lower_bound": "Gamma >= -min(GS,GM)",
+  "SUB_implication": "Gamma/Cref <= -1/100 implies GS/Cref >=1/100 and GM/Cref>=1/100",
+  "kappa_note": "Identity has no kappa argument; a kappa flip requires a physical prediction, not algebra alone"
+}

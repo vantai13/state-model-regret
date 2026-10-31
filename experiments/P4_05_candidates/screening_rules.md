@@ -1,7 +1,8 @@
 # L4.5 — Luật sàng để tác giả duyệt, trước bất kỳ p-hat hộp nào
 
 Người phụ trách: **Doan Van Tai** · 30/10/2026.
-Provenance: **AI soạn; DRAFT_PENDING_AUTHOR_CHOICE**.
+Provenance: **AI soạn, tác giả duyệt — ADOPTED_BY_AUTHOR_CHOICE**.
+Lựa chọn nguyên văn: “Chọn gói luật sàng đã soạn (khuyến nghị)”.
 Đây chưa phải quyết định thêm0/1/2card của DL-103.
 
 “Khi viết luật này tôi đã thấy các p̂ pilot minh họa trong PHASE_4: **72,8% cho
@@ -48,7 +49,7 @@ plant. Không RNG/seed cho các bảng exact, không engine imports/calls.
 
 ## Quyết định còn mở
 
-Tác giả duyệt hoặc sửa gói PartA/rules trước khi khóa. Kết quả PartB và DL số
+Tác giả đã duyệt gói PartA/rules trước khi khóa. Kết quả PartB và DL số
 card cuối cùng còn **PENDING_DEPENDENCIES**, không suy “0card” từ thiếu dữ liệu.
 Nếu sau này chọn0card, đây là lựa chọn tác giả với phạm vi claim rõ ràng; nó
 không tự giải quyết L4.4 baseline sanity của F1 hoặc P0-V10.

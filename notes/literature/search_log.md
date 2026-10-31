@@ -483,3 +483,15 @@ Có evidence về variability/measurement mismatch; chưa có joint numeric enve
 cho backlogAoI/holdh/CV4windows/offeredinput/buffer. Không gán range từ abstract
 hoặc plot pixel. Dừng đúng boundedround3nguồn đã duyệt; không đạt2×20, không
 claim saturation/novelty/PC hoặc author đã đọc. Catalog23→26; giữ23oldrows.
+
+
+## L4.5 — local-note review, không online search (30/10/2026)
+
+Người phụ trách **Doan Van Tai**; skill paper-research. Q: prior boundary cho
+SV/PC6 wording và SUB/PC3, trạng thái author attestation nào hiện có? Đọc protocol,
+claims/library index/log trước; review targeted7note files +1author_attestation,
+không primary PDF. Không có lookup/keyword/backward/forward/author-venue query mới.
+Onlinequeries0/searchrecords0/newuniques0/proposals0/downloads0/newprimaryreads0.
+PC3 đãauthor-attested DL043; K-S9/K-F1 giới hạn câu vềfreshness; noteWM26§5/F.1
+vàđínhchính§8/PDF9 giữscope. Không đổiExcel/catalog/PC/authorprogress hoặc novelty.
+Dừng đủscope note-level, khôngsaturation/field absence. [Record/giới hạn](../../results/lessons/l4_5/literature_review.md).
