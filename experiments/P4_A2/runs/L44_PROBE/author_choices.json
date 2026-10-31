@@ -1,13 +1,18 @@
 {
- "responsible": "Doan Van Tai",
- "status": "DRAFT_AWAITING_AUTHOR",
- "decision_verbatim": "<tác giả viết>",
- "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy>",
- "why_not_posthoc_in_author_words": "<tác giả viết>",
- "decisions": {
-  "ladder_resolves_if_at_least": null,
-  "ladder_fails_if_at_most": null,
-  "branch_if_ladder_fails": null,
-  "cpu_cap_hours": null
- }
+  "responsible": "Doan Van Tai",
+  "status": "ADOPTED_BY_AUTHOR_DELEGATION",
+  "decision_verbatim": "AI theo ủy quyền tiếp diễn chọn probe đủ8điểm, đủ7level theo thang scorer, ngưỡng>=7/8resolves,<=4/8B1_CLAIM_LEVEL_ROBUSTNESS,5-6inconclusive,cap3CPUh. Chưa chạyA3 hoặc đổi card/primaryR1.",
+  "prediction_verbatim": "ForecastAI trước probe: nghiêng H_cliff trong phạm vi finite ladder; dự đoán4/8điểm READY. K dễ giảm hơn W vì width có thể bị giữ bởi ambiguity gần threshold; dự đoán ít nhất1điểm xuất hiện failingrho khác ở bậc sau. Dự đoán không BUG và replay24/24khớp. Đây không giả thuyết cơ chế vật lý hoặc lời tác giả tự viết.",
+  "why_not_posthoc_in_author_words": "AI giải thích: chọn toàn8failures củaA1 theo rule, không chọn đại diện; giữ mọiρ,readiness,tolerance,sourceA1; chỉ thêm thangR3 đãfrozen. Khóa cả nhánh thành công/thất bại vàforecast trước outcomeA2; mismatch/BUG/thiếu dữliệu/cap đều chặn decide.",
+  "decisions": {
+    "ladder_resolves_if_at_least": 7,
+    "ladder_fails_if_at_most": 4,
+    "branch_if_ladder_fails": "B1_CLAIM_LEVEL_ROBUSTNESS",
+    "cpu_cap_hours": 3
+  },
+  "drafted_by": "AI",
+  "author_self_written": false,
+  "delegation_path": "notes/phases/P4_A2_author_delegation.json",
+  "delegation_verbatim": "tiếp tục thực hiện đi",
+  "field_semantics": "Legacy verbatim field names hold AI drafts committed before probe, not author self-written statements"
 }

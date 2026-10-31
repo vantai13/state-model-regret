@@ -3,7 +3,7 @@
 Người phụ trách: **Doan Van Tai**. Thiết kế nguồn do AI (Claude) soạn và người dùng
 cung cấp; phần triển khai, lựa chọn chi tiết và forecast do AI soạn theo ủy quyền
 trước đó và yêu cầu tiếp tục hiện tại. Không phải tác giả tự viết hoặc human review.
-Trạng thái trước adoption: DRAFT, chưa gọi engine A2.
+Trạng thái: ADOPTED_BY_AUTHOR_DELEGATION; choices/forecast do AI soạn theo ủy quyền, chưa gọi engine A2.
 
 ## Premise và câu hỏi
 

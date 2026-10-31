@@ -1878,3 +1878,12 @@ Export497rows/hash/deltas/scoring kiểm độc lập về phép tính PASS;0box
 
 Preregbf767f2,budget.348006CPUh/2commit6686b28. Full5/5complete,4PASS/1NR,0BUG;native4/5ready,maxbundle164.404769CPU-s<=600;425.712089evalCPU-s gồmcontrol. Đềxuấtgiữκ>=1/20 choL4.7coverage tiếp,theo DL108;khôngnativePASSmọivùng/SUBeffect. P43_0595 failR1K/dt/width;Crefdt tấtcả5đạt khôngthaythếmọiR1. XM2X000Crefdt .310539%→.077918% ởref8,khôngsuyglobalconvergenceorder.
 F1baselineHOLD,combinedSUB/candidate_readiness/L45PartB/0-1-2cards/Gate4 cònmở.0CF/sealedoutcomes/boxcounts,cardv2/contract/F1/ngưỡng giữ nguyên;G1/P0V10/L8/Understanding khôngnâng.
+
+
+### DL-112 — A2 probe R3 cho đủ8 baseline failures, trước engine (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Tiếp diễn ủy quyền AI của tác giả và yêu cầu hiện tại; evidence notes/phases/P4_A2_author_delegation.json. AI soạn/chọn chi tiết/forecast, không tác giả tự viết hoặc human review.
+Diagnosis885401d:19points/95pairs,8fails mỗi1rho,W3/K6/D3,L00/GS_theta;upper-middle diagnostic đã sửa thànhmedianchuẩn,khôngđổi readiness. Khôngước lượngSHprevalence từ8/72.
+Probe đủ8×7level theoR3(6404→12804→12808),mọirho,mỗi main có2coarseneighbors,khôngearlystopREADY. Controlu0finest,1worker/BLAS1;case3600CPU-s/4800wall-s/3GiB,overall3CPUh tínhuniqueeval gồmcontrol,checks giữađiểm. Replay24savednumerical/error/baseline fields+reparsedbits,holdhistSHA;BUG/replay/guard/execution/cap thìdừng vàkhôngdecidepartial.
+Ngưỡng>=7/8LADDER_RESOLVES;<=4/8B1_CLAIM_LEVEL_ROBUSTNESS;5-6INCONCLUSIVE,DLmớinếutiếp. B1địnhnghĩađủtrongamendment: A3riêng full90,giữmọiđiểm,3levelρ/reading phải trùng;khôngtươngđươngcertificate/R1perpoint vàkhôngsửaprimarycard/scorer. A2chỉkhóanhánh,chưachạyA3/rho/regionalmedians.
+ForecastAI:4/8READY,nghiêngH_cliff trongfinite ladder,K dễcảithiệnhơnW,cóít nhất1rho failuremới;0BUG,replay24/24. SourceA1/SV/SUB/contract/PC/ngưỡng giữ;G1/P0V10/L8/UnderstandingOPEN,0CF/sealed/boxcounts.
