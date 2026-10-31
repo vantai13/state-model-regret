@@ -1,0 +1,290 @@
+Tôi sẽ lấy repo về trước để kiểm trạng thái thật (L4.1–L4.4 đã xong đến đâu, đường dẫn artifact), rồi mới dạy.
+
+Repo đã tiến xa hơn những gì tôi biết khi soạn PHASE_4_v2 (đã có DL-109…DL-116, nhánh P4-A1…A3). Tôi đọc các quyết định gần nhất trước khi dạy.
+
+Tôi đã lấy repo về và đọc DL-103 → DL-116. Có một điểm cần sửa trước khi dạy, vì nó đổi bối cảnh của lesson này.
+
+**Plan hiện ghi** (PHASE_4_v2 §0.1): L4.1–L4.4 "⟨bạn xác nhận⟩", và L4.5 v1.1 "đang làm luật sàng". **Repo cho thấy** phần việc đã tiến xa hơn nhiều:
+- **L4.4 đã chốt** qua nhánh A1→A3 (DL-114). Baseline ổn định ở ba mức numerics. ρ\* = 5% cho MV và 0 cho SH. **MV bị narrow**: margin lấy lại trung vị khoảng 86% giá trị của model repair. SH không bị narrow.
+- **L4.5 Part B đã chạy một phần** (DL-116). SV ra **FAIL_SCREEN**: Ω⁺ có 216 MEETS / 224 FAILS / 9 UNRESOLVED trên 449 điểm; Ω⁻ có 0/48 MEETS. Lần chạy SUB đang **tạm dừng ở 10/76 key**.
+
+Lesson đầu tiên của PHASE_4_v2 là **L4.5 (v2)**, và nó vẫn đúng chỗ. Thậm chí nó hợp hơn, vì kết quả SV FAIL_SCREEN chính là ví dụ thật cho vấn đề "gộp" mà bạn đã nhận ra. Tôi dùng luôn kết quả đó làm ví dụ chính. §0.1 của file nên được cập nhật theo các dòng trên; tôi có thể sửa giúp khi bạn muốn.
+
+Lesson này nhỏ nên tôi dạy trọn trong một lượt.
+
+---
+
+# LESSON 4.5 (v2) — Đổi loại evidence: vì sao không tiếp tục card và CF
+
+**Map của lesson:** (1) hai loại bất định → (2) card prevalence thật ra đang kiểm cái gì → (3) đọc lại SV FAIL_SCREEN → (4) held-out điều kiện → (5) việc nên làm: bảng giữ/bỏ, số phận lần chạy SUB, DL.
+
+## 1. Big picture — Tôi đang ở đâu?
+
+```text
+Main RQ: state repair vs model repair — differ & interact — expected regret
+   ↓
+Phase 4 (v2): tách nguồn, chốt miền, đóng băng hypothesis
+   ↓
+L4.1–L4.4 ✓  (record bản đồ · toys · nhãn native · baseline: MV narrow, SH không)
+   ↓
+L4.5 (v2) — Đổi loại evidence   ← BẠN Ở ĐÂY
+   ↓
+L4.6 tách nguồn → L4.7 clipping → L4.8 realism → L4.9 freeze → Gate 4
+```
+
+## 2. Lesson này trả lời câu hỏi gì?
+
+> Với một mô hình mà engine tính **chính xác** (không có nhiễu ngẫu nhiên), kiểu evidence nào thật sự kiểm được câu "khi nào state repair và model repair khác nhau và tương tác"?
+
+## 3. Tại sao cần lesson này?
+
+- **Ở mức research:** lesson này giảm rủi ro *dùng sai công cụ đo*. Bạn đã tốn nhiều ngày cho bộ máy card/CF/readiness. Nếu không hiểu *vì sao* bộ máy đó không hợp, bạn sẽ dựng lại nó dưới tên khác ở phase sau.
+- **Ở mức thực hành:** sau lesson, nếu bạn muốn thực hiện, bạn có một DL đổi hướng, một bảng giữ/bỏ, và một quyết định cho lần chạy SUB đang dừng.
+
+## 4. Connection to Main RQ
+
+```text
+Lesson 4.5 (v2)
+ → khái niệm: "điều kiện X làm hiệu ứng mạnh" là HÌNH DẠNG của hàm G(c),
+   không phải TỈ LỆ điểm đạt ngưỡng trong một hộp
+ → RQ1 hỏi gains "vary with rerouted load, headroom, queue state, horizon"
+ → evidence cuối cùng: map đã tách nguồn + dự đoán có cơ chế, được kiểm trên điều kiện held-out
+```
+
+Quan hệ ở đây là **gián tiếp**: lesson không tạo evidence nào. Nó quyết định *loại* evidence mà các lesson sau sẽ tạo.
+
+**Nếu bỏ lesson này,** đây là chuyện cụ thể có thể xảy ra. Bạn chạy nốt 66 key SUB, vẽ hộp, rút CF-v3, và được PASS. Reviewer hỏi: "Vùng này đã được quét dày; 60 điểm mới trong đó cho biết thêm điều gì?" Bạn không có câu trả lời tốt.
+
+## 5. Prerequisites — recap nhanh
+
+- **Card (hypothesis card):** một câu dự đoán đã đóng băng, kiểu "trong hộp Ω⁺, *đa số* regime có Ḡ_S ≥ 1%".
+- **Regime c:** một bộ tham số (λA, λB, u, κ, h). Mỗi regime cho một con số Ḡ_S(c).
+- **CF (confirmation):** rút ngẫu nhiên n = 60 regime mới trong hộp, đếm bao nhiêu điểm MEETS, rồi chấm bằng cận Clopper–Pearson.
+- **Screening ở L4.5 v1.1:** dùng điểm discovery để ước p̂, trừ đi 0,10, rồi tính power (xác suất PASS nếu chạy CF).
+
+## 6. Mental model trước tiên
+
+Hãy giữ một hình ảnh trong đầu:
+
+> **Engine của bạn là một chiếc máy tính diện tích, không phải một cái cân có nhiễu.**
+
+Cùng một đầu vào, nó luôn trả về cùng một kết quả. Vì vậy câu hỏi "kết quả có lặp lại không" gần như vô nghĩa. Câu hỏi đáng hỏi là "kết quả có còn đúng khi *đổi bài toán* không".
+
+## 7. Concepts & terminology
+
+**Tất định (deterministic) và ngẫu nhiên (stochastic).** Một quá trình là tất định nếu cùng input luôn cho cùng output. Nó là ngẫu nhiên nếu cùng input có thể cho output khác nhau.
+- *Ví dụ:* plant của bạn là ngẫu nhiên, vì mode ON/OFF đổi ngẫu nhiên. Nhưng **engine tính kỳ vọng** của plant thì tất định. Nó lấy trung bình qua mọi tương lai bằng quadrature (T05, MASTER PLAN III.1), nên chạy lại bao nhiêu lần cũng ra cùng L̄_sm(c).
+
+**Nhiễu lấy mẫu (sampling noise).** Đây là sai lệch sinh ra vì bạn chỉ quan sát một phần ngẫu nhiên của một tổng thể.
+- *Ví dụ:* hỏi ý kiến 100 người thay vì cả nước. Thống kê (CI, power, p-value) tồn tại chủ yếu để xử lý loại nhiễu này.
+
+**Population (tổng thể) và sample (mẫu).** Population là toàn bộ thứ bạn muốn kết luận; sample là phần bạn thật sự đo. Trong CF:
+- population = **mọi regime trong hộp Ω**, được "cân" theo một measure;
+- sample = 60 regime được rút.
+
+**Measure (độ đo).** Đây là quy tắc "cân" các điểm trong hộp, tức điểm nào được tính nặng bao nhiêu. Card v2 dùng phân phối đều cho λ và u, và log-đều cho κ và h. Đổi measure thì "tỉ lệ đa số" cũng đổi, dù mạng vẫn y nguyên.
+
+**Prevalence (tỉ lệ phổ biến).** Phần của hộp (theo measure) mà ở đó hiệu ứng vượt ngưỡng.
+
+**Nội suy (interpolation) và ngoại suy (extrapolation).** Nội suy là đoán giá trị *giữa* các điểm đã biết. Ngoại suy là đoán giá trị *ngoài* vùng đã biết.
+
+**Held-out.** Dữ liệu hoặc điều kiện được giữ riêng, không dùng khi tạo hypothesis, chỉ dùng để kiểm.
+
+**Preregistration (đăng ký trước).** Viết ra dự đoán và cách chấm điểm *trước* khi thấy dữ liệu kiểm, để không thể chỉnh lại cho đẹp sau khi đã biết kết quả.
+
+| Dễ nhầm | A | B |
+|---|---|---|
+| Bất định về **mạng** và bất định về **hộp** | "State repair có giá trị khi mode đổi nhanh hơn τ không?" | "Bao nhiêu phần trăm của hộp Ω có Ḡ_S ≥ 1%?" |
+| Kiểm **lặp lại** và kiểm **tổng quát** | Rút lại điểm trong cùng vùng | Đổi điều kiện: biên độ, mô hình traffic, packet-level |
+
+## 8. Tiny networking example
+
+Path B, nhìn Ḡ_S theo κ/τ, tức thời gian một mode so với tuổi telemetry. Số dưới đây chỉ để minh họa.
+
+```text
+κ/τ:   0.2   0.5   1.0   |  1.5   2.0   3.0
+Ḡ_S:   2.0   2.2   1.6   |  0.6   0.3   0.1   (% C̄_ref)
+       └── vùng R1: rõ ràng ≥ 1% ──┘  └── vùng R2: gần 0 ──┘
+```
+
+- **Hộp 1** = [0,2; 1] cho 100% đạt → PASS.
+- **Hộp 2** = [0,2; 3] (log-đều) với R1 chiếm khoảng 40% measure → khoảng 40% đạt → FAIL.
+
+Cùng một mạng, cùng một hàm, nhưng verdict đổi theo cách vẽ hộp. Điều có giá trị khoa học thật là câu: *"Ḡ_S vượt 1% khi κ/τ ≲ 1 và tắt dần khi κ/τ ≳ 1,5."* Đó là một câu về **hình dạng** và **biên**, và nó gợi tới một cơ chế: khi mode đổi chậm so với τ, snapshot cũ vẫn còn nói được về mode.
+
+## 9. Theory
+
+### 9.1 Card "đa số" thật ra là kiểm trung vị (median)
+
+Đây là điểm mấu chốt của cả lesson.
+
+**Tôi muốn biết gì?** Câu "đa số regime trong Ω có Ḡ_S ≥ ε" tương đương với điều gì?
+
+Đặt p(Ω) = phần của Ω (theo measure μ) có Ḡ_S(c) ≥ ε. Card PASS khi p(Ω) > ½. Gọi m là **trung vị** của Ḡ_S trên Ω theo μ, tức giá trị chia hộp làm hai nửa có measure bằng nhau. Khi đó:
+
+```text
+p(Ω) ≥ ½   ⟺   μ{ c : Ḡ_S(c) ≥ ε } ≥ ½ · μ(Ω)   ⟺   ε ≤ m
+```
+
+**Vì sao được phép viết như vậy?** Đó chính là định nghĩa của trung vị: một nửa khối lượng nằm ở trên m. Để đơn giản, ở đây bỏ qua trường hợp có "khối" dồn đúng tại một giá trị.
+
+**Nghĩa của nó:** card "đa số ≥ 1%" chỉ hỏi *trung vị của Ḡ_S trong hộp có ≥ 1% không*. Nếu hộp trộn một vùng mạnh với một vùng yếu, trung vị bị kéo về giữa. Đó chính xác là hiện tượng "bị gộp" mà bạn nhận ra.
+
+**Áp vào kết quả thật của bạn (DL-110, DL-116):**
+
+| Observation | Đọc |
+|---|---|
+| Trung vị Ḡ_S/C̄ trên support SV ≈ **0,97%** (native, 448 điểm READY) | Trung vị nằm sát ngay dưới ngưỡng 1% |
+| Ω⁺: 216 MEETS / 224 FAILS / 9 UNRESOLVED trên 449 (≈ 48%) | Hệ quả trực tiếp của dòng trên: trung vị ≈ ngưỡng thì tỉ lệ ≈ ½ |
+| Ω⁻: **0/48** MEETS | Ngoài vùng thì hiệu ứng *tắt hẳn* |
+| Power ≈ 2,6·10⁻⁵ → FAIL_SCREEN | Đúng theo luật đã khóa |
+
+Bức tranh mà dữ liệu thật sự cho thấy là: trong Ω⁺ có một phân phối Ḡ_S rộng, tâm quanh 1%; ngoài Ω⁻ thì gần như bằng 0. Đó là **thông tin có cấu trúc** (hiệu ứng khu trú). Verdict PASS/FAIL đã nén cấu trúc đó thành một bit.
+
+FAIL_SCREEN **không** có nghĩa "state repair không có giá trị". Nó có nghĩa "trung vị trong hộp này chưa tới 1%".
+
+### 9.2 CF đang đo bất định của cái gì?
+
+Rút 60 điểm, được k MEETS. Ước lượng (estimate) là p̂ = k/60. CI Clopper–Pearson cho biết p̂ lệch khỏi p(Ω) bao xa *chỉ vì 60 điểm nào được rút*. Đó là bất định thật, nhưng nó là bất định **về hộp**, không phải về mạng.
+
+Và bạn đã có 449 điểm discovery trong cùng hộp. Vì Ḡ_S là hàm liên tục và lưới đã dày, 60 điểm mới gần như chắc chắn cho lại khoảng 48%. Chính L4.6 v1.1 cũng tự ghi coverage của các card là "INTERPOLATION trong vùng đã quét dày".
+
+**Phản biện công bằng cho thiết kế cũ.** CF *có* bảo vệ một rủi ro thật: 449 điểm discovery được lấy mẫu thích nghi (map2 dồn điểm vào vùng A và AB), nên chúng có thể không đại diện cho measure. Nhưng rủi ro đó giải được rẻ hơn nhiều: chạy một design rải đều cố định (lưới hoặc Sobol) trên miền đã khai báo, và báo hết. Không cần root CSPRNG, rút một lần hay family.
+
+### 9.3 Rủi ro thật của loại nghiên cứu này
+
+| Rủi ro | Ví dụ ở đây | Cách chặn |
+|---|---|---|
+| Chọn lọc cái được báo | Vẽ hộp quanh điểm đẹp | Báo **toàn bộ map** trên miền khai báo trước |
+| Giải thích sai | "Interaction chỉ do ngưỡng argmin" | Mệnh đề cơ chế (L4.7) + predictor + null |
+| Chỉ đúng cho plant này | Fluid, nền 2 mức, a/μ = 0,6 | **Held-out điều kiện** (Phase 5), representation khác (Phase 6) |
+| Baseline yếu | Ô 00 không có margin | ρ\* (đã có, DL-114) |
+| Miền không thực tế | Mọi vùng UNSOURCED | Realism nhẹ (L4.8) |
+| Numerics đảo dấu | Điểm sát ±1% | Kiểm láng giềng trên tập con, báo riêng các điểm sát ngưỡng |
+
+### 9.4 Held-out điều kiện
+
+So sánh hai kiểu bài kiểm tra cho một học sinh: thuộc đáp án đề cũ thì vẫn làm được đề cũ đổi số lẻ. Muốn biết học sinh có hiểu thật không, phải cho một **đề dạng mới**.
+
+Với nghiên cứu này, "đề dạng mới" là một điều kiện chưa dùng để tạo hypothesis, nơi cơ chế bắt buộc phải dự đoán điều gì đó có thể sai. Ví dụ (minh họa): *"Nếu dải AB tồn tại vì M0 đánh giá thiếu tắc nghẽn ở biên rỗng, thì giảm biên độ a/μ phải làm |Γ̄| nhỏ đi."* Câu này được kiểm ở một biên độ chưa từng tính. Final Review §15 gọi đây là "mức mạnh": một điều kiện dự đoán được trên workload chưa thấy, không phải fit lại cùng heatmap.
+
+### 9.5 Kết quả MV narrow thay đổi gì?
+
+**Fact (DL-114):** margin ρ\* = 5% lấy lại trung vị khoảng 86% của Ḡ_M ở MV.
+
+**Inference của tôi:** câu "model fidelity có giá trị" ở MV phần lớn là "có margin hay không có margin". Đây không phải tin xấu. Nó gợi ý một nhánh câu chuyện **equivalence**: một controller mean-field cộng thêm margin đơn giản đã gần đủ ở vùng đó. Ở L4.9 bạn sẽ phải quyết định hypothesis về model value được viết so với ô 00 hay so với ô 00 có margin. Chưa cần quyết định bây giờ.
+
+## 10. Math foundations cần biết
+
+- **Must know now:** định nghĩa trung vị; tỉ lệ k/n; trực giác về hàm liên tục (điểm gần nhau thì giá trị gần nhau).
+- **Useful later:** Clopper–Pearson chỉ cần ở mức hiểu "nó là CI cho một tỉ lệ". Spearman sẽ dùng ở L4.7 và L4.9.
+- **Not needed:** lý thuyết power chi tiết, Bonferroni. Thiết kế mới không còn dùng chúng làm evidence chính.
+
+## 11. Variables & units
+
+| Symbol | Nghĩa | Đơn vị | Ai biết | Khi nào | Vì sao tách riêng |
+|---|---|---|---|---|---|
+| c | Một regime (λA, λB, u, κ, h) | packet/s, s | thiết kế | trước khi tính | Đơn vị của mọi điểm trên map |
+| Ḡ_S(c) | Gain của state repair tại c | % C̄_ref | evaluator | sau khi tính, **tất định** | Đối tượng được mô tả |
+| Ω, μ | Hộp và measure dùng để cân điểm | — | người thiết kế card | trước CF | Verdict phụ thuộc vào cả hai |
+| p(Ω) | Prevalence trong hộp | — | không ai biết chính xác | — | Tính chất của **hộp**, không của mạng |
+| p̂ = k/n | Ước lượng của p(Ω) từ n điểm | — | evaluator | sau CF | Có nhiễu lấy mẫu (theo vị trí điểm) |
+| m | Trung vị của Ḡ_S trên Ω | % C̄_ref | — | — | p(Ω) ≥ ½ ⟺ m ≥ ε |
+
+## 12. Assumptions
+
+**ASSUMPTION — Ḡ_S(c) liên tục theo c.**
+- *Giả định gì:* hai regime gần nhau cho hai giá trị gần nhau.
+- *Vì sao cần:* đây là lý do 60 điểm mới "gần như biết trước".
+- *Có hợp lý không:* L̄ là kỳ vọng trên một population liên tục, nên đây là một giả định hợp lý. Tuy vậy, chưa có chứng minh riêng.
+- *Nếu sai:* sẽ có "vách" (cliff) mà lưới bỏ sót. Khi đó điểm mới có thể cho kết quả khác. Nhánh A2 của bạn (DL-113) có thấy dấu hiệu H_cliff, nhưng ở tầng **numerics của baseline**, không phải ở Ḡ_S. Hãy để ý điều này, nhưng nó không lật lập luận.
+
+**ASSUMPTION — engine đúng.** Đã được kiểm có phạm vi (DL-101, nhánh A1–A3). Lesson này không mở lại câu đó.
+
+## 13. 🔗 Liên hệ với spike/repo cũ
+
+- **Thế hệ 2 (switch-or-stay):** plant là DES gói OU-Poisson chạy **Monte Carlo**. Mỗi lần chạy ra số khác, nên seed, CI, power, SESOI 8,1 ms đều **đúng chỗ**: ở đó thật sự có nhiễu lấy mẫu.
+- **v1.3:** engine chuyển sang quadrature exact, nên nguồn nhiễu đó biến mất. Nhưng thói quen "mọi kết luận cần CI và power" vẫn được mang theo, và áp lên thứ còn lại duy nhất có thể lấy mẫu: *vị trí điểm trong hộp*.
+- **Bài học:** công cụ thống kê phải đi theo **nguồn bất định thật**. Khi nguồn bất định đổi, công cụ cũng phải đổi.
+- **Nhánh P4-A1→A3** (DL-106…114) hỏi một câu chính đáng: ρ\* có đổi khi đổi numerics không? Câu này có thể lật luật đọc, nên đáng hỏi. Câu trả lời cuối cùng là "ba mức numerics cho cùng ρ\* và cùng cách đọc" (B1). Đó đúng là một kiểm tra *tương xứng*. Phần tốn thời gian nằm ở lớp bao quanh nó: R3 ladders, replay 24/24, audit SHA, 870 test. Đó là rigor bảo vệ machinery. **Kết quả của nhánh vẫn dùng được**; chỉ cách đi tới nó là thứ không nên lặp lại.
+
+## 14. Research task (nếu bạn thực hiện)
+
+**Khuyến nghị 1 — Viết lại bằng lời mình** (5–8 dòng): vì sao 60 điểm CF trong vùng đã quét dày cho evidence yếu, và vì sao "đa số ≥ 1%" thật ra là kiểm trung vị.
+
+**Khuyến nghị 2 — Quyết định cho lần chạy SUB đang dừng (10/76).** Có ba lựa chọn:
+
+| Lựa chọn | Ưu | Nhược |
+|---|---|---|
+| **(a) Park:** giữ 10 key đã chạy làm discovery, không chạy tiếp *(tôi khuyên)* | Tiết kiệm compute và thời gian; 10 key vẫn dùng được ở L4.6 | Không có p̂ của hộp SUB, nhưng thiết kế mới không cần con số này |
+| (b) Chạy nốt 66 key rồi dừng | Có thêm điểm discovery | Tốn khoảng nhiều CPU-giờ cho một screen mà L4.9 sẽ không dùng |
+| (c) Chạy nốt rồi áp luật 0/1/2 card | Đúng quy trình v1.1 | Dựng lại đúng thứ mà lesson này vừa chỉ ra là công cụ sai |
+
+**Khuyến nghị 3 — Gói v2 (MV/SH, 270 CF):** park lúc này; xem lại ở cuối Phase 5 nếu máy còn rảnh. P0-V10 đi theo gói v2.
+
+**Khuyến nghị 4 — Ghi DL** theo Phụ lục B của PHASE_4_v2. Thêm hai dòng mà file chưa có:
+- "SV FAIL_SCREEN (DL-116) được đọc là trung vị ≈ ngưỡng trong support, không phải vắng hiệu ứng."
+- "SUB 10/76 được park làm discovery."
+
+**Khuyến nghị 5 — Một dòng header ở PHASE_4.md v1.1:** "superseded từ L4.5 bởi PHASE_4_v2". Không xóa gì.
+
+Nếu chưa làm bây giờ, bạn vẫn học tiếp được. Hậu quả duy nhất là lần chạy SUB vẫn treo, và repo chưa ghi lại lý do đổi hướng.
+
+## 15. Verification
+
+- **Hiểu:** bạn tự chứng minh được "p(Ω) ≥ ½ ⟺ m ≥ ε" bằng lời. Bạn giải thích được vì sao 216/449 gần ½ là điều *dự đoán được* từ trung vị 0,97%.
+- **Thực hiện:** `git diff --stat` chỉ có phần thêm, cộng một dòng header. Các file đã đóng băng không đổi byte nào.
+
+## 16. What this lesson can claim / cannot claim
+
+- **Được nói:** "Card prevalence với π₀ = ½ tương đương kiểm trung vị trong hộp. Với engine tất định và vùng đã quét dày, CF chủ yếu kiểm nội suy. Vì vậy thiết kế chuyển sang map đầy đủ + dự đoán có cơ chế + held-out điều kiện."
+- **Không được nói:** "state repair không có giá trị" (từ FAIL_SCREEN); "card v2 sai" (nó vẫn là prereg hợp lệ); "thiết kế mới chắc chắn cho kết quả tốt hơn".
+
+## 17. Reviewer could ask
+
+1. *"Sao không chạy CF như đã preregister?"* → Lesson này đã trả lời: CF kiểm tính chất của hộp, và gói v2 vẫn có thể chạy làm kiểm phụ.
+2. *"Bỏ CF có phải để tránh FAIL không?"* → Câu trả lời mạnh nhất là **báo luôn SV FAIL_SCREEN** trong lịch sử, và thay bằng một bài kiểm *khó hơn* (held-out điều kiện), không phải dễ hơn. Lesson này giải thích được, còn bằng chứng sẽ nằm ở file freeze.
+3. *"Hàm có liên tục thật không?"* → Mới là giả định hợp lý; chưa trả lời đầy đủ.
+4. *"Held-out điều kiện của anh là gì?"* → Chưa trả lời; đó là việc của L4.8–L4.9.
+
+## 18. ⚠️ Bẫy người mới
+
+- **Đọc FAIL_SCREEN thành "SV không tồn tại".** Ω⁻ = 0/48 cho thấy có một cấu trúc rõ ràng.
+- **Đi quá đà:** "engine tất định nên không cần held-out nữa". Sai. Cần held-out *điều kiện*, vì rủi ro lớn nhất là kết quả chỉ đúng cho plant này.
+- **Sunk cost với SUB:** "đã chạy 10/76 rồi, chạy nốt cho xong". Hãy hỏi lại: con số p̂ đó sẽ đổi dòng nào của file freeze?
+- **Nghĩ rằng nhánh A1–A3 là phí công hoàn toàn.** Kết luận MV narrow là thật và quan trọng; chỉ có lớp audit bao quanh là thừa.
+
+## 19. 🧠 Tư duy researcher
+
+> **Trước khi chọn công cụ thống kê, hỏi: bất định của mình đến từ đâu?**
+
+Nếu từ nhiễu đo thì dùng CI và power. Nếu từ việc "chỉ tính ở một số điểm" thì dùng design rải đều và báo hết. Nếu từ chỗ "không biết kết quả có tổng quát không" thì đổi điều kiện và dự đoán trước.
+
+## 20. Personal understanding artifact (khuyến nghị)
+
+Bài này rất đáng làm nếu bạn muốn nhớ lâu. Bằng lời của mình, viết ba câu:
+1. Vì sao "đa số regime ≥ 1%" là câu về trung vị.
+2. SV FAIL_SCREEN cho biết điều gì, và không cho biết điều gì.
+3. Held-out điều kiện của project này *có thể* là gì.
+
+## 21. Self-check (tùy chọn)
+
+1. *(Recall)* Tất định khác ngẫu nhiên ở đâu? Plant và engine của bạn mỗi cái thuộc loại nào?
+2. *(Understand)* CI Clopper–Pearson trong CF đo bất định của cái gì?
+3. *(Apply)* Nếu trung vị Ḡ_S trong hộp là 1,4%, card "đa số ≥ 1%" có xác suất PASS cao hay thấp? Vì sao?
+4. *(Research)* Nếu nới hộp SV sang κ/τ lớn hơn, p̂ sẽ đổi theo hướng nào? Ω⁻ = 0/48 gợi ý điều gì?
+5. *(Reviewer)* Một reviewer nói "anh đổi thiết kế sau khi thấy FAIL". Bạn trả lời thế nào cho trung thực?
+
+## 22. Lesson Gate
+
+- **Understanding** — sau lesson, bạn nên hiểu:
+  - engine tất định nên nhiễu lấy mẫu chỉ còn ở vị trí điểm;
+  - card π₀ = ½ tương đương kiểm trung vị;
+  - SV FAIL_SCREEN là do trung vị ≈ ngưỡng, không phải vắng hiệu ứng;
+  - held-out có giá trị ở đây là held-out *điều kiện*;
+  - MV narrow thay đổi cách viết câu về model value.
+- **Recommended execution** — nếu triển khai thật: park SUB và gói v2; ký DL đổi hướng (thêm hai dòng ở mục 14); thêm header vào PHASE_4.md v1.1; cập nhật §0.1 của PHASE_4_v2.
+- **Scientific dependency:** lesson này không tạo evidence. Điều duy nhất cần có trước khi claim là sau này, file freeze ở L4.9 phải ghi lại lịch sử FAIL_SCREEN. Như vậy việc đổi thiết kế mới minh bạch.
+- **Can I study the next lesson?** **Yes.** L4.6 (tách nguồn) chỉ cần khái niệm của lesson này cộng ba toy ở L4.2.
+
+Khi bạn muốn, nói "tiếp tục lesson tiếp theo".

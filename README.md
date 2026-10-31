@@ -2,6 +2,24 @@
 
 Tác giả: **Doan Van Tai**.
 
+**Hiện tại — L4.5 (v2): đổi loại evidence, SUB và CF-v2 đã park (DL-117).**
+
+Chọn **0 card mới trong hướng hiện tại** vì chuyển sang tách nguồn, mechanism
+và held-out điều kiện; đây không phải kết luận SUB FAIL. Giữ SV FAIL_SCREEN,
+baseline A3 (MV rho5%/narrow; SH rho0/not-narrow) và mọi artifact lịch sử.
+SUB giữ10/76keys đã hoàn tất làm discovery; tiến trình cũ đã kết thúc khi đang
+STOP, không chạy66keys còn lại.270CF-v2 vẫn chỉ là tham số, chưa có outcomes;
+gói đó được park để xem lại riêng như kiểm phụ. Contract/card/engine frozen giữ
+nguyên byte. Không có thí nghiệm hoặc evidence mới từ lesson này, G1 giữ nguyên.
+
+[Phase4 v2 — bản triển khai tối thiểu](notes/phases/PHASE_4_v2.md) ·
+[DL-117](notes/02_decision_log.md#dl-117--l45-v2-đổi-loại-evidence-park-sub-và-gói-cf-v2-31102026) ·
+[Parking](results/lessons/l4_5_v2/parking.json) ·
+[Báo cáo/kiểm chứng](results/lessons/l4_5_v2/report.md).
+Tiếp theo: **L4.6 tách nguồn trên dữ liệu đã có**, chưa chạy trong lesson này.
+
+**Snapshot trước DL-117 — các trạng thái bên dưới được giữ nguyên lịch sử.**
+
 **Hiện tại — L4.5 Part B: SV FAIL_SCREEN; SUB tạm dừng theo yêu cầu.**
 
 SV đã sàng đúng một hộp trên support A1: plus 216 MEETS/224 FAILS/9 UNRESOLVED

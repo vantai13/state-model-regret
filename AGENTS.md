@@ -323,3 +323,19 @@ Report/checkpoint results/lessons/l4_5/part_b/. KhôngCF/newsealed/cardv2change;
 A3numericalbranchclosed,G1. SVsupport449/48làdiscreteA1support,khônggiảcoverage
 7discoverykeys khác nằmtrongplus-envelope. Numericlabel/powerkernel/rulesv1
 nguyênbyte;chỉgỡSVchờSUB vàtestsnhạytrạngthái,relocktrước0counts (DL114–116).
+
+
+## Hiện hành từ L4.5 (v2), DL-117 — thay lộ trình card tiếp theo
+
+Tác giả yêu cầu thực hiện lesson; AI theoủyquyền chọnparkSUB vàCF-v2,0card mới
+dođổi design,khôngkếtluậnSUBFAIL. SUB_BOXgiữ10/76keysdiscovery;processgroup
+257934đãkếtthúc khiSTOP,khôngSIGCONT;66keys khôngtínhnốt. Pause/checkpointcũ
+giữlịch sử,lệnhresumecũhếthiệulực;khôngtựresumehoặcsàngSUB. Gói270CF-v2park
+optionalkiểmphụsauquyếtđịnhr riêng,khôngCFoutcomes/P0V10autoPASS.
+Luồngmới: notes/phases/PHASE_4_v2.md (bảntriểnkhaitừlesson,khôngfullplangốc),
+L4.6táchnguồn→L4.7clipping→L4.8realism→L4.9freeze. ChưađóngtoànPhase4.
+GiữMainRQ/contract/nativeengine/identities/baseline/frozenbytes;SVFAILbáođủ,
+MVnarrowrho5%/recovery≈86%,SHrho0 vàSVkhôngnarrow. Deterministickhôngexact/
+continuous;FAIL_SCREENkhôngtươngđươngmedian;0/48MEETSkhôngeffect0.
+Learningnote doAI soạn,khôngauthor-self/UnderstandingPASS;G1giữ.
+Report results/lessons/l4_5_v2/report.md;parking.json cùngthưmục.

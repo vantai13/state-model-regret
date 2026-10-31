@@ -1,5 +1,9 @@
 # Experiment index — evidence v1.2 và thiết kế population v1.3
 
+**Luồng hiện hành từ L4.5(v2), DL-117:** [PHASE_4_v2](phases/PHASE_4_v2.md).
+SUB_BOX park tại10keys discovery; CF-v2 park,0card mới do đổi design, không có
+SUB verdict hoặc CF outcome. Các dòng phía dưới là records theo thời điểm cũ.
+
 Người phụ trách: **Doan Van Tai** · cập nhật 30/10/2026 (tạm dừng L3R.7).
 [Bản hiện hành](../README.md) · [Phase 3R](phases/PHASE_3R.md) ·
 [contract v1.3](01_definitions_v1_3.md). Kết quả A01/A04/A05 giữ

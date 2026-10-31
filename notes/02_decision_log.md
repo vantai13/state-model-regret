@@ -1937,3 +1937,44 @@ Tác giả chọn “Chạy một hộp SUB (khuyến nghị)”; AI theoủyquy
 ### DL-116 — SV FAIL_SCREEN; SUB tạm dừng theo yêu cầu, chưa quyết sốcard
 
 SV trial1: plus216MEETS/224FAILS/9UNRESOLVED trên449,minus0/48MEETS; p_cond27/55,r_plus9/449,p_plan43/110,power≈2.5655e-5<.5 ->FAIL_SCREEN. KhônghộpSVbổsung. Tácgiảyêucầu tạmdừngjobdài vàpush: SUBđã10/76completePASS,2inflight/64notstarted,group257934SIGSTOP. SUBchưa baseline/rho/manifest/screen;finalcardcount=null,khôngsuy0card. Checkpoint/report results/lessons/l4_5/part_b/. Chỉresume khi tácgiảyêucầu;khôngCF.
+
+
+### DL-117 — L4.5 (v2): đổi loại evidence, park SUB và gói CF-v2 (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Trạng thái **ADOPTED_BY_AUTHOR_DELEGATION**.
+Tác giả yêu cầu “bạn hãy thực hiện yêu cầu của lesson giống yêu cầu thực hiện các
+lesson ở trên đi”; AI theo ủy quyền tiếp diễn chọn phương án khuyến nghị (a),
+soạn chi tiết và learning note. Không giả tác giả tự viết/ký hoặc human review.
+
+**Thiết kế hiện hành:** 0 card mới/F2, không card-v3/CF-v3. Park gói MV/SH
+CF-v2 (270 tham số, chưa outcomes) để có thể xem lại riêng như kiểm phụ; giữ
+nguyên card/prereg/numerics/CF list và P0-V10 gắn với gói đó, không đánh dấu
+gate đã qua. Giữ Main RQ, contract v1.3, engine, S01–S18, toys và baseline A3/SV.
+Thay đường chạy tiếp của DL-115/116 bằng tách nguồn → clipping/mechanism →
+realism → freeze hypothesis/held-out điều kiện. Không đóng toàn Phase4 tại đây.
+
+**Lịch sử đã thấy khi quyết định:** SV FAIL_SCREEN (DL-116) được giữ/báo đầy đủ;
+216MEETS/224FAILS/9U trên449plus,0/48MEETS ởminus. Đây là feasibility fail
+theo haircut/power/unresolved, không chứng minh không có state effect và không
+tương đương một phép kiểm median. Riêng median SV+≈.97% là observation.
+A3 MV recovery≈86%/rho5% nên narrow; SH rho0 không narrow. Không tuyên bố đổi
+hướng là trước discovery: nó diễn ra sau SV FAIL và10SUB native keys đã lộ.
+
+**SUB10/76 được park làm discovery.** Kết thúc processgroup257934 khi còn STOP,
+không SIGCONT;10keys/30levels đã lưu giữ nguyên byte,2calls chưa ghi kết quả
+bị hủy,66keys còn lại không có evaluation hoàn chỉnh. SUB chưa có rho/manifest,
+p-hat hoặc screen verdict;0card là quyết định scope/design, không phải SUBFAIL.
+Các lệnh resume trong pause snapshot cũ được nghỉ dùng, không xóa snapshot.
+
+**Lý do và giới hạn:** ưu tiên effect distribution/boundary, cơ chế và prediction
+có thể sai trên điều kiện mới. Card/CP cũ vẫn hợp lệ cho câu hỏi prevalence theo
+measure đã khóa; deterministic không là exact/continuous hoặc lý do làm thống
+kê mất hiệu lực. Held-out condition chưa chọn, realism/D22/mechanism chưa làm,
+nên chưa có evidence thay thế, G1/ownership/Understanding/L8 không tự nâng.
+Báo cả lịch sử này trong freeze L4.9; không đọc R09/R10 hoặc outcomesCF.
+
+**Thực thi:** [bảng giữ/park và learning note](phases/PHASE_4_v2.md),
+[parking record](../results/lessons/l4_5_v2/parking.json). Không tìm thấy bản gốc
+PHASE_4.md v1.1/PHASE_4_v2; tạo pointer và bản triển khai tối thiểu từ lesson,
+không giả đã sửa toàn văn/Phụ lục B. Chỉnh lý toán học được ghi riêng với raw
+lesson nguyên byte. Lesson này không tạo scientific evidence; tiếp theo L4.6.

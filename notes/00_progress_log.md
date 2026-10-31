@@ -542,3 +542,15 @@ L4.5 Part B/readiness/Gate4 còn mở; 0 CF/sealed/box outcomes mới.
 [Report](../results/lessons/p4_a2/report.md) ·
 [Decision](../results/lessons/l4_4/a2_probe/decision.json) ·
 [Completion](phases/P4_A2_completion.json).
+
+
+## L4.5 (v2) — đổi hướng evidence, park thực thi (31/10/2026, DL-117)
+
+Đã thực hiện research task của lesson theo ủy quyền:0card mới do design; SUB10keys
+park discovery và job cũ kết thúc, không tính nốt66keys. Gói CF-v2park,0outcomes;
+frozen source/artifacts giữ nguyên, không đổi SVFAIL thành kết quả khác.
+[Phase4v2 tối thiểu](phases/PHASE_4_v2.md) có0.1trạng thái, bảnggiữ/park,
+learning noteAI vàerrata. Không giả tác giả tự viết/hiểu;G1 không đổi.
+Bảnplan full không có trong nguồn đã kiểm, pointer PHASE_4.md ghi rõ giới hạn.
+Không newenginecalls/CF; chưa L4.6/D22/realism/freeze mới.
+[Report](../results/lessons/l4_5_v2/report.md) · [DL-117](02_decision_log.md).
