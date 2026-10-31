@@ -1,0 +1,101 @@
+{
+  "status": "NOT_READY",
+  "bug_reasons": [],
+  "readiness_reasons": [
+    "baseline_arithmetic:(640, 4):1/100",
+    "baseline_arithmetic:(320, 4):1/100",
+    "baseline_arithmetic:(640, 2):1/100",
+    "baseline_R1:1/100:L00",
+    "baseline_R1:1/100:GS_theta"
+  ],
+  "native_readiness_reasons": [],
+  "baseline_readiness_reasons": [
+    "baseline_arithmetic:(640, 4):1/100",
+    "baseline_arithmetic:(320, 4):1/100",
+    "baseline_arithmetic:(640, 2):1/100",
+    "baseline_R1:1/100:L00",
+    "baseline_R1:1/100:GS_theta"
+  ],
+  "baseline_refinement": [
+    {
+      "rho": "0",
+      "normalized_difference": {
+        "L00": 0.0007139023114541498,
+        "L10": 0.001152064783603806,
+        "GS_theta": 0.0004381624721496561,
+        "deltaL10": 0.0
+      }
+    },
+    {
+      "rho": "1/200",
+      "normalized_difference": {
+        "L00": 0.0007139023114541498,
+        "L10": 0.0005203612727643142,
+        "GS_theta": 0.00033450911807653724,
+        "deltaL10": 0.0006992393049953477
+      }
+    },
+    {
+      "rho": "1/100",
+      "normalized_difference": {
+        "L00": 0.004087436165637458,
+        "L10": 0.0005028884043368184,
+        "GS_theta": 0.004021994681931349,
+        "deltaL10": 0.0009276406718816032
+      }
+    },
+    {
+      "rho": "1/50",
+      "normalized_difference": {
+        "L00": 0.0018647135927319543,
+        "L10": 0.0007746991556097252,
+        "GS_theta": 0.0010900144371222293,
+        "deltaL10": 0.0005010074423996653
+      }
+    },
+    {
+      "rho": "1/20",
+      "normalized_difference": {
+        "L00": 0.000932996561234186,
+        "L10": 0.0008543096635029503,
+        "GS_theta": 0.0002638139031610186,
+        "deltaL10": 0.0004586534500198149
+      }
+    }
+  ],
+  "pilot_flags": [],
+  "audit": [],
+  "cross_route_main": {
+    "00-11": "-1197713357157680/11757657363760609777",
+    "01-11": "-1197713357157680/11757657363760609777"
+  },
+  "raw_flags_report_only": {
+    "640_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "320_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "640_2": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    }
+  },
+  "native_id": "P44_008",
+  "supports": [
+    "SH+A"
+  ],
+  "cpu_seconds": 60.156995,
+  "a1_prereg_sha256": "98808fdeec81ec18dd793ee1514b88be9064858d2127f4828e61e624d98bc6c9"
+}

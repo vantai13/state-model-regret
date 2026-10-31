@@ -2,7 +2,23 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — P4-A2, 31/10/2026: probe hoàn tất, nhánh B1; F1 baseline vẫn HOLD.**
+**Hiện tại — A3/B1, 31/10/2026: MV và SH đều STABLE; kết thúc nhánh numerical.**
+
+Đã chạy đủ 90 keys × 3 levels và một control, giữ cả 36 điểm SH NOT_READY.
+Cả ba mức chọn MV ρ*=5% với narrow=True (median R_M 0,86297–0,86799),
+SH ρ*=0 với narrow=False (median |GSθ|/Cref 4,67960–4,70197%; ΔL10=0).
+879 full tests PASS; replay 12/12 và đối chiếu Fraction độc lập PASS; 0 BUG.
+Tổng 1.934,611542 evaluation CPU-s. Dùng nguyên runner A1 và luật DL104.
+
+STABLE chỉ là robustness ở ba mức đã kiểm, không phải numerics từng point đã
+solved. Không A4 hoặc refinement thêm để cứu kết quả. Chuyển sang L4.5 Part B
+với evidence còn sống và rho policy đã chốt; SV/SUB giữ nguyên, G1.
+[Report](results/lessons/p4_a3/report.md) ·
+[JSON](results/lessons/l4_4/a3/summary/b1_summary.json) ·
+[CSV](results/lessons/l4_4/a3/summary/level_summary.csv) ·
+[Rho policy](experiments/P4_A1/runs/L44_A3/rho_freeze.json).
+
+**Snapshot P4-A2, 31/10/2026: probe hoàn tất, nhánh B1; F1 baseline vẫn HOLD.**
 
 Đã chạy đủ 8 điểm × 7 levels và một control u=0: 57 evaluation calls,
 1.280,950894 CPU-s, dưới cap 3 CPU giờ. Control PASS, 24/24 row tái lập A1 khớp,

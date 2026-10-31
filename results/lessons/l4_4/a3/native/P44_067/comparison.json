@@ -1,0 +1,105 @@
+{
+  "status": "NOT_READY",
+  "bug_reasons": [],
+  "readiness_reasons": [
+    "baseline_arithmetic:(640, 4):1/50",
+    "baseline_arithmetic:(320, 4):1/50",
+    "baseline_arithmetic:(640, 2):1/50",
+    "baseline_R1:1/50:L00",
+    "baseline_R1:1/50:GS_theta",
+    "baseline_R1:1/20:L00",
+    "baseline_R1:1/20:GS_theta"
+  ],
+  "native_readiness_reasons": [],
+  "baseline_readiness_reasons": [
+    "baseline_arithmetic:(640, 4):1/50",
+    "baseline_arithmetic:(320, 4):1/50",
+    "baseline_arithmetic:(640, 2):1/50",
+    "baseline_R1:1/50:L00",
+    "baseline_R1:1/50:GS_theta",
+    "baseline_R1:1/20:L00",
+    "baseline_R1:1/20:GS_theta"
+  ],
+  "baseline_refinement": [
+    {
+      "rho": "0",
+      "normalized_difference": {
+        "L00": 0.000631501240013305,
+        "L10": 0.0009811979470747394,
+        "GS_theta": 0.00034969670706143423,
+        "deltaL10": 0.0
+      }
+    },
+    {
+      "rho": "1/200",
+      "normalized_difference": {
+        "L00": 0.000631501240013305,
+        "L10": 0.0006707177061907732,
+        "GS_theta": 0.0002056863458737946,
+        "deltaL10": 0.0003713774379530703
+      }
+    },
+    {
+      "rho": "1/100",
+      "normalized_difference": {
+        "L00": 0.000631501240013305,
+        "L10": 0.0004917122980175024,
+        "GS_theta": 0.000535507310168764,
+        "deltaL10": 0.0008246788689392445
+      }
+    },
+    {
+      "rho": "1/50",
+      "normalized_difference": {
+        "L00": 0.009680017803018562,
+        "L10": 0.0005226142905900949,
+        "GS_theta": 0.009657361442225553,
+        "deltaL10": 0.0005803873629563216
+      }
+    },
+    {
+      "rho": "1/20",
+      "normalized_difference": {
+        "L00": 0.00280374541244955,
+        "L10": 0.0005787799021903886,
+        "GS_theta": 0.0027750496449971533,
+        "deltaL10": 0.0005766346129568268
+      }
+    }
+  ],
+  "pilot_flags": [],
+  "audit": [],
+  "cross_route_main": {
+    "00-11": "-1947234020754962/11966208439365410779",
+    "01-11": "-1947234020754962/11966208439365410779"
+  },
+  "raw_flags_report_only": {
+    "640_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "320_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "640_2": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    }
+  },
+  "native_id": "P44_067",
+  "supports": [
+    "SH+A"
+  ],
+  "cpu_seconds": 14.731565,
+  "a1_prereg_sha256": "98808fdeec81ec18dd793ee1514b88be9064858d2127f4828e61e624d98bc6c9"
+}

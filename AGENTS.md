@@ -300,3 +300,12 @@ check cuối của baseline: cùng 90 keys, 3 levels, rho grid, selection và re
 STABLE iff cùng rho* và cùng narrow/not-narrow, khác thì UNRESOLVED. Sau A3 dừng
 nhánh numerical này; không tạo A4/thêm mức để cứu STABLE. Giữ limitation về
 shared bias, chuyển evidence còn sống sang L4.5 Part B.
+
+A3/B1 kết thúc 31/10/2026: code/protocol d444bc8, prereg06aa5dc trước outcomes;
+879testsPASS87.33s, reference12/12 và Fraction auditPASS. Đủ90×3+1control=271
+evaluations,1934.611542CPU-s. MV18/18ready; SH36PASS/36NOT_READY, giữ đủ72.
+CảhaiSTABLE trên3mức: MVrho5%/narrowTrue, medianR_M.862967–.867986; SHrho0/
+narrowFalse, medianabsGS4.679597–4.701969%Cref,deltaL10=0. Khôngnumerics-solved
+claim; 0BUG/CF/sealed mới,cardv2/G1giữ. Nhánh numericalCLOSED,khôngA4. Chuyển
+L4.5PartB với candidate-specific evidence; SV/SUBkhôngtựgánREADY từMV/SH.
+Report results/lessons/p4_a3/report.md; JSON results/lessons/l4_4/a3/summary/b1_summary.json.

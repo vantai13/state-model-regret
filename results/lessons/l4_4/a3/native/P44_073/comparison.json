@@ -1,0 +1,97 @@
+{
+  "status": "NOT_READY",
+  "bug_reasons": [],
+  "readiness_reasons": [
+    "baseline_arithmetic:(640, 4):1/20",
+    "baseline_R1:1/20:L00",
+    "baseline_R1:1/20:GS_theta"
+  ],
+  "native_readiness_reasons": [],
+  "baseline_readiness_reasons": [
+    "baseline_arithmetic:(640, 4):1/20",
+    "baseline_R1:1/20:L00",
+    "baseline_R1:1/20:GS_theta"
+  ],
+  "baseline_refinement": [
+    {
+      "rho": "0",
+      "normalized_difference": {
+        "L00": 0.00047189528016143963,
+        "L10": 0.0008301998563643424,
+        "GS_theta": 0.00035830457620290266,
+        "deltaL10": 0.0
+      }
+    },
+    {
+      "rho": "1/200",
+      "normalized_difference": {
+        "L00": 0.00047189528016143963,
+        "L10": 0.0003899483360636167,
+        "GS_theta": 0.00018997966415961807,
+        "deltaL10": 0.0004793607009591425
+      }
+    },
+    {
+      "rho": "1/100",
+      "normalized_difference": {
+        "L00": 0.00047189528016143963,
+        "L10": 0.00037490212070846214,
+        "GS_theta": 0.00031245055396410666,
+        "deltaL10": 0.0005142474508532672
+      }
+    },
+    {
+      "rho": "1/50",
+      "normalized_difference": {
+        "L00": 0.00047189528016143963,
+        "L10": 0.00044495801878056593,
+        "GS_theta": 0.0003742177416028264,
+        "deltaL10": 0.0006891943386286379
+      }
+    },
+    {
+      "rho": "1/20",
+      "normalized_difference": {
+        "L00": 0.004814942536143674,
+        "L10": 0.0005349320999687976,
+        "GS_theta": 0.004696986816976962,
+        "deltaL10": 0.0004308193328918087
+      }
+    }
+  ],
+  "pilot_flags": [],
+  "audit": [],
+  "cross_route_main": {
+    "00-11": "-2790404976128048/18153056928290347073",
+    "01-11": "-2790404976128048/18153056928290347073"
+  },
+  "raw_flags_report_only": {
+    "640_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "320_4": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    },
+    "640_2": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    }
+  },
+  "native_id": "P44_073",
+  "supports": [
+    "SH+A"
+  ],
+  "cpu_seconds": 18.705854000000002,
+  "a1_prereg_sha256": "98808fdeec81ec18dd793ee1514b88be9064858d2127f4828e61e624d98bc6c9"
+}

@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "bug_reasons": [],
+  "readiness_reasons": [],
+  "native_readiness_reasons": [],
+  "baseline_readiness_reasons": [],
+  "baseline_refinement": [
+    {
+      "rho": "0",
+      "normalized_difference": {
+        "L00": 0.00015300338185337715,
+        "L10": 3.912352730256262e-05,
+        "GS_theta": 0.00014268956018464966,
+        "deltaL10": 0.0
+      }
+    },
+    {
+      "rho": "1/200",
+      "normalized_difference": {
+        "L00": 0.00015354474869170887,
+        "L10": 1.5029067713598622e-05,
+        "GS_theta": 0.0001488423857627977,
+        "deltaL10": 2.4129796197075408e-05
+      }
+    },
+    {
+      "rho": "1/100",
+      "normalized_difference": {
+        "L00": 0.00015533234587868517,
+        "L10": 1.6741606805990486e-05,
+        "GS_theta": 0.00014343344654002094,
+        "deltaL10": 2.243694928249419e-05
+      }
+    },
+    {
+      "rho": "1/50",
+      "normalized_difference": {
+        "L00": 0.0001605093827180734,
+        "L10": 2.1942296802684268e-05,
+        "GS_theta": 0.00015337460473134647,
+        "deltaL10": 4.8077247005579314e-05
+      }
+    },
+    {
+      "rho": "1/20",
+      "normalized_difference": {
+        "L00": 0.001473409380257207,
+        "L10": 3.225544008309054e-05,
+        "GS_theta": 0.0014818747014464066,
+        "deltaL10": 5.839039028598561e-05
+      }
+    }
+  ],
+  "pilot_flags": [],
+  "audit": [],
+  "cross_route_main": {
+    "00-11": "587001464873529/6817089065163968051",
+    "01-11": "399245257991237/6817089065163968051"
+  },
+  "raw_flags_report_only": {
+    "640_4": {
+      "arithmetic_pass": true,
+      "validity_errors": []
+    },
+    "320_4": {
+      "arithmetic_pass": true,
+      "validity_errors": []
+    },
+    "640_2": {
+      "arithmetic_pass": false,
+      "validity_errors": [
+        "negative_nonnegative_contrast:G_SM",
+        "negative_nonnegative_contrast:G_S_M1"
+      ]
+    }
+  },
+  "native_id": "P44_087",
+  "supports": [
+    "SH+A"
+  ],
+  "cpu_seconds": 8.027396,
+  "a1_prereg_sha256": "98808fdeec81ec18dd793ee1514b88be9064858d2127f4828e61e624d98bc6c9"
+}
