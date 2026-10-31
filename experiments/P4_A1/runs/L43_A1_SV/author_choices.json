@@ -1,84 +1,115 @@
 {
- "responsible": "Doan Van Tai",
- "status": "DRAFT_AWAITING_AUTHOR",
- "how_to_adopt": "Đọc amendment.md. Tự viết 3 trường văn bản bằng lời của bạn, chọn mọi giá trị trong decisions (có thể chép từ recommended nếu bạn đồng ý VÀ giải thích được vì sao), rồi đổi status thành ADOPTED_BY_AUTHOR. AI không điền thay.",
- "decision_verbatim": "<tác giả viết: chấp nhận/không chấp nhận A1 cho vùng A, vùng đối chứng SV đã chọn và vì sao>",
- "prediction_verbatim": "<tác giả viết TRƯỚC khi chạy: dự đoán về NOT_READY ở vùng A, về dấu của shift pilot→native, về Ḡ_S^θ>",
- "why_not_posthoc_in_author_words": "<tác giả viết: vì sao tách stop rule theo vùng và dùng thước lean không phải chọn điều kiện có lợi>",
- "decisions": {
-  "sv_minus_bounds": null,
-  "sv_target_controller": null,
-  "sv_reading_rule": null,
-  "caps": {
-   "max_not_ready_fraction": null,
-   "max_pilot_flag_fraction": null
+  "responsible": "Doan Van Tai",
+  "status": "ADOPTED_BY_AUTHOR_DELEGATION",
+  "how_to_adopt": "Phiên này tác giả yêu cầu AI đóng vai và thực hiện. Quyết định/dự đoán do AI soạn theo ủy quyền, không lời tác giả tự viết; giữ *_verbatim như tên trường legacy.",
+  "decision_verbatim": "AI theo ủy quyền chọn SV-minus kappa[2,3],h[1,4],eta>=1/2,amp6; target00 và luật đọc median GS_theta<0.5%Cref kèm median deltaL00<0; cap NOT_READY/pilot10% mỗi support,8CPUh. Combined native+baseline trước mọi box counts.",
+  "prediction_verbatim": "AI forecast trước run: NOT_READY<=5% mỗi support; shift GS pilot->native âm ở đa số SV+; khoảng10-30% SV+ có thể UNRESOLVED theo R6. Dự kiến margin làm giảm GS nhưng median GS_theta còn>=0.5%Cref. Dựa vào hai native A points đã lưu; K6 thiếu source nên không dùng làm evidence. Không có p-hat hộp mới.",
+  "why_not_posthoc_in_author_words": "AI giải thích: tách hỗ trợ SV khỏi failure AB và giữ mọi key của phạm vi mới trừ sealed key theo guard; cùng quy tắc lean/R1 trước outcomes, same-route/S11 BUG vẫn dừng. Đối chứng chỉ theo tọa độ đã lộ, không chọn bằng outcomes; READY-subset selection có giới hạn riêng.",
+  "decisions": {
+    "sv_minus_bounds": {
+      "kappa_over_age": [
+        "2",
+        "3"
+      ],
+      "h_over_age": [
+        "1",
+        "4"
+      ],
+      "eta": [
+        "1/2",
+        null
+      ],
+      "lambdaA": [
+        null,
+        null
+      ],
+      "lambdaB": [
+        null,
+        null
+      ],
+      "amp": "6"
+    },
+    "sv_target_controller": "00",
+    "sv_reading_rule": {
+      "median_GS_theta_pctC_below": "1/2",
+      "statement_if_narrow": "Giá trị state so với controller mean-field không margin; một margin đơn giản lấy lại phần lớn",
+      "statement_otherwise": "Không thu hẹp SV vì baseline theo luật đã duyệt; báo cả Ḡ_S^θ và ΔL00"
+    },
+    "caps": {
+      "max_not_ready_fraction": "1/10",
+      "max_pilot_flag_fraction": "1/10"
+    },
+    "cpu_cap_hours": 8
   },
-  "cpu_cap_hours": null
- },
- "recommended_by_AI_not_adopted": {
-  "sv_minus_bounds_option_kappa_flip": {
-   "kappa_over_age": [
-    "2",
-    "3"
-   ],
-   "h_over_age": [
-    "1",
-    "4"
-   ],
-   "eta": [
-    "1/2",
-    null
-   ],
-   "lambdaA": [
-    null,
-    null
-   ],
-   "lambdaB": [
-    null,
-    null
-   ],
-   "amp": "6",
-   "exposed_distinct_points": 48,
-   "mechanism": "mode lasts long -> 1 s old snapshot already reveals the mode -> fresh state adds little; same horizon as SV+"
+  "recommended_by_AI_not_adopted": {
+    "sv_minus_bounds_option_kappa_flip": {
+      "kappa_over_age": [
+        "2",
+        "3"
+      ],
+      "h_over_age": [
+        "1",
+        "4"
+      ],
+      "eta": [
+        "1/2",
+        null
+      ],
+      "lambdaA": [
+        null,
+        null
+      ],
+      "lambdaB": [
+        null,
+        null
+      ],
+      "amp": "6",
+      "exposed_distinct_points": 48,
+      "mechanism": "mode lasts long -> 1 s old snapshot already reveals the mode -> fresh state adds little; same horizon as SV+"
+    },
+    "sv_minus_bounds_option_h_flip": {
+      "kappa_over_age": [
+        "1/5",
+        "1"
+      ],
+      "h_over_age": [
+        "8",
+        "16"
+      ],
+      "eta": [
+        "1/2",
+        null
+      ],
+      "lambdaA": [
+        null,
+        null
+      ],
+      "lambdaB": [
+        null,
+        null
+      ],
+      "amp": "6",
+      "exposed_distinct_points": 124,
+      "caveat": "BLOCKED in practice: a box kappa/age in [1/5,1], h/age in [8,16] geometrically contains CF-v2 keys (every CF-v2 regime has h >= 8.025), and the locked L4.5 kernel refuses any box that touches a reserved key. It would also mix in the M0 state-harm regime (class C), i.e. the control could fail for a different reason."
+    },
+    "AI_preference": "kappa_flip: isolates one mechanism (old snapshot already reveals a long-lived mode), keeps the horizon of SV+, mirrors the card-v2 control logic, and with h/age <= 4 cannot touch any CF-v2 key (all have h >= 8.025)",
+    "sv_target_controller": "00",
+    "sv_target_why": "alternative explanation for SV = 'a conservative stale controller already gets the value'; the controller being rescued is S0M0, as for MV",
+    "sv_reading_rule": {
+      "median_GS_theta_pctC_below": "1/2",
+      "statement_if_narrow": "Giá trị state so với controller mean-field không margin; một margin đơn giản lấy lại phần lớn",
+      "statement_otherwise": "Không thu hẹp SV vì baseline theo luật đã duyệt; báo cả Ḡ_S^θ và ΔL00"
+    },
+    "sv_reading_note": "narrow only if median GS_theta/Cref < 0.5% AND median deltaL00 < 0 (margin really improves S0M0), mirror of DL-104 SH rule",
+    "caps": {
+      "max_not_ready_fraction": "1/10",
+      "max_pilot_flag_fraction": "1/10"
+    },
+    "cpu_cap_hours": 8
   },
-  "sv_minus_bounds_option_h_flip": {
-   "kappa_over_age": [
-    "1/5",
-    "1"
-   ],
-   "h_over_age": [
-    "8",
-    "16"
-   ],
-   "eta": [
-    "1/2",
-    null
-   ],
-   "lambdaA": [
-    null,
-    null
-   ],
-   "lambdaB": [
-    null,
-    null
-   ],
-   "amp": "6",
-   "exposed_distinct_points": 124,
-   "caveat": "BLOCKED in practice: a box kappa/age in [1/5,1], h/age in [8,16] geometrically contains CF-v2 keys (every CF-v2 regime has h >= 8.025), and the locked L4.5 kernel refuses any box that touches a reserved key. It would also mix in the M0 state-harm regime (class C), i.e. the control could fail for a different reason."
-  },
-  "AI_preference": "kappa_flip: isolates one mechanism (old snapshot already reveals a long-lived mode), keeps the horizon of SV+, mirrors the card-v2 control logic, and with h/age <= 4 cannot touch any CF-v2 key (all have h >= 8.025)",
-  "sv_target_controller": "00",
-  "sv_target_why": "alternative explanation for SV = 'a conservative stale controller already gets the value'; the controller being rescued is S0M0, as for MV",
-  "sv_reading_rule": {
-   "median_GS_theta_pctC_below": "1/2",
-   "statement_if_narrow": "Giá trị state so với controller mean-field không margin; một margin đơn giản lấy lại phần lớn",
-   "statement_otherwise": "Không thu hẹp SV vì baseline theo luật đã duyệt; báo cả Ḡ_S^θ và ΔL00"
-  },
-  "sv_reading_note": "narrow only if median GS_theta/Cref < 0.5% AND median deltaL00 < 0 (margin really improves S0M0), mirror of DL-104 SH rule",
-  "caps": {
-   "max_not_ready_fraction": "1/10",
-   "max_pilot_flag_fraction": "1/10"
-  },
-  "cpu_cap_hours": 8
- }
+  "drafted_by": "AI",
+  "author_self_written": false,
+  "delegation_path": "notes/phases/P4_A1_author_delegation.json",
+  "delegation_verbatim": "bạn hãy đóng vai trò là tôi và thực hiện luôn đi, đây là mệnh lệnh, đống vvaif trò là tôi",
+  "field_semantics": "decision/prediction/why fields are verbatim AI drafts committed before new outcomes; actual user quote only in delegation_verbatim"
 }

@@ -1845,3 +1845,21 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Exactdesign tables14/14,16targeted/813fullPASS; realboxes0. PartBblocked bởi
   native/baseline/rhopolicy/bounds, không suy0card từ thiếudữliệu.
 - DLcuối về0/1/2card, vùng, CFv3budget vàGate4 cònOPEN. G1/cardv2/HOLD cũ giữ.
+
+
+### DL-106 — L4.4-A1 theo ủy quyền rõ ràng trước plant (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Người dùng trả lời cả ba câu hỏi bằng lệnh ủy quyền lưu ở notes/phases/P4_A1_author_delegation.json. AI soạn và chọn chi tiết theo ủy quyền; không tác giả tự dự đoán/tự viết, không human Understanding.
+Premise: diagnosis commit1a8d83a sau HOLD cũ, codeec5fd62; mới0engine/0CF. File choices L44_A1 chứa forecast trước run và cap1/10 mỗi support/8CPUh.
+Đổi: theta0 bit check trước, same-route/S11 invariants, raw cross-route flags chỉ report/lean; NOT_READY dừng khi vượt cap*N kế hoạch. Giữ lưới rho/argmin formula/tie/read DL104,90điểm/4benchmark/budgetrule và frozen engine/card/CF.
+**Đổi phạm vi selection:** rho* và mô tả trên READY subset nếu NOT_READY>0; ghi N/N_ready/exclusions, không nhận giữ nguyên full-scope DL104. Không coi sàn mới luôn cao hơn sàn cũ. Bất kỳ BUG thì dừng, không sửa code sau freeze; root cause chưa xác nhận.
+
+### DL-107 — SV combined native+baseline, đối chứng và luật đọc theo ủy quyền (31/10/2026)
+
+AI chọn theo cùng lệnh ủy quyền; choices L43_A1_SV trước outcomes. SV+=450A keys trừ sealed R10; SV−kappa[2,3],h[1,4],eta>=1/2,amp6,lambda không chặn thêm, chỉ exposed keys. Target00; narrow khi median GS_theta/Cref<.5% và median deltaL00<0. Caps NOT_READY/pilot1/10 mỗi support,8CPUh; selected rho trên READY subset và báo exclusions.
+Không sàng hộp/p-hat/card; manifest NOT_READY phải UNRESOLVED; L45 còn cần readiness mọi candidate. K6 vẫn UNVERIFIED, không dùng input khẳng định K6 đã tái lập. Forecast AI đã ghi trước run, không author-independent.
+
+### DL-108 — SUB phương án B, probe5 theo ủy quyền (31/10/2026)
+
+AI chọn theo lệnh ủy quyền, không tác giả tự chọn độc lập.5AB points kappa1/20 đều trên sorted exact key, gồmP43_0000; main640/ref8,neighbors320/ref8 và640/ref4. Caps NOT_READY/pilot1,2CPUh; BUG dừng ngay.
+Luật trước run:>=4/5 đạt **native** R1 hai trục+width+lean và max bundleCPU<=600s thì đề xuất giữkappa>=1/20 cho coverage L4.7 tiếp, ngược lại đề xuất thu hẹp>=1/10. Baseline readiness báo riêng, không thay native criterion bằng combined status; không claim coverage toàn vùng hoặc hiệu ứngSUB. Cardv2/CF giữ nguyên, chưa có cardv3/runSUBcombined/readiness receipt.
