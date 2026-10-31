@@ -1,0 +1,243 @@
+Trước khi dạy Part 2, tôi xem dữ liệu nằm ở đâu và engine tổ chức các mảng ra sao, để code hướng dẫn chạy được trên repo thật.
+
+Invariant đã đạt. Tôi viết sẵn phần tóm tắt và vẽ hình vào script nhưng **chưa chạy**, để bạn dự đoán trước.
+
+Script đã sẵn sàng và mới chỉ chạy phần kiểm.
+
+# LESSON 4.6 (v2) — Part 2: Tách nguồn trên dữ liệu thật
+
+**Map của Part 2:**
+1. Experiment card
+2. Dữ liệu và nhãn engine
+3. Code
+4. Verification (đã chạy, và đã gặp một bài học thật)
+5. Dự đoán trước khi xem
+6. Cách đọc ba hình
+7. D22: thiết kế ô cb0
+8. Các outcome có thể và ý nghĩa
+
+Bước "chạy và đọc kết quả" để sau khi bạn dự đoán.
+
+## 1. Big picture
+
+```text
+L4.6 Part 1 ✓ lý thuyết: Ḡ_S = Ḡ_S|M1 − Γ̄ ; S10 ; D22 ; cận oracle
+L4.6 Part 2   thực hành trên discovery   ← BẠN Ở ĐÂY
+   ↓
+L4.7 clipping (giải thích trục Γ̄) → L4.8 realism → L4.9 freeze
+```
+
+## 2. Experiment card (thăm dò, không phải xác nhận)
+
+| Mục | Nội dung |
+|---|---|
+| **Question** | Trên discovery, hiệu ứng của state repair dưới M0 đến chủ yếu từ giá trị riêng (Ḡ_S\|M1) hay từ tương tác (Γ̄)? Mỗi thành phần lớn ở đâu? |
+| **Why** | Hypothesis ở L4.9 phải viết trên một đại lượng không trộn nguồn |
+| **Hypothesis** | Chưa có hypothesis để kiểm. Đây là exploration, nên chỉ có **dự đoán để học** (mục 5) |
+| **Biến "độc lập"** | Không có. Đây không phải thí nghiệm can thiệp; ta *nhìn* map theo tọa độ κ/τ, h/τ, δ |
+| **Biến được đo** | Ḡ_S\|M1, Γ̄, Ḡ_M\|S1 (% C̄_ref) |
+| **Giữ cố định** | Contract v1.3: a/μ = 0,6, c_sw = 0, P1 |
+| **Confounder** | (1) **Mẫu thích nghi:** map2 cố ý dồn điểm vào A và AB, nên đếm tỉ lệ sẽ lệch. (2) **Pilot và native lệch nhau** ≤ 0,14 pp. (3) **Support SV** được chọn từ chính dữ liệu cũ |
+| **Baseline** | Không cần cho câu hỏi này. Baseline margin là việc của L4.4 và Phase 5 |
+| **Metric** | Phân vị 10/50/90 theo nhóm; ba hình |
+| **Can prove** | "Trên các điểm đã quét, thành phần X lớn ở vùng Y" |
+| **Cannot prove** | Cơ chế; tần suất ngoài đời; điều gì ở điều kiện chưa quét |
+
+**Confounder** là một yếu tố có thể tự tạo ra pattern mà ta tưởng là hiệu ứng thật. Ví dụ ở đây: lớp AB trông "rất đông" chỉ vì map2 cố ý lấy nhiều điểm ở đó.
+
+## 3. Dữ liệu và nhãn engine
+
+| Nguồn | Số dòng | Engine | Vùng | Ghi chú |
+|---|---:|---|---|---|
+| `results/lessons/l4_3/a1_sv/summary/native_rows_SV±.json` | 497 (449 SV+, 48 SV−) | **native (640, 4)** | Quanh lớp A | Có thêm trường `G_S_M1` độc lập trong `level_640_4.json` để đối chiếu |
+| Regime map, nhánh `explore/v13-regime-map` (map1, map2, map3age) | 1136 | **pilot** | Mọi lớp | Lọc biên độ ±6; map3age quy về κ/τ, h/τ |
+| *(chưa dùng)* MV/SH 90 điểm (P4-A3), SUB 10/76 | — | native | Vùng MV, SH, AB | Có thể thêm vào sau |
+
+Cảnh báo đọc dữ liệu: **AB và C gần như chỉ có số pilot.** Native ở vùng này chỉ có vài điểm. Mọi câu về AB/C ở Part 2 phải ghi "pilot".
+
+## 4. Code — đọc logic, không cần đọc từng dòng
+
+File `decompose.py` có ba phần, mỗi phần có một **scientific purpose** riêng:
+
+**(a) Đọc dữ liệu và suy giá trị riêng bằng S11.** Nếu bước này đọc sai, mọi hình sau đều vô nghĩa.
+
+```python
+GS_M1 = (Gamma + G_S) / Cref     # S11: Γ̄ = Ḡ_S|M1 − Ḡ_S  ⇒  Ḡ_S|M1 = Γ̄ + Ḡ_S
+GM_S1 = (Gamma + G_M) / Cref     # S11 vế thứ hai
+GS_M1_file = G_S_M1_level / Cref # trường độc lập engine đã tính, dùng để đối chiếu
+```
+
+**(b) Invariants**, chạy trước khi in bất kỳ phân phối nào:
+
+| Invariant | Vì sao quan trọng | Nếu fail thì nghĩa là |
+|---|---|---|
+| I1: Γ̄ = Ḡ_S\|M1 − Ḡ_S (dung sai 10⁻⁹) | Identity đại số | Bug khi đọc hoặc đổi đơn vị |
+| I1b: Ḡ_S\|M1 suy ra = trường `G_S_M1` trong file | Hai đường tính độc lập phải khớp | Bug trong engine hoặc trong export |
+| I2: Ḡ_S\|M1, Ḡ_M\|S1, Ḡ_M ≥ 0 (S07, S08) | Tính chất của estimand | Numerics hoặc bug, phải phân biệt (mục 5) |
+| I4: không có khóa nào trùng 270 CF | Giữ CF sạch | Vô tình chạm dữ liệu xác nhận |
+| Toy golden | Basis mới cho đúng bảng của Part 1 | Công thức sai |
+
+**(c) Tóm tắt và ba hình.** Phần này đã viết nhưng **chưa chạy**.
+
+## 5. Verification — đã chạy, và đã gặp một bài học thật
+
+```text
+toy golden: PASS
+SV native: 497 dòng · invariant PASS · lỗi 0 · numerical_negative (trong 0,25 pp) 3
+pilot map (amp ±6): 1136 dòng · invariant PASS · lỗi 0
+```
+
+Lần chạy **đầu tiên** thật ra báo **FAIL**: ba điểm native có Ḡ_S|M1 < 0, mâu thuẫn với S07. Đây là chỗ đáng học nhất của Part 2, nên tôi kể lại từng bậc của escalation ladder:
+
+1. **Reproduce.** Lỗi lặp lại ở đúng ba điểm: P43_0605, P43_0609, P43_0651.
+2. **Kiểm bug đơn giản.** I1 và I1b đều đạt, tức đọc file đúng và hai đường tính khớp nhau. Vậy số âm nằm *trong output của engine*, không phải lỗi của script.
+3. **Probe nhỏ:** so độ âm với sai số số học.
+
+| Điểm | Ḡ_S\|M1 (% C̄_ref) | Sai số số học engine tự báo | `arithmetic_pass` ở (640, 4) | Ghi chú |
+|---|---:|---:|---|---|
+| P43_0605 | −0,071 | ≈ 2·10⁻⁴ pp | False | Chính là điểm NOT_READY ở DL-110 |
+| P43_0609 | −0,019 | ≈ 1,5·10⁻⁴ pp | False | |
+| P43_0651 | −0,002 | ≈ 6·10⁻⁵ pp | False | |
+
+Cả ba có chung (κ, h) = (0,3; 4) và δ < 0.
+
+4. **Đọc kết quả probe.**
+   - Độ âm **lớn hơn** sai số số học mà engine tự báo, nên error bar của engine quá lạc quan ở các điểm này. Engine cũng tự gắn cờ `arithmetic_pass = False`.
+   - Nhưng độ âm **nhỏ hơn nhiều** so với dung sai số học 0,25 pp của contract, và nhỏ hơn ε = 1% tới hơn 14 lần.
+5. **Quyết định.** Không lên bậc tiếp theo. Gắn nhãn `numerical_negative` cho ba điểm và báo như một limitation. Không có kết luận nào của Part 2 ("lớn ở đâu, ở thang 1%") có thể đảo vì sai số 0,07 pp.
+
+Đây đúng là quy tắc 5 của bạn: một vấn đề số học không đổi dấu, không đổi loại hiệu ứng và không đổi claim boundary thì báo nó ra, không mở điều tra.
+
+**Bug khác negative result thế nào ở đây?** Nếu I1b đã fail, đó là *bug*: hai đường tính lệch nhau. Còn Ḡ_S|M1 âm 0,07 pp là *giới hạn số học* của một estimand mà về lý thuyết phải ≥ 0. Cũng không phải negative result, vì không có hypothesis nào đang được kiểm.
+
+## 6. Dự đoán trước khi xem (khuyến nghị)
+
+Viết ra trước khi chạy. Mỗi dự đoán một dòng, kèm một chữ "vì": vì sao bạn nghĩ vậy.
+
+1. **P1 (mặt phẳng Ḡ_S|M1 × Γ̄, màu theo lớp cũ).** Các điểm AB và C sẽ nằm ở đâu theo trục x? Theo trục y? Lớp A sẽ nằm ở đâu?
+2. **P2 (Ḡ_S|M1 theo κ/τ).** Giá trị riêng của state cao nhất ở κ/τ nhỏ, trung bình hay lớn? Màu h/τ sẽ thay đổi thế nào? Gợi ý: dùng S10, "vắt qua biên quyết định".
+3. **P3 (Γ̄ theo δ).** Dấu của Γ̄ đổi ở đâu? Điểm có |Γ̄| lớn có Ḡ_M|S1 lớn không? Vì sao phải như vậy? Gợi ý: |Γ̄| ≤ max(Ḡ_M, Ḡ_M|S1).
+4. **Một con số.** Trong SV+ (native), trung vị Ḡ_S|M1 so với trung vị Ḡ_S: gần bằng nhau hay khác xa? Gợi ý: SV+ là vùng quanh lớp A.
+
+Dự đoán số 4 có thể suy ra từ lý thuyết của Part 1 mà không cần nhìn hình. Nếu bạn đoán đúng, đó là dấu hiệu bạn đã hiểu basis mới.
+
+## 7. Cách đọc ba hình (khi đã chạy)
+
+**P1 — mặt phẳng.**
+- *Trục x:* Ḡ_S|M1 (%), luôn ≥ 0 trừ ba điểm numerical. *Trục y:* Γ̄ (%).
+- *Mốc:* đường y = 0 (không có tương tác) và x = 1 (ngưỡng ε).
+- *Pattern cần tìm:* các lớp có tách thành từng "cột" theo x và "tầng" theo y không?
+- *Giải thích thay thế cần loại trừ:* mật độ điểm phản ánh **cách lấy mẫu**, không phản ánh tần suất ngoài đời.
+
+**P2 — giá trị riêng theo κ/τ.**
+- *Trục x:* log κ/τ. *Trục y:* Ḡ_S|M1. *Màu:* h/τ (log).
+- *Mốc:* đường 1%.
+- *Pattern cần tìm:* có một "đỉnh" theo κ/τ không? Đỉnh có dịch theo h/τ không?
+- *Đừng vội gọi đó là cơ chế:* S10 cho một *giải thích ứng viên*; kiểm nó là việc của L4.9 và Phase 5.
+
+**P3 — tương tác theo δ.**
+- *Trục x:* δ (packet/s). *Trục y:* Γ̄. *Màu:* Ḡ_M|S1.
+- *Pattern cần tìm:* dải đổi dấu; liên hệ giữa |Γ̄| và màu.
+- *Giải thích thay thế:* δ biến thiên cùng các biến khác do cách lưới được dựng. Pattern theo δ có thể là của một biến đi kèm.
+
+## 8. D22 — thiết kế ô cb0 (Part C, SHOULD, tối đa 1 ngày)
+
+Tôi đã đọc `experiments/R3R_08_population_numerics/population.py` để hướng dẫn cho đúng với engine thật.
+
+**Engine tổ chức dữ liệu thế nào.** Mỗi path có một `side()`. Mảng `current` là ma trận (q-bin × mode) được duỗi phẳng, gồm:
+- `d` = phần đóng góp **thật** của path vào gap Δ;
+- `h` = cùng đại lượng đó theo **M0** (rollout trung bình, **theo từng mode**, vì `profiles.values(..., m)`);
+- `w` = khối lượng dừng.
+
+Mảng `old` là các giá trị đó đã lấy trung bình theo posterior của mode, cho trước backlog cũ. `pair_loss` cộng hai path và tính regret.
+
+**Ý tưởng cho cb0.** Dùng chính mảng `current`, nhưng **trộn mode theo posterior cho trước backlog hiện tại**. Posterior này lấy thẳng từ khối lượng dừng:
+
+```text
+cho mỗi path, mỗi q-bin i:
+    w_i   = w[i, OFF] + w[i, ON]
+    p_i   = w[i, ON] / w_i                  # P(mode = ON | backlog hiện tại = q_i)
+    d_cb  = (1 − p_i)·d[i, OFF] + p_i·d[i, ON]     # gap thật, trung bình theo posterior
+    h_cb  = (1 − p_i)·h[i, OFF] + p_i·h[i, ON]     # dự đoán M0, trung bình theo posterior
+    ed, eh: trộn cùng trọng số; zero_h, sat_h: AND qua hai mode
+L̄cb0 = base + pair_loss(cbA, cbB, c, model='mean')
+F̄ = L̄00 − L̄cb0 ;  V̄ = L̄cb0 − L̄10
+```
+
+**Vì sao cách này đúng.**
+- P1 coi X ∼ π, stationary tại t0, nên posterior của mode cho trước backlog hiện tại chính là π có điều kiện theo q.
+- Quyết định chỉ phụ thuộc vào q, và loss tuyến tính theo d khi đã có quyết định. Vì vậy trung bình d theo posterior là đủ, đúng như cách engine đang làm cho `old`.
+- Hai path độc lập, nên trộn riêng từng path rồi cộng lại là hợp lệ.
+
+**Invariant cho cb0.** Mỗi invariant bắt một loại bug khác nhau:
+
+| Invariant | Bắt được bug gì |
+|---|---|
+| F̄ + V̄ = Ḡ_S (dung sai 10⁻⁹) | Sổ sách sai |
+| Thay p_i bằng mode thật (one-hot) → L̄cb0 = L̄10 trùng bit | Trộn sai chỉ số (q, mode) khi duỗi mảng |
+| u = 0 → F̄ = V̄ = 0 | Hành động giả |
+| Cùng code với `model='true'` cho L̄cb1 ≥ L̄11 − sai số | Cận oracle ở Part 1, §9.7. Bạn không cần cb1 cho khoa học; đây chỉ là một bug check miễn phí |
+
+**Chi phí.** Mỗi điểm phải chạy lại `side()`, tức tốn bằng một lần đánh giá native: khoảng 3–40 s CPU (theo PHASE_4 v1.1 §5.5). Với 6–10 điểm, tổng chỉ vài phút. Phần tốn là đọc code và viết test, khoảng nửa ngày.
+
+**Stop rule.** Nếu sau 1 ngày cb0 chưa qua được invariant thứ hai (one-hot → L̄10), dừng lại. Dời D22 sang đầu Phase 5, và ghi dự đoán về F̄ "mù" vào file freeze.
+
+## 9. Possible outcomes và ý nghĩa cho L4.9
+
+| Nếu thấy | Nghĩa là | Hệ quả cho L4.9 |
+|---|---|---|
+| AB/C nằm sát x ≈ 0; A nằm ở x ≥ 1, y ≈ 0 | Tầng 2 ở L4.5 đứng (pilot) | H-info (trục x) và H-clip (trục y) là hai hypothesis tách rời |
+| AB/C trải rộng theo x | Ở AB/C, state có giá trị riêng đáng kể | Câu chuyện "tương tác chiếm phần lớn" phải hẹp lại |
+| P2 không có đỉnh rõ theo κ/τ | Cơ chế S10 không đủ để tổ chức trục x | H-info cần tọa độ khác, hoặc để ở dạng mô tả |
+| \|Γ̄\| lớn ở cả nơi Ḡ_M\|S1 nhỏ | **Không thể xảy ra**, vì \|Γ̄\| ≤ max(Ḡ_M, Ḡ_M\|S1) | Nếu thấy thì đó là bug |
+| D22: V̄ chiếm gần hết Ḡ_S ở C | Tác hại đến từ việc biết mode | Claim thực dụng phải hẹp lại (outcome O3) |
+
+## 10. Được claim và không được claim
+
+- **Được:** "Trên discovery (phần lớn pilot ở AB/C, native ở SV), thành phần X lớn ở vùng Y, với độ lớn Z."
+- **Không được:** cơ chế; tần suất ngoài đời; "state repair không có giá trị riêng" nói chung; bất cứ điều gì ở biên độ khác ±6.
+
+## 11. Reviewer could ask
+
+1. *"AB/C dựa vào số pilot; native có đổi bức tranh không?"* → Chưa trả lời được. Có thể thêm 10 điểm SUB và các điểm MV/SH native vào hình làm đối chiếu.
+2. *"Mật độ điểm ở P1 có phải chỉ do cách lấy mẫu?"* → Có. Vì vậy Part 2 chỉ đọc *vị trí*, không đọc *tỉ lệ*.
+3. *"Ba điểm Ḡ_S|M1 âm là gì?"* → Đã trả lời: sai số số học ≤ 0,07 pp, nhỏ hơn nhiều so với dung sai 0,25 pp của contract.
+
+## 12. ⚠️ Bẫy người mới
+
+- **Đếm "bao nhiêu % điểm là AB"** rồi coi đó là tần suất. Đó là tần suất của *lưới* map2.
+- **Thấy invariant fail rồi sửa dung sai cho tới khi PASS.** Thứ tự đúng là: đã probe trước, sau đó mới chọn dung sai *theo loại kiểm*: identity đại số giữ 10⁻⁹, tính chất estimand dùng 0,25 pp. Đây không phải nới dung sai để cứu kết quả.
+- **Thêm 66 key SUB vào hình "cho đủ".** Đó là chạy tiếp lần chạy mà L4.5 đã park.
+- **Gọi đỉnh ở P2 là "cơ chế S10 đã được xác nhận".**
+
+## 13. 🧠 Tư duy researcher
+
+> **Một invariant fail là một câu hỏi, không phải một phán quyết.** Đi từng bậc: reproduce → bug đơn giản → probe → so với thang của claim. Chỉ đi tiếp khi vấn đề có thể đổi kết luận.
+
+## 14. Personal understanding artifact (khuyến nghị)
+
+Viết bốn dự đoán ở mục 6 vào một ghi chú *trước* khi chạy. Sau khi chạy, viết thêm ba câu có số, và một dòng cho mỗi dự đoán sai: "tôi đoán sai vì …". Chỗ đoán sai thường là chỗ bạn học được nhiều nhất.
+
+## 15. Self-check (tùy chọn)
+
+1. Vì sao I1b quan trọng hơn I1 trong việc phát hiện bug của engine?
+2. Ba điểm `numerical_negative` có làm thay đổi câu trả lời cho câu hỏi của experiment card không? Vì sao?
+3. Nếu P1 cho thấy 80% điểm là AB, bạn được nói gì?
+4. Vì sao trộn mode theo w[i, ·] là đúng cho cb0 dưới P1? Nó sẽ sai nếu population không stationary tại t0?
+5. Vì sao invariant one-hot (cb0 với mode thật → L̄10) bắt được loại bug mà F̄ + V̄ = Ḡ_S không bắt được?
+
+## 16. Lesson Gate — Part 2
+
+- **Understanding** — sau Part 2, bạn nên hiểu:
+  - dữ liệu nào có nhãn native, dữ liệu nào là pilot;
+  - mỗi invariant bảo vệ điều gì;
+  - cách đi escalation ladder khi một invariant fail;
+  - cách đọc ba hình;
+  - thiết kế cb0 trên engine thật.
+- **Recommended execution:** ghi dự đoán → chạy → viết ba câu có số. D22 làm nếu còn trong time-box.
+- **Scientific dependency:** ba câu có số là input của L4.9. Câu chuyện tương tác cần D22 trước khi được viết như một claim thực dụng.
+- **Can I study the next lesson?** **Yes.** L4.7 (clipping) không phụ thuộc vào kết quả của các hình.
+
+Bạn có hai cách đi tiếp:
+- **"chạy":** sau khi ghi dự đoán, hoặc nếu muốn bỏ qua bước dự đoán. Tôi sẽ chạy phần tóm tắt và ba hình, rồi dạy đọc kết quả.
+- **"tiếp tục lesson tiếp theo":** sang L4.7, phần kết quả để lại sau.

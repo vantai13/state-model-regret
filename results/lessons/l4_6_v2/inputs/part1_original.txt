@@ -1,0 +1,354 @@
+Tôi kiểm nhanh T07 để dùng đúng các identity (S07, S10, S11) trước khi dạy.
+
+Repo có sẵn dữ liệu đúng loại cho lesson này: 497 điểm SV chạy native, mỗi điểm có đủ `G_S`, `G_M`, `Gamma`, `G_S_M1`, `G_M_S1`. Tôi **chưa tính** decomposition trên số đó, để bạn có thể dự đoán trước ở Part 2.
+
+---
+
+# LESSON 4.6 (v2) — Tách nguồn: hiệu ứng của state repair đến từ đâu?
+
+**Map của lesson.** Lesson này lớn nên tôi chia hai phần:
+- **Part 1 (hôm nay): lý thuyết.** Ba con số đủ mô tả bảng 2×2; identity khác finding ở đâu; lớp A/AB/C là vị trí trên một mặt phẳng; vì sao thông tin chỉ có giá trị khi "vắt qua biên quyết định" (S10); ba nghĩa của "sửa state" và D22; vì sao oracle là cận trên.
+- **Part 2 (lần sau): thực hành.** Dự đoán trước, vẽ ba hình trên 497 điểm SV + dữ liệu MV/SH/SUB, viết ba câu có số, D22 probe.
+
+## 1. Big picture
+
+```text
+Main RQ: ... how do [state repair] and [model repair] DIFFER and INTERACT ...
+   ↓
+Phase 4 (v2)
+   ↓
+L4.5 ✓ đổi loại evidence: "điều kiện X" là hình dạng của hàm, không phải tỉ lệ trong hộp
+   ↓
+L4.6 Tách nguồn — Part 1 lý thuyết   ← BẠN Ở ĐÂY
+   ↓
+L4.6 Part 2 thực hành → L4.7 clipping → L4.8 realism → L4.9 freeze
+```
+
+## 2. Lesson này trả lời câu hỏi gì?
+
+> Khi thấy "sửa state giảm regret 9%", phần 9% đó đến từ **thông tin thật sự mới**, hay từ việc state mới **va chạm với lỗi của model**? Và đo hai thứ đó bằng con số nào?
+
+## 3. Tại sao cần lesson này?
+
+- **Research-level.** L4.5 chỉ ra rằng gộp *regime* trong một hộp làm mất thông tin. Lesson này chỉ ra một kiểu gộp sâu hơn: gộp *nguồn* bên trong mỗi con số. Nếu không tách, mọi hypothesis ở L4.9 sẽ viết trên một đại lượng trộn, và PASS hay FAIL đều khó diễn giải.
+- **Practical-level.** Sau Part 1, bạn có cách đọc mới cho mọi điểm trên map: ba số thay cho một nhãn lớp. Sau Part 2, bạn có bảng, ba hình và ba câu có số.
+
+## 4. Connection to Main RQ
+
+```text
+Lesson 4.6
+ → ba đại lượng: Ḡ_S|M1 (giá trị riêng của state), Ḡ_M|S1 (giá trị riêng của model), Γ̄ (tương tác)
+ → "differ"   = so Ḡ_S|M1 với Ḡ_M|S1 theo điều kiện
+   "interact" = Γ̄ theo điều kiện
+ → hypothesis ở L4.9 viết trên các đại lượng này
+ → evidence ở Phase 5: map của ba số + dự đoán được kiểm trên held-out
+```
+
+Đây là quan hệ **trực tiếp**: lesson này định nghĩa *đại lượng* mà paper sẽ báo cáo.
+
+**Nếu bỏ lesson này,** ví dụ đây là chuyện có thể xảy ra. Bạn viết card "SUB: Γ̄ ≤ −1% ở dải δ" và card "SH: Ḡ_S ≤ −1% ở vùng C", rồi báo cáo như hai phát hiện. Reviewer chỉ ra rằng ở cả hai vùng Ḡ_S|M1 ≈ 0, nên hai card thật ra kiểm cùng một thứ: dấu của tương tác. Đếm nó thành hai findings là phóng đại.
+
+## 5. Prerequisites — recap
+
+Bốn ô của bảng 2×2. L̄ là cost kỳ vọng theo population P1; càng nhỏ càng tốt.
+
+| | M0 (mean rollout) | M1 (đúng luật) |
+|---|---|---|
+| **S0** (posterior từ backlog cũ) | L̄00 | L̄01 |
+| **S1** (backlog + mode hiện tại, oracle) | L̄10 | L̄11 = oracle |
+
+Các contrast bạn đã biết:
+- Ḡ_S = L̄00 − L̄10: sửa state, xuất phát từ ô 00.
+- Ḡ_M = L̄00 − L̄01: sửa model, xuất phát từ ô 00.
+- Γ̄ = L̄10 + L̄01 − L̄00 − L̄11.
+
+Ba toy ở L4.2 (trong repo gọi là T-A, T-AB, T-C′) vẫn là điểm tựa của lesson này.
+
+Còn một điều nên biết: addendum `T07_P4_author_addendum.md` mục §3 (ba toy) và §4 (giá trị thông tin) vẫn **OPEN**. Part 1 này dạy đúng hai mục đó. Nếu bạn viết bài tự hiểu ở cuối lesson, nó điền được luôn vào addendum.
+
+## 6. Mental model trước tiên
+
+> **Một con số gain luôn đo "cái mới so với cái cũ". Nếu cái cũ đã sai theo một cách nào đó, gain sẽ chứa cả phần "sửa cái sai đó".**
+
+Hình dung: bạn đổi kính cận cho một người đang đeo kính lệch độ. Người đó thấy rõ hơn hẳn. Nhưng bao nhiêu phần là nhờ kính mới tốt, và bao nhiêu phần là nhờ thoát khỏi kính lệch? Muốn biết giá trị *riêng* của kính mới, phải so trên một người có mắt bình thường.
+
+## 7. Concepts & terminology
+
+- **Contrast (phép so sánh có điều khiển).** Hiệu của hai ô, khác nhau đúng ở một thành phần. Ḡ_S là một contrast: hai ô chỉ khác nhau ở state.
+- **Identity (đồng nhất thức).** Một đẳng thức luôn đúng theo định nghĩa, bất kể dữ liệu là gì. Nó **không thể** là phát hiện, vì không có dữ liệu nào làm nó sai được.
+- **Finding (phát hiện).** Một điều *có thể đã khác đi* nếu thế giới khác đi. Ví dụ: "Ḡ_S|M1 ≈ 0 ở dải δ này".
+- **Giá trị riêng (intrinsic value).** Giá trị của một repair khi repair kia đã hoàn hảo: Ḡ_S|M1 và Ḡ_M|S1.
+- **Thay thế (substitutes) và bổ trợ (complements).** Hai repair là *thay thế* nếu có cái này rồi thì cái kia bớt giá trị (Γ̄ < 0). Chúng là *bổ trợ* nếu có cái này rồi thì cái kia đáng giá hơn (Γ̄ > 0).
+- **Posterior.** Niềm tin về state hiện tại *sau khi* thấy observation. Ví dụ: thấy backlog B đo cách đây 1 s là 8 packet, controller tin "B đang ON với xác suất 70%, OFF 30%".
+- **Markov.** Tương lai chỉ phụ thuộc vào state hiện tại, không cần biết lịch sử. Ví dụ: biết (backlog, mode) của B lúc t0 thì biết lịch sử trước đó không giúp dự đoán thêm.
+- **Oracle.** Pipeline được cấp quyền mà controller thật không có. Ở đây S1 biết mode ẩn, M1 biết đúng luật.
+- **Feasible.** Làm được ngoài đời. Ví dụ: làm tươi backlog bằng telemetry nhanh hơn là feasible; biết mode ẩn thì không.
+
+## 8. Tiny networking example
+
+Route A/B. B có hai state hiện tại đồng khả năng: x₁ = B đang OFF (nhẹ), x₂ = B đang ON (nặng). Telemetry cũ không cho biết mode, nên S0 tin ½–½. Δ = J(Switch) − J(Stay). Số dưới đây là của toy L4.2, đơn vị toy cost.
+
+| Toy | Δ(x₁), Δ(x₂) | M0 dự đoán Δ̂(x₁), Δ̂(x₂) | Câu chuyện |
+|---|---|---|---|
+| **T-A** | −1; +1,2 | −1; +1,2 (M0 đúng) | Mode thật sự quyết định nên Switch hay Stay |
+| **T-AB** | +1; +1 | −3; +1 | Luôn nên Stay; M0 phóng đại lợi ích Switch khi B OFF |
+| **T-C′** | +1; +1 | −2; +3 | Luôn nên Stay; M0 cũng phóng đại, nhưng lại phóng đại *ngược* ở x₂ |
+
+Bốn ô của mỗi toy (lấy từ `results/lessons/l4_2/report.md`):
+
+| Toy | L̄00 | L̄01 | L̄10 | L̄11 |
+|---|---:|---:|---:|---:|
+| T-A | 10 | 10 | 9,5 | 9,5 |
+| T-AB | 11 | 10 | 10,5 | 10 |
+| T-C′ | 10 | 10 | 10,5 | 10 |
+
+## 9. Theory
+
+### 9.1 Ba con số đủ mô tả bảng 2×2
+
+**Câu hỏi.** Bảng 2×2 có bốn ô. Cần bao nhiêu con số để mô tả nó?
+
+**Trả lời trực giác.** Lấy ô 11 (oracle) làm mốc thì còn ba ô, nên có ba "bậc tự do". Mọi contrast đều là tổ hợp của ba số đó. Vấn đề chỉ là **chọn ba số nào để đọc dễ nhất**.
+
+Basis cũ là (Ḡ_S, Ḡ_M, Γ̄), đo từ ô 00. Basis đề xuất là:
+
+```text
+Ḡ_S|M1 = L̄01 − L̄11      giá trị riêng của state (model đã đúng)
+Ḡ_M|S1 = L̄10 − L̄11      giá trị riêng của model (state đã đúng)
+Γ̄      = L̄10 + L̄01 − L̄00 − L̄11    tương tác
+```
+
+**Vì sao basis mới dễ đọc hơn?** Hai số đầu **luôn ≥ 0** (S07). Lý do: ô 11 là oracle, nên không ô nào có cost thấp hơn L̄11. Vì vậy chúng có nghĩa vật lý rõ ràng: "repair này đáng *tối đa* bao nhiêu khi cái kia không còn là vấn đề".
+
+Ngược lại, Ḡ_S có thể âm, vì nó so hai ô đều không phải oracle. Dấu âm đó trộn hai thứ: thông tin và va chạm với lỗi model.
+
+### 9.2 Suy ra các contrast cũ từ basis mới (từng bước)
+
+**Muốn tính:** Ḡ_S theo ba số mới.
+
+**Bước 1.** Viết Ḡ_S|M1 − Γ̄ và thay định nghĩa vào:
+
+```text
+Ḡ_S|M1 − Γ̄ = (L̄01 − L̄11) − (L̄10 + L̄01 − L̄00 − L̄11)
+```
+
+**Bước 2.** Bỏ ngoặc. Dấu trừ trước ngoặc đổi dấu mọi số hạng bên trong:
+
+```text
+= L̄01 − L̄11 − L̄10 − L̄01 + L̄00 + L̄11
+```
+
+**Bước 3.** Gom các số hạng giống nhau: L̄01 triệt tiêu L̄01, −L̄11 triệt tiêu +L̄11.
+
+```text
+= L̄00 − L̄10 = Ḡ_S
+```
+
+Làm hoàn toàn tương tự với Ḡ_M, và cộng hai hiệu để ra Ḡ_SM:
+
+```text
+Ḡ_S  = Ḡ_S|M1 − Γ̄
+Ḡ_M  = Ḡ_M|S1 − Γ̄
+Ḡ_SM = L̄00 − L̄11 = (L̄00 − L̄10) + (L̄10 − L̄11) = Ḡ_S + Ḡ_M|S1 = Ḡ_S|M1 + Ḡ_M|S1 − Γ̄
+```
+
+**Phép biến đổi dựa trên gì?** Chỉ là cộng trừ các số thực: bỏ ngoặc, rồi gom số hạng giống nhau. Không có giả định nào về mạng. Vì vậy đây là **identity**, đúng cho *mọi* plant và *mọi* dữ liệu.
+
+**Nghĩa của nó:**
+
+> Lợi ích quan sát được khi sửa state (Ḡ_S) = giá trị riêng của state (Ḡ_S|M1) **trừ** tương tác (Γ̄).
+
+Khi Γ̄ âm (thay thế), Ḡ_S *lớn hơn* giá trị riêng. Lý do: sửa state ở ô 00 còn "ăn" luôn một phần lỗi mà sửa model cũng chữa được. Khi Γ̄ dương, Ḡ_S *nhỏ hơn* giá trị riêng, thậm chí âm.
+
+**Kiểm bằng ba toy:**
+
+| Toy | Ḡ_S\|M1 | Ḡ_M\|S1 | Γ̄ | Ḡ_S = Ḡ_S\|M1 − Γ̄ | Ḡ_M = Ḡ_M\|S1 − Γ̄ | Lớp cũ |
+|---|---:|---:|---:|---:|---:|---|
+| T-A | 0,5 | 0 | 0 | 0,5 ✓ | 0 ✓ | A |
+| T-AB | 0 | 0,5 | −0,5 | 0,5 ✓ | 1 ✓ | AB |
+| T-C′ | 0 | 0,5 | +0,5 | −0,5 ✓ | 0 ✓ | C |
+
+**Điều quan trọng nhất của bảng này:** T-AB và T-C′ có **cùng giá trị riêng (0; 0,5)**. Ở cả hai, state không có giá trị riêng, còn model có. Hai toy chỉ khác nhau ở **dấu của tương tác**. Vậy AB và C không phải hai hiện tượng; chúng là hai mặt của một hiện tượng.
+
+### 9.3 Identity khác finding — chỗ dễ trượt nhất
+
+Ở dải δ trong Phụ lục C.7, bạn thấy Γ̄ ≈ −Ḡ_S. Rất dễ viết "phát hiện: tương tác bằng đúng âm gain của state". Nhưng từ 9.2, ta có Γ̄ = Ḡ_S|M1 − Ḡ_S. Nên **Γ̄ ≈ −Ḡ_S ⟺ Ḡ_S|M1 ≈ 0**.
+
+- Quan hệ "Γ̄ ≈ −Ḡ_S" là **identity khoác áo dữ liệu**.
+- **Finding thật** là "Ḡ_S|M1 ≈ 0 ở dải này". Câu này *có thể đã sai*: nếu snapshot cũ để lại nhiều mơ hồ về mode, Ḡ_S|M1 đã lớn.
+
+> Quy tắc: mỗi khi thấy hai đại lượng "khớp nhau đẹp", hỏi ngay: *có đẳng thức đại số nào buộc chúng khớp không?* Nếu có, finding nằm ở đại lượng **còn lại** trong đẳng thức.
+
+### 9.4 Lớp A/AB/C chỉ là vị trí trên một mặt phẳng
+
+Vẽ mặt phẳng với trục x là Ḡ_S|M1 (giá trị riêng của state, luôn ≥ 0) và trục y là Γ̄:
+
+```text
+          Γ̄
+          ↑
+   +      |  C (state "hại" dưới M0: phá lỗi bù trừ)        ← bổ trợ (complements)
+          |  T-C′ ●
+   0 -----●T-A---------------------------→ Ḡ_S|M1
+          |        A (state có giá trị riêng, không va chạm model)
+   −      |  T-AB ●
+          |  AB (state "giúp" nhờ chữa chung lỗi với model) ← thay thế (substitutes)
+```
+
+Hai trục này có lẽ do **hai nhóm biến khác nhau** điều khiển. Đây là **inference** để kiểm ở Part 2, chưa phải fact:
+- Trục x: snapshot cũ còn nói được bao nhiêu về mode, và mode có đổi được quyết định không. Nhóm biến dự kiến là κ/τ và h/τ.
+- Trục y: M0 sai đến đâu, và cái sai đó rơi về phía nào của biên quyết định. Nhóm biến dự kiến là δ và các biến làm queue chạm đáy (L4.7).
+
+### 9.5 Vì sao thông tin chỉ có giá trị khi posterior "vắt qua biên quyết định" (S10)
+
+**Câu hỏi.** Khi model đã đúng (M1), biết state hiện tại đáng bao nhiêu so với chỉ có snapshot cũ y?
+
+Với một snapshot y, posterior gồm nhiều state x. Định nghĩa hai đại lượng:
+- **P(y)** = E[Δ⁺ | y]: tổng thiệt hại, có trọng số, *nếu chọn Switch* ở những state mà Stay mới là đúng.
+- **N(y)** = E[Δ⁻ | y]: tổng thiệt hại *nếu chọn Stay* ở những state mà Switch mới là đúng.
+
+Ở đây Δ⁺ = max(0, Δ) và Δ⁻ = max(0, −Δ).
+
+- **Chỉ có y:** bạn phải chọn **một** action cho mọi state trong posterior, nên mất ít nhất min(P(y), N(y)).
+- **Biết state:** chọn đúng ở từng x, nên mất 0.
+
+Do đó:
+
+```text
+Ḡ_S|M1 = E_Y[ min(P(y), N(y)) ]      (S10)
+```
+
+**Nghĩa của nó:** min(P, N) > 0 chỉ khi **cả hai** đều dương. Tức là posterior chứa cả state mà Switch đúng lẫn state mà Stay đúng; posterior **vắt qua biên quyết định**.
+
+**Kiểm bằng toy:**
+- **T-A:** P = ½·1,2 = 0,6 và N = ½·1 = 0,5. Vậy min = 0,5 = Ḡ_S|M1 ✓. Mode quyết định action, nên thông tin có giá trị.
+- **T-AB:** Δ = +1 ở cả hai state, nên P = 1, N = 0, min = 0. Mode vẫn mơ hồ ½–½, **nhưng thông tin vô giá trị**, vì dù mode là gì thì Stay vẫn đúng.
+
+> **Bất định không đủ để thông tin có giá trị.** Thông tin chỉ có giá trị khi sự bất định *đổi được quyết định*. Đây là đáp án cho câu hỏi ở addendum §4.
+
+Điều này gợi ý **cơ chế ứng viên** cho trục x. Ḡ_S|M1 lớn khi snapshot cũ để mode mơ hồ (κ không quá dài so với τ, vì nếu dài thì backlog đã tiết lộ mode) **và** mode còn đổi được dấu của Δ trong horizon (mode không đổi quá nhanh so với h). Đây là inference, sẽ được dùng ở L4.9.
+
+### 9.6 Ba nghĩa của "sửa state" và D22
+
+| Pipeline | Controller thấy gì | Feasible? |
+|---|---|---|
+| **S0** | Backlog đo tại t0 − τ → posterior | Có (telemetry hiện tại) |
+| **cb0** (D22) | Backlog **hiện tại**, không có mode → posterior | Gần feasible (telemetry nhanh hơn) |
+| **S1** | Backlog hiện tại **+ mode** | Không (mode ẩn là quyền oracle) |
+
+Dưới M0, đi từ S0 lên S1 qua trạm cb0:
+
+```text
+Ḡ_S = L̄00 − L̄10 = (L̄00 − L̄cb0) + (L̄cb0 − L̄10) = F̄ + V̄
+F̄ = giá trị của độ TƯƠI của backlog      V̄ = giá trị của việc BIẾT MODE
+```
+
+Phép biến đổi chỉ là cộng rồi trừ cùng một số L̄cb0 (telescoping), nên đây vẫn là identity. Finding là **F̄ lớn hay V̄ lớn**:
+- Nếu V̄ chiếm gần hết, câu chuyện "làm tươi state có thể giúp hoặc hại twin mean-field" chỉ đúng cho **một oracle**. Phải viết thật hẹp.
+- Nếu F̄ chiếm phần lớn, câu chuyện áp dụng được cho **telemetry nhanh hơn thật**. Đây là câu có giá trị thực dụng.
+
+Lưu ý: F̄ và V̄ đều có thể âm, vì dưới M0 thêm thông tin có thể làm hại.
+
+### 9.7 Vì sao oracle là cận trên, và vì sao không cần ô cb1
+
+**Câu hỏi.** Muốn claim "giá trị riêng của mọi phép làm tươi state đều nhỏ", có phải tính thêm ô cb1 (backlog hiện tại + M1) không?
+
+**Lập luận:**
+1. Plant là Markov: biết X = (backlog, mode) hiện tại thì mọi tín hiệu khác (backlog cũ, backlog mới không có mode, …) không cho thêm gì về tương lai. Nói cách khác, X là **đủ** (sufficient).
+2. Với model đúng M1, controller dùng thông tin một cách tối ưu. Nên với *bất kỳ* tín hiệu Z nào, cost L̄_{Z,1} ≥ L̄11.
+3. Vì vậy, giá trị khi thay y bằng Z là L̄01 − L̄_{Z,1} ≤ L̄01 − L̄11 = **Ḡ_S|M1**.
+
+> Dưới model đúng, Ḡ_S|M1 là **cận trên** cho giá trị riêng của *mọi* phép làm tươi state. Nếu cận trên đã nhỏ thì mọi phép làm tươi cụ thể còn nhỏ hơn. **Không cần cb1.**
+
+**Dưới M0 thì không có cận này.** Một model sai có thể dùng thông tin tốt hơn theo cách tệ hơn. Ví dụ là Ḡ_S < 0 ở lớp C; và cb0 thậm chí có thể *tốt hơn* S1 (tức V̄ < 0). Vì vậy D22 chỉ cần cho câu chuyện **tương tác**, và cần chính xác dưới M0.
+
+## 10. Math foundations
+
+- **Must know now:** bỏ ngoặc và gom số hạng; max(0, x); kỳ vọng như trung bình có trọng số.
+- **Useful while doing:** S10 ở mức "chọn một action cho cả posterior thì mất min(P, N)".
+- **Later:** sufficiency và thứ tự Blackwell một cách hình thức; bạn chỉ cần lập luận 3 bước ở 9.7.
+
+## 11. Variables & units
+
+| Symbol | Name | Ý nghĩa vật lý | Đơn vị | Biết bởi | Khi nào | Vì sao tách riêng |
+|---|---|---|---|---|---|---|
+| Ḡ_S\|M1 | Giá trị riêng của state | Bao nhiêu regret biến mất khi biết (backlog, mode) hiện tại, với model đúng | % C̄_ref | evaluator | sau khi tính | Không lẫn lỗi model |
+| Ḡ_M\|S1 | Giá trị riêng của model | Bao nhiêu regret biến mất khi model đúng, với state hoàn hảo | % C̄_ref | evaluator | sau khi tính | Không lẫn thông tin |
+| Γ̄ | Tương tác | Chồng lấn (−) hoặc bổ trợ (+) | % C̄_ref | evaluator | sau khi tính | Đây chính là chữ "interact" |
+| P(y), N(y) | Thiệt hại nếu chọn Switch / chọn Stay cho cả posterior | Mức "mơ hồ có hại" của snapshot y | packet·s | evaluator | sau khi tính | Cơ chế của Ḡ_S\|M1 |
+| L̄cb0 | Cost với backlog hiện tại, không mode, dùng M0 | Telemetry nhanh hơn với twin hiện tại | packet·s | evaluator | sau khi tính | Trạm giữa của D22 |
+| F̄, V̄ | Giá trị độ tươi / giá trị biết mode, dưới M0 | Phần feasible / phần oracle của Ḡ_S | % C̄_ref | evaluator | sau khi tính | Quyết định tính thực dụng của claim |
+
+## 12. Assumptions
+
+**ASSUMPTION — S1 gồm mode ẩn (AS12).**
+- *Giả định:* S1 biết mode của nền tại t0.
+- *Vì sao cần:* cho cận trên sạch (9.7), và cho một ô oracle để đo headroom.
+- *Mất realism:* không controller nào thấy trực tiếp mode.
+- *Nới được không:* có, chính là D22 (cb0).
+- *Nếu bỏ qua:* mọi claim về Ḡ_S dưới M0 bị nghi là "giá trị của một oracle".
+
+**ASSUMPTION — S0 là posterior Bayes biết đúng luật (AS11).**
+- *Giả định:* estimator dùng snapshot cũ một cách tối ưu.
+- *Vì sao cần:* để Ḡ_S|M1 đo đúng "thông tin vượt quá cách dùng tốt nhất snapshot cũ".
+- *Hệ quả:* Ḡ_S|M1 bị ép nhỏ nhất có thể. Một controller ngây thơ (dùng last observation) sẽ thấy state tươi đáng giá hơn.
+- *Nới:* thêm dòng "S0 ngây thơ" ở Phase 5 (SHOULD).
+- *Claim bị ảnh hưởng:* câu "giá trị riêng của state nhỏ" phải viết là "*so với cách dùng tối ưu snapshot cũ*".
+
+**ASSUMPTION — plant Markov theo (backlog, mode).** Lập luận 9.7 dựa vào điều này. Nó đúng trong plant fluid hai mức của contract. Ở Phase 6, nếu traffic có trí nhớ dài hơn, cần kiểm lại.
+
+## 13. 🔗 Liên hệ với spike/repo cũ
+
+- **Bạn đã gặp đúng hiện tượng này ở Phase 1.** Running example (MASTER PLAN II.6) có L̄00 = 4, L̄10 = 4,25, L̄01 = 4, L̄11 = 4, nên G_S = −0,25. Lúc đó plan giải thích bằng "lỗi state và lỗi model bù trừ nhau". Bằng basis mới: G_S|M1 = 0, Γ = +0,25, nên G_S = 0 − 0,25. **Đó chính là T-C′**: state không có giá trị riêng, tác hại hoàn toàn là tương tác. Lesson này cho bạn ngôn ngữ chính xác cho trực giác "bù trừ" ngày đó.
+- **Thế hệ 2 (repo cũ):** ở F7 bạn từng tách "giá trị của bất định" thành phần "độ rộng thuần" và phần "thông tin" (thông tin chiếm 59–84%). Tinh thần giống nhau, đều là tách một con số tổng thành các nguồn. Nhưng estimand, action và oracle khác hẳn, nên **đó không phải evidence** cho lesson này. Chỉ nên giữ thói quen "tách trước khi kể chuyện".
+
+## 14. Reviewer could ask
+
+1. *"Γ̄ ≈ −Ḡ_S chẳng phải chỉ là đại số sao?"* → Đã trả lời: đúng, và finding là Ḡ_S|M1 ≈ 0 (9.3).
+2. *"State repair của anh biết mode ẩn; nó có ý nghĩa gì ngoài đời?"* → Mới trả lời về khái niệm (D22, 9.6). Số liệu cần Part 2 hoặc Phase 5.
+3. *"Giá trị riêng nhỏ có phải chỉ vì S0 quá giỏi?"* → Mới trả lời một phần (ASSUMPTION AS11). Cần dòng S0 ngây thơ.
+4. *"Trục x và trục y thật sự do hai nhóm biến khác nhau điều khiển à?"* → Chưa trả lời. Đó là việc của Part 2, và là hypothesis cho L4.9.
+
+## 15. ⚠️ Bẫy người mới
+
+- **Đếm SUB và SH thành hai phát hiện**, trong khi ở vùng Ḡ_S|M1 ≈ 0 chúng là một.
+- **Gọi Ḡ_S lớn là "state rất có giá trị".** Hãy xem Ḡ_S|M1 trước: XM2X137 có Ḡ_S = 9,86 nhưng giá trị riêng chỉ 0,30.
+- **Nghĩ "mode mơ hồ thì thông tin có giá trị".** T-AB mơ hồ ½–½ mà giá trị bằng 0.
+- **Đi tính ô cb1 "cho đủ".** Oracle đã là cận trên (9.7). Bước đó không đổi dòng nào của file freeze.
+- **Quên rằng F̄ và V̄ có thể âm**, rồi coi chúng như "tỉ lệ phần trăm đóng góp".
+
+## 16. 🧠 Tư duy researcher
+
+> **Trước khi kể chuyện về một con số, hãy hỏi: con số này đo "cái mới" so với cái gì? Nếu mốc so sánh đã sai, con số đang trộn bao nhiêu nguồn?**
+
+Và một thói quen thứ hai: **mỗi khi thấy một quan hệ đẹp, tìm xem có identity nào buộc nó xảy ra không.**
+
+## 17. Personal understanding artifact (khuyến nghị)
+
+Bài này đáng làm vì nó điền luôn §3–§4 của `T07_P4_author_addendum.md`, đang OPEN:
+1. Tự dẫn lại Ḡ_S = Ḡ_S|M1 − Γ̄ trong ba dòng.
+2. Bằng lời mình: vì sao T-AB và T-C′ là "cùng một tình huống".
+3. Giải thích S10 bằng ví dụ T-A và T-AB: vì sao bất định không đủ.
+
+## 18. Self-check (tùy chọn)
+
+1. *(Recall)* Vì sao Ḡ_S|M1 và Ḡ_M|S1 luôn ≥ 0, còn Ḡ_S thì không?
+2. *(Understand)* Γ̄ < 0 nghĩa là gì bằng lời: "có cái này thì cái kia …"?
+3. *(Apply)* Một điểm có Ḡ_S = 3, Γ̄ = −2,5. Giá trị riêng của state là bao nhiêu? Bạn kể chuyện điểm này thế nào?
+4. *(Apply)* Trong T-A, đổi Δ(x₂) từ +1,2 thành −0,2. Ḡ_S|M1 bằng bao nhiêu? Vì sao?
+5. *(Research)* Nếu Part 2 cho thấy V̄ chiếm 90% Ḡ_S ở vùng C, câu chuyện "telemetry tươi làm hại twin" phải viết lại thế nào?
+6. *(Reviewer)* Vì sao không cần ô cb1, nhưng lại cần ô cb0?
+
+## 19. Lesson Gate — Part 1
+
+- **Understanding** — sau Part 1, bạn nên hiểu:
+  - bốn ô → ba số, và vì sao chọn basis (Ḡ_S|M1, Ḡ_M|S1, Γ̄);
+  - Ḡ_S = Ḡ_S|M1 − Γ̄ là identity;
+  - T-AB và T-C′ cùng giá trị riêng, khác dấu tương tác;
+  - S10: thông tin có giá trị chỉ khi posterior vắt qua biên quyết định;
+  - F̄/V̄ quyết định tính thực dụng;
+  - oracle là cận trên dưới M1, còn dưới M0 thì không.
+- **Recommended execution:** nếu muốn, viết addendum §3–§4 (mục 17). Chưa cần chạy code nào.
+- **Scientific dependency:** để dùng decomposition làm evidence, cần Part 2 (tính trên dữ liệu thật, có gắn nhãn pilot/native). Để claim tính thực dụng của câu chuyện tương tác, cần D22.
+- **Can I study the next part?** **Yes.** Part 2 dùng đúng các khái niệm trên.
+
+Ở Part 2, trước khi xem bất kỳ con số nào, tôi sẽ giúp bạn viết dự đoán cho từng hình. Khi bạn muốn, nói "tiếp tục".
