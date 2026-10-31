@@ -1,0 +1,60 @@
+{
+  "responsible": "Doan Van Tai",
+  "date": "2026-10-31",
+  "status": "SCOPING_COMPLETE_EMPIRICAL_DOMAIN_UNRESOLVED",
+  "authority": "AI-assisted implementation under continuing author instruction; not author-self writing or human review",
+  "lesson_source": "User direction after L4.7 and PHASE_4_v2 roadmap; no full L4.8 lesson supplied",
+  "use_case": {
+    "working_narrative": "DC-inspired one-shot steering of a managed traffic aggregate between two equal-capacity egress queues, using a twin to compare Stay and Switch over a fixed horizon",
+    "purpose": "Controlled study of state/model information value, not a validated deployed SDN/TCP/flowlet controller",
+    "context_a": "Focus narrative within previously authorized DC context; 10 Gb/s is documented in ZLK17 section4.2, PDF3",
+    "context_b": "Existing edge10-100Mb/s context/envelope v1 retained; not reclassified or claimed validated",
+    "no_new_empirical_anchor": true
+  },
+  "model_domain": {
+    "contract": "contract-v1.3",
+    "physical_conditions": ["lambdaA,lambdaB >= 6", "u > 0", "lambdaA+u < 10", "lambdaB < 10", "kappa,h > 0", "primary c_sw=0"],
+    "finite_post_switch_overload_allowed_physically": true,
+    "current_native_supported_subset_extra": "lambdaB+u < 10; implementation restriction, not physical validity",
+    "numerical_admissibility": "h*120*ref integer at selected positive integer ref; no silent ceil",
+    "new_sampling_box": null,
+    "held_out_design": null,
+    "exposure": "Existing supports were selected during discovery; this scope document is after those outcomes, not an independent preregistration"
+  },
+  "fixed_assumptions": [
+    "Two disjoint infinite-buffer queues with equal service and unweighted total-backlog endpoint cost",
+    "Exogenous symmetric two-level Markov background, amplitude/capacity=0.6",
+    "Stationary pre-Stay P1; managed load moves instantly and remains fixed over h",
+    "S0 true/shared posterior from old backlog; M0 conditional mean rollout per current state",
+    "S1 observes hidden modes as an oracle benchmark, not deployable fresh telemetry",
+    "M1 knows the cost law, not realized future; strict negative gap Switch, ties Stay"
+  ],
+  "empirical_calibration": {
+    "status": "UNRESOLVED_NO_JOINT_USE_CASE_MAPPING",
+    "backlog_observation_schema_and_timestamp": null,
+    "tau_effective_s": null,
+    "fixed_action_hold_h_s": null,
+    "mode_time_T_s": null,
+    "offered_input_mean_peak_bps": null,
+    "managed_aggregate_bps": null,
+    "CV_rate_at_four_fixed_windows": null,
+    "per_queue_buffer_bytes": null,
+    "actuation_delay_s": null,
+    "symmetric_exponential_mode_fit": null,
+    "do_not_reinterpret_missing_as_OUT": true
+  },
+  "illustrative_projection_only": {
+    "capacity_bps": "10000000000",
+    "tau_s": "1/100",
+    "origin": "Reuse legacy DC capacity/context and 10ms illustrative age anchor; tau is not an empirical backlog-age measurement",
+    "model_backlog_unit": "Fluid work quantity; not a physical packet of a fixed byte size",
+    "ratio_invariance_is_not_empirical_validation": true
+  },
+  "reviewed_existing_sources": ["ZLK17", "BAM10", "NDT1"],
+  "literature_new_sources": 0,
+  "new_hypothesis_or_CF": false,
+  "SUB_CF_status": "PARKED",
+  "D22_native_status": "DEFERRED",
+  "G_level": "G1",
+  "author_understanding": "OPEN"
+}
