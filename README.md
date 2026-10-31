@@ -2,7 +2,18 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.4, 30/10/2026: baseline chạy tới sanity HOLD.**
+**Hiện tại — L4.5, chốt 31/10/2026: Part A/rules đã khóa; Part B bị chặn.**
+Tác giả giữ SV/SUB có điều kiện, duyệt luật robust/haircut.10/power≥.5/U≤5%,
+tối đa3hộp/candidate (DL-105, lock624a9be). 16tests mới và813fulltests PASS82.29s;
+14/14dòng power thiết kế khớp lesson, n60 cần≥39MEETS ởΩ⁺/≤21ởΩ⁻.
+Chưa có hộp thực/p-hat mới, chưa chọn0/1/2card. Native/baseline L4.3–L4.4 còn
+HOLD; không pilot proxy/CF/cardv3. Power là hypothetical, G1/cardv2 giữ nguyên.
+[Báo cáo và số liệu](results/lessons/l4_5/report.md) ·
+[Part A](notes/phases/PartA_candidate_filters.md) ·
+[Luật sàng](experiments/P4_05_candidates/screening_rules.md) ·
+[Completion](notes/phases/L4_5_completion.json).
+
+**Snapshot L4.4, 30/10/2026: baseline chạy tới sanity HOLD.**
 Tác giả duyệt margin+Stay/lướiρ/per-region selection và luật đọc trước plant;
 forecast AI soạn theo ủy quyền. 18 targeted tests/200synthetic trials và797fulltests
 PASS83.17s; u0 control thật PASS. Benchmark2MV PASS/1SH HOLD tạiP44_000/X2000:

@@ -1,0 +1,30 @@
+{
+  "responsible": "Doan Van Tai",
+  "commands": [
+    {
+      "command": ".venv/bin/python -m experiments.P4_05_candidates.design_power",
+      "exit_code": 0,
+      "meaning": "exact design outputs created"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_p4_05_candidates.py",
+      "exit_code": 0,
+      "meaning": "final16PASS; historical failed fixture logs retained"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "meaning": "813PASS82.29s"
+    },
+    {
+      "command": ".venv/bin/python -m experiments.P4_05_candidates.screen preflight",
+      "exit_code": 2,
+      "meaning": "expectedBLOCKED_PART_B after rules commit"
+    },
+    {
+      "command": ".venv/bin/python -m experiments.P4_05_candidates.screen screen --candidate SUB --box NONEXISTENT_BOX_FILE --native-manifest NONEXISTENT_NATIVE_MANIFEST",
+      "exit_code": 1,
+      "meaning": "expectedPART_B_BLOCKED before reading nonexistent files"
+    }
+  ]
+}

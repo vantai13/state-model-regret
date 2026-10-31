@@ -1832,3 +1832,16 @@ artifact/test/hash khớp, không đổi audit verdictHOLD hoặc author read-ba
 - Run dừngsanityHOLD ởSH đầu; **chưa chọn/freezeρ***, chưa dùng luật mô tả để
   kết luận toànvùng/CF. Giữfailure/threshold, không thêmcard hoặc gỡL4.3HOLD.
 - [Results](../results/lessons/l4_4/report.md), G1; DL103decision#2–4 còn tácgiảchọn.
+
+
+### DL-105 — L4.5 Part A vàluật sàng, chưaquyết sốcard (chốt31/10/2026)
+
+- Tácgiả chọn “Giữ SV và SUB có điều kiện (khuyến nghị)” và “Chọn gói luật sàng
+  đã soạn (khuyến nghị)”; [record](../experiments/P4_05_candidates/author_choices.json).
+- Proposal736633a; rules/source624a9be trước realp-hat. n60,α1/40,π0.5,
+  haircut.1,robustpower≥.5,U≤.05,max3boxes; r_minus riêng, F1khôngđổi.
+- [Decisionnote](phases/L4_5_screening_decision.md) và [PartA](phases/PartA_candidate_filters.md)
+  giữ prior/câuclaim cóphạmvi, không nângnovelty hoặcdouble dissociation tựđộng.
+- Exactdesign tables14/14,16targeted/813fullPASS; realboxes0. PartBblocked bởi
+  native/baseline/rhopolicy/bounds, không suy0card từ thiếudữliệu.
+- DLcuối về0/1/2card, vùng, CFv3budget vàGate4 cònOPEN. G1/cardv2/HOLD cũ giữ.

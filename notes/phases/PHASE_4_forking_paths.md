@@ -80,3 +80,14 @@ khôngρ*freeze; forecastsNOTEVALUABLE. Không thay tiêu chí/số để cứu 
 CPUreadonly accounting127.024557evalCPU-s gồmcontrol; summary runner gốc bỏ sót
 failedcall9.907439CPU-s, giữ nguyên và đính chính riêng. G1/cardv2/L4.3HOLD giữ.
 KhôngCF/sealedoutcomes mới. [Report](../../results/lessons/l4_4/report.md).
+
+
+## L4.5 — #16–19, chốt31/10/2026
+
+[JSONL](../../results/lessons/l4_5/forking_paths.jsonl) ghi sau thao tác, không
+backdate thànhprereg. #16input72.8%/94.9% vàlocalnotes đãlộ. #17tácgiảduyệt
+SV/SUB cóđiềukiện +rules; proposal736633a/lock624a9be trước mọi realcounts.
+#18exact hypotheticalpower14/14,16newtests/813fullPASS82.29s; khôngengine/box.
+#19resume sau gitwhitespacecheck rawtraceback, giữlog; preflightblocked saucommit
+vớiruleslockedTrue, entrypoint từchối trước filedata. Khôngbounds/p-hat mới,
+không tựcắtκ=.05 đểnéoutcome. Final0/1/2card cònpending; G1/F1/HOLD cũ giữ.

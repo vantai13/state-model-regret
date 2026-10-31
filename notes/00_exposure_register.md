@@ -978,3 +978,15 @@ KhôngCF/R09/R10 outcomes, khôngnewbox/card; G1 vàL4.3HOLD giữ nguyên.
 [CSV mọiρ đã quan sát](../results/lessons/l4_4/observed_baselines.csv) ·
 [Ledger90](../results/lessons/l4_4/summary/case_ledger.csv) ·
 [Forking#15](../results/lessons/l4_4/forking_paths.jsonl).
+
+
+## L4.5 — Part A/rules, chốt31/10/2026 (DL-105)
+
+Đã thấy hai input gồm72.8%/94.9%pilot minh họa; không tái tính hộp nào. Review7
+notes+1authorattestation cũ, khôngprimary reread/search mới. Tácgiả giữSV/SUB có
+điều kiện vàduyệt rules; lock624a9be trước realcounts. Exactdesign14/14tables,
+16targeted/813fulltests; syntheticfixtures/tmp_path khôngphải researchboxes.
+Realboxes0,p-hat0,researchenginecalls0,CF/sealedoutcomes mới0. Preflight exit2 và
+entrypoint exit1 cóchủđích, trước dữliệu. Không chọn0/1/2card, F1/G1/HOLD cũ giữ.
+[Forking#16–19](../results/lessons/l4_5/forking_paths.jsonl) ·
+[Report](../results/lessons/l4_5/report.md).

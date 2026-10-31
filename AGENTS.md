@@ -258,3 +258,16 @@ forecastsNOTEVALUABLE. EvalCPU127.024557s gồmcontrol;summarygốcCPUbỏsótfa
 9.907439s,đínhchínhreadonlymeasured_summary.json. Descriptorinterfaceimplemented,
 L4.8integrationPENDING. G1/L4.3HOLD/cardv2giữ;khôngCF/newsealedoutcomes.
 DL103#1đãchọn;#2–4/Understanding/P0V10/L8OPEN. Report results/lessons/l4_4/report.md.
+
+
+L4.5/chốt31-10 (DL-105): tácgiả giữSV/SUB cóđiềukiện quaPartA vàduyệt rules
+robust/haircut.10/power≥.5/U≤5%/max3boxes,n60α1/40π0.5; SVr_minusriêng,SUB1vùng.
+Proposal736633a/ruleslock624a9be trước mọirealp-hat. 16newtestsPASS.18s,
+813fullPASS82.29s,14exactpowerrowskhớp; n60support39/reject21. SVp_planmin
+.6410348(U0)/.6794676(U5%haivùng); powerhypotheticalkhôngevidence. PartA đínhchính
+SVkhôngtựdouble dissociation,ABkhôngtựSUB,κflipkhôngtựépminus,DL0733/162>.5%,
+PC3đãauthorattestedDL043; khôngprimaryreread/search. Realboxes/p-hat/engine/CF/newsealed
+outcomes0. Preflightexit2 vàentrypointexit1expectedBLOCKED trướcinput, ruleslockedTrue.
+PartBthiếunative/baseline/rhopolicy/bounds đúngcandidate; khôngfinal0/1/2card/cardv3/
+CFv3budget/Gate4. G1/F1/L43L44HOLD/P0V10/L8/Understanding giữ.
+Report results/lessons/l4_5/report.md; completion notes/phases/L4_5_completion.json.

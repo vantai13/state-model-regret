@@ -511,3 +511,16 @@ summaryCPU bỏ sótfailedcall. G1/cardv2/verdict/L4.3HOLD giữ, khôngCF/seale
 DL103decision1 nayđãchọn;#2–4/Understanding/P0V10/L8 cònOPEN. Descriptor interface
 đã có, L4.8 integrationPENDING. [Report](../results/lessons/l4_4/report.md) ·
 [Completion](phases/L4_4_completion.json).
+
+
+## L4.5 — Part A/rules đãduyệt, Part B BLOCKED (31/10/2026, DL-105)
+
+Tácgiả giữSV/SUB cóđiềukiện vàchọn robust/haircut.10/power≥.5/U≤5%, tốiđa3hộp.
+Proposal736633a, lock624a9be trướcrealcounts. Đínhchính double dissociation,
+AB≠SUB,κflipkhôngtựép, DL0733/162>.5%, PC3đãauthorattestedDL043. Reviewlocalnotes,
+khôngsearch/PDF/newprimary. 16testsPASS.18s;813fullPASS82.29s; exact14tableskhớp,
+n60support39/reject21. SVminpplan~.6410348(U0)/.6794676(U5%haivùng).
+Preflightexit2/entrypointexit1expectedBLOCKED, realboxes/p-hat/engine/CF mới0.
+Thiếu native/baseline/rhopolicy/bounds đúngcandidate; không chọn0/1/2card hoặc
+cardv3/CFv3budget/Gate4. G1/F1/L43L44HOLD giữ. [Report](../results/lessons/l4_5/report.md) ·
+[Completion](phases/L4_5_completion.json).

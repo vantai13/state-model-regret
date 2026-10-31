@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/P4_05_candidates/screen.py", line 232, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/P4_05_candidates/screen.py", line 228, in main
+    print(json.dumps(screen_registered(args.candidate,args.box,args.native_manifest),ensure_ascii=False,indent=2))
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/P4_05_candidates/screen.py", line 184, in screen_registered
+    require(status['status']=='READY','PART_B_BLOCKED: '+';'.join(status['reasons']))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/P4_03_map_audit/common.py", line 21, in require
+    if not ok: raise RuntimeError(message)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: PART_B_BLOCKED: L4_3_NATIVE_AUDIT_HOLD_OR_INCOMPLETE;L4_4_BASELINE_SANITY_HOLD_OR_INCOMPLETE;CANDIDATE_SPECIFIC_NATIVE_AND_BASELINE_RECEIPTS_NOT_REGISTERED;NO_COMMITTED_BOX_BOUNDS_OR_SV_MINUS_POLICY
