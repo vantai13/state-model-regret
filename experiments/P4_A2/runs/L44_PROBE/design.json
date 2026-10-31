@@ -1,0 +1,9 @@
+{
+ "run_id": "L44_PROBE",
+ "provenance": "AI (Claude) soạn thiết kế; ngưỡng quyết định và nhánh khi thất bại là quyết định của tác giả",
+ "question": "Do the 8 L44_A1 NOT_READY points become READY along the frozen scorer ladder (640,4)->(1280,4)->(1280,8)?",
+ "output": "results/lessons/l4_4/a2_probe",
+ "targets_rule": "every L44_A1 point with status NOT_READY (8/8, no sub-selection), with the rho values that failed",
+ "resources": {"case_cpu_seconds": 3600, "case_wall_seconds": 4800, "address_space_bytes": 3221225472},
+ "not_computed": ["rho selection", "R_M / GS_theta medians", "any CF / R09 / R10 outcome", "new coordinates"]
+}
