@@ -1,0 +1,372 @@
+Tôi pull lại repo để xem từ lúc trước bạn đã làm gì, rồi mới xác định lesson hiện tại.
+
+Pattern này rất rõ, và nó đổi hướng của L4.9. Tôi kiểm thêm xem file PHASE_4_v2 trong repo có sửa gì ở L4.9 so với bản tôi soạn không.
+
+Đã đủ bối cảnh. Có hai việc cần làm trước khi vào lesson: báo bạn L4.5–L4.8 đã cho ra gì, và nhận các lỗi trong hướng dẫn của tôi mà lần thực thi đã bắt được.
+
+---
+
+# Kiểm repo trước khi vào L4.9
+
+**Repo đã có gì** (pull đến `3eba91b`, 31/10 19:05). L4.5 → L4.8 (v2) đã được AI thực thi theo ủy quyền: DL-117 → DL-120, 942 test PASS. Lesson hiện tại vì vậy là **L4.9 (v2)**.
+
+Lưu ý: `notes/phases/PHASE_4_v2.md` trong repo là một bản rút gọn 106 dòng do executor tự viết. Executor không có file 1137 dòng tôi soạn, nên mục L4.9 dưới đây dựa trên bản của tôi.
+
+| Lesson | Kết quả chính (fact, theo DL và report) |
+|---|---|
+| L4.5 | 0 card mới; park SUB (10/76 key) và gói CF-v2 |
+| L4.6 | SV+ (native): trung vị Ḡ_S\|M1 = 1,17%, Ḡ_S = 0,97%, Γ̄ = 0,13%. Ở vùng SV, hiệu ứng của state gần như **là giá trị riêng**. Lớp AB (pilot): Ḡ_S\|M1 trải rộng từ 0,03% đến 2,6%, nên **không được** nói "AB chỉ là tương tác". 10 key SUB: Ḡ_S = 6,78%, Ḡ_S\|M1 = 0,06%, Γ̄ = −6,68%, tức khoảng 99% là tương tác. Dải δ không tổ chức được dấu của Γ̄ trên toàn dữ liệu (ở δ = 0,5, Γ̄ đi từ −12,5% đến +1,8%). D22 native **DEFERRED** |
+| L4.7 | P-clip đã được chứng minh (T08) và kiểm: ngoài Clip, 24/24 state có d − dh = 0. P_clip ∈ [0,9965; 1], tức **bão hòa**. **S_clip ≡ σ̄ trong contract primary**, nên không có predictor nào được giữ |
+| L4.8 | Scope khai: "DC-inspired one-shot aggregate steering". Miền thực nghiệm **UNRESOLVED**. Neo minh họa ở τ = 10 ms: discovery chỉ phủ h ≈ 10–160 ms |
+
+**Các lỗi trong hướng dẫn của tôi mà executor đã bắt được.** Tôi nhận cả năm lỗi:
+
+1. **L4.6 Part 2, bảng outcome.** Tôi viết "|Γ̄| lớn ở nơi Ḡ_M|S1 nhỏ là không thể". Sai khi Γ̄ < 0: lúc đó cận đúng là |Γ̄| ≤ Ḡ_M, không phải Ḡ_M|S1.
+2. **Thiết kế cb0 ở L4.6.** Tôi chỉ trộn mode theo backlog hiện tại Q. Nhưng contract (amend1) định nghĩa cb0 là E[ĝ | **Y, Q**], tức giữ cả snapshot cũ. Thiết kế của tôi đo một estimand khác. Executor dựng được phản ví dụ, và dời D22 vì output đã lưu không chứa phân phối đồng thời (Y, Q).
+3. **L4.7, cận S_clip.** Tôi trình bày nó như một cận có ích. Nhưng ngoài Clip, cả hai action có **cùng tổng backlog** (chuyển cùng một lượng u, phần tuyến tính triệt tiêu), nên Δ = 0 khi c_sw = 0. Do đó S_clip = E|Δ| = σ̄. Đó chỉ là cận stakes S14 đã có sẵn.
+4. **L4.7, tiêu chí clipping.** Mode ban đầu ON phải giữ ở slot 0, nên ngưỡng exact là max(0, h·D − 12·dt), không phải q̂ < h·D.
+5. **L4.7, đơn vị.** Idle cost có đơn vị packet·s, khác tổng capacity bỏ phí tính bằng packet.
+
+Ngoài ra, dự đoán P2 ở L4.6 sai: đỉnh trung vị của Ḡ_S|M1 nằm ở κ/τ ≈ 0,075, không phải [0,1; 0,3]. Câu chuyện "mode mơ hồ" của tôi chưa đủ. Phần **backlog** của state cũng mang giá trị.
+
+**Một hệ quả của lỗi 3 mà tôi muốn bạn giữ:**
+
+> Trong plant primary, **chính quyết định** (Δ ≠ 0) chỉ tồn tại nhờ clipping. Stakes, sai số của M0 và tương tác đều sống trong tập Clip.
+
+Đây là một fact về scope mà reviewer sẽ thấy ngay. Paper nên nói thẳng nó ra.
+
+**Exploration tôi vừa chạy.** Đây là dữ liệu discovery đã có, nên phải ghi vào mục "đã xem gì" của file freeze. Pilot, biên độ ±6, đơn vị % C̄_ref:
+
+| h/κ | n | Trung vị Ḡ_S\|M1 | Trung vị Ḡ_M\|S1 |
+|---|---:|---:|---:|
+| 0,6–3 | 230 | 0,55 | 0,10 |
+| 3–10 | 338 | 1,13 | 0,11 |
+| 10–30 | 284 | 0,58 | 1,08 |
+| 30–100 | 248 | **0,06** | **4,89** |
+| 100–161 | 36 | **0,00** | **10,68** |
+
+Thêm một lát có kiểm soát: cố định κ/τ = 0,1, cùng (λA, λB, u), cho h = 2 → 4 → 8. Ở **cả sáu** cấu hình xem được, Ḡ_S|M1 giảm về khoảng 0, còn Ḡ_M|S1 tăng. Ví dụ: (2,69 → 0,92 → 0,14) so với (1,07 → 3,64 → 6,94).
+
+Pattern này khớp với suy luận horizon dài ở L4.8 §9.4, và nó đổi những gì L4.9 nên đóng băng.
+
+---
+
+# LESSON 4.9 (v2) — Hypothesis có cơ chế, held-out điều kiện, đóng băng nhẹ
+
+**Map:**
+1. Cái gì còn sống sau L4.6–L4.8
+2. Cơ chế "stationary dominance": hai repair sống trên hai đồng hồ khác nhau
+3. Predictor không vòng tròn, null 1-NN, held-out theo h/κ
+4. Ba hypothesis ứng viên, mỗi cái đủ 6 phần
+5. Thiết kế và file freeze
+6. Quyết định của bạn
+
+Lesson này lớn nhưng dính chặt vào nhau, nên tôi dạy trọn một lượt.
+
+## 1. Big picture
+
+```text
+L4.6 ✓ ba số cơ bản · L4.7 ✓ mọi thứ sống trong Clip · L4.8 ✓ miền thực tế ở h/κ rất lớn (chưa chắc)
+   ↓
+L4.9 Viết ra điều gì sẽ làm hypothesis SAI, trước khi nhìn held-out   ← BẠN Ở ĐÂY
+   ↓
+Gate 4 → Phase 5 (đánh giá theo file freeze)
+```
+
+## 2. Lesson này trả lời câu hỏi gì?
+
+> Từ những gì discovery và lý thuyết đã cho, hypothesis nào về "differ" và "interact" **có cơ chế, có predictor không vòng tròn, và có thể sai** trên một điều kiện chưa dùng?
+
+## 3. Tại sao cần lesson này?
+
+- **Research-level.** Đây là chỗ *duy nhất* của phase mà preregistration thật sự cần, đúng theo quy tắc 7 của bạn. Bạn sắp nhìn outcome held-out, và có nhiều bậc tự do: chọn hypothesis, ngưỡng, điều kiện held-out.
+- **Practical-level.** Output là một file khoảng 2 trang, `notes/design/analysis_plan_v1.md`.
+- **Lưu ý về ủy quyền.** L4.5–L4.8 đều chạy theo ủy quyền AI. Với L4.9, tôi khuyên **bạn tự chọn** hypothesis và ngưỡng. Đây là nơi rủi ro "AI soạn và AI duyệt cùng sai một hướng" (ER3) đắt nhất, vì file freeze quyết định cái gì được tính là evidence.
+
+## 4. Connection to Main RQ
+
+```text
+L4.9
+ → hypothesis trên Ḡ_S|M1 (differ, phía state), Ḡ_M|S1 (differ, phía model), baseline margin
+ → "differ": hai repair có giá trị trên hai thang thời gian khác nhau
+   "interact": ở horizon dài, mọi hiệu ứng của state tươi dưới M0 là tương tác (Ḡ_S = −Γ̄)
+ → Phase 5: chấm trên điều kiện h/κ chưa quét, so với null 1-NN
+```
+
+**Nếu bỏ lesson này,** đây là chuyện có thể xảy ra. Bạn chạy engine ở h/κ = 320, thấy Ḡ_M|S1 = 15%, rồi viết "model quan trọng ở horizon dài". Reviewer hỏi: "Anh đoán trước con số đó không? Hay chỉ vẽ tiếp đường cong?" Nếu không có file freeze, câu trả lời là "chỉ vẽ tiếp".
+
+## 5. Cái gì còn sống sau L4.6–L4.8
+
+| Ứng viên trong PHASE_4_v2 | Trạng thái sau thực thi | Quyết định đề xuất |
+|---|---|---|
+| H-info: Ḡ_S\|M1 ≥ ε trong một dải κ/τ, theo cơ chế S10 | Dải dự đoán sai (đỉnh ở 0,075); S10 chưa được chứng nhận là cơ chế | Không freeze dạng cũ. Đưa vào H-L1 (dưới đây) như phía horizon ngắn |
+| H-clip: \|Γ̄\|, Ḡ_M\|S1 theo P_clip hoặc S_clip | P_clip bão hòa; S_clip ≡ σ̄ | **Bỏ** dạng predictor. Giữ P-clip làm mệnh đề giải thích |
+| H-sign: dấu Γ̄ theo δ | Không đứng trên toàn dữ liệu | **Bỏ**; chỉ báo dạng mô tả |
+| D22 (F̄/V̄) | Deferred: cần phân phối đồng thời (Y, Q) | Ngoài file freeze; mọi claim về "telemetry tươi làm hại" phải chờ D22 |
+| *(mới)* Hướng horizon dài | Pattern mạnh trong discovery; có cơ chế suy ra được (mục 6) | **Ứng viên chính** |
+
+## 6. Mental model trước tiên — hai đồng hồ
+
+> Cost của một quyết định giữ trong h giây gồm hai phần: **phần chuyển tiếp** (transient) và **phần dừng** (stationary). Phần chuyển tiếp là chuyện xả backlog hiện tại và chờ mode hiện tại hết hiệu lực; nó bị chặn. Phần dừng là tắc nghẽn trung bình do burst gây ra; nó tăng tỉ lệ với h.
+>
+> **State** chỉ nói về phần chuyển tiếp. **Model** quyết định bạn có nhìn thấy phần dừng hay không. Khi h dài, phần dừng lấn át, nên state hết giá trị, còn model thì không.
+
+## 7. Concepts & terminology
+
+- **Transient (chuyển tiếp) và stationary (dừng).** Transient là giai đoạn hệ còn "nhớ" điều kiện ban đầu. Stationary là khi hệ đã quên, và các trung bình không đổi theo thời gian.
+- **Tốc độ cost dừng r_act.** Backlog trung bình dài hạn E_π[Q_A + Q_B] khi giữ action act mãi. Đơn vị: packet; nhân với h ra packet·s.
+- **s = r_Switch − r_Stay.** Action nào tốt hơn *về lâu dài*.
+- **Tiệm cận (asymptotic).** Hành vi khi h → ∞. Ký hiệu O(1) nghĩa là bị chặn, không lớn theo h; O(h) nghĩa là lớn tỉ lệ với h.
+- **Predictor không vòng tròn.** Không dùng outcome, cũng như các ô 2×2, của chính regime nó dự báo.
+- **Null 1-NN.** Dự báo bằng giá trị của điểm discovery gần nhất. Ý nghĩa của null này: "bản đồ đã đủ, không cần cơ chế".
+- **Held-out bằng ngoại suy (extrapolation).** Kiểm ở giá trị h/κ *lớn hơn* mọi điểm discovery. Đây là bài kiểm khó, vì nội suy không cứu được.
+
+## 8. Tiny example
+
+Lấy cấu hình cuối trong bảng exploration (κ/τ = 0,1):
+
+| h | Ḡ_S\|M1 | Ḡ_M\|S1 |
+|---|---:|---:|
+| 2 | 2,69 | 1,07 |
+| 4 | 0,92 | 3,64 |
+| 8 | 0,14 | 6,94 |
+
+Đọc bằng hai đồng hồ: ở h = 2, transient còn chiếm phần lớn cost, nên biết state hiện tại rất đáng giá. Ở h = 8 (h/κ = 80), phần dừng lấn át. Action tốt về lâu dài gần như không phụ thuộc state hiện tại, nên biết state không còn giá trị. Nhưng M0 *không thấy* phần dừng, nên sửa model ngày càng đáng giá.
+
+## 9. Theory — cơ chế "stationary dominance"
+
+Mọi chỗ ghi **Inference** dưới đây là suy luận của tôi, bạn phải tự dẫn lại và có thể nó sai. Phần **Fact** đến từ code và dữ liệu.
+
+### 9.1 Cost thật: phần dừng tăng theo h
+
+**Muốn tính:** Δ(x) = J(Switch; x) − J(Stay; x) khi h lớn.
+
+1. *Fact (engine):* nếu giữ Stay trong P1, queue vẫn ở phân phối dừng, nên E[J_Stay] = h·E_π[Q_A + Q_B]. Comment trong `evaluate()` ghi đúng điều này.
+2. *Inference:* với mỗi action và state x, J(act; x) = h·r_act + T(act; x) + o(1). Ở đây T là phần chuyển tiếp, bị chặn khi các path ổn định theo trung bình.
+3. Vậy **Δ(x) = h·s + [T(Switch; x) − T(Stay; x)]**. Phần đầu là O(h), phần sau là O(1).
+
+**Điều kiện:** các path ổn định dưới mọi action (λ_l + u_l(act) < μ). Engine hiện tại chỉ hỗ trợ B_post ổn định, khớp với điều kiện này.
+
+### 9.2 M0 không thấy phần dừng
+
+1. *Fact (code `mean_idle`):* M0 chạy đường trung bình có điều kiện theo mode, và tốc độ trung bình đó tiến về λ_l + u_l(act) < μ.
+2. *Hệ quả:* đường trung bình xả về 0 rồi **nằm yên ở 0**. Cost theo M0 bị chặn, nên Δ̂_M0(x) = O(1) với mọi h.
+3. *Fact (contract):* ON = λ + a + u ≥ 6 + 6 > μ, nên queue thật luôn có E_π[Q] > 0.
+
+Như vậy M0 thấy mỗi action chỉ tốn phần chuyển tiếp, trong khi cost thật tăng theo h.
+
+### 9.3 Ba hệ quả (Inference, có thể kiểm)
+
+**(a) Giá trị riêng của state về đúng 0 sau một horizon hữu hạn.**
+- Khi h·|s| lớn hơn độ chênh transient giữa các state, mọi state đều có cùng action tối ưu là sign(s).
+- S0M1 và S1M1 vì thế chọn giống nhau, nên **Ḡ_S|M1 = 0 khi h > h\*(c)**, với h\* ≈ (độ trải của T) / |s|.
+- Ngoại lệ: các regime có s ≈ 0 thì h\* rất lớn.
+
+**(b) Giá trị riêng của model tiến về một giới hạn tính được.**
+- Oracle chọn sign(s). M0 chọn sign(Δ̂_M0(x)), tức chọn theo transient.
+- Mỗi lần chọn khác nhau mất khoảng h·|s|, và C̄_ref = L̄11 ≈ h·min(r_Stay, r_Switch).
+- Do đó:
+
+```text
+Ḡ_M|S1 / C̄_ref  →  g∞(c) = |s| · P_π[ sign(Δ̂_M0(X)) ≠ sign(s) ] / min(r_Stay, r_Switch)
+```
+
+- Sau h\*, Ḡ_S = Ḡ_S|M1 − Γ̄ = −Γ̄. Mọi hiệu ứng của state tươi dưới M0 lúc đó là **tương tác thuần túy**.
+
+**(c) Margin baseline có dấu dự đoán được.**
+- θ = ρ·E[J_Stay] tăng theo h, còn |Δ̂_M0| bị chặn. Vậy ở h đủ lớn, M0 có margin **không bao giờ Switch**, tức nó thành Stay.
+- Nếu s > 0 (Stay đúng về lâu dài): margin lấy lại gần hết giá trị của model, R_M → 1.
+- Nếu s < 0: margin *hại*, R_M ≤ 0.
+- Điều này có thể giải thích vì sao MV bị narrow (DL-114, R_M ≈ 0,86): MV ghim λB = 8, nhiều khả năng s > 0. Đây là **inference**, chưa kiểm.
+
+### 9.4 Vì sao predictor này không vòng tròn
+
+g∞(c) và h\*(c) chỉ cần ba thứ:
+- tốc độ dừng r_Stay và r_Switch, tính từ luật dừng của từng path dưới tải trước/sau action (law của engine, rẻ);
+- Δ̂_M0(x) ở horizon h, lấy từ profile `dh` (một đường trung bình, rẻ);
+- phân phối π.
+
+Nó **không** dùng M1 ở horizon đó, và không dùng ô 2×2 nào của regime cần dự báo. Ở horizon dài, M1 là phần đắt nhất của engine.
+
+Một biến thể dùng được ở h hữu hạn:
+
+```text
+Ĝ_M(h) = E_π[ h·|s| · 1{ sign(Δ̂_M0,h(X)) ≠ sign(s) } ] / (h · min r)
+```
+
+### 9.5 Held-out: ngoại suy theo h/κ, với chi phí chấp nhận được
+
+- Discovery có h/κ ≤ 160. Có thể lên h/κ ∈ [200; 640] mà **không** cần h/τ lớn hơn 32, chỉ bằng cách ghép κ/τ ∈ {0,05; 0,1} với h/τ ∈ {16; 32}. Đây là những tổ hợp *chưa có* trong discovery.
+- Theo DL-108, κ ≥ 1/20 vẫn nằm trong vùng numerics đã kiểm.
+- *Chi phí (ngoại suy thô, phải đo):* PHASE_4 v1.1 §5.5 cho h = 8 s tốn khoảng 42 s CPU. Nếu chi phí tăng khoảng h^2,3, thì h = 16 khoảng 200 s và h = 32 khoảng 1000 s. 30–60 điểm held-out tốn cỡ 2–15 CPU-giờ. Còn h/τ = 128 có thể tốn hàng giờ mỗi điểm. **Đừng chọn mức đó khi chưa đo.**
+- *Null:* 1-NN trong tọa độ (λA, λB, u, log κ/τ, log h/τ). Điểm gần nhất sẽ luôn có h/κ ≤ 160, nên null dự báo "giống đầu cuối của map". Nếu cơ chế đúng, predictor phải thắng null rõ ràng, vì null không biết đường cong còn tiếp tục.
+
+## 10. Ba hypothesis ứng viên (bạn chọn; mỗi cái đủ 6 phần)
+
+**H-L1 — State value tắt ở horizon dài.**
+
+| Phần | Nội dung |
+|---|---|
+| Đại lượng | Ḡ_S\|M1 / C̄_ref |
+| Điều kiện | Path ổn định; h > ĥ\*(c), với ĥ\* tính từ s và độ trải của Δ̂ |
+| Cơ chế | Phần dừng lấn át, nên action tối ưu không còn phụ thuộc state (9.3a) |
+| Predictor | ĥ\*(c) từ luật dừng và profile M0 |
+| Dự đoán held-out | Ở các điểm held-out có h > ĥ\*: Ḡ_S\|M1 ≤ ε_E = 0,5% ở ≥ ⟨90%⟩ điểm |
+| Bác bỏ nếu | > ⟨20%⟩ điểm có h > ĥ\* mà Ḡ_S\|M1 > 0,5% |
+
+**H-L2 — Model value theo predictor stationary dominance.**
+
+| Phần | Nội dung |
+|---|---|
+| Đại lượng | Ḡ_M\|S1 / C̄_ref |
+| Điều kiện | Path ổn định; điểm held-out theo h/κ |
+| Cơ chế | M0 không thấy tắc nghẽn dừng (9.2, 9.3b) |
+| Predictor | Ĝ_M(h) ở 9.4 |
+| Dự đoán | Spearman(Ĝ_M, Ḡ_M\|S1) ≥ ⟨0,7⟩ **và** sai số tuyệt đối trung vị của Ĝ_M nhỏ hơn của null 1-NN ít nhất ⟨30%⟩ |
+| Bác bỏ nếu | Một trong hai điều kiện không đạt |
+
+**H-L3 (tùy chọn) — Dấu của recovery theo s.**
+
+| Phần | Nội dung |
+|---|---|
+| Đại lượng | R_M(ρ\*) ở horizon dài |
+| Cơ chế | Margin biến thành Stay (9.3c) |
+| Dự đoán | sign(R_M) = sign(s) ở ≥ ⟨80%⟩ điểm held-out có \|s\| đủ lớn |
+| Bác bỏ nếu | Không đạt |
+
+Các số trong ⟨ ⟩ là **chỗ bạn quyết**, và phải quyết trước khi tính. Đừng chọn ngưỡng sao cho "chắc chắn đạt": hãy nghĩ ngược lại, kết quả nào thì bạn sẽ thật sự tin cơ chế sai.
+
+**Phía horizon ngắn** (SV, Ḡ_S|M1 ≈ Ḡ_S ≈ 1%) đi vào phần **characterization**: báo đầy đủ, không có verdict. Nó là nửa còn lại của câu "differ": state có giá trị *chỉ khi* h ngắn so với các thang dừng.
+
+## 11. Math foundations
+
+- **Must know now:** O(1) và O(h); tách một đại lượng thành phần tăng theo h cộng phần bị chặn; dấu của một tổng khi một số hạng lấn át.
+- **Useful:** trung bình dừng của một queue; Spearman.
+- **Later:** tốc độ hội tụ về g∞ (Phase 5 sẽ cho thấy bằng số).
+
+## 12. Variables & units
+
+| Symbol | Ý nghĩa | Đơn vị | Tính từ | Vì sao tách riêng |
+|---|---|---|---|---|
+| r_act | Backlog dừng trung bình khi giữ act | packet | luật dừng | Nhịp tăng của cost thật |
+| s | r_Switch − r_Stay | packet | luật dừng | Action đúng về lâu dài |
+| T(act; x) | Phần chuyển tiếp của cost | packet·s | (lý thuyết) | Phần state ảnh hưởng tới |
+| Δ̂_M0,h(x) | Gap theo M0 ở horizon h | packet·s | profile `dh` | Quyết định của M0 |
+| ĥ\*(c) | Horizon mà sau đó state hết giá trị | s | s và độ trải Δ̂ | Predictor của H-L1 |
+| Ĝ_M(h), g∞ | Giá trị model dự báo / giới hạn | % C̄_ref | 9.4 | Predictor của H-L2 |
+
+## 13. Assumptions
+
+- **ASSUMPTION — mọi path ổn định theo trung bình** dưới cả hai action. Nếu B quá tải sau Switch, cost tăng theo h², mạnh hơn h; M0 sẽ thấy điều đó và chọn Stay. Cơ chế khác, nên loại các điểm này khỏi H-L1 và H-L2 và báo riêng.
+- **ASSUMPTION — c_sw = 0.** Nếu c_sw > 0, phần O(1) có thêm switching cost, và ĥ\* đổi. Primary vẫn là 0.
+- **ASSUMPTION — P1 stationary trước quyết định.** Đây là chỗ xác định π. Nếu population khác thì P_mis khác.
+- **ASSUMPTION — plant fluid, hai mức.** Ở packet-level, M0 vẫn "không thấy" tắc nghẽn dừng; nghĩ theo Kingman, nhiễu Poisson còn làm phần này lớn hơn. Vì vậy cơ chế có lẽ còn đứng, nhưng độ lớn sẽ đổi. Đây là phỏng đoán cho Phase 6.
+
+## 14. 🔗 Liên hệ với repo và nghiên cứu cũ
+
+- **Final Review §5.3 và P13** (Mathijsen–Zwart): đóng góp tích lũy của backlog ban đầu là hằng số, nên tính theo thời gian trung bình nó tắt dần. H-L1 *gần với prior này*. Không được claim nó là mới. Phần có thể có giá trị là ở **mức quyết định**: ĥ\* hữu hạn và predictor.
+- **Thế hệ 2 (M/D/1/K dừng):** model cũ của bạn là một model *dừng có biến thiên*. Nó bỏ transient, nhưng thấy tắc nghẽn do ngẫu nhiên. Theo 9.3b, ở horizon dài, đó lại chính là thứ M0 thiếu. Điều này gợi ý một **feasible model repair** rất tự nhiên cho Phase 7: M0 cộng một hiệu chỉnh tắc nghẽn dừng (kiểu Kingman), tham số ước lượng từ dữ liệu. Code cũ không dùng thẳng được, vì objective và plant khác, nhưng *ý tưởng* thì dùng được.
+- **L4.7 / T08:** mọi stakes đều nằm trong Clip. Ở horizon dài, gần như mọi state đều thuộc Clip, nên điều này nhất quán với 9.1.
+
+## 15. Research task (nếu thực hiện)
+
+**Part A — Quyết định khoa học (của bạn).** Hai việc phải chọn:
+
+*(1) Chọn họ hypothesis:*
+
+| Lựa chọn | Ưu | Nhược |
+|---|---|---|
+| **H-L1 + H-L2 (+ H-L3)** *(tôi khuyên)* | Có cơ chế suy ra được; predictor rẻ và không vòng tròn; held-out là ngoại suy thật; khớp với miền thực tế (L4.8) | Cần dẫn lại 9.1–9.3 cho chặt; tốn thêm compute ở h/κ lớn; H-L1 gần prior P13 |
+| H-info kiểu cũ ở horizon ngắn | Đã có dữ liệu | Không có cơ chế đứng được; dải dự đoán đã sai |
+| Không hypothesis, chỉ characterization | Rẻ nhất | Không trả lời được RQ2; claim yếu |
+
+*(2) Chọn ngưỡng ⟨ ⟩ và điều kiện held-out.*
+
+**Part B — Kiểm predictor trên discovery (exploration, không phải evidence).**
+- Implement ĥ\* và Ĝ_M (stationary law + `dh`).
+- Chạy trên các điểm discovery có h/κ ≤ 160. Kiểm (i) Ĝ_M có theo xu hướng không; (ii) ĥ\* có khớp chỗ Ḡ_S|M1 về 0 không.
+- **Dừng:** nếu sau 1 ngày predictor chưa theo kịp trên discovery, đừng tinh chỉnh tiếp cho vừa. Freeze H-L1 (định tính) và báo H-L2 là "chưa có predictor".
+
+**Part C — Đo thời gian.** Chạy 3–5 **điểm discovery** có h/τ = 16 và 32 để đo chi phí. Không đo trên tổ hợp held-out. Đặt ngân sách B rồi chọn N_heldout.
+
+**Part D — Viết file freeze** theo khung ở Phụ lục A của PHASE_4_v2, và thêm:
+- **Mục 7, "đã xem gì":** SV FAIL_SCREEN (DL-116); 10 key SUB; mọi kết quả L4.6–L4.8; **bảng exploration theo h/κ ở trên** (AI chạy lúc 20:4x ngày 31/10); kết quả Part B.
+- **Mục 9, "không được nói":** "telemetry tươi làm hại" (chưa có D22); "mới" về H-L1; bất cứ điều gì ngoài plant fluid.
+
+Commit file này **trước** mọi lần chạy held-out.
+
+## 16. Prediction before execution
+
+Lesson này *chính là* bước dự đoán: file freeze là bản dự đoán. Một bài tập riêng nên làm trước khi đọc Part B: viết ra bạn nghĩ g∞ sẽ **lớn hơn hay nhỏ hơn** giá trị Ḡ_M|S1 ở h/κ = 160 (10,68%), và vì sao.
+
+## 17. Verification của file freeze
+
+- Mỗi hypothesis có đủ 6 phần.
+- Predictor không dùng M1 hay ô 2×2 của điểm held-out.
+- Các tổ hợp held-out không có trong discovery: kiểm bằng khóa và bằng h/κ > 160.
+- Ngưỡng được viết bằng số.
+- Mục 7 có bảng exploration.
+- `git log` cho thấy file freeze đứng trước output held-out.
+
+## 18. Possible outcomes ở Phase 5
+
+| Kết quả | Nghĩa | Câu có thể viết |
+|---|---|---|
+| H-L1 và H-L2 đứng | Cơ chế hai đồng hồ dự báo được ngoài mẫu | "differ": state chỉ có giá trị trên thang transient; model có giá trị trên thang dừng, dự báo được từ đại lượng dừng |
+| H-L1 đứng, H-L2 thua 1-NN | Có xu hướng, nhưng predictor chưa nắm độ lớn | Chỉ claim định tính |
+| H-L1 sai (state value còn ở h > ĥ\*) | Phần chuyển tiếp không chặn như tưởng, hoặc ĥ\* sai | Học được: xem lại 9.1 |
+| Chi phí không cho đủ điểm | INCONCLUSIVE theo thiết kế | Báo đúng như vậy; không tăng n sau khi đã thấy dữ liệu |
+
+## 19. Được claim và không được claim (sau Phase 5, nếu đứng)
+
+- **Được:** trong plant đã khai, với các điều kiện ổn định, hai repair có giá trị trên hai thang thời gian; predictor từ đại lượng dừng dự báo được giá trị của model trên h/κ chưa quét, tốt hơn null bản đồ.
+- **Không được:** "telemetry tươi vô dụng ngoài đời"; "đúng cho mạng thật"; novelty của H-L1.
+
+## 20. Reviewer could ask
+
+1. *"H-L1 chẳng phải P13 sao?"* → Gần đúng. Phần mới, nếu có, là ĥ\* ở mức quyết định và phần model.
+2. *"Predictor của anh có fit trên discovery không?"* → Phải ghi rõ: hình dạng của nó lấy từ lý thuyết, không có tham số fit. Part B chỉ là kiểm, không phải tinh chỉnh.
+3. *"Vì sao không dùng một model stochastic dừng làm M0?"* → Câu hỏi rất hay. Đó chính là feasible repair cho Phase 7 (mục 14).
+4. *"Quyết định chỉ có giá trị nhờ clipping. Cả bài toán có quá đặc biệt không?"* → Phải nói thẳng như một fact về scope (T08). Packet-level ở Phase 6 là chỗ kiểm.
+
+## 21. ⚠️ Bẫy người mới
+
+- **Dùng chính kết quả engine ở held-out để "chỉnh" predictor** trước khi freeze.
+- **Chọn h/τ = 128 "cho đẹp"** mà chưa đo chi phí.
+- **Freeze ngưỡng sau khi Part B cho thấy predictor đạt bao nhiêu,** rồi đặt ngưỡng ngay dưới con số đó. Nếu làm, hãy khai thẳng trong mục 7 rằng ngưỡng được đặt sau khi xem Part B.
+- **Để AI chọn ngưỡng ⟨ ⟩ theo ủy quyền.**
+- **Quên loại các điểm B_post quá tải** khỏi H-L1 và H-L2.
+- **Gọi H-L1 là phát hiện mới.**
+
+## 22. 🧠 Tư duy researcher
+
+> **Một pattern mạnh trong discovery chỉ trở thành knowledge khi bạn biết vì sao nó xảy ra, đủ để đoán nó sẽ ra sao ở nơi chưa nhìn.**
+
+Bảng h/κ ở trên là pattern. 9.1–9.3 là "vì sao". H-L1 và H-L2 là "đoán ở nơi chưa nhìn".
+
+## 23. Personal understanding artifact (khuyến nghị)
+
+Tự dẫn lại 9.1–9.3 trên giấy, khoảng một trang. Rồi tự trả lời: ở bước nào lập luận *có thể* sai trong plant thật?
+
+## 24. Self-check (tùy chọn)
+
+1. *(Recall)* Transient khác stationary thế nào? Cái nào tăng theo h?
+2. *(Understand)* Vì sao M0 có Δ̂ bị chặn, còn Δ thật tăng theo h?
+3. *(Apply)* Nếu s ≈ 0 thì ĥ\* thế nào? H-L1 nói gì về các điểm đó?
+4. *(Research)* Vì sao 1-NN là null công bằng ở đây, và vì sao nó dễ thua khi ngoại suy?
+5. *(Reviewer)* Margin narrow ở MV (DL-114) có thể chỉ là "MV có s > 0" không? Thí nghiệm nào phân biệt được?
+
+## 25. Lesson Gate (và thông tin Gate 4)
+
+- **Understanding** — sau lesson, bạn nên hiểu:
+  - cái gì còn sống sau L4.6–L4.8, và vì sao H-clip, H-sign rơi;
+  - cơ chế hai đồng hồ;
+  - vì sao predictor không vòng tròn;
+  - held-out bằng ngoại suy theo h/κ;
+  - sáu phần của một hypothesis;
+  - điều gì phải vào mục 7.
+- **Recommended execution:** Part A (bạn quyết) → B → C → D → commit trước held-out. Nếu chỉ còn ít thời gian, tối thiểu là Part A và D cho H-L1, cộng Part C.
+- **Scientific dependency:** **Gate 4** cần file freeze đã commit, các ngưỡng ⟨ ⟩ do bạn chọn, và mục 7 đầy đủ. Nếu muốn claim cơ chế cho H-L2, cần Part B. Mọi claim về "telemetry tươi làm hại twin" cần D22, nên nằm ngoài Gate 4.
+- **Can I study the next lesson?** Phase 4 kết thúc ở đây; tiếp theo là Gate 4 và closeout, rồi Phase 5. Tôi có thể dạy Phase 5 ở mức mục tiêu bất cứ lúc nào. Nhưng *thực thi* Phase 5 chỉ có nghĩa sau khi file freeze được commit.
+
+Sửa ở §0.1 vẫn còn treo: §0.1 trong file 1137 dòng tôi soạn đã lỗi thời so với repo (L4.1–L4.8 đã xong; repo có bản `PHASE_4_v2.md` rút gọn của executor). Khi bạn muốn, tôi có thể in ra màn hình bản cập nhật §0.1 và L4.9 để bạn dán vào repo.
