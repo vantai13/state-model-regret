@@ -379,3 +379,17 @@ Scalingrates×r,time×s,Q×rs,cost×rs²khôngrealismvalidation.0simulation/CF/s
 SUBCFpark,D22nativeF/Vnull,G1/Understandinggiữ. ScopingcompletekhôngfullL48/
 Gate4PASS;L49cóthểchuẩnbịmodel-conditionedprediction,khôngfreezeP-cliptheorem/
 S_clipidentitythànhnovelmagnitudepredictor.Reportresults/lessons/l4_8_v2/report.md.
+
+L4.9(v2)/31-10(DL121):thresholdchoice834b4074trướcnewpredictor. T09 sửa
+uniformfinitehstar/unboundedstate/sign-vs-actionties;khônghstar/exactzero.
+86discoverykeys h/κ≥30:rho.549016,MedAE5.267210vs1NN1.517567pp;41rawflags
+giữ/no-flag45vẫnthua;4meanchecks diff0. TácgiảchọnH-L1primary/H-L2exploratory
+khôngfit sauPartB;giữ.7/30%,bỏH3.20new/962fulltestsPASS90.36s;giữfirst
+adapterfailure1FAIL/961PASS+emptydiscovery,fix18234ac7. Planfaa4f848trước12
+parameter-onlyforecasts,0newheldoutM1truth. N12freshkeys ratios320/640,
+3levels6404/3204/6402,futurecap8CPUh;khôngđổimẫusốREADY/N/refineđểcứu.
+H1≤.5%≥90%finitepanel,khôngpopulationCI/novelty.3warmh16complete;h32cal
+(7,6,.3,.5,32,0)SIGXCPU60.552639CPU-s,khôngcompletedrow/retry. **PartCpartial,
+feasibilityUNRESOLVED/Gate4chưaGO**. Replay26slices24trends2exceptions.
+SUB66/CF270park,R09R10sealed,D22nativeDEFERRED,P0V10/L8/UnderstandingOPEN;
+khôngPhase5run. Reportresults/lessons/l4_9_v2/report.md;plan+lockởnotes/design/.

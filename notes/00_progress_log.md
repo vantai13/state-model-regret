@@ -7,6 +7,15 @@ cho vị trí mới. Các trạng thái HOLD/GO và số tests bên dưới là 
 [Bản hiện hành](../README.md) · [DL-044](02_decision_log.md#dl-044--mở-phase-3-điều-kiện-còn-mở-và-bản-hiện-hành-2026-10-27).
 `00_history.md` giữ nguyên vì là lịch sử các thế hệ nghiên cứu.
 
+## L4.9(v2) — freeze trước truth,31/10/2026,DL-121
+
+Tác giả chọn H-L1 primary/H-L2 exploratory không fit sau PartB thua1NN:
+86/86,rho.549016,MedAE5.267210vs1.517567pp.20new/962fulltestsPASS; failed
+adapter attempt giữ nguyên. Planfaa4f848 trước12parameter-only forecasts,
+0trueheldoutM1. H32timebox60.55CPU-s chưa complete nên feasibility/Gate4
+còn mở; khôngPhase5/SUB/CF run. [Report](../results/lessons/l4_9_v2/report.md),
+[plan](design/analysis_plan_v1.md).
+
 ## L3R.7 — tạm dừng theo yêu cầu tác giả (30/10/2026, DL-094)
 
 Native05 đãHOLD:286COMPLETED/2UNRESOLVED,6972.840511CPU-s/183.691MiB;

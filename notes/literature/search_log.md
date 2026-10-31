@@ -522,3 +522,13 @@ numericdomainvẫngiữUNRESOLVED,khôngIN/OUTgiả. Dừngbounded3nguồncũ; k
 tìmvôhạnđểépPASS. KhôngđổiExcel/catalog26/authorlevels/envelopev1.
 [Access/reading record vàrawmetadata](../../results/lessons/l4_8_v2/literature/review.json),
 [source review/claim boundary](../realism/L4_8_source_review.md).
+
+## 31/10/2026 — L4.9, local-note review only
+
+Đối chiếu local P13 note đã có để tránh gán expansion của Markov routing
+thành theorem Lévy của paper; không mở primary PDF/metadata/web mới trong
+lượt này.0queries/0records screened/0new sources/0downloads, không lookup
+hoặc field coverage; catalog/Excel/author levels giữ nguyên. T09 ghi rõ các
+stability/moment/conditional-state dependencies chưa chứng minh. Dừng ở
+claim boundary đủ dùng cho finite-panel freeze; không claim primary reread,
+paper replication hoặc novelty. [T09](../theory/T09_stationary_dominance_limits.md).

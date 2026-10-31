@@ -1,5 +1,11 @@
 # Thiết kế lưới — trạng thái
 
+Cập nhật31/10/2026: [analysis_plan_v1.md](analysis_plan_v1.md) và
+[lock](analysis_plan_v1.lock.json) freeze evaluation tương lai L4.9(v2),
+H-L1 primary/H-L2 exploratory trên12 exact keys ngoại suy. Đã lưu predictions
+chỉ từ parameters,0 true held-out outcomes; Gate4/compute feasibility chưa đóng.
+[Report](../../results/lessons/l4_9_v2/report.md). Các grids lịch sử bên dưới giữ nguyên.
+
 | File | Trạng thái | Ghi chú |
 |---|---|---|
 | [grid_v1.md](grid_v1.md), [grid_v1.json](grid_v1.json) | **LOCKED tại tag `contract-v1`, có lỗi thiết kế đã biết** ([DL-026](../02_decision_log.md)) | M01–M12, S01 và cả ba ô calibration bị Stay áp đảo theo từng path; mọi contrast bằng 0 theo cấu trúc. **Không dùng cho A01/A04.** File giữ nguyên byte vì report CDE đã ghi SHA-256 của nó làm input |

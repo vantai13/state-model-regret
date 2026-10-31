@@ -1071,3 +1071,17 @@ projections. Khôngmởrawcost/newcontrasts/CF/R09R10 hoặcchọnnewbox. Suppor
 Anchor10Gb/s,tau10msminhhọa,normalizedranges/designworkscale đãthấy;
 khônglàempiricalmeasurements hoặcheldout. SUB/CFvẫnpark,G1/D22/Understanding
 giữ. [Report](../results/lessons/l4_8_v2/report.md),[summary](../results/lessons/l4_8_v2/projection/summary.json).
+
+## L4.9(v2) —31/10/2026, disclosure trước truth
+
+Input đã chứa h/κ exploration230/338/284/248/36raw rows và6slices thiếu IDs;
+replay bỏ metric sealed XA097 trước conversion (bin2chỉ337metrics). Scan rộng
+26slicesκ.1/age1 có24trends/2exceptionsλA=λB=8.5. Thresholdchoice834b4074
+trước86newpredictoroutputs. Đã thấy rho.549016/MedAE5.267210vs1NN1.517567,
+41rawflags/4meanreplays/1.231nullrefs; failed adapter trước row đầu giữ log.
+RoleH2exploratory do tác giả chọn sau PartB; không ngụy trang pre-discovery.
+3savedh16replays;newcalibration(7,6,.3,.5,32,0),ratio106.67,SIGXCPU60.55s,
+chưa complete,khôngđưa vào null/heldout. Planfaa4f848 trước12parameter-only
+forecasts; đã xem predicted stationary/M0 values, **0finite-hM1truth** vàkhông
+đổi panel theo forecast. KhôngCF/R09/R10outcomes;SUB66/CF270park.
+[Plan§7](design/analysis_plan_v1.md),[report](../results/lessons/l4_9_v2/report.md).

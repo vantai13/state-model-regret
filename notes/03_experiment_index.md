@@ -122,3 +122,13 @@ validitykhôngempiricalvalidation. RealisticdomainUNRESOLVED,giữoldv1labels.
 Khôngnewhypothesis,clipretry/SUBresume;L49chỉmodel-conditionedpreparation.
 [Report](../results/lessons/l4_8_v2/report.md),[CSV](../results/lessons/l4_8_v2/projection/illustrative_projection.csv),
 [config](realism/declared_domain_l4_8.json).
+
+## L4.9(v2) —31/10/2026
+
+`experiments/P4_09_stationary/`:mean-only predictor/fixed1NN/finitepanel score,
+0fit.86discovery,rho.549016/MedAE5.267210vs1.517567pp;20new/962fulltestsPASS.
+3warmh16replays complete,h32calibration SIGXCPU60.55CPU-s,chưa fullcost.
+Planfaa4f848 trước12parameter-only forecasts,0heldoutM1. H-L1primary/H-L2
+exploratory theo tác giả;8CPUh future cap,feasibility/Gate4 chưa đóng.
+[Report](../results/lessons/l4_9_v2/report.md),[plan](design/analysis_plan_v1.md),
+[CSV](../results/lessons/l4_9_v2/discovery/predictions.csv).

@@ -2085,3 +2085,26 @@ Gate4. L4.9cóthểchuẩnbịmodel-conditionedprediction;applicationclaims cầ
 measurementbridge đúngschema,khôngchỉtheorem/saturationidentity.
 [Report](../results/lessons/l4_8_v2/report.md),[domain](realism/declared_domain_l4_8.json),
 [source review](realism/L4_8_source_review.md).
+
+### DL-121 — L4.9(v2): H-L1 primary, dừng fit H-L2, freeze trước truth (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Tác giả chọn thresholds đã sửa, lưu nguyên
+văn ở `results/lessons/l4_9_v2/author_choice.json`, commit834b4074 trước
+predictor mới. T09 sửa pointwise O(1)→uniform h* và exact ties; không đổi
+frozen plant hoặc nhận author-self proof. H-L1≤.5% trên≥90% finite panel;
+không h*/exact finite zero. Giữ H-L2≥.7/MedAE giảm30%, bỏ H-L3.
+
+Part B86/86:rho.549016,MedAE5.267210vs1NN1.517567pp;41rawflags giữ/no-flag45
+vẫnthua.4meanprofilechecksdiff0. Tác giả chọn **H-L1 primary; H-L2 exploratory,
+không fit thêm** sau PartB, trước truth; không sửa predictor hoặc thresholds.
+20new/962fulltestsPASS90.36s; giữ first adapter error1FAIL/961PASS/empty attempt.
+
+Planfaa4f848 trước12parameter-only predictions(2.309191CPU-s),0held-outM1.
+N12freshkeys ratios320/640,levels6404/3204/6402,futurecap8CPUh,khôngđổiN/
+mẫu số READY/refineđểcứu. Disclosure đủ SV FAIL/10SUB/L46–48/inputtable/PartB;
+replay26slices24trends/2exceptions.3warmh16benchmarks complete; h32calibration
+ratio106.67 SIGXCPU60.552639CPU-s, khôngcompletedrow/retry. **PartCpartial,
+feasibilityUNRESOLVED/Gate4chưaGO**,khôngPhase5run. SUB/CFpark,D22native
+DEFERRED,P0V10/L8/Understanding giữ; khôngnovelty/empiricalvalidation.
+[Report](../results/lessons/l4_9_v2/report.md),[plan](design/analysis_plan_v1.md),
+[lock](design/analysis_plan_v1.lock.json).

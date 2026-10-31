@@ -2,7 +2,26 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — L4.8 scope: use case/domain đã ghi; empirical realism cònUNRESOLVED (DL-120).**
+**Hiện tại — L4.9 (v2): đã freeze H-L1 primary; H-L2 exploratory (DL-121).**
+
+Tác giả chọn GS|M1/Cref≤0,5% ở≥90% panel, bỏ finite uniform h*/exact zero;
+giữ ngưỡng H-L2 nhưng dừng fit theo stop rule. Discovery86/86: Spearman
+0,549016; MedAE stationary5,267210 pp so1-NN1,517567 pp. H-L2 chưa có
+predictor đủ tốt trên discovery, không nâng thành confirmatory claim.
+20 new/962 full tests PASS; 4 mean-profile comparisons có sai khác0.
+
+Plan đã commit trước12 parameter-only predictions; **0 outcome M1 held-out**.
+Panel cố định12 keys, h/κ320/640, ba numerical levels, future cap8 CPU-giờ.
+3 cached h16 benchmarks hoàn tất; h32 bị SIGXCPU tại60,55 CPU-s, chưa đo
+full cost. **Feasibility/Gate4 chưa đóng**, chưa chạy Phase5; SUB/CF vẫn park.
+
+[Report và commands](results/lessons/l4_9_v2/report.md) ·
+[Analysis plan](notes/design/analysis_plan_v1.md) ·
+[Discovery CSV](results/lessons/l4_9_v2/discovery/predictions.csv) ·
+[Dự đoán đã lưu, chưa có truth](results/lessons/l4_9_v2/future_predictions.csv) ·
+[Plot](results/lessons/l4_9_v2/discovery_predictions.png).
+
+**Snapshot L4.8 scope: use case/domain đã ghi; empirical realism cònUNRESOLVED (DL-120).**
 
 Chọn narrativeDC-inspiredone-shotaggregatesteering trong frozenplant;không
 nhậnproductioncontroller. Reread3nguồncũ,15targetedPDFpages,0newpaper/PDF.
