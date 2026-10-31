@@ -274,3 +274,19 @@ Report results/lessons/l4_5/report.md; completion notes/phases/L4_5_completion.j
 
 
 P4-A1/31-10(DL106–111):tácgiảủyquyềnAIsoạnchoices/forecasts,khôngself-writing;C0ec5fd62/diagnosis1a8d83a/choices195672a trướcpreregsd1c2879/7c7c956/bf767f2.842fullPASS88.76s,80targetedPASS;giữfrozen source/history/codeA1saufreeze.1566newevaluatelevels/7077.098292evalCPU-s,3controlsPASS. L44fullHOLD16/90:8PASS/8NR,SH8/72>10%,19observed/71NOT_RUN,norho;19native-ready nhưngbaselineR1/widthblock. SV497complete496PASS/1NR(P43_0605),448/449plusREADY+48minusREADY;rho1% trênREADYsubset,GSmedian.971841%→1.021545%,medianΔL00+.000505476packet·s,narrowfalse.5mapclassflips/19classR6unknown/0pilotflags;GSuncertainty9/449 khôngp-hatbox. ExtraδL00diagnostic chỉfailcaseđãNR,khôngđổicriterion. SUB5complete4nativeReady,max164.405CPU-s,đềxuấtκ>=.05 chocoverageL4.7tiếp;1pointfailR1K/dt/width,dùCrefdtcả5đạt. Rescore/export/6receiptSHA PASS.0CF/sealed/boxcounts;cardv2/F1/ngưỡng giữ;F1baselineHOLD/combinedSUB/candidate_readiness/L45PartB/cards/Gate4/P0V10/L8/UnderstandingOPEN. Reportresults/lessons/p4_a1/report.md;completionnotes/phases/P4_A1_completion.json. KhôngrerunA1 đểcứuHOLD;muốnsửacode/metriccầnprereg/package mới.
+
+
+P4-A2/31-10 (DL112–113): diagnosis19points/95pairs tái lập8failures,W3/K6/D3,
+mỗi1ρ,L00/GS_theta. Choices/forecastAI theoủyquyền a6f69ca, preregb5ae553 trước
+engine; khôngauthor-self. 28targeted/870fullPASS1.48/86.83s; đủ8×7+1control=57
+levels,1280.950894evalCPU-s gồmcontrol16.556818,cap3h. ControlPASS,replay24/24,
+0BUG/mismatch/executionfailure; auditFraction độclậpPASS,14source/80historySHA
+khớp,A1/SV/SUBgiữnguyên. Native8/8mọibậc;baselineREADY0→2→0,firstREADY2/8:
+P44_006/P44_007 ở1280/4 rồi failK tại1280/8(.269075/.264282%Cref). W3→3→3,
+K6→3→6,D3→1→4;0ρfailmới. ÁpB1_CLAIM_LEVEL_ROBUSTNESS vì2≤4đúngprereg;
+forecast4READY/ρmớisai,0BUG/replayđúng;khôngphysicalH_cliffproof. Rawflags37/57
+giữreport-only,khôngBUG/leanreadinessfail. F1HOLDchờA3package/preregfull90,
+3levelρ/readingđồngthuận;stable3levels khôngcertificate/perpointR1. ChưaA3/ρ*/
+regionalmedians/CF/sealed/newcoordinates/boxcounts. G1/cardv2/contract/ngưỡng,
+SV/SUB/P0V10/L8/Understanding/L45PartB/readiness/Gate4giữnguyên. Report:
+results/lessons/p4_a2/report.md;completion notes/phases/P4_A2_completion.json.

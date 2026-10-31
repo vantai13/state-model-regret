@@ -524,3 +524,21 @@ Preflightexit2/entrypointexit1expectedBLOCKED, realboxes/p-hat/engine/CF mới0.
 Thiếu native/baseline/rhopolicy/bounds đúngcandidate; không chọn0/1/2card hoặc
 cardv3/CFv3budget/Gate4. G1/F1/L43L44HOLD giữ. [Report](../results/lessons/l4_5/report.md) ·
 [Completion](phases/L4_5_completion.json).
+
+
+## P4-A2 — probe hoàn tất, B1; F1 vẫn HOLD (31/10/2026)
+
+Đã hoàn thành diagnosis, hardening, choices/forecast ủy quyền AI và prereg
+b5ae553 trước engine. 28 targeted/870 full tests PASS (1,48/86,83 s).
+Thực chạy đủ 8×7+1 control =57 levels, 1.280,950894 CPU-s; control PASS,
+replay 24/24, 0 BUG/mismatch. Audit độc lập PASS, 14 source/80 history hashes
+khớp, A1/SV/SUB nguyên trạng.
+
+Baseline READY 0→2→0 qua 640/4→1280/4→1280/8; P44_006/P44_007 chỉ READY
+ở bậc giữa. First-READY 2/8 áp B1 đã khóa (DL-113); W3→3→3/K6→3→6/D3→1→4,
+0 failing ρ mới. Forecast AI 4 READY/ρ mới không khớp; không physical proof.
+Chưa A3/ρ*/regional medians; F1 HOLD chờ A3 full90 theo B1. G1/human gates/
+L4.5 Part B/readiness/Gate4 còn mở; 0 CF/sealed/box outcomes mới.
+[Report](../results/lessons/p4_a2/report.md) ·
+[Decision](../results/lessons/l4_4/a2_probe/decision.json) ·
+[Completion](phases/P4_A2_completion.json).

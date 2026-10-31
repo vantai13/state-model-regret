@@ -2,7 +2,24 @@
 
 Tác giả: **Doan Van Tai**.
 
-**Hiện tại — P4-A1, 31/10/2026: đã chạy engine thật; F1 baseline vẫn HOLD.**
+**Hiện tại — P4-A2, 31/10/2026: probe hoàn tất, nhánh B1; F1 baseline vẫn HOLD.**
+
+Đã chạy đủ 8 điểm × 7 levels và một control u=0: 57 evaluation calls,
+1.280,950894 CPU-s, dưới cap 3 CPU giờ. Control PASS, 24/24 row tái lập A1 khớp,
+0 BUG/mismatch; audit độc lập PASS. Có 2/8 điểm từng READY, với số READY theo
+ba bậc là **0 → 2 → 0**. Hai điểm P44_006/P44_007 lại fail ở bậc cuối.
+Theo ngưỡng khóa trước run, áp **B1_CLAIM_LEVEL_ROBUSTNESS**; chưa chạy A3,
+chưa chọn ρ* hoặc tính regional medians. 870 full tests PASS (86,83 s).
+
+A3 cần prereg riêng và full 90 điểm, so ρ*/luật đọc giữa ba mức theo B1.
+SV/SUB giữ nguyên; G1, L4.5 Part B, Gate 4, P0-V10/L8/Understanding còn mở.
+[Báo cáo A2](results/lessons/p4_a2/report.md) ·
+[Decision](results/lessons/l4_4/a2_probe/decision.json) ·
+[CSV 8 điểm](results/lessons/p4_a2/point_summary.csv) ·
+[Verification](results/lessons/p4_a2/verification.json) ·
+[Completion](notes/phases/P4_A2_completion.json).
+
+**Snapshot P4-A1, 31/10/2026: đã chạy engine thật; F1 baseline vẫn HOLD.**
 
 842 full tests PASS (88,76 s), 3 controls PASS; rescore, export và 6 bộ receipt khớp.
 L44 full dừng đúng cap ở 16/90 điểm (8 PASS, 8 NOT_READY); tổng 19 điểm đã quan sát

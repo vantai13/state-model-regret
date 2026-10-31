@@ -1008,3 +1008,18 @@ Sau choices195672a vàpreregsd1c2879/7c7c956/bf767f2, đã gọi1566evaluateleve
 ## P4-A2 diagnosis — 31/10/2026, trước amendment/probe
 
 Đọc hướng dẫn mới và A1 artifacts đãcommit:19điểm/95cặp,8failingpairs/8points,mỗiđiểm1rho,W3/K6/D3,L00/GS_theta. Đã thấy bảng8điểm và25passingcliffs>5% tronginput trước tái tính.0enginecalls,0ρselection/regionmedians,0CF/sealed/boxcounts. Diagnosticjumpmedian sửa upper-middle thành median chuẩn, phương pháp ghiJSON. Không gọi cap8/72 là estimateprevalence.
+
+
+## P4-A2 sau probe — 31/10/2026
+
+Prereg b5ae553 trước 57 engine evaluations (8 điểm ×7 levels và một control u=0).
+Đã xem đủ outputs và decision: số baseline READY theo bậc 0→2→0, first-READY
+2/8; nhánh B1 theo ngưỡng đã khóa. P44_006/P44_007 không giữ READY ở bậc cuối;
+không failing ρ mới. Đã thấy W3→3→3/K6→3→6/D3→1→4, chỉ L00/GS_theta vượt
+refinement. Raw arithmetic False/validity flags 37/57 giữ riêng; 0 BUG/mismatch.
+Replay 24/24 và audit độc lập PASS, tổng evaluation CPU 1.280,950894 s gồm control.
+
+Không chọn ρ*, không tính R_M/GS regional medians, không gọi A3/A1 rerun hoặc
+CF/R09/R10/new coordinates/box outcomes. Forecast AI được chấm cả phần sai;
+không gán author-self hoặc Understanding. SV/SUB giữ nguyên; F1 HOLD chờ A3
+validity, G1 và các human gates còn mở. Report `results/lessons/p4_a2/report.md`.

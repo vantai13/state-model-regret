@@ -110,3 +110,17 @@ Patch gốc thiếu newline cuối được chuẩn hóa; 72targeted gốc PASS.
 ## P4-A2 #25 — diagnosis, ghi sau thao tác nhưng trước amendment/probe (31/10/2026)
 
 Đã thấy bảng8điểm củainput; tái lập đúngW3/K6/D3,mỗiđiểm1rho,19observed/95pairs; source/hashes lưu results/lessons/p4_a2/l44_diagnosis.json. Nới tolerance:không chọn; probe toàn8theothangfrozenR3:tiếp tục. Chưa biết H_res/H_cliff đúng; khôngtựsuy atom cơchế từcliff trênlưới.0enginecalls/ρselection/regionmedians/CF/sealed/boxcounts. SV/SUBvàA1giữ nguyên.
+
+
+## P4-A2 #26 — sau probe, áp đúng nhánh đã khóa (31/10/2026)
+
+Ghi sau thực thi, không prereg hồi tố. DL112/choices a6f69ca và prereg b5ae553
+khóa ngưỡng ≥7 resolves/≤4 B1/5–6 inconclusive trước engine. Chạy đủ 8×7+1
+control; 2/8 từng READY, 0→2→0 theo bậc. Áp B1 vì 2≤4; không chọn lại nhánh,
+không thêm mức hoặc nới tolerance sau outcome. P44_006/P44_007 READY rồi fail
+ở bậc cuối được báo đầy đủ. Forecast AI 4 điểm và có ρ fail mới không khớp.
+
+0 BUG/mismatch; replay 24/24, source/history/audit PASS, CPU 1.280,950894 s.
+Không ρ*/regional medians/A3/CF/sealed/new coordinates/box counts. A3 phải là
+package/prereg riêng với full 90 keys và định nghĩa B1 đã khóa; stable ba mức
+không là certificate/per-point R1. F1 HOLD, SV/SUB/G1/human gates giữ nguyên.

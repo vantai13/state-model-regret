@@ -1887,3 +1887,37 @@ Diagnosis885401d:19points/95pairs,8fails mỗi1rho,W3/K6/D3,L00/GS_theta;upper-m
 Probe đủ8×7level theoR3(6404→12804→12808),mọirho,mỗi main có2coarseneighbors,khôngearlystopREADY. Controlu0finest,1worker/BLAS1;case3600CPU-s/4800wall-s/3GiB,overall3CPUh tínhuniqueeval gồmcontrol,checks giữađiểm. Replay24savednumerical/error/baseline fields+reparsedbits,holdhistSHA;BUG/replay/guard/execution/cap thìdừng vàkhôngdecidepartial.
 Ngưỡng>=7/8LADDER_RESOLVES;<=4/8B1_CLAIM_LEVEL_ROBUSTNESS;5-6INCONCLUSIVE,DLmớinếutiếp. B1địnhnghĩađủtrongamendment: A3riêng full90,giữmọiđiểm,3levelρ/reading phải trùng;khôngtươngđươngcertificate/R1perpoint vàkhôngsửaprimarycard/scorer. A2chỉkhóanhánh,chưachạyA3/rho/regionalmedians.
 ForecastAI:4/8READY,nghiêngH_cliff trongfinite ladder,K dễcảithiệnhơnW,cóít nhất1rho failuremới;0BUG,replay24/24. SourceA1/SV/SUB/contract/PC/ngưỡng giữ;G1/P0V10/L8/UnderstandingOPEN,0CF/sealed/boxcounts.
+
+
+### DL-113 — Kết quả A2 áp nhánh B1 đã khóa trước run (31/10/2026)
+
+Người phụ trách: **Doan Van Tai**. Ghi sau thực thi, không backdate thành prereg.
+Choices/forecast do AI soạn theo ủy quyền; không tác giả tự viết/human review.
+Prereg b5ae553 trước control/probe; 870 full tests PASS 86,83 s, 28 targeted PASS
+1,48 s. Đủ 8×7 discovery levels +1 control =57 calls, 1.280,950894 evaluation
+CPU-s gồm control 16,556818 s, dưới cap 10.800 s. Control PASS, replay 24/24 saved
+numerical fields/significant bits parse lại khớp, 0 BUG/mismatch/execution failure.
+
+Native readiness 8/8 ở cả ba bậc; baseline toàn bộ ρ cùng READY lần lượt 0/8,
+2/8, 0/8. P44_006/P44_007 READY tại 1280/4 nhưng fail K trở lại tại 1280/8,
+chênh L00 tương ứng 0,269075%/0,264282% Cref >0,25%. First-READY vẫn đếm 2/8
+theo luật đã khóa; không che kết quả 0 READY ở bậc cuối. W3→3→3, K6→3→6,
+D3→1→4; lỗi refinement vẫn chỉ L00/GS_theta. Không có failing ρ mới.
+
+Vì 2≤4, quyết định đúng DL-112 là **B1_CLAIM_LEVEL_ROBUSTNESS**. F1 baseline
+vẫn HOLD chờ A3 validity. A3 cần package/prereg riêng và full 90 keys, giữ mọi
+điểm; cùng ρ* và cùng quyết định đọc trên 640/4, 320/4, 640/2 mới được gọi
+aggregate stable. Đây không tương đương certificate hoặc R1 per-point; ba mức
+có thể cùng bias. A2 chưa chạy A3 hoặc tính ρ*/regional medians.
+
+Forecast AI 4 READY sai (thực tế 2); dự đoán có ρ fail mới sai (0). K giảm ở
+bậc giữa nhưng không bền ở bậc cuối; W giữ nguyên. Dự đoán 0 BUG/24 replay
+khớp. Kết quả phù hợp hướng nghiêng H_cliff trong finite ladder, không physical
+mechanism proof hoặc kết luận mọi refinement sâu hơn đều thất bại.
+
+Audit Fraction độc lập PASS, 14 source +80 history SHA khớp, ba preregs A1/SV/SUB
+giữ nguyên. Raw arithmetic False/validity flags 37/57 vẫn được báo riêng theo A1,
+không đồng nghĩa BUG hoặc lean readiness FAIL. G1, card v2/contract/ngưỡng,
+SV/SUB giữ nguyên; 0 CF/sealed/new coordinates/box counts. L4.5 Part B/combined
+SUB/readiness/Gate 4/P0-V10/L8/Understanding còn mở. Report:
+`results/lessons/p4_a2/report.md`; completion `notes/phases/P4_A2_completion.json`.

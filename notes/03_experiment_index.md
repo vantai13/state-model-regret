@@ -70,3 +70,17 @@ Phase4 thực thi HOLD tới P0-V10 và contract mới khóa; [proposal v1.3](01
 TheoDL106–111 vàủyquyềnAI,khôngauthor-selfprediction. Source `experiments/P4_A1/`, ba preregs riêng trướcoutcomes.
 L44_A1:HOLD16/90stage,8PASS/8NR;19observed/no rho. L43_A1_SV:497/497,496PASS/1NR,rho1% trên448READYplus,baseline khôngnarrow. SUB_PROBE:5/5complete,4nativeReady,max164.405CPU-s,đềxuấtκ>=.05 đểkiểmcoverage tiếp.
 842testsPASS;rescore/export/receiptsPASS;0CF/sealed/boxcounts. Report `results/lessons/p4_a1/report.md`, CSV `measured_runs.csv`, completion `notes/phases/P4_A1_completion.json`. F1baselineHOLD/L45PartB/combinedSUB/readiness/Gate4/G1/P0V10/L8/Understanding giữ theo completion.
+
+
+## P4-A2 — 31/10/2026, probe R3 và nhánh B1
+
+Source: `experiments/P4_A2/`; prereg `runs/L44_PROBE/prereg.json`, commit b5ae553
+trước control/probe. Diagnosis 19 điểm/95 cặp, 8 failures; chạy đủ 8×7 levels
+và control1280/8. Control PASS, 24/24 replay, 0 BUG/mismatch, 1.280,950894 CPU-s.
+870 full tests PASS. Baseline READY 0→2→0, từng READY2/8; nhánh
+B1_CLAIM_LEVEL_ROBUSTNESS theo DL112–113. Chưa A3, ρ* hoặc regional medians.
+F1 vẫn HOLD, SV/SUB và G1/human gates giữ nguyên; 0 CF/sealed/box outcomes.
+[Report](../results/lessons/p4_a2/report.md) ·
+[CSV](../results/lessons/p4_a2/point_summary.csv) ·
+[Decision](../results/lessons/l4_4/a2_probe/decision.json) ·
+[Completion](phases/P4_A2_completion.json).
