@@ -55,6 +55,31 @@ def admissible(params):
             and h / kappa <= MAX_RATIO and (h * 120).denominator == 1)
 
 
+def actions(A, B):
+    """Mechanism read-out of the four cells (added after sobol4; rows of earlier stages lack it): for current
+    (S1) and old (S0) states, the population share where the true gap d = dA + dB and the mean-rollout gap
+    h = hA + hB say Switch (< 0), the share where they disagree, and the population means of d and h. The mean
+    model uses the engine's certified-zero rule. Pairs are processed in row blocks to bound memory."""
+    import numpy as np
+    out = {}
+    for kind in ('current', 'old'):
+        a, b = A[kind], B[kind]
+        acc = dict(true_switch=0, mean_switch=0, disagree=0, E_true_gap=0, E_mean_gap=0)
+        for s in range(0, len(a['w']), 512):
+            sl = slice(s, s + 512)
+            w = a['w'][sl, None] * b['w'][None, :]
+            d = a['d'][sl, None] + b['d'][None, :]
+            cert = (a['zero_h'][sl, None] & b['zero_h'][None, :]) | (a['sat_h'][sl, None] & b['sat_h'][None, :])
+            h = np.where(cert, 0, a['h'][sl, None] + b['h'][None, :])
+            acc['true_switch'] += (w * (d < 0)).sum()
+            acc['mean_switch'] += (w * (h < 0)).sum()
+            acc['disagree'] += (w * ((d < 0) != (h < 0))).sum()
+            acc['E_true_gap'] += (w * d).sum()
+            acc['E_mean_gap'] += (w * h).sum()
+        out[kind] = {k: str(v) for k, v in acc.items()}
+    return out
+
+
 def run_case(args):
     case, level, path = args
     if path.exists():
@@ -62,12 +87,14 @@ def run_case(args):
     resource.setrlimit(resource.RLIMIT_CPU, (3600, 3605))
     from experiments.P4_04_baseline.evaluate import evaluate_level
     from experiments.R3R_08_population_numerics import population
-    sides = []
+    sides, raw = [], []
     original = population.side
 
     def record(*a, **k):
         result = original(*a, **k)
         sides.append({n: str(result[n]) for n in ('mean', 'mean_error') if n in result})
+        if len(raw) < 2:
+            raw.append(result)
         return result
     population.side = record
     try:
@@ -76,7 +103,7 @@ def run_case(args):
         out.update(id=case['id'], parameters=case['parameters'], level=list(level), status='COMPLETED',
                    cpu=row.get('call_cpu_seconds'), baseline_sanity_pass=row.get('baseline_sanity_pass'),
                    baseline=[{k: b[k] for k in ('rho', 'L00', 'L10')} for b in row.get('baseline', [])],
-                   sides=sides[:2], error=row.get('error'))
+                   sides=sides[:2], actions=actions(*raw), error=row.get('error'))
     except Exception as exc:
         out = dict(id=case['id'], parameters=case['parameters'], level=list(level), status='UNRESOLVED',
                    error=f'{type(exc).__name__}: {exc}')

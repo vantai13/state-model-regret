@@ -53,10 +53,43 @@ def sobol(n, rate_step=None, kappa_grid=False, prefix='B'):
     raise SystemExit(f'only {len(cases)} admissible points')
 
 
+def grid(prefix, rows):
+    """rows of (lamA, lamB, u, kappa, h); drops inadmissible/forbidden/duplicate points, reports how many."""
+    bad, cases, seen, dropped = forbidden_keys(), [], set(), 0
+    for lamA, lamB, u, kappa, h in rows:
+        params = [str(F(lamA)), str(F(lamB)), str(F(kappa)), str(F(u) / 2), str(F(h)), '0']
+        if not admissible(params) or key(params) in bad or key(params) in seen:
+            dropped += 1
+            continue
+        seen.add(key(params))
+        cases.append(dict(id=f'{prefix}{len(cases):04d}', parameters=params))
+    print(f'{prefix}: {len(cases)} kept, {dropped} dropped')
+    return cases
+
+
+def ratios(n, lo=1, hi=160):
+    return [10 ** (math.log10(lo) + i * math.log10(hi / lo) / (n - 1)) for i in range(n)]
+
+
+# hslice (designed after sobol4 showed a class pattern ordered by x = (lamB - lamA)/u at large h/kappa):
+#   lamA 13/2, u 3/2, lamB 6..8 (x = -1/3..1), kappa .1 and .2, 16 log-spaced h/kappa in [1, 160].
+# xslice: lamA + lamB = 27/2 fixed, u in {1, 2}, lamB on a 1/16 lattice (x step 1/16 or 1/32), kappa .1,
+#   h/kappa in {50, 150}: locates the mean-model action boundary in x.
+SLICES = {
+    'hslice': lambda: grid('H', [(F(13, 2), lamB, F(3, 2), kappa, max(F(1, 120), snap(F(kappa) * F(r), F(1, 120))))
+                                 for lamB in (6, F(25, 4), F(13, 2), F(27, 4), 7, F(29, 4), F(15, 2), 8)
+                                 for kappa in (F(1, 10), F(1, 5)) for r in ratios(16)]),
+    'xslice': lambda: grid('X', [(F(27, 2) - lamB, lamB, u, F(1, 10), F(r, 10))
+                                 for u in (1, 2) for r in (50, 150)
+                                 for lamB in (F(6 * 16 + j, 16) for j in range(0, 25))]),
+}
+
+
 def main():
     stage = sys.argv[1]
     n = int(sys.argv[2]) if len(sys.argv) > 2 else 8192
     cases = ([dict(id=f'REF{i}', parameters=p) for i, p in enumerate(REF)] if stage == 'ref'
+             else SLICES[stage]() if stage in SLICES
              else sobol(n) if stage == 'sobol' else sobol(n, F(1, 4), True, 'Q'))
     path = OUT / 'cases' / f'{stage}.json'
     path.parent.mkdir(parents=True, exist_ok=True)
