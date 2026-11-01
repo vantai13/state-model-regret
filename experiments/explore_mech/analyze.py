@@ -34,7 +34,11 @@ def metrics(d):
              meanA=float(F(d['sides'][0]['mean'])) if d.get('sides') else math.nan,
              meanB=float(F(d['sides'][1]['mean'])) if d.get('sides') else math.nan,
              arith=bool(d.get('arithmetic_pass')), flags=';'.join(d.get('validity_errors') or []),
-             baseline_ok=bool(d.get('baseline')), host=d.get('host'), cpu=d.get('cpu'))
+             baseline_ok=bool(d.get('baseline')), host=d.get('host'), cpu=d.get('cpu'), x=float((lamB - lamA) / u))
+    for kind, tag in (('current', 'cur'), ('old', 'old')):
+        a = (d.get('actions') or {}).get(kind, {})
+        for name, short in (('true_switch', 'sw_true'), ('mean_switch', 'sw_mean'), ('disagree', 'dis')):
+            r[f'{short}_{tag}'] = float(a[name]) if name in a else math.nan
     if d.get('baseline'):
         L = {k: F(v) for k, v in d['losses'].items()}
         J1 = min(F(b['L00']) for b in d['baseline'])

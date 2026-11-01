@@ -82,6 +82,13 @@ SLICES = {
     'xslice': lambda: grid('X', [(F(27, 2) - lamB, lamB, u, F(1, 10), F(r, 10))
                                  for u in (1, 2) for r in (50, 150)
                                  for lamB in (F(6 * 16 + j, 16) for j in range(0, 25))]),
+    # pslice (designed after sobol4 suggested the R transition is ordered by P = (h/kappa)|delta|, not h/kappa):
+    #   lamA + lamB = 14, delta in {0, +-1/2, +-1, +-2}, u in {3/4, 3/2}, kappa in {.05, .2, .8},
+    #   P in {2, ..., 128} (delta = 0: h/kappa = P); h snapped to 1/120 and capped at 32 like sobol4.
+    'pslice': lambda: grid('P', [(7 - F(dl, 2), 7 + F(dl, 2), u, kappa, h)
+                                 for dl in (0, F(1, 2), -F(1, 2), 1, -1, 2, -2) for u in (F(3, 4), F(3, 2))
+                                 for kappa in (F(1, 20), F(1, 5), F(4, 5)) for p in (2, 4, 8, 16, 32, 64, 128)
+                                 for h in [max(F(1, 120), snap(kappa * p / (abs(dl) or 1), F(1, 120)))] if h <= 32]),
 }
 
 
