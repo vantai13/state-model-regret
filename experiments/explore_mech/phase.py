@@ -58,9 +58,47 @@ def facet(stage, rs, value, title, fname, cmap, vmin, vmax, mask=None, label='')
     plt.close(fig)
 
 
+def xmap(stage, rs):
+    """Added after the first sobol4 look: classes ordered by x = (lamB - lamA)/u and R ordered by
+    P = (h/kappa)|lamB - lamA|. Only regimes with S+M >= .5% are drawn; x is jittered by +-.012 for visibility."""
+    big = [r for r in rs if r['S'] + r['M'] >= .5]
+    x = np.array([(r['lamB'] - r['lamA']) / r['u'] for r in big])
+    x = np.clip(x, -2, 3) + np.random.default_rng(0).uniform(-.012, .012, len(big))
+    lhk = np.array([math.log10(r['h_kappa']) for r in big])
+    fig, axs = plt.subplots(1, 4, figsize=(20, 4.8), dpi=120)
+    panels = [('P_flip (M0 + state cũ chọn sai action)', [r['P_flip'] for r in big], 'viridis', 0, 1),
+              ('Γ/(S+M)', [r['Gamma'] / (r['S'] + r['M']) for r in big], 'RdBu_r', -.5, .5),
+              ('G_S, % C̄_ref (âm = state mới gây hại với M0)', [max(-5, min(5, r['G_S'])) for r in big], 'PuOr_r', -5, 5)]
+    for ax, (title, val, cmap, vmin, vmax) in zip(axs, panels):
+        sc = ax.scatter(x, lhk, c=val, cmap=cmap, vmin=vmin, vmax=vmax, s=5, linewidths=0)
+        fig.colorbar(sc, ax=ax)
+        ax.set_title(title, fontsize=9, loc='left')
+        ax.set_xlabel('x = (λB − λA)/u', fontsize=8)
+        ax.set_ylabel('log10 h/κ', fontsize=8)
+        for v in (0, .5, 1):
+            ax.axvline(v, color='#6b6b6b', lw=.6, ls=':')
+    ax = axs[3]
+    nz = [r for r in big if r['lamB'] != r['lamA']]
+    z = [r for r in big if r['lamB'] == r['lamA']]
+    sc = ax.scatter([math.log10(r['h_kappa'] * abs(r['lamB'] - r['lamA'])) for r in nz], [r['R'] for r in nz],
+                    c=[math.log10(abs(r['lamB'] - r['lamA'])) for r in nz], cmap='Blues', s=5, linewidths=0, vmin=-1, vmax=.5)
+    fig.colorbar(sc, ax=ax, label='log10 |λB − λA|')
+    ax.scatter([math.log10(r['h_kappa']) for r in z], [r['R'] for r in z], s=6, c='#d95f02', linewidths=0,
+               label='λA = λB (trục x là log10 h/κ)')
+    ax.legend(fontsize=7, loc='lower left')
+    ax.set_title('R theo P = (h/κ)·|λB − λA|', fontsize=9, loc='left')
+    ax.set_xlabel('log10 P', fontsize=8)
+    ax.set_ylabel('R = S/(S+M)', fontsize=8)
+    fig.suptitle(f'{stage}: {len(big)} regime có S+M ≥ 0,5% (a/μ = 0,6, c_sw = 0). Hình vẽ sau khi đã nhìn dữ liệu: '
+                 'mô tả, không phải kiểm chứng', fontsize=9, x=.01, ha='left')
+    fig.savefig(OUT / stage / 'phase_x.png', bbox_inches='tight')
+    plt.close(fig)
+
+
 def main():
     stage = sys.argv[1]
     rs = rows(stage)
+    xmap(stage, rs)
     big = lambda r: r['S'] + r['M'] >= .5
     facet(stage, rs, lambda r: r['R'], 'R = S/(S+M): tím = state chiếm ưu thế, cam = model chiếm ưu thế (chỉ khi S+M ≥ 0,5%)',
           'phase_R.png', 'PuOr', 0, 1, big, 'R')
