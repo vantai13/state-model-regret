@@ -97,6 +97,13 @@ SLICES = {
                                 for u in (F(1, 2), F(1), F(3, 2), F(2), F(5, 2))
                                 for step in [F(1, 16) if u <= 1 else F(1, 8)]
                                 for dl in (step * k for k in range(1, 100)) if dl / u <= F(3, 4)]),
+    # kslice (exploratory, after xstar showed graded instead of sharp mean-model actions at kappa = .5): how the
+    #   x-classes change as kappa/tau goes from .02 to 2. lamA + lamB = 27/2, u = 2, delta in {-1, 0, 1/2, 1, 3/2}
+    #   (x = -1/2, 0, 1/4, 1/2, 3/4; quarter lattice), 13 log-spaced kappa, h/kappa in {16, 50, 150}, h <= 32.
+    'kslice': lambda: grid('K', [((F(27, 2) - dl) / 2, (F(27, 2) + dl) / 2, 2, kappa, h)
+                                 for dl in (-1, 0, F(1, 2), 1, F(3, 2))
+                                 for kappa in (sig(10 ** (-1.7 + i / 6)) for i in range(13)) for r in (16, 50, 150)
+                                 for h in [max(F(1, 120), snap(kappa * r, F(1, 120)))] if h <= 32]),
 }
 
 
