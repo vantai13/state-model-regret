@@ -13,6 +13,8 @@ if ! g++ --version 2>/dev/null | head -1 | grep -q " $want_gxx"; then
   echo 'export PATH="$HOME/smr-bin:$PATH"' >> "$HOME/.bashrc"
   export PATH="$HOME/smr-bin:$PATH"
 fi
+# native dyadic helper needs Boost.Multiprecision headers; same Ubuntu 22.04 package as local
+dpkg -s libboost1.74-dev >/dev/null 2>&1 || sudo apt-get install -y -qq libboost-dev=1.74.0.3ubuntu7 libboost1.74-dev=1.74.0-14ubuntu3
 uv python install 3.14.5
 uv venv -p 3.14.5 .venv --allow-existing
 grep -v '^-e ' experiments/explore_mech/requirements.lock > /tmp/smr-req.txt
