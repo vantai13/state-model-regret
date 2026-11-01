@@ -2,7 +2,8 @@
 against the slice rows [EXPLORATION ONLY; AI (Claude) theo ủy quyền]. Thresholds are copied from those files
 and must not be edited after the slice rows exist.
 
-  python -m experiments.explore_mech.check   -> results/explore_mech/checks.json (+ printed table)
+  python -m experiments.explore_mech.check         -> results/explore_mech/checks.json (P1-P5, C1-C3)
+  python -m experiments.explore_mech.check xstar   -> results/explore_mech/checks_xstar.json (X1-X3)
 """
 import json
 import math
@@ -127,5 +128,55 @@ def main():
         print(k, v.get('pass_', '') if isinstance(v, dict) else '', '' if isinstance(v, dict) and 'pass_' in v else v)
 
 
+
+def xstar_pred(S, u, mu=10):
+    """Drain heuristic of PREDICTIONS_xstar.md: the mean model on a near-stationary posterior switches iff
+    gA^3 (gA + u) < gB^3 (gB - u), gA = mu - lamA - u, gB = mu - lamB, lamA/B = (S -+ x u)/2."""
+    from scipy.optimize import brentq
+    gA = lambda x: mu - (S - x * u) / 2 - u
+    gB = lambda x: mu - (S + x * u) / 2
+    return brentq(lambda x: gA(x) ** 3 * (gA(x) + u) - gB(x) ** 3 * (gB(x) - u), 1e-9, 1.5)
+
+
+def check_xstar(s):
+    s = s.assign(S=s.lamA + s.lamB)
+    rows, viol1, viol3 = [], [], []
+    for (S, u, kappa), g in s.groupby(['S', 'u', 'kappa']):
+        g = g.sort_values('x')
+        pred = xstar_pred(S, u)
+        obs = crossing(list(g.x), list(g.sw_mean_old), .5)
+        step = float(g.x.diff().min()) if len(g) > 1 else 0
+        if obs is None:
+            side_ok = bool(((g.sw_mean_old >= .5) == (g.x < pred)).all())
+        else:
+            side_ok = abs(obs - pred) <= .08
+        rows.append(dict(S=S, u=u, kappa=kappa, pred=pred, obs=obs, x_max=float(g.x.max()), ok=side_ok))
+        cut = obs if obs is not None else (float(g.x.max()) + step if g.sw_mean_old.iloc[-1] >= .5 else 0)
+        viol3 += [dict(id=r.id, x=r.x, kappa=kappa) for r in g[g.Gamma < 0].itertuples() if not (0 < r.x < cut + step)]
+    t = pd.DataFrame(rows)
+    order = []
+    for (S, kappa), g in t[t.kappa == .1].groupby(['S', 'kappa']):
+        o = g.dropna(subset=['obs']).sort_values('u').obs.tolist()
+        order.append(all(b <= a + 1 / 16 for a, b in zip(o, o[1:])))
+    k1 = t[t.kappa == .1]
+    out = dict(X1=dict(series=k1.to_dict('records'), monotone_in_u=all(order),
+                       pass_=bool(k1.ok.all()) and all(order)),
+               X2=dict(series=t[t.kappa == .5].to_dict('records'), pass_='exploratory'),
+               X3=dict(violations_kappa_0_1=[v for v in viol3 if v['kappa'] == .1],
+                       violations_kappa_0_5=[v for v in viol3 if v['kappa'] == .5],
+                       pass_=not [v for v in viol3 if v['kappa'] == .1]))
+    return out
+
+
+def main_xstar():
+    s, unresolved = frame('xstar')
+    res = check_xstar(s)
+    res['rows'], res['unresolved'] = len(s), unresolved
+    (OUT / 'checks_xstar.json').write_text(json.dumps(res, indent=1, default=str) + '\n')
+    for k in ('X1', 'X2', 'X3'):
+        print(k, res[k]['pass_'])
+
+
 if __name__ == '__main__':
-    main()
+    import sys
+    main_xstar() if sys.argv[1:] == ['xstar'] else main()

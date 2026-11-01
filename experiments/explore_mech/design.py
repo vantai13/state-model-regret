@@ -89,6 +89,14 @@ SLICES = {
                                  for dl in (0, F(1, 2), -F(1, 2), 1, -1, 2, -2) for u in (F(3, 4), F(3, 2))
                                  for kappa in (F(1, 20), F(1, 5), F(4, 5)) for p in (2, 4, 8, 16, 32, 64, 128)
                                  for h in [max(F(1, 120), snap(kappa * p / (abs(dl) or 1), F(1, 120)))] if h <= 32]),
+    # xstar (designed after xslice/hslice/pslice were scored): where does the mean model's old-state action flip
+    #   in x, across mean load lamA + lamB in {25/2, 27/2, 29/2} and u in {1/2, ..., 5/2}? delta = x u on a 1/16
+    #   grid for u <= 1 and a 1/8 grid for u >= 3/2, 0 < x <= 3/4; kappa .1 (h 5) and .5 (h 25), h/kappa = 50.
+    'xstar': lambda: grid('S', [((s - dl) / 2, (s + dl) / 2, u, kappa, 50 * kappa)
+                                for s in (F(25, 2), F(27, 2), F(29, 2)) for kappa in (F(1, 10), F(1, 2))
+                                for u in (F(1, 2), F(1), F(3, 2), F(2), F(5, 2))
+                                for step in [F(1, 16) if u <= 1 else F(1, 8)]
+                                for dl in (step * k for k in range(1, 100)) if dl / u <= F(3, 4)]),
 }
 
 
