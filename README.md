@@ -7,19 +7,30 @@ Main RQ:
 
 ## Trạng thái hiện hành — 02/11/2026
 
-Phase 4 đang hợp nhất discovery và chuẩn bị Phase 5 (confirmation), theo
+Phase 5 đã thực hiện lần chạy panel duy nhất sau phần discovery Phase 4, theo
 [quyết định numbering v1.2](notes/phases/PHASE_4_entry_decision.md).
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**Gate 4: GO theo ủy quyền sau Lesson 5.1. Chưa chạy panel Phase 5.**
+**Lesson 5.2 hoàn tất thực thi: H-L1 INCONCLUSIVE, dừng SECOND_U.**
+Chạy một lần tại `8a8644f1`, raw data được commit ngay tại `5a2f0baf`.
+6/36 calls hoàn tất; 2/12 điểm đã chấm, M/F/U = 0/0/2; 10 điểm NOT_RUN.
+CPU tổng 360,523961 giây (0,100146 CPU-giờ), budget 28.800 giây.
+Rescore MATCH, tính verdict độc lập khớp, 16/16 hash frozen giữ nguyên.
+P5_08 NOT_RUN; H-L2 exploratory INCONCLUSIVE vì thiếu panel READY đầy đủ.
+[DL-125](notes/02_decision_log.md#dl-125--phase-5-l52-chạy-panel-một-lần-fact-chưa-diễn-giải-02112026) ·
+[Summary](results/phase5/summary.json) · [Raw rows](results/phase5/panel).
+Không retry/resume/refine. Bước tiếp theo là L5.3 đọc kết quả và Gate C;
+chưa diễn giải hoặc chọn Gate C trong L5.2.
+
+**Gate 4 đã GO theo ủy quyền trước run, sau Lesson 5.1.**
 Runner/tests tại `3331d163`: 32 targeted tests và619 full tests PASS.
 Positive control P43_0379 replay640/4 khớp10/10nhóm trường,khôngBUG;
 worker+descendants11,556CPU-s. P43_0379→DOES_NOT_MEET, P44_025→MEETS.
 [DL-124](notes/02_decision_log.md) · [Anchor report](results/phase5/gate4_anchor/report.json) ·
 [Runner](experiments/P5_panel/run.py) · [Tests](tests/test_p5_panel.py).
 Giữstrict no-retry,fullguards trướcmỗicall,budgethard8CPUh với captheo
-phầncòn lại. Cache ngoàiGit. DừngL5.1; chỉchạyL5.2 khi tácgiảyêucầu.
+phầncòn lại. Cache ngoàiGit. L5.2 được chạy sau yêu cầu tiếp của tác giả.
 L4.12 đã đo một cold native call h32: worker+descendants 96,798 CPU-s;
 wrapper sau call FAIL `KeyError: status` (API không trả trường đó), không retry.
 Cache integrity và kiểm schema bằng engine giả PASS; chưa có validated result row.

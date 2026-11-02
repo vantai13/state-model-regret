@@ -1111,3 +1111,22 @@ P44_025MEETS;không tính mớiP44_025. Cacheanchor riêngngoàiGit.
 CácP5IDtrong32tests làfake rows từdiscovery,khôngfutureM1truth.
 0P5panel/CF/sealedcalls,76p4outcomes khácchưađọc. ForecastAI-PASS đã
 khaiDL124,khôngnhậnauthor-self. Gate4GOkhông phảihypothesisPASS/G2.
+
+
+## L5.2 — panel một lần, dừng SECOND_U (02/11/2026, DL-125)
+
+Tại commit 8a8644f1 sau Gate 4 GO, runner đã tính P5_01 và P5_02 tại
+640/4, 320/4, 640/2 (6 completed calls), rồi tự dừng U thứ hai theo DL-124.
+Trong run chỉ theo dõi ID/level/status/CPU và process metadata, không mở
+raw rows/summary. Raw và summary được commit ngay ở 5a2f0baf trước khi
+đọc số đếm kết quả và chạy rescore; chưa mở z/d từng điểm để diễn giải.
+
+Đã đọc nhãn 2 điểm U, 10 NOT_RUN và verdict H-L1 INCONCLUSIVE;
+H-L2 exploratory INCONCLUSIVE vì thiếu panel READY đầy đủ. P5_08 NOT_RUN,
+other11 mô tả M/F/U=0/0/2+9NOT_RUN. Các raw M1 outcomes của P5_01/P5_02
+nay đã được tạo và lưu, không được xem là dữ liệu chưa tính cho thí nghiệm sau.
+P5_03…P5_12 chưa chạy trong batch này; exposure cũ P5_08 vẫn giữ nguyên.
+Không mở 76 p4-regions outcomes khác; không CF/SUB hoặc R09/R10 outcomes.
+Không retry/resume/refine, không sửa forecast, panel hoặc threshold.
+L5.3/Gate C/claim/prior chưa thực hiện; G1/Understanding không tự nâng.
+[Summary](../results/phase5/summary.json), [raw](../results/phase5/panel).

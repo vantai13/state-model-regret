@@ -2379,3 +2379,57 @@ Sourcecommittrướcanchor;commitrawanchor+DL124này phải trướctruepanelcal
   "call_wall_cap": 3600
 }
 -->
+
+### DL-125 — Phase 5 L5.2: chạy panel một lần (fact, chưa diễn giải) (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Thực thi bằng AI theo yêu cầu tiếp tục
+Lesson 5.2 của tác giả; không ghi nhận author-self/Understanding hoặc human review.
+
+- Code đã chạy: `8a8644f1ddc872988dec135f79d73714f964230b`, chứa
+  DL-124/Gate 4 GO và anchor PASS; local và GitHub cùng SHA trước run.
+  Preflight PASS, tracked tree sạch, không có panel/summary/cache panel hoặc
+  P5 worker cũ. Panel dùng cache cold riêng, một worker/1 BLAS thread.
+- Đúng một lệnh `.venv/bin/python -m experiments.P5_panel.run panel`.
+  Đủ 6 calls theo thứ tự P5_01 rồi P5_02, mỗi điểm 640/4 → 320/4 → 640/2;
+  cả 6 status COMPLETED. Runner tự dừng `SECOND_U`, exit 0; không BUG,
+  execution/resource failure hoặc terminal failure được ghi nhận.
+- Raw data và summary đã commit ngay trước khi đọc/chấm kiểm độc lập:
+  `5a2f0bafc788c95e0c4171ed6d95a6bc49cc43c3`, message
+  `Phase 5 L5.2: frozen panel run once (raw rows and summary; no interpretation)`.
+  Có 6 raw JSON rows; 2/12 điểm đã chấm, 10 NOT_RUN.
+- Tổng CPU **360,523961130 giây = 0,100145545 CPU-giờ**, budget 28.800 giây.
+  Child/descendant CPU của 6 calls: 330,525408 giây; phần còn lại
+  controller/guards: 29,998553130 giây. Tổng wall của 6 calls là
+  331,541969231 giây, không phải wall toàn phiên.
+- H-L1 theo luật frozen: **INCONCLUSIVE**, reason `INCOMPLETE_OR_INVALID_PANEL`.
+  Số đếm từ nhãn đã ghi: M/F/U = **0/0/2**; phép tính verdict độc lập khớp.
+  Giữ mẫu số 12 và 10 NOT_RUN, không điền missing bằng 0 hoặc dùng N=2.
+- P5_08: **NOT_RUN**. Trong 11 điểm còn lại: M/F/U = 0/0/2, 9 NOT_RUN;
+  chỉ là số đếm mô tả theo exposure A, không có verdict N=11.
+- H-L2 exploratory: **INCONCLUSIVE**, reason
+  `NEED_COMPLETE_READY_PANEL_AND_THREE_LEVELS`; không chấm rho/MedAE
+  trên subset và không fit lại.
+- Kiểm sau data commit: `run rescore` → `RESCORE_MATCH`; `check_frozen()`
+  PASS, **16/16 hash** nguyên. Source runner/tests giữ byte tại `3331d163`;
+  không đổi engine, panel, levels, metric, threshold, prediction hoặc budget.
+- Deviation so với DL-124: **không có**. `SECOND_U` là luật dừng đã khai;
+  không dừng tay, retry/resume/refine hoặc tính P5_03…P5_12. Trong run chỉ
+  theo dõi stdout trạng thái/CPU và process metadata, không mở raw rows/summary.
+  Lỗi helper đọc-only trước launch và helper metadata sau data commit đã được
+  sửa; các lệnh này không gọi native, tạo panel attempt hoặc đổi artifact.
+- Đính chính input lesson: trạng thái Gate HOLD tại `271819f9` đã cũ;
+  Gate GO thực tế ở commit chạy nêu trên. Không áp dụng đề xuất resume của
+  draft vì DL-124 đã chọn `STRICT_NO_RETRY`. Resources lưu trong từng raw row
+  và `summary.calls`; không có `ledger.jsonl` riêng, như đã khai ở L5.1.
+- Forecast trước run trong DL-124 (AI soạn theo ủy quyền, không author-self):
+  “dự đoán H-L1 PASS do discovery S/Cref nhỏ ở h/kappa cao”; rủi ro chính đã
+  ghi là “INCONCLUSIVE do R1/width” tại nhóm tải/kappa/h nêu trong DL-124.
+  Giữ nguyên forecast; chưa đối chiếu nguyên nhân U hoặc diễn giải kết quả.
+- Output: `results/phase5/summary.json`, 3 raw rows trong mỗi thư mục
+  `results/phase5/panel/P5_01/` và `results/phase5/panel/P5_02/`.
+  Cache ngoài Git: `/home/vantai/.cache/state-model-regret/phase5/panel/`,
+  48 files, 49.577.973 bytes. Không tạo report, CSV, plot hoặc log riêng.
+- **L5.2 hoàn tất thực thi và kiểm chứng; dừng trước L5.3.** Chưa đọc z/d
+  từng điểm để diễn giải, chưa quyết định Gate C/claim/prior. CF/SUB vẫn park,
+  R09/R10 sealed; không mở 76 p4-regions outcomes khác. G1, D22 native
+  DEFERRED, L8, realism và Understanding không tự nâng.

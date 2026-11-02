@@ -438,3 +438,18 @@ chỉ ởpytesttmp,0truepanel/CF/sealed/76newoutcomes. Report ở
 results/phase5/gate4_anchor/report.json. L5.1STOP tạiGateGO;KHÔNGtựchạy
 L5.2 chỉvìGateGO. Chỉrunpanel sauyêucầucủatácgiả,khôngsửa codeđãkhai
 sauoutcome. ForecastAI-PASScóprovenanceDL124,khôngnhậnauthor-self.
+
+
+L5.2/02-11(DL125): tác giả yêu cầu tiếp; đúng một panel run tại 8a8644f1
+sau Gate4GO. 6/36 calls COMPLETED, P5_01/P5_02 đủ ba levels; tự dừng
+SECOND_U, không BUG/execution failure. 2/12 điểm đã chấm, M/F/U=0/0/2,
+10NOT_RUN; H-L1 INCONCLUSIVE, H-L2 exploratory INCONCLUSIVE vì incomplete.
+P5_08 NOT_RUN; other11 mô tả 0/0/2+9NOT_RUN, không N11 verdict.
+CPU360.523961130s/28800, child330.525408s; cold panel cache ngoàiGit.
+Raw+summary commit5a2f0baf ngay trước kiểm/đọc kết quả; RESCORE_MATCH,
+verdict tính độc lập khớp,16hash giữ. Không deviation DL124, không retry/
+resume/refine/tính 10 điểm còn lại. L5.2 execution COMPLETE không phải
+hypothesis PASS; chưa đọc z/d để diễn giải, chưa L5.3/GateC/claim/prior.
+Source/threshold/plan giữ byte. Output results/phase5/summary.json và
+panel/P5_01,P5_02; resources trong rows/summary, không ledger riêng.
+CF/SUBpark,R09R10sealed,D22DEFERRED/G1/L8/Understanding giữ nguyên.
