@@ -465,3 +465,17 @@ P5_03…12,PASS≥9U≤1,sharedpanelbudget28439.476038870CPU-s;H-L2exploratory
 N10 giữpredictions/NN. P5_01/02 chỉ mô tả,không đếm;P5_08 báo riêng.
 Một run duy nhất,no retry/resume/refine/v1.2;commitraw trướcđọc,DL127fact,
 L5.3/GateCchưa thực hiện. CF/SUBpark,R09R10sealed,D22/G1/Understandinggiữ.
+
+
+P5 v1.1/02-11(DL127):run f14ef9c6 sauGateGO,panel đúng1lần đủ30/30calls,
+10IDs P5_03…12 đủ3levels;stop=null,0BUG/execution/resource failures.
+Raw+summary a609e79b commit trướcđọc;CPU1269.059224554s/28439.476038870,
+v1+v11panel1629.583185684s<28800. H-L1v11PASS10M/0F/0U,10READY;
+strictv1sensitivity3M/0F/7U. P5_08MEETS,other9=9/0/0môtả;P5_01/02môtả
+MEETS/MEETS khôngđếm. H-L2PASSexploratory cả3levels,10READY;mainrho.975628,
+MedAE1.143553vs1NN2.918239pp. ForecastDL126 H-L2FAIL giữnguyên,khôngsửa.
+Rescorev11+v1MATCH,16hash/v1data/source/amendmentgiữbyte;v1INCcuốicùng.
+4/30rawrows cónegativeG_SM/G_S_M1flags giữreport-only,khôngclamp/exactclaim.
+Khôngdeviationamendment;post-hocrevision/exposurevẫncó,hypothesisPASSkhông
+independentconfirmation. Bxongtớibước7;chưaL5.3/closestprior/claim/GateC,
+khôngv1.2/CF/SUB/R09R10/76p4outcomes. D22/G1/L8/Understandinggiữ.

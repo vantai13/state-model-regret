@@ -12,14 +12,23 @@ Phase 5 đã thực hiện lần chạy panel duy nhất sau phần discovery Ph
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**Phase 5 v1.1: Gate GO sau một lần sửa thiết kế có khai báo (DL-126).**
+**Phase 5 v1.1 đã chạy một lần: H-L1 PASS, H-L2 PASS exploratory (DL-127).**
 V1 giữ nguyên INCONCLUSIVE. Amendment riêng giới hạn acceptance theo
-contrast, Cref delta report-only; N10=P5_03…P5_12, PASS≥9/U≤1, budget
-panel còn 28.439,476039 CPU-s. Source `6058b077`; 31 new/650 full tests
-PASS; anchor khớp 10/10 fields. Chưa có panel v1.1 ở commit Gate GO.
+contrast, Cref delta report-only; N10=P5_03…P5_12, PASS≥9/U≤1.
+Đủ 30/30 calls, M/F/U=10/0/0; strict v1 sensitivity=3/0/7, không đổi v1.
+CPU 1.269,059225 giây; tổng hai panel 1.629,583186/28.800 CPU-s.
+P5_08 MEETS, 9 điểm khác 9/0/0 chỉ mô tả; P5_01/02 không đếm N10.
+H-L2 cả ba levels đạt, main Spearman=0,975628, MedAE=1,143553 pp
+so với 1-NN=2,918239 pp; forecast trước run H-L2 FAIL vẫn giữ nguyên.
+Source `6058b077`; 31 new/650 full tests PASS; anchor khớp 10/10 fields.
+Run `f14ef9c6`, raw commit ngay `a609e79b`; rescore cả hai versions MATCH,
+16 hashes nguyên. Không operational deviation, giữ 4 raw rows có flags.
 [Amendment](notes/design/phase5_v1_1_amendment.md) ·
-[Runner v1.1](experiments/P5_v11/run.py) · [Tests v1.1](tests/test_p5_v11.py).
-Một lần chạy, không retry/resume/refine/v1.2; evidence có exposure một phần.
+[Runner v1.1](experiments/P5_v11/run.py) · [Tests v1.1](tests/test_p5_v11.py) ·
+[Summary v1.1](results/phase5_v1_1/summary.json) · [Decision log](notes/02_decision_log.md).
+Validation sau một lần sửa thiết kế có khai báo, exposure một phần;
+không independent confirmation. Không retry/resume/refine/v1.2.
+Phương án B xong tới bước 7; L5.3/closest-prior/claim/Gate C chưa thực hiện.
 
 **Lesson 5.2 v1 hoàn tất thực thi: H-L1 INCONCLUSIVE, dừng SECOND_U.**
 Chạy một lần tại `8a8644f1`, raw data được commit ngay tại `5a2f0baf`.

@@ -2517,3 +2517,74 @@ anchor SHA guard và kiểm v1 artifacts nguyên byte. Không thêm framework.
   "amendment_sha256": "147273a1ed2ff5d97dde206f636a36a7e7b937c69ecf0c86f5a8d35ed2947014"
 }
 -->
+
+
+### DL-127 — Phase 5 v1.1: panel chạy một lần (fact, chưa diễn giải) (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Thực thi bằng AI theo ủy quyền phương án B;
+không author-self/Understanding hoặc human review.
+
+- Source/amendment commit A `6058b077a126063a06e4354d98012484fa39d944`.
+  Gate GO/code đã chạy: `f14ef9c69af22466812fa3afe0f404b39048c5d4`, đã push trước launch.
+  Preflight PASS, local/GitHub cùng SHA, tracked tree sạch, cold cache panel
+  riêng chưa tồn tại, không P5 worker cũ. Panel P5_03…P5_12 theo đúng parameters.
+- Lệnh duy nhất sau Gate GO: `.venv/bin/python -m experiments.P5_v11.run panel`.
+  **30/30 calls COMPLETED**, đúng 10 IDs × (640/4 → 320/4 → 640/2);
+  stop_reason=null, terminal_failure=null, exit 0. Không BUG hoặc resource/
+  execution failure ghi nhận. Không retry/resume/refine/native diagnostic mới.
+- Raw và summary được commit ngay trước đọc kết quả:
+  `a609e79bdf6ba430d22e4ef08f1933736e6ad9b8`, message `Phase 5 v1.1: panel run once (raw rows and summary; no interpretation)`.
+  30 raw JSON rows và 1 summary. Trong run chỉ đọc stdout tiến độ/CPU và
+  process metadata, không mở rows/summary hoặc xem z.
+- CPU v1.1 **1269.059224554 giây = 0.352516451 CPU-giờ**,
+  budget 28439.476038870 CPU-s. Child/descendant CPU
+  1168.571749s; controller/guards còn lại
+  100.487475554s.
+  Tổng wall riêng 30 calls 1174.683928491s.
+  Tổng panel CPU v1+v1.1=1629.583185684s < 28.800s;
+  anchor riêng như DL-126, không gộp child-only CPU làm toàn budget.
+- **H-L1 v1.1 PASS**, M/F/U=**10/0/0**, đủ N10, 10/10 READY.
+  Tính verdict độc lập bằng số đếm khớp state_verdict(planned=10).
+  Theo luật v1 chặt, sensitivity mô tả: **3 MEETS / 0 DOES_NOT_MEET / 7 U**;
+  không đổi verdict v1 hoặc đưa sensitivity thành một test mới.
+- **P5_08 MEETS**; 9 điểm còn lại: 9/0/0, chỉ mô tả, không verdict N9.
+  P5_01/P5_02 theo luật mới: MEETS/MEETS, đã thấy, chỉ mô tả, không đếm N10.
+- **H-L2 v1.1 PASS exploratory**, đủ 10/10 READY riêng G_M|S1,
+  cả 3 levels đạt ngưỡng frozen. Không refit predictor/1NN hoặc predictions.
+  Metric MedAE đơn vị percentage points của %Cref, trên fixed panel N10;
+  không population CI/p-value. Fact metric của cả predictor và baseline:
+
+| K/ref | Spearman | Stationary MedAE (pp) | 1-NN MedAE (pp) | Theo ngưỡng |
+|---|---:|---:|---:|---|
+| 640/4 | 0.975627893311 | 1.143553011773 | 2.918238638929 | PASS |
+| 320/4 | 0.975627893311 | 1.146219825008 | 2.915975242226 | PASS |
+| 640/2 | 0.975627893311 | 1.163940597764 | 2.970591140141 | PASS |
+
+- Tính lại H-L2 độc lập từ (L10−L11)/L11 của raw rows, median absolute
+  errors và correlation của average ranks: khớp summary cả 3 levels
+  (sai khác floating ≤1e-12 chỉ là kiểm replay, không tolerance thí nghiệm mới).
+- `.venv/bin/python -m experiments.P5_v11.run rescore` → **RESCORE_MATCH**;
+  `.venv/bin/python -m experiments.P5_panel.run rescore` → **RESCORE_MATCH**.
+  check_frozen PASS **16/16 hash**; v1 source/tests/data giữ nguyên byte,
+  v1 H-L1 vẫn **INCONCLUSIVE**. Source v1.1/amendment giữ byte từ commit A;
+  rescore replay calls/identity/stop/resources/budget từ raw, không gọi engine.
+- Giữ nguyên **4/30 rows** có raw validity_errors: negative_nonnegative_contrast
+  G_SM và G_S_M1, mỗi loại ở 4 rows. Đây là flags report-only theo amendment;
+  numerical negatives không clamp, BUG/readiness vẫn chấm theo luật đã khai.
+  Không suy numerical zero hoặc small negative là exact population value.
+- Forecast trước run (DL-126, AI theo ủy quyền) giữ nguyên: **H-L1 PASS,
+  H-L2 FAIL exploratory**, rủi ro INC do width/refinement. Fact hiện tại
+  H-L1 PASS/H-L2 PASS; chưa giải thích vì sao hoặc sửa forecast.
+- Deviation vận hành so với amendment/DL-126: **không có**. Design revision
+  từ v1 (acceptance, Cref gate, N10) là thay đổi post-hoc đã khai trước, không
+  xóa bằng PASS hoặc test đối xứng. Evidence vẫn validation sau một lần sửa
+  thiết kế có khai báo, exposure một phần; không independent confirmation.
+- Output `results/phase5_v1_1/summary.json`, raw trong
+  `results/phase5_v1_1/panel/P5_03/`…`P5_12/`; anchor trong `gate_anchor/`.
+  Cache ngoài Git `/home/vantai/.cache/state-model-regret/phase5_v1_1/panel/`,
+  204 files/197.419.208 bytes. Không tạo report, CSV, plot hoặc stdout log riêng;
+  provenance/resources trong raw, summary và DL này.
+- **Phương án B hoàn tất tới bước 7.** Chưa thực hiện nội dung L5.3,
+  closest-prior check, claim hoặc Gate C. Không v1.2. CF/SUB vẫn park,
+  R09/R10 sealed, 76 p4-regions outcomes khác chưa mở; D22/G1/L8/realism/
+  Understanding không tự nâng.

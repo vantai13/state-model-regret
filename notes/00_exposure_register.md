@@ -1141,3 +1141,18 @@ revision. Không biến numerical zero thành exact estimand. P5_01/P5_02 không
 đếm trong N10 mới; P5_03 chung cặp tải, P5_08 exposure A giữ nguyên. Không mở
 76 p4-regions outcomes khác. Forecast AI và amendment trước outcomes mới
 ở DL-126. Evidence có exposure một phần, không independent confirmation.
+
+
+## Phase 5 v1.1 — outcomes sau run duy nhất (02/11/2026, DL-127)
+
+Run f14ef9c6 tạo 30 raw rows, P5_03…P5_12 đủ ba levels, commit a609e79b
+trước đọc kết quả. Sau commit đã đọc nhãn 10 MEETS, strict v1 sensitivity
+3 MEETS/7 U, model metrics ba levels và raw flag counts. H-L2 PASS exploratory;
+forecast H-L2 FAIL trước run giữ nguyên. Đã tính kiểm H-L2 từ raw L10/L11;
+chưa diễn giải z/d từng điểm hoặc chọn claim/Gate C trong lượt này.
+Cả 10 coordinates nay là dữ liệu đã tính, không được mô tả là chưa có truth
+trong thí nghiệm sau. P5_08 có exposure trước freeze như DL-122/123;
+P5_03 chung cặp tải với hai điểm đã thấy. Không gộp P5_01/P5_02 vào N10,
+không đổi v1 INCONCLUSIVE. Evidence giữ nhãn post-hoc design revision,
+exposure một phần, không independent confirmation. Không đọc 76 p4-regions
+outcomes khác/CF/SUB/R09R10. Không retry/refine hoặc mở v1.2.
