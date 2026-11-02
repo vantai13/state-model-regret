@@ -2184,3 +2184,47 @@ Bổ sung cùng phiên sau khi tác giả gửi bundle và Parts4.10.2/4.11:
   ba worktrees vàbundle tác giả chuyển ra /home/vantai/state-model-regret-archive/2026-11-02/.
   Symlinkignored giữreplaylocal; không coi đây là giảm tương ứng tổngdisk.
   Câytracked sau dọn5609files/~52.5MB, trước31900/~256.9MB; không rewriteGit.
+
+
+### DL-123 — L4.12: exposure A, local probe và scope Gate 4 (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. AI chọn và thực hiện theo ủy quyền tác giả
+trong chat; không phải author-self learning hoặc human review. Nội dung yêu cầu
+là lesson4.12 tác giả gửi ngày02/11; giữ source/protocol/analysis plan frozen.
+
+**Quyết định trước probe:**
+1. Chọn exposureA: giữ N12 và verdict frozen, báo riêng P5_08 cùng số M/F/U
+   và nhận xét phụ thuộc mang tính mô tả; không thêm verdictN11, thay point,
+   threshold hoặc budget. Nhãn vẫn partial-exposure validation, không confirmation
+   độc lập. Input lesson nhầm z16.2%: rawW0347 choS0%,M16.2133%; chưa biết
+   nhãnP5_08 ở ba numericallevels đã khóa. Không mở76outcomes khác trước score.
+2. Chọn chạy ở máy hiện tại của tác giả (phương ánB trong input), không remote
+   Claude container hoặc gửi kết quả qua bundle. Engine deterministic, seed N/A.
+3. Bỏ amplitude test trướcPhase5: profiles.py dùng cố địnhs*6; không đổi engine/
+   contract. X1 có10 observedcrossings+5no-crossing, không14 measured errors.
+4. P0-V10 vẫnOPEN trướcCF;L8OPEN trướcfinalnovelty;memoV9 vẫnchưa gửi, điều
+   kiệnpre-A04 đãwaivedDL054, không tự phục hồi thànhgate mới. Không tạo bằng
+   chứng người đọc thật hoặc Understanding. Lesson4.12 không cho truepanelcalls;
+   Gate4 cuối cùng vẫn chờ runner/dryrunLesson5.1 và review/waiver được ghi rõ.
+
+**Resource-only calibration follow-up đã khai trước call:** đúngCAL_L49_H32
+parameters[7,6,3/10,1/2,32,0],level(640,4),ratio320/3<160,disjointN12/CF/sealed.
+Chỉ1attempt,không automaticretry. Cap300CPU-s tổng nhóm /420wall-s;
+1worker/1BLASthread, không outcome panel. Đây làfollow-upL4.12 riêng,không
+sửa timing cap60/90 trong frozenL49protocol hoặc overwrite oldSIGXCPU.
+Cache stationary+profiles mới trống tại
+/home/vantai/state-model-regret-archive/2026-11-02/l4_12_calibration_cold_01/;
+giữ cache và failed/partial nếu có, không xóa để cheattempt. Binarybuildcache
+hệ thống có thể reuse: cold ở data cache, không nhận cold toàn môi trường.
+Output timing/status/hash in chat và appendrecord này; không file lesson/report
+mới, không công bố hoặc phân tích calibrationloss/contrasts.
+
+Trước engineimport: kiểm16freezehash,verify_run ba run,verify_prereg, canonical
+point disjointpanel/CF/sealed. Nativecall dùng nguyênengine.evaluate_level;
+đoCPU gồm parentworker+descendants,walltime vàcache hash. No statistic/CI.
+CPUfit chỉdùng savedmech-v2sobol4 timing16384rows,K160/ref2,haihosts8192/8192:
+OLSlogCPU~1+logh+logkappa+loginverseminpostactionheadroom cho coefficients
+h.7358058256,kappa.05775835067,headroom.04848658982,residualsd.48568266694;
+exp(2sd)=2.641548594. Không gọi đây là đảm bảo hoặc95%predictioninterval.
+Fit phụ thuộcresolution/hardware vàkhông được đọctruth/p_sw của76p4rows.
+Con số105.3CPU-s ởcontainerClaude chỉ reviewer-reported,không nhận localPASS.
