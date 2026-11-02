@@ -12,21 +12,22 @@ Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, t
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**L6.2 Part A revision đã chạy đủ; gate HOLD vì thiếu D(i) (DL-131).**
-677 tests PASS, gồm T2 và hai posterior mutants bị phát hiện. Mean check mới
-dùng lattice sum có error bound; 7/7 mẫu phân tầng PASS. Tại B017 drift
-−7,05e−7 nằm trong cận 1,022e−4 packet·s: ngưỡng quadrature cũ báo động giả.
-Không diễn giải bảy mẫu thành kiểm chứng toàn bộ 51 base hoặc H1 đúng.
+**L6.2 Part A revision02: STOP cửa sổ c_sw theo DL-132.**
+685 tests PASS. Grid mở rộng c≤6, vẫn giữ51base/margins/H1/H0 vàK320/ref4;
+đủ **1.020 dòng**, 510 dòng cũ khớp mọi trường. Sau MUST+SHOULD có
+**6 D(i) từ 3 base, 102 D(ii), 302 A**. Giới hạn2cost/base chỉ cho tối đa
+**5 D(i)** vào witness, trong khi10D cần ít nhất7D(i), nên W9 không đạt.
 
-Scan mới hoàn tất **51 base × 10 c = 510 dòng**. Sau MUST+SHOULD có
-**3 D(i) từ 2 base, 43 D(ii), 270 A**. Witness10D cần ít nhất7D(i),
-nên chưa đủ W9 dù tổng D lớn. Không có ứng viên cuối để kiểm K640;
-chưa probe Part B, finite-h truth hoặc freeze panel/Gate D-entry GO.
-[Scan mới](results/phase6/window_revision01/scan.csv) ·
-[summary](results/phase6/window_revision01/summary.json) ·
-[DL-131](notes/02_decision_log.md#dl-131--l62-part-a-design-revision-của-mean-check-trước-scan-mới-02112026).
-Kết quả [BLOCKED cũ](results/phase6/window/summary.json) và lỗi CSV trước đó
-được giữ nguyên; chi phí cũ, test và 130CPU-s do nguồn ngoài báo đều được tính.
+B035 bổ sung3điểm D(i), dự đoán1,027–1,308%Cref_H1; không được coi ba
+mức c là ba base. Không có finalwitness nên **K640/PartB/panel chưa chạy**.
+Không mở revisiongrid thứba hoặc hạz_min1% để cứu. STOP chỉ áp dụng thiết
+kế/grid hiện tại, không kết luận H1sai hoặc plantkhôngcó hiệu ứng.
+[Scan revision02](results/phase6/window_revision02/scan.csv) ·
+[summary](results/phase6/window_revision02/summary.json) ·
+[DL-132](notes/02_decision_log.md#dl-132--l62-part-a-mở-rộng-độ-phủ-c-khai-trước-sửa-windowpy-02112026).
+H1/identity code giữbyte; 7certificates phân tầng được tái dùng cóprovenance,
+không phải7lượt kiểm mới hay51identityPASS. [Revision01 HOLD](results/phase6/window_revision01/summary.json),
+[BLOCKED cũ](results/phase6/window/summary.json) và lỗi CSV trước đó giữ nguyên.
 
 L6.1 đã chốt câu hỏi Phase 6 (DL-129). Chọn dấu G_S
 dưới switching cost, H1 dùng M0-only; H0a là dải `0 < x < 0.54−0.07u`,
@@ -35,8 +36,8 @@ Chọn h-invariance làm mô tả phụ trong cùng panel, không knockout;
 budget toàn Phase 6 ≤4 CPU-giờ, panel ≤2 giờ, không retry/resume/v1.1.
 **Đính chính exposure:** pilot c_sw>0 có P tối đa40 (bốn dòng P40), nên
 `c_sw>0, P≥30` không tự là điều kiện chưa dùng; phía x<0 chưa có active key
-trong inventory. Giữ thiết kế can thiệp hiện tại ở HOLD trước probe;
-không hạ z_min=1%, mở rộng grid vòng này hoặc calibration để cứu witness.
+trong inventory. Thiết kế c_sw hiện tại đã STOP trước probe; không hạ
+z_min=1%, mở rộng thêm grid hoặc calibration để cứu witness.
 [Quyết định, recipe fit và kiểm toy](notes/02_decision_log.md#dl-129--phase-6-l61-chọn-câu-hỏi-cơ-chế-h1-h0-và-can-thiệp-02112026).
 
 V1 chính thức **INCONCLUSIVE**; v1.1 **PASS 10/0/0** sau một lần sửa thiết kế có khai báo, chỉ giữ

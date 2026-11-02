@@ -1228,3 +1228,17 @@ HOLDthiếuDi; không dùng để đổi grid/margins hoặc chọnpanel ngoàir
 oldoutcomes của chúng. 11rawmean-drift>τ.005 khôngcònđược dùng làmguard.
 IdentityPASS chỉ7samples, không toàn51; không cófinalwitness nênK6400calls.
 Không PartB/probe/panel/CF/SUB/R09R10/76highratiooutcomes; khôngfit/fallback.
+
+
+## L6.2 Part A revision02 — mở rộng c và STOP (02/11/2026, DL-132)
+
+Đã đọc1020M0-only parameter predictions sau scan34ed25d0, gồm510dòng cũ
+và510dòng c>1; biếtDi6/Dii102/A302 sauMUST+SHOULD. Mở rộnggrid được
+chọn sau đọc revision01, làadaptive predictor design trước finitehtruth,
+khôngblindselection. Khôngdùngnewcounts đểsửa margins hoặcchọnwitnesskhác.
+510oldrows khớptừngfield;7identitycertificates reused, không7newchecks.
+7W6collisionsc0 chỉđối chiếu physicalparams, loại trướcpool đượcgiữ.
+Không cófinalwitness nên0K640/newidentity/probe/Phase6panelcalls. Cả
+B011/B029K640forecasts chưađượcchấm. STOPtheoDL132,giữhistory/failures;
+không tựmởthirdgrid hoặcclaimhypothesisfalse từM0-onlyscan.
+KhôngM1costtruth/CF/SUB/R09R10/76highratiooutcomesmới, khôngfit/calibration.

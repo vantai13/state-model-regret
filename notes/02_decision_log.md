@@ -3220,3 +3220,76 @@ SourceH1/identity và6historyfiles khớpbf972c9c. Trướcnewscan dành
 **priorupper1000CPU-s** (860cũ+1.97+112.82=974.79,25.21reserveguards/
 rounding/metadata), cap1800 giữ. 7certificate c-independent được táidùng,
 khôngtựnhận là7lượt kiểm độc lập mới. Chưa tínhpredictor ởcost>1.
+
+**Kết quả revision02 — STOP theo rule đã khai:**
+Command thực tế:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -B -m experiments.P6_band.window --spent-cpu-seconds 1000`.
+Sourcecommit34ed25d0 trướccompute; đủ51/51base×20cost=1020rows,
+K320/ref4,deterministic/khôngRNG. Status **STOP_INSUFFICIENT_WINDOW**,
+exit2theoprotocol, khôngexception/budgetfailure/identityfailure. Lượt run
+hoàn tất trước khi userinterrupt; khi “tiếp tục” chỉ audit/closeout, **khôngrerun**.
+
+| Pool | Revision01 all | Revision02 MUST | Revision02 all | Base revision02 all |
+|---|---:|---:|---:|---:|
+| Di | 3 | 6 | 6 | 3 |
+| Dii | 43 | 159 | 102 | 13 |
+| A | 270 | 304 | 302 | 48 |
+
+RawDi6 =B0111+B0292+B0353. Rule≤2cost/base cho tối đa **5Di** trong
+witness; N_D10/≥2/3Di cần **7Di**. Vì vậy không đủW9, không được coi ba
+costB035 làbaindependentbases. Dii nhiều khôngbù đượcDi-fraction đãkhóa.
+ControlsA± vẫn có; chưa có finalwitness/panel, không K640/PartB/C/L6.3.
+
+Ba Di mới đều ởB035 (a7.5,b6.5,k.1,u1.5,h16):
+- c7/4:zH1+1.0273744363580057%Cref_H1, c/Cref_H1=9.6828462848%.
+- c2:zH1+1.2968523496483868%, c/Cref_H1=10.9151250708%.
+- c5/2:zH1+1.3078890257727096%, c/Cref_H1=13.2814836993%.
+Mọi trường hợp H1+/H0−; đều làprediction/approxstationarynormalizer,
+không trueG_S/Cref hoặc empiricalrealismvalidation. Ba Di cũ B011C07/
+B029C06/C07 giữ nguyên nhưDL131. Không cónewbaseDikhác quaW3/W4/W7.
+
+**Forecast review, khôngsửalạiforecast:** B035đúng cóDi1–3%; B036khôngđứng
+(rawpositivepeak.9668484% tạic2.5 đãngoàiW3, không qua1% cảkhi bỏW3).
+B017peak.4856823%c2 ngoàiW3; B018.3285699%c1.75ngoàiW3;
+B037.6558515%c2/B038.4932133%c2đềungoàiW3; B044.5182507%c1.5trongW3
+nhưngdưới1%; B045.3797530%c1.5ngoàiW3. Đây làrawpeaks trên20cost,
+không phải certifiedcontinuousmax. Forecastđủ≥7Di/W9 khôngđứng.
+B011/B029sign/threshold640 **NOT_EVALUATED**, khôngghiPASShayFAIL vì
+không cówitness đểrun. Không gán statisticalcalibration cho60% chủquanAI.
+
+**Invariant và independent audit:** receipt so510oldrows mọifieldpassedTrue,
+0mismatch. Audit độc lập cũng so nguyênstringmọifieldcủa510oldrows; tính
+lạiexactH0/group/η=u/2/physicalkeys,W1–W8,CDF-stake-z,counts vàidentity
+metadata trên1020rows. 51base đủ20cost/base,1020uniqueIDs/physicalkeys,
+0duplicate. 7W6collisionsc0flagFalse vàloại, **0acceptedcollision**;
+union28158keys. Khôngđọcoldoutcomes đểchọnpoints. Samplecertificates và
+SHA của identity/H1 khớp revision01;7certificates táidùng,140CSVrowsđượcgắncheck
+do7base×20cost, không140checks hoặc51identityPASS. 880rowsnonsampled
+ghiFalse/trống; nofinalidentity bổsung. K640_checks=[]; CSV K640fields
+giữtrống, đúngscanstageinvariant.
+6historicalfilesSHA/nguyênbyteskhớpbf972c9c. H1predictor/identity code
+giữbyte;source/window/tests khớp34ed25d0. Frozen16hash/3nativepackages/
+prereg/P5v1 vàv11rescoreMATCH. Audit1.50CPU-s,guards2.50CPU-s đo bằngtime;
+khôngchạy lại685tests vìsourcekhôngđổi saufullPASS.
+
+**Budget/artifacts:** controller+descendants **158.699150855CPU-s**,
+receiptupper **1158.699150855CPU-s** gồmpriorupper1000; dành
+**closeoutupper1180CPU-s** bao postrunchecks/ghi kết quả, dướicap1800.
+Upper làbao bảo thủ,khôngactualCPU1158.7/1180; chi phícũ/test/failures và
+externalreported130đãtínhmột lần,khôngreset. Cachecũđượcreuse cóprovenance.
+Source sửa:`experiments/P6_band/window.py`,`tests/test_p6_predictor.py`;
+configgrid/thresholds nằmtrongwindow.py vàruntime summary. Outputmới:
+`results/phase6/window_revision02/scan.csv`,`summary.json`. Cập nhậtDL132,
+README/AGENTS/exposureregister; không tạo logfile/reportfile/plot/configfile
+riêng. Consolelogs/test output đãinchat; summary lưumetrics/config/sourceSHA.
+
+**History thật:** IOattempt01EXECUTION_FAILURE→windowmeanBLOCKED→
+revision01HOLD→revision02STOP; mọiartifactcũ giữnguyên, khôngrewritelịch sử.
+**Quyết định theoủyquyền:** đóngnhánhc_sw/window hiện tại ởSTOP nhưDL132,
+khôngthirdgrid/retunewitness/hạz_min1% hoặcđổiN đểcứu. Mởc đến6 tăngDi
+3→6 nhưngkhông giải quyếtđượcW9; khôngcoi nhậnđịnh “chủyếudogrid” đãđược
+chứngminh. Chỉkếtluận grid51×20 khôngđủwitness theo marginsđãkhóa; không
+claim toànplantkhônghiệuứng/H1false/trueG_Sđãđượckiểm. PartB/C/L6.3
+không mở. Cầnmộtdesignrevisionkhoa học riêng nếuđổi kiểmđịnhcơchế,
+khôngtựthêmlessonframework. G1/GateC=NARROW/UnderstandingOPEN,
+CF/SUBpark/R09R10sealed/76highratiooutcomesunread giữ nguyên.

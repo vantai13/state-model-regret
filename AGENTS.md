@@ -557,3 +557,25 @@ identity/sourceSHAauditPASS,160oldrows predictionskhớpbytefields. Rawdrift>
 Numericalfalsealarmgỡtrên7checkedbases khôngđồngnghĩaH1valid hoặc51nobug.
 G1/NARROW/ownershipOPEN/CF/SUBpark/R09R10sealed/76outcomesunread giữ.
 GiữcurrentinterventionHOLD,khôngtựexpandgrid/hạz_min1% đểsangPartB.
+
+
+DL132/02-11: userủyquyềnmộtcoverage-revision,prerege3385598 trướcsửawindow,
+source34ed25d0 trướccostmới; khôngđổiH1/H0/rho/Pmin/zmin/W7–9/witness.
+Giữ51bases,thêm10c→20mức0…6. Nội suyoldc*ratio.79–1.16khôngexact/theorem;
+16nocross≤1làrightcensored,b<1/4heuristickhôngfilter. 10quick/685fullPASS
+2.05/116.17s;scanrevision02complete1020rows/51bases,K320/ref4,noRNG.
+**STOP_INSUFFICIENT_WINDOW** theoDL132: allDi6/3bases,Dii102/13,A302/48;
+DiB0111+B0292+B0353,≤2cost/base→max5Di,thiếu7cho10Dwitness. MUST6/159/304.
+B035c7/4,2,5/2:z1.0273744/1.2968523/1.3078890%Cref_H1,khôngtrueG_S.
+510oldrowsmọifieldkhớpnguyênstring;7certificatesreuse nguyênprovenance,
+khôngnewidentity/K640/probe/panel/GateD-entryGO. CSVscan-stage metadata giữ,
+finalproofs(tươnglai)ởsummary. Full1020formula/Wflags/keys/SHAauditPASS;
+7W6c0collisionsloại,0acceptedcollision/duplicate,union28158. Frozen16/native3/
+prereg/P5bothrescoresMATCH. Scan158.699150855CPU-s,receiptupper1158.699150855
+gồmpriorupper1000;closeoutupper1180≤1800,khôngresetold/external130charge.
+HistoryIO-failure→meanBLOCKED→rev01HOLD→rev02STOP giữ nguyên artifacts.
+Khôngrevisiongridthứba/đổiwitness/hạ1% đểcứu;STOPchỉgridnày,khôngH1false/
+globalnoeffect. ForecastB035đúng,B036/đủwindowkhôngđứng;B011/B029K640NOT_RUN.
+Resultsresults/phase6/window_revision02/{scan.csv,summary.json};sourcewindow.py/
+tests sửa,identity.py/predictor.pygiữbyte. G1/NARROW/UnderstandingOPEN,
+CF/SUBpark/R09R10sealed/76highratiooutcomesunread giữ. KhôngsangPartB.
