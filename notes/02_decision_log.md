@@ -2266,3 +2266,66 @@ Phầnđo/choices củaL4.12 đã kết thúc với caveatwrapperFAIL công khai
 Gate4 giữHOLD tới runner+dryrunLesson5.1PASS, chưatruecallPhase5.
 Không làm lạiprobe đểcứuPASS,không thêmamplitude/SUB/CF/newgrid.
 NguồnP5_08state0% chỉoldlevel160/2,không tự gán nhãn ở3levelsplanned.
+
+
+### DL-124 — L5.1: runner, positive control và khai báo trước Phase 5 (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. AI soạn và chọn chi tiết theo ủy quyền
+trong chat: “chỗ nào cần làm gì để tôi tự làm thì bạn đống vai trò là tác giả
+là tôi tự ra quyết định luôn”. Không nhận tác giả đã tự viết, kín sách,
+human review hoặc Understanding PASS. Scope hiện tại: hoàn tất cả3PartL5.1,
+dừng ở Gate4; không chạy Lesson5.2 hoặc bất kỳ P5_xx truecall nào.
+
+**Khai trước positive control (entry này cùng commit runner/tests):**
+- Tạo đúngexperiments/P5_panel/__init__.py,run.py vàtests/test_p5_panel.py;
+  không đổi frozenengine/plan/score/protocol.32targetedtestsPASS2.81s;
+  fullsuite619PASS37.35s.16/16freezehash khớp.
+- Chọn STRICT_NO_RETRY đúnganalysis_plan_v1§6. Không adopt đề xuất resume
+  khi thiếu row hoặc rerun toànbatch sau lỗirunner. Native có thể đã tạo
+  outcome trong memory/cache dù row chưa ghi (bài họcL4.12).
+- B=28800CPU-s làcap tổng,không chấpnhận vượt thêm1call nhưbản nháp.
+  Mộtworker/1BLASthread; percallcap1800CPU/3600wall; parentgiám sát cả
+  processgroup và giới hạn thêm theo budgetcòn lại, chừa1CPU-s cho
+  finalization. CPUbao gồm guards/controller,children,failedcalls,cache.
+  Linuxsubreaper thuCPU children bịorphan khi worker chết; khôngledger/
+  lockframework mới: resources trong từngrow vàcalls trongsummary.
+- Chọn fullguards trongparent vàworker trướcmọitruecall:16hash,
+  verify_run cảL43_A1_SV/L44_A3/SUB_BOX,verify_prereg,panel/CF/sealed,
+  trackedtreeclean,runner/testscommitted. Panel phải có DLGateGO gắn
+  codecommit+anchorreport. Outputexclusive đượcreserve trước nativecall;
+  worker cần inheritedFD của parent,không chạy riêng đểné vòngđiều phối.
+- Anchor qua đúnglaunch→worker→evaluate nhưpanel:1truecallP43_0379
+  parameters[13/2,7,1/5,7/8,2,0],level640/4. Cachecold riêng tại
+  /home/vantai/.cache/state-model-regret/phase5/anchor/, ngoàiGit và
+  disjointpanel. Anchor không tính vào8CPUh panel.
+- Kỳ vọng đã khai: replay10/10FIELDS(losses,cost_error,Cref,sáucontrasts,
+  normalized_error) khớp đúng savedrow; khôngalgebra/same-routeBUG.
+  Label3savedlevels:P43_0379DOES_NOT_MEET,z3.5566941650250357%,
+  d.01707593689734002pp;P44_025MEETS,z0%,d2.8302924627120256e-8pp
+  (khác0,không làm tròn thànhexactzero). AnchorFAIL→GateHOLD,khôngpanel.
+- Sourcecode vàtests sẽđượccommit trướcanchor;SHA chính xác ghi trong
+  anchorreport và đoạnGateGO sau. Chưa cópositivecontrolresult ởentrynày.
+- R6 chỉdiagnostic,khôngcertifiedbound; sốâm giữnguyên. Thêm kiểm metric
+  so với losses theođịnhnghĩa đểbắtfalsezero, khôngthêmmetric/threshold.
+  Testboundary sửa coherentlosses+contrasts,không giảidentity khi testU.
+- Nhãn/score dùng nguyênrow_readiness,d_normalized,state_verdict,
+  model_verdict. Uthứ2→dừng;Fthứ2khôngdừng. Rescore chỉđọc dữliệu,
+  kiểm codecommit,không engine/ghi đè. M/F/U mẫu số12;NOT_RUN táchriêng.
+
+**Bảng đọc kết quả trước outcome:**
+- H-L1PASS: chỉtạiít nhất11/12tọa độkhai trước,plantv1.3,a/mu.6,c_sw0,
+  đúngM1,h/kappa320/640,statevalue<=.5%Cref;P5_08 cóexposure. Khôngnói
+  all12,bằng0,hstaruniform,mọi cáchupdate theo thời gian,realism/novelty.
+- H-L1FAIL: quy tắc>=90% khôngđứng trênpanel;mô tảít nhất2DNM theo
+  luật numericalđãkhóa. Không nhậnđãbiếtcơchế hoặcstate luônquantrọng.
+- INCONCLUSIVE: nêuU/budget/execution/BUG cụthể;không “gầnPASS”,không
+  chạy thêmđểchốt. Rawcrossrouteflags báo riêng,không tựthêmBUGcriterion.
+- H-L2 mọioutcome đềuexploratory,soSpearman/MedAE với1NN tại3levels,
+  đủ12READY mới chấm;khôngrefit,nângnhãn hoặcgiấuoutcome khôngthuận.
+- ExposureA: nhãnP5_08 vàM/F/U của11điểm khác làmô tả,khôngverdictN11.
+- ForecastAI soạn theoủyquyền,khôngnhậnauthor-self: dựđoánH-L1PASS do
+  discoveryS/Cref nhỏởh/kappa cao. RủirochínhlàINCONCLUSIVE doR1/width
+  tạinhóm tải7/8 hoặc8/7,kappa1/20,h32;không đọcoutcome mới đểđổi dựđoán.
+
+**Gate4 hiện tại: HOLD tới khi anchorPASS và declarationGO đượccommit.**
+KhôngtạoPHASE_5.md/reportlesson mới;planinput vànội dung học ởchat.
