@@ -1188,3 +1188,22 @@ khôngqua±.5pp cảhaiphía; coarsepilot khôngvalidateH1.
 Các số share hslice/accounting/fitnull đềuin-sample;readbackAI trướcprinter
 đãthấy lesson output, khôngblindexpectation. Khôngmở76p4-regionsoutcomes,
 CF/SUB/R09R10. PhầnG_S/GammaP5 đãexposed nhưDL128giữ;0nativecalls mới.
+
+
+## L6.2 Part A — replay tests và đọc dư schema (02/11/2026, DL-130)
+
+M0-only tests dùng hai L4.9 c0keys đã lộ và H0015/H0143 tronghslice;
+chỉ so savedM0 switchshares, không tính finite-h M1 mới. T3/T7/firstbase
+chỉ stationary law/mean profiles. Test suite cũ có toy/engine regressions,
+không tạo native Phase6 probe/panel hoặc mở outcome key mới.
+
+Khi kiểm schema, head in dư hai oldoutcome rows: wide/W0000
+(lambdaA6,lambdaB6,u.5,kappa.03,h2,c0) vàshort/S0000
+(6,6,1,.03,.25,0). Cả hai ngoài W1/grid đã khai báo trước, không dùng
+cho predictor/selection. Không gọi đây là metadata-only read; các lượt
+collision audit sau chỉ chuyển đổi design columns. 76rows h/k>160 vẫn
+chưa đọc; R09/R10/CF/SUB giữ niêm phong/park.
+
+Attempt01scan dừng bug ghép row trước CSV; summary lỗi giữ riêng.
+Thay code chỉ sửa IO và thêm test syntheticCSV; không thay choices đã khóa,
+không fit/fallback, không finite-h M1 truth. Forecast của DL130 giữ nguyên.

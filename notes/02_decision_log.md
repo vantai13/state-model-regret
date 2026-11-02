@@ -2873,3 +2873,32 @@ trượt chưa giải thích → BLOCKED; thiếucửa sổ STOP; chỉDii HOLD.
 
 **Trạng thái trước triển khai:** chưa test/scan, chưa PartB, chưaGateD-entryGO.
 Kết quả và source SHA sẽ nối sau, commit entry này trước bất kỳ probe PartB.
+
+**Kiểm tra và sửa implementation trước scan thành công:**
+- Targeted lần1:16PASS/1FAIL,14.87CPU-s; T6 AST báo nhầm substring
+  `population` trong package `R3R_08_population_numerics`. Sửa kiểm tên
+  module/import/call thực sự; không mở quyền gọi truth. Lần2:17PASS,
+  14.67CPU-s. Full suite tại d51f9dcd:667PASS,53.72CPU-s (56.43s pytest).
+- T3 tại H0015/320/4: mean_new−.10838430076347272,mean_old−.10870702287920268,
+  drift.0003227221157299648packet·s<.005. Varnew.07908737816645853,
+  Varold.012674012045557827(packet·s)^2. Cold firstbase320/4:2.172391025
+  và2.19065325CPU-s qua hai lần test; drift.00021201340275049663.
+- Scan attempt01 tại d51f9dcd dừng EXECUTION_FAILURE trước ghi CSV:
+  `dict(..., c=..., **prediction)` trùng keywordc. Summary gốc giữ tại
+  `results/phase6/window_attempt01_failed/summary.json`; scanCPU5.085907069,
+  priorCPUupper95, tổngupper100.085907069CPU-s. Không finite-h truecall.
+  Sửa ghép row bằng update; thêm test synthetic fullCSV510rows. Targeted
+  sau sửa:18PASS/14.57CPU-s. Đây là sửa bug IO trước truth, không đổi
+  predictor/grid/margins hoặc retry native experiment; không cứu một verdict.
+
+**Exposure ngoài ý muốn khi kiểm schema:** lệnhhead in dư dòngW0000/wide
+  (a6,b6,u.5,k.03,h2,c0) vàS0000/short(a6,b6,u1,k.03,h.25,c0), gồm
+  old outcome fields. Hai key ngoài W1 và grid đã khai báo trước đó; không
+  dùng để chọn điểm hoặc sửaH1. Các lượt đọc CSV tiếp theo chỉ lấy design
+  columns. Không mở76p4rows h/k>160/R09R10/CF/SUB. H0015/H0143 và hai
+  L4.9 c0keys được dùng replay test vì đã lộ, không đưa thành fresh truth.
+
+Full suite sau sửa IO:668PASS/55.71s pytest,53.40CPU-s (time wall56.29s).
+Các numeric tests/full suite vàattempt01 có tổng CPU đo156.315907069s;
+trước lượt scan sửa bug dành **priorCPUupper180s** để bao cả rounding,
+guards và các thao tác kiểm phụ. Giữ tổngcap1800; không reset chi phí lỗi.

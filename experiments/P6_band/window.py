@@ -161,7 +161,9 @@ def compute(out=OUT, *, builder=P.build_sides):
                 p=prediction(c)
                 row=dict(id=f'B{index:03d}C{j:02d}',base_id=f'B{index:03d}',
                          lambdaA=str(base[0]),lambdaB=str(base[1]),kappa=str(base[2]),
-                         u=str(base[3]),eta=str(base[3]/2),h=str(base[4]),c=str(c),**p,**diag)
+                         u=str(base[3]),eta=str(base[3]/2),h=str(base[4]),c=str(c))
+                row.update(p)
+                row.update(diag)
                 low,high=prediction(3*c/4),prediction(5*c/4)
                 row.update(flags(base,c,p,zero,low,high,blocked))
                 row.update(H1_c0=zero.get('H1','UNRESOLVED'),z_H1_c0=zero.get('z_H1'),

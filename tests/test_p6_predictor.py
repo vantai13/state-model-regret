@@ -167,3 +167,20 @@ def test_declared_grid_count_and_domains():
     points=list(W.bases())
     assert len(points)==51 and sum(b<a for a,b,k,u,h in points)==33
     assert len(set(points))==51 and all(h/k*abs(b-a)>=30 for a,b,k,u,h in points)
+
+
+def test_scan_serializes_predictions_and_flags_without_truth(tmp_path,monkeypatch):
+    """Exercise the full CSV boundary on tiny synthetic M0 distributions."""
+    monkeypatch.setattr(W,'collision_keys',lambda:set())
+    def build(a,b,k,u,h,cache,**kw):
+        return dict(a=a,b=b,kappa=k,u=u,h=h,x=(b-a)/u,
+                    r_stay=2.,r_switch=1. if b<a else 3.,
+                    fresh=(fake_side([-3,1]),fake_side([0])),
+                    stale=(fake_side([-1]),fake_side([0])))
+    result=W.compute(tmp_path,builder=build)
+    with (tmp_path/'scan.csv').open() as stream:
+        rows=list(csv.DictReader(stream))
+    assert len(rows)==result['rows']==51*len(W.COSTS)
+    assert len({r['id'] for r in rows})==len(rows)
+    assert all(r['status']=='PREDICTED' and r['W6']=='True' for r in rows)
+    assert set(r['c'] for r in rows)==set(map(str,W.COSTS))
