@@ -495,3 +495,21 @@ Closestprior3Crossreflookups+4PDFcalls9pagesAI-T,P13Thm1/Prop5khôngtransfer;
 M00herding/P04timescalegiới hạnwording.0newpapers/download/catalogchanges.
 Khôngexactzero/hstar/independentconfirmation/novelty/RQ3;chưaPHASE6plan/runs,
 khôngv1.2/CF/SUB/76p4outcomes/R09R10. D22/L8/realism/Understandinggiữ.
+
+
+L6.1/02-11(DL129):chọnA theoủyquyền,0nativeP6calls. H1M0-only/0fitparams,
+H0a geometryband0<x<.54-.07u,2paramgridfitc0(1448rows,SHA37cf369b...)
+1418/1448=97.9282%;provided.54-.08u1417/1448;fixed.5=1391/1448.
+Gridalpha0…1/.01,beta−.5….5/.01,maxaccuracy,tieabsbeta/alpha/beta;fullrecipeDL.
+405/1448arithFalse giữ;in-sample discoverykhôngmechanismvalidation.
+Chọnh-invariance mô tảphụ cùngpanel;khôngknockout/D22/CF/SUB/amplitude/cx/
+Pcollapse/76p4outcomes. ClaimtargetpredictiveinterventionsupportvsH0a,
+khôngunique causal/cost-aware null hoặcnovelty. BudgetP6≤14400CPU-s,
+panel≤7200 gồmchildren/guards/cache/failures;no retry/resume/refine/P6v1.1.
+Pilot48a7435e9đãđọc,K40ref1,x≥0,h/k≤26.67 nhưng**Pmax40,4rowsP40**;
+c>0P≥30khôngunseen. Inventory51records49keys,48u>0+1u0;negativex chưa có
+activec>0key. L62collisionauditphảihợp mọi source/probe. Toy4rowsPASS;
+accounting325/329chỉinsample,sharesM0new58→160đổikhoảng1e−4,khôngexactinvariance.
+Prior5localnotes+Veatchmetadata/Bozkurtabstract;hoãnnewPDF/note,CEH23đãcó.
+DL129committrướcprobe;chưaL62window/GateD-entryGO. G1/UnderstandingOPEN,
+R09R10sealed/D22deferredgiữ;forecastAIdelegated khôngauthor-self.

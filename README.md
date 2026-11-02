@@ -12,6 +12,17 @@ Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, t
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
+**L6.1 đã chốt câu hỏi Phase 6 (DL-129), chưa chạy native.** Chọn dấu G_S
+dưới switching cost, H1 dùng M0-only; H0a là dải `0 < x < 0.54−0.07u`,
+fit hai tham số trên discovery, đúng 1418/1448 (97,93%) trong mẫu.
+Chọn h-invariance làm mô tả phụ trong cùng panel, không knockout;
+budget toàn Phase 6 ≤4 CPU-giờ, panel ≤2 giờ, không retry/resume/v1.1.
+**Đính chính exposure:** pilot c_sw>0 có P tối đa40 (bốn dòng P40), nên
+`c_sw>0, P≥30` không tự là điều kiện chưa dùng; phía x<0 chưa có active key
+trong inventory. L6.2 bắt đầu bằng cửa sổ H1/H0 bất đồng chỉ từ tham số,
+rồi probe ngoài panel trước freeze; Gate D-entry chưa GO.
+[Quyết định, recipe fit và kiểm toy](notes/02_decision_log.md#dl-129--phase-6-l61-chọn-câu-hỏi-cơ-chế-h1-h0-và-can-thiệp-02112026).
+
 V1 chính thức **INCONCLUSIVE**; v1.1 **PASS 10/0/0** sau một lần sửa thiết kế có khai báo, chỉ giữ
 claim numerical finite-panel ở h/κ 320/640, có exposure một phần.
 H-L2 PASS exploratory, nhưng Spearman chịu cấu trúc cụm và MedAE phụ thuộc
@@ -19,7 +30,7 @@ thành phần panel; cả hai thay đổi acceptance đều cần để H-L1 PAS
 là lượng hóa phù hợp một giới hạn được kỳ vọng, chưa phải contribution/novelty.
 **Gate C = NARROW, G1 giữ nguyên (DL-128)**; bàn giao Phase 6 theo ủy quyền,
 realism/D22/Understanding còn mở;
-chưa chạy Phase 6, không retry/resume/refine/v1.2 hoặc confirmation độc lập.
+chưa có native Phase 6, không retry/resume/refine Phase 5 hoặc confirmation độc lập.
 
 [Closeout L5.3: evidence, sensitivity, prior và claim](notes/phases/PHASE_5_closeout.md) ·
 [DL-128](notes/02_decision_log.md#dl-128--phase-5-gate-c-narrow-02112026) ·

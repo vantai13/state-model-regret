@@ -2662,3 +2662,157 @@ G_S|M0/Γ nơi L00 đủ đo, hệ sốgap c/x post-hoc và numericsL00. G_S/Γ 
 10rawv1.1nay exposed choPhase6, đã ghi register. Chưa tạoPHASE_6.md hoặc
 chạy Phase6; khôngv1.2/CF/SUB/sealedR09R10/76p4outcomes. CloseoutAI-readback
 không thay tácgiảtựviết/hiểu; D22native/L8/realism/Understanding giữ trạng thái.
+
+
+### DL-129 — Phase 6 L6.1: chọn câu hỏi cơ chế, H1, H0 và can thiệp (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Quyết định do AI thực hiện theo ủy quyền
+hiện có (“đóng vai trò là tác giả…tự ra quyết định”) và yêu cầu thực hiện
+hai phần L6.1. Không ghi tác giả tự chọn/tự tính/đã hiểu, author-attested
+hoặc human review. Gate C=NARROW/G1/PIVOT-watch từ DL-128 giữ nguyên.
+
+**Câu hỏi được chọn — A:** Trong plant v1.3, một action giữ suốt h, M0 là
+conditional-mean rollout và state oracle gồm backlog+mode: thêm switching
+cost có làm dấu G_S=L00−L10 đổi như H1 dự đoán ở vùng truth/model có ranh
+giới khác nhau, vượt sức dự đoán của một threshold null theo hình học tải?
+Chỉ dùng điều kiện chưa dùng sau collision audit; P lớn tự nó chưa đủ.
+Γ=S−G_S là identity mọi regime; S,M,Γ chỉ báo kèm, không evidence độc lập.
+
+**H1 (ứng viên, chưa kiểm):** Khi horizon đủ dài cho phần lớn mass liên quan,
+chi phí M0 bão hòa theo state trong khi truth giữ phần h·r. c_sw có thể làm
+M0 với state cũ chuyển sang Stay trước M0 với state mới, còn truth chưa đổi;
+điều đó tạo/dịch dải G_S>0 sang x<0 và có thể đảo dấu ở phía x>0. Điều kiện
+thứ tự chuyển và độ lớn effect phải được kiểm bằng predictor ở L6.2, không
+suy từ toy. Chọn đường **M0-only, 0 tham số empirical fit**, bổ sung đúng
+posterior S0, không thay average-forecast bằng forecast tại mean state.
+Stationary laws/mean profiles được dùng, finite-h M1 truth không được dùng
+để dựng H1/panel. Không tự fallback sang calibration fit nếu đường này thất
+bại: STOP/HOLD và ghi trước probe/panel. T09 vẫn cần stability/moment/
+integrability; không uniform finite-h saturation trên unbounded support.
+
+**H0 chính — H0a đã fit:** dự đoán G_S>0 iff
+`0 < x < theta(u)`, **theta(u)=27/50−(7/100)u = 0.54−0.07u**;
+ngoài dải dự đoán âm, ties tại hai ranh giới thuộc ngoài dải. Không phụ thuộc
+c_sw/h/kappa: đây là hypothesis bất biến của **geometry-only null**, không
+phải cấm đối thủ nhận metadata hoặc tuyên bố nó là null cost-aware mạnh nhất.
+Hai bên có cùng quyền biết design và discovery; H0 dùng 2 hệ số fit, H1 dùng
+0 hệ số empirical fit. Thắng H0a chỉ bác sự đủ của luật đó, không loại mọi
+heuristic có c_sw hoặc nhận diện duy nhất causal mechanism.
+
+Recipe fit H0, đủ để tái lập trước outcomes Phase6:
+- Source `results/explore_mech/sobol4/metrics.csv` SHA256
+  `37cf369bf87cb34fe65b3339806d1f8984f695eb929359181e62bcda718a4d1c`.
+- Giữ P=(h/kappa)*abs(lambdaB−lambdaA)≥30, abs(G_S_pctC)≥0.5 và x!=0:
+  **1448 rows = 164 positive +1284 negative**, từ16384 discovery rows.
+  Giữ đúng filter trên, không lọc thêm theo arith/flags để tăng score;
+  1043arithTrue/405False,
+  368rows có raw flags. Các labels là exploratory estimates ở160/2,
+  không được gọi ground truth đã certified hoặc independent validation.
+- Grid duy nhất: alpha=j/100,j=0…100; beta=k/100,k=−50…50.
+  Maximize số dấu đúng trên1448; tie chọn (abs(k),j,k) nhỏ nhất theo từ điển.
+  Strict inequality0<x<alpha+beta*u. Fit cho alpha=.54,beta=−.07;
+  **1418/1448=97.9281768%**, kiểm lại toàn bộ bằng Fraction khớp float count.
+  Theta(1)=.47,theta(2)=.40; không dùng pilot c>0 để tối ưu alpha/beta.
+- Đối chiếu số của lesson: hệ số .54−.08u cho1417/1448=97.8591160%;
+  cả hai làm tròn97.9%, khác1row vì input không cho recipe optimizer.
+  Dải cố định0<x<.5:1391/1448=96.0635359%.
+- 1-NN chỉ mô tả: z-score population mean/std(ddof0) của
+  (lambdaA,lambdaB,u,logkappa,logh) trên1448, Euclid, LOO theo row, ties ID:
+  **1365/1448=94.2679558%**. Không nhận đã tái lập chính xác94.2% vì input
+  không chốt feature scaling. Đây là diagnostic, không thêm đối thủ chính;
+  0scalarfitparams không đồng nghĩa không model capacity (NN lưu labels).
+
+**Đối thủ khác:** không chọn H0b ở phase này: thêm calibration/shift parameter
+đổi sang câu hỏi mạnh hơn. Null “c_sw chỉ giảm |G_S|, không đổi dấu” chỉ báo
+mô tả, không verdict thứ hai. Không gọi H0a công bằng với mọi cost-aware null.
+
+**Can thiệp/phạm vi:** chọn c_sw, mức cụ thể và panel khóa ở L6.2. Chọn đúng
+một SHOULD: **h-invariance**, ghép horizon trong cùng panel, báo phụ mô tả,
+không thêm một lần run/verdict để thắng. Không knockout model-side. Không
+D22, CF-v2/SUB, amplitude khác6, testc/x/P-collapse hoặc76p4outcomes.
+Chọn A vì cho dự đoán can thiệp; B gần limit check chỉ mô tả; C kiểm prevalence
+và CP machinery khác câu hỏi; D22 cần estimator khác và giữPhase8;
+E c/x dạng đã kỳ vọng để sau; A++ code mới chưa cần cho claim hẹp.
+
+**Mức claim mục tiêu:** đặc trưng dự đoán có can thiệp, có thể hỗ trợ cơ chế
+“M0 mù horizon” **so với H0a này**, nếu vượt GateD; không chứng minh cơ chế
+độc nhất, generic information-harm, novelty, realism hoặc RQ3.
+**Budget chốt:** native Phase6 tổng≤14400CPU-s (4h), trong đó panel≤7200CPU-s
+(2h); gồm probe/anchor và calibration nếu được duyệt riêng, guards/controller,
+all descendants, failedcalls/cache creation. Một worker/1BLASthread. L6.2
+phải đo và thực thi counters/caps trước call đầu tiên; không nới sau outcome.
+No retry/resume/refine, **không có P6v1.1**. Không có cửa sổ hoặc probe không
+đo được trong budget → STOP/HOLD, không thêm scan để cứu.
+
+**Toy tính exact (relative to Stay, không Cref normalization):**
+
+| c_sw | L11 | L01 | L00 | L10 | G_S | Gamma |
+|---|---:|---:|---:|---:|---:|---:|
+| 0 | −10 | −10 | −10 | −6 | −4 | +4 |
+| 1 | −9 | −9 | 0 | −5.5 | +5.5 | −5.5 |
+| 2 | −8 | −8 | 0 | −5 | +5 | −5 |
+| 4 | −6 | −6 | 0 | 0 | 0 | 0 |
+
+Bốn rows/assertions và identity khớp; tie chọnStay. Đây là illustration,
+không simulation/native plant. c quá lớn có thể triệt cả effect.
+
+**Bốn bậc / đính chính cách đọc:** x<0→G_S<0 là pattern, không identity;
+G_S<0 và trueS≥0→Gamma>0 mới là hệ quả đại số. Exact accounting là weighted
+regret difference E[|Delta_c|*(I_oldwrong−I_newwrong)] dưới joint law;
+constant stake nhân chênh mismatch chỉ xấp xỉ. Mismatch không suy chính xác
+từ marginal switch shares nếu truth chưa tập trung một action. f lồi chỉ cho
+weak increasing differences; “iff signδ” còn cần strictness/guard stationary
+sign, không lấy convexity đơn thuần làm proof. Shares1.000 làm tròn không
+chứng minh tất cả states chọn giống nhau hoặc trueS exact0.
+
+**Discovery đọc lại:** printer hslice chạy read-only. Tại x=−1/3,h/k160:
+truth/M0old/M0new≈1/1/.626;
+G_S=−6.05%Cref, accounting≈−6.04. Tại x=+1/3:≈.001/.947/.511,
+G_S≈+9.36, accounting≈+8.08. M0new shares giữa58→160 đổi
++0.000116985669 (lambdaB6) và−0.000154161518 (lambdaB7): giống3digits,
+**không bằng chính xác**; M0old hai dòng này không đổi trong CSV.
+Trên5adaptive slices:325/329=98.7842% khiP≥30,508/538=94.4238% khiP≥10;
+allP vớiabsGS≥.5,x!=0:602/781=77.0807%. Cùng event/nearby keys có thểlặp;
+không coi các tỷ lệ này là prospective evidence cơ chế. Predictor accounting
+ước stake từ M của cùng rows là in-sample, không prediction.
+
+**Exposure pilot — sửa lỗi quan trọng của input:** đã đọc qua
+`git show a7435e9:results/explore_v13/stage3/regimes.csv`, không restore file.
+48rows,24pairs c1/4, một mứcK40/ref1, x∈[0,1.5],h/k≤26.6667,
+**Pmax=40**, không phải mọi P<30. X3000–X3003 cóP40,c1/4,x1/1.5.
+Inventory51records cost>0 chỉ49distinctkeys,48u>0 activekeys (pilot) và1u0
+control key; không phải51active độc lập. Activekeys không cóx<0.
+Vậy điều kiện “c>0,P≥30 chưa dùng” **sai**; L6.2 phải collision audit union
+mọi inventory/exploration/probe, không chỉ đặt điểm mới dưới tên khác.
+Ởc1:9+/1−/14deadband; c4:4+/0−/20deadband tại±.5pp. Có4/24raw sign
+changes, **0** cặp đảo dấu vượt.5pp ở cả hai phía. Không xác nhận hay bácH1:
+không có phía x<0, chỉ coarse labels, chưa kiểm điều kiện H1.
+CSV historical SHA256 `3d4a7a648467f15987cdf69f88cefaa9a3441dd20e7d356e848d474a0a8dd624`.
+76p4outcomes vẫn chưa mở; hslice/sobol4/5slices là old adaptive discovery.
+
+**Prior và nguồn mới:** đọc lại note R02§5Example1,information_harm§1/3,
+already_implied L2.8,T09§1–3 và CEH23§2/5.1/6.1/8: mức note-review,
+không primary reread/L-self. Generic approximate-policy information harm đã
+có prior; CEH23 trong26-source library đã hỗ trợ wording future uncertainty
+→ nominal values, với assumptions khác plant; không áp bounds cho repo.
+- #1 Veatch2001, DOI10.1109/9.940928: metadata checked, không full text;
+  **hoãn PDF trong L6.1**, ưu tiên nếu cần trước claim cuối GateD.
+- #2 Bozkurt2602.02814v1: official abstract-only, CE tại state estimate khác
+  việc đơn giản đồng nhất với M0 mean-future; **không duyệt bổ sung PDF/note
+  ởL6.1** vì wording đã có CEH23, chưa kiểmtheorem của nguồn mới.
+- #3 chưa tên/DOI: **không duyệt** như một paper; không tự thêm nguồn trống.
+Quyết định theoủyquyền: boundedpriorL6.1 dùng thư viện hiện có +metadata2ứng
+viên, không download/note mới/catalog changes. Không nhận4searches củaClaude
+là queries của phiên này, không field coverage hoặc novelty. Chi tiết searchlog.
+
+**Forecast trước L6.2:** tác giả chưa gửi forecast/self-readback độc lập.
+AI theoủyquyền dự đoán **H1_SUPPORTED là kịch bản ưu tiên nếu GateD-entry
+thực sự GO**; rủi ro chính cửa sổ không tồn tại/effect bịc lớn triệt hoặc
+L00notREADY. Không gán phần trăm giả để làm calibration; không nhận forecast
+là tácgiảtựviết. Read-back trướcprinter đã thấy số từlesson nên khôngblind.
+
+**Gate L6.1:** phần execution hoàn tất khi entry này commit; **0 native
+Phase6 calls**, chưa có panel/runner/probe/predictions/freezev2 hoặcGateD-entryGO.
+Ownership/Understanding vẫnOPEN. Chỉ bàn giao L6.2 PartA kiểm cửa sổ bằng
+tham số trước probe; mọi labels/thresholds/panel/calibration phải chốt trước
+truecalls tương ứng. Phase5 bytes/verdicts vàG1/R09R10/CF/SUB/D22 giữ nguyên.

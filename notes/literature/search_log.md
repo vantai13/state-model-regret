@@ -563,3 +563,53 @@ author-venuequeries,0newunique/proposals/downloads/notes. 4PDFcalls/9pages;
 Excel/catalog/authorreadingprogress, không nhậnL-self. Không fieldcoverage,
 saturation hoặc novelty. Dừng đủbounded3nguồn/tables choL5.3; không thêm
 Puterman hoặcnguồnngoàingành. [Kết quả/claim boundary](../phases/PHASE_5_closeout.md#closest-prior-check-targeted-không-novelty-search).
+
+
+## L6.1 — prior check giới hạn trước chọn câu hỏi (02/11/2026)
+
+Người phụ trách **Doan Van Tai**; skill paper-research. Câu hỏi/MainRQ-PC3/4:
+đã có nguồn gần cơ chế mean/fluid bỏ dài hạn khiến switching cost đổi dấu
+value of state information hay chưa? Đọc thư viện/R02/V1/T09 trước; kiểm
+metadata/abstract hai đề xuất Veatch2001 và Bozkurt2602.02814, thêm tối đa
+một query networking switching-cost nếu cần. Giữ khi E/M/R ảnh hưởng câu
+hỏi hoặc wording; không mở rộng chỉ vì cùng từ khóa. Ngân sách bounded
+lookup hai nguồn, tối đa ba đề xuất, không broad survey; không dùng lượt
+4queries của Claude thành thao tác local. Chưa duyệt PDF/note mới; lựa chọn
+duyệt/hoãn/từ chối sẽ ghi DL129 trước native. Chi tiết kết quả nối cuối mục.
+
+
+**Kết quả lượt L6.1 (bổ sung sau thao tác thật):**
+- Note review5nguồn đã có: R02§5Example1 (theo noteAI-T), information_harm§1/3,
+  already_implied L2.8 targeted text search, T09§1–3 và CEH23§2/5.1/6.1/8
+  (theo noteAI-T). Không primary reread, không nâng author levels. CEH23 đã
+  có trong26-source catalog, hỗ trợ wording uncertainty→nominal, assumptions
+  affine/smooth khác reflected queue; không chuyển bounds sangplant.
+
+| Loại/thao tác | Query/seed | Kết quả thực đọc/sàng | Giữ | Hạn chế/decision |
+|---|---|---|---|---|
+| lookup exact title | paper-search/search_crossref: `Fluid analysis of arrival routing Veatch`, max3 | 3metadata/title records,1đúng title | 1metadata candidate | Hai record khác lệch estimand hoặc ngoài ngành, không đi tiếp |
+| lookup exact ID | web.open `https://arxiv.org/abs/2602.02814` | 1official metadata+abstract, v1 submitted02/02/2026 | 1abstract candidate | CE policy at state estimate theoabstract; không đọc§1/proofs hoặc suy bounds ápM0 |
+| lookup title + author access | web.search `"Fluid analysis of arrival routing" Veatch switching cost`, domainsIEEE/Gordon/ResearchGate | 8returned entries,screenedtitles; chỉ official Gordon snippet dùng đối chiếu identity | 0newunique | RG/khácpaper không dùng làm evidence nội dung. Không có primary abstract của đúng Veatch qua lookup này |
+| access attempt | web.open Gordon author page | 404,0page read | 0 | Lỗi access không là evidence không có prior |
+
+Veatch: M.H.Veatch2001, *Fluid analysis of arrival routing*, IEEE TAC46(8):
+1254–1257, DOI[10.1109/9.940928](https://doi.org/10.1109/9.940928),
+**metadata-only**. Bozkurt/Mahajan/Nayyar/Ouyang: *Sub-optimality bounds for
+certainty equivalent policies in partially observed systems*,
+[arxiv2602.02814v1](https://arxiv.org/abs/2602.02814v1), **abstract-only**,
+preprint; không gán peer-reviewed. Không lấy citations làm evidence/không
+cập nhật counts vào catalog. Chưa xác nhận prior trùng E/M/R từ phạm vi này.
+
+Tổng:3successful lookup/access paths +1failed access; 2search queries
+(Crossref title +web title),2opens. 3+8+1=12record views,không12unique;
+2candidateunique metadata/abstract giữ ởlog,0nguồn mới vào catalog.
+0keyworddiscovery/forward/backward/author-venue rounds,0PDFdownload/
+newcontentnotes/primarypagesread. Không nhận4queries củaClaude thànhlocal.
+Không đạt2×20, khôngfieldcoverage/saturation/novelty. Một lỗi helper metadata
+u0ZeroDivisionError được sửa bằng tách control u=0, không paper/tool failure.
+
+**Lựa chọn theoủyquyền trongDL129:** khôngduyệt bổsung PDF/note ởL6.1;
+Veatch ưu tiên nếu cần kiểm trướcclaimGateD, Bozkurt chưa cần vìCEH23đãcó,
+đềxuất#3chưađịnhdanh khôngnhậnlàpaper. Dừngboundedmetadataround; priorcheck
+hiện tại không xácnhậnnội dung switchingcost củaVeatch hoặcabsenceofprior.
+Không hỏi author-reading/attestation để thay tácgiả;không thêm bài đọc bắtbuộc.

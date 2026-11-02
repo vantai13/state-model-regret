@@ -1171,3 +1171,20 @@ subsetMedAE và patterngap·x đều post-hoc descriptive, không tests mới.
 Read-back/câuclaim/GateNARROW/G1 là AI theoủyquyền sauoutcome, không tácgiả
 attest hoặcself-understanding. Literature targeted primary9pages là AI-T,
 không đổiauthor reading levels. V1INC và v11PASS giữnguyên; khôngretry/refine.
+
+
+## L6.1 — discovery replay và pilot c_sw (02/11/2026, DL-129)
+
+Đã đọc5CSV adaptive slices (998screen events) và sobol4=16384discoveryrows,
+fitH0 chỉ trên1448P≥30/absGS≥.5/x!=0; không prospective test. Hypothesis/
+null chọn sau các outcomes c0 này, trước mọi native Phase6 call.
+48stage3rows c1/4 đọc từcommita7435e9, khôngkhôi phụcfile:24matchedpairs,
+K40/ref1,x0…1.5,P0…40. Đínhchínhinput:4rowsX3000–03 cóP40, nênc>0/P≥30
+không tự làunseen. Inventory51records/49keys,48u>0activekeys+1u0control;
+khôngx<0 trongactivec>0keys. Cả48outcomes làđãthấy cho thiết kếL6.2;
+khôngdùnglại làmheldout hoặc tínhprobe/panel. G_Ssignflips4rawpairs đều
+khôngqua±.5pp cảhaiphía; coarsepilot khôngvalidateH1.
+
+Các số share hslice/accounting/fitnull đềuin-sample;readbackAI trướcprinter
+đãthấy lesson output, khôngblindexpectation. Khôngmở76p4-regionsoutcomes,
+CF/SUB/R09R10. PhầnG_S/GammaP5 đãexposed nhưDL128giữ;0nativecalls mới.
