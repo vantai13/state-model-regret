@@ -3208,3 +3208,15 @@ denominator/case-specific chưaempiricalvalidation. Nếuđủwindow, PartB
 phảiprobe ngoài panel đúngvùngpostload9/highload; **khôngchạyPartB/C/L6.3
 tronglượt này**. G1/NARROW/UnderstandingOPEN/CF/SUBpark/R09R10sealed/
 76highratiooutcomesunread giữ. Không thêmframework/lesson/report dư.
+
+**Preflight trước revision02:** DL132commit`e3385598` trước sửa code.
+10quicktestsPASS/25deselected2.05s (time1.97CPU-s); full685PASS116.17s
+(time112.82CPU-s). Testskiểmexactcostgrid/oldIDs,certificateprovenance,
+mọifieldreplay (kểcảmetadata),blockreplay trướcfinalchecks,khôngoverwrite
+CSV khi thêm finalproofs; oldT2/identity/posteriormutants vẫnPASS.
+Commands:OMP/OPENBLAS/MKL=1,/usr/bin/time,.venv/bin/python -B -m pytest
+-q -p no:cacheprovider tests/test_p6_predictor.py -k 'expanded_cost or reuse or replay or final_checks_do_not or scan_serializes or window_stop'; fullbỏpath/-k.
+SourceH1/identity và6historyfiles khớpbf972c9c. Trướcnewscan dành
+**priorupper1000CPU-s** (860cũ+1.97+112.82=974.79,25.21reserveguards/
+rounding/metadata), cap1800 giữ. 7certificate c-independent được táidùng,
+khôngtựnhận là7lượt kiểm độc lập mới. Chưa tínhpredictor ởcost>1.

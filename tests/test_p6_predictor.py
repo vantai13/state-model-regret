@@ -188,7 +188,8 @@ def test_scan_serializes_predictions_and_flags_without_truth(tmp_path,monkeypatc
     assert all(r['status']=='PREDICTED' and r['W6']=='True' for r in rows)
     assert set(r['c'] for r in rows)==set(map(str,W.COSTS))
     assert all(float(r['mean_drift'])>W.MEAN_TOL for r in rows)
-    assert set(result['identities'])==set(W.IDENTITY_BASES)
+    assert set(W.IDENTITY_BASES)<=set(result['identities'])
+    assert all((r['identity_checked']=='True')==(r['base_id'] in W.IDENTITY_BASES) for r in rows)
 
 
 class SwappedPosterior:
@@ -248,9 +249,8 @@ def test_final_K640_check_vetoes_weak_or_reversed_prediction(monkeypatch,z,stabl
 
 def test_window_stop_rules_do_not_relax_Di_requirement():
     w=dict(W9_met=False,controls_both_signs=True)
-    assert W.candidate_status({'all':{'Di':0,'Dii':3}},w)=='HOLD_ONLY_DII'
-    assert W.candidate_status({'all':{'Di':0,'Dii':0}},w)=='STOP_NO_WINDOW'
-    assert W.candidate_status({'all':{'Di':1,'Dii':30}},w)=='HOLD_INSUFFICIENT_DI_OR_DIVERSITY'
+    for di,dii in ((0,3),(0,0),(1,30)):
+        assert W.candidate_status({'all':{'Di':di,'Dii':dii}},w)=='STOP_INSUFFICIENT_WINDOW'
 
 
 def test_lattice_patch_restored_after_error():
@@ -258,3 +258,69 @@ def test_lattice_patch_restored_after_error():
     with pytest.raises(RuntimeError):
         with I.lattice_quadrature([]):raise RuntimeError('test interruption')
     assert R.quadrature.build is original
+
+
+def test_expanded_cost_grid_preserves_old_ids_and_covers_W3_scale():
+    assert tuple(map(str,W.COSTS[:10]))==('0','1/32','1/16','1/8','3/16','1/4','3/8','1/2','3/4','1')
+    assert tuple(map(str,W.COSTS[10:]))==('5/4','3/2','7/4','2','5/2','3','7/2','4','5','6')
+    assert len(W.COSTS)==len(set(W.COSTS))==20 and W.COSTS==tuple(sorted(W.COSTS))
+
+
+def test_identity_samples_reused_with_original_provenance():
+    saved=W.load_identity_samples()
+    assert set(saved)==set(W.IDENTITY_BASES) and all(r['passed'] for r in saved.values())
+    assert len(W.load_previous_rows())==510
+
+
+@pytest.mark.parametrize('broken',['scope','source','certificate'])
+def test_reuse_rejects_invalid_certificate_or_provenance(monkeypatch,broken):
+    saved=W.V1.load(W.PREVIOUS/'summary.json')
+    if broken=='scope':saved['ref']=2
+    elif broken=='source':saved['source_sha256']['experiments/P6_band/identity.py']='0'*64
+    else:saved['identities']['B001']['passed']=False
+    monkeypatch.setattr(W.V1,'load',lambda *a:saved)
+    with pytest.raises(RuntimeError):W.load_identity_samples()
+
+
+def test_replay_invariant_checks_numbers_metadata_and_missing_rows():
+    old=[dict(id='X',z_H1='1.0',identity_checked='False',K_stable='')]
+    current=[dict(id='X',z_H1=1.,identity_checked=False,K_stable=None)]
+    assert W.replay_invariant(current,old)['passed']
+    for field,value in [('z_H1',1.000000000001),('identity_checked',True),('K_stable',True)]:
+        changed=[dict(current[0],**{field:value})]
+        assert W.replay_invariant(changed,old)['mismatches'][0]['fields']==[field]
+    assert not W.replay_invariant([],old)['passed']
+
+
+def test_replay_mismatch_blocks_before_final_checks(tmp_path,monkeypatch):
+    base=next(W.bases())
+    monkeypatch.setattr(W,'bases',lambda:iter([base]))
+    monkeypatch.setattr(W,'IDENTITY_BASES',())
+    monkeypatch.setattr(W,'collision_keys',lambda:set())
+    monkeypatch.setattr(W,'validate_witness',lambda *a,**kw:pytest.fail('final checks before invariant'))
+    def builder(a,b,k,u,h,cache,**kw):
+        return dict(a=a,b=b,kappa=k,u=u,h=h,x=(b-a)/u,r_stay=2.,r_switch=1.,
+                    fresh=(fake_side([-3,1]),fake_side([0])),stale=(fake_side([-1]),fake_side([0])))
+    result=W.compute(tmp_path,builder=builder,previous_rows=[dict(id='MISSING',H1='+')])
+    assert result['status']=='BLOCKED_REPLAY_INVARIANT'
+    assert not result['replay_invariant']['passed']
+
+
+def test_final_checks_do_not_overwrite_scan_stage_fields(tmp_path,monkeypatch):
+    base=next(W.bases())
+    monkeypatch.setattr(W,'bases',lambda:iter([base]))
+    monkeypatch.setattr(W,'IDENTITY_BASES',())
+    monkeypatch.setattr(W,'collision_keys',lambda:set())
+    monkeypatch.setattr(W,'witness',lambda rows:dict(D=['B001C07'],A=[],W9_met=True,controls_both_signs=True))
+    def builder(a,b,k,u,h,cache,**kw):
+        return dict(a=a,b=b,kappa=k,u=u,h=h,x=(b-a)/u,r_stay=2.,r_switch=1.,
+                    fresh=(fake_side([-3,1]),fake_side([0])),stale=(fake_side([-1]),fake_side([0])))
+    def final(rows,w,cache,identities,**kw):
+        rows[0]['H1']='CHANGED';rows[0]['K_stable']=True
+        identities['B001']=dict(passed=True,drift=0.,bound=.0001)
+        return None,[dict(K_stable=True)]
+    monkeypatch.setattr(W,'validate_witness',final)
+    result=W.compute(tmp_path,builder=builder)
+    rows=list(csv.DictReader((tmp_path/'scan.csv').open()))
+    assert result['status']=='PASS' and 'B001' in result['identities']
+    assert all(r['H1']!='CHANGED' and r['K_stable']=='' and r['identity_checked']=='False' for r in rows)

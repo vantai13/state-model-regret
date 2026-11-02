@@ -23,16 +23,19 @@ from experiments.P5_panel import run as V1
 from experiments.explore_mech.scan import key, forbidden_keys
 
 ROOT = V1.ROOT
-OUT = ROOT/'results/phase6/window_revision01'
+OUT = ROOT/'results/phase6/window_revision02'
+PREVIOUS = ROOT/'results/phase6/window_revision01'
 CACHE = Path.home()/'.cache/state-model-regret/phase6/window'
 SOURCES = ('experiments/P6_band/__init__.py', 'experiments/P6_band/predictor.py',
            'experiments/P6_band/identity.py', 'experiments/P6_band/window.py', 'tests/test_p6_predictor.py')
 HISTORY = tuple('results/phase6/window/'+n for n in ('scan.csv','summary.json','diagnostic_B017.json'))+(
-    'results/phase6/window_attempt01_failed/summary.json',)
+    'results/phase6/window_attempt01_failed/summary.json',
+    'results/phase6/window_revision01/scan.csv','results/phase6/window_revision01/summary.json')
 IDENTITY_BASES = ('B001','B002','B006','B011','B016','B017','B042')
 CAP = 1800
 RHO, PMIN, ZMIN, MEAN_TOL = F(1,4), F(30), F(1), .005  # old tau: descriptive only (DL-131)
-COSTS = tuple(map(F, ('0','1/32','1/16','1/8','3/16','1/4','3/8','1/2','3/4','1')))
+COSTS = tuple(map(F, ('0','1/32','1/16','1/8','3/16','1/4','3/8','1/2','3/4','1',
+                     '5/4','3/2','7/4','2','5/2','3','7/2','4','5','6')))
 K, REF, NMIN = 320, 4, 10
 
 
@@ -138,19 +141,45 @@ def preflight():
     for source in SOURCES:
         V1.require((ROOT/source).read_bytes()==V1.git('show','HEAD:'+source), 'UNCOMMITTED:'+source)
     V1.require(not V1.git('status','--porcelain','--untracked-files=no').strip(), 'TRACKED_TREE_DIRTY')
-    V1.require('### DL-131 ' in (ROOT/'notes/02_decision_log.md').read_text(), 'REVISION_REQUIRED')
+    V1.require('### DL-132 ' in (ROOT/'notes/02_decision_log.md').read_text(), 'REVISION_REQUIRED')
     for path in HISTORY:
-        V1.require((ROOT/path).read_bytes()==V1.git('show','e8d10927:'+path),'HISTORY_CHANGED:'+path)
+        V1.require((ROOT/path).read_bytes()==V1.git('show','bf972c9c:'+path),'HISTORY_CHANGED:'+path)
+
+
+def load_identity_samples():
+    """Reuse c-independent certificates only while all shared code is unchanged."""
+    saved = V1.load(PREVIOUS/'summary.json')
+    V1.require(saved['ref']==REF and saved['identity_base_ids']==list(IDENTITY_BASES),'IDENTITY_SCOPE_CHANGED')
+    changed=V1.git('diff','--name-only','bf972c9c','--','src','experiments').decode().splitlines()
+    V1.require(set(changed)<={'experiments/P6_band/window.py'},'IDENTITY_DEPENDENCY_CHANGED')
+    for path in ('experiments/P6_band/identity.py','experiments/P6_band/predictor.py'):
+        V1.require(hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==saved['source_sha256'][path],
+                   'IDENTITY_SOURCE_CHANGED:'+path)
+    samples={bid:saved['identities'][bid] for bid in IDENTITY_BASES}
+    V1.require(all(r['passed'] and abs(r['drift'])<=r['bound'] for r in samples.values()),'INVALID_REUSED_IDENTITY')
+    return samples
+
+
+def load_previous_rows():
+    with (PREVIOUS/'scan.csv').open() as stream:rows=list(csv.DictReader(stream))
+    V1.require(len(rows)==510 and len({r['id'] for r in rows})==510,'PREVIOUS_SCAN_INCOMPLETE')
+    return rows
+
+
+def replay_invariant(rows, previous):
+    """Compare the CSV representation of EVERY old field, not a float tolerance."""
+    current={r['id']:r for r in rows};mismatches=[]
+    for old in previous:
+        new=current.get(old['id'],{})
+        fields=[k for k,v in old.items() if k not in new or ('' if new[k] is None else str(new[k]))!=v]
+        if fields:mismatches.append(dict(id=old['id'],fields=fields))
+    return dict(passed=not mismatches,rows_compared=len(previous),mismatches=mismatches)
 
 
 def candidate_status(counts, w):
     if w['W9_met'] and w['controls_both_signs']:
         return 'READY_FOR_FINAL_CHECKS'
-    if counts['all']['Dii'] and not counts['all']['Di']:
-        return 'HOLD_ONLY_DII'
-    if not counts['all']['Di'] and not counts['all']['Dii']:
-        return 'STOP_NO_WINDOW'
-    return 'HOLD_INSUFFICIENT_DI_OR_DIVERSITY'
+    return 'STOP_INSUFFICIENT_WINDOW'
 
 
 def validate_witness(rows, w, cache, identities, *, builder, identity_checker):
@@ -184,10 +213,12 @@ def write_csv(path, rows, mode='w'):
         writer.writerows(rows);stream.flush();os.fsync(stream.fileno())
 
 
-def compute(out=OUT, *, builder=P.build_sides, identity_checker=I.exact_identity):
+def compute(out=OUT, *, builder=P.build_sides, identity_checker=I.exact_identity,
+            identity_samples=None, previous_rows=None):
     """Worker emits only design predictions; guard forbids true cost construction."""
     blocked=collision_keys(); cache=P.StationaryCache(ROOT,CACHE)
-    rows=[]; timings=[]; diagnostic_failure=None; identities={}; refined=[]
+    rows=[]; timings=[]; diagnostic_failure=None; identities=dict(identity_samples or {}); refined=[]
+    replay=dict(passed=None,rows_compared=0,mismatches=[])
     def deny(*a,**kw):raise RuntimeError('FINITE_H_TRUTH_FORBIDDEN')
     with patch.object(P.profiles,'get',deny),patch.object(P.P,'idle',deny):
         for index,base in enumerate(bases(),1):
@@ -196,7 +227,7 @@ def compute(out=OUT, *, builder=P.build_sides, identity_checker=I.exact_identity
             diag=P.distribution_checks(sd)
             bid=f'B{index:03d}'
             if bid in IDENTITY_BASES:
-                identities[bid]=identity_checker(*base,cache,ref=REF)
+                if bid not in identities:identities[bid]=identity_checker(*base,cache,ref=REF)
                 if not identities[bid]['passed']:
                     diagnostic_failure=dict(status='BLOCKED_EXACT_IDENTITY',base_id=bid,**identities[bid])
             timings.append(dict(base_id=f'B{index:03d}',cpu_seconds=cpu()-started))
@@ -230,21 +261,28 @@ def compute(out=OUT, *, builder=P.build_sides, identity_checker=I.exact_identity
         for mode in ('must','all'):
             counts[mode]={g:sum(r[mode] and r['group']==g for r in rows) for g in ('Di','Dii','A')}
         w=witness(rows)
-        status='BLOCKED_EXACT_IDENTITY' if diagnostic_failure else candidate_status(counts,w)
-        if status=='READY_FOR_FINAL_CHECKS':
-            diagnostic_failure,refined=validate_witness(rows,w,cache,identities,
-                                                      builder=builder,identity_checker=identity_checker)
-            status=('BLOCKED_EXACT_IDENTITY' if diagnostic_failure else
-                    'PASS' if all(r['K_stable'] for r in refined) else 'HOLD_K_STABILITY')
         for r in rows:
-            if r['base_id'] in identities:
+            # Preserve the old scan-stage fields. Final checks belong in summary.
+            if r['base_id'] in IDENTITY_BASES and r['base_id'] in identities:
                 ident=identities[r['base_id']]
                 r.update(identity_checked=True,identity_passed=ident['passed'],
                          identity_drift=ident['drift'],identity_bound=ident['bound'])
+        status='BLOCKED_EXACT_IDENTITY' if diagnostic_failure else candidate_status(counts,w)
+        if previous_rows is not None and not diagnostic_failure:
+            replay=replay_invariant(rows,previous_rows)
+            if not replay['passed']:status='BLOCKED_REPLAY_INVARIANT'
+        if status=='READY_FOR_FINAL_CHECKS':
+            # Do not overwrite old CSV metadata when a new witness gains checks.
+            diagnostic_failure,refined=validate_witness([dict(r) for r in rows],w,cache,identities,
+                                                      builder=builder,identity_checker=identity_checker)
+            status=('BLOCKED_EXACT_IDENTITY' if diagnostic_failure else
+                    'PASS' if all(r['K_stable'] for r in refined) else 'HOLD_K_STABILITY')
         if rows:write_csv(Path(out)/'scan.csv',rows)
     return dict(status=status,counts=counts,witness=w,bases_completed=len(rows)//len(COSTS),
                 bases_built=len(timings),rows=len(rows),identity_scope='stratified-plus-final',
                 identity_base_ids=list(IDENTITY_BASES),identities=identities,K640_checks=refined,
+                reused_identity_base_ids=sorted(identity_samples or {}),replay_invariant=replay,
+                csv_scope='Scan-stage predictions; final identity and K640 checks are in summary',
                 diagnostic_failure=diagnostic_failure,base_timings=timings,
                 max_mean_drift=max((r['mean_drift'] for r in rows),default=None),
                 stationary_sources=[dict(load=str(k[0]),kappa=str(k[1]),ref=k[2],path=v[2],key=v[3])
@@ -257,9 +295,10 @@ def main():
     parser.add_argument('--worker',action='store_true',help=argparse.SUPPRESS)
     args=parser.parse_args()
     if args.worker:
-        result=compute();print(json.dumps(result,allow_nan=False));return 0
+        result=compute(identity_samples=load_identity_samples(),previous_rows=load_previous_rows())
+        print(json.dumps(result,allow_nan=False));return 0
     preflight()
-    V1.require(370<=args.spent_cpu_seconds<CAP-2, 'PART_A_PRIOR_BUDGET_REQUIRED_OR_EXHAUSTED')
+    V1.require(860<=args.spent_cpu_seconds<CAP-2, 'PART_A_PRIOR_BUDGET_REQUIRED_OR_EXHAUSTED')
     V1.require(not OUT.exists(),'WINDOW_ALREADY_ATTEMPTED')
     OUT.mkdir(parents=True)
     V1.require(ctypes.CDLL(None).prctl(36,1,0,0,0)==0,'SUBREAPER_REQUIRED')
