@@ -12,16 +12,21 @@ Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, t
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**L6.2 Part A đã triển khai; gate hiện BLOCKED (DL-130).** Predictor M0-only
-và 668 tests PASS; scan dừng ở B017 do drift mean fresh–stale
-0,008187 packet·s vượt 0,005. Đã có 160/510 dòng, 16 base hoàn tất;
-pool thỏa MUST+SHOULD có 1 D(i)/30 D(ii)/48 A, chưa đủ witness W9.
-Không kết luận cửa sổ không tồn tại hoặc H1 sai từ dữ liệu partial này.
-Chưa chạy finite-h truth, probe Part B hoặc panel; Gate D-entry chưa GO.
-[Scan partial](results/phase6/window/scan.csv),
-[summary](results/phase6/window/summary.json),
-[kiểm tra B017](results/phase6/window/diagnostic_B017.json).
-Lượt lỗi xuất CSV trước đó được giữ riêng, chi phí được cộng vào budget.
+**L6.2 Part A revision đã chạy đủ; gate HOLD vì thiếu D(i) (DL-131).**
+677 tests PASS, gồm T2 và hai posterior mutants bị phát hiện. Mean check mới
+dùng lattice sum có error bound; 7/7 mẫu phân tầng PASS. Tại B017 drift
+−7,05e−7 nằm trong cận 1,022e−4 packet·s: ngưỡng quadrature cũ báo động giả.
+Không diễn giải bảy mẫu thành kiểm chứng toàn bộ 51 base hoặc H1 đúng.
+
+Scan mới hoàn tất **51 base × 10 c = 510 dòng**. Sau MUST+SHOULD có
+**3 D(i) từ 2 base, 43 D(ii), 270 A**. Witness10D cần ít nhất7D(i),
+nên chưa đủ W9 dù tổng D lớn. Không có ứng viên cuối để kiểm K640;
+chưa probe Part B, finite-h truth hoặc freeze panel/Gate D-entry GO.
+[Scan mới](results/phase6/window_revision01/scan.csv) ·
+[summary](results/phase6/window_revision01/summary.json) ·
+[DL-131](notes/02_decision_log.md#dl-131--l62-part-a-design-revision-của-mean-check-trước-scan-mới-02112026).
+Kết quả [BLOCKED cũ](results/phase6/window/summary.json) và lỗi CSV trước đó
+được giữ nguyên; chi phí cũ, test và 130CPU-s do nguồn ngoài báo đều được tính.
 
 L6.1 đã chốt câu hỏi Phase 6 (DL-129). Chọn dấu G_S
 dưới switching cost, H1 dùng M0-only; H0a là dải `0 < x < 0.54−0.07u`,
@@ -30,8 +35,8 @@ Chọn h-invariance làm mô tả phụ trong cùng panel, không knockout;
 budget toàn Phase 6 ≤4 CPU-giờ, panel ≤2 giờ, không retry/resume/v1.1.
 **Đính chính exposure:** pilot c_sw>0 có P tối đa40 (bốn dòng P40), nên
 `c_sw>0, P≥30` không tự là điều kiện chưa dùng; phía x<0 chưa có active key
-trong inventory. Cần xử lý kiểm tra mean của Part A trước khi cân nhắc
-probe ngoài panel và freeze; giữ nguyên grid, margins và không calibration.
+trong inventory. Giữ thiết kế can thiệp hiện tại ở HOLD trước probe;
+không hạ z_min=1%, mở rộng grid vòng này hoặc calibration để cứu witness.
 [Quyết định, recipe fit và kiểm toy](notes/02_decision_log.md#dl-129--phase-6-l61-chọn-câu-hỏi-cơ-chế-h1-h0-và-can-thiệp-02112026).
 
 V1 chính thức **INCONCLUSIVE**; v1.1 **PASS 10/0/0** sau một lần sửa thiết kế có khai báo, chỉ giữ

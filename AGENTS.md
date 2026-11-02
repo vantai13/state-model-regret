@@ -534,3 +534,26 @@ failedsummarywindow_attempt01_failed/. P5bothrescoresMATCH/16hash/3guardsPASS.
 ExposureheadđọcW0000/S0000oldoutcomesngoàiW1/grid,trướcscan;đãghiDL/register,
 không76highratiooutcomes/R09R10/CF/SUB. G1/NARROW/UnderstandingOPENgiữ.
 TiếptụcPartAmean-correctness trướcPartB;khôngtựretry đểcứuwitness.
+
+
+DL131/02-11: usercungcấpdiagnosis vàủyquyềnrevisionR1–R5, supersede
+τ.005blocking/noK640 trongDL130 chođúngscope sau. H1predictor/grid/margins
+giữnguyên. identity.py dùngOWNbuilders+latticesum/bound gồmfresh/staleprofile,
+law/dropmass/rounding; khôngexactarithmetic hoặc+1e−9tùyý. B017drift−7.047e−7
+≤.0001021574;B011−5.196e−7≤.0001021401;swapposterior.102511/.0200766 đều
+FAIL>100bound. T2giữ,27targeted/677fullPASS70.68/114.87s. Measurement16.17CPU-s
+chọnstratified7nonemptycells(firstB001/2/6/11/16/17/42)+finalwitness;8thcell
+k.2/u1/h8 khôngadmissiblebase. Khôngclaim51identityPASS.
+Prereg22c9d1eb/scope2c80b547/source6f6269ea trướcnewscanC>0. Historicalwindow/
+vàattempt01_failed giữbyte,khôngresume. Newwindow_revision01 đủ510rows/51base,
+7/7identityPASS,0M1calls. MUSTDi3/Dii70/A272;allDi3(2bases)/Dii43(10)/A270.
+**HOLD_INSUFFICIENT_DI_OR_DIVERSITY**, thiếu≥7Di cho10D;khôngwitness/W9.
+R4K640chỉfinalwitness nên0calls;khôngprobePartB/PartC/L63/GateD-entryGO.
+Scan240.347740CPU-s,receiptupper840.347740 gồmpriorupper600(old240+external
+reported130+measure/tests/reserve);cap1800giữ,closeoutupper860. 7W6collisions
+ởc0 đượcloại;0passedpoolcollision/duplicate. Independent510formula/flags/keys/
+identity/sourceSHAauditPASS,160oldrows predictionskhớpbytefields. Rawdrift>
+.005 tại11bases vẫndescriptive;max.00982014846,khôngnớiτ/fitpredictor.
+Numericalfalsealarmgỡtrên7checkedbases khôngđồngnghĩaH1valid hoặc51nobug.
+G1/NARROW/ownershipOPEN/CF/SUBpark/R09R10sealed/76outcomesunread giữ.
+GiữcurrentinterventionHOLD,khôngtựexpandgrid/hạz_min1% đểsangPartB.

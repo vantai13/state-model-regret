@@ -1214,3 +1214,17 @@ ví dụ Di/Dii sau dừng, chỉ M0/stationary approximations, khôngtrueG_S.
 Không dùng pool này để đổi grid/margins hoặc lập panel. SinglebaseB017
 diagnostic cùng320/4 tái lập drift, không costprofileM1 hoặc alternativefit.
 Không native PartB/PartC/L6.3; partial không xác nhận H1 hoặc cửa sổ đủW9.
+
+
+## L6.2 Part A revision — lattice checks và scan mới (02/11/2026, DL-131)
+
+Input ngoài repo báo chẩnđoán130CPU-s B011/B017, không xem nhưlượt chạy
+local; cộng bảo thủ vào budget. Local đoB017, test good/swapposterior ở
+B017/B011 và7stratifiedbases: chỉM0/stationary, khôngfinite-hM1truth.
+Đã đọc510parameter-only rows sau scan6f6269ea, biết3Di/43Dii/270A và
+HOLDthiếuDi; không dùng để đổi grid/margins hoặc chọnpanel ngoàirule đãkhai.
+160predictions cũ tái lập nguyênfields, oldBLOCKED/failedreceipts giữnguyên.
+7c0physicalkey va chạm trongunion đượcflagW6False vàloại; không mở các
+oldoutcomes của chúng. 11rawmean-drift>τ.005 khôngcònđược dùng làmguard.
+IdentityPASS chỉ7samples, không toàn51; không cófinalwitness nênK6400calls.
+Không PartB/probe/panel/CF/SUB/R09R10/76highratiooutcomes; khôngfit/fallback.

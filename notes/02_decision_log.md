@@ -3062,3 +3062,81 @@ Commandtests:OMP/OPENBLAS/MKL=1,/usr/bin/time,.venv/bin/python -B -m pytest
 Priorupper trước scan mới **600CPU-s**:370cũ+measurement16.17+target70.91+
 full112.09=569.17, còn30.83 đểbao guards/rounding/metadata. Không ghi600
 làactualmeasured. Giữ cap1800; chưa native/probe/paneltruthPhase6.
+
+**Kết quả scan revision01 tại6f6269ea:**
+Command:`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -B -m experiments.P6_band.window --spent-cpu-seconds 600`.
+Đủ51/51base,510/510rows, từB001khôngresume; khôngexception/budgetstop/
+identityfailure. Status **HOLD_INSUFFICIENT_DI_OR_DIVERSITY** (exit2theorule,
+khôngexecutionfailure). Finalwitness rỗng, controls± có nhưngchưađủW9.
+
+| Pool | MUST W1–6 | MUST+W7/W8 | Bases sau W7/W8 |
+|---|---:|---:|---:|
+| D(i) | 3 | 3 | 2 |
+| D(ii) | 70 | 43 | 10 |
+| A | 272 | 270 | 48 |
+
+N_D10 và≥2/3Di cầnít nhất7Di; poolchỉ3Di, nên không đủcửa sổtheo thiết
+kế hiện tại, dùtổngD46 và12distinctbases. Không đổiN/rho/Pmin/zmin/W7–9.
+Không gọiHOLD_ONLY_DII (có3Di), khôngH1false/true, khôngclaimkhôngcówindow
+ởmọitham số. Chỉ kết luận **gridcốđịnh không cấp đủwitness yêu cầu**.
+
+BaD(i) còn lại (mọisố làprediction, mẫu sốCref_H1stationary):
+- B011C07:a7/b6.5/k.1/u1.5/h16/c1/2,z+1.0324657831%,H1+/H0−.
+- B029C06:a7.5/b41/6/k.1/u1/h16/c3/8,z+1.0343365172%,H1+/H0−.
+- B029C07:cùngB029,c1/2,z+1.0564035231%,H1+/H0−.
+Không gọihai mức c củaB029 thành2base. TrướcW4,nhưng giữW1/2/3/5/6/7/8,
+có27Dirow trongđó24absz<1%,median.7183390413%,max1.0564035231%.
+Đây là mô tả finitegrid, không upperboundtoànplant hoặc effecttrueG_S.
+
+**Identitychecks7/7PASS (drift,bound,packet·s):**
+- B001:−7.14922633004e−8,2.55463204167e−5.
+- B002:+1.37980381162e−7,2.53194063335e−5.
+- B006:−1.89854657703e−6,1.02175645863e−4.
+- B011:−5.19589507933e−7,1.02140086894e−4.
+- B016:−1.96716436880e−6,1.02040967478e−4.
+- B017:−7.04736789175e−7,1.02157403230e−4.
+- B042:−1.64981686278e−7,2.55355289235e−5.
+Maxabsdrift/bound=.0192781823. CSVidentity_checkedTrue đúng70rows từ7bases;
+440rows còn lạiidentity_checkedFalse vàidentityfields trống: **NOT_SAMPLED**,
+không51certificatesPASS. Khôngfinalwitness nên khôngcandidateidentity bổ
+sung/K640:0calls, **R4chưađượcchạythật**, chỉunit-testvetoPASS. KhôngPartB.
+
+Rawmean-drift vẫn nhưcũ, max.009820148462614142;11bases vượtτ.005:
+B017/18/42/43/44/45/46/47/48/49/51. B017/B042trongmẫu mớiPASS dùvượtτ;
+khôngsuy ra cácbasechưađượcsample đãđược kiểm lattice. Thayriêng gridtích
+phân bằnglattice, giữcùngOWNbuilders, táilậpidentityvàdiệtmutants hỗtrợ
+chẩnđoánfalsealarm củarawmeancheck tạicácbaseđãkiểm. Không chứngminh
+mọihànhvi codeđúng, A1/A2đúng hoặc |G_S| finiteh đủvượtdeadband.
+Không táilậpsweepK160/640/1280/2560 trongnguồnbáo; không nhận nó là sốlocal.
+
+**Independent audit:** tínhlạiexactH0,group,keysη=u/2,W1–8,CDF/stake/z,
+counts,identityfields/bounds,sourceSHAvàhistorySHA. 510uniquephysicalkeys,
+0duplicates. Có7W6collisionsc0 đượcflagFalse vàloại; **0collision trongpool
+đượcgiữ**. IDs B022C00/B025C00/B028C00/B030C00/B037C00/B041C00/B051C00,
+chỉ đối chiếuparams, khôngđọcoldoutcomes. Union28158keys giữscopehiệncó.
+160rows cũ khớp **toàn bộfield cũ nguyênstring**, không chỉtolerance;
+predictor H1byte-identical e8d10927. OldBLOCKED3files+attempt01_failed
+SHA/nguyênbytes giữ nguyên. AuditPASS1.09CPU-s;16frozenhash/3nativepackages/
+prereg/P5bothrescoresMATCH2.08CPU-s. Không đổiP5source/tests/plan/results.
+
+**Chi phí và artifact:** scancontroller+descendants240.34774032CPU-s;
+receiptupper840.34774032 gồmpriorupper600. Dành **closeoutupper860CPU-s**
+đểbao cả guards/audit/reporting nhỏ sau run, ≤cap1800. External130CPU-s
+chỉ làreportedbudgetcharge; khôngclaimlocal đãđo. Có đầyđủfailed/blocked
+historyvàtestcost, khôngresetcounter/khôngbùtrừcache đểđẹpbudget.
+- `experiments/P6_band/identity.py` mới; `window.py`, `tests/test_p6_predictor.py`
+  sửa; `predictor.py` giữbyte. SourceSHAs vàsourcecommit6f6269ea trongreceipt.
+- Newscan `results/phase6/window_revision01/{scan.csv,summary.json}`.
+- Measurement `results/phase6/identity_validation/measurement_B017.json`.
+- Historical `results/phase6/window/` và`window_attempt01_failed/` nguyênvẹn.
+- DL131/exposure/README/AGENTS cậpnhật; khôngreport/logfile/plot/frameworkmới.
+  Tests/guard/audit outputđãinchat; meanlattice details lưu trongsummary.
+  Cache`~/.cache/state-model-regret/phase6/window/`ngoàiGit.
+
+**Quyết định theoủyquyền:** numericsBLOCKED cũ đượcgiải thích bằngrevision
+meancheck; **giữ currentc_swdesign ởHOLD vìthiếuDi**. Dừngscanbranchvòngnày,
+khôngtựmởrộnggrid/hạ1%/thayN hoặcchạyprobe đểcứu. R1/R2/R3/R5đãthực
+hiện; R4cóimplementation/tests nhưngkhôngfinalcandidate đểchạy. Chưa đủ
+điềukiện sangPartB/C/L6.3. Muốnthiếtkếcanthiệpkhác cầnrevisionkhoa học
+riêng trước outcomes, khôngthêmlessonchỉđểvá. G1/GateC=NARROW,ownership/
+UnderstandingOPEN,CF/SUBpark,R09R10sealed/76highratiooutcomesunread giữ.
