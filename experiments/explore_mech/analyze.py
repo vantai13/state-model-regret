@@ -54,7 +54,16 @@ def metrics(d):
 def load(stages, level='level_160_2'):
     rows, unresolved = [], []
     for stage in stages:
-        for f in sorted((OUT / stage / level).glob('*.json')):
+        raw_files = sorted((OUT / stage / level).glob('*.json'))
+        saved = OUT / stage / 'metrics.csv'
+        if saved.exists():
+            with saved.open(newline='') as stream:
+                required = {r['id'] for r in csv.DictReader(stream)}
+            if not required.issubset({f.stem for f in raw_files}):
+                raise FileNotFoundError('Raw exploration archived/incomplete; read metrics.csv or restore the archive tag before recomputing: ' + stage)
+        if not raw_files:
+            raise FileNotFoundError('No raw exploration rows: ' + stage)
+        for f in raw_files:
             d = json.loads(f.read_text())
             (rows.append(metrics(d)) if d['status'] == 'COMPLETED' else unresolved.append(d['id']))
     return rows, unresolved

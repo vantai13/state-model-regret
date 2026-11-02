@@ -2108,3 +2108,79 @@ feasibilityUNRESOLVED/Gate4chưaGO**,khôngPhase5run. SUB/CFpark,D22native
 DEFERRED,P0V10/L8/Understanding giữ; khôngnovelty/empiricalvalidation.
 [Report](../results/lessons/l4_9_v2/report.md),[plan](design/analysis_plan_v1.md),
 [lock](design/analysis_plan_v1.lock.json).
+
+
+### DL-122 — Dọn repo, hợp nhất exploration và đính chính exposure (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. AI thực hiện và chọn phương án kỹ thuật theo
+ủy quyền trực tiếp trong chat: dọn repo, đưa exploration mới nhất vào main,
+kiểm tra trước Phase 5 và dạy lesson đầu; kết quả/lesson in trong chat,
+không tạo file lesson/report mới. Không ghi AI-work thành author-self hoặc
+human review. Commit 6ffe8e84 của bản trả lời Claude không có trong local/
+remote tại đầu lượt; không nhận đã audit được một tree không tồn tại.
+
+Đã giữ 5 tag archive ngày 02/11 trước thay đổi; gộp mechanism-regime-v2
+c1726c80 và p4-regions 8f382293. Archive lesson/code/result/tests lịch sử
+không còn áp dụng; giữ source frozen, dependencies, guards, 597 raw native
+nguồn và các mức refinement Phase 4. Không rewrite history/attribution.
+
+**Exposure cross-branch được xác nhận:** 77 dòng wide có h/κ>160;
+W0347 = P5_08: (lambdaA7,lambdaB8,kappa1/10,eta1/2,h32,c_sw0), level160/2.
+Raw có G_S_M1=0, G_M_S1=6.2304028835861359273, Cref=38.427771391756293123:
+S=0,0%Cref; M=16,21328184783235%Cref. Bản trả lời Claude nhầm M thành S,
+nên suy luận đã dùng một suất FAIL H-L1 là sai. Git commit p4-regions
+19:17:11+07 ngày31/10 đứng trước freeze faa4f848 21:38:13+07.
+Không suy commit timestamp là bằng chứng tác giả/agent chọn panel đã đọc row.
+Audit L4.9 chỉ bao phủ inventory/main thời điểm đó, bỏ sót nhánh song song.
+Các câu 12 fresh/0 truth trong frozen artifacts giữ như lịch sử và bị đính
+chính bởi record này; hash đúng không chứng minh panel hoàn toàn unseen.
+Chỉ đọc thêm metadata của 76 dòng còn lại, không mở outcomes của chúng.
+
+**Quyết định theo ủy quyền:** giữ toàn bộ freeze/panel/N12/threshold/budget;
+không bỏ P5_08, thay điểm hay đổi mẫu số READY. Bài H-L1 giữ luật chấm gốc
+nhưng nhãn evidence là validation có exposure một phần, không confirmation
+độc lập chỉ dựa vào panel này; H-L2 vẫn exploratory/no-refit. Một kiểm mới
+ở điều kiện thật sự chưa dùng cần prediction trước run riêng. Gate4 giữ
+HOLD đến lesson preflight/feasibility; chưa chạy Phase5 hoặc miễn human
+review ngầm. SUB66/CF270 park, R09/R10 sealed, D22 native deferred, G1 và
+Understanding giữ. Master numbering DL103: P5 confirmation, P6 mechanism,
+P7 independent validation, P8 practical relevance, P9 synthesis/novelty,
+P10 paper; không đổi P7 thành paper như bản trả lời Claude.
+
+Lesson4.10: kiểm P-clip/Jensen bằng helper 512 paths và teaching toy lan
+truyền phân phối hữu hạn, kappa1/4,dt1/8, không MC và không native panel.
+AI soạn lời giải/đáp án, không chứng nhận tác giả đã tự dẫn hay tự hiểu.
+Chi tiết và lộ trình ngắn được in trong chat, không thêm framework/lesson files.
+
+
+Bổ sung cùng phiên sau khi tác giả gửi bundle và Parts4.10.2/4.11:
+- Bundle hợp lệ, đã import6ffe8e84 vào branch archive/claude-cleanup-2026-11-02
+  để audit riêng, không merge đè provenance/errata. Bundle chỉ chứa một branch
+  ref; không chứa5tag như lời mô tả. Tự giữ5tag archive của workspace trước dọn.
+- Audit độc lập treeClaude:2614files,541testsPASS39.06s;16/16freezehash và
+  guardL43_A1_SV/L44_A3/SUB_BOX/verify_preregPASS;597native sources byte khớp.
+  src/P4_09/theory không khác trước dọn. Lỗi16.2% trong lời giải là nhầmM/S,
+  không phải lỗi frozen engine hoặc bằng chứngH-L1FAIL.
+- Bản hiện hành giữ thêm5test modules còn áp dụng (native budget continuation,
+  candidate labels/preflight, population resume, recount và selected validation)
+  cùng calibration/refinement corpora.587testsPASS38.58s trước analyzer guards.
+  Lần dọn đầu6FAIL/581PASS do thiếuPartA rules/grid/calibration; trả lại đúng
+  dependency, không sửa assertion để né lỗi. Targeted100PASS/1FAIL tiếp theo
+  phát hiệnl3r_2_spec metadata; trả lại, test đóPASS. Không sửa test nội dung.
+- Sau chuyển cache ra ngoài, read-onlyL49 replay:86 NN references/1231training
+  rows và4mean-profilechecks khớp savedJSON, không ghi lại output/plots.
+  SavedCSV replay khớp toàn bộP1–P5/C1–C3/X1–X3; giữ cả forecastFAIL.
+  H1filterP>=30,S+M>=.5:693/0/0;82/162/9;521/0/1 theo ba vùngx.
+- Hai analyzer exploration cũ có thể ghi đè CSV/score khi raw đã archive.
+  Thêm kiểm raw thiếu/partial trước đọc cost hoặc ghi output; regression
+  missing/partial/complete trên cảhai helpersPASS, CSV giữ byte. Không đổi
+  metric/prediction/engine; raw-to-metric recomputation cần restoretag.
+- Công thứcEQ2 của lesson4.11 khớp stationaryzero-flux trong continuous time
+  stable0<mu-lambda<a:0.96/0.27/3.6 ở ba ví dụ, sai sốroundoff<=1.78e-15.
+  Không rerun các mô phỏng được kể hoặc xác nhận bảngF thiếu implementation.
+  CrossingPr_Y(E[Delta_hat|Y]<0)=.5 khácE[Delta_hat]=0; chưa kết luận error
+  cancellation hoặc exactboundary từ exactmarginalmoments.
+- 9ignorednativecaches2636796623bytes,7retiredleftoverfolders55963086bytes,
+  ba worktrees vàbundle tác giả chuyển ra /home/vantai/state-model-regret-archive/2026-11-02/.
+  Symlinkignored giữreplaylocal; không coi đây là giảm tương ứng tổngdisk.
+  Câytracked sau dọn5609files/~52.5MB, trước31900/~256.9MB; không rewriteGit.

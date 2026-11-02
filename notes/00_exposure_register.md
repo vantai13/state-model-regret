@@ -1085,3 +1085,19 @@ chưa complete,khôngđưa vào null/heldout. Planfaa4f848 trước12parameter-o
 forecasts; đã xem predicted stationary/M0 values, **0finite-hM1truth** vàkhông
 đổi panel theo forecast. KhôngCF/R09/R10outcomes;SUB66/CF270park.
 [Plan§7](design/analysis_plan_v1.md),[report](../results/lessons/l4_9_v2/report.md).
+
+
+## Đính chính cross-branch trước Phase 5 — 02/11/2026 (DL-122)
+
+p4-regions@8f382293 chứa 77 completed wide rows có h/kappa>160 và một
+collision W0347=P5_08 trước faa4f848 theo commit timestamps. Metadata của
+77 rows đã được đối chiếu, chỉ outcome W0347 (đã có trong input review)
+được mở trong lượt này; không mở 76 outcomes còn lại.
+W0347 level160/2 có S_own=0,0%Cref, M_own=16,21328184783235%Cref;
+không nhầm M_own thành H-L1 state metric. Chưa xác định người chọn panel
+đã nhìn row trước freeze. Panel N12 giữ nguyên, không còn được mô tả là
+12 physical keys hoàn toàn chưa tính; artifact frozen không sửa hậu nghiệm.
+H-L1 chỉ validation có exposure một phần; H-L2 exploratory; chưa Phase5.
+Teaching toys L4.10 dùng kappa1/4,dt1/8, conditional initial state và
+one-path finite propagation, không native/panel population outcomes.
+X1 ở kappa.1 có10 observed crossings +5 no-crossing, không14 measured errors.

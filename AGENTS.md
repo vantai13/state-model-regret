@@ -393,3 +393,19 @@ H1≤.5%≥90%finitepanel,khôngpopulationCI/novelty.3warmh16complete;h32cal
 feasibilityUNRESOLVED/Gate4chưaGO**. Replay26slices24trends2exceptions.
 SUB66/CF270park,R09R10sealed,D22nativeDEFERRED,P0V10/L8/UnderstandingOPEN;
 khôngPhase5run. Reportresults/lessons/l4_9_v2/report.md;plan+lockởnotes/design/.
+
+
+02/11/2026 — DL-122: dọn theo ủy quyền, giữ 5 archive tags, hợp nhất hai nhánh
+mechanism-regime-v2 và p4-regions. Entry hiện hành ở README; lesson/report
+lượt này chỉ in chat. File lịch sử đã archive không mặc nhiên là dependency
+bị mất: dùng tag, không tự khôi phục toàn bộ lesson cũ. Source/locks/panel
+L4.9 giữ byte; giữ597 raw native và refinement P4 để replay. Cache/worktrees
+chuyển ngoài repo, cache symlink local, không rewrite Git history.
+Exposure thật:77wide rows h/kappa>160, W0347 trùngP5_08 trướcfreeze theoGit;
+**S=0%, M=16.2133%**, bản trả lời Claude đọc nhầm M thànhS; không suy H-L1FAIL.
+Panel không hoàn toàn unseen; giữN12/threshold/budget, đọc H-L1 như validation
+có exposure một phần, H-L2 exploratory. Audit local/hashPASS không tự chữa
+freshness. Gate4HOLD/h32UNRESOLVED, chưaPhase5; không mở76outcomes còn lại.
+L4.10 AI soạn/teaching toys khôngauthor-self/UnderstandingPASS. MasterDL103
+vẫnP5confirmation/P6mechanism/P7independent/P8practical/P9synthesis/P10paper.
+SUB/CFpark/R09R10sealed/D22nativeDEFERRED/G1 giữ, không thêm machinery.
