@@ -3046,3 +3046,19 @@ gridcốđịnh, không tạo điểm ngoài grid để lấp. B011/B017 đã n�
 chỉ khẳng định ở7sample vàmọibase thuộcwitnessD/A cuối; NOT_SAMPLED phải
 ghi tườngminh. R3sampling không được mô tả thành51identityPASS.
 Đo chưa chạyC>0, khôngfit/thresholdchange; chưamutations/B011/scanmới.
+
+**Tests trước scanrevision:** targeted27PASS70.68s,time70.91CPU-s;
+full677PASS114.87s,time112.09CPU-s. B017gooddrift−7.04736789175e−7,
+bound.000102157403230; swappedposterior drift.102511084265094,
+bound.000102157403230 → FAILđúngmutant. B011good−5.19589507933e−7,
+bound.000102140086894; mutant+.020076604642795 → FAILđúngmutant.
+Không đổiH1predictor/θ/grid/margins, originalT2 vẫnPASS≤1e−9.
+Tests giữrawdrift>.005 vẫncho tiếp nếu identityPASS vàchặn trướcpredict
+nếu identityFAIL; K640vetoz.99/signreverse vàcácnhánhHOLD/STOPPASS.
+Historical4files vàH1predictor khớpe8d10927; measurementSHA khớpidentity.py.
+Commandtests:OMP/OPENBLAS/MKL=1,/usr/bin/time,.venv/bin/python -B -m pytest
+-q -s -p no:cacheprovider tests/test_p6_predictor.py; fullbỏ-s vàfilepath.
+
+Priorupper trước scan mới **600CPU-s**:370cũ+measurement16.17+target70.91+
+full112.09=569.17, còn30.83 đểbao guards/rounding/metadata. Không ghi600
+làactualmeasured. Giữ cap1800; chưa native/probe/paneltruthPhase6.

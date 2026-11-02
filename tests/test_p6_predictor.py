@@ -11,6 +11,7 @@ import pytest
 
 from experiments.P6_band import predictor as R
 from experiments.P6_band import window as W
+from experiments.P6_band import identity as I
 from experiments.P4_09_stationary import predictor as OLD
 
 ROOT=W.ROOT
@@ -61,10 +62,10 @@ def test_T2_saved_exposed_M0_shares(sides,rid):
     assert abs(R.switch_share(*sd['stale'],0)-float(row['sw_mean_old']))<=1e-9
 
 
-def test_T3_mean_and_T7_variance_diagnostics_at_main(sides):
+def test_quadrature_mean_descriptive_and_T7_variance_at_main(sides):
     sd=sides(('13/2','6','1/10','3/2','16'))
     d=R.distribution_checks(sd)
-    assert d['mean_drift']<=W.MEAN_TOL
+    assert np.isfinite(d['mean_drift'])
     assert d['variance_old']<=d['variance_new']+1e-9
     print('T3_T7',d)
 
@@ -74,7 +75,7 @@ def test_cold_first_production_base_and_numeric_invariants(tmp_path):
     start=W.cpu();wall=time.monotonic()
     sd=R.build_sides(*next(W.bases()),cache)
     d=R.distribution_checks(sd)
-    assert d['mean_drift']<=W.MEAN_TOL
+    assert np.isfinite(d['mean_drift'])
     assert d['variance_old']<=d['variance_new']+1e-9
     print('COLD_FIRST_BASE_CPU',W.cpu()-start,'WALL',time.monotonic()-wall,'diagnostics',d)
 
@@ -172,15 +173,88 @@ def test_declared_grid_count_and_domains():
 def test_scan_serializes_predictions_and_flags_without_truth(tmp_path,monkeypatch):
     """Exercise the full CSV boundary on tiny synthetic M0 distributions."""
     monkeypatch.setattr(W,'collision_keys',lambda:set())
+    original=R.distribution_checks
+    monkeypatch.setattr(R,'distribution_checks',lambda sd:dict(original(sd),mean_drift=.008187))
     def build(a,b,k,u,h,cache,**kw):
         return dict(a=a,b=b,kappa=k,u=u,h=h,x=(b-a)/u,
                     r_stay=2.,r_switch=1. if b<a else 3.,
                     fresh=(fake_side([-3,1]),fake_side([0])),
                     stale=(fake_side([-1]),fake_side([0])))
-    result=W.compute(tmp_path,builder=build)
+    result=W.compute(tmp_path,builder=build,identity_checker=lambda *a,**kw:dict(passed=True,drift=0.,bound=.0001))
     with (tmp_path/'scan.csv').open() as stream:
         rows=list(csv.DictReader(stream))
     assert len(rows)==result['rows']==51*len(W.COSTS)
     assert len({r['id'] for r in rows})==len(rows)
     assert all(r['status']=='PREDICTED' and r['W6']=='True' for r in rows)
     assert set(r['c'] for r in rows)==set(map(str,W.COSTS))
+    assert all(float(r['mean_drift'])>W.MEAN_TOL for r in rows)
+    assert set(result['identities'])==set(W.IDENTITY_BASES)
+
+
+class SwappedPosterior:
+    def __init__(self,law):self.law=law
+    def __getattr__(self,name):return getattr(self.law,name)
+    def posterior(self,q):
+        p,e=self.law.posterior(q)
+        return 1-p,e
+
+
+class MutantCache:
+    def __init__(self,cache):self.cache=cache
+    def get(self,load,kappa,ref):
+        unit,law,*rest=self.cache.get(load,kappa,ref)
+        return (unit,SwappedPosterior(law),*rest)
+
+
+@pytest.mark.parametrize('kappa', [F(1,5),F(1,10)],ids=['B017','B011'])
+def test_lattice_identity_detects_swapped_posterior(tmp_path,kappa):
+    cache=R.StationaryCache(ROOT,tmp_path/'identity_laws')
+    args=(F(7),F(13,2),kappa,F(3,2),F(16))
+    good=I.exact_identity(*args,cache)
+    bad=I.exact_identity(*args,MutantCache(cache))
+    print('IDENTITY_MUTATION',str(kappa),{'good':good,'bad':bad})
+    assert good['passed'] and abs(good['drift'])<=good['bound']
+    assert not bad['passed'] and abs(bad['drift'])>100*bad['bound']
+
+
+def test_strata_cover_every_nonempty_grid_cell():
+    first={}
+    for i,(a,b,k,u,h) in enumerate(W.bases(),1):first.setdefault((k,u,h),f'B{i:03d}')
+    assert set(first.values())==set(W.IDENTITY_BASES)
+    assert len(first)==7  # k=.2/u=1/h=8 has no admissible point in this grid.
+
+
+def test_failed_identity_blocks_before_predictions(tmp_path,monkeypatch):
+    monkeypatch.setattr(W,'collision_keys',lambda:set())
+    monkeypatch.setattr(R,'distribution_checks',lambda sd:dict(mean_drift=0.))
+    result=W.compute(tmp_path,builder=lambda *a,**kw:{},
+                     identity_checker=lambda *a,**kw:dict(passed=False,drift=.1,bound=.0001))
+    assert result['status']=='BLOCKED_EXACT_IDENTITY' and result['rows']==0
+    assert result['diagnostic_failure']['base_id']=='B001'
+    assert not (tmp_path/'scan.csv').exists()
+
+
+@pytest.mark.parametrize('z,stable',[(.99,False),(1.01,True),(-2.,False)])
+def test_final_K640_check_vetoes_weak_or_reversed_prediction(monkeypatch,z,stable):
+    row=dict(id='D1',base_id='B001',lambdaA='7',lambdaB='13/2',kappa='1/10',
+             u='1',h='8',c='1/2',H1='+',z_H1=1.2)
+    calls=[]
+    def builder(*a,**kw):calls.append(kw['K']);return {}
+    monkeypatch.setattr(R,'predict',lambda *a:dict(status='PREDICTED',H1='+' if z>0 else '-',z_H1=z))
+    failure,checks=W.validate_witness([row],dict(D=['D1'],A=[]),None,{'B001':dict(passed=True)},
+        builder=builder,identity_checker=lambda *a,**kw:pytest.fail('sampled identity recomputed'))
+    assert failure is None and calls==[640] and checks[0]['K_stable']==stable
+
+
+def test_window_stop_rules_do_not_relax_Di_requirement():
+    w=dict(W9_met=False,controls_both_signs=True)
+    assert W.candidate_status({'all':{'Di':0,'Dii':3}},w)=='HOLD_ONLY_DII'
+    assert W.candidate_status({'all':{'Di':0,'Dii':0}},w)=='STOP_NO_WINDOW'
+    assert W.candidate_status({'all':{'Di':1,'Dii':30}},w)=='HOLD_INSUFFICIENT_DI_OR_DIVERSITY'
+
+
+def test_lattice_patch_restored_after_error():
+    original=R.quadrature.build
+    with pytest.raises(RuntimeError):
+        with I.lattice_quadrature([]):raise RuntimeError('test interruption')
+    assert R.quadrature.build is original

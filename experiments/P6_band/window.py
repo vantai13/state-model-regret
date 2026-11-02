@@ -6,7 +6,6 @@ from fractions import Fraction as F
 import hashlib
 import itertools
 import json
-import math
 import os
 from pathlib import Path
 import resource
@@ -19,16 +18,20 @@ from unittest.mock import patch
 
 os.environ.update(OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1')
 from experiments.P6_band import predictor as P
+from experiments.P6_band import identity as I
 from experiments.P5_panel import run as V1
 from experiments.explore_mech.scan import key, forbidden_keys
 
 ROOT = V1.ROOT
-OUT = ROOT/'results/phase6/window'
+OUT = ROOT/'results/phase6/window_revision01'
 CACHE = Path.home()/'.cache/state-model-regret/phase6/window'
 SOURCES = ('experiments/P6_band/__init__.py', 'experiments/P6_band/predictor.py',
-           'experiments/P6_band/window.py', 'tests/test_p6_predictor.py')
+           'experiments/P6_band/identity.py', 'experiments/P6_band/window.py', 'tests/test_p6_predictor.py')
+HISTORY = tuple('results/phase6/window/'+n for n in ('scan.csv','summary.json','diagnostic_B017.json'))+(
+    'results/phase6/window_attempt01_failed/summary.json',)
+IDENTITY_BASES = ('B001','B002','B006','B011','B016','B017','B042')
 CAP = 1800
-RHO, PMIN, ZMIN, MEAN_TOL = F(1,4), F(30), F(1), .005
+RHO, PMIN, ZMIN, MEAN_TOL = F(1,4), F(30), F(1), .005  # old tau: descriptive only (DL-131)
 COSTS = tuple(map(F, ('0','1/32','1/16','1/8','3/16','1/4','3/8','1/2','3/4','1')))
 K, REF, NMIN = 320, 4, 10
 
@@ -135,22 +138,69 @@ def preflight():
     for source in SOURCES:
         V1.require((ROOT/source).read_bytes()==V1.git('show','HEAD:'+source), 'UNCOMMITTED:'+source)
     V1.require(not V1.git('status','--porcelain','--untracked-files=no').strip(), 'TRACKED_TREE_DIRTY')
-    V1.require('### DL-130 ' in (ROOT/'notes/02_decision_log.md').read_text(), 'DECLARATION_REQUIRED')
+    V1.require('### DL-131 ' in (ROOT/'notes/02_decision_log.md').read_text(), 'REVISION_REQUIRED')
+    for path in HISTORY:
+        V1.require((ROOT/path).read_bytes()==V1.git('show','e8d10927:'+path),'HISTORY_CHANGED:'+path)
 
 
-def compute(out=OUT, *, builder=P.build_sides):
+def candidate_status(counts, w):
+    if w['W9_met'] and w['controls_both_signs']:
+        return 'READY_FOR_FINAL_CHECKS'
+    if counts['all']['Dii'] and not counts['all']['Di']:
+        return 'HOLD_ONLY_DII'
+    if not counts['all']['Di'] and not counts['all']['Dii']:
+        return 'STOP_NO_WINDOW'
+    return 'HOLD_INSUFFICIENT_DI_OR_DIVERSITY'
+
+
+def validate_witness(rows, w, cache, identities, *, builder, identity_checker):
+    """Veto the fixed 320 witness; never replace failed points to rescue it."""
+    chosen = set(w['D']+w['A'])
+    selected = [r for r in rows if r['id'] in chosen]
+    checked = []
+    for bid in sorted({r['base_id'] for r in selected}):
+        members = [r for r in selected if r['base_id']==bid]
+        r = members[0]
+        base = tuple(F(r[k]) for k in ('lambdaA','lambdaB','kappa','u','h'))
+        if bid not in identities:
+            identities[bid] = identity_checker(*base,cache,ref=REF)
+        if not identities[bid]['passed']:
+            return dict(status='BLOCKED_EXACT_IDENTITY',base_id=bid,**identities[bid]),checked
+        sd = builder(*base,cache,ref=REF,K=640)
+        for r in members:
+            pred = P.predict(sd,F(r['c']))
+            stable = (pred['status']=='PREDICTED' and pred['H1']==r['H1']
+                      and abs(pred['z_H1'])>=float(ZMIN) and abs(r['z_H1'])>=float(ZMIN))
+            r.update(K_stable=stable,H1_K640=pred.get('H1'),z_H1_K640=pred.get('z_H1'))
+            checked.append(dict(id=r['id'],K_stable=stable,H1_K320=r['H1'],
+                                z_H1_K320=r['z_H1'],prediction_K640=pred))
+    return None,checked
+
+
+def write_csv(path, rows, mode='w'):
+    with Path(path).open(mode,newline='') as stream:
+        writer = csv.DictWriter(stream,fieldnames=list(rows[0]))
+        if mode!='a':writer.writeheader()
+        writer.writerows(rows);stream.flush();os.fsync(stream.fileno())
+
+
+def compute(out=OUT, *, builder=P.build_sides, identity_checker=I.exact_identity):
     """Worker emits only design predictions; guard forbids true cost construction."""
     blocked=collision_keys(); cache=P.StationaryCache(ROOT,CACHE)
-    rows=[]; timings=[]; diagnostic_failure=None
+    rows=[]; timings=[]; diagnostic_failure=None; identities={}; refined=[]
     def deny(*a,**kw):raise RuntimeError('FINITE_H_TRUTH_FORBIDDEN')
     with patch.object(P.profiles,'get',deny),patch.object(P.P,'idle',deny):
         for index,base in enumerate(bases(),1):
             started=cpu()
             sd=builder(*base,cache,ref=REF,K=K)
             diag=P.distribution_checks(sd)
+            bid=f'B{index:03d}'
+            if bid in IDENTITY_BASES:
+                identities[bid]=identity_checker(*base,cache,ref=REF)
+                if not identities[bid]['passed']:
+                    diagnostic_failure=dict(status='BLOCKED_EXACT_IDENTITY',base_id=bid,**identities[bid])
             timings.append(dict(base_id=f'B{index:03d}',cpu_seconds=cpu()-started))
-            if diag['mean_drift']>MEAN_TOL:
-                diagnostic_failure=dict(base_id=f'B{index:03d}',**diag)
+            if diagnostic_failure:
                 break
             predictions={}
             def prediction(c):
@@ -168,22 +218,33 @@ def compute(out=OUT, *, builder=P.build_sides):
                 row.update(flags(base,c,p,zero,low,high,blocked))
                 row.update(H1_c0=zero.get('H1','UNRESOLVED'),z_H1_c0=zero.get('z_H1'),
                            H1_3c_4=low.get('H1','UNRESOLVED'),H1_5c_4=high.get('H1','UNRESOLVED'))
+                row.update(identity_checked=False,identity_passed=None,identity_drift=None,
+                           identity_bound=None,K_stable=None,H1_K640=None,z_H1_K640=None)
                 rows.append(row)
             # Small buffered design CSV; keep completed bases even if a later one is killed.
             path=Path(out)/'scan.csv'
             mode='x' if index==1 else 'a'
-            with path.open(mode,newline='') as stream:
-                writer=csv.DictWriter(stream,fieldnames=list(rows[0]))
-                if index==1:writer.writeheader()
-                writer.writerows(rows[-len(COSTS):]);stream.flush();os.fsync(stream.fileno())
+            write_csv(path,rows[-len(COSTS):],mode)
             print(f'B{index:03d}/{len(list(bases()))} PARAMETER_ONLY CPU={cpu():.3f}s',file=sys.stderr,flush=True)
-    counts={}
-    for mode in ('must','all'):
-        counts[mode]={g:sum(r[mode] and r['group']==g for r in rows) for g in ('Di','Dii','A')}
-    w=witness(rows)
-    status=('BLOCKED_MEAN_DIAGNOSTIC' if diagnostic_failure else 'PASS' if w['W9_met'] and w['controls_both_signs']
-            else 'HOLD_ONLY_DII' if counts['all']['Dii'] and not counts['all']['Di'] else 'STOP_NO_WINDOW')
-    return dict(status=status,counts=counts,witness=w,bases_completed=len(timings),rows=len(rows),
+        counts={}
+        for mode in ('must','all'):
+            counts[mode]={g:sum(r[mode] and r['group']==g for r in rows) for g in ('Di','Dii','A')}
+        w=witness(rows)
+        status='BLOCKED_EXACT_IDENTITY' if diagnostic_failure else candidate_status(counts,w)
+        if status=='READY_FOR_FINAL_CHECKS':
+            diagnostic_failure,refined=validate_witness(rows,w,cache,identities,
+                                                      builder=builder,identity_checker=identity_checker)
+            status=('BLOCKED_EXACT_IDENTITY' if diagnostic_failure else
+                    'PASS' if all(r['K_stable'] for r in refined) else 'HOLD_K_STABILITY')
+        for r in rows:
+            if r['base_id'] in identities:
+                ident=identities[r['base_id']]
+                r.update(identity_checked=True,identity_passed=ident['passed'],
+                         identity_drift=ident['drift'],identity_bound=ident['bound'])
+        if rows:write_csv(Path(out)/'scan.csv',rows)
+    return dict(status=status,counts=counts,witness=w,bases_completed=len(rows)//len(COSTS),
+                bases_built=len(timings),rows=len(rows),identity_scope='stratified-plus-final',
+                identity_base_ids=list(IDENTITY_BASES),identities=identities,K640_checks=refined,
                 diagnostic_failure=diagnostic_failure,base_timings=timings,
                 max_mean_drift=max((r['mean_drift'] for r in rows),default=None),
                 stationary_sources=[dict(load=str(k[0]),kappa=str(k[1]),ref=k[2],path=v[2],key=v[3])
@@ -198,7 +259,7 @@ def main():
     if args.worker:
         result=compute();print(json.dumps(result,allow_nan=False));return 0
     preflight()
-    V1.require(0<=args.spent_cpu_seconds<CAP-2, 'PART_A_BUDGET_EXHAUSTED')
+    V1.require(370<=args.spent_cpu_seconds<CAP-2, 'PART_A_PRIOR_BUDGET_REQUIRED_OR_EXHAUSTED')
     V1.require(not OUT.exists(),'WINDOW_ALREADY_ATTEMPTED')
     OUT.mkdir(parents=True)
     V1.require(ctypes.CDLL(None).prctl(36,1,0,0,0)==0,'SUBREAPER_REQUIRED')
@@ -221,9 +282,10 @@ def main():
     result.update(commit=V1.git('rev-parse','HEAD').decode().strip(),K=K,ref=REF,
                   cpu_seconds=measured,prior_compute_CPU_upper_seconds=args.spent_cpu_seconds,
                   total_Part_A_CPU_upper_seconds=measured+args.spent_cpu_seconds,cap_CPU_seconds=CAP,
-                  rho=str(RHO),P_min=str(PMIN),z_min_pct=str(ZMIN),mean_tolerance=MEAN_TOL,
+                  rho=str(RHO),P_min=str(PMIN),z_min_pct=str(ZMIN),legacy_mean_tolerance_descriptive=MEAN_TOL,
                   costs=list(map(str,COSTS)),base_count=len(list(bases())),finite_h_truth_calls=0,
-                  source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in SOURCES})
+                  source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in SOURCES},
+                  historical_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in HISTORY})
     V1.write_once(OUT/'summary.json',result)
     print(json.dumps({k:result[k] for k in ('status','total_Part_A_CPU_upper_seconds')},indent=2))
     return 0 if result['status']=='PASS' else 2
