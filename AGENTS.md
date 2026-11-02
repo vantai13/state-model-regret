@@ -409,3 +409,17 @@ freshness. Gate4HOLD/h32UNRESOLVED, chưaPhase5; không mở76outcomes còn lạ
 L4.10 AI soạn/teaching toys khôngauthor-self/UnderstandingPASS. MasterDL103
 vẫnP5confirmation/P6mechanism/P7independent/P8practical/P9synthesis/P10paper.
 SUB/CFpark/R09R10sealed/D22nativeDEFERRED/G1 giữ, không thêm machinery.
+
+
+L4.12/02-11(DL123):AItheoủyquyền chọnexposureA,localmáytácgiả(B),bỏamplitude;
+N12/score/threshold/budgetgiữ. Preregf2123d89 trước1coldCAL_L49_H32,640/4,
+params7/6/.3/.5/32/0,cap300CPU/420wall. NativecallRETURNED96.797796CPU-s;
+wrapperFAILKeyErrorstatus saucall,exit1,total98.679562CPU-s,wall97.169742s.
+Khôngretry/validatedrow/scientifichash/arithmeticPASS. CacheoutsideGit12files
+14.5MB giữ;2stationarycert+2profileSHA/40finitearraysPASS;fakeAPIschemaPASS,
+20testsPASS. NativeAPI không trảstatus/parameters: caller phải gán;L5.1dryrun
+phảitestschema này. Cold singlecallcomputeOBSERVED,fullpanelcostINFERRED
+.85538CPUh/stress2.25953vsbudget8,khôngguarantee/CI. Gate4HOLD chờrunnerdryrun,
+chưaPhase5panel. P0V10OPENtrướcCF/L8trướcnovelty/V9waivedDL054scopegiữ;
+khôngthêmhumanprereqchochuẩnbịrunner/validation này,khônghumanreviewPASS.
+Source/locks giữbyte,0panel/CF/sealedcalls;76p4otheroutcomeschưamở.

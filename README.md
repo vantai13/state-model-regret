@@ -12,7 +12,13 @@ Phase 4 đang hợp nhất discovery và chuẩn bị Phase 5 (confirmation), th
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**Gate 4: HOLD.** H32 feasibility chưa giải quyết; chưa chạy Phase 5.
+**Gate 4: HOLD, chờ runner + dry run Lesson 5.1.** Chưa chạy panel Phase 5.
+L4.12 đã đo một cold native call h32: worker+descendants 96,798 CPU-s;
+wrapper sau call FAIL `KeyError: status` (API không trả trường đó), không retry.
+Cache integrity và kiểm schema bằng engine giả PASS; chưa có validated result row.
+Ước lượng panel 0,855 CPU-giờ, stress minh họa 2,260 so với budget 8 giờ,
+không phải bảo đảm hoàn tất. Chi tiết và quyết định exposure A/local tại
+[DL-123](notes/02_decision_log.md#dl-123--l412-exposure-a-local-probe-và-scope-gate-4-02112026).
 Freeze H-L1/H-L2, panel N=12, thresholds, predictions và budget 8 CPU-giờ
 được giữ nguyên byte. H-L2 vẫn exploratory, không fit lại.
 

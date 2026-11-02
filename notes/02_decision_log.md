@@ -2228,3 +2228,41 @@ h.7358058256,kappa.05775835067,headroom.04848658982,residualsd.48568266694;
 exp(2sd)=2.641548594. Không gọi đây là đảm bảo hoặc95%predictioninterval.
 Fit phụ thuộcresolution/hardware vàkhông được đọctruth/p_sw của76p4rows.
 Con số105.3CPU-s ởcontainerClaude chỉ reviewer-reported,không nhận localPASS.
+
+
+**Kết quả thực tế của đúng1attempt (sau commitf2123d89):**
+- Nativeengine.evaluate_level đã return; wrapper sau call truy cập row['status']
+  và FAIL KeyError. Sourcepopulation.evaluate không trảstatus/parameters;
+  run.py/_job mới là nơi bổ sunghai trường đó. Không lỗi engine exception,
+  khôngSIGXCPU,không hếtbudget; workerexit1 là lỗi post-callvalidation.
+  Không rerun native,không ghi jobPASS hoặc có validatedresultrow/hash khi chưacó.
+- Worker+descendantsCPU96.797796s;controllerCPU1.881762870s;
+  totalCPU98.679562036s;wall97.16974229499829s;cap300CPU/420wall.
+  Đây là thời gian toànworker,không có riêngnativecallCPU được serialized.
+  Nativecomputefeasibility singlecall OBSERVED; validatedrow/arithmeticverdict
+  NOT_VERIFIED; fullpanelcost vẫnINFERRED, không guaranteedCOMPLETES.
+- Cache ngoàiGit giữ12files/14502995bytes,không đọc/calibreportcost contrasts:
+  stationary2metadata/hash/source/certificatePASS;profiles2npzshaPASS,
+  40arraysfinite/monotonicknotsPASS. Hai costprofileconstructCPU40.235170596s
+  và54.686348524s. Không lưu row.json hoặc scientificresulthash vìwrapperfail;
+  stdout/traceback/receipt đã inchat, numericreceipt ghi recordhiệncó này.
+- Correctedwrapperschema kiểm bằng fakepopulationreturnPASS,0truecalls;
+  phải đưa regressionstatus/parameters do caller gán vàoLesson5.1dryrun.
+  Nativeengine/score/protocol/plan giữ byte, không sửa backend để hợp wrapper.
+- Savedtimingfit choh16≈59.255353s theoobservedtotalh32;
+  24h32calls+12h16calls≈3079.373723CPU-s=.855381590CPUh;
+  xexp(2sd)≈8134.315320CPU-s=2.259532036CPUh. Đây chỉ là inference
+  crossresolution/hardware,không95%interval hoặc bảo đảm khôngINCONCLUSIVE.
+  Budget8h và stop rule gốc giữnguyên; calibration này không phải paneloutcome.
+- 20targetedtestsPASS1.12s; bốnlabelcases bằng frozenstate_verdict:
+  11M/1F→PASS;10M/1F/1U→INCONCLUSIVE;10M/2F→FAIL;11M/1U→PASS.
+  Freeze16/16 vàrun/preregguards kiểmtrước callPASS. 0panel/CF/sealedcalls.
+
+**Chốt quyết định đọc/gate theo ủy quyền:** không thêmP0-V10/L8/V9 làm
+prerequisite mới cho việc chuẩn bị runner/fixed-panelvalidation cóexposure.
+P0-V10 vẫnOPEN trướcCF, L8OPEN trướcfinalnovelty, V9waiver chỉscopeDL054;
+không gán humanreviewPASS, author-self hoặc blanketwaiver cho các gate đó.
+Phầnđo/choices củaL4.12 đã kết thúc với caveatwrapperFAIL công khai;
+Gate4 giữHOLD tới runner+dryrunLesson5.1PASS, chưatruecallPhase5.
+Không làm lạiprobe đểcứuPASS,không thêmamplitude/SUB/CF/newgrid.
+NguồnP5_08state0% chỉoldlevel160/2,không tự gán nhãn ở3levelsplanned.
