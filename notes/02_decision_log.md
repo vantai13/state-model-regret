@@ -3033,3 +3033,16 @@ drift quadrature làfalsealarm tạiđúng cácbase đãkiểm, khôngxóaDL130/
 historicalBLOCKED vàkhôngclaim identity chứngminh H1/A1/A2/novelty.
 G1/GateC=NARROW/UnderstandingOPEN,CF/SUBpark/R09R10sealed giữ nguyên.
 Kết quả measurement/scope/tests/scan nối tiếp, không sửa choices hồi tố.
+
+**Measurement và chốtR3 trước scan:** B017latticePASS,drift
+−7.047367891754863e−7,bound.00010215740322989504packet·s; internalCPU
+15.393267216,time user15.86+system.31=16.17CPU-s. Receipt tại
+`results/phase6/identity_validation/measurement_B017.json`,0M1truecalls.
+Theoformula đãkhai, estimateall51=1887.86019>1800 → chọnstratified-plus-final.
+Firstbases metadata-only:B001,B002,B006,B011,B016,B017,B042. Có7ô khôngrỗng,
+khôngphải8như ước đếm ởentryđầu: k.2/u1/h8 không cóbase thỏaW1/W2 trong
+gridcốđịnh, không tạo điểm ngoài grid để lấp. B011/B017 đã nằm trong7.
+Áp dụng rule mới cho toàngrid (rawdrift descriptive), nhưng identity certificate
+chỉ khẳng định ở7sample vàmọibase thuộcwitnessD/A cuối; NOT_SAMPLED phải
+ghi tườngminh. R3sampling không được mô tả thành51identityPASS.
+Đo chưa chạyC>0, khôngfit/thresholdchange; chưamutations/B011/scanmới.
