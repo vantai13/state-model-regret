@@ -532,3 +532,34 @@ hoặc field coverage; catalog/Excel/author levels giữ nguyên. T09 ghi rõ c�
 stability/moment/conditional-state dependencies chưa chứng minh. Dừng ở
 claim boundary đủ dùng cho finite-panel freeze; không claim primary reread,
 paper replication hoặc novelty. [T09](../theory/T09_stationary_dominance_limits.md).
+
+
+## L5.3 — closest prior: 3 existing-source lookups, targeted reread (02/11/2026)
+
+Người phụ trách **Doan Van Tai**; skill [paper-research](/home/vantai/.codex/skills/paper-research/SKILL.md).
+Q/MainRQ-PC3/PC4 boundary: P13 đã ngụ ý hướng state/transient và dạng1/h tới
+đâu; M00/P04 làm hẹp câu về state/model routing thế nào? Giữ nếu đối chiếu
+estimand/mechanism/regime ảnh hưởng claim; không dùng khác giả định tạo novelty.
+Đã đọc protocol, claims, library index/catalog và log trước thao tác. Tác giả
+yêu cầu thực hiện L5.3 với đúng3nguồn hiện có, không cần đề xuất/duyệt mới.
+
+| Loại | Query/source thật | Tool/bộ lọc | Thực sàng/đọc | Giữ unique mới | Kết quả/giới hạn |
+|---|---|---|---|---:|---|
+| lookup | 10.1007/s11134-016-9511-0 | paper-search/get_crossref_paper_by_doi, exact DOI | 1metadata | 0 | P13 Mathijsen/Zwart2017, QueueingSystems85:269–304; nguồn cũ |
+| lookup | 10.1109/71.824633 | cùng tool, exact DOI | 1metadata | 0 | M00 IEEE TPDS11(1):6–20; bản đọc submission riêng |
+| lookup | 10.1109/90.917073 | cùng tool, exact DOI | 1metadata | 0 | P04 ToN9(2):162–176; nguồn cũ |
+| targeted reread | 3PDF local, SHA khớp catalog | paper-pilot/get_pdf_page_text,4calls | P13PDF4/7/8/14; M00PDF10/12; P04PDF5/7/9 =9pages | 0 | AI-T; không full-read/proofs, không render/numeric digitization |
+
+P13Eq2.4/2.7/tr275,Thm1/tr276,Prop4–5/tr282: normalized-vs-cumulative loss,
+không transfer Lévy theorem sang correlated binary routing. M00§3.4 herding
+text đủqualitativeclaim; extraction có legacy font/line artifacts, không lấy
+số liệu plot. P04§III-A/B tr166/168/170: timescale/traffic/topology matters,
+không đồng nhất holding time vớiκ. Đối chiếu thêm5notes P13/M00/P04/T09/
+horizon_transient và targeted searches trongalready_implied/prior_boundary.
+
+3onlinequeries/3metadatarecords/3existinguniques;0keyword/backward/forward/
+author-venuequeries,0newunique/proposals/downloads/notes. 4PDFcalls/9pages;
+0access/tool failures, extractionM00 hạn chế như trên. Không cập nhật citations,
+Excel/catalog/authorreadingprogress, không nhậnL-self. Không fieldcoverage,
+saturation hoặc novelty. Dừng đủbounded3nguồn/tables choL5.3; không thêm
+Puterman hoặcnguồnngoàingành. [Kết quả/claim boundary](../phases/PHASE_5_closeout.md#closest-prior-check-targeted-không-novelty-search).

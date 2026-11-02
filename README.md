@@ -7,56 +7,25 @@ Main RQ:
 
 ## Trạng thái hiện hành — 02/11/2026
 
-Phase 5 đã thực hiện lần chạy panel duy nhất sau phần discovery Phase 4, theo
+Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, theo
 [quyết định numbering v1.2](notes/phases/PHASE_4_entry_decision.md).
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**Phase 5 v1.1 đã chạy một lần: H-L1 PASS, H-L2 PASS exploratory (DL-127).**
-V1 giữ nguyên INCONCLUSIVE. Amendment riêng giới hạn acceptance theo
-contrast, Cref delta report-only; N10=P5_03…P5_12, PASS≥9/U≤1.
-Đủ 30/30 calls, M/F/U=10/0/0; strict v1 sensitivity=3/0/7, không đổi v1.
-CPU 1.269,059225 giây; tổng hai panel 1.629,583186/28.800 CPU-s.
-P5_08 MEETS, 9 điểm khác 9/0/0 chỉ mô tả; P5_01/02 không đếm N10.
-H-L2 cả ba levels đạt, main Spearman=0,975628, MedAE=1,143553 pp
-so với 1-NN=2,918239 pp; forecast trước run H-L2 FAIL vẫn giữ nguyên.
-Source `6058b077`; 31 new/650 full tests PASS; anchor khớp 10/10 fields.
-Run `f14ef9c6`, raw commit ngay `a609e79b`; rescore cả hai versions MATCH,
-16 hashes nguyên. Không operational deviation, giữ 4 raw rows có flags.
+V1 chính thức **INCONCLUSIVE**; v1.1 **PASS 10/0/0** sau một lần sửa thiết kế có khai báo, chỉ giữ
+claim numerical finite-panel ở h/κ 320/640, có exposure một phần.
+H-L2 PASS exploratory, nhưng Spearman chịu cấu trúc cụm và MedAE phụ thuộc
+thành phần panel; cả hai thay đổi acceptance đều cần để H-L1 PASS, nên đây
+là lượng hóa phù hợp một giới hạn được kỳ vọng, chưa phải contribution/novelty.
+**Gate C = NARROW, G1 giữ nguyên (DL-128)**; bàn giao Phase 6 theo ủy quyền,
+realism/D22/Understanding còn mở;
+chưa chạy Phase 6, không retry/resume/refine/v1.2 hoặc confirmation độc lập.
+
+[Closeout L5.3: evidence, sensitivity, prior và claim](notes/phases/PHASE_5_closeout.md) ·
+[DL-128](notes/02_decision_log.md#dl-128--phase-5-gate-c-narrow-02112026) ·
+[Summary v1](results/phase5/summary.json) · [Summary v1.1](results/phase5_v1_1/summary.json) ·
 [Amendment](notes/design/phase5_v1_1_amendment.md) ·
-[Runner v1.1](experiments/P5_v11/run.py) · [Tests v1.1](tests/test_p5_v11.py) ·
-[Summary v1.1](results/phase5_v1_1/summary.json) · [Decision log](notes/02_decision_log.md).
-Validation sau một lần sửa thiết kế có khai báo, exposure một phần;
-không independent confirmation. Không retry/resume/refine/v1.2.
-Phương án B xong tới bước 7; L5.3/closest-prior/claim/Gate C chưa thực hiện.
-
-**Lesson 5.2 v1 hoàn tất thực thi: H-L1 INCONCLUSIVE, dừng SECOND_U.**
-Chạy một lần tại `8a8644f1`, raw data được commit ngay tại `5a2f0baf`.
-6/36 calls hoàn tất; 2/12 điểm đã chấm, M/F/U = 0/0/2; 10 điểm NOT_RUN.
-CPU tổng 360,523961 giây (0,100146 CPU-giờ), budget 28.800 giây.
-Rescore MATCH, tính verdict độc lập khớp, 16/16 hash frozen giữ nguyên.
-P5_08 NOT_RUN; H-L2 exploratory INCONCLUSIVE vì thiếu panel READY đầy đủ.
-[DL-125](notes/02_decision_log.md#dl-125--phase-5-l52-chạy-panel-một-lần-fact-chưa-diễn-giải-02112026) ·
-[Summary](results/phase5/summary.json) · [Raw rows](results/phase5/panel).
-Không retry/resume/refine v1. Sau vòng v1.1, L5.3 sẽ đọc cả hai versions;
-chưa thực hiện closest-prior check hoặc chọn Gate C.
-
-**Gate 4 đã GO theo ủy quyền trước run, sau Lesson 5.1.**
-Runner/tests tại `3331d163`: 32 targeted tests và619 full tests PASS.
-Positive control P43_0379 replay640/4 khớp10/10nhóm trường,khôngBUG;
-worker+descendants11,556CPU-s. P43_0379→DOES_NOT_MEET, P44_025→MEETS.
-[DL-124](notes/02_decision_log.md) · [Anchor report](results/phase5/gate4_anchor/report.json) ·
-[Runner](experiments/P5_panel/run.py) · [Tests](tests/test_p5_panel.py).
-Giữstrict no-retry,fullguards trướcmỗicall,budgethard8CPUh với captheo
-phầncòn lại. Cache ngoàiGit. L5.2 được chạy sau yêu cầu tiếp của tác giả.
-L4.12 đã đo một cold native call h32: worker+descendants 96,798 CPU-s;
-wrapper sau call FAIL `KeyError: status` (API không trả trường đó), không retry.
-Cache integrity và kiểm schema bằng engine giả PASS; chưa có validated result row.
-Ước lượng panel 0,855 CPU-giờ, stress minh họa 2,260 so với budget 8 giờ,
-không phải bảo đảm hoàn tất. Chi tiết và quyết định exposure A/local tại
-[DL-123](notes/02_decision_log.md#dl-123--l412-exposure-a-local-probe-và-scope-gate-4-02112026).
-Freeze H-L1/H-L2, panel N=12, thresholds, predictions và budget 8 CPU-giờ
-được giữ nguyên byte. H-L2 vẫn exploratory, không fit lại.
+[Runner v1.1](experiments/P5_v11/run.py) · [Tests](tests/test_p5_v11.py).
 
 **Đính chính exposure:** nhánh p4-regions đã tính 77 regime có h/κ>160
 trước commit freeze L4.9, trong đó W0347 trùng P5_08 ở mức (160,2).

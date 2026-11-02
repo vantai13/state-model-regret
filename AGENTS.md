@@ -479,3 +479,19 @@ Rescorev11+v1MATCH,16hash/v1data/source/amendmentgiữbyte;v1INCcuốicùng.
 Khôngdeviationamendment;post-hocrevision/exposurevẫncó,hypothesisPASSkhông
 independentconfirmation. Bxongtớibước7;chưaL5.3/closestprior/claim/GateC,
 khôngv1.2/CF/SUB/R09R10/76p4outcomes. D22/G1/L8/Understandinggiữ.
+
+
+L5.3/02-11(DL128): đủ3parts,read-onlyprinters/63testsPASS7.31s,bothrescores
+MATCH,16hash/source/data giữbyte;0engine/newcoordinates. Closeout gộpreport:
+notes/phases/PHASE_5_closeout.md. GateC=NARROW→handoffPhase6/G1giữ,PIVOT-watch,
+claim/gateAItheoủyquyền sauoutcome,khôngauthor-self/attest/UnderstandingPASS.
+V1INCcuốicùng;v11PASS10/0/0cầncảscope+Crefremoval. Sensitivity fullsix3/0/7,
+noCref3/0/7,scopeonly7/0/3,v11=10/0/0;3variantsU2tạiP5_04chỉmôtả.
+|z|max.006272936%,dmax.019328538pp;P5_11|z|.006273>d.004033pp,lowerbound
+errorkhôngupper/certificate. H-L2PASSexploratory;loadmeansrho.962950in-sample,
+ratioMedAEx320.726166/x640.164582;forecastFAILgiữ. G_S/Gamma10mainrowsnow
+exposedPhase6;identitymọiregime,khôngvalidateinteractiontoànpanel/numerics-solved.
+Closestprior3Crossreflookups+4PDFcalls9pagesAI-T,P13Thm1/Prop5khôngtransfer;
+M00herding/P04timescalegiới hạnwording.0newpapers/download/catalogchanges.
+Khôngexactzero/hstar/independentconfirmation/novelty/RQ3;chưaPHASE6plan/runs,
+khôngv1.2/CF/SUB/76p4outcomes/R09R10. D22/L8/realism/Understandinggiữ.

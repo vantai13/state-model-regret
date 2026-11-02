@@ -1156,3 +1156,18 @@ P5_03 chung cặp tải với hai điểm đã thấy. Không gộp P5_01/P5_02 
 không đổi v1 INCONCLUSIVE. Evidence giữ nhãn post-hoc design revision,
 exposure một phần, không independent confirmation. Không đọc 76 p4-regions
 outcomes khác/CF/SUB/R09R10. Không retry/refine hoặc mở v1.2.
+
+
+## L5.3 — interpretation và Gate C (02/11/2026, DL-128)
+
+Đã mở numerical S/Cref/Cref/S_abs/M/d của đủ10 điểm P5_03…P5_12 tại main,
+readiness/refinement ba levels, L00 error và identity G_S+Γ=S|M1 của10mainrows.
+Các G_S/Γ và L00 này là evidence đã thấy cho Phase6; không được nhận làm
+held-out mới. Đã xem19native discovery rows cùng4loadpairs/u1 từ L4.6 CSV,
+không simulation mới. Không mở76p4-regionsoutcomes/CF/SUB/R09R10.
+
+Hai acceptance variants, load-mean diagnostic (truth dùng fit trung bình nhóm),
+subsetMedAE và patterngap·x đều post-hoc descriptive, không tests mới.
+Read-back/câuclaim/GateNARROW/G1 là AI theoủyquyền sauoutcome, không tácgiả
+attest hoặcself-understanding. Literature targeted primary9pages là AI-T,
+không đổiauthor reading levels. V1INC và v11PASS giữnguyên; khôngretry/refine.

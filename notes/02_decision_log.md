@@ -2588,3 +2588,77 @@ không author-self/Understanding hoặc human review.
   closest-prior check, claim hoặc Gate C. Không v1.2. CF/SUB vẫn park,
   R09/R10 sealed, 76 p4-regions outcomes khác chưa mở; D22/G1/L8/realism/
   Understanding không tự nâng.
+
+
+### DL-128 — Phase 5 Gate C: NARROW (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Claim, Gate C và G-level do AI chốt theo
+ủy quyền hiện có của tác giả (“đóng vai trò là tác giả…tự ra quyết định”) và
+yêu cầu thực hiện L5.3. Đây là quyết định sau outcome; không ghi tác giả tự
+chọn/tự viết, author-attested, L-self hoặc Understanding PASS. Chưa có xác
+nhận tác giả tự đọc P13 Thm1/Prop5 trong lượt này. Thiết kế v1.1 vẫn mang
+provenance AI theo ủy quyền của DL-126, không đổi thành lựa chọn tác giả trước run.
+
+**Kết quả đọc:** closeout `notes/phases/PHASE_5_closeout.md` gộp cả report.
+V1 INCONCLUSIVE/SECOND_U (2/12), v1.1 PASS10/0/0 (10/10). PASS v1.1 cần
+cả hai thay đổi: sáu contrast+Cref gate3/0/7; chỉ bỏ Cref3/0/7; chỉ scope7/0/3;
+cả hai10/0/0. Ba biến thể đầu mô phỏng U2 tại P5_04; không là các lần run mới.
+Đã kiểm bỏ Cref bằng Fraction trên raw, không dựa reason string làm tròn.
+S_est tuyệt đối [-0.002471699394,0] packet·s, |z_est|max0.006272935744%;
+Cref4.123705271–39.402593852 packet·s. Numeric S nhỏ, không chỉ do mẫu số;
+không suy mọi tải monotone hoặc true error được bound. P5_08MEETS,
+9điểm khác9/0/0 chỉ mô tả; P5_01/02 không gộp vào N10.
+
+H-L2 PASS exploratory ba levels; main rho0.975628, MedAE1.143553vs1NN2.918239pp.
+Load-mean diagnostic rho0.962950 dùng chính truth: in-sample, không baseline
+prospective. RatioMedAE x320=.726166, x640=.164582, all=.391864, bỏ08=.290328;
+subset chỉ mô tả. Predictor cao hơn truth10/10; forecastH-L2FAIL giữ nguyên.
+
+**Closest prior:** kiểm 3 Crossref DOI và targeted9pages của3PDF đã có,
+SHA khớp catalog; AI-T, không L-self hoặc full reading. P13§2.1/tr272,
+Eq2.4/2.7/tr275, Thm1/tr276, Prop4–5/tr282 là analog transient/stationary;
+Lévy/continuous capacity/average objective khác correlated ON/OFF/binary
+routing/cumulative regret, không transfer theorem hoặc rate. M00§3.4/PDF10,12
+là repeated-dispatch herding, khác one-shot information value; P04§III-A/B,
+tr166/168/170 giới hạn timescale wording, không đồng nhất holding time vớiκ.
+T09§1–3 vẫn conditional mechanism, chưa chứng minh expansion/integrability.
+Không tìm nguồn mới, không novelty/field-absence conclusion.
+
+**Claim được chọn:** Trong plant v1.3, a/μ=.6,u1,c_sw0, action giữ suốt h,
+model đúng M1, numerical state value đạt≤.5%Cref tại10tọa độP5_03…12,
+h/κ320/640 theo acceptancev1.1; v1 chính thứcINC và PASS phụ thuộc cả hai
+thay đổi. Cùng tọa độ, model gain khi stateoracle4.4096–17.5633%Cref là
+simple effect. Đây là lượng hóa finite-panel phù hợp stationary/transient
+intuition với analogP13 dưới giả định khác; chưa contribution/novelty được
+xác nhận. Claim đầy đủ, exposure, negative estimates/d và giới hạn ở closeout.
+
+**Đính chính lesson:** numerical0 không phải exact0; S=0 đòi policy cũ tối
+ưu almost surely, kể cả ties, không buộc mọi state cùng một action. T09
+khônguniformaction cũng chưa chứng minhS>0 mọi finiteh. P5_11 |z_est|=.006273pp
+>d=.004033pp cho lower bound sai khác, không upper bound; “80lần” không là
+certificate. Denominator-only change cho Δz=−zε/(1+ε), không chính xácεz.
+Predictor dùng finite-h a_M0,h, không thuần hằngM∞. IdentityΓ=S|M1−G_S|M0
+đúngmọiregime; nhỏS chỉ approximatecancellation. Không nhận interaction đã
+validate toànpanel hoặc tự gán transition mọi effect≠0. Rootcause sốâm chưa xác nhận.
+
+**Validity:** 7/7 mục execution/reporting/prior đã kiểm (chi tiết closeout);
+không đồng nghĩa mathematical error certificate, human ownership hoặc novelty.
+**Gate C: NARROW → bàn giao Phase6**, giữ câu claim hẹp vì v1INC, design
+revision post-hoc/exposure, sensitivity và thiếu validation toànpanelΓ.
+**PIVOT-watch** giữ: xem lại contribution nếu kiểm sau chỉ còn hệ quả lý
+thuyết đơn giản; chưa kết luận prior ngụ ý toàn bộ con số hữu hạn.
+**G-level: G1 giữ nguyên** vì realism chưa xác nhận, evidence exposure một
+phần và boundary còn phù hợp kỳ vọng nội bộ. Không G2-candidate tự động.
+
+**Kiểm local:** hai printers Part1/2 read-only chạy đúng;63Phase5testsPASS7.31s;
+rescorev1/v1.1MATCH;16hash unchanged. Thêm helper read-only có SyntaxError
+trước thực thi, đã sửa và chạy PASS; không tạo native call hoặc đổi dữ liệu.
+Không full-suite rerun cho docs-only;650PASS41.87s là kết quả trước ởDL126.
+Không code/results/plan/threshold changes. Literature log ghi3lookup,
+4PDFcalls/9pages,0new/download; catalog/Excel/author progress giữ nguyên.
+
+**Bàn giao:** transition discovery7/8x6.67–40,6.5/6x6.67–13.33;
+G_S|M0/Γ nơi L00 đủ đo, hệ sốgap c/x post-hoc và numericsL00. G_S/Γ của
+10rawv1.1nay exposed choPhase6, đã ghi register. Chưa tạoPHASE_6.md hoặc
+chạy Phase6; khôngv1.2/CF/SUB/sealedR09R10/76p4outcomes. CloseoutAI-readback
+không thay tácgiảtựviết/hiểu; D22native/L8/realism/Understanding giữ trạng thái.
