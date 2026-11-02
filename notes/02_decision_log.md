@@ -2816,3 +2816,60 @@ Phase6 calls**, chưa có panel/runner/probe/predictions/freezev2 hoặcGateD-en
 Ownership/Understanding vẫnOPEN. Chỉ bàn giao L6.2 PartA kiểm cửa sổ bằng
 tham số trước probe; mọi labels/thresholds/panel/calibration phải chốt trước
 truecalls tương ứng. Phase5 bytes/verdicts vàG1/R09R10/CF/SUB/D22 giữ nguyên.
+
+
+### DL-130 — L6.2 Part A: predictor M0-only và cửa sổ bằng tham số (02/11/2026)
+
+Người phụ trách **Doan Van Tai**. AI chốt theo ủy quyền; không tác giả tự
+viết/hiểu/attest. Entry khởi tạo **trước mọi tính toán predictor/scan Part A**;
+metadata-only đã đếm51base từ lưới bên dưới, chưa xem finite-h truth.
+
+**Thay cách phát biểu cửa sổ:** g_old(Y) là phân phối forecast có điều kiện,
+không phải một mean scalar duy nhất. Giữ H1 accounting củaDL129 nhưng chọn
+điểm trực tiếp theo hiệu switch CDF, bỏ x*_M0 như tiêu chí bắt buộc. Đây là
+làm rõ zero-fit predictor trước truth, không đổi H0a/estimand/engine hoặc
+fit calibration. F(t)=Pr(g<t) là strict-left CDF (cần giữ atoms/ties), không
+đồng nhất với standard Pr(g≤t). Certified gap bằng c; tie chọnStay.
+
+**Choices khóa trước scan:** rho=1/4, Pmin=30, zmin=1%Cref; W1–W6 theo
+lesson, W7/W8/W9 **bật**. minlambda≥6.5,max(lambda+u)<10,kappa∈[.1,.3],
+h≤16, unequal loads. NhómDi x<0,stake<0,c>0,H1+,H0−,c≤rho*h*abs(s);
+Dii0<x<theta(u),stake>0,c>0,H1−,H0+. W7 giữ dấu ở3c/4,5c/4;W8 cùng
+basec0 H1=H0 (referencec0 có thể đã lộ, không dùng làm fresh panel).
+Cần witness≥10D/≥5base,≤2cost/base,≥2/3Di và có ít nhất1Dii để giữ cả
+hai hướng đã chọn. Chọn witnessD10 theo thứ tựbase/c cố định, round-robin
+mỗi base1rồi2, ưu tiên allocation7Di/3Dii rồi8/2,9/1. Cần≥2A, một+/một−
+nếu đủ pool. Witness chỉ chứng minh có cửa sổ, **chưa freeze panel**.
+
+Lưới duy nhất: lambdaA{7,15/2},kappa{1/10,1/5},h{8,16},u{1,3/2},
+x{−2/3,−1/2,−1/3,−1/4,1/6,1/4,1/3}; lambdaB=lambdaA+x*u,
+lọcW1/W2 trước compute →51base (33negativex). Costgrid
+{0,1/32,1/16,1/8,3/16,1/4,3/8,1/2,3/4,1}. K320/ref4; chỉ
+replay expose H0015/H0143 ở160/2 choT2, khôngpredictor640/4.
+Không mở rộng grid vòng này để cứu kết quả; không nới margins/fallback.
+
+**Budget:** Part A cap≤1800CPU-s, nằm trong14400 củaPhase6, ngoài7200panel.
+Tính controller+children/cache/failed computations, kể cả numeric tests và
+đo firstbase. Test/verification CPU đo bằngtime; scan trừ priorcomputeCPU
+và reserve trước khi chạy. Cache ngoàiGit,1worker/1BLASthread. ChạmcapSTOP.
+Không finite-h M1 cost: cấm full evaluator/cost-profile get/true idle; cho
+phép stationary laws,posterior,mean_idle và true aging củaS0 đúng contract.
+Không cóprobe/panel/finite-h outcomes trongPartA,khôngsources mới/literature.
+
+**Forecast trước compute — AI theoủyquyền, không tác giả tự dự đoán:**
+1. Khả năng đủDi/cảwitness:70% chủ quanAI, không thống kê/calibration.
+2. CDFcrossing c* có thể cùng scale nhưng không bằng abs(mean_gap);
+   không kỳ vọng một scalar mean quyết định crossing.
+3. |zH1| ởDi dự kiến nhỏ hơnDii do negative-tail mass.
+4. h8→16: crossing thay đổi ít ở mass đãxả, không exact invariant toànstate.
+5. Dự kiến3–10CPU-s/base trênmáy này, chưa đo. Không sửa forecast sau scan.
+
+**Phạm vi claim:** zero-fit accounting với M0 numerical + stationary-action/
+stake approximations A1/A2. Không chứng minh horizon-blindness là causal
+mechanism; mẫu số làstationary approximation, khôngCref finite-h thật.
+Convexorder/equalmeans là exact-law identity, quadrature là numerical estimate;
+T3/variance checks không chứng nhận exact distribution hoặc A1/A2. Nếu tests
+trượt chưa giải thích → BLOCKED; thiếucửa sổ STOP; chỉDii HOLD. G1 giữ.
+
+**Trạng thái trước triển khai:** chưa test/scan, chưa PartB, chưaGateD-entryGO.
+Kết quả và source SHA sẽ nối sau, commit entry này trước bất kỳ probe PartB.
