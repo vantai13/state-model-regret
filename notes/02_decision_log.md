@@ -2988,3 +2988,48 @@ kiểm correctness của mean-preserving forecast ởB017 trongPartA; chưa đ�
 G1/GateC=NARROW,ownership/UnderstandingOPEN,CF/SUBpark,R09R10sealed,
 76highratiooutcomeschưađọc giữ nguyên. DL130 vàartifacts đượccommit trước
 bất kỳ PartBprobe nào; khôngclaim H1valid,causalmechanism hoặcnovelty.
+
+
+### DL-131 — L6.2 Part A: design revision của mean check, trước scan mới (02/11/2026)
+
+Người phụ trách **Doan Van Tai**; choices doAI theoủyquyền, khôngauthor-self.
+Input mới đề nghị lattice identity thay ngưỡng drift quadrature; số130CPU-s
+trongcontainer khác là **nguồn báo**, chưa tái lập. Để bảo thủ cộng130 vào
+upper240 cũ → **priorupper370CPU-s**, capPartA1800/P6total14400/panel7200
+giữ nguyên. Không tiếp nhận kết luận “predictor không có bug” như chứng minh
+toàn code/51base; cần phép kiểm thực tế và mutation.
+
+**Khai trước triển khai/measurement:**
+- R1: dùng OWN mean_side/stale_mean_side trên mọi queueindex trong finite
+  nonzero-profile support + zero tail; bao negligible dropped mass và infinite
+  law uncertainty. Đây là lattice-sum **có error bound**, không số thực exact.
+  Gồm error fresh+stale profiles, stationary mass, dropped mass vàrounding;
+  không chép nguyên bound bỏ fresherror hoặc cộng1e−9 tùy ý như input.
+  Raw quadrature drift vẫn ghi trênmọibase; bỏ vai trò chặn củaτ.005 bằng
+  designrevision công khai, không nângτ hoặc fit correction vàoH1.
+- R2: kiểm B017 vàB011 tốt; đảo posterior phảifail, giữT2 exposedshares.
+  Mean identity không phát hiện quênaging; không dùng nó thayT2 hoặc chứng
+  nhận đủmọiaspect củapredictor. No M1 profiles/evaluator/finite-h truth.
+- R3: đo B017 một lần trước quyết scope; capmeasurement90CPU-s. Nếu với
+  t=CPU đo, estimate370+t+2*(54+4*t)+51*1.25*t+160+100+30≤1800 thì kiểm
+  cả51base. Nếu không: chọn firstbase theo thứ tựDL130 trong mỗi ô(k,u,h)
+  (8ô), cộngB011/B017 vàmọibase của witnessD/A cuối. Không dùng z/outcome
+  để chọn strata. Chốt và commit scope sau measurement, trước scan mới.
+- R4: chỉ nếu có witnessW9 tại320, kiểm chính witness10D+2A tại640/ref4;
+  mỗi điểm phải giữ H1sign vàabsz≥1% ởcảhaiK. Không thay điểm bịfail để
+  cứu witness; fail→HOLD_K_STABILITY. Không witness→khôngK640 vôích.
+  Marginrho1/4,Pmin30,zmin1%,W7–9,10D/≥5base/≤2cbase/≥2/3Di/≥1Dii
+  vàcontrols± giữ nhưDL130. Witness không phảifreezepanel/PartC.
+- R5: scan51×10 từ đầu tại`results/phase6/window_revision01/`, khôngresume
+  B017, không đụng3artifacts`results/phase6/window/` hoặcattempt01_failed.
+  CSV ghi rawdrift,identity status/drift/bound; identityfail→BLOCKED.
+  ChỉDii và0Di→HOLD_ONLY_DII; 0D→STOP_NO_WINDOW; cóD nhưng khôngđủW9→
+  HOLD_INSUFFICIENT_DI_OR_DIVERSITY (không hạz để cứu). Khôngexpandgrid.
+  Budgetstop/bug là trạng thái riêng, khôngwindowPASS. KhôngprobePartB,
+  panelPartC/L6.3 hoặcGateD-entryGO tronglượt này.
+
+**Scientific scope:** nếu bound-check vàmutations táilập input thì báo
+drift quadrature làfalsealarm tạiđúng cácbase đãkiểm, khôngxóaDL130/
+historicalBLOCKED vàkhôngclaim identity chứngminh H1/A1/A2/novelty.
+G1/GateC=NARROW/UnderstandingOPEN,CF/SUBpark/R09R10sealed giữ nguyên.
+Kết quả measurement/scope/tests/scan nối tiếp, không sửa choices hồi tố.
