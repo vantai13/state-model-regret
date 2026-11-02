@@ -2482,3 +2482,38 @@ protocol, dùng terminal failure receipt khi output chưa lưu. Bổ sung raw
 anchor SHA guard và kiểm v1 artifacts nguyên byte. Không thêm framework.
 
 **Gate v1.1: HOLD** tới test + positive control PASS và phần B commit.
+
+
+**DL-126 phần B — positive control và Gate v1.1, trước panel.**
+- Source/amendment commit A `6058b077a126063a06e4354d98012484fa39d944`. Trên máy tác giả: 31 tests v1.1
+  PASS 5,22s; full suite **650 PASS 41,87s**. Trước commit A có một synthetic
+  interruption test FAIL do floating subtraction tạo CPU âm cực nhỏ; sửa
+  kế toán CPU, không sửa metric/tolerance, rồi 28/28 PASS trước khi bổ sung
+  3 guard/descendant tests. Không nhận 11/630 reviewer-reported là local.
+- CLI `P5_v11.run panel` khi chưa marker đã exit 1 với
+  V11_GATE_DECLARATION_REQUIRED trước engine; không tạo attempt/cache panel.
+- `.venv/bin/python -m experiments.P5_v11.run anchor`: **PASS**, đúng
+  1 native call P43_0379,640/4 qua chính launch/worker/evaluate v1.1.
+  Khớp 10/10 field groups, field_mismatch=[], replay_bugs=[].
+  Child/descendant CPU 11.715562s, ngoài panel budget như amendment.
+  P43_0379=DOES_NOT_MEET, P44_025=MEETS; P5_01/P5_02=MEETS theo v1.1,
+  strict v1 vẫn UNRESOLVED. Hai điểm này chỉ đọc saved rows, không native mới.
+- Report `results/phase5_v1_1/gate_anchor/report.json`; raw SHA256
+  `069a06ccecd2fba670b51db27a8cb27dc44e81492ef8c7a09fe64371d4de95cb`. Amendment SHA256
+  `147273a1ed2ff5d97dde206f636a36a7e7b937c69ecf0c86f5a8d35ed2947014`. Frozen v1 source/tests/data nguyên byte; 16 hashes vẫn đúng.
+- **Gate v1.1: GO theo ủy quyền phương án B.** Sau commit phần B và push,
+  đúng một lệnh `.venv/bin/python -m experiments.P5_v11.run panel`.
+  Chỉ P5_03…P5_12, cold cache riêng, budget còn 28439.476038870 CPU-s,
+  CREF_DELTA_GATES=False. No retry/resume/refine/v1.2; no live outcome reading.
+  Chạy xong commit raw/summary trước đọc, rescore cả hai versions, DL-127 fact;
+  dừng trước nội dung L5.3/closest-prior/Gate C. Không human review/G-level nâng.
+
+<!-- P5_GATE_V11
+{
+  "status": "GO",
+  "policy": "STRICT_NO_RETRY",
+  "runner_commit": "6058b077a126063a06e4354d98012484fa39d944",
+  "cref_delta_gates": false,
+  "amendment_sha256": "147273a1ed2ff5d97dde206f636a36a7e7b937c69ecf0c86f5a8d35ed2947014"
+}
+-->

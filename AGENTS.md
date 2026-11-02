@@ -453,3 +453,15 @@ hypothesis PASS; chưa đọc z/d để diễn giải, chưa L5.3/GateC/claim/pr
 Source/threshold/plan giữ byte. Output results/phase5/summary.json và
 panel/P5_01,P5_02; resources trong rows/summary, không ledger riêng.
 CF/SUBpark,R09R10sealed,D22DEFERRED/G1/L8/Understanding giữ nguyên.
+
+
+P5 v1.1/02-11(DL126): tác giả yêu cầu tiếp phương án B, dùng một declared
+revision; v1 INCONCLUSIVE là cuối cùng, source/tests/results v1 giữ byte.
+Source6058b077,31new/650fullPASS41.87s;1anchorPASS10/10fields,child11.715562s.
+Gatev11GO trước panel,amendment notes/design/phase5_v1_1_amendment.md.
+Acceptance riêng G_S_M1/G_M_S1 cùng1/400/1/4000,Crefdelta report-onlyFalse;
+đây là post-hoc design revision,không independent confirmation. N10 cố định
+P5_03…12,PASS≥9U≤1,sharedpanelbudget28439.476038870CPU-s;H-L2exploratory
+N10 giữpredictions/NN. P5_01/02 chỉ mô tả,không đếm;P5_08 báo riêng.
+Một run duy nhất,no retry/resume/refine/v1.2;commitraw trướcđọc,DL127fact,
+L5.3/GateCchưa thực hiện. CF/SUBpark,R09R10sealed,D22/G1/Understandinggiữ.

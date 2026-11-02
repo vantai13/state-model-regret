@@ -12,7 +12,16 @@ Phase 5 đã thực hiện lần chạy panel duy nhất sau phần discovery Ph
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**Lesson 5.2 hoàn tất thực thi: H-L1 INCONCLUSIVE, dừng SECOND_U.**
+**Phase 5 v1.1: Gate GO sau một lần sửa thiết kế có khai báo (DL-126).**
+V1 giữ nguyên INCONCLUSIVE. Amendment riêng giới hạn acceptance theo
+contrast, Cref delta report-only; N10=P5_03…P5_12, PASS≥9/U≤1, budget
+panel còn 28.439,476039 CPU-s. Source `6058b077`; 31 new/650 full tests
+PASS; anchor khớp 10/10 fields. Chưa có panel v1.1 ở commit Gate GO.
+[Amendment](notes/design/phase5_v1_1_amendment.md) ·
+[Runner v1.1](experiments/P5_v11/run.py) · [Tests v1.1](tests/test_p5_v11.py).
+Một lần chạy, không retry/resume/refine/v1.2; evidence có exposure một phần.
+
+**Lesson 5.2 v1 hoàn tất thực thi: H-L1 INCONCLUSIVE, dừng SECOND_U.**
 Chạy một lần tại `8a8644f1`, raw data được commit ngay tại `5a2f0baf`.
 6/36 calls hoàn tất; 2/12 điểm đã chấm, M/F/U = 0/0/2; 10 điểm NOT_RUN.
 CPU tổng 360,523961 giây (0,100146 CPU-giờ), budget 28.800 giây.
@@ -20,8 +29,8 @@ Rescore MATCH, tính verdict độc lập khớp, 16/16 hash frozen giữ nguyê
 P5_08 NOT_RUN; H-L2 exploratory INCONCLUSIVE vì thiếu panel READY đầy đủ.
 [DL-125](notes/02_decision_log.md#dl-125--phase-5-l52-chạy-panel-một-lần-fact-chưa-diễn-giải-02112026) ·
 [Summary](results/phase5/summary.json) · [Raw rows](results/phase5/panel).
-Không retry/resume/refine. Bước tiếp theo là L5.3 đọc kết quả và Gate C;
-chưa diễn giải hoặc chọn Gate C trong L5.2.
+Không retry/resume/refine v1. Sau vòng v1.1, L5.3 sẽ đọc cả hai versions;
+chưa thực hiện closest-prior check hoặc chọn Gate C.
 
 **Gate 4 đã GO theo ủy quyền trước run, sau Lesson 5.1.**
 Runner/tests tại `3331d163`: 32 targeted tests và619 full tests PASS.
