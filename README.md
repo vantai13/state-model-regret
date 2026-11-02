@@ -12,7 +12,14 @@ Phase 4 đang hợp nhất discovery và chuẩn bị Phase 5 (confirmation), th
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**Gate 4: HOLD, chờ runner + dry run Lesson 5.1.** Chưa chạy panel Phase 5.
+**Gate 4: GO theo ủy quyền sau Lesson 5.1. Chưa chạy panel Phase 5.**
+Runner/tests tại `3331d163`: 32 targeted tests và619 full tests PASS.
+Positive control P43_0379 replay640/4 khớp10/10nhóm trường,khôngBUG;
+worker+descendants11,556CPU-s. P43_0379→DOES_NOT_MEET, P44_025→MEETS.
+[DL-124](notes/02_decision_log.md) · [Anchor report](results/phase5/gate4_anchor/report.json) ·
+[Runner](experiments/P5_panel/run.py) · [Tests](tests/test_p5_panel.py).
+Giữstrict no-retry,fullguards trướcmỗicall,budgethard8CPUh với captheo
+phầncòn lại. Cache ngoàiGit. DừngL5.1; chỉchạyL5.2 khi tácgiảyêucầu.
 L4.12 đã đo một cold native call h32: worker+descendants 96,798 CPU-s;
 wrapper sau call FAIL `KeyError: status` (API không trả trường đó), không retry.
 Cache integrity và kiểm schema bằng engine giả PASS; chưa có validated result row.

@@ -1101,3 +1101,13 @@ H-L1 chỉ validation có exposure một phần; H-L2 exploratory; chưa Phase5.
 Teaching toys L4.10 dùng kappa1/4,dt1/8, conditional initial state và
 one-path finite propagation, không native/panel population outcomes.
 X1 ở kappa.1 có10 observed crossings +5 no-crossing, không14 measured errors.
+
+
+## L5.1 — positive control, không panel outcomes (02/11/2026)
+
+Đúng1native replayP43_0379(13/2,7,1/5,7/8,2,0),640/4 quaP5runner3331d163,
+khớp10/10fields với savedA1row. Hai nhãn từ3savedlevels:P43_0379DNM,
+P44_025MEETS;không tính mớiP44_025. Cacheanchor riêngngoàiGit.
+CácP5IDtrong32tests làfake rows từdiscovery,khôngfutureM1truth.
+0P5panel/CF/sealedcalls,76p4outcomes khácchưađọc. ForecastAI-PASS đã
+khaiDL124,khôngnhậnauthor-self. Gate4GOkhông phảihypothesisPASS/G2.

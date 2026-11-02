@@ -423,3 +423,18 @@ phảitestschema này. Cold singlecallcomputeOBSERVED,fullpanelcostINFERRED
 chưaPhase5panel. P0V10OPENtrướcCF/L8trướcnovelty/V9waivedDL054scopegiữ;
 khôngthêmhumanprereqchochuẩnbịrunner/validation này,khônghumanreviewPASS.
 Source/locks giữbyte,0panel/CF/sealedcalls;76p4otheroutcomeschưamở.
+
+
+L5.1/02-11(DL124):runner/tests3331d163 trướcanchor;32new/619fullPASS37.35s.
+1nativeanchorP43_0379,640/4,replay10/10fieldsPASS,0BUG,CPUchild11.555570s;
+P43_0379DNM(z3.556694%,d.01707594pp),P44_025MEETS(z0,d2.830292e-8pp≠0).
+Gate4GO theoủyquyền,khônghuman/author-self/Understanding/G-levelPASS.
+Giữfrozen16/engine/plan;khôngadoptresume/rerun/vượtbudget1call từdraft.
+StrictNO_RETRY,capremainingBudget−1CPU-s/1800CPU/3600wall,fullguards mỗi
+parent+worker;exclusivefile trướccall+parentFD chốngstandaloneworker;
+resources trongrow/summary,khôngledger/lockframeworkmới. Rescoređọconly.
+Cache ~/.cache/state-model-regret/phase5/anchor,khôngcachepanel;fakeP5rows
+chỉ ởpytesttmp,0truepanel/CF/sealed/76newoutcomes. Report ở
+results/phase5/gate4_anchor/report.json. L5.1STOP tạiGateGO;KHÔNGtựchạy
+L5.2 chỉvìGateGO. Chỉrunpanel sauyêucầucủatácgiả,khôngsửa codeđãkhai
+sauoutcome. ForecastAI-PASScóprovenanceDL124,khôngnhậnauthor-self.

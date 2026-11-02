@@ -2329,3 +2329,53 @@ dừng ở Gate4; không chạy Lesson5.2 hoặc bất kỳ P5_xx truecall nào.
 
 **Gate4 hiện tại: HOLD tới khi anchorPASS và declarationGO đượccommit.**
 KhôngtạoPHASE_5.md/reportlesson mới;planinput vànội dung học ởchat.
+
+
+**Kết quả positive control và chốt Gate4 — sau commit runner/tests `3331d16350b6b1a9f3fdf892b965e48ea442fc80`:**
+- Lệnhđãchạy: `.venv/bin/python -m experiments.P5_panel.run anchor`.
+  Đúng1nativecallP43_0379,640/4 qua cùnglaunch/worker/evaluate củapanel.
+  Preflight trướcanchorPASS;preflightpanel khi chưa cóGateGO đã từchối
+  GATE4_DECLARATION_REQUIRED trước engine,không tạoattemptpanel.
+- Replay10/10nhóm trườngkhớp savedvalues,field_mismatch=[],replay_bugs=[],
+  statusPASS. Worker+descendantsCPU11.555570s,wall11.731516614s;
+  nativecallselfCPU9.226440s (không lấy số này làm toànbudget).
+- Hai nhãn từ3savedlevels: P43_0379DOES_NOT_MEET,z3.5566941650250357%,
+  d.01707593689734002pp;P44_025MEETS,z0%,d2.8302924627120256e-8pp.
+  M tương ứng .1682020388572474% và13.701436692427485%,bắt lỗi đọc nhầmM/S.
+- Raw `results/phase5/gate4_anchor/P43_0379_level_640_4.json` vàreport.json
+  đượcgiữ. ReplaySHA256=0ff857da494027fb5d2a33fde4ee297bd5b111431afa842ca35fffd2234cc6a3.
+  Cache ngoàiGit/home/vantai/.cache/state-model-regret/phase5/anchor:
+  12files/6448424bytes;cachepanel vẫnchưatạo.0truecallsP5/CF/sealed,
+  khôngmở76outcomes khác. CácP5IDs trongtests làfake discovery rows ởtmp.
+- 32tests mớiPASS;619fullPASS37.35s,không testfailedattempt ởversioncuối.
+  Giaiđoạnđầutrướcbổsungcoverage:24/611PASS,không nhận reviewer15/602
+  là kết quảlocal. Frozen16hash vàsourcebytes vẫnnguyên.
+- Root.gitignore đã có `results/**/native_cache`;cachemới ngoàiGit nên
+  không thêm patterntrùng. Không tạoPHASE_5.md,reportlesson hayframeworkmới.
+
+**Read-back AI soạn theoủyquyền,không phải artifact tácgiảtựviết:**
+Tôi đoS=L01-L11 khi modelđúngM1,rồi chuẩn hóa bằngL11 tại main640/4.
+Tôi giữ mẫu số12,kểcảU;thiếupanel thì INCONCLUSIVE,khôngfillmissingbằng0.
+Tôi kiểm readiness trước,vùngbiên|z-.005|<=d sau,rồi mới MEETS/DNM.
+11M1F và11M1U PASS;10M1F1U INCONCLUSIVE;10M2F FAIL.
+Uthứ2 phải dừng,Fthứ2 khôngdừng vì còn dữliệu H-L2 vàbáocáo.
+BUG,execution/resource hoặcbudget dừng,no retry;rescore từsavedrows
+khác với chạy lạiengine. Positivecontrol kiểm đườngnối vàtrường dữliệu,
+khôngchứngminh numerics ởpanel hoặcH-L1đúng. P5_08 luônbáoriêng;
+khôngN11verdict,khôngclaimall12refreshbounds hoặcnovelty.
+
+**Gate4: GO theoủyquyền cho đúngfixedpanel đãkhóa.** ScopeL5.1đãhoàn tất
+kỹthuật;Understanding/L-self/humanreview/G1 không tựđổi. Dừng tạiđây,
+khôngtựthực thiL5.2; cần yêu cầu tiếp của tácgiả. Lệnhfutureduynhất:
+`.venv/bin/python -m experiments.P5_panel.run panel`.
+Sourcecommittrướcanchor;commitrawanchor+DL124này phải trướctruepanelcall.
+
+<!-- P5_GATE4
+{
+  "status": "GO",
+  "policy": "STRICT_NO_RETRY",
+  "runner_commit": "3331d16350b6b1a9f3fdf892b965e48ea442fc80",
+  "call_cpu_cap": 1800,
+  "call_wall_cap": 3600
+}
+-->
