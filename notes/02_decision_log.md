@@ -3140,3 +3140,71 @@ hiện; R4cóimplementation/tests nhưngkhôngfinalcandidate đểchạy. Chưa 
 điềukiện sangPartB/C/L6.3. Muốnthiếtkếcanthiệpkhác cầnrevisionkhoa học
 riêng trước outcomes, khôngthêmlessonchỉđểvá. G1/GateC=NARROW,ownership/
 UnderstandingOPEN,CF/SUBpark,R09R10sealed/76highratiooutcomesunread giữ.
+
+
+### DL-132 — L6.2 Part A: mở rộng độ phủ c, khai trước sửa window.py (02/11/2026)
+
+Người phụ trách **Doan Van Tai**; lựa chọn/forecast doAI theoủyquyền,
+khôngauthor-self. User yêu cầu revision vềcoveragec, supersede quyếtđịnh
+khôngexpand ởDL131 cho **một** lượt revision02; khôngđổi RQ/H1/H0/metric.
+Entry này phải commit trước mọi sửa window.py và trước predictor ở c mới.
+
+**Đối chiếu input chỉ từCSVrevision01:**33negative-xbases;17có signcross
+quan sát giữa2mức c,16chưa thấy crossing≤1. Z-linear interpolation cho
+c_hat/absmean∈[.789553422,1.157390338]; CDF-linear cho[.789032075,1.136862298].
+Đó là interpolation estimate, không exactcrossing/CI/single-crossing theorem.
+16khôngcross làright-censored, khôngchứngminh tấtcả cóc*>1 thayvìkhôngcross.
+Tableinput(a)liệt kê15bases; B044/B045 nằmnhóm(b) nhưngđãcross ởđuôigrid,
+nên17observedcross tổng cộng đúng. Không gọiheuristic b<1/4 là necessary
+theorem: c*≈absmean chỉ làphỏng đoán; khôngthêm b-filter vàoW1–W9.
+TrầnW3max=h|s|/4=5.554500057 tạiB046; c≤1 chưa phủthangM0/stake của
+B017/B035–38/B044–45. Lýdocoveragehợp lý nhưng vẫn là adaptive design
+dựa trênM0predictions đãthấy; chưaM1truth mới, khôngnhận là lựa chọnblind.
+
+**Grid duy nhất mới:** giữ51base đúng thứtựDL130, giữ10cost cũ vàthêm
+{5/4,3/2,7/4,2,5/2,3,7/2,4,5,6} →51×20=1020rows. Khôngchỉchọn8base
+đẹp, khôngfit/hiệuchỉnh predictor. Giữrho1/4,Pmin30,zmin1%,W7–W9,
+10D/≥5base/≤2cost-base/≥2/3Di/≥1Dii vàA±, cùngfixedround-robinwitness.
+GiữOWNidentity.py (stratified-plus-final). Tái dùng7certificates từrevision01
+nếu identity/predictor/source guards/ref/base/scope cònkhớp; khôngchạy lại
+chúng vôích. Mọi finalwitnessbase chưa cócertificate phải tínhthêm.
+
+**Invariant MUST trước finalchecks:** cả510oldrows phải khớp mọi oldfield
+vớirevision01, không chỉfloat tolerance. ID của10cost cũ giữC00…C09,
+costmớiC10…C19. CSV làscan-stage view: giữidentity_checked/bounds của7mẫu
+vàK640fields cũ; finalidentity/K640proofs ghi **summary** riêng, khôngmutate
+oldfields khiếninvariantgiảfail. DừngBLOCKED_REPLAY_INVARIANTnếu khác;
+không lấy mismatchingrun làmPASS. Giữnguyênbytesmọi historyartifact.
+
+**Sau scan:** chỉ cówitness320thỏaW9+A± mới kiểm cácfinalbases ởK640/ref4;
+mọi chọnpoint phải giữsign vàabsz≥1% ởcả2K. Không thaypointfail bằngpoint
+khác đểcứu. RuleK640vetoDL131giữ; nếu khôngđạt thìkhôngGO.
+
+**Luật dừng:** <7Di hoặcW9/controls trượt saufullscan →
+STOP_INSUFFICIENT_WINDOW, đóngnhánhc_swtronggridnày. K640veto→
+HOLD_K_STABILITY nhưngdừng nhánh scan/thửlạilầnnày. Khôngrevisiongridthứba
+hoặcretunewitness, trừkhi cólýdokhoa học độc lập mới đượckhai riêng.
+Identityfail/replayfail/execution/budget làBLOCKED/RESOURCE, khôngH1false.
+NếuSTOP chỉkếtluận grid1020khôngcấpđủwitness; khôngclaimplantuniversal,
+H1“đúng” vềtrueG_S hoặcbiênđộfiniteh<1% khi chưađọctruth.
+
+**Budget:** priorcloseoutupper860CPU-s, capPartA1800khôngreset/nới;
+bao mọi tests/guards/cache/controller/children/K640/identity mới. Dùngtests
+nhanh cho grid/reuse/replay vàmộtfullsuite phùhợp; CPUthật cộngtrướcscan.
+Outputmới`results/phase6/window_revision02/{scan.csv,summary.json}`; không
+resume hoặcghiđèrevision01/window/attempt01_failed. GiữP5frozenbytes.
+
+**Forecast trướccompute mới — AI theoủyquyền,khôngauthorblindprediction:**
+B035/B036 ưu tiên xuất hiệnDi z≈1–3%Cref_H1; B017/B044/B045 cóthể1–2%;
+B037marginal, B018/B038 dễ thiếuW3/W7 room. Tin chủquan60% đủ≥7Di/W9
+tại320, chưa calibration/statisticalprobability. B011/B029 dựkiến vẫnH1+
+ở640, nhưngabsz≥1% mongmanh (oldz1.03–1.06), độtin60% giữthreshold.
+Không sửaforecast khi thấy data. Existinginputforecast giữnguồnriêng,
+khôngnhậnAI giải thích thành tácgiảtựhiểu.
+
+**Giới hạn:** c/h|s| gầnW3cap làmA1rủi rohơn; điềuđó khôngtựxóaadaptive
+selection. Cost1.5–2.8packet·s làrealismquestion, phầntrămchỉ stationary
+denominator/case-specific chưaempiricalvalidation. Nếuđủwindow, PartB
+phảiprobe ngoài panel đúngvùngpostload9/highload; **khôngchạyPartB/C/L6.3
+tronglượt này**. G1/NARROW/UnderstandingOPEN/CF/SUBpark/R09R10sealed/
+76highratiooutcomesunread giữ. Không thêmframework/lesson/report dư.
