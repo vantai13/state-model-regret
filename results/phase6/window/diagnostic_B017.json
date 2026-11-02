@@ -1,0 +1,83 @@
+{
+  "parameters": [
+    "7",
+    "13/2",
+    "1/5",
+    "3/4",
+    "16",
+    "0"
+  ],
+  "K": 320,
+  "ref": 4,
+  "checks": {
+    "mean_new": -1.3598211415040415,
+    "mean_old": -1.3680083682796684,
+    "mean_drift": 0.008187226775626888,
+    "variance_new": 11.64995116224382,
+    "variance_old": 6.734093044974154
+  },
+  "sides": [
+    {
+      "kind": "fresh",
+      "path": "A",
+      "mass": 1.0,
+      "mean": 190.54886847626375,
+      "weight_l1_error": 3.3858838602230333e-13,
+      "weighted_profile_error": 1.4122644314808273e-09,
+      "max_profile_abs": 192.025
+    },
+    {
+      "kind": "fresh",
+      "path": "B",
+      "mass": 1.0,
+      "mean": -191.9086896177678,
+      "weight_l1_error": 2.3301350666701594e-13,
+      "weighted_profile_error": 1.0617931827959228e-09,
+      "max_profile_abs": 192.025
+    },
+    {
+      "kind": "stale",
+      "path": "A",
+      "mass": 1.0,
+      "mean": 190.5394617907414,
+      "weight_l1_error": 3.3858838598778354e-13,
+      "weighted_profile_error": 5.1098389836005115e-05,
+      "max_profile_abs": 191.60456731205767
+    },
+    {
+      "kind": "stale",
+      "path": "B",
+      "mass": 1.0,
+      "mean": -191.90747015902107,
+      "weight_l1_error": 2.3301350666701594e-13,
+      "weighted_profile_error": 5.10565082509763e-05,
+      "max_profile_abs": 191.93222556925724
+    }
+  ],
+  "quadrature_grids": [
+    {
+      "K": 320,
+      "cap": 15556,
+      "n_observations": 322
+    },
+    {
+      "K": 320,
+      "cap": 54344,
+      "n_observations": 290
+    },
+    {
+      "K": 320,
+      "cap": 17956,
+      "n_observations": 322
+    },
+    {
+      "K": 320,
+      "cap": 63464,
+      "n_observations": 290
+    }
+  ],
+  "finite_h_truth_calls": 0,
+  "cpu_seconds": 1.9863001690000002,
+  "status": "BLOCKED_MEAN_DIAGNOSTIC",
+  "inference": "Unit-mass quadrature at different caps is approximate; these checks do not establish an exact root cause. No thresholds or predictor changed."
+}

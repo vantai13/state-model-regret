@@ -1207,3 +1207,10 @@ chưa đọc; R09/R10/CF/SUB giữ niêm phong/park.
 Attempt01scan dừng bug ghép row trước CSV; summary lỗi giữ riêng.
 Thay code chỉ sửa IO và thêm test syntheticCSV; không thay choices đã khóa,
 không fit/fallback, không finite-h M1 truth. Forecast của DL130 giữ nguyên.
+
+Scan320/4 sau sửa:16completebases/160parameterpredictions, B017 mean
+diagnostic FAIL nên dừng;34bases chưa bắt đầu. Đã đọc poolcounts và hai
+ví dụ Di/Dii sau dừng, chỉ M0/stationary approximations, khôngtrueG_S.
+Không dùng pool này để đổi grid/margins hoặc lập panel. SinglebaseB017
+diagnostic cùng320/4 tái lập drift, không costprofileM1 hoặc alternativefit.
+Không native PartB/PartC/L6.3; partial không xác nhận H1 hoặc cửa sổ đủW9.

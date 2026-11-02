@@ -513,3 +513,24 @@ accounting325/329chỉinsample,sharesM0new58→160đổikhoảng1e−4,khôngexa
 Prior5localnotes+Veatchmetadata/Bozkurtabstract;hoãnnewPDF/note,CEH23đãcó.
 DL129committrướcprobe;chưaL62window/GateD-entryGO. G1/UnderstandingOPEN,
 R09R10sealed/D22deferredgiữ;forecastAIdelegated khôngauthor-self.
+
+
+L6.2PartA/02-11(DL130):rho1/4,Pmin30,zmin1%,W7–9ON;grid51bases×10c,
+K320ref4,cap1800CPU-s,10Dwitness≥5bases/≤2cbase/≥2/3Di/≥1Dii+2A±.
+Choices/forecastghi trướccompute,commitd51f9dcd trướcscan;050c173d sửaCSVduplicatec,
+giữattempt01EXECUTION_FAILURE5.085907CPU-s/0CSV. 668fulltestsPASS55.71s;
+T2exposedshares≤1e−9,T3H0015drift.000322722<.005,T7PASS.
+Scan050c173d **BLOCKED_MEAN_DIAGNOSTIC** tạiB017(7,6.5,.2,1.5,16),
+meannew−1.3598211415/old−1.3680083683,drift.0081872268>.005packet·s.
+16bases/160rows complete,17built,34notstarted;poolallDi1/1base,Dii30/6bases,
+A48,khôngW9witness. PartialkhôngSTOP_NO_WINDOW/ONLY_DII/H1false/PASS.
+W6union28158keys,0collisions/duplicates;independentCSVflags/formulaSHAauditPASS.
+Scan45.35395CPU-s,totalupper225.35395 trướcpostdiag;closeoutreserveupper240.
+Same320/4diagnostic táilậpfailure,mass1,varold<new;rootcausechưaxácnhận,
+quadratureapproxkhôngexactM0. Khôngnớitau/grid/margins/khôngK640/fallback.
+Predictor/scan0finitehM1,khôngprobePartB/panel/L63/GateD-entryGO.
+Resultsresults/phase6/window/{scan.csv,summary.json,diagnostic_B017.json};
+failedsummarywindow_attempt01_failed/. P5bothrescoresMATCH/16hash/3guardsPASS.
+ExposureheadđọcW0000/S0000oldoutcomesngoàiW1/grid,trướcscan;đãghiDL/register,
+không76highratiooutcomes/R09R10/CF/SUB. G1/NARROW/UnderstandingOPENgiữ.
+TiếptụcPartAmean-correctness trướcPartB;khôngtựretry đểcứuwitness.

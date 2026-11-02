@@ -12,15 +12,26 @@ Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, t
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**L6.1 đã chốt câu hỏi Phase 6 (DL-129), chưa chạy native.** Chọn dấu G_S
+**L6.2 Part A đã triển khai; gate hiện BLOCKED (DL-130).** Predictor M0-only
+và 668 tests PASS; scan dừng ở B017 do drift mean fresh–stale
+0,008187 packet·s vượt 0,005. Đã có 160/510 dòng, 16 base hoàn tất;
+pool thỏa MUST+SHOULD có 1 D(i)/30 D(ii)/48 A, chưa đủ witness W9.
+Không kết luận cửa sổ không tồn tại hoặc H1 sai từ dữ liệu partial này.
+Chưa chạy finite-h truth, probe Part B hoặc panel; Gate D-entry chưa GO.
+[Scan partial](results/phase6/window/scan.csv),
+[summary](results/phase6/window/summary.json),
+[kiểm tra B017](results/phase6/window/diagnostic_B017.json).
+Lượt lỗi xuất CSV trước đó được giữ riêng, chi phí được cộng vào budget.
+
+L6.1 đã chốt câu hỏi Phase 6 (DL-129). Chọn dấu G_S
 dưới switching cost, H1 dùng M0-only; H0a là dải `0 < x < 0.54−0.07u`,
 fit hai tham số trên discovery, đúng 1418/1448 (97,93%) trong mẫu.
 Chọn h-invariance làm mô tả phụ trong cùng panel, không knockout;
 budget toàn Phase 6 ≤4 CPU-giờ, panel ≤2 giờ, không retry/resume/v1.1.
 **Đính chính exposure:** pilot c_sw>0 có P tối đa40 (bốn dòng P40), nên
 `c_sw>0, P≥30` không tự là điều kiện chưa dùng; phía x<0 chưa có active key
-trong inventory. L6.2 bắt đầu bằng cửa sổ H1/H0 bất đồng chỉ từ tham số,
-rồi probe ngoài panel trước freeze; Gate D-entry chưa GO.
+trong inventory. Cần xử lý kiểm tra mean của Part A trước khi cân nhắc
+probe ngoài panel và freeze; giữ nguyên grid, margins và không calibration.
 [Quyết định, recipe fit và kiểm toy](notes/02_decision_log.md#dl-129--phase-6-l61-chọn-câu-hỏi-cơ-chế-h1-h0-và-can-thiệp-02112026).
 
 V1 chính thức **INCONCLUSIVE**; v1.1 **PASS 10/0/0** sau một lần sửa thiết kế có khai báo, chỉ giữ

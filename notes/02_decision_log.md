@@ -2902,3 +2902,89 @@ Full suite sau sửa IO:668PASS/55.71s pytest,53.40CPU-s (time wall56.29s).
 Các numeric tests/full suite vàattempt01 có tổng CPU đo156.315907069s;
 trước lượt scan sửa bug dành **priorCPUupper180s** để bao cả rounding,
 guards và các thao tác kiểm phụ. Giữ tổngcap1800; không reset chi phí lỗi.
+
+**Kết quả lượt scan050c173d — BLOCKED, không Part A PASS:**
+Command thực tế:
+`OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -B -m experiments.P6_band.window --spent-cpu-seconds 180`.
+Worker dừng đúng mean guard tại B017:base(a7,b13/2,k1/5,u3/2,h16).
+Meannew−1.3598211415040415,meanold−1.3680083682796684packet·s;
+drift **.008187226775626888>.005**. Varnew11.64995116224382,
+varold6.734093044974154(packet·s)^2. Không nới tau hay bỏ guard.
+16base hoàn tất×10cost=160rows/510planned;17build đã hoàn tất gồm
+base diagnosticfail,34base chưa bắt đầu. Field`bases_completed=17` của
+receipt đếm builds, **không phải17base đầy đủ cost rows**. Không chạy tiếp.
+`max_mean_drift=.0012212113460052798` là max16base đã xuất CSV,
+không gồmB017; giá trịfail nằm riêng trong`diagnostic_failure`.
+
+| Pool trên160rows partial | MUST | MUST+SHOULD W7/W8 | Số base sau SHOULD |
+|---|---:|---:|---:|
+| D(i) | 1 | 1 | 1 |
+| D(ii) | 30 | 30 | 6 |
+| A | 48 | 48 | — |
+
+W9 chưa có witness10D/≥5base/≥2/3Di, dù có hai A khác dấu.
+Đây không phảiHOLD_ONLY_DII vì đã có1Di, khôngSTOP_NO_WINDOW vì chưa đủ
+grid, và khôngbằng chứng H1false/H1supported. Chỉ là predictor numerical
+chưa vượt guard đã khai báo. H0 không thay đổi.
+
+Hai ví dụ dự đoán, **không phải trueG_S**:
+- B011C07:(7,6.5,.1,1.5,16,c.5),P80,stake−2.9292219363536525packet·s,
+  Fnew.1816976441856727/Fold.12916926726639522,zH1+1.0324657830730326%Cref_H1,
+  H1+/H0−. Cùng basec0z−7.72882089958; crossing chỉ khoanh(1/4,3/8),
+  absmeannew.34010869968, không kết luận crossing bằng mean hoặc duy nhất.
+- B004C04:(7,59/8,.1,1.5,8,c3/16),P30,stake+2.702129081389682,
+  Fnew.2851124084700995/Fold.24641575961740436,zH1−1.0163958029979427%Cref_H1,
+  H1−/H0+. Mẫu số cảhai làstationary approximation, khôngfinitehCref.
+
+**Kiểm độc lập và diagnostic blocker:** inlineCSV audit tính lại exactH0,
+physicalkey vớiη=u/2, W1–W8, group, strict sign và công thứcCDF/stake/z;
+160rows/16bases,0duplicate/0W6collision trên union28158keys; sourceSHA khớp.
+W3fail26/W4fail81/W7fail22, các W1/2/5/6/8 khôngfail; counts khớp receipt.
+Tất cả16CSVbases đạt mean/variance checks. FullT2/T3tests vàCSV arithmetic
+PASS không được dùng để ghi scanPASS.
+
+SinglebaseB017 cùng320/4 tái lập đúng drift (CPUdiag2.36s đo bằngtime).
+Mass freshA/B vàstaleA/B đều1, weightL1errors≈(2.33…3.39)e−13;
+weighted profile errors fresh≈1e−9/stale≈5.11e−5 mỗi path. MeanA fresh
+190.54886847626375→stale190.5394617907414; meanB−191.9086896177678→
+−191.90747015902107. Freshcaps15556/54344,stalecaps17956/63464 vớiK320;
+quadrature dùng representative bins, không exact integration. **Suy luận**:
+discretization/integration có thể gây drift; các con số này chưa cô lập
+rootcause hoặc loại trừ lỗi aging/posterior. Không gán chắc chắn làBUG nào,
+không nângK/ref, không calibration/fit/đổi margins hoặc engine để cứu.
+Chính phát biểu “M0 tính chính xác” trong lesson phải đọc như same semantic
+functions, không exact numerical distribution trên mọi key; T2 chỉ kiểm2keys.
+
+**Đối chiếu forecasts:** đủDi/witness chưa chấm do partialBLOCKED; giữ70%
+forecast ban đầu. Ví dụB011 chỉ cho coarsecrossing, không scalar boundary.
+MedianabszH1 củaDi1row=1.03246578%,Dii30rows=1.88196842% phù hợp hướng
+forecast nhưng unequal/partial/designedpool, khôngpopulationevidence.
+Không kết luận h-invariance từ partialgrid. Build+mean-diagnosticCPU/base
+min/median/max1.640117805/2.105685852/3.160860894, thấp hơnforecast3–10;
+scanoverall45.353949964CPU-s gồmcostpredictions/controller/children.
+
+**Budget và artifacts:** scanreceipt totalupper225.353949964CPU-s gồm
+priorupper180; thêmdiagnostic/guards/independentaudit sau scan, dành tổng
+**upper240CPU-s** cho toànPartA closeout, thấp hơncap1800. Đây là bao bảo
+thủ, không actualCPU240 hoặc reset chi phí; initialtestfailure/fullrerun/
+attempt01 đều đã tính. No finite-h M1 calls trongpredictor/scan/diagnostic;
+old fulltests vẫn có toyregressions như đãghi exposure.
+- Source:`experiments/P6_band/{__init__,predictor,window}.py`,
+  `tests/test_p6_predictor.py`; hashes trongsummary, sourcecommit050c173d.
+- `results/phase6/window/scan.csv`,`summary.json`,`diagnostic_B017.json`.
+- `results/phase6/window_attempt01_failed/summary.json` giữfailedattempt.
+- Commands tests: `.venv/bin/python -B -m pytest -q -s -p no:cacheprovider tests/test_p6_predictor.py`
+  (initialtargeted); saufix bỏ`-s`. Full: `.venv/bin/python -B -m pytest -q -p no:cacheprovider`.
+  Đều cóOMP/OPENBLAS/MKL=1 và/usr/bin/time; full cuối668PASS55.71s.
+  Diagnostic vàindependentaudit inline đã thực thi; output ghi ởchat/DL,
+  không tạo report/log/plot riêng. Cache`~/.cache/state-model-regret/phase6/window/`ngoàiGit.
+- Finalreadonlyguards:16freezehash/3nativepackages/preregPASS, P5v1 vàv11
+  rescoreMATCH,1.89CPU-s. P5sources/tests/plans/data/thresholds không đổi.
+
+**Quyết định theoủyquyền:** đóng phiên PartA tại **BLOCKED_MEAN_DIAGNOSTIC**;
+không tự retry/expandgrid/đổi acceptance để cówitness. Bước tiếp theo vẫn là
+kiểm correctness của mean-preserving forecast ởB017 trongPartA; chưa đủ
+điều kiện probePartB/freezePartC/GateD-entry/L6.3. Không thêmlesson/framework.
+G1/GateC=NARROW,ownership/UnderstandingOPEN,CF/SUBpark,R09R10sealed,
+76highratiooutcomeschưađọc giữ nguyên. DL130 vàartifacts đượccommit trước
+bất kỳ PartBprobe nào; khôngclaim H1valid,causalmechanism hoặcnovelty.
