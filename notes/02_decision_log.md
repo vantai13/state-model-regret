@@ -2433,3 +2433,52 @@ Lesson 5.2 của tác giả; không ghi nhận author-self/Understanding hoặc 
   từng điểm để diễn giải, chưa quyết định Gate C/claim/prior. CF/SUB vẫn park,
   R09/R10 sealed; không mở 76 p4-regions outcomes khác. G1, D22 native
   DEFERRED, L8, realism và Understanding không tự nâng.
+
+
+### DL-126 — Đóng v1 INCONCLUSIVE; một lần sửa thiết kế có khai báo (Phase 5 v1.1) (02/11/2026)
+
+Người phụ trách: **Doan Van Tai**. AI soạn và quyết định chi tiết theo ủy quyền
+trước đó của tác giả và yêu cầu mới “tiếp tục đi” kèm quy trình phương án B.
+Không ghi đây là tác giả tự viết/đọc, human review hoặc Understanding PASS.
+
+**Đóng v1.** H-L1 v1 = INCONCLUSIVE, SECOND_U tại P5_01/P5_02; DL-125 và
+raw commit 5a2f0baf giữ nguyên. Không retry/refine/đổi verdict hoặc chạy tiếp v1.
+
+**Diagnostic post-hoc, đã kiểm raw.** G_S|M1 numerical estimates = 0 ở cả
+6 rows; refinement delta = 0, width ≤ 1,523846e-9 Cref, không phải proof
+estimand thật bằng 0. Cost error L00/Cref tại main là 0,000474808567493 và
+0,0184545735101 > 1/4000; P5_01 có Cref dt delta 0,00319552070563 > 1/400.
+Raw readiness đúng như DL-125, v1 rescore MATCH. Sai số L00 khác khoảng
+38,87 lần giữa hai điểm nhưng cả h/κ thay đổi; chưa xác nhận riêng cơ chế
+aging hoặc quy tăng width cho h. Không chạy diagnostic native mới.
+
+**Quyết định dùng một lần design revision.** Thực hiện B trong tài liệu tác
+giả cung cấp, CREF_DELTA_GATES=False; lý do nêu trước mọi call mới. Amendment
+`notes/design/phase5_v1_1_amendment.md` quy định acceptance theo estimand,
+Cref gate report-only, N10=P5_03…P5_12, H-L1 PASS≥9 với U≤1; H-L2 vẫn
+exploratory N10 và readiness theo G_M|S1. Không nói chỉ sửa code: acceptance,
+Cref gate và N đều thay đổi. Các tolerances, threshold, levels, engine,
+predictions, BUG/stop/no-retry giữ nguyên. Luật mới được test mở khóa cả
+MEETS và DOES_NOT_MEET khi chỉ L00 nhiễu; test đối xứng không xóa post-hoc
+selection hoặc chứng minh unbiased confirmation. Budget panel còn chính
+xác 28.439,476038870 CPU-s, một budget chung; anchor riêng như DL-124.
+Không v1.2, không tăng budget. Full master plan chưa có trong repo hiện hành;
+“reformulation budget” ở đây là một lần sửa theo input tác giả, không tuyên
+bố đã audit/adopt đầy đủ điều khoản master chưa cung cấp.
+
+**Exposure.** Đã mở outcomes P5_01/P5_02 trong diagnostic: S estimates=0,
+M tại main 4,512214533% và 4,531047968% Cref. Hai điểm chỉ mô tả trong
+v1.1, không đếm lại. P5_03 chung cặp tải; P5_08 exposure A giữ nguyên.
+76 p4-regions outcomes khác chưa mở. Evidence: validation sau một lần sửa
+thiết kế có khai báo, exposure một phần; không independent confirmation.
+
+**Forecast trước run (AI theo ủy quyền):** H-L1 v1.1 PASS, rủi ro INC do
+contrast-specific width/refinement vẫn còn; H-L2 FAIL exploratory, dựa trên
+magnitude errors ở discovery. Không dùng outcomes mới để đổi forecast.
+
+**Kiểm code mẫu trước thực thi.** Rescore mẫu chỉ duyệt IDs trong summary,
+chưa replay thứ tự calls/stop/resources/budget; sẽ tái dựng từ raw theo
+protocol, dùng terminal failure receipt khi output chưa lưu. Bổ sung raw
+anchor SHA guard và kiểm v1 artifacts nguyên byte. Không thêm framework.
+
+**Gate v1.1: HOLD** tới test + positive control PASS và phần B commit.

@@ -1130,3 +1130,14 @@ Không mở 76 p4-regions outcomes khác; không CF/SUB hoặc R09/R10 outcomes.
 Không retry/resume/refine, không sửa forecast, panel hoặc threshold.
 L5.3/Gate C/claim/prior chưa thực hiện; G1/Understanding không tự nâng.
 [Summary](../results/phase5/summary.json), [raw](../results/phase5/panel).
+
+
+## Phase 5 v1 → v1.1 — diagnostic trước sửa thiết kế (02/11/2026, DL-126)
+
+Đã đọc 6 raw rows P5_01/P5_02 sau khi đóng v1 INCONCLUSIVE: numerical S=0,
+M tại main 4,512214533%/4,531047968% Cref, L00 width và Cref dt delta.
+Dùng diagnostic làm lý do sửa acceptance/Cref gate; đây là post-hoc design
+revision. Không biến numerical zero thành exact estimand. P5_01/P5_02 không
+đếm trong N10 mới; P5_03 chung cặp tải, P5_08 exposure A giữ nguyên. Không mở
+76 p4-regions outcomes khác. Forecast AI và amendment trước outcomes mới
+ở DL-126. Evidence có exposure một phần, không independent confirmation.
