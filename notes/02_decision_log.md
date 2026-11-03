@@ -3573,3 +3573,20 @@ tìm SHA ở bất kỳ chỗ nào trong log. Đây là fixes integrity trước
 Nhiệm vụ được phép tới Part B và, nếu dependency đạt, C.1–C.5 (một replay
 probe c>0 và hai saved sign anchors). **Không chạy panel L6.3** trong lượt
 này, kể cả Gate GO. Không tự mở các vùng park/sealed hoặc nâng G1.
+
+**Preflight trước probe.** Targeted lần đầu 16 PASS,0.43 CPU-s; sau thêm
+test identity/reservation đạt18 PASS trong0.92 s,0.95 CPU-s. Full suite
+**728 PASS trong112.82 s**, user108.48+system1.87=110.35 CPU-s. Không
+test failure; các tests mới chỉ dùng synthetic/saved exposed rows, chưa
+gọi engine ở ba keys probe mới. Diff check PASS. Command tests là env
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+.venv/bin/python -B -m pytest -q -p no:cacheprovider tests/test_p6_probe.py;
+full suite bỏ filepath; mỗi lượt đo bằng /usr/bin/time.
+
+Tổng tests đo111.73 CPU-s. Prior upper1750 cộng reserve20 cho preflight,
+đọc tài liệu và guards =1770; cộng tests111.73=1881.73. Dùng **prior upper
+1910 CPU-s** trước probe để bao các thao tác phụ và startup, không reset
+chi phí cũ. Lệnh một lượt: env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+MKL_NUM_THREADS=1 /usr/bin/time .venv/bin/python -B -m
+experiments.P6_band.probe --spent-cpu-seconds 1910. Code và entry phải
+commit trước call. Probe cap1800 và Phase6cap14400 giữ nguyên.
