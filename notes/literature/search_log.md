@@ -713,3 +713,42 @@ Kết quả đợt 2:
 - **Phạm vi:** không backward/forward snowball, không 2×20, không saturation, không novelty.
 - **Lý do dừng:** đã đủ để lấp các ô h/τ của (i) và (iii) và thêm bằng chứng đa thang cho (ii). Các ô còn UNSOURCED
   (f/T_slow, thời lượng flowlet, h/τ của NDT) cần nguồn khác. Theo giới hạn 3 nguồn mỗi đợt, đợt này không đề xuất thêm.
+
+## L7.3-R2 — danh sách nguồn để tác giả tải (04/11/2026)
+
+Người phụ trách: **Doan Van Tai**; AI (Claude) soạn. Tác giả nhắn: "bạn đưa tất cả tên bài báo mà bạn muốn tải đi tôi
+sẽ tải và bạn kiểm tra tốt hơn". Đợt này chỉ tra metadata và sàng tiêu đề/abstract; chưa tải PDF, chưa tạo note.
+
+```text
+THẺ TÌM KIẾM — L7.3-R2 / 04-11-2026
+Câu hỏi: nguồn nào lấp được các ô UNSOURCED của realism v2: f/T_slow (phương sai tải theo thang) cho DC và WAN,
+  thời lượng flowlet, h/τ của vòng what-if NDT? Nguồn nào cho bản gốc của số đang trích gián tiếp (MicroTE)?
+PC / mục đích: realism / RQ3; không đổi nhãn PC.
+Câu chặn: nếu nguồn cho T_mode/f dưới 5 phút ở WAN hoặc f ở thang giây–phút ở DC thì nhãn (ii)/(iii) có thể đổi
+  từ UNRESOLVED/không bền sang có điều kiện rõ hơn; nếu không, giữ nguyên.
+GIỮ nếu: đo traffic DC/WAN theo nhiều thang thời gian, chu kỳ TE, flowlet, NDT có thời gian vòng.
+BỎ nếu: road/urban traffic, dự báo traffic không có thang thời gian hay quyết định, digital twin ngoài mạng.
+Ngân sách: một lượt; tối đa 3 đề xuất mới có ưu tiên, phần còn lại ghi dự phòng theo yêu cầu tác giả.
+```
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | library | L7.3-R2 | P07 DOTE (đã có PDF) | grep text local | 1 | 1 | TE epoch "a few minutes", demand 5 phút, Appendix A về predictability (PDF3, 6, 9, 18). Chỉ AI grep, chưa note mới |
+| 04/11 | backward | L7.3-R2 | references của RZB15 [12, 13, 14, 17, 26, 27] và AED14 [2, 8, 18, 28]; P07 [Roughan 2002] | pdftotext local | 11 | 4 | MicroTE (= RZB15 [14], AED14 [9]), Kandula IMC'09, Bullet Trains, Roughan IMW'02. Benson IMC'10 = BAM10 đã có; Hedera đã có trong T00; VL2, ECHO bỏ (không thang thời gian) |
+| 04/11 | lookup | L7.3-R2 | MicroTE; Kandula'09; Ghabashneh'22; B4 and After; HULA; Planck; Kuźniar'18; Bullet Trains; Roughan'02 | paper-search `search_crossref`, max 3 | 24 | 9 | Mỗi bài 1 DOI khớp tiêu đề và tác giả. Planck và Roughan có 2 bản (conf + CCR; IMW + chương sách 2003), gộp thành 1 công trình mỗi bài |
+| 04/11 | lookup | L7.3-R2 | 10.1145/1005686.1005697 | `get_crossref_paper_by_doi` | 1 | 1 | Lakhina et al., SIGMETRICS'04, tr. 61–72 |
+| 04/11 | lookup | L7.3-R2 | LetFlow; Hedera (exact title) | paper-search `search_dblp` | 0 | 0 | Cả 2 rỗng: hạn chế công cụ |
+| 04/11 | lookup | L7.3-R2 | LetFlow NSDI'17 | WebSearch | 9 | 1 | Trang USENIX chính thức, open access, tr. 407–420, không có DOI |
+| 04/11 | keyword | L7.3-R2 | "datacenter traffic predictability timescales traffic engineering measurement"; "network digital twin what-if analysis routing optimization loop time" | paper-search `search_semantic` | 0 | 0 | Cả 2 lỗi HTTP 429 (rate limit) |
+| 04/11 | keyword | L7.3-R2 | "data center traffic predictability timescale traffic engineering" | `search_openalex`, max 20, relevance | 20 | 1 | Lakhina'04 (phân rã OD flow thành trend chu kỳ, burst ngắn, nhiễu). 19 bài bỏ: road/air traffic, dự báo ML không có thang, anomaly |
+| 04/11 | keyword | L7.3-R2 | "network digital twin what-if analysis routing" | `search_openalex`, max 20, relevance | 20 | 3 dự phòng | TwinNet (Comput. Netw. 2022), Polverini (NOMS'23), Aben-Athar (ICC Wksp'25). NDT1 trùng thư viện; còn lại ngoài mạng hoặc survey. Abstract không nêu h, τ |
+
+Kết quả:
+- **Đề xuất ưu tiên (3):** MicroTE 10.1145/2079296.2079304; Ghabashneh et al. 10.1145/3517745.3561430; Roughan et al.
+  10.1145/637201.637213. Lakhina 10.1145/1005686.1005697 là phương án thay cho Roughan.
+- **Dự phòng (metadata-only):** Kandula'09, B4, B4 and After, HULA, LetFlow, Bullet Trains, TwinNet, Polverini'23,
+  Aben-Athar'25.
+- **Bản chính thức để đối chiếu nguồn đã đọc:** SWAN, CONGA, RZB15, NDT1 (đang đọc arXiv v2), Planck, Kuźniar'18.
+- **Mức đọc:** mọi ứng viên mới đều metadata-only (+ abstract OpenAlex nếu có). Chưa tải, chưa note.
+- **Phạm vi:** không 2×20, không saturation, không novelty.
+- **Lý do dừng:** đủ ứng viên cho từng ô UNSOURCED; Semantic Scholar bị rate limit; chờ tác giả tải.
