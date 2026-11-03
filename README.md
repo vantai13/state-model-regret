@@ -5,14 +5,31 @@ Người phụ trách: **Doan Van Tai**.
 Main RQ:
 > For load-changing routing actions, how do improvements in current-state information and action-response model fidelity differ and interact in their effect on expected decision regret?
 
-## Trạng thái hiện hành — 02/11/2026
+## Trạng thái hiện hành — 03/11/2026
 
 Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, theo
 [quyết định numbering v1.2](notes/phases/PHASE_4_entry_decision.md).
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**L6.2 Part A revision02: STOP cửa sổ c_sw theo DL-132.**
+**L6.2 Part A′: PASS readiness của cửa sổ D(ii), DL-133.**
+Một lượt tại `cc3b2623`; raw `832c70ac` trước diễn giải. Identity 14/14,
+D(ii) 13/13 base, twin 13/13, A− 1/1 qua. Chọn một c/base theo đỉnh
+|z_K320|, không thay điểm sau K640; |z_K640|=1.0591–2.9520%Cref_H1.
+Full 709 PASS trước sửa allowlist; targeted sau sửa 52 PASS. Runner 390.83
+CPU-s; closeout upper cộng dồn 1750 CPU-s, không phải actual tổng đo.
+Đây là adaptive predictor design trước truth, chưa xác nhận A1/A2/H1.
+**Part B/C/L6.3 chưa chạy; Gate D-entry chưa GO; G1 giữ nguyên.**
+[Runner](experiments/P6_band/select_dii.py) ·
+[Candidates](results/phase6/window_revision03/candidates.csv) ·
+[Summary](results/phase6/window_revision03/summary.json) ·
+[DL-133](notes/02_decision_log.md).
+Giữ rho/P_min/z_min/H0/H1; bỏ tỷ lệ 2/3 D(i) và thu hẹp sang D(ii) theo
+ủy quyền, không kiểm vế dải giúp dịch sang x<0. Không revision04.
+Predictor/identity và lịch sử giữ byte; window.py chỉ thêm module độc lập
+mới vào certificate allowlist, không đổi các phép tính.
+
+**Lịch sử L6.2 Part A revision02: STOP theo DL-132, được giữ nguyên.**
 685 tests PASS. Grid mở rộng c≤6, vẫn giữ51base/margins/H1/H0 vàK320/ref4;
 đủ **1.020 dòng**, 510 dòng cũ khớp mọi trường. Sau MUST+SHOULD có
 **6 D(i) từ 3 base, 102 D(ii), 302 A**. Giới hạn2cost/base chỉ cho tối đa
@@ -36,7 +53,7 @@ Chọn h-invariance làm mô tả phụ trong cùng panel, không knockout;
 budget toàn Phase 6 ≤4 CPU-giờ, panel ≤2 giờ, không retry/resume/v1.1.
 **Đính chính exposure:** pilot c_sw>0 có P tối đa40 (bốn dòng P40), nên
 `c_sw>0, P≥30` không tự là điều kiện chưa dùng; phía x<0 chưa có active key
-trong inventory. Thiết kế c_sw hiện tại đã STOP trước probe; không hạ
+trong inventory. Thiết kế c_sw theo DL-132 đã STOP trước probe; không hạ
 z_min=1%, mở rộng thêm grid hoặc calibration để cứu witness.
 [Quyết định, recipe fit và kiểm toy](notes/02_decision_log.md#dl-129--phase-6-l61-chọn-câu-hỏi-cơ-chế-h1-h0-và-can-thiệp-02112026).
 
@@ -47,7 +64,7 @@ thành phần panel; cả hai thay đổi acceptance đều cần để H-L1 PAS
 là lượng hóa phù hợp một giới hạn được kỳ vọng, chưa phải contribution/novelty.
 **Gate C = NARROW, G1 giữ nguyên (DL-128)**; bàn giao Phase 6 theo ủy quyền,
 realism/D22/Understanding còn mở;
-chưa có native Phase 6, không retry/resume/refine Phase 5 hoặc confirmation độc lập.
+chưa có finite-h M1 truth Phase 6, không retry/resume/refine Phase 5 hoặc confirmation độc lập.
 
 [Closeout L5.3: evidence, sensitivity, prior và claim](notes/phases/PHASE_5_closeout.md) ·
 [DL-128](notes/02_decision_log.md#dl-128--phase-5-gate-c-narrow-02112026) ·

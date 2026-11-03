@@ -579,3 +579,23 @@ globalnoeffect. ForecastB035đúng,B036/đủwindowkhôngđứng;B011/B029K640NO
 Resultsresults/phase6/window_revision02/{scan.csv,summary.json};sourcewindow.py/
 tests sửa,identity.py/predictor.pygiữbyte. G1/NARROW/UnderstandingOPEN,
 CF/SUBpark/R09R10sealed/76highratiooutcomesunread giữ. KhôngsangPartB.
+
+
+L6.2 Part A′ / 03-11 (DL-133): tác giả ủy quyền lựa chọn và triển khai D1–D6.
+Decision d7308d01 trước code cc3b2623; raw832c70ac trước diễn giải. Bỏ tỷ lệ
+2/3 D(i), thu hẹp sang D(ii); giữ H1/H0/margins. Chọn một cost/base theo
+đỉnh |z_K320|, hòa lấy cost nhỏ hơn; 13 base cố định, không thay sau veto.
+PASS:14/14 lattice identity (B001 kiểm lại),13/13 D,13/13 twin,1/1 A−;
+|z_K640|=1.059109–2.951999%Cref_H1. Max delta.05111077pp, không proof
+hội tụ/A1/A2/H1. Full709 PASS trước guard compatibility, targeted52 PASS
+sau; window.py chỉ thêm select_dii.py vào certificate allowlist, không đổi
+numeric builders. Predictor/identity/test cũ và history bytes giữ nguyên;
+frozen16/native3/prereg PASS, hai Phase5 rescore MATCH. Runner390.830293
+CPU-s; command393.25 CPU-s, closeout upper1750 gồm prior/test/failed/
+external130 charges, không reset. Theo D6 bỏ kill capPartA1800 cho
+parameter-only check này, giữ Phase6cap14400/panel7200. Output:
+results/phase6/window_revision03/{candidates.csv,summary.json}. No revision04;
+HOLD đóng nhánh, không retune. PASS chỉ readiness, chưa PartB/C/L6.3 hoặc
+Gate D-entry GO. B050 ở mép c6, B004/B014 c khác nhau nên không matched h
+comparison. G1/GateC=NARROW, ownership/Understanding OPEN, D22/realism,
+CF/SUB park/R09R10 sealed/76 outcomes chưa mở giữ nguyên. Không tự chạy truth.

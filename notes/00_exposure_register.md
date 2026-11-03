@@ -1242,3 +1242,18 @@ Không cófinalwitness nên0K640/newidentity/probe/Phase6panelcalls. Cả
 B011/B029K640forecasts chưađượcchấm. STOPtheoDL132,giữhistory/failures;
 không tựmởthirdgrid hoặcclaimhypothesisfalse từM0-onlyscan.
 KhôngM1costtruth/CF/SUB/R09R10/76highratiooutcomesmới, khôngfit/calibration.
+
+
+## L6.2 Part A′ — D(ii) và kiểm số, 03/11/2026 (DL-133)
+
+Luật chọn sau khi đã đọc revision02 và danh sách 13 ứng viên trong lesson;
+adaptive predictor design, không blind selection. Chỉ dùng saved predictions
+và collision metadata để chọn một cost/base. Decision d7308d01 và code
+cc3b2623 trước computation; raw832c70ac commit trước đọc/rescore. Tính
+lattice identity ở14 base (B001 kiểm lại) và predictor K640/ref4 cho
+13 D(ii),13 twin c0 và B001C00. PASS13 D/13 twin/1control,14identity;
+đó là readiness evidence, không finite-h truth của H1/A1/A2. Không thay
+point theo kết quả hoặc rerun. Audit dùng saved z_K640, không tính lại
+CDF; hai Phase5 rescore giữ nguyên. Không mở PartB/C/L6.3, CF/SUB,
+R09/R10 hoặc76 p4 high-ratio outcomes. Pilot truth c>0 lịch sử vẫn
+exposed; không gọi toàn bộ c>0 là chưa từng thấy.

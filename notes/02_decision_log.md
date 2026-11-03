@@ -3435,3 +3435,62 @@ MKL_NUM_THREADS=1 /usr/bin/time .venv/bin/python -B -m
 experiments.P6_band.select_dii --spent-cpu-seconds 1330. Output reserve
 trước call và source phải đã commit. Không identity/K640 thật hoặc probe
 Part B nào đã chạy tại thời điểm entry preflight này.
+
+**Kết quả duy nhất — Part A′ PASS, chưa có truth.** Decision d7308d01
+trước code; source cc3b2623 trước run. Command đúng preflight, exit0,
+không retry, đổi threshold hoặc thay điểm. Raw candidates.csv/summary.json
+được commit **832c70ac** trước đọc bảng và rescore. Đủ 14 identity checks
+(13 D base chưa có certificate, B001 kiểm lại), 13 D(ii), 13 twin và A−.
+Identity đạt 14/14, D đạt 13/13, twin đạt 13/13 và A− đạt 1/1; có 13 D từ 13 base dùng được,
+vượt readiness ≥10 điểm/≥5 base. Không có điểm bị loại.
+
+Đơn vị các z là %Cref_H1 stationary approximation, không finite-h Cref.
+Min/max |z_K640|=1.059109110/2.951998923%; max delta K=0.051110770 pp
+tại B020, max relative change=2.864462% tại B034. B013 vẫn qua, với
+z_K320−1.059323565 → z_K640−1.059109110%; B001C00 giữ dấu âm,
+−5.166665601 → −5.165914795%. Max identity |drift|=7.592306955e−7
+packet·s, max |drift|/bound=0.0248678914. Identity là lattice sum có
+error accounting, không exact arithmetic hoặc proof mọi hành vi code.
+Toàn bộ 27 cặp z và 14 identity details lưu trong hai output files.
+
+**Audit độc lập.** Script inline chỉ đọc saved CSV/JSON, tự chọn lại
+argmax/tie-break từ W1–W8, kiểm 27 members/14 bases, so từng field CSV
+với JSON, tính lại H0 bằng Fraction và accounting z_K320, kiểm từng
+identity/bound và tự tính K/paired-veto/status từ saved z_K640: PASS.
+Không gọi builder/evaluator để audit; không tái tạo độc lập CDF K640.
+Ba source hashes hiện hành và mười history/unchanged-source hashes MATCH;
+window.py chỉ khác đúng allowlist đã khai. Frozen16/native3/prereg PASS;
+Phase 5 v1 và v1.1 RESCORE MATCH. Không sửa source/data/verdict Phase 5.
+Audit 0.05 CPU-s; guards và hai rescore 1.87 CPU-s. Logs ở console/DL,
+không tạo logfile/report/plot/config riêng.
+
+**CPU đo được và upper.** Runner/controller+descendants đo
+390.830292857 CPU-s (display 390.8; làm tròn giây là 391). GNU time toàn
+command: user 392.05 + system 1.20 = 393.25 CPU-s, wall 393.46 s. Chênh 2.42 s
+là startup/preflight/serialization ngoài vùng runner, được bao trong
+reserve, không mất khỏi budget. Receipt upper=1330+390.830292857=
+1720.830292857 CPU-s; đây không phải actual tổng đo từ đầu Phase 6.
+Dành **closeout upper 1750 CPU-s** bao startup/audit/guards/ghi kết quả,
+giữ mọi charge cũ kể cả external-reported 130 CPU-s. Thấp hơn cap Phase 6 là 14400 CPU-s;
+panel cap 7200 CPU-s giữ nguyên, chưa dùng. Cap Part A 1800 CPU-s
+không là kill cap lượt này theo D6.
+
+**Forecast.** Dự đoán 12/13 D thấp hơn observation 13/13, giữ nguyên
+forecast. Dự đoán 14 identity qua được xác nhận ở phép kiểm này. Độ dịch
+z có cả hai chiều; không forecast chiều chung. Forecast 10/13 dấu âm ở
+truth vẫn NOT_EVALUATED: chưa chạy Part B/C/L6.3 hoặc finite-h M1 mới.
+
+**Giới hạn và điểm dừng.** B050 vẫn ở mép c=6; c/Cref_H1 của 13 D nằm
+trong 0.400561–10.684235%, chưa là chi phí nhỏ theo nghĩa vận hành.
+B004/B014 chọn c khác nhau (1/2 và 3/8), nên không là matched comparison
+chỉ thay h; hai cặp còn lại cùng c nhưng không tạo independence hoặc
+verdict h-invariance. Chỉ kết luận 13 vị trí D(ii) đạt rule readiness ở
+hai K; không H1_SUPPORTED, A1/A2 đúng, numerics-solved, causal mechanism
+hoặc novelty. G1/GateC=NARROW, ownership/Understanding OPEN, realism/D22
+và park/sealed giữ nguyên. **Part B, Part C và L6.3 NOT_RUN; Gate D-entry chưa GO.** Không tự chạy truth chỉ vì Part A′ PASS; không revision04/retune.
+
+Source: experiments/P6_band/select_dii.py, tests/test_p6_select.py; sửa
+một allowlist ở experiments/P6_band/window.py. Output:
+results/phase6/window_revision03/candidates.csv và summary.json. Giữ
+failed/blocked/HOLD/STOP artifacts DL130–132. README/exposure/AGENTS cập
+nhật pointers; không thêm lesson/framework hoặc report riêng.
