@@ -123,8 +123,9 @@ characterization framework, ghi rõ empirical support còn thiếu; không bảo
 - `python -B -m pytest -q tests/test_p6_covariance.py tests/test_p6_saved_analysis.py`:
   10 PASS,.52s; command.79 CPU-s. Bốn tests mới kiểm phản ví dụ S=0,
   conditional mean bridge, không tự dominance ở h dài và từ chối mass sai.
-- Frozen rescore và input/hash audits thực hiện khi closeout; kết quả ghi
-  trong DL138. Không lấy752 full tests lịch sử thành kiểm mới của lượt này.
+- Frozen rescore sau closeout0d963081: **RESCORE MATCH**, frozen gate record
+  **PASS**; input/hash audits PASS như DL138. Không lấy752 full tests lịch
+  sử thành kiểm mới của lượt này.
 - Phase compute upper4200 CPU-s (trước4050), giữ cap14400; bao bảo thủ cho
   local analysis/tests/audit, không actual cumulative hoặc budget reset.
 - Source: tools/analyze_phase6_covariance.py; tests/test_p6_covariance.py.

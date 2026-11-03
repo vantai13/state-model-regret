@@ -4083,8 +4083,9 @@ parameters,split/metric/margin hoặc freeze experiment mới trong lượt này
 - Audit độc lập27 identities/bridge:84 original inputs+3 diagnostic inputs,
   63 cache hashes và2 analyzer sources khớp;82 raw+summary bytes đúng
   d7a298f0;DL137 source/outputs,catalog,Excel,plan,predictions đúng66131953.
-- Frozen `experiments.P6_band.run rescore` kiểm lại sau commit closeout;
-  không gọi run/preflight-gate để mở panel lần hai. Không full suite mới;
+- Frozen `experiments.P6_band.run rescore` sau closeout0d963081: **RESCORE
+  MATCH**; `R.gate_record(Path.cwd())`: **FROZEN_GATE_RECORD PASS**.
+  Không gọi run/preflight-gate để mở panel lần hai. Không full suite mới;
   752 full PASS là lịch sử Part C, không số kiểm của nhiệm vụ này.
 
 Phase compute upper tăng bảo thủ4050→4200 CPU-s bao local analysis/tests/

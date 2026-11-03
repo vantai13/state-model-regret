@@ -665,8 +665,9 @@ Gate D REFORMULATE/G1/PIVOT-watch giữ; không H1/H0 SUPPORT hoặc PIVOT.
 Three evidence tiers tách riêng;13/13 D READY,8 deadband giữ nguyên. Direct
 covariance code fce64040,27 saved rows,0 evaluator/profile mới;10 targeted
 tests PASS(.52s),15.15 CPU-s postprocessing. Identity residual6.67e−16
-packet·s; mean bridge max D.000569258pp/toàn27 .004342707pp giữ rõ, không
-gọi residual là direct covariance. Pearson.912319884 chỉ post-hoc,không
+packet·s; rescore MATCH/frozen gate record PASS sau closeout0d963081. Mean
+bridge max D.000569258pp/toàn27 .004342707pp giữ rõ, không gọi residual là
+direct covariance. Pearson.912319884 chỉ post-hoc,không
 cutoff.7. T10 sửa S=0⇒Cov0 (sai) và automatic h-dominance; nhóm stake ratio
 cao có3'-'/2U, không4/5 âm rõ; không nhận A1/A2⇔Cov0. Không loại mọi bug/
 numerical bias từ READY/replay. Sáu named prior works:2 AI-T/4 AI-A,2 OA
