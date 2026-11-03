@@ -3293,3 +3293,104 @@ claim toànplantkhônghiệuứng/H1false/trueG_Sđãđượckiểm. PartB/C/L6.
 không mở. Cầnmộtdesignrevisionkhoa học riêng nếuđổi kiểmđịnhcơchế,
 khôngtựthêmlessonframework. G1/GateC=NARROW/UnderstandingOPEN,
 CF/SUBpark/R09R10sealed/76highratiooutcomesunread giữ nguyên.
+
+
+### DL-133 — L6.2 Part A′: cửa sổ D(ii), khai trước code và kiểm số (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Tác giả yêu cầu thực hiện lesson và ủy
+quyền soạn, lựa chọn, dự đoán và triển khai D1–D6 trong phiên ngày 03/11.
+Đây là quyết định triển khai theo ủy quyền; không phải bản xác nhận tác giả
+đã tự viết, tự đọc hoặc vượt bài kiểm Understanding. Ownership/Understanding
+giữ OPEN. Attribution và những xác nhận lịch sử được giữ nguyên.
+
+**Bối cảnh và lý do sửa.** DL-132 đóng grid 51 × 20 ở
+STOP_INSUFFICIENT_WINDOW: sáu dòng D(i) trên ba base chỉ cho tối đa năm
+điểm khi áp dụng giới hạn hai cost/base, trong khi W9 cần bảy. D(ii) có
+102 dòng trên 13 base qua W1–W8. Lượt này là sửa phạm vi kiểm định, không
+chạy lại scan revision02 hoặc đổi predictor để cứu kết quả D(i).
+
+Lý do ưu tiên D(i) để tránh pilot không đủ cơ sở từ metadata exposure:
+inventory v3 có 48 physical keys active với c>0; sáu keys trong
+0<x<27/50−(7/100)u đều có P thuộc {40/3,4,4/3}, dưới P_min=30.
+Bốn keys P=40 nằm tại x thuộc {1,3/2}, ngoài dải đó. Không có pilot key
+đồng thời thuộc dải D(ii) và P≥30. Đây là kiểm design metadata, không
+phải đọc thêm truth để chọn điểm. Tuy vậy luật mới đã được chọn sau khi
+xem predictor scan và đề xuất 13 ứng viên, nên phải công khai adaptive
+selection; không gọi là lựa chọn blind hoặc bằng chứng prospective đã có.
+
+**Giải thích B015 trong năm câu.** Ở c=0, stationary approximation cho
+stake +7.681064 packet·s và giả định A1 dự đoán Stay, còn mean gap M0 chỉ
+khoảng −0.170012 packet·s. M0 cũ Switch với share 0.821702, nhiều hơn
+M0 mới 0.537967, nên accounting dự đoán state mới giúp +10.317115%Cref_H1.
+Khi thêm c=1/4, hai shares giảm xuống 0.166562 và 0.241343, nên phía mới
+còn Switch nhiều hơn và accounting đổi sang −2.807679%Cref_H1.
+Phân phối forecast cũ có variance nhỏ hơn ở base này, nhưng variance hoặc
+mean riêng lẻ không xác định vị trí giao CDF; phải giữ strict gap+c<0.
+Đây là câu chuyện của predictor dưới A1/A2, chưa đo finite-h truth và chưa
+chứng minh state mới thật sự gây hại.
+
+**Sáu quyết định khóa trước code và compute mới.**
+
+1. Bỏ tỷ lệ ít nhất 2/3 D(i) trong W9 cho phạm vi mới; giữ nguyên rho=1/4,
+   P_min=30, z_min=1%Cref_H1, theta(u), W1–W8, ref=4 và code H1/identity.
+   P≥30 là design restriction, không phải certificate của A1.
+2. D(ii) là nhóm verdict chính. D(i) chỉ báo prediction: trên 627 dòng
+   negative-x/c>0 đã lưu, đỉnh dương là +1.307889%Cref_H1 tại B035C14,
+   c=5/2. Đây là max trên grid, không upper bound continuous/toàn plant;
+   bỏ vế claim kiểm dải giúp dịch sang x<0.
+3. Lấy một cost trên mỗi base và lấy tất cả 13 base có D(ii) qua W1–W8.
+   Giữ ít nhất 10 điểm từ ít nhất 5 base sau veto; không coi các base chỉ
+   khác h là independent replicates. Các cặp B004/B014, B005/B015 và
+   B027/B040 chỉ hỗ trợ mô tả h-invariance đã chọn, không verdict mới.
+4. Chọn c có |z_K320| lớn nhất trong pool hợp lệ của base; hòa lấy c nhỏ
+   hơn bằng Fraction. Danh sách cố định: B004C07, B005C06, B010C02,
+   B013C07, B014C06, B015C06, B019C12, B020C11, B027C12, B034C05,
+   B039C14, B040C12, B050C19. Twin là C00 của từng base; A− là B001C00.
+   B050 có c*=6 tại mép grid; không ngoại suy vị trí đỉnh liên tục.
+5. Tính lattice identity mới cho cả 14 base (kể cả B001 đã có certificate,
+   ghi rõ đây là kiểm lại). Tính predictor K640/ref4 cho đúng 27 members:
+   D cần cùng dấu âm và |z|≥1% ở cả K320/K640; twin cần giữ dấu dương;
+   A− cần giữ dấu âm và |z|≥1% ở cả hai K. Chỉ dùng D khi chính nó và twin
+   qua; loại điểm trượt, không thay cost/base khác. Identity lỗi bất kỳ
+   base nào → BLOCKED_EXACT_IDENTITY. PASS cần ≥10 D/≥5 base và A− qua;
+   thiếu → HOLD_K_STABILITY. Missing/nonfinite check không được coi PASS.
+6. Đây là revision cuối của cửa sổ c_sw. HOLD đóng nhánh để review PIVOT;
+   không revision04, calibration fallback hoặc retune. BLOCKED/exception
+   giữ attempt và dừng, không tự chạy lại. PASS chỉ cho phép chuẩn bị
+   lesson Part B sau, không tự chạy Part B/C/L6.3 hoặc mở Gate D-entry.
+
+**Công khai và đính chính lesson.** Truth c>0 đã có ở pilot lịch sử;
+đúng hơn là chưa có finite-h M1 truth mới của 27 keys được chọn. Read-only
+collision audit của lượt chuẩn bị cho 0 va chạm trên union 28.158 keys.
+Chọn theo predictor không đồng nghĩa mọi adaptive-selection risk biến mất,
+và winner's curse không bảo đảm chỉ làm giảm power. Kiểm K640 chỉ xác
+nhận tiêu chí ổn định này, không phải proof hội tụ, A1/A2 hoặc causality.
+PHASE_6 đầy đủ được đề cập trong tài liệu ngoài không có ở repo hiện hành;
+không nhận đã đối chiếu §9 của văn bản đó. Main RQ giữ nguyên theo README.
+
+**Dự đoán trước K640, được soạn theo ủy quyền.** Dự đoán 12/13 D giữ tiêu
+chí; B013 có rủi ro nhất vì |z_K320|≈1.0593%, tiếp theo là B039/B019/B010.
+Dự đoán cả 14 lattice identity qua vì cùng builders/laws đã qua các mẫu cũ,
+nhưng đây chưa phải kiểm thực tế ở 13 D base. Không có cơ sở chọn một chiều
+chung cho |z_K640|−|z_K320| vì quadrature indicator có thể dịch hai phía.
+Cho truth tương lai, dự đoán định tính khoảng 10/13 ứng viên sẽ có G_S<0;
+state đuôi có thể làm A1/A2 trượt, không gán xác suất hoặc lấy forecast này
+làm threshold/verdict. Giữ nguyên cả bốn dự đoán sau khi thấy K640.
+
+**Budget và thực thi.** Giữ tổng Phase6 14.400 CPU-s và panel subset
+7.200 CPU-s, không reset chi phí cũ. Upper closeout trước là 1.180 CPU-s;
+dành upper 20 CPU-s cho đọc/audit/preflight của phiên này trước tests.
+Theo D6 của lesson mới, riêng tính parameter-only Part A′ không bị kill
+bởi cap 1.800 CPU-s cũ; ghi actual CPU gồm tests/controller/descendants và
+báo tổng upper, không mô tả upper là actual. Tổng cap Phase6 vẫn ràng buộc.
+Không nới budget hoặc retry theo kết quả. Một worker, một BLAS thread.
+
+Commit entry này trước khi tạo hai file mới select_dii.py/test_p6_select.py.
+Targeted synthetic tests rồi một full suite trước commit code; tests không
+chạy numerics Part A′ thật. Sau đó chạy đúng một lượt identity/K640 có
+guards chặn finite-h truth. Reserve output trước call, giữ partial/failure
+nếu có; commit raw candidates.csv/summary.json trước diễn giải. Không tạo
+framework, report, plot hoặc config mới; chỉ cập nhật DL/exposure/pointers
+cần thiết sau kết quả. H1, identity, window cũ và Phase5 frozen bytes giữ
+nguyên. G1, Gate C=NARROW, D22 deferred, CF/SUB park, R09/R10 sealed,
+76 high-ratio outcomes chưa mở và các xác nhận còn OPEN giữ nguyên.
