@@ -3630,3 +3630,30 @@ Nếu H0_SUPPORTED, kiểm A1 ở state đuôi trước, rồi A2; không tự s
 Forecast control replay MATCH và hai nhãn anchor đúng. Các forecasts này
 giữ nguyên khi lập DL-135; chưa có panel outcomes. Part C chỉ tới Gate,
 không chạy L6.3 dù GO.
+
+**Part C preflight trước positive control.** Freeze27 members từ đúng
+ALL_MEMBERS, không đọc probe outcomes. Predictions SHA256
+`b61efc7df3743ab027ccf5093070e123cc7e25e90173895db1a586268859353b`;
+analysis_plan_v2 SHA256
+`fedc00ae95ac2d795dc83949e6fbb8d2d6654fcc7de7ae1b12e7b3e1dc56112b`.
+Audit27 unique physical keys, thứ tự A−/twin/D, roles/eta và disjoint với
+ba probe keys và CF/R09/R10: PASS. Chỉ hash raw probe, không mở giá trị.
+
+Targeted19 PASS/0.43 CPU-s, sau bổ sung guards24 PASS/0.51 CPU-s.
+Mutant tests thực thi local bằng thay hàm trong memory:4/4 KILLED
+(negative-G_S gate, D trước twin, nới U cap, bỏ A− stop),0.29 CPU-s.
+Full suite **752 PASS trong117.26 s**,115.47 CPU-s. Tổng tests/mutations
+116.70 CPU-s. Không test failure. Command targeted:
+env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
+.venv/bin/python -B -m pytest -q -p no:cacheprovider tests/test_p6_run.py;
+full bỏ filepath. Mutations chỉ synthetic, không sửa file source.
+
+Prior preparation upper2370 cộng116.70 =2486.70 CPU-s; dành upper2520
+trước positive control để bao guards/freeze/metadata. Chỉ một call anchor
+với cap1800 CPU-s/3600 wall; tổng Phase6 vẫn14400, panel7200 chưa dùng.
+Lệnh sau source commit: env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+MKL_NUM_THREADS=1 /usr/bin/time .venv/bin/python -B -m
+experiments.P6_band.run anchor. Match identity và10 scientific fields của
+V1.FIELDS, bỏ timing/resources khỏi so byte; không claim timing phải bằng
+nhau. Hai saved sign anchors được label bằng cùng luật. Commit report/raw
+trước đọc report; FAIL thì dừng, không sửa sau control để cứu Gate.
