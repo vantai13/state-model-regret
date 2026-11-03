@@ -13,6 +13,7 @@ for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'):
 
 from fractions import Fraction as F
 import math
+from pathlib import Path
 
 import numpy as np
 import scipy.sparse as sp
@@ -374,8 +375,8 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
                x=float((lamB - lamA) / u) if u else None, delta=float(lamB - lamA), chains=chains,
                asymptotic=asym, h=rows)
     if arrays:      # decision inputs for the Monte Carlo control V3 (not written to result files)
-        out['_arrays'] = dict(dA=dA, dhA=dhA[:H], dAo=dAo, dhAo=dhAo[:H], dB=dB, dhB=dhB[:H], dBo=dBo,
-                              dhBo=dhBo[:H], NA=NA, NB=NB)
+        out['_arrays'] = dict(dA=dA, dhA=dhA, dAo=dAo, dhAo=dhAo, dB=dB, dhB=dhB, dBo=dBo,
+                              dhBo=dhBo, NA=NA, NB=NB)
     return out
 
 
@@ -422,3 +423,130 @@ def evaluate_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False):
                 z_inf=100 * s * (inf['F_old'] - inf['F_new']) / r_min, a_inf_switch=bool(a_inf),
                 M0_regret_new_pred=100 * abs(s) * ((1 - inf['F_new']) if a_inf else inf['F_new']) / r_min,
                 M0_regret_old_pred=100 * abs(s) * ((1 - inf['F_old']) if a_inf else inf['F_old']) / r_min, h=per_h)
+
+
+# ---------------------------------------------------------------- D22: fresh backlog without the mode
+D22_NMAX = 3000          # J[y, n, m] is (N+1)^2 x 2 per path; larger N is out of the D22 range (reported)
+D22_PRUNE = 1e-20        # (y, n) cells with smaller joint mass are dropped; the dropped mass is reported
+D22_CHUNK = 256          # fixed column chunk for expm_multiply, so every machine runs the same arithmetic
+
+
+D22_CACHE = Path(os.environ.get('SMR_D22_CACHE', Path.home() / '.cache/smr_ctmc_d22'))
+
+
+def joint_old_current(stay, tau=TAU):
+    """J[y, n, m] = P(Y = y, X = (n, m)) under P1: Y = backlog at t0 - tau (mode summed out), X = state at t0.
+    Cached on disk by (load, kappa, N, tau, chunk) so the pre-registration and truth passes share one computation;
+    the cache only stores the result, it does not change the arithmetic."""
+    key = f'{stay.load}_{stay.kappa}_{stay.N}_{F(tau)}_{D22_CHUNK}'.replace('/', '-')
+    path = D22_CACHE / f'{key}.npy'
+    if path.exists():
+        return np.load(path)
+    J = _joint_old_current(stay, tau)
+    D22_CACHE.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(f'.{os.getpid()}.tmp.npy')
+    np.save(tmp, J)
+    os.replace(tmp, path)
+    return J
+
+
+def _joint_old_current(stay, tau=TAU):
+    N, n = stay.N, stay.n
+    QT = (stay.Q.T * float(tau)).tocsr()
+    out = np.empty((n, N + 1))
+    rows = np.arange(n)
+    for s0 in range(0, N + 1, D22_CHUNK):
+        ys = np.arange(s0, min(N + 1, s0 + D22_CHUNK))
+        B = np.zeros((n, ys.size))
+        sel = (rows // 2 >= ys[0]) & (rows // 2 <= ys[-1])
+        B[rows[sel], rows[sel] // 2 - ys[0]] = stay.pi[sel]
+        out[:, ys] = expm_multiply(QT, B)
+    return out.T.reshape(N + 1, N + 1, 2)
+
+
+def cond_on_backlog(J, v):
+    """Weight w[y, n] = P(Y = y, Q = n) and E[v(X) | Y = y, Q = n] (mode averaged with its true posterior)."""
+    w = J.sum(axis=2)
+    num = (J * np.asarray(v, dtype=float).reshape(J.shape[1], 2)[None, :, :]).sum(axis=2)
+    return w, np.divide(num, w, out=np.zeros_like(num), where=w > 0)
+
+
+def _d22_flat(J, keep, v):
+    return cond_on_backlog(J, v)[1][keep]
+
+
+def evaluate_d22(lamA, lamB, u, kappa, hs, c=0, allow_csw=False, arrays=False):
+    """D22 of contract v1.3 in ctmc-v1: a_cb0(Y, Q) = 1[E[Delta_hat(X) | Y, Q] < 0] (fixed M0) and
+    a_cb1(Y, Q) = 1[E[Delta(X) | Y, Q] < 0] (true model), Q = both current backlogs, modes inferred from Y and Q.
+    F = L00 - Lcb0 and V = Lcb0 - L10 (G_S = F + V); F1 = L01 - Lcb1 and V1 = Lcb1 - L11 (S = F1 + V1)."""
+    out = evaluate(lamA, lamB, u, kappa, hs, c, allow_csw=allow_csw, disagree=False, arrays=True)
+    arr = out.pop('_arrays')
+    NA, NB = arr['NA'], arr['NB']
+    if max(NA, NB) > D22_NMAX:
+        raise ValueError(f'D22 range is N <= {D22_NMAX} per path (N = {NA}, {NB})')
+    lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
+    Ast, Bst = chain(lamA + u, kappa, NA), chain(lamB, kappa, NB)
+    JA, JB = joint_old_current(Ast), joint_old_current(Bst)
+    wA, wB = JA.sum(axis=2), JB.sum(axis=2)
+    kA, kB = wA > D22_PRUNE, wB > D22_PRUNE
+    dropped = float(wA[~kA].sum() + wB[~kB].sum())
+    checks = dict(marginal_err=float(max(np.abs(JA.sum(axis=0) - Ast.pi.reshape(-1, 2)).max(),
+                                          np.abs(JB.sum(axis=0) - Bst.pi.reshape(-1, 2)).max())),
+                  dropped_mass=dropped)
+    pA = Ast.pi.reshape(-1, 2).sum(axis=1)
+    tw = (wA * cond_on_backlog(JA, arr['dA'][0])[1]).sum(axis=1)
+    old = posterior_mean(Ast, arr['dA'][0])
+    checks['tower_err'] = float(np.abs(tw - pA * old).max() / max(np.abs(pA * old).max(), 1e-300))
+    wa, wb = wA[kA], wB[kB]
+    cf = float(c)
+    H = len(hs)
+    for k, row in enumerate(out['h']):
+        scale, Cref = row['E_stay'], row['Cref']
+        pct = lambda x: 100 * x / Cref
+        tol = 1e-12 * (scale + 1)
+        vA, vB = _d22_flat(JA, kA, arr['dA'][k]), _d22_flat(JB, kB, arr['dB'][k])
+        gA, gB = _d22_flat(JA, kA, arr['dhA'][k]), _d22_flat(JB, kB, arr['dhB'][k])
+        cb0 = pair_sum(wa, gA, vA, wb, gB, vB, cf, tol)
+        cb1 = pair_sum(wa, vA, vA, wb, vB, vB, cf, tol)
+        G = {cell: row[f'L{cell}'] - scale for cell in ('00', '01', '10', '11')}
+        row['d22'] = dict(L_cb0=scale + cb0[1], L_cb1=scale + cb1[1], F=pct(G['00'] - cb0[1]), V=pct(cb0[1] - G['10']),
+                          F1=pct(G['01'] - cb1[1]), V1=pct(cb1[1] - G['11']), share_cb0=cb0[0], share_cb1=cb1[0],
+                          tie_cb0=cb0[2], tie_cb1=cb1[2], regret_cb0=pct(cb0[1] - G['11']),
+                          regret_cb1=pct(cb1[1] - G['11']), dropped_mass=dropped)
+    gAi, gBi = _d22_flat(JA, kA, arr['dhA'][H]), _d22_flat(JB, kB, arr['dhB'][H])
+    one = lambda x: np.ones(x.size)
+    F_cb = pair_sum(wa, gAi, one(wa), wb, gBi, one(wb), cf)[0]
+    asym = out['asymptotic']
+    out['d22_asymptotic'] = dict(F_cb=F_cb, z_F_inf=100 * out['s'] * (asym['F_old'] - F_cb) / out['r_min'],
+                                 z_V_inf=100 * out['s'] * (F_cb - asym['F_new']) / out['r_min'])
+    out['d22_checks'] = checks
+    if arrays:
+        out['_arrays_d22'] = dict(dict(arr), gA=cond_on_backlog(JA, arr['dhA'][0])[1], gB=cond_on_backlog(JB, arr['dhB'][0])[1],
+                                  vA=cond_on_backlog(JA, arr['dA'][0])[1], vB=cond_on_backlog(JB, arr['dB'][0])[1])
+    return out
+
+
+def evaluate_d22_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False):
+    """Pre-registration read-outs for D22 without truth: M0 Switch shares on (Y, Q) at each h and h = inf and the
+    zero-fit split of z_inf into a backlog part z_F_inf and a mode part z_V_inf."""
+    base = evaluate_m0(lamA, lamB, u, kappa, hs, c=c, allow_csw=allow_csw)
+    NA, NB = base['N']['A'], base['N']['B']
+    if max(NA, NB) > D22_NMAX:
+        raise ValueError(f'D22 range is N <= {D22_NMAX} per path (N = {NA}, {NB})')
+    lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
+    Ast, Bst = chain(lamA + u, kappa, NA), chain(lamB, kappa, NB)
+    JA, JB = joint_old_current(Ast), joint_old_current(Bst)
+    wA, wB = JA.sum(axis=2), JB.sum(axis=2)
+    kA, kB = wA > D22_PRUNE, wB > D22_PRUNE
+    wa, wb = wA[kA], wB[kB]
+    hf = [float(F(h)) for h in hs] + [math.inf]
+    dhA, dhB = m0_gap(lamA, u, kappa, NA, hf, 'A'), m0_gap(lamB, u, kappa, NB, hf, 'B')
+    one = lambda x: np.ones(x.size)
+    for k, row in enumerate(base['h']):
+        g = pair_sum(wa, _d22_flat(JA, kA, dhA[k]), one(wa), wb, _d22_flat(JB, kB, dhB[k]), one(wb), float(c), 1e-12)
+        row['F_cb'], row['tie_cb'] = g[0], g[2]
+    inf = base['h'][-1]
+    base['z_F_inf'] = 100 * base['s'] * (inf['F_old'] - inf['F_cb']) / base['r_min']
+    base['z_V_inf'] = 100 * base['s'] * (inf['F_cb'] - inf['F_new']) / base['r_min']
+    base['kind'] = 'D22_M0_and_stationary_only'
+    return base

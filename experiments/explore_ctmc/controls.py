@@ -108,6 +108,15 @@ def v8():
     return dict(PASS=all(r['PASS'] for r in res), cases=res)
 
 
+def v3_d22(episodes):
+    res = {}
+    for k, (lamA, lamB, u, kappa, h) in V3_REGIMES.items():
+        r = mc.end_to_end(F(lamA), F(lamB), F(u), F(kappa), F(h), episodes, seed=20261105 + len(res), d22=True)
+        exact = r.pop('exact')
+        res[k] = dict(r, exact_d22=exact['h'][0]['d22'], d22_checks=exact['d22_checks'])
+    return dict(PASS=all(r['PASS'] for r in res.values()), regimes=res)
+
+
 def v3(episodes):
     res = {}
     for k, (lamA, lamB, u, kappa, h) in V3_REGIMES.items():
@@ -139,6 +148,7 @@ def main():
     p.add_argument('--episodes', type=int, default=100000)
     p.add_argument('--v7', nargs=2)
     p.add_argument('--v5', nargs='+')
+    p.add_argument('--d22', action='store_true', help='only the D22 Monte Carlo control V3-D22')
     a = p.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     if a.v5:
@@ -153,6 +163,15 @@ def main():
         return
     host = socket.gethostname()
     report, t0 = {}, time.process_time()
+    if a.d22:
+        report['V3_D22'] = v3_d22(a.episodes)
+        report['cpu_seconds'] = time.process_time() - t0
+        (OUT / f'controls_d22_{host}.json').write_text(json.dumps(report, indent=1, default=float) + '\n')
+        v7 = {k: dict(exact=v['exact_d22'], checks=v['checks']) for k, v in report['V3_D22']['regimes'].items()}
+        (OUT / f'v7_d22_{host}.json').write_text(json.dumps(v7, sort_keys=True, default=float) + '\n')
+        print('V3_D22', 'PASS' if report['V3_D22']['PASS'] else 'FAIL', f"cpu {report['cpu_seconds']:.0f}s",
+              {k: round(max(abs(c['z']) for c in v['checks'].values()), 2) for k, v in report['V3_D22']['regimes'].items()})
+        return
     for name, fn in (('V1', v1), ('V2', v2), ('V4', v4), ('V8', v8), ('V9', v9), ('V10', v10), ('V11', v11),
                      ('V3', lambda: v3(a.episodes))):
         t = time.process_time()

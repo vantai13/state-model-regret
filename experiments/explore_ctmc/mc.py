@@ -65,10 +65,15 @@ def costs(n0, m0, load_stay, load_switch, kappa, h, rng, a=ctmc.A, mu=ctmc.MU):
     return cS, cW, peak
 
 
-def end_to_end(lamA, lamB, u, kappa, h, episodes, seed, burn_factor=30):
-    """V3: Monte Carlo estimates of the four losses and six contrasts against the exact evaluator."""
-    exact = ctmc.evaluate(lamA, lamB, u, kappa, [h], arrays=True, disagree=False)
-    arr = exact.pop('_arrays')
+def end_to_end(lamA, lamB, u, kappa, h, episodes, seed, burn_factor=30, d22=False):
+    """V3: Monte Carlo estimates of the four losses and six contrasts against the exact evaluator. With d22=True
+    also the two backlog-only pipelines (Y, Q) and the split F, V, F1, V1 (control V3-D22)."""
+    if d22:
+        exact = ctmc.evaluate_d22(lamA, lamB, u, kappa, [h], arrays=True)
+        arr = exact.pop('_arrays_d22')
+    else:
+        exact = ctmc.evaluate(lamA, lamB, u, kappa, [h], arrays=True, disagree=False)
+        arr = exact.pop('_arrays')
     row = exact['h'][0]
     rng = np.random.default_rng(seed)
     T_burn = burn_factor * max(exact['chains']['A_stay']['T_int'], exact['chains']['B_stay']['T_int'], 1.0)
@@ -99,6 +104,14 @@ def end_to_end(lamA, lamB, u, kappa, h, episodes, seed, burn_factor=30):
     Cref = row['Cref']
     exact_abs = {k: row[k] for k in ('L00', 'L01', 'L10', 'L11')}
     exact_abs.update({k: row[k] * Cref / 100 for k in ('G_S', 'G_M', 'G_SM', 'Gamma', 'S', 'M')})
+    if d22:
+        nA, nB = A_['x'] // 2, B_['x'] // 2
+        acb0 = (arr['gA'][A_['y'], nA] + arr['gB'][B_['y'], nB] + c < 0).astype(float)
+        acb1 = (arr['vA'][A_['y'], nA] + arr['vB'][B_['y'], nB] + c < 0).astype(float)
+        samples.update(L_cb0=CS + acb0 * D, L_cb1=CS + acb1 * D, F=(a['a00'] - acb0) * D, V=(acb0 - a['a10']) * D,
+                       F1=(a['a01'] - acb1) * D, V1=(acb1 - a['a11']) * D)
+        dd = row['d22']
+        exact_abs.update(L_cb0=dd['L_cb0'], L_cb1=dd['L_cb1'], **{k: dd[k] * Cref / 100 for k in ('F', 'V', 'F1', 'V1')})
     checks = {}
     for k, v in samples.items():
         mean, se = float(v.mean()), float(v.std(ddof=1) / np.sqrt(v.size))

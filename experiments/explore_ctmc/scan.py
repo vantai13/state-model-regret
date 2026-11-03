@@ -55,10 +55,12 @@ def case_keys(case):
     return [(lamA, lamB, u, kappa, str(F(h)), c) for h in case['hs']]
 
 
-def check_locks(stage_cases):
+def check_locks(stage_cases, d22=False):
     need = {'PREDICTIONS_bridge.md', 'check_bridge.py'}
     if any(c.get('long') for c in stage_cases):
         need |= {'PREDICTIONS_asymptote.md', 'check_asymptote.py', 'PREDICTIONS_asymptote_numbers.csv'}
+    if d22:
+        need |= {'PREDICTIONS_d22.md', 'check_d22.py', 'PREDICTIONS_d22_numbers.csv'}
     if any(c.get('csw') for c in stage_cases):
         need |= {'PREDICTIONS_csw.md', 'check_csw.py', 'PREDICTIONS_csw_numbers.csv'}
     if not LOCKS.exists():
@@ -81,7 +83,14 @@ def run_case(job):
     t = time.process_time()
     lamA, lamB, u, kappa, c = (F(x) for x in case['parameters'])
     try:
-        if mode == 'm0':
+        if mode == 'd22m0':
+            out = ctmc.evaluate_d22_m0(lamA, lamB, u, kappa, case['hs'], c=c, allow_csw=case.get('csw', False))
+        elif mode == 'd22':
+            out = ctmc.evaluate_d22(lamA, lamB, u, kappa, case['hs'], c, allow_csw=case.get('csw', False))
+            for r in out['h']:
+                r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9] + \
+                    [k for k in ('F1', 'V1') if r['d22'][k] < -1e-9]
+        elif mode == 'm0':
             out = ctmc.evaluate_m0(lamA, lamB, u, kappa, case['hs'], c=c, allow_csw=case.get('csw', False))
         else:
             out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=case.get('disagree', True),
@@ -106,22 +115,26 @@ def run_case(job):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('stage')
-    p.add_argument('--mode', choices=('full', 'm0'), default='full')
+    p.add_argument('--mode', choices=('full', 'm0', 'd22', 'd22m0'), default='full')
     p.add_argument('--workers', type=int, default=os.cpu_count())
     p.add_argument('--shard', nargs=2, type=int, default=[0, 1])
     p.add_argument('--cap', type=int, default=3600)
     p.add_argument('--reverse', action='store_true')
+    p.add_argument('--only', type=Path, help='JSON list of case IDs to run (subset of the stage)')
     a = p.parse_args()
     cases = json.loads((OUT / 'cases' / f'{a.stage}.json').read_text())
     bad, ctrl = fluid_forbidden(), controls_and_probes()
     refused = [c['id'] for c in cases if any(k in bad or k[:5] in ctrl for k in case_keys(c))]
     if refused:
         raise SystemExit(f'{len(refused)} cases refused (sealed/CF/panel/control/probe): {refused[:5]}')
-    if a.mode == 'full':
-        check_locks(cases)
+    if a.mode in ('full', 'd22'):
+        check_locks(cases, d22=a.mode == 'd22')
     i, n = a.shard
     mine = [c for j, c in enumerate(cases) if j % n == i]
-    folder = OUT / ('m0' if a.mode == 'm0' else 'runs') / a.stage
+    if a.only:
+        keep = set(json.loads(a.only.read_text()))
+        mine = [c for c in mine if c['id'] in keep]
+    folder = OUT / dict(m0='m0', full='runs', d22='runs_d22', d22m0='m0_d22')[a.mode] / a.stage
     folder.mkdir(parents=True, exist_ok=True)
     jobs = [(c, a.mode, folder / f"{c['id']}.json", a.cap) for c in mine]
     todo = [j for j in jobs if not j[2].exists()]

@@ -228,3 +228,50 @@ def test_csw_checker_runs_on_fake_runs(tmp_path, monkeypatch):
     monkeypatch.setattr(check_csw, 'OUT', tmp_path)
     check_csw.main()
     assert (tmp_path / 'score_csw.json').exists()
+
+
+def test_d22_joint_law_has_the_right_marginals():
+    stay = ctmc.Chain(F(17, 2), F(1, 2), 120)
+    J = ctmc.joint_old_current(stay)                    # J[y, n, m] = P(Y = y, X = (n, m))
+    pi = stay.pi.reshape(-1, 2)
+    assert np.abs(J.sum(axis=0) - pi).max() <= 1e-12
+    assert np.abs(J.sum(axis=(1, 2)) - pi.sum(axis=1)).max() <= 1e-12
+
+
+def test_d22_conditional_means_obey_the_tower_property():
+    stay = ctmc.Chain(F(17, 2), F(1, 2), 120)
+    J = ctmc.joint_old_current(stay)
+    v = np.random.default_rng(3).normal(size=stay.n)
+    w, cond = ctmc.cond_on_backlog(J, v)
+    p = J.sum(axis=(1, 2))
+    old = ctmc.posterior_mean(stay, v)
+    assert np.abs((w * cond).sum(axis=1) / p - old).max() <= 1e-10
+
+
+def test_d22_decomposition_identities_and_signs():
+    out = ctmc.evaluate_d22(F(7), F(15, 2), F(3, 2), F(1, 2), [F(4), F(40)])
+    for r in out['h']:
+        d = r['d22']
+        assert d['F'] + d['V'] == pytest.approx(r['G_S'], abs=1e-9)
+        assert d['F1'] + d['V1'] == pytest.approx(r['S'], abs=1e-9)
+        assert min(d['F1'], d['V1']) >= -1e-9
+        assert d['dropped_mass'] <= 1e-12
+
+
+def test_d22_checker_runs_on_fake_runs(tmp_path, monkeypatch):
+    import json as _json
+    import pandas as _pd
+    from experiments.explore_ctmc import check_d22
+    base = ctmc.evaluate_d22(F(7), F(15, 2), F(3, 2), F(1, 2), [F(4), F(40), F(400)])
+    base.update(status='COMPLETED')
+    rows = []
+    for stage in check_d22.STAGES[:2]:
+        folder = tmp_path / 'runs_d22' / stage
+        folder.mkdir(parents=True)
+        (folder / 'X1.json').write_text(_json.dumps(dict(base, id='X1'), default=float))
+        rows += [dict(stage=stage, id='X1', h=r['h'], z_inf=base['asymptotic']['z_inf'],
+                      z_F_inf=base['d22_asymptotic']['z_F_inf'], z_V_inf=base['d22_asymptotic']['z_V_inf']) for r in base['h']]
+    _pd.DataFrame(rows).to_csv(tmp_path / 'PREDICTIONS_d22_numbers.csv', index=False)
+    monkeypatch.setattr(check_d22, 'OUT', tmp_path)
+    check_d22.main()
+    assert (tmp_path / 'score_d22.json').exists()
