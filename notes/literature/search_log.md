@@ -752,3 +752,30 @@ Kết quả:
 - **Mức đọc:** mọi ứng viên mới đều metadata-only (+ abstract OpenAlex nếu có). Chưa tải, chưa note.
 - **Phạm vi:** không 2×20, không saturation, không novelty.
 - **Lý do dừng:** đủ ứng viên cho từng ô UNSOURCED; Semantic Scholar bị rate limit; chờ tác giả tải.
+
+### L7.3-R2 đợt 2 — tác giả tải và paper cũ trong Downloads (04/11/2026)
+
+Tác giả nhắn: "tôi đã tải rồi á, bạn còn có là các paper cũ của tôi bạn hãy xem thử mục tải về ở window ... và bổ sung
+thông tin thêm cho lesson đi". AI coi việc tác giả tải là duyệt các nguồn đó, và tin nhắn là ủy quyền đọc paper cũ.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | intake | L7.3-R2 | `C:\Users\VAN TAI\Downloads` (file mới 04/11) | ls theo thời gian, pdftotext trang 1, pdfinfo | 4 | 4 | MicroTE VoR (12 tr.); Roughan, `download.pdf` (10 tr., bản tác giả của bản ITC 2003, không phải IMW 2002); Kuźniar'18 AM (25 tr., trong `tmp/`); SWAN ACM VoR. Ghabashneh'22 và các bản VoR khác chưa có |
+| 04/11 | library (author files) | L7.3-R2 / NDT | paper NDT cũ trong Downloads và `Downloads\Digital Twin` | pdftotext trang 1 + grep thời gian vòng | 8 | 4 | Giữ ZBEK26, VGC23, HHZ26, AAA25 (có số thời gian). Bỏ 3 survey không có số vòng routing; Kuri & Kumar CDC'92 là R34 đã có. Zotero storage: 1 PDF AoI survey (Yates 2020), không thuộc câu hỏi này |
+| 04/11 | lookup | L7.3-R2 | Vilalta (title); 10.1109/TNSM.2026.3737654; 10.1038/s41598-026-71181-2 | `search_crossref`, `get_crossref_paper_by_doi` | 5 | 3 | VGC23 = IEEE ComMag 61(12):128–134, DOI 10.1109/MCOM.003.2300105; ZBEK26 = TNSM 23:8111–8124; HHZ26 = Sci. Rep. 2026 |
+| 04/11 | backward | L7.3-R2 | BAAZ11 refs [5, 6, 13, 17] | pdftotext local | 4 | 0 mới | Câu 150 s: BAAZ11 §4/PDF4 trích [13] Kandula'09 và [6] Benson WREN'09. BAM10 (= [5]) §6.4 có chu kỳ ngày, không có câu 150 s |
+| 04/11 | read (AI-T) | L7.3-R2 / realism | BAAZ11, RGK03, KPKC18, SWAN VoR (so trang), BAM10 §6.4, P07 (grep), 4 paper NDT | pdftotext + grep + đọc đoạn quanh; render KPKC18 PDF9 để đọc Table 2 | 11 | — | SWAN VoR trùng chữ 12/12 trang với bản đã đọc. KPKC18 AM khớp số 250/400 ms của T00 |
+
+Kết quả:
+- **Note mới:** [BAAZ11](papers/BAAZ11.md), [RGK03](papers/RGK03.md), [KPKC18](papers/KPKC18.md),
+  [NDT_timing_L73](papers/NDT_timing_L73.md).
+- **Bổ sung:** [BAM10](papers/BAM10.md), [P07](papers/P07.md), [HKM13](papers/HKM13.md).
+- **Bản nháp:** [realism v2](../realism/realism_v2_draft.md) cập nhật §2–6, thêm §3e.
+- **Lưu PDF:** chép (không di chuyển) vào `~/papers/state-model-regret/l73/{BAAZ11,RGK03,KPKC18,HKM13,ndt_old}/`, có
+  sha256 trong note.
+- **AAA25:** trước đây tác giả quyết định "không đọc thêm" (đợt 26/10); lần này đọc theo yêu cầu mới, chỉ để tìm thời
+  gian vòng.
+- **Không đổi:** catalog và Excel trên `main`, mức đọc của tác giả, nhãn PC.
+- **Phạm vi:** không novelty, không 2×20.
+- **Lý do dừng:** đã dùng hết các file tác giả cung cấp có liên quan; các ô còn thiếu cần Kandula'09, Benson WREN'09,
+  Ghabashneh'22 hoặc nguồn NDT có thời gian giữ quyết định.

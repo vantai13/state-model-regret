@@ -8,6 +8,9 @@ Hong, Kandula, Mahajan, Zhang, Gill, Nanduri, Wattenhofer. SIGCOMM 2013, tr. 15�
 [DOI 10.1145/2486001.2486012](https://doi.org/10.1145/2486001.2486012); bản CCR là 10.1145/2534169.2486012.
 PDF lấy từ [trang hội nghị](https://conferences.sigcomm.org/sigcomm/2013/papers/sigcomm/p15.pdf): 12 trang, khớp
 tr. 15–26. Lưu local tại `~/papers/state-model-regret/l73/HKM13/HKM13_SWAN_sigcomm13_p15.pdf`, sha256 `99bb9406a528…`.
+**Bản ACM (VoR), 04/11/2026:** tác giả tự tải, lưu tại `~/papers/state-model-regret/l73/HKM13/HKM13_SWAN_SIGCOMM13_ACM_VoR.pdf`,
+sha256 `104dfbe99511…`, 12 trang. pdftotext của từng trang **trùng hoàn toàn** với bản trang hội nghị (so từng trang,
+tỷ lệ giống 1,0), nên mọi trích §/trang bên dưới giữ nguyên.
 Đọc targeted: §1–2/PDF1–2, §3/PDF4, §4–4.3/PDF5–7, §5.1/PDF8, §6.1/PDF9, §6.4/PDF10, §6.6/PDF11, cộng Fig. 17–18.
 Không đọc kỹ §4.3.1 (LP cập nhật không congestion), §7–8.
 
