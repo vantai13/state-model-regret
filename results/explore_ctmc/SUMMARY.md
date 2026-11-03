@@ -255,3 +255,58 @@ cho tới khi có `locks_l72.json` chứa hash thẻ của tác giả. Đã ki�
   đề xuất trần 900 CPU-s/case hoặc load_max ≤ 9,5 nếu tác giả chọn mở biên độ này.
 - Dừng sau B theo prompt; không chạy truth ở a ≠ 6. Thẻ L7.2 Phần 2 do tác giả viết.
 - Chi phí L7.2 Phần 1: truth KO 2.5 CPU-giờ, zero-fit held-out 3.6, zero-fit KO 0.02; tổng khoảng 6.1 CPU-giờ (cộng dồn toàn nhánh khoảng 49 CPU-giờ trên 200).
+
+## 12. L7.2 Phần 2: mở held-out a = 3 và a = 7,5 theo thẻ đã khóa ([score_l72.json](score_l72.json))
+
+**Đây là test theo thẻ do AI soạn theo ủy quyền tác giả** ([CARD_L7_2.md](l72/CARD_L7_2.md)), không phải thẻ tác giả tự
+viết. Tác giả nói "khóa" sau khi đọc thẻ và trước khi có `check_l72.py`; mentor chưa review thẻ. G-level vẫn G1. Khóa ở
+`58312baf` ([locks_l72.json](locks_l72.json)), trước mọi truth ở a ≠ 6. Chấm bằng `check_l72.py` nguyên văn; không đổi ngưỡng.
+
+**Cách chạy:** mỗi case list một lần, trần 900 CPU-s/case, trên local và GCP. Lần chạy đầu bị treo khoảng 50 phút trên
+cả hai máy, vì `multiprocessing.Pool` mất task của worker bị kernel giết ở hard limit (900 + 60 CPU-s). Runner được
+sửa (`run_robust`, commit `8d7e842f`): mỗi case một process, parent tự ghi UNRESOLVED khi worker chết. 17 case lát x
+a = 7,5 bị kernel giết (dmesg 17 lần, 0 OOM) được ghi UNRESOLVED, không chạy lại. 20 case Sobol a = 7,5 bị mất trên GCP
+(không có log kernel) được tính lại với **cùng** trần; 19 lại vượt trần. Không có case nào chạy lại với trần khác.
+
+**UNRESOLVED:** a = 3: 2/909 case; a = 7,5: 45/827 case (asym 1, Sobol 25, lát x 19). CPU đo được 27,2 CPU-giờ, cộng
+17 case bị giết không có số đo (mỗi case ≥ 900 CPU-s).
+
+**Bit-identity giữa hai máy ở held-out:** 63 case Sobol a = 3 được cả hai máy tính độc lập; 59 không trùng từng bit.
+Lệch ở mức làm tròn (L, Cref, regret: tương đối ≤ 1e−15); lệch lớn nhất là tỷ lệ Switch backlog-only của M0 (`share_cb0`,
+tới 0,06 khối lượng) do quyết định gần hòa bị lật, ảnh hưởng F ≤ 5,2e−5 pp. Chấm lại với phiên bản GCP của cả 63 case
+cho **verdict y hệt**. Trên cùng một máy kết quả tất định (3 lần chạy trùng hash). Control V7 trước đây chỉ phủ chain nhỏ
+(N ≤ 680); ở N lớn hai máy lệch ở bit cuối dù đã ghim môi trường. Ghi nhận, không sửa sau khi đã có truth.
+
+| ID | Claim | a = 3 | a = 7,5 |
+|---|---|---|---|
+| L72-1 onset | C-A | **PASS**: (4; 7] 94,4% (n 54), (7; 15] 100% (n 111), (15; 40] 100% (n 101); (2; 4] 38% (chỉ báo) | **INCONCLUSIVE**: (4; 7] 97,9%, (7; 15] 100% đạt; (15; 40] có 17% case UNRESOLVED (> 10%) |
+| L72-2 biên dải | C-B | **FAIL**: 3/6 chuỗi trong ±0,05 | **FAIL**: 4/6 chuỗi (cần ≥ 5/6) |
+| L72-3 planner dừng | C-C | **PASS** 95,3% (n 213) | **PASS** 100% (n 139) |
+| L72-4 dải co (hai biên độ) | C-C | p_3 = 0,093 | p_7,5 = 0,0375 → **PASS** (chênh 0,055 ≥ 0,05, sát ngưỡng) |
+| L72-5 D22 h ngắn | C-D | **PASS** 98,9% (n 91) | **PASS** 100% (n 35) |
+| L72-6 D22 tỷ lệ zero-fit | C-D | **PASS** 100% (n 169) | **PASS** 100% (n 84) |
+| L72-7 KO tệ hơn M0 | C-E | **PASS** 99,5% (n 214) | **INCONCLUSIVE** (11,8% case UNRESOLVED) |
+| L72-8 hai đồng hồ | C-E | **PASS**: P 93,2% vs đa số 81,8%, h/T_int 86,0%; Spearman −0,886 vs −0,640 | **FAIL** ở (a): P 96,5% vs đa số 95,5% (cần ≥ 100,5%); (b) đạt: −0,959 vs −0,812 |
+| L72-Z (zero-fit, không tính) | C-E | đạt: 0,92 / 0,73 | đạt: 0,80 / 0,71 |
+
+**Đếm:** a = 3: 6 PASS, 1 FAIL. a = 7,5: 3 PASS, 2 FAIL, 2 INCONCLUSIVE. Liên biên độ: L72-4 PASS. Không gộp thành một
+kết luận chung.
+
+**Đọc theo mục 7 của thẻ (không đổi ngưỡng):**
+- **C-A** đứng ở a = 3 như viết; ở a = 7,5 hai khoảng đầu đạt, khoảng dài nhất không chấm được (case vượt trần). Câu
+  claim co về "từ khoảng 4·T_int, ở các case tính được".
+- **C-B** trượt ở cả hai biên độ: biên dải giúp **không** tính trước được tới ±0,05 ở h = 10·T_int. Chỉ giữ "dải hẹp"
+  định tính.
+- **C-C** đứng: planner dừng ≤ 0,1% regret ở ≥ 95% dòng h > 7·T_int cả hai biên độ; dải giúp ở horizon vừa co từ 9,3% xuống
+  3,75% khi burst mạnh (sát ngưỡng).
+- **C-D** đứng ở cả hai biên độ trong phạm vi N ≤ 3.000: harm đã có khi state mới chỉ gồm backlog, tỷ lệ backlog khớp
+  zero-fit.
+- **C-E:** KO tệ hơn M0 ≥ 1,5 lần ở 99,5% dòng harm (a = 3), không chấm được ở a = 7,5. "Hai đồng hồ" đứng ở a = 3; ở
+  a = 7,5 phần P trượt, phần h/T_int đạt.
+
+**Khám phá sau khi mở (không phải test):**
+- L72-2: các chuỗi trượt đều có biên truth **rộng hơn** zero-fit (a = 3: 0,32–0,37 so với 0,19–0,24 ở u = 1/2 và
+  u = 1, κ = 1; a = 7,5: 0,23–0,24 so với 0,14–0,16 ở u = 1/2). Các chuỗi u lớn khớp tới 0,005. Gợi ý: ở h = 10·T_int,
+  phần hiệu chỉnh B/h còn đẩy biên ra ngoài khi u nhỏ; chưa kiểm.
+- L72-8(a) ở a = 7,5: lớp đa số đã là 95,5%, nên điều kiện "đa số + 0,05" gần như không thể đạt. Đây là lỗi thiết kế
+  ngưỡng của thẻ do AI soạn; verdict FAIL giữ nguyên.
