@@ -660,3 +660,32 @@ author-venue/discovery;0 nguồn tự đề xuất ngoài6,0 catalog/Excel/autho
 updates. PDF/page/sha/source claims và E/M/R ở [prior check](L6_4_prior_check.md).
 Gao là road traffic, không làm computer-network prior. Dừng đủ bounded
 sources/targeted reads; không2×20,saturation,coverage,novelty hoặcprior clearance.
+
+## L7.3-R1 — realism use cases: library review + metadata lookup (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**; AI (Claude) theo ủy quyền L7.3 Phần 1; skill paper-research.
+
+```text
+THẺ TÌM KIẾM — L7.3-R1 / 03-11-2026
+Câu hỏi: các bối cảnh routing thật (flowlet LB trong DC; TE/lập lịch flow DC ở thang giây; TE trên WAN;
+  vòng what-if của NDT) có horizon h, tuổi telemetry τ, thang burst và tải nào, có nguồn?
+PC / mục đích: realism / RQ3 (định vị use case), không đổi nhãn PC.
+Câu chặn: nếu nguồn cho h, τ, T_mode cùng định nghĩa thì có thể gán vùng state/chuyển tiếp/tiệm cận của
+  ctmc-v1; nếu không, ô giữ UNSOURCED, không suy OUT.
+GIỮ nếu: nguồn networking đo hoặc mô tả chu kỳ quyết định, tuổi đo, thang burst/đa thang.
+BỎ nếu: road traffic/vehicle routing, sai số KPI không có quyết định.
+Điểm vào: thư viện hiện có (ZLK17, BAM10, NDT1, LTWW94, T00/worksheet v1); exact-title lookup cho
+  SWAN, B4, CONGA, Roy2015.
+Ngân sách: một buổi; tối đa 3 đề xuất mới; không tải/đọc trước khi tác giả duyệt.
+Dừng khi: đủ lookup cho các ô UNSOURCED ưu tiên (chu kỳ TE WAN, flowlet LB, burst đa thang DC).
+```
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 03/11 | library | L7.3-R1 / realism | catalog + notes/literature/papers + notes/realism + T00 | grep local | 33 notes, 8 realism files | 4 dùng lại (ZLK17, BAM10, NDT1, LTWW94) + T00 (Planck/Hedera/MicroTE/Kuźniar ở mức note) | LTWW94 đã có từ L3R.4 (không phải nguồn mới); CONGA/SWAN/MicroTE/B4 không có trong catalog |
+| 03/11 | lookup | L7.3-R1 | "SWAN achieving high utilization software-driven WAN"; "B4 experience globally-deployed software defined WAN"; "CONGA distributed congestion-aware load balancing datacenters"; "Inside the Social Network's Datacenter Network" | paper-search `search_dblp`, max 5 | 0 | 0 | Cả 4 trả rỗng: hạn chế công cụ (dblp), không phải bằng chứng không có bài |
+| 03/11 | lookup | L7.3-R1 | cùng 4 exact titles | paper-search `search_crossref`, max 5, relevance | 20 | 4 | SWAN 10.1145/2486001.2486012 (SIGCOMM'13, tr.15–26; CCR 10.1145/2534169.2486012); B4 10.1145/2486001.2486019 (SIGCOMM'13, tr.3–14); CONGA 10.1145/2619239.2626316 (SIGCOMM'14, tr.503–514); Roy et al. 10.1145/2785956.2787472 (SIGCOMM'15, tr.123–137). Mức: metadata-only (+ abstract Crossref của bản CCR). 16 kết quả khác lệch chủ đề |
+
+Đề xuất 3 nguồn (chờ tác giả duyệt; chưa tải, chưa note nội dung): SWAN, CONGA, Roy2015 — lý do ở
+[realism_v2_draft.md](../realism/realism_v2_draft.md) §6. B4 giữ làm phương án thay SWAN, không đề xuất trong đợt
+này. Đây là lookup theo tên, không phải khảo sát lĩnh vực; không 2×20, không saturation, không novelty.

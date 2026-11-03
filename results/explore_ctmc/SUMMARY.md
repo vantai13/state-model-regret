@@ -310,3 +310,11 @@ kết luận chung.
   phần hiệu chỉnh B/h còn đẩy biên ra ngoài khi u nhỏ; chưa kiểm.
 - L72-8(a) ở a = 7,5: lớp đa số đã là 95,5%, nên điều kiện "đa số + 0,05" gần như không thể đạt. Đây là lỗi thiết kế
   ngưỡng của thẻ do AI soạn; verdict FAIL giữ nguyên.
+
+**Phân tích sau khi mở L72-2 (của mentor, AI kiểm lại 03/11/2026; không phải confirmation).** Thẻ so biên dải đo ở
+h = 10·T_int với biên của z_∞ (h = ∞). File zero-fit đã đóng băng có sẵn đúng đại lượng cần so: biên của công thức bậc
+một z_pred1 ở cùng h. So theo z_pred1: lệch lớn nhất 0,00057 (a = 3) và 0,00031 (a = 7,5) trên 12/12 chuỗi, so với 0,178
+và 0,087 khi so với z_∞. Gần biên z_∞ ≈ 0 nên dấu của G_S ở h hữu hạn do hạng β/h quyết định, và khi u nhỏ z_∞ đổi chậm theo
+x, nên β/h nhỏ cũng đẩy biên đi xa. FAIL đã khóa giữ nguyên; phân tích này chỉ được dùng sau khi mở, nhưng mọi số
+z_pred1 đã được hash trước truth. Bài học thiết kế: dự đoán và phép đo phải nói về cùng một đại lượng ở cùng điều kiện
+(cùng loại lỗi với AS-R1a gộp khoảng h và L72-8(a) ngưỡng không thể đạt).
