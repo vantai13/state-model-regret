@@ -3813,3 +3813,46 @@ DL-136 có fact. L6.4 chưa thực hiện; chưa đọc z/lý do U theo từng �
 không prior check hoặc đổi G-level. Raw probe/replay tiếp tục niêm phong
 tới L6.4; G1, D22/realism/ownership/Understanding và park/sealed khác
 giữ nguyên. Không chạy lại panel dù Gate record lịch sử vẫn GO.
+
+
+### DL-137 — L6.4: chẩn đoán dữ liệu lưu, không chạy lại panel (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**. User yêu cầu tự phân tích và tìm nguyên
+nhân INCONCLUSIVE. Phạm vi này mở saved panel/probe/replay để chẩn đoán,
+không phải lần chạy mới, không tự quyết Gate D/PIVOT/novelty hoặc đổi G1.
+Không bổ sung xác nhận tác giả tự đọc/tự viết/Understanding từ yêu cầu đó.
+
+Pass đầu tiên đã đọc summary và ba levels của 27 members: cả13 D READY;
+tám U của D đều READY nhưng ở deadband. Hai D có nhãn '+' là B027C12 và
+B050C19. Hai twin NOT_READY do width là B015C00 và B034C00. Đây là kết quả
+đã xem trước khi viết entry này, không nhận là forecast hoặc phân tích blind.
+Primary verdict INCONCLUSIVE giữ nguyên; không chấm lại trên subset5 điểm.
+
+Phân tích tiếp theo là post-hoc forensic trên dữ liệu đã tính: xuất bảng
+13 D/13 twin/A−, widths, R1 từng trục, d và nguyên nhân U; so prediction
+với saved z/cost; mở probe raw đúng phạm vi L6.4 đã được user yêu cầu.
+Không đổi epsilon/R1/width/count thresholds; epsilon1% chỉ mô tả theo plan.
+
+Để tách nguyên nhân predictor, chỉ đọc stationary checkpoints và NPZ/JSON
+response profiles đã tồn tại của đúng main640/4 và27 keys đã chạy.
+Khôi phục weights trên cùng grid và lấy giá trị từ response surfaces đã
+lưu để tính action shares, weighted action contributions, mean gap và
+oracle Switch share. Không giải lại stationary roots, không Bellman/time
+stepping, không tạo profile/cache mới; thiếu cache thì báo thiếu, không
+fallback. Chặn population.evaluate/side/pair_loss, profiles.get và các
+kernel idle/mean_idle/age để không có đường chạy lại finite-h M1.
+
+Tách identity số học: G_S = contribution_old−contribution_new. Predictor
+D(ii) dùng alpha=h*s+c nhân (F_old−F_new), với alpha là hằng. Trên cùng
+actual Cref, residual có phần thay weighted gap bằng alpha và phần chênh
+M0 shares giữa hai numerical representations; phần normalizer tách riêng.
+So reconstructed contributions với saved raw trước khi nhận các derived
+statistics. Đây là replay/postprocessing response surfaces đã có, không
+phép thử mới và không independent replication của engine. Shared bias
+của cùng frozen profiles không bị loại bằng phép này.
+
+Giữ source/plan/predictions và81 raw rows/summary L6.3 nguyên byte. Chỉ
+thêm analyzer dưới tools/, tests và CSV/JSON chẩn đoán cần để kiểm lại;
+không thêm framework, plot, model fit hoặc report riêng. Kết quả và giới
+hạn sẽ ghi tiếp ở entry này và in trực tiếp. Các vùng park/sealed ngoài
+Phase6,76 p4 outcomes,R09/R10 không mở; literature/Gate/PIVOT không tự đổi.
