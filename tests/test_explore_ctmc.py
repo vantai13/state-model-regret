@@ -207,9 +207,11 @@ def test_switching_cost_needs_the_stage_f_flag_and_c0_rows_are_unchanged():
     if saved.exists():
         old = _json.loads(saved.read_text())
         new = ctmc.evaluate(*(F(x) for x in old['parameters'][:4]), [F(h) for h in old['hs']])
-        for r in old['h']:
-            r.pop('flags', None)              # added by scan.py when the row is written
-        assert _json.dumps(new['h'], default=float) == _json.dumps(old['h'], default=float)
+        def sub(n, o):                        # restrict the new output to the keys the saved row already had
+            return {k: sub(n[k], v) for k, v in o.items()} if isinstance(o, dict) else n
+        for r_old, r_new in zip(old['h'], new['h']):
+            r_old.pop('flags', None)          # added by scan.py when the row is written
+            assert _json.dumps(r_old, default=float) == _json.dumps(sub(r_new, r_old), default=float)
 
 
 def test_csw_checker_runs_on_fake_runs(tmp_path, monkeypatch):
@@ -275,3 +277,66 @@ def test_d22_checker_runs_on_fake_runs(tmp_path, monkeypatch):
     monkeypatch.setattr(check_d22, 'OUT', tmp_path)
     check_d22.main()
     assert (tmp_path / 'score_d22.json').exists()
+
+
+def test_knockout_twin_and_its_zero_fit_limit():
+    out = ctmc.evaluate(F(7), F(15, 2), F(3, 2), F(1, 2), [F(4), F(1500)], disagree=False)
+    asym = out['asymptotic']
+    assert {'F_new_ko', 'F_old_ko', 'z_inf_ko', 'B_ko'} <= set(asym)
+    long = out['h'][-1]
+    assert abs(long['G_S_ko'] - asym['z_inf_ko']) <= 0.1 + 0.1 * abs(asym['z_inf_ko'])
+    assert {'ko_new', 'ko_old'} <= set(long['regret'])
+
+
+def test_state_dependence_is_disagreement_with_static():
+    out = ctmc.evaluate(F(7), F(15, 2), F(3, 2), F(1, 2), [F(40)], disagree=False)
+    r = out['h'][0]
+    dep, sh = r['dep_static'], r['shares']
+    for t in ('M1_new', 'M0_new', 'hybrid_new', 'ko_new', 'M1_old', 'M0_old', 'hybrid_old', 'ko_old'):
+        want = sh[t] if sh['static'] == 0 else 1 - sh[t]
+        assert dep[t] == pytest.approx(want)
+
+
+def test_heldout_amplitudes_only_in_zero_fit_mode():
+    m = ctmc.evaluate_m0(F(7), F(15, 2), F(1), F(1, 2), [F(4)], a=3)
+    assert m['a'] == 3 and 'z_inf_ko' in m
+    with pytest.raises(PermissionError):
+        ctmc.evaluate(F(7), F(15, 2), F(1), F(1, 2), [F(4)], a=3)
+    with pytest.raises(PermissionError):
+        ctmc.Chain(F(8), F(1, 2), 200, a=3).V([1.0])
+    with pytest.raises(ValueError):
+        ctmc.evaluate_m0(F(7), F(15, 2), F(1), F(1, 2), [F(4)], a=5)
+    with pytest.raises(ValueError):                          # low mode would go negative
+        ctmc.evaluate_m0(F(7), F(8), F(1), F(1, 2), [F(4)], a=F(15, 2))
+
+
+def test_amplitude_six_m0_rows_are_unchanged():
+    import json as _json
+    from pathlib import Path as _P
+    saved = _P(__file__).resolve().parents[1] / 'results/explore_ctmc/m0/xslice/X_u1_k1-5_hk50_x1-10.json'
+    if saved.exists():
+        old = _json.loads(saved.read_text())
+        new = ctmc.evaluate_m0(*(F(x) for x in old['parameters'][:4]), [F(h) for h in old['hs']])
+        for k in ('z_inf', 's', 'r_min', 'M0_regret_new_pred'):
+            assert new[k] == old[k]
+        assert _json.dumps(new['h'], default=float) == _json.dumps(old['h'], default=float)
+
+
+def test_ko_checker_runs_on_fake_runs(tmp_path, monkeypatch):
+    import json as _json
+    import pandas as _pd
+    from experiments.explore_ctmc import check_ko
+    d22 = ctmc.evaluate_d22(F(7), F(15, 2), F(3, 2), F(1, 2), [F(4), F(40), F(400)])
+    plain = ctmc.evaluate(F(7), F(15, 2), F(3, 2), F(1, 2), [F(4), F(40), F(400)], disagree=False)
+    rows = []
+    for stage, base in zip(check_ko.STAGES, (d22, plain)):
+        folder = tmp_path / 'runs_ko' / stage
+        folder.mkdir(parents=True)
+        (folder / 'K1.json').write_text(_json.dumps(dict(base, id='K1', status='COMPLETED'), default=float))
+        rows += [dict(stage=stage, id='K1', h=r['h'], z_inf_ko=base['asymptotic']['z_inf_ko'],
+                      z_pred1_ko=r['z_pred_first_order_ko']) for r in base['h']]
+    _pd.DataFrame(rows).to_csv(tmp_path / 'PREDICTIONS_ko_numbers.csv', index=False)
+    monkeypatch.setattr(check_ko, 'OUT', tmp_path)
+    monkeypatch.setattr(check_ko.sys, 'argv', ['check_ko'])
+    check_ko.main()
+    assert (tmp_path / 'score_ko.json').exists()

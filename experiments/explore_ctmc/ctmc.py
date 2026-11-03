@@ -27,10 +27,34 @@ TAIL = 1e-13
 DENSE_PAIRS = 5e7          # largest |X_A| * |X_B| for which disagreement shares are computed (dense, chunked)
 
 
+HELDOUT = (F(3), F(15, 2))     # L7.2 held-out amplitudes (a/mu = 0.3, 0.75): zero-fit quantities only until unlocked
+LOCKS_L72 = Path(__file__).resolve().parents[2] / 'results/explore_ctmc/locks_l72.json'
+
+
 def _amplitude(a, allow_zero):
-    if a == A or (allow_zero and a == 0):
+    if a == A or (allow_zero and a == 0) or F(a) in HELDOUT:
         return float(a)
-    raise ValueError(f'amplitude a={a} is held out (a/mu != 0.6); only the author opens it in L7.2')
+    raise ValueError(f'amplitude a={a} is not in this namespace (a = 6, held-out {[str(x) for x in HELDOUT]}, control 0)')
+
+
+def l72_unlocked():
+    """Truth at a held-out amplitude needs results/explore_ctmc/locks_l72.json listing the sha256 of the author's
+    hypothesis card, and the card on disk must still match it (L7.2 Part 2)."""
+    if not LOCKS_L72.exists():
+        return False
+    import hashlib
+    import json
+    locks = json.loads(LOCKS_L72.read_text())
+    card = LOCKS_L72.parent / locks.get('card', '')
+    return card.is_file() and hashlib.sha256(card.read_bytes()).hexdigest() == locks.get('card_sha256')
+
+
+def _truth_allowed(a):
+    if F(a) == A:
+        return
+    _amplitude(a, allow_zero=False)
+    if not l72_unlocked():
+        raise PermissionError(f'truth at held-out amplitude a={a} is refused until the author locks the L7.2 card')
 
 
 def generator(load, kappa, N, a=A, mu=MU):
@@ -72,6 +96,7 @@ class Chain:
 
     def V(self, hs):
         """V(h, x) = E[int_0^h n dt | x] = h r + g - e^{Qh} g for each h (any order); rows follow hs."""
+        _truth_allowed(self.a)
         hs = [float(h) for h in hs]
         out = np.empty((len(hs), self.n))
         w, t = self.g.copy(), 0.0
@@ -84,6 +109,7 @@ class Chain:
 
     def V_aug(self, h):
         """Second route for V4: exponential of the generator augmented with the cost column."""
+        _truth_allowed(self.a)
         Qa = sp.bmat([[self.Q, sp.csr_matrix(self.f[:, None])], [None, sp.csr_matrix((1, 1))]]).tocsr()
         e = np.zeros(self.n + 1)
         e[-1] = 1.0
@@ -93,12 +119,12 @@ class Chain:
 _CHAINS = {}
 
 
-def chain(load, kappa, N):
-    key = (F(load), F(kappa), int(N))
+def chain(load, kappa, N, a=A):
+    key = (F(load), F(kappa), int(N), F(a))
     if key not in _CHAINS:
         if len(_CHAINS) > 24:
             _CHAINS.clear()
-        _CHAINS[key] = Chain(*key)
+        _CHAINS[key] = Chain(key[0], key[1], key[2], a=key[3])
     return _CHAINS[key]
 
 
@@ -132,8 +158,8 @@ def matrix_geometric(load, kappa, a=A, mu=MU):
     return dict(R=R, pi0=pi0, tail=tail, mean=float(pi0 @ R @ S @ S @ np.ones(2)))
 
 
-def choose_N(load, kappa, tol=TAIL):
-    tail = matrix_geometric(load, kappa)['tail']
+def choose_N(load, kappa, tol=TAIL, a=A):
+    tail = matrix_geometric(load, kappa, a=a)['tail']
     lo, hi = 0, 1
     while tail(hi) > tol:
         lo, hi = hi, 2 * hi
@@ -201,14 +227,14 @@ def m0_vhat(load, kappa, N, hs, a=A, mu=MU, return_T=False):
     return (out, T) if return_T else out
 
 
-def m0_gap(lam, u, kappa, N, hs, side):
+def m0_gap(lam, u, kappa, N, hs, side, a=A):
     """Mean-rollout gap Switch - Stay of one path, shifted by +u h^2/2 (side 'A', where Switch removes u) or by
     -u h^2/2 (side 'B', where Switch adds u). The two shifts cancel exactly in the network gap, so decisions are
     unchanged; but at a state whose queue stays positive on [0, h] under the lighter load the rollout is linear in
     the load and the shifted gap is exactly 0. Both paths saturated therefore give an exact tie (Stay), the
     certified-tie rule of the contract, instead of a sign left to rounding. At h = inf there is no shift."""
-    light, T = m0_vhat(lam, kappa, N, hs, return_T=True)
-    heavy = m0_vhat(lam + u, kappa, N, hs)
+    light, T = m0_vhat(lam, kappa, N, hs, a=a, return_T=True)
+    heavy = m0_vhat(lam + u, kappa, N, hs, a=a)
     out = np.empty_like(light)
     for j, h in enumerate(hs):
         h = float(h)
@@ -268,16 +294,16 @@ def mm1_mean(load, mu=MU):
 
 def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disagree=True, arrays=False, allow_csw=False):
     """All four cells, twins and asymptotic read-outs for one regime at each horizon in hs."""
-    _amplitude(a, allow_zero=False)
+    _truth_allowed(a)
     lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
     hs = [F(h) for h in hs]
-    if not (min(lamA, lamB) >= A and max(lamA, lamB) + u < MU and kappa > 0 and c >= 0 and min(hs) > 0):
+    if not (min(lamA, lamB) >= max(A, F(a)) and max(lamA, lamB) + u < MU and kappa > 0 and c >= 0 and min(hs) > 0):
         raise ValueError('outside the ctmc-v1 domain')
     if not control and not (F(1, 4) <= u <= 3 and (c == 0 or allow_csw)):
         raise ValueError('outside the ctmc-v1 scientific domain (u in [1/4, 3], c_sw = 0 unless Stage F)')
-    NA, NB = (int(N_scale) * choose_N(lam + u, kappa) for lam in (lamA, lamB))
-    Ast, Asw = chain(lamA + u, kappa, NA), chain(lamA, kappa, NA)
-    Bst, Bsw = chain(lamB, kappa, NB), chain(lamB + u, kappa, NB)
+    NA, NB = (int(N_scale) * choose_N(lam + u, kappa, a=a) for lam in (lamA, lamB))
+    Ast, Asw = chain(lamA + u, kappa, NA, a), chain(lamA, kappa, NA, a)
+    Bst, Bsw = chain(lamB, kappa, NB, a), chain(lamB + u, kappa, NB, a)
     H = len(hs)
     hf = [float(h) for h in hs]
 
@@ -286,7 +312,7 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
         Vsw = Vst if sw is st else sw.V(hs)
         d = sign * (Vsw - Vst)
         lam = min(st.load, sw.load)
-        dh = m0_gap(lam, abs(sw.load - st.load), kappa, st.N, hf + [math.inf], 'A' if sign > 0 else 'B')
+        dh = m0_gap(lam, abs(sw.load - st.load), kappa, st.N, hf + [math.inf], 'A' if sign > 0 else 'B', a=a)
         b = sign * (sw.g - st.g)
         return d, dh, b
     # path A: Switch removes u (sign +1: d_A = V[lamA] - V[lamA+u]); path B: Switch adds u
@@ -322,6 +348,9 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
                 M0_regret_new_pred=100 * abs(s) * ((1 - F_new[0]) if a_inf else F_new[0]) / r_min,
                 M0_regret_old_pred=100 * abs(s) * ((1 - F_old[0]) if a_inf else F_old[0]) / r_min,
                 tie_mass_new=new(dhA[H], bA, dhB[H], bB, 1e-12)[2], tie_mass_old=olds(dhAo[H], bAo, dhBo[H], bBo, 1e-12)[2])
+    # knockout KO = true model minus the long-run part h*s: at h = inf it decides by c + b(x) (zero fit: g, pi only)
+    Kn, Ko = new(bA, bA, bB, bB), olds(bAo, bAo, bBo, bBo)
+    asym.update(F_new_ko=Kn[0], F_old_ko=Ko[0], z_inf_ko=100 * s * (Ko[0] - Kn[0]) / r_min, B_ko=Ko[1] - Kn[1])
 
     rows = []
     for k, h in enumerate(hf):
@@ -352,6 +381,9 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
             ho = olds(dhAo[k] + h * sv, dAo[k], dhBo[k], dBo[k])
             twins[f'{name}_new'], twins[f'{name}_old'] = hn[1], ho[1]
             shares[f'{name}_new'], shares[f'{name}_old'] = hn[0], ho[0]
+        kn, ko = new(dA[k] - h * s, dA[k], dB[k], dB[k]), olds(dAo[k] - h * s, dAo[k], dBo[k], dBo[k])
+        twins['ko_new'], twins['ko_old'] = kn[1], ko[1]
+        shares['ko_new'], shares['ko_old'] = kn[0], ko[0]
         row = dict(h=str(hs[k]), h_kappa=float(hs[k] / kappa), h_Tint=h / max(Ast.T_int, Bst.T_int, Asw.T_int, Bsw.T_int),
                    L00=scale + G00, L01=scale + G01, L10=scale + G10, L11=Cref, Cref=Cref, E_stay=scale, E_gap=Ed,
                    G_S=pct(G00 - G10), G_M=pct(G00 - G01), G_SM=pct(G00 - G11), Gamma=pct(G10 + G01 - G00 - G11),
@@ -362,6 +394,10 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
                    G_S_hybrid_mm1=pct(twins['hybrid_mm1_old'] - twins['hybrid_mm1_new']),
                    z_pred_first_order_inf_decisions=100 * (h * s * (asym['F_old'] - asym['F_new']) + asym['B']) / (h * r_min + asym['beta_C']),
                    tie_mass=dict(c11=c11[2], c10=c10[2], c01=c01[2], c00=c00[2]))
+        row['G_S_ko'] = pct(twins['ko_old'] - twins['ko_new'])
+        row['z_pred_first_order_ko'] = 100 * (h * s * (asym['F_old_ko'] - asym['F_new_ko']) + asym['B_ko']) / (h * r_min + asym['beta_C'])
+        row['dep_static'] = {t: (v if shares['static'] == 0 else 1 - v) for t, v in shares.items()
+                             if t not in ('static', 'const')}
         if disagree and wA.size * wB.size <= DENSE_PAIRS:
             row['disagree_new'] = {t: dense_disagree(wA, uA, dA[k], wB, uB, dB[k], cf) for t, (uA, uB) in
                                    dict(M0=(dhA[k], dhB[k]), hybrid=(dhA[k] + h * s, dhB[k])).items()}
@@ -370,7 +406,7 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
         rows.append(row)
     chains = {name: dict(load=str(ch.load), N=ch.N, r=ch.r, T_int=ch.T_int, var=ch.var, residual=ch.residual)
               for name, ch in dict(A_stay=Ast, A_switch=Asw, B_stay=Bst, B_switch=Bsw).items()}
-    out = dict(namespace='ctmc-v1', parameters=[str(x) for x in (lamA, lamB, u, kappa, c)], a=A, mu=MU, tau=TAU,
+    out = dict(namespace='ctmc-v1', parameters=[str(x) for x in (lamA, lamB, u, kappa, c)], a=A if F(a) == A else float(a), mu=MU, tau=TAU,
                N=dict(A=NA, B=NB), r_stay=r_stay, r_switch=r_switch, s=s, r_min=r_min, s_mm1=s_mm1,
                x=float((lamB - lamA) / u) if u else None, delta=float(lamB - lamA), chains=chains,
                asymptotic=asym, h=rows)
@@ -380,21 +416,22 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
     return out
 
 
-def evaluate_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False):
+def evaluate_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False, a=A):
     """Pre-registration read-outs that never touch the finite-h truth (no V, no true gap): stationary laws, r, s,
     T_int, bias g, and the mean-rollout decisions on old and new state at each h and at h = inf. Used to write
     zero-fit predictions before any truth is computed (L7.1 §4)."""
     lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
     hs = [F(h) for h in hs]
-    if not (min(lamA, lamB) >= A and max(lamA, lamB) + u < MU and F(1, 4) <= u <= 3 and kappa > 0
+    _amplitude(a, allow_zero=False)
+    if not (min(lamA, lamB) >= max(A, F(a)) and max(lamA, lamB) + u < MU and F(1, 4) <= u <= 3 and kappa > 0
             and c >= 0 and (c == 0 or allow_csw)):
         raise ValueError('outside the ctmc-v1 scientific domain')
-    NA, NB = (choose_N(lam + u, kappa) for lam in (lamA, lamB))
-    Ast, Asw = chain(lamA + u, kappa, NA), chain(lamA, kappa, NA)
-    Bst, Bsw = chain(lamB, kappa, NB), chain(lamB + u, kappa, NB)
+    NA, NB = (choose_N(lam + u, kappa, a=a) for lam in (lamA, lamB))
+    Ast, Asw = chain(lamA + u, kappa, NA, a), chain(lamA, kappa, NA, a)
+    Bst, Bsw = chain(lamB, kappa, NB, a), chain(lamB + u, kappa, NB, a)
     hf = [float(h) for h in hs] + [math.inf]
-    dhA = m0_gap(lamA, u, kappa, NA, hf, 'A')
-    dhB = m0_gap(lamB, u, kappa, NB, hf, 'B')
+    dhA = m0_gap(lamA, u, kappa, NA, hf, 'A', a=a)
+    dhB = m0_gap(lamB, u, kappa, NB, hf, 'B', a=a)
     bA, bB = Asw.g - Ast.g, Bsw.g - Bst.g
     postA = posterior_mean(Ast, np.column_stack([dhA.T, bA]))
     postB = posterior_mean(Bst, np.column_stack([dhB.T, bB]))
@@ -416,8 +453,18 @@ def evaluate_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False):
                        / (h * r_min + (Eb if a_inf else 0.0)))
         per_h.append(row)
     inf = per_h[-1]
+    # knockout (true model minus h*s) at h = inf decides by c + b(x): zero fit from g and the posterior only
+    Kn = pair_sum(wA, bA, bA, wB, bB, bB, cf, 1e-12)
+    Ko = pair_sum(pA, postA[:, -1], postA[:, -1], pB, postB[:, -1], postB[:, -1], cf, 1e-12)
+    ko = dict(F_new_ko=Kn[0], F_old_ko=Ko[0], B_ko=Ko[1] - Kn[1], z_inf_ko=100 * s * (Ko[0] - Kn[0]) / r_min,
+              tie_new_ko=Kn[2], tie_old_ko=Ko[2])
+    stat = 1.0 if a_inf else 0.0
+    dep = lambda v: abs(v - stat)
+    ko['dep_inf'] = dict(M0_new=dep(inf['F_new']), M0_old=dep(inf['F_old']), ko_new=dep(Kn[0]), ko_old=dep(Ko[0]))
+    ko['h_ko'] = [dict(h=str(hs[k]), z_pred_first_order_ko=100 * (h * s * (Ko[0] - Kn[0]) + Ko[1] - Kn[1])
+                       / (h * r_min + (Eb if a_inf else 0.0))) for k, h in enumerate(hf[:-1])]
     T = {n: ch.T_int for n, ch in dict(A_stay=Ast, A_switch=Asw, B_stay=Bst, B_switch=Bsw).items()}
-    return dict(namespace='ctmc-v1', kind='M0_and_stationary_only', parameters=[str(x) for x in (lamA, lamB, u, kappa, c)],
+    return dict(**ko, a=A if F(a) == A else float(a), namespace='ctmc-v1', kind='M0_and_stationary_only', parameters=[str(x) for x in (lamA, lamB, u, kappa, c)],
                 N=dict(A=NA, B=NB), r_stay=r_stay, r_switch=r_switch, s=s, r_min=r_min, x=float((lamB - lamA) / u),
                 delta=float(lamB - lamA), T_int=T, T_int_max=max(T.values()), beta_C=Eb if a_inf else 0.0,
                 z_inf=100 * s * (inf['F_old'] - inf['F_new']) / r_min, a_inf_switch=bool(a_inf),
@@ -439,6 +486,8 @@ def joint_old_current(stay, tau=TAU):
     Cached on disk by (load, kappa, N, tau, chunk) so the pre-registration and truth passes share one computation;
     the cache only stores the result, it does not change the arithmetic."""
     key = f'{stay.load}_{stay.kappa}_{stay.N}_{F(tau)}_{D22_CHUNK}'.replace('/', '-')
+    if F(stay.a) != A:
+        key += f'_a{F(stay.a)}'.replace('/', '-')
     path = D22_CACHE / f'{key}.npy'
     if path.exists():
         return np.load(path)
@@ -475,21 +524,22 @@ def _d22_flat(J, keep, v):
     return cond_on_backlog(J, v)[1][keep]
 
 
-def evaluate_d22(lamA, lamB, u, kappa, hs, c=0, allow_csw=False, arrays=False):
+def evaluate_d22(lamA, lamB, u, kappa, hs, c=0, allow_csw=False, arrays=False, a=A):
     """D22 of contract v1.3 in ctmc-v1: a_cb0(Y, Q) = 1[E[Delta_hat(X) | Y, Q] < 0] (fixed M0) and
     a_cb1(Y, Q) = 1[E[Delta(X) | Y, Q] < 0] (true model), Q = both current backlogs, modes inferred from Y and Q.
     F = L00 - Lcb0 and V = Lcb0 - L10 (G_S = F + V); F1 = L01 - Lcb1 and V1 = Lcb1 - L11 (S = F1 + V1)."""
-    out = evaluate(lamA, lamB, u, kappa, hs, c, allow_csw=allow_csw, disagree=False, arrays=True)
+    out = evaluate(lamA, lamB, u, kappa, hs, c, allow_csw=allow_csw, disagree=False, arrays=True, a=a)
     arr = out.pop('_arrays')
     NA, NB = arr['NA'], arr['NB']
     if max(NA, NB) > D22_NMAX:
         raise ValueError(f'D22 range is N <= {D22_NMAX} per path (N = {NA}, {NB})')
     lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
-    Ast, Bst = chain(lamA + u, kappa, NA), chain(lamB, kappa, NB)
+    Ast, Bst = chain(lamA + u, kappa, NA, a), chain(lamB, kappa, NB, a)
     JA, JB = joint_old_current(Ast), joint_old_current(Bst)
     wA, wB = JA.sum(axis=2), JB.sum(axis=2)
     kA, kB = wA > D22_PRUNE, wB > D22_PRUNE
     dropped = float(wA[~kA].sum() + wB[~kB].sum())
+    s_net = out['s']
     checks = dict(marginal_err=float(max(np.abs(JA.sum(axis=0) - Ast.pi.reshape(-1, 2)).max(),
                                           np.abs(JB.sum(axis=0) - Bst.pi.reshape(-1, 2)).max())),
                   dropped_mass=dropped)
@@ -508,6 +558,12 @@ def evaluate_d22(lamA, lamB, u, kappa, hs, c=0, allow_csw=False, arrays=False):
         gA, gB = _d22_flat(JA, kA, arr['dhA'][k]), _d22_flat(JB, kB, arr['dhB'][k])
         cb0 = pair_sum(wa, gA, vA, wb, gB, vB, cf, tol)
         cb1 = pair_sum(wa, vA, vA, wb, vB, vB, cf, tol)
+        hk = float(F(row['h']))
+        kcb = pair_sum(wa, vA - hk * s_net, vA, wb, vB, vB, cf)
+        ycb = pair_sum(wa, gA + hk * s_net, vA, wb, gB, vB, cf)
+        stat = row['shares']['static']
+        row['dep_static_cb'] = {t: (v if stat == 0 else 1 - v) for t, v in
+                                dict(M0_cb=cb0[0], M1_cb=cb1[0], ko_cb=kcb[0], hybrid_cb=ycb[0]).items()}
         G = {cell: row[f'L{cell}'] - scale for cell in ('00', '01', '10', '11')}
         row['d22'] = dict(L_cb0=scale + cb0[1], L_cb1=scale + cb1[1], F=pct(G['00'] - cb0[1]), V=pct(cb0[1] - G['10']),
                           F1=pct(G['01'] - cb1[1]), V1=pct(cb1[1] - G['11']), share_cb0=cb0[0], share_cb1=cb1[0],
@@ -526,21 +582,24 @@ def evaluate_d22(lamA, lamB, u, kappa, hs, c=0, allow_csw=False, arrays=False):
     return out
 
 
-def evaluate_d22_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False):
+def evaluate_d22_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False, a=A):
     """Pre-registration read-outs for D22 without truth: M0 Switch shares on (Y, Q) at each h and h = inf and the
     zero-fit split of z_inf into a backlog part z_F_inf and a mode part z_V_inf."""
-    base = evaluate_m0(lamA, lamB, u, kappa, hs, c=c, allow_csw=allow_csw)
+    base = evaluate_m0(lamA, lamB, u, kappa, hs, c=c, allow_csw=allow_csw, a=a)
     NA, NB = base['N']['A'], base['N']['B']
     if max(NA, NB) > D22_NMAX:
         raise ValueError(f'D22 range is N <= {D22_NMAX} per path (N = {NA}, {NB})')
     lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
-    Ast, Bst = chain(lamA + u, kappa, NA), chain(lamB, kappa, NB)
+    Ast, Bst = chain(lamA + u, kappa, NA, a), chain(lamB, kappa, NB, a)
     JA, JB = joint_old_current(Ast), joint_old_current(Bst)
     wA, wB = JA.sum(axis=2), JB.sum(axis=2)
     kA, kB = wA > D22_PRUNE, wB > D22_PRUNE
     wa, wb = wA[kA], wB[kB]
     hf = [float(F(h)) for h in hs] + [math.inf]
-    dhA, dhB = m0_gap(lamA, u, kappa, NA, hf, 'A'), m0_gap(lamB, u, kappa, NB, hf, 'B')
+    dhA, dhB = m0_gap(lamA, u, kappa, NA, hf, 'A', a=a), m0_gap(lamB, u, kappa, NB, hf, 'B', a=a)
+    Asw, Bsw = chain(lamA, kappa, NA, a), chain(lamB + u, kappa, NB, a)
+    bAf, bBf = _d22_flat(JA, kA, Asw.g - Ast.g), _d22_flat(JB, kB, Bsw.g - Bst.g)
+    Kcb = pair_sum(wa, bAf, bAf, wb, bBf, bBf, float(c), 1e-12)
     one = lambda x: np.ones(x.size)
     for k, row in enumerate(base['h']):
         g = pair_sum(wa, _d22_flat(JA, kA, dhA[k]), one(wa), wb, _d22_flat(JB, kB, dhB[k]), one(wb), float(c), 1e-12)
@@ -548,5 +607,8 @@ def evaluate_d22_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False):
     inf = base['h'][-1]
     base['z_F_inf'] = 100 * base['s'] * (inf['F_old'] - inf['F_cb']) / base['r_min']
     base['z_V_inf'] = 100 * base['s'] * (inf['F_cb'] - inf['F_new']) / base['r_min']
+    stat = 1.0 if base['s'] < 0 else 0.0
+    base['dep_inf'].update(M0_cb=abs(inf['F_cb'] - stat), ko_cb=abs(Kcb[0] - stat))
+    base['F_cb_ko'] = Kcb[0]
     base['kind'] = 'D22_M0_and_stationary_only'
     return base

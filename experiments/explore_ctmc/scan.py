@@ -55,12 +55,14 @@ def case_keys(case):
     return [(lamA, lamB, u, kappa, str(F(h)), c) for h in case['hs']]
 
 
-def check_locks(stage_cases, d22=False):
+def check_locks(stage_cases, d22=False, ko=False):
     need = {'PREDICTIONS_bridge.md', 'check_bridge.py'}
     if any(c.get('long') for c in stage_cases):
         need |= {'PREDICTIONS_asymptote.md', 'check_asymptote.py', 'PREDICTIONS_asymptote_numbers.csv'}
     if d22:
         need |= {'PREDICTIONS_d22.md', 'check_d22.py', 'PREDICTIONS_d22_numbers.csv'}
+    if ko:
+        need |= {'PREDICTIONS_ko.md', 'check_ko.py', 'PREDICTIONS_ko_numbers.csv'}
     if any(c.get('csw') for c in stage_cases):
         need |= {'PREDICTIONS_csw.md', 'check_csw.py', 'PREDICTIONS_csw_numbers.csv'}
     if not LOCKS.exists():
@@ -83,7 +85,20 @@ def run_case(job):
     t = time.process_time()
     lamA, lamB, u, kappa, c = (F(x) for x in case['parameters'])
     try:
-        if mode == 'd22m0':
+        amp = F(case.get('a', 6))
+        if mode == 'zf':
+            out = ctmc.evaluate_m0(lamA, lamB, u, kappa, case['hs'], c=c, a=amp)
+            if case.get('d22', True) and max(out['N'].values()) <= ctmc.D22_NMAX:
+                d = ctmc.evaluate_d22_m0(lamA, lamB, u, kappa, case['hs'], c=c, a=amp)
+                out.update(z_F_inf=d['z_F_inf'], z_V_inf=d['z_V_inf'], F_cb=d['h'][-1]['F_cb'], dep_inf=d['dep_inf'])
+        elif mode == 'ko':
+            if max(ctmc.choose_N(l + u, kappa) for l in (lamA, lamB)) <= ctmc.D22_NMAX:
+                out = ctmc.evaluate_d22(lamA, lamB, u, kappa, case['hs'], c)
+            else:
+                out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=False)
+            for r in out['h']:
+                r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9]
+        elif mode == 'd22m0':
             out = ctmc.evaluate_d22_m0(lamA, lamB, u, kappa, case['hs'], c=c, allow_csw=case.get('csw', False))
         elif mode == 'd22':
             out = ctmc.evaluate_d22(lamA, lamB, u, kappa, case['hs'], c, allow_csw=case.get('csw', False))
@@ -115,7 +130,7 @@ def run_case(job):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('stage')
-    p.add_argument('--mode', choices=('full', 'm0', 'd22', 'd22m0'), default='full')
+    p.add_argument('--mode', choices=('full', 'm0', 'd22', 'd22m0', 'ko', 'zf'), default='full')
     p.add_argument('--workers', type=int, default=os.cpu_count())
     p.add_argument('--shard', nargs=2, type=int, default=[0, 1])
     p.add_argument('--cap', type=int, default=3600)
@@ -127,14 +142,14 @@ def main():
     refused = [c['id'] for c in cases if any(k in bad or k[:5] in ctrl for k in case_keys(c))]
     if refused:
         raise SystemExit(f'{len(refused)} cases refused (sealed/CF/panel/control/probe): {refused[:5]}')
-    if a.mode in ('full', 'd22'):
-        check_locks(cases, d22=a.mode == 'd22')
+    if a.mode in ('full', 'd22', 'ko'):
+        check_locks(cases, d22=a.mode == 'd22', ko=a.mode == 'ko')
     i, n = a.shard
     mine = [c for j, c in enumerate(cases) if j % n == i]
     if a.only:
         keep = set(json.loads(a.only.read_text()))
         mine = [c for c in mine if c['id'] in keep]
-    folder = OUT / dict(m0='m0', full='runs', d22='runs_d22', d22m0='m0_d22')[a.mode] / a.stage
+    folder = OUT / dict(m0='m0', full='runs', d22='runs_d22', d22m0='m0_d22', ko='runs_ko', zf='m0_l72')[a.mode] / a.stage
     folder.mkdir(parents=True, exist_ok=True)
     jobs = [(c, a.mode, folder / f"{c['id']}.json", a.cap) for c in mine]
     todo = [j for j in jobs if not j[2].exists()]
