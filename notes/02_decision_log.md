@@ -3494,3 +3494,82 @@ một allowlist ở experiments/P6_band/window.py. Output:
 results/phase6/window_revision03/candidates.csv và summary.json. Giữ
 failed/blocked/HOLD/STOP artifacts DL130–132. README/exposure/AGENTS cập
 nhật pointers; không thêm lesson/framework hoặc report riêng.
+
+
+### DL-134 — L6.2 Part B: khóa luật đọc trước probe G_S có dấu (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Thực hiện và quyết định theo ủy quyền
+hiện hành. Không bổ sung xác nhận tự đọc/tự viết hoặc Understanding PASS.
+Entry này và PHASE_6.md được commit trước code probe và mọi truth mới.
+PHASE_6.md là bản triển khai từ hai lesson vừa gửi, không giả là bản gốc
+PHASE_6 chưa có. Lịch sử DL-129–133 và Main RQ giữ nguyên.
+
+**Vì sao khóa sớm.** Probe tính truth tại ba base của panel nhưng c khác.
+Ngay cả summary numerics cũng có thể ảnh hưởng lựa chọn thresholds hoặc
+cách kể kết quả, nên khóa luật đọc trước probe. Sau probe chỉ có quyết
+định class/twin bằng thuật toán đã khai; không tự sửa luật hoặc chọn probe
+khác để có kết quả đẹp. Raw giữ kín G_S/z tới L6.4, audit chỉ đọc summary.
+
+**B-D1, luật đọc.** READY chỉ xét G_S: tolerance R1=1/400 ở từng trục,
+width≤1/4000 ở cả ba levels, sign-flip guard ngoài ±1/200. d là max hai
+R1 deltas và main width, không certified bound. Nhãn '+' khi READY và
+z≥1/200+d; '-' khi READY và z≤−1/200−d; còn lại U. G_S được phép âm.
+Verdict chỉ dùng D với N_D cố định sau class filter: H1_SUPPORTED nếu
+ít nhất ceil(4N_D/5) dấu '-' và U≤floor(N_D/10); H0_SUPPORTED tương tự
+cho '+'. U quá cap → INCONCLUSIVE, còn lại MIXED. N=13 cần11 và U≤1;
+N=10 cần8 và U≤1. Không chấm trên subset đã chạy nếu execution incomplete.
+A− phải ra '-'; sai → dừng validity. Twin không '+' không là BUG. Cặp
+can thiệp là twin '+' và D '-'; claim aggregate có chữ 'lật dấu' chỉ khi
+H1_SUPPORTED và số cặp≥ceil(4N_D/5). Mọi claim phải ghi k/N, không biến
+ngưỡng 80% thành kết quả đúng tại mọi điểm. U có thể do deadband dù READY.
+
+Thứ tự tương lai: A−, rồi base ID tăng dần, twin trước D. Không dừng sớm
+vì U: lịch cố định vẫn cho mô tả A2/twin, không chọn lại; CPU cap vẫn áp
+dụng. Dừng vì BUG, execution/resource/budget hoặc A− failure. Không retry,
+resume, refine hoặc P6 v1.1. Được báo mô tả z predicted/truth, signed và
+absolute G_S, S/M/Gamma, sensitivity ε=1%; chỉ hai cặp cùng c B005/B015
+và B027/B040 dùng mô tả h; B004/B014 c khác nhau. Không biến association
+hoặc numerical readiness thành H1 validation/causality/novelty.
+
+**B-D2–4, probe và sealing.** Đúng B027C02, B040C02, B050C02, c=1/16,
+levels640/4,320/4,640/2; engine eta=u/2=3/4. Max postload9.375 cho cả ba.
+H1 và H0a đều '+' theo scan; không phải chứng minh truth cũng '+'. Summary
+không chứa G_S/z, không đọc raw trước L6.4. Ba keys sau tính là computed,
+sealed; không gọi chúng là chưa từng dùng. Class đại diện và c nhỏ khó hơn
+panel chỉ là assumptions; probe không phủ c lớn B050 và không chứng minh
+mọi member trong class READY hoặc sai số chỉ làm giảm power.
+
+**B-D5, quyết định cơ học.** Class không READY loại cả D/twin. Còn <10 D
+hoặc <5 base → STOP_NUMERICS. Estimate=1.5×sum(cpu3_class cho từng member),
+A− dùng class của nó hoặc worst class nếu thiếu. Nếu ≤7200 chạy mọi member
+còn lại; nếu vượt bỏ toàn bộ twin và tính lại; vẫn vượt → HOLD_BUDGET.
+PASS khi mọi class qua, PASS_REDUCED khi có class bị bỏ mà còn đủ D.
+expected_U_hint dùng |z_K640|×0.85 với worst probe d, chỉ heuristic mô tả,
+không điều chỉnh class, tolerance hoặc verdict. Không probe vòng hai.
+
+**B-D6, budget.** Giữ prior upper1750 CPU-s từ DL-133; cộng tests và
+preflight thực đo trước run, không reset failures/external130. Probe cap
+1800 CPU-s, panel7200, tổng Phase6 cap14400. Theo dõi controller và child
+CPU, RLIMIT_CPU trong worker là backstop; giữ partial/error receipts và
+write-once trước call. Một worker/BLAS thread, cache probe riêng và ban
+đầu chưa tồn tại. Chỉ chạy probe một lượt; Part B không PASS thì dừng C.
+
+**Forecast trước probe.** Dự đoán cả ba class READY. Dự đoán d lần lượt
+khoảng0.05/0.10/0.05 pp, main cold CPU khoảng50/90/70 CPU-s và plan
+ALL_MEMBERS. C=1/16 có thể tăng ambiguous action mass; chưa có cơ sở rằng
+đây luôn là worst case. Nếu d>0.4 pp thì B013 có rủi ro U dù predictor
+âm; forecast này không được dùng để đổi threshold sau probe.
+
+**Sửa kỹ thuật trước compute.** Mã mẫu cần validate row identity trước
+khi gán metadata để không che lỗi tham số. Worker phải có parent reservation,
+frozen/native checks trước evaluator; timeout phải kill/reap cả group và
+giữ receipt. Dùng lại helpers Phase5 cho guards/evaluator/BUG/CPU tracking,
+không sửa frozen engine. Cho phép thêm đúng probe.py và run.py độc lập
+vào allowlist certificate cũ trong window.py; không đổi công thức hoặc
+builders. Các artifact Part A′ và source predictor/identity/select giữ byte.
+Trong Part C, Gate phải ràng buộc runner commit, SHA và report, không chỉ
+tìm SHA ở bất kỳ chỗ nào trong log. Đây là fixes integrity trước dữ liệu.
+
+Nhiệm vụ được phép tới Part B và, nếu dependency đạt, C.1–C.5 (một replay
+probe c>0 và hai saved sign anchors). **Không chạy panel L6.3** trong lượt
+này, kể cả Gate GO. Không tự mở các vùng park/sealed hoặc nâng G1.
