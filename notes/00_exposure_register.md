@@ -1293,3 +1293,21 @@ D '-'3,'+'2,U8; verdict INCONCLUSIVE; A− '-'; twin '+'11,'-'0,U2;
 của từng điểm ở lượt này, không diễn giải/fit/đổi G-level. Probe/replay
 raw vẫn sealed tớiL6.4. Không retry/resume/refine; không CF/SUB,R09/R10
 hoặc76 p4 outcomes mới. Source và frozen artifacts giữ byte.
+
+
+## L6.4 — mở dữ liệu lưu để chẩn đoán, 03/11/2026 (DL-137)
+
+User yêu cầu tìm nguyên nhân. Đã đọc z/reasons/contrasts của27 members ở
+summary và81 saved panel rows; mở9 saved probe rows và saved replay trong
+phạm vi Phase6. Không nhận đây là forecast mù hoặc fresh validation.
+Pass đầu cho thấy13 D READY,8 U đều deadband; DL137 ghi rõ kết quả này đã
+được xem trước scope entry. Sau b33a01e2/cf79c6b9, postprocess63 cached
+stationary/profile JSON/NPZ files của main640/4, dựng lại weights/interpolate
+saved surfaces, không evaluator/kernel/profile mới.4loss×27 tái lập;
+84 input hashes/63 cache hashes và82 original data bytes khớp. Derived
+members.csv/summary.json ở results/phase6/analysis_l6_4/; mọi member vẫn
+phải báo, không subset5 để đọc H1/H0. Probe hint0 là heuristic dựa độ lớn
+predictor, không bảo đảm U0; forecast DL135 trượt. Không fit lại, đổi
+epsilon, thresholds, điểm hoặc thêm computation trên plant. G1/primary
+INCONCLUSIVE giữ; prior/GateD/PIVOT chưa làm. Không CF/SUB,R09/R10 hoặc
+76 p4 outcomes mới; các dữ liệu Phase6 đã mở không thể dùng lại như fresh.

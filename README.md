@@ -19,8 +19,19 @@ Raw `d7a298f0` commit/push trước rescore; RESCORE MATCH và verdict tính
 độc lập từ counts khớp. Runner1339.9 CPU-s/cap7200; prior upper2600,
 closeout phase upper4000 CPU-s, không actual tổng. Source/freeze giữ byte.
 [Summary](results/phase6/summary.json) · [DL-136](notes/02_decision_log.md).
-**L6.4 chưa thực hiện; chưa đọc z/lý do U từng điểm, chưa diễn giải hoặc
-đổi G-level. Raw probe/replay vẫn niêm phong. Không retry/resume/refine.**
+**L6.4 đã chẩn đoán trên dữ liệu lưu, DL-137:** 13/13 D READY; cả 8 U là
+deadband, 0 NOT_READY. Hai D '+' là B027C12/B050C19. Replay cache tái lập
+4 losses×27 members, max sai khác 7.11e−15 packet·s; 0 evaluator/profile mới.
+Sai lệch predictor chủ yếu ở việc thay gap theo state bằng stake hằng:
+correction 0.584–3.299 pp; representation M0≤0.000064 pp, normalizer≤0.0557 pp.
+Đây là post-hoc trên cùng frozen profiles, chưa loại shared bias hoặc
+tách riêng A1/A2. INCONCLUSIVE giữ nguyên, không kết luận từ subset 5 điểm.
+Probe/replay đã mở theo yêu cầu chẩn đoán; không retry/resume/refine.
+Gate D/PIVOT/prior check chưa thực hiện; G1 giữ nguyên. Phase upper 4050
+CPU-s là bao bảo thủ, không actual tổng.
+[Bảng27 members](results/phase6/analysis_l6_4/members.csv) ·
+[Audit/hashes](results/phase6/analysis_l6_4/summary.json) ·
+[Analyzer cache-only](tools/analyze_phase6_saved.py).
 
 **Checkpoint L6.2 Part B/C: Gate D-entry GO theo DL-135.**
 Probe9/9 calls,3/3 class READY; d=0.06713/0.11356/0.04162 pp,
@@ -90,7 +101,8 @@ thành phần panel; cả hai thay đổi acceptance đều cần để H-L1 PAS
 là lượng hóa phù hợp một giới hạn được kỳ vọng, chưa phải contribution/novelty.
 **Gate C = NARROW, G1 giữ nguyên (DL-128)**; bàn giao Phase 6 theo ủy quyền,
 realism/D22/Understanding còn mở;
-panel Phase 6 đã chạy một lần, chỉ ghi counts; probe/control vẫn sealed như trên.
+panel Phase 6 đã chạy một lần; dữ liệu panel/probe/control đã mở để chẩn đoán
+L6.4 như trên, không còn là fresh data.
 Không retry/resume/refine Phase 5 hoặc gọi đó là confirmation độc lập.
 
 [Closeout L5.3: evidence, sensitivity, prior và claim](notes/phases/PHASE_5_closeout.md) ·

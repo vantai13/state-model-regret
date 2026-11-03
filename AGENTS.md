@@ -639,3 +639,22 @@ L6.3 COMPLETE chỉ execution/fact. L6.4 chưa đọc z/reasons/prior/claim ho�
 Gate D; không chạy lại panel dù old Gate GO. Probe/replay raw vẫn sealed
 tớiL6.4. G1/D22/realism/ownership/Understanding và CF/SUBpark,R09R10sealed,
 76 p4 outcomes chưa mở giữ nguyên.
+
+
+L6.4 diagnosis / 03-11 (DL-137): user yêu cầu tìm nguyên nhân; đã mở saved
+panel/probe/replay, post-hoc, không blind forecast hoặc author-self. 13/13 D
+READY; 8/8 U đều deadband, 0 NOT_READY. B027C12/B050C19 là hai '+'. Hai twin
+NOT_READY do width là B015C00/B034C00, không phải nguồn 8 U của D. Predictor
+|z| 1.059–2.952%, actual|z|/|pred| mean .262/median .317 (mô tả, không fit).
+Cache-only 4 losses×27 replay max 7.11e−15 packet·s; residual 1.78e−15 pp.
+Weighted-gap correction .584–3.299 pp, M0 representation ≤.000064 pp,
+normalizer ≤.0557 pp; α=h*s+c làm mất weighting/correlation theo state.
+Không tách riêng A1/A2 hoặc chứng minh continuous truth, loại shared bias.
+6 targeted tests PASS, rescore MATCH, 84 input/63 cache hashes và 82 raw+summary
+bytes MATCH. Analyzer tools/analyze_phase6_saved.py; CSV/JSON ở
+results/phase6/analysis_l6_4/. 0 evaluator/profile mới; frozen source giữ byte,
+không rerun/refine/fit/đổi epsilon. Epsilon 1% descriptive vẫn INCONCLUSIVE.
+Nhánh đọc kết quả là REFORMULATE predictor weighting, không cứu bằng subset
+hoặc numerics mới. Chưa Gate D/PIVOT/prior/novelty; G1/ownership/Understanding/
+D22/realism và CF/SUB park, R09/R10 sealed, 76 p4 outcomes chưa mở giữ nguyên.
+Phase upper 4050 CPU-s là bao bảo thủ, không actual cumulative/reset budget.

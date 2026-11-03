@@ -3856,3 +3856,127 @@ thêm analyzer dưới tools/, tests và CSV/JSON chẩn đoán cần để ki�
 không thêm framework, plot, model fit hoặc report riêng. Kết quả và giới
 hạn sẽ ghi tiếp ở entry này và in trực tiếp. Các vùng park/sealed ngoài
 Phase6,76 p4 outcomes,R09/R10 không mở; literature/Gate/PIVOT không tự đổi.
+
+**Kết quả chẩn đoán đã đo, không forecast.** Scope commit b33a01e2 trước
+analyzer/test cf79c6b9. Bài tập đoán mù không được thực hiện trong lượt này;
+không tạo dự đoán hồi tố hoặc xác nhận Understanding. Dữ liệu main640/4:
+
+| D ID | H1 (%Cref_H1) | Saved z (%Cref=L11) | G_S (packet·s) | Nhãn |
+|---|---:|---:|---:|:---:|
+| B004C07 | -1.896784 | +0.295669 | +0.030192465 | U |
+| B005C06 | -2.951999 | -0.154834 | -0.016267002 | U |
+| B010C02 | -1.282058 | -0.698189 | -0.108914787 | - |
+| B013C07 | -1.059109 | -0.077132 | -0.015445089 | U |
+| B014C06 | -1.724516 | -0.547163 | -0.112434805 | - |
+| B015C06 | -2.820699 | -1.297676 | -0.273963899 | - |
+| B019C12 | -1.173359 | +0.237064 | +0.096790009 | U |
+| B020C11 | -1.874887 | -0.075845 | -0.031868918 | U |
+| B027C12 | -2.240068 | +1.002927 | +0.160287027 | + |
+| B034C05 | -1.340746 | -0.430986 | -0.098573303 | U |
+| B039C14 | -1.131612 | +0.361369 | +0.114314417 | U |
+| B040C12 | -2.031259 | +0.021006 | +0.006826140 | U |
+| B050C19 | -1.356922 | +0.625928 | +0.399477127 | + |
+
+Cả13 D READY theo rule đã khóa; **8/8 U là READY_DEADBAND,0 NOT_READY**.
+Max R1 trên hai trục là0.027764525 pp (threshold0.25 pp); max width tại
+cả3 levels là0.002932201 pp (threshold0.025 pp). D main arithmetic_pass
+đều true và validity_errors đều rỗng. Tám U có |z| dưới0.5+d pp; không
+phải tám lỗi đo theo readiness gate. R1/width không chứng minh numerical
+truth liên tục hoặc loại bỏ shared bias. Chênh mẫu số H1/truth được tách
+ở dưới, không so hai cột như thể dùng cùng normalizer.
+
+Hai twin NOT_READY riêng: B015C00 có width640/2=0.051239383 pp;
+B034C00 có widths640/4,320/4,640/2 lần lượt0.026533652,0.030476256,
+0.037476781 pp, đều vượt0.025. Chúng không thuộc13 D và không giải thích
+8 U của verdict chính. Giữ twin '+'11/U2 và intervention_pairs2/13.
+
+**Tách sai lệch predictor trên cùng saved representation.** Đặt alpha=h*s+c;
+F_old,F_new là switch shares. Identity kế toán dùng true conditional gap
+trên các state/observation mà policy chọn Switch, không chỉ số lần Switch:
+
+    G_S = E[Delta_c(X) * (a_old(Y) - a_new(X))].
+    G_H1_native = alpha * (F_old_native - F_new_native).
+
+Old contribution được lấy từ old_d=E[Delta_c(X)|Y]; fresh contribution từ
+saved d trên current state. Dựng weights và interpolate đúng saved surfaces
+main640/4 tái lập4 losses của cả27 members, max abs error7.105427357601002e−15
+packet·s. Tách z_actual−z_pred thành3 phần (các cost differences đều dùng
+actual Cref; phần đổi normalizer tách riêng):
+
+| Phần | Giá trị trên13 D (pp) |
+|---|---:|
+| Weighted gaps thay cho alpha hằng | +0.584156461 đến +3.298753872 |
+| Chênh M0 switch shares giữa numerical representations | max abs0.000063811 |
+| Đổi Cref_H1 sang actual Cref | -0.055694481 đến -0.000287566 |
+
+Residual identity tối đa1.7763568394002505e−15 pp trên27 members. Trong
+phép tách này, phần weighted gap chi phối sai lệch; thay mẫu số đơn thuần
+không giải thích hai dấu '+', còn M0 share representation gần như trùng.
+Đây là attribution số học trên cùng engine, không unique causal proof.
+Không phân riêng đóng góp A1/A2 hoặc bỏ qua dependence giữa gap và action.
+
+Ví dụ B027C12: alpha=9.374635758 packet·s, fresh mean gap=3.047710387;
+F_old=15.754100%,F_new=19.668034%. H1 cho -2.240068%, nhưng old weighted
+Switch contribution là-0.106566621 packet·s và fresh là-0.266853648 packet·s,
+đều tính tương đối với Stay, không phải total loss âm. Hiệu old−fresh là
++0.160287027 packet·s, nên saved z=+1.002927%. Fresh Switch nhiều hơn nhưng
+giảm weighted cost nhiều hơn. Oracle Switch share trên saved current grid
+là9.493055%; stationary stake dương không có nghĩa Stay tối ưu mọi state.
+Trên13 D, oracle Switch share0.495324–10.211431%; A1 dạng uniform Stay
+không khớp chính representation finite-h này. Những số này không xác lập
+xác suất hay theorem trên continuous law. Ví dụ B015 vẫn có G_S âm;
+không suy mọi Switch là có lợi hoặc mọi c có cùng cơ chế.
+
+**Vì sao probe hint0 và forecast trượt.** Cả13 D có |saved z| nhỏ hơn
+|H1 z|; ratio normalized mean0.261978/median0.317285, range0.010341–0.544585.
+Đây là mô tả, không hệ số fit mới. Hint0 dùng |pred|×0.85 so0.5+max probe d,
+ngầm trông đợi effect size gần predictor; không có guarantee cho điều đó.
+Probe tại c1/16 chỉ kiểm numerical readiness ở cost nhỏ. Saved main probe
+z của B027/B040/B050 lần lượt+4.182635/+4.905915/+2.002640%; không bảo đảm
+độ lớn hay dấu ở c*=1.75/1.75/6. Forecast DL135 (10'-',2'+',1U) không khớp
+3'-',2'+',8U. Không sửa forecast hoặc dùng ratio.262 để fit lại H1.
+
+**Mô tả đã khai ở plan§7.** Original summary đã giữ signed/absolute G_S,
+S,M,Gamma cho mọi member; members.csv bổ sung toàn bộ27 predictions/truth,
+3 levels,readiness và decomposition. Trên13 D: median |G_S|=0.098573303
+packet·s; S_pct min/median/max0.021466/0.311643/0.973979; M_pct
+0.816563/1.750432/4.006650; Gamma_pct -0.028949/0.290637/1.341050.
+Đơn vị ba contrasts sau là%Cref, chỉ mô tả, không cấp READY riêng cho
+chúng từ G_S readiness. Epsilon1% descriptive trong original summary vẫn
+INCONCLUSIVE; không thay primary0.5%. Hai matched h pairs, cùng c:
+B005→B015,h8→16,c3/8:z -0.154834(U)→-1.297676('-');
+B027→B040,h8→16,c7/4:z +1.002927('+')→+0.021006(U).
+B004/B014 c khác nhau không được dùng cô lập h. Không fit h-law từ hai cặp.
+
+**Chạy và kiểm.** `env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+MKL_NUM_THREADS=1 .venv/bin/python -B -m tools.analyze_phase6_saved`:
+27/27 saved postprocess OK,0 evaluator calls,0 profiles built. Trong lúc
+chạy, evaluator/population side/pair_loss,profiles.get,law_cache.get,
+NativeLaw constructor và idle/mean_idle/age bị patch để lỗi nếu gọi.
+6 targeted tests PASS(0.59s); analyzer GNU user12.17+system0.50=12.67 CPU-s,
+wall12.83s; targeted command0.72 CPU-s. Đây là chi phí postprocessing,
+không scientific calls mới. `experiments.P6_band.run rescore`: RESCORE MATCH.
+Audit độc lập27 rows:84 input hashes/63 cache JSON+NPZ hashes/analyzer SHA
+khớp;82 raw+summary files vẫn đúng byte commit d7a298f0; deadband và
+decomposition identities khớp. Đọc 9 saved probe rows đều COMPLETED, các scientific fields
+của saved replay khớp main B027C02. Không gọi evaluator cho kiểm tra này.
+Không chạy lại full suite của frozen code
+không thay đổi;752 full PASS là lịch sử Part C. Phase upper tăng bảo thủ
+4000→4050 CPU-s bao analysis/tests/audits; không actual tổng hoặc reset.
+
+**Paths và kết luận.** Analyzer tools/analyze_phase6_saved.py; tests
+tests/test_p6_saved_analysis.py; derived CSV/JSON tại
+results/phase6/analysis_l6_4/{members.csv,summary.json}; raw số đo/contrasts
+và sensitivity giữ nguyên ở results/phase6/{panel/,summary.json}.
+Không tạo report/plot/config/log riêng; đây là biên bản, số đo in trực tiếp
+trong câu trả lời. Frozen source/plan/predictions/history giữ byte.
+
+Đã tìm được nguồn U theo gate và nguồn mismatch lớn trong surrogate:
+effect size nhỏ, weighted conditional gaps khác constant stationary stake.
+Nhánh đọc đã khóa là REFORMULATE; nên sửa cách biểu diễn weighting cho
+thiết kế mới, không tăng K/ref để cứu8 U hoặc đổi epsilon. Chưa triển khai
+predictor mới/compute mới; không đọc5 điểm có nhãn thành SUPPORT H1/H0.
+Primary INCONCLUSIVE/G1 giữ nguyên. Chẩn đoán này hoàn tất phạm vi yêu
+cầu, **không full L6.4/Gate D/PIVOT/prior/novelty closeout**. Shared bias,
+D22/realism/ownership/Understanding và toàn bộ park/sealed ngoài Phase6
+giữ nguyên.
