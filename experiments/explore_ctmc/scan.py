@@ -58,12 +58,12 @@ def case_keys(case):
 def check_locks(stage_cases):
     need = {'PREDICTIONS_bridge.md', 'check_bridge.py'}
     if any(c.get('long') for c in stage_cases):
-        need |= {'PREDICTIONS_asymptote.md', 'check_asymptote.py'}
+        need |= {'PREDICTIONS_asymptote.md', 'check_asymptote.py', 'PREDICTIONS_asymptote_numbers.csv'}
     if not LOCKS.exists():
         raise SystemExit('full mode refused: no locks.json (predictions not locked)')
     locks = json.loads(LOCKS.read_text())['files']
     for name in need:
-        path = OUT / name
+        path = (ROOT / 'experiments/explore_ctmc' / name) if name.endswith('.py') else (OUT / name)
         if name not in locks or hashlib.sha256(path.read_bytes()).hexdigest() != locks[name]:
             raise SystemExit(f'full mode refused: {name} missing from locks or changed since it was locked')
     return locks
