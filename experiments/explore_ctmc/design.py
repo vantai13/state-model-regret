@@ -11,6 +11,7 @@ Only stationary quantities (T_int) are used here; no truth.
 """
 from fractions import Fraction as F
 import json
+import math
 from pathlib import Path
 
 import numpy as np
@@ -93,10 +94,47 @@ def asym():
     return out
 
 
+def est_cpu(NA, NB, kappa, h):
+    """Rough CPU-s for one case, calibrated on the timing probe T3 (30 CPU-s for N = 3298 + 1635, h = 2000, kappa = 2)."""
+    norm = 2 * (9.75 + 6 + 10 + 1 / float(kappa))
+    return 1.5e-6 * (NA + NB) * 2 * float(h) * norm / 52
+
+
+def wide(n=2048, seed=20261104, cap=900.0):
+    """Stage E: scrambled Sobol over (u, free load of A, free load of B, log kappa in [0.02, 5], log h/T_int in
+    [0.03, 30]); loads on the 1/4 lattice, h rounded to 3 significant digits. Cases whose estimated CPU exceeds cap
+    are dropped and counted (the heavy corner: total load near 10 with kappa near 5)."""
+    from scipy.stats import qmc
+    pts = qmc.Sobol(5, scramble=True, seed=seed).random(n)
+    out, dropped = [], 0
+    for j, (pu, pa, pb, pk, ph) in enumerate(pts):
+        u = F(1, 4) * (1 + int(pu * 12))
+        room = F(10) - u - 6                       # max(lamA, lamB) + u < 10 with lam >= 6
+        steps = int(room * 4)
+        if steps < 1:
+            continue
+        lamA = 6 + F(int(pa * steps), 4)
+        lamB = 6 + F(int(pb * steps), 4)
+        kappa = rational(math.exp(math.log(0.02) + pk * (math.log(5) - math.log(0.02))))
+        NA, NB = (ctmc.choose_N(lam + u, kappa) for lam in (lamA, lamB))
+        T = max(ctmc.chain(l, kappa, N).T_int for l, N in ((lamA + u, NA), (lamA, NA), (lamB, NB), (lamB + u, NB)))
+        h = rational(T * math.exp(math.log(0.03) + ph * (math.log(30) - math.log(0.03))))
+        if est_cpu(NA, NB, kappa, h) > cap:
+            dropped += 1
+            continue
+        out.append(case(f'W{j:04d}', lamA, lamB, u, kappa, [h], dict(sobol=j), T))
+    return out, dropped
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    for name, fn in (('bridge', bridge), ('xslice', xslice), ('pslice', pslice), ('asym', asym)):
-        cases = fn()
+    import sys
+    names = sys.argv[1:] or ['bridge', 'xslice', 'pslice', 'asym']
+    for name in names:
+        cases = globals()[name]()
+        if isinstance(cases, tuple):
+            cases, dropped = cases
+            print(name, 'dropped by CPU cap:', dropped)
         (OUT / f'{name}.json').write_text(json.dumps(cases, indent=0) + '\n')
         print(name, len(cases), 'cases,', sum(c['long'] for c in cases), 'long')
 

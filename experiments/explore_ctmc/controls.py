@@ -143,8 +143,8 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     if a.v5:
         r = v5(a.v5[0], a.v5[1:])
-        (OUT / f'v5_{a.v5[0]}_{socket.gethostname()}.json').write_text(json.dumps(r, indent=1, default=float) + '\n')
-        print('V5', 'PASS' if r['PASS'] else 'FAIL', [(c['id'], round(c['max_change_pp'], 6)) for c in r['cases']])
+        (OUT / f"v5_{a.v5[0]}_{'_'.join(a.v5[1:])}_{socket.gethostname()}.json").write_text(json.dumps(r, indent=1, default=float) + '\n')
+        print('V5', 'PASS' if r['PASS'] else 'FAIL', [(c['id'], c['max_change_pp']) for c in r['cases']])
         return
     if a.v7:
         x, y = (json.loads(Path(f).read_text()) for f in a.v7)
