@@ -5,6 +5,22 @@ Doan Van Tai — **AI (Claude) thiết kế, chạy và soạn theo ủy quyền
 không phải confirmation của contract v1.3, không phải claim novelty. Tác giả không ghi dự đoán riêng (mục 9 lesson);
 mọi dự đoán là của AI. Plant khác contract (packet-level, μ = 10, a = 6, τ = 1), giữ P1, S0/S1, D19.
 
+> **Đính chính sau review của mentor (03/11/2026, tối).** Bốn câu dưới đây đã viết quá; số chấm và verdict giữ nguyên,
+> chỉ đổi cách đọc. Kiểm lại bằng dữ liệu thô đã lưu, không chạy lại gì.
+> 1. **AS-R3 (hybrid xóa harm) đổi nhãn thành "gần như toán", không phải bằng chứng nhân quả.** Trên 193 dòng chấm,
+>    hybrid khác Static ở trung vị 0% số state (lớn nhất 1,8%), M0 khác Static ở 37% (q90 49%), truth ở 0,03%.
+>    Hybrid xóa harm vì nó thôi nhìn state; luật nào không nhìn state cũng vậy. Cách đọc đúng: *ở vùng telemetry tươi
+>    gây hại, quyết định đúng gần như không phụ thuộc state; twin mù horizon tự tạo ra phụ thuộc state.* Phép kiểm nhân
+>    quả không tầm thường là knockout KO (L7.2 Phần 1A, [PREDICTIONS_ko.md](PREDICTIONS_ko.md)).
+> 2. **Onset của khai triển bậc một phải đọc theo từng khoảng:** trong 0,1 pp ở 10% dòng khi h/T_int ∈ (1; 2], 50% ở
+>    (2; 4], 100% ở (4; 7], (7; 15], (15; 40]. Câu "từ 3·T_int" là kết quả gộp; đúng ra là "từ khoảng 4–7·T_int".
+> 3. **D22: phần backlog giảm theo κ**, trung vị 0,885 (κ ≤ 0,05), 0,878, 0,769, 0,599 (κ ∈ (1; 5]); ở κ > 5 chỉ có 25
+>    regime và không có dòng harm (zero-fit cho khoảng 0,32). D-R1 phần lớn đã được zero-fit báo trước (z_F,∞ < 0 ở cả
+>    1.982 regime harm); phần rủi ro thật của D22 là D-R3 và D-R4.
+> 4. **P là biến xếp thứ tự tốt nhất nhưng không phải biên sắc nét:** P* = 36 trên bridge (S > M ở 73%) và ≈ 14 ở
+>    Stage E (S > M ở 14%) do thành phần mẫu; ở Stage E các biến cách nhau mỏng (P 95,4%, h·|s|/r_min 93,1%, h/κ 92,8%,
+>    nền 86,2%), và không tách dòng đã nhìn / chưa nhìn.
+
 ## 1. Control (đọc trước)
 
 | Control | Kết quả |
@@ -55,7 +71,7 @@ hẳn đi. Tập bridge trong CTMC gần như toàn horizon ngắn (h/T_int trun
 | AS-R1b | 1 ≤ h/T_int < 3: sai số ≤ 0,1 + 0,1\|z\| ở ≥ 70% | 43,2% | ❌ |
 | AS-R2a | predictor dừng (kiểu H-L2) trong 15% ở ≥ 90% | 83,3% | ❌ |
 | AS-R2b | predictor dừng dự đoán cao hơn truth ở ≥ 80% | 100% | ✅ |
-| AS-R3 | hybrid xóa harm (G_S^hyb ≥ −0,1%) ở ≥ 90% | 193/193 | ✅ |
+| AS-R3 | hybrid xóa harm (G_S^hyb ≥ −0,1%) ở ≥ 90% | 193/193 | ✅ → **gần như toán** (đính chính 1) |
 | AS-R4 | h/T_int là đồng hồ tốt hơn h/κ (Spearman) | −0,92 so với −0,74 | ✅ |
 | AS-R5a | h ≥ 3·T_int: Static thắng M0 tươi ở ≥ 90% regime | 90,9% | ✅ sát ngưỡng |
 | AS-R5b | h = T_int/3: M0 tươi thắng Static ở ≥ 50% regime | 72,7% | ✅ |
@@ -89,6 +105,7 @@ hẳn đi. Tập bridge trong CTMC gần như toàn horizon ngắn (h/T_int trun
 | ≥ 3 | Static ≈ tối ưu (100%); M0 tươi 5–14% | Static ≈ tối ưu ở 71–100% | Static 1,5–5%; M0 tươi 0 |
 
 - **Hybrid** (M0 + h·s): G_S^hyb trung vị 0,0 và ≥ −0,1% ở 100% của hơn 900 dòng có G_S < −0,5%, ở mọi mức h/T_int.
+  Theo đính chính 1, đây là hệ quả của việc hybrid ≈ Static ở dòng harm, không phải bằng chứng nhân quả.
 - **Dấu z so với z_∞** (\|z_∞\| ≥ 0,5): trùng 44% (h/T_int < 0,1) → 58% → 83% → 96% → 100% (≥ 3).
 
 ## 5. Stage F: switching cost c_sw > 0 ([PREDICTIONS_csw.md](PREDICTIONS_csw.md), [score](score_csw.json))
@@ -125,7 +142,8 @@ pslice 78, asym 29, wide 1.753). G_S, S của các tuple này đã thấy; phầ
 
 **Đọc:**
 - **Harm không cần mode oracle.** Ở mọi dòng có G_S < −0,5%, state mới chỉ gồm backlog đã làm M0 tệ hơn; phần
-  backlog chiếm trung vị 82% harm, phần mode 18%. Câu "harm chỉ vì S1 biết mode" bị bác trong ctmc-v1.
+  backlog chiếm 60–89% harm tùy κ (trung vị gộp 82%) và giảm khi burst dài ra; chưa có truth ở κ > 5 hay tải > 9,75
+  (đính chính 3). Câu "harm chỉ vì S1 biết mode" bị bác trong ctmc-v1, trong miền đã chạy.
 - **Với model đúng, mode gần như không thêm gì sau khi đã có backlog hiện tại + backlog cũ:** V1/S trung vị 2,8%,
   lớn nhất 26%.
 - D-R5 trượt chủ yếu ở δ = 0 (85/98 dòng): s = 0 nên Static luôn Stay, còn M0 với backlog gần tối ưu. Bỏ δ = 0 thì đạt
@@ -143,10 +161,11 @@ nhãn toán đều đạt; theo lesson, chúng chỉ chứng tỏ code và lý t
 - **Lớp ở P lớn khớp một phần, P vẫn là biến gom tốt nhất, nhưng ngưỡng dịch theo đồng hồ** (BR-R3: P* = 36 trên
   tập ngắn; Stage E: P* ≈ 14). Cấu trúc định tính không phải artifact của fluid; các ngưỡng định lượng phụ thuộc
   representation. BR-R4b/c trượt vì dải giúp trong CTMC hẹp hơn (đã dự đoán ở BR-R5) và lớp "thay thế" (Γ < 0) hiếm hơn.
-- **Can thiệp hybrid xóa harm** ở mọi dòng có harm (AS-R3, Stage E): trong model này, mù horizon là nguyên nhân của
-  harm từ state tươi với M0. Đây là bằng chứng nhân quả trong model, không phải ngoài đời.
-- **z → z_∞ đúng lúc dự đoán**: khai triển bậc một zero-fit chính xác ≤ 0,1 pp từ h ≈ 3·T_int (AS-R1a, F-R1), sai ở
-  h ≈ T_int (AS-R1b). Đồng hồ của tiệm cận là T_int, không phải κ.
+- ~~Can thiệp hybrid xóa harm ... bằng chứng nhân quả~~ (rút lại, đính chính 1). Đọc đúng: ở vùng harm, quyết định
+  tối ưu gần như không phụ thuộc state, còn M0 phản ứng với state ở khoảng một phần ba số state và mỗi lần trả khoảng
+  h·|s|. Phép kiểm nhân quả là KO (L7.2 Phần 1A).
+- **z → z_∞**: khai triển bậc một zero-fit chính xác ≤ 0,1 pp từ khoảng 4–7·T_int (theo khoảng: 50% ở (2; 4],
+  100% từ (4; 7]; đính chính 2), sai ở h ≈ T_int (AS-R1b). Đồng hồ của tiệm cận là T_int, không phải κ.
 - **Phase 6 nhìn từ CTMC:** ở h/κ = 80–160, nhiều regime CTMC vẫn có h < 3·T_int, tức tiền tiệm cận; và cơ chế D(ii)
   (switching cost làm state tươi gây hại) không xuất hiện trong CTMC (F-R2). CTMC không chứng minh gì cho plant fluid;
   nó chỉ cho thấy dấu của nhánh D phụ thuộc representation (posterior hẹp của fluid so với posterior rộng của Poisson).
@@ -183,3 +202,45 @@ rồi bật lại; firewall phải thêm IP mới vì mạng của tác giả đ
 - **L7.2 (tác giả):** viết thẻ giả thuyết cho biên độ a/μ ≠ 0,6 và mở held-out một lần. Có hai dự đoán đối nghịch cần
   chọn: SUMMARY fluid §5.6 đoán x* gần như không đổi theo a; review đoán x* dịch theo a.
 - Tác giả tự dẫn lại z_∞ và khai triển bậc một (mục 16 lesson).
+
+## 11. L7.2 Phần 1 (03/11/2026, tối; AI theo ủy quyền, exploration)
+
+### A. Knockout KO ở a = 6 ([PREDICTIONS_ko.md](PREDICTIONS_ko.md), [score](score_ko.json))
+
+KO = model đúng bỏ đúng phần dài hạn: gap_KO = Δ − h·s. Hoàn thiện bảng 2×2 bên trong trục model (phần ngắn hạn
+{fluid, đúng} × phần dài hạn {không, có}). Khóa ở `86056ac2` trước truth của KO. Tập: 33 regime asym × 7 horizon
+(G_S của M0 đã thấy) + 201 regime **mới** (`ko_slice`). Dự đoán rủi ro và onset: **9 đạt, 0 trượt**; KO-T1 (toán) đạt.
+
+| | không có phần dài hạn | có h·s |
+|---|---|---|
+| ngắn hạn fluid | M0: G_S trung vị tới −3,9% ở dòng harm; phụ thuộc state 32% | Hybrid: ≈ 0; phụ thuộc state 0% (tầm thường) |
+| ngắn hạn đúng | **KO: G_S ≈ 0 hoặc dương (trung vị +0,02…+0,37); phụ thuộc state 90%** | M1: G_S = S ≥ 0; phụ thuộc state 0% |
+
+- KO-R1: |G_S^KO| < ½|G_S^M0| ở 95,2% dòng harm (n = 252). KO-R2: G_S^KO ≥ −0,25% ở 99,3% dòng (nhỏ nhất −0,36%).
+- KO-R5: KO khác Static ở ≥ 50% state ở 100% dòng h ≥ 4·T_int, nên phép knockout không tầm thường.
+- Onset của KO theo khoảng: 89,6% ở (2; 4], 96,9% ở (4; 7], 100% ở (7; 15] và (15; 40].
+- **Đọc:** mù horizon một mình, khi phần ngắn hạn đúng, không tạo harm từ state tươi. Harm của M0 là **tương tác**
+  giữa mù horizon và xấp xỉ ngắn hạn kiểu fluid (thông tin mới làm cấu trúc drain của M0 lệch có hướng khỏi hành động
+  dài hạn). Đây là kết quả trong ctmc-v1 ở a = 6, không phải ngoài đời. Cơ chế vì sao xấp xỉ fluid lệch có hướng còn mở.
+
+### B. Số zero-fit ở biên độ held-out ([l72/](l72/), không có cột truth)
+
+Code chỉ cho a ∈ {3; 15/2} ở chế độ zero-fit; V, mọi L/G và quyết định truth ở h hữu hạn bị từ chối (PermissionError)
+cho tới khi có `locks_l72.json` chứa hash thẻ của tác giả. Đã kiểm: 0 file truth có a ≠ 6.
+
+| | a = 3 (a/μ = 0,3) | a = 6 (đã chạy) | a = 7,5 (a/μ = 0,75; λ ≥ 7,5) |
+|---|---|---|---|
+| T_int (q10/q50/q90, s) | 6,8 / 41 / 383 | 9,1 / 38 / 369 (asym) | 29 / 339 / 1.718 |
+| N lớn nhất (q50/q90/max) | 614 / 1.842 / 4.511 | | 1.787 / 8.518 / 21.052 |
+| z_∞ < −0,5 / z_∞ > 0,5 (Sobol) | 74% / 8,7% | | 58% / 0,2% |
+| phần backlog z_F,∞/z_∞ (q10/q50/q90, harm) | 0,54 / 0,83 / 0,96 | 0,57 / 0,82 / 0,95 | 0,75 / 0,90 / 0,97 |
+| z_∞^KO/z_∞ (trung vị, harm) | −0,018 | −0,025 | −0,007 |
+| x* (biên trên dải giúp, theo họ (u, λA, κ)) | 0,19–0,29 | 0,15–0,24 (cùng họ với a = 3) | 0,12–0,16 (họ khác) |
+| CPU ước lượng cho truth: asym / Sobol | 0,17 / 0,86 CPU-h | | 1,2 / 20,9 CPU-h (0,53 / 6,6 nếu trần 900 s/case; 1 và 16 case vượt) |
+
+- **x* có dịch theo a, nhưng ít:** cùng họ (u, λA, κ), a = 3 cho x* lớn hơn a = 6 khoảng 0,01–0,05. Không ủng hộ hẳn
+  "x* không đổi theo a" (SUMMARY fluid §5.6) lẫn "x* dịch mạnh".
+- a = 7,5 gần như không có vùng state giúp (0,2%); dải giúp hẹp (x* ≈ 0,12–0,16). Truth ở a = 7,5 đắt ở tải gần 10;
+  đề xuất trần 900 CPU-s/case hoặc load_max ≤ 9,5 nếu tác giả chọn mở biên độ này.
+- Dừng sau B theo prompt; không chạy truth ở a ≠ 6. Thẻ L7.2 Phần 2 do tác giả viết.
+- Chi phí L7.2 Phần 1: truth KO 2.5 CPU-giờ, zero-fit held-out 3.6, zero-fit KO 0.02; tổng khoảng 6.1 CPU-giờ (cộng dồn toàn nhánh khoảng 49 CPU-giờ trên 200).
