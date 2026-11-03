@@ -3980,3 +3980,126 @@ Primary INCONCLUSIVE/G1 giữ nguyên. Chẩn đoán này hoàn tất phạm vi 
 cầu, **không full L6.4/Gate D/PIVOT/prior/novelty closeout**. Shared bias,
 D22/realism/ownership/Understanding và toàn bộ park/sealed ngoài Phase6
 giữ nguyên.
+
+
+### DL-138 — Gate D Phase 6: REFORMULATE, closeout và memo (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Thực hiện hai tài liệu L6.4 được gửi sau
+66131953. Quyết định Gate/memo được soạn theo ủy quyền triển khai hiện có;
+không tác giả tự viết/kín sách/author-attested hoặc human review. Không gán
+Understanding PASS từ lesson hay từ phép toán làm thay. Bản master PHASE_6
+§13/14/18 chưa có; dùng analysis_plan_v2 và lesson được cung cấp, không nhận
+đã kiểm đầy đủ những section master không tồn tại trong checkout.
+
+**Tầng1 — verdict.** INCONCLUSIVE theo plan§3–6:13/13 D READY,8 U deadband,
+0 D NOT_READY,3'-',2'+'. A− '-';81/81 original calls COMPLETED,stop_reason
+null. Twin11'+'/2U,2/13 intervention pairs,wording flag=false. Không đọc
+5 classified points thành SUPPORT. Rescore sau closeout phải tiếp tục MATCH;
+raw/source/plan/predictions không đổi. Đây là kết luận confirmatory của
+phép kiểm đã khóa, không kết luận H1/H0a đúng/sai tổng quát.
+
+**Tầng2 — mô tả đã khai.** Plan§7 hứa prediction/truth comparison, không
+preregister riêng ratio acceptance. |saved z| nhỏ hơn |H1 z| ở13/13 D;
+ratio.010341–.544585,median.317285,mean.261978. Giữ các normalizers khác
+nhau, tách mẫu số ở DL137. ε1% descriptive vẫn INCONCLUSIVE. Hai h pairs:
+B005→B015,c3/8,h8→16:z−.154834(U)→−1.297676('-');
+B027→B040,c7/4,h8→16:z+1.002927('+')→+.021006(U).
+Twin U do width là B015C00/B034C00, không phải8 U của D. Đủ signed/absolute
+G_S,S,M,Gamma ở original summary; không thay readiness của các metric khác.
+
+**Tầng3 — post-hoc và sửa lỗi lesson.** Phép dẫn T10 dùng cùng joint law,
+finite expected costs và E|Δ|<∞:
+
+    G_S = αδF + (EΔ−α)δF + Cov(Δ,a_old−a_new).
+
+Covariance identity không cần A1/A2, nhưng cũng không chứng minh nhân quả.
+Cov=0 không tương đương A1/A2; stationary stake dương không bảo đảm uniform
+Stay hoặc covariance0. Phản ví dụ hai-state trong T10 có S|M1=0 nhưng
+alignment=.5 và G_S=1.5: bỏ claim “alignment chỉ tồn tại khi optimal action
+phụ thuộc state”. h dài không tự làm bias thắng nếu δF_h tiến về0; T09
+không chứng minh uniform integrable transient bound. Chỉ có sufficient
+inequality |G_S−αδF|≤E|Δ−α| và yêu cầu bound nhỏ hơn |αδF| để bảo đảm dấu;
+chưa có bound đó cho plant. Không đổi predictor/thiết kế theo các lập luận này.
+
+Code fce64040 trước direct saved-cache postprocessing, nhưng **không** gọi
+đây là preregistered/blind analysis: lesson và DL137 outcomes đã được đọc.
+`tools/analyze_phase6_covariance.py` sum centered products trực tiếp trên
+27 main640/4 rows, tái dùng SavedCache;0 evaluator/profile mới. Giữ old tool
+và outputs DL137 nguyên byte. Hai quadratures của cùng conditional law có
+mean drift tối đa.001457740 packet·s, nên giữ bridge thay vì gọi mọi residual
+là covariance. Bảng pp dưới dùng chung actual Cref, không frozen Cref_H1:
+
+| Điểm | αδF | Stake correction | Covariance difference trực tiếp | Mean bridge | z |
+|---|---:|---:|---:|---:|---:|
+| B015C06 | -2.822311 | +0.802131 | +0.722758 | -0.000254 | -1.297676 |
+| B027C12 | -2.295826 | +1.549449 | +1.749736 | -0.000432 | +1.002927 |
+
+Covariance difference của13 D là+.380891–+1.749736 pp; max |bridge| D
+.000569258 pp, toàn27 .004342707 pp. Identity residual max6.661338e−16
+packet·s; covariance-plus-bridge residual4.709639e−16 packet·s. r(z,oracle
+Switch mass)=.912319884, chỉ post-hoc trên13 selected points, không p-value,
+boundary.7 hoặc evidence ngoài mẫu. Nhóm stake ratio.72–.84 có3'-'/2U,
+không4/5 “âm rõ”. B015 alignment không gần0; ví dụ hai phần B027 của tài
+liệu dùng α thay EΔ nên residual gộp stake/covariance. Đã sửa trong T10.
+
+Không phát hiện bug/mismatch trong các kiểm đã chạy khác với “loại bug”.
+READY chỉ loại nguồn8U là NOT_READY theo gate, không loại numerical common
+bias. P5_03 L00 width≈7.8167 pp là limitation của case đó, không proof mọi
+long-h region đều không đo được. Không mở numerics branch để cứu panel.
+
+**Prior check.** Đã đọc protocol/catalog/log và3 existing notes R02/M00/
+CEH23 (không primary reread). Kiểm đúng6 nguồn của lesson, không nhận sáu
+snippet của người viết lesson là thao tác đã làm.2 nguồn AI-T: Galanis2015
+accepted§2/§3.1–3.6 và Whitmeyer arxivv6 Eq1/§3.2;4 AI-A: deLara/Gossner,
+Gao,Scherrer/Perrig/Schmid,Eilat/Eliaz. Galanis journal DOI kiểm Crossref;
+Gao là road-traffic technical report, không computer-network nearest prior.
+Hai OA PDFs tải ngoài Git;3 page calls/14 views/13 unique pages, không
+full-read hoặc author levels.5 bounded title/access queries,31 displayed
+title-entry views;6 identities dedup;0 new-source proposals/catalog/Excel
+updates. City/EconPapers có official fallback; dblp corr-page>4MB, VoR chưa
+kiểm; publisher status của hai VOI preprints chưa xác nhận. Không generic
+harm/action-VOI/covariance novelty claim, exhaustive coverage hoặc prior
+clearance. Full paths/version/hash/query/limitations ở L6_4_prior_check và
+search_log. Skill paper-research đã dùng, không liên hệ tác giả nguồn.
+
+**Gate D và PIVOT-watch.** Chọn **REFORMULATE** đúng bảng plan§6 cho
+INCONCLUSIVE; G1 giữ nguyên. Không GO, không chấm H1/H0 từ subset hoặc
+đổi epsilon. Giữ **PIVOT-watch**, chưa PIVOT/DROP: H0a chưa được SUPPORT,
+generic prior không tự giết MainRQ, nhưng mechanism/novelty chưa rõ. Memo
+chọn characterization có accounting framework làm provisional spine; bỏ
+claim “S≈0⇒chỉ còn bias” và automatic asymptotic theory. Không cải predictor
+bằng truth/covariance rồi chấm lại13 điểm. Không chọn representation,
+parameters,split/metric/margin hoặc freeze experiment mới trong lượt này.
+
+**Chạy và kiểm.** Với OMP/OPENBLAS/MKL threads=1:
+
+- `.venv/bin/python -B -m pytest -q tests/test_p6_covariance.py tests/test_p6_saved_analysis.py`:
+  10 PASS,.52s; GNU .60+.19=.79 CPU-s,wall1.03s.4 tests mới kiểm S=0
+  counterexample,conditional-grid bridge,non-dominance khi δF=0 và unit mass.
+- `.venv/bin/python -B -m tools.analyze_phase6_covariance`:27/27 OK,
+  GNU14.65+.50=15.15 CPU-s,wall15.28s. Evaluator/side/pair_loss,
+  profiles.get,law_cache.get,NativeLaw constructor,idle/mean_idle/age bị
+  patch để lỗi nếu gọi;0 new regime evaluation/future-cost profiles.
+- Audit độc lập27 identities/bridge:84 original inputs+3 diagnostic inputs,
+  63 cache hashes và2 analyzer sources khớp;82 raw+summary bytes đúng
+  d7a298f0;DL137 source/outputs,catalog,Excel,plan,predictions đúng66131953.
+- Frozen `experiments.P6_band.run rescore` kiểm lại sau commit closeout;
+  không gọi run/preflight-gate để mở panel lần hai. Không full suite mới;
+  752 full PASS là lịch sử Part C, không số kiểm của nhiệm vụ này.
+
+Phase compute upper tăng bảo thủ4050→4200 CPU-s bao local analysis/tests/
+audits; không actual cumulative và không reset cap14400. Literature network
+latency không được giả thành measured experiment CPU. Không test/compute
+mới để cứu8 U hoặc thay hypothesis/threshold.
+
+**Paths/điểm dừng.** T10 notes/theory/T10_information_value_accounting.md;
+closeout notes/phases/PHASE_6_closeout.md; memo
+notes/phases/contribution_memo_after_P6.md; prior check
+notes/literature/L6_4_prior_check.md và search_log.md. Source/tests như trên;
+CSV/JSON results/phase6/closeout_l6_4/{covariance.csv,summary.json}.
+README/AGENTS/exposure cập nhật. Không report/plot/console log/config mới;
+không PDF trong Git. **Technical L6.4 closeout COMPLETE**, Understanding/
+ownership/author-self vẫn OPEN. MainRQ/contract/frozen engine/Phase5/raw
+giữ nguyên;D22/realism,CF/SUBpark,R09/R10sealed,76 p4 outcomes chưa mở giữ.
+Dừng sau memo, không thiết kế hoặc chạy Phase7. Không thêm human prerequisite
+để chặn phần kỹ thuật đã được ủy quyền thực hiện.

@@ -12,6 +12,22 @@ Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, t
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
+**Phase 6 closeout L6.4: Gate D = REFORMULATE; G1 giữ nguyên, PIVOT-watch tiếp tục.**
+Verdict INCONCLUSIVE giữ nguyên:13 D READY,8 U deadband. Đã tính covariance
+trực tiếp trên saved surfaces của27 members,0 evaluator/profile mới;
+identity residual≤6.67e−16 packet·s và conditional-grid mean bridge được giữ.
+Không nhận S≈0⇒alignment≈0 hoặc h dài tự làm H1 thắng.10 targeted tests PASS;
+six-source prior check có2 AI-T/4 AI-A, không novelty/prior-clearance claim.
+Phase compute upper4200 CPU-s là bao bảo thủ, không actual tổng. Memo đã
+soạn theo ủy quyền; Understanding/author-self OPEN. Dừng ở memo, chưa thiết
+kế/chạy Phase7. Source/plan/predictions/old data/catalog giữ byte.
+[Closeout](notes/phases/PHASE_6_closeout.md) ·
+[Memo đóng góp](notes/phases/contribution_memo_after_P6.md) ·
+[Phép dẫn và đính chính](notes/theory/T10_information_value_accounting.md) ·
+[Prior check](notes/literature/L6_4_prior_check.md) ·
+[Direct covariance CSV](results/phase6/closeout_l6_4/covariance.csv) ·
+[DL-138](notes/02_decision_log.md).
+
 **L6.3 đã chạy đúng một lần: execution COMPLETE, verdict INCONCLUSIVE (fact).**
 81/81 calls,27/27 members; stop_reason=null. D13: '-'3,'+'2,U8;
 A− '-'; twin '+'11,'-'0,U2;2/13 intervention pairs, wording flag=false.
@@ -27,8 +43,8 @@ correction 0.584–3.299 pp; representation M0≤0.000064 pp, normalizer≤0.055
 Đây là post-hoc trên cùng frozen profiles, chưa loại shared bias hoặc
 tách riêng A1/A2. INCONCLUSIVE giữ nguyên, không kết luận từ subset 5 điểm.
 Probe/replay đã mở theo yêu cầu chẩn đoán; không retry/resume/refine.
-Gate D/PIVOT/prior check chưa thực hiện; G1 giữ nguyên. Phase upper 4050
-CPU-s là bao bảo thủ, không actual tổng.
+Tại checkpoint DL137 chưa Gate D/prior; closeout hiện hành ở DL138 phía trên.
+Phase upper lúc đó4050 CPU-s là bao bảo thủ, không actual tổng.
 [Bảng27 members](results/phase6/analysis_l6_4/members.csv) ·
 [Audit/hashes](results/phase6/analysis_l6_4/summary.json) ·
 [Analyzer cache-only](tools/analyze_phase6_saved.py).

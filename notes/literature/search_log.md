@@ -613,3 +613,50 @@ Veatch ưu tiên nếu cần kiểm trướcclaimGateD, Bozkurt chưa cần vìC
 đềxuất#3chưađịnhdanh khôngnhậnlàpaper. Dừngboundedmetadataround; priorcheck
 hiện tại không xácnhậnnội dung switchingcost củaVeatch hoặcabsenceofprior.
 Không hỏi author-reading/attestation để thay tácgiả;không thêm bài đọc bắtbuộc.
+
+
+## L6.4 — prior check theo sáu nguồn được cung cấp (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**; skill paper-research. MainRQ/PC3/PC4/PC6:
+information harm với approximate controller và phép tách decision value theo
+action/stake có prior nào trong đúng sáu nguồn của lesson? Câu chặn: nếu
+prior đã có harm hoặc action-based VOI thì không nhận các ý tổng quát đó
+là contribution; không tự đổi PC/G-level. Kiểm catalog/log/notes R02/M00/
+CEH23 và T09 trước; sáu URL mới chưa có trong catalog/log, không có PDF
+local tương ứng với hai nguồn yêu cầu đọc. Đây là lookup, không khảo sát
+lĩnh vực. Nguồn road-traffic không được gọi là computer-network routing.
+Ngân sách: sáu exact sources, bounded follow-ups để kiểm version/access;
+đọc targeted Galanis và Making Information More Valuable theo yêu cầu
+trực tiếp, không cần duyệt lại. Bốn nguồn khác metadata/abstract trước;
+không đề xuất nguồn thứ bảy, không mở keyword/backward/forward. Dừng khi
+đã kiểm sáu identities và hai targeted reads, hoặc access bị chặn sau một
+fallback hữu ích. Không cập nhật Excel/catalog/author levels. Kết quả thật,
+số đếm, lỗi và mức đọc ghi tiếp sau thao tác; không chép “6 snippets đã
+đọc” từ lesson thành lịch sử phiên này. Sáu web opens đầu đã thực hiện khi
+ghi entry: City timeout, EconPapers inaccessible; bốn landing pages đọc được.
+
+**Kết quả thao tác thực tế (không nhập số đếm từ lesson):**
+
+| Loại | Query/seed, công cụ và bộ lọc | Đã xem/sàng | Giữ/giới hạn |
+|---|---|---:|---|
+| lookup URL | web.open City21336; arxiv2210.04418/1908.01633/2005.05191; ROSAPdot34297; EconPapersDP20906, không năm/ranking filter |6 opens:4 official metadata/abstracts,2 access failures |4 identities đọc được;2 chờ fallback, không coi là negative result |
+| lookup title/access | web.search `Galanis 2015 value information unawareness 21336 city journal economic theory` (City/ScienceDirect/doi.org); `"Making Information More Valuable" Whitmeyer published` (arxiv/ScienceDirect/Wiley/markwhitmeyer); `"20906" Eilat Eliaz information` (CEPR/EconPapers) |17 displayed title entries trên3queries, không có per-query rank ledger |Galanis/MIV/CEPR là3 named identities, aliases/duplicate versions không đếm nguồn mới; related Galanis/khác title không đi tiếp |
+| lookup DOI | paper-search/get_crossref_paper_by_doi `10.1016/j.jet.2015.01.015` |1 metadata record |JET157:384–396,May2015; không dùng citation count làm evidence |
+| lookup fallback/primary | web.open arxiv HTML2210.04418v6,CEPRdp20906,Citycanonical/eprint21336;3 web.find `3.2`,`extensive`,`Intensive` trên cùng MIV;1 web.open lines248 |4 successful opens và3 find segments |Cùng3 identities, không7papers; xác nhận v6/§3.2 và hai fallback đọc được |
+| OA download được yêu cầu | paper-pilot/inspect_open_access_pdf CityacceptedPDF và arxiv2210.04418v6 |2 PDFs,13/48 pages |2 nguồn AI-T, PDFs ngoài Git; không nâng author reading |
+| targeted primary read | paper-pilot/get_pdf_page_text Galanis[4–9],MIV[6–9,14–16],Galanis[9] đọc lại |3 calls,14 page views/13 unique pages |Galanis§2/3.1–3.6,MIV Eq1/Def2.1–2.2/§3.2; không full-read/proof audit/figure reading |
+| publication access | web.click arxiv2005.05191→dblp corr-page |1 access failure,0 page read |response>4MB; SIROCCO2020 chỉ identity theo arxiv comments, VoR chưa kiểm |
+| lookup publication status | web.search `"Making Information More Valuable" Whitmeyer journal` (ScienceDirect/Wiley/markwhitmeyer/arxiv); `"Payoffs-Beliefs Duality and the Value of Information" journal` (ScienceDirect/Springer/arxiv/HAL) |14 displayed title entries trên2queries |2 đúng title là arxiv records đã có,12 lệch title không đọc tiếp; không tìm được VoR trong lượt này, không suy chưa xuất bản |
+
+Tổng5 title/access queries (đều lookup, không keyword discovery),31 displayed
+title-entry views, không31unique/abstract reads;10 web opens (8 được/2 lỗi),
+3find và1click lỗi. Sáu named works dedup,2 AI-T/4 AI-A. Một Crossref metadata
+lookup;2 OA downloads/3 PDF page calls như bảng. Đọc lại3 existing notes
+R02/M00/CEH23, không primary reread hoặc nâng AI level của chúng.
+3 access limitations: CityshortURL timeout,EconPapers inaccessible,dblp>4MB;
+hai lỗi đầu có official fallback. pypdf local thiếu, pdftotext có sẵn dùng
+định vị section, không cài dependency. Không gọi Scholar/forward/backward/
+author-venue/discovery;0 nguồn tự đề xuất ngoài6,0 catalog/Excel/author-level
+updates. PDF/page/sha/source claims và E/M/R ở [prior check](L6_4_prior_check.md).
+Gao là road traffic, không làm computer-network prior. Dừng đủ bounded
+sources/targeted reads; không2×20,saturation,coverage,novelty hoặcprior clearance.

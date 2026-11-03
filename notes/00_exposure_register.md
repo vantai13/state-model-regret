@@ -1311,3 +1311,19 @@ predictor, không bảo đảm U0; forecast DL135 trượt. Không fit lại, đ
 epsilon, thresholds, điểm hoặc thêm computation trên plant. G1/primary
 INCONCLUSIVE giữ; prior/GateD/PIVOT chưa làm. Không CF/SUB,R09/R10 hoặc
 76 p4 outcomes mới; các dữ liệu Phase6 đã mở không thể dùng lại như fresh.
+
+
+## L6.4 closeout — direct covariance và prior, 03/11/2026 (DL-138)
+
+Tiếp tục trên dữ liệu đã mở ở DL137. fce64040 direct centered moments dùng
+27 main640/4 saved surfaces; không regime call/profile mới hoặc đổi81 raw
+rows. r=.912319884 và stake-ratio groups là post-hoc theo tài liệu đã đọc,
+không forecast riêng,blind analysis hoặc hypothesis đã freeze. Conditional
+mean bridge được giữ, không giấu trong covariance. T10 counterexamples là
+finite decision toys để kiểm logic, không routing outcomes mới. Không fit
+ratio/proxy, chọn coordinates, đổi representation/metric/threshold hoặc
+mở Phase7. Gate D REFORMULATE/G1, chưa novelty/causal identification.
+Prior lookup6 named works của lesson,2 targeted PDFs/4abstract-only,3notes
+cũ đọc lại; không author reading/selfwriting attestation hoặc Excel/catalog
+update. Memo soạn theoủyquyền,Understanding OPEN. CF/SUB/R09/R10/76 p4
+outcomes không mở; các Phase6 keys/statistics vẫn là exposed.

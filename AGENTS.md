@@ -658,3 +658,26 @@ Nhánh đọc kết quả là REFORMULATE predictor weighting, không cứu bằ
 hoặc numerics mới. Chưa Gate D/PIVOT/prior/novelty; G1/ownership/Understanding/
 D22/realism và CF/SUB park, R09/R10 sealed, 76 p4 outcomes chưa mở giữ nguyên.
 Phase upper 4050 CPU-s là bao bảo thủ, không actual cumulative/reset budget.
+
+
+L6.4 closeout / 03-11 (DL-138): thực hiện hai tài liệu lesson theo ủy quyền,
+Gate D REFORMULATE/G1/PIVOT-watch giữ; không H1/H0 SUPPORT hoặc PIVOT.
+Three evidence tiers tách riêng;13/13 D READY,8 deadband giữ nguyên. Direct
+covariance code fce64040,27 saved rows,0 evaluator/profile mới;10 targeted
+tests PASS(.52s),15.15 CPU-s postprocessing. Identity residual6.67e−16
+packet·s; mean bridge max D.000569258pp/toàn27 .004342707pp giữ rõ, không
+gọi residual là direct covariance. Pearson.912319884 chỉ post-hoc,không
+cutoff.7. T10 sửa S=0⇒Cov0 (sai) và automatic h-dominance; nhóm stake ratio
+cao có3'-'/2U, không4/5 âm rõ; không nhận A1/A2⇔Cov0. Không loại mọi bug/
+numerical bias từ READY/replay. Sáu named prior works:2 AI-T/4 AI-A,2 OA
+PDFs ngoàiGit,5lookup queries/31displayed title-entry views; Gao roadtraffic,
+không nearest computer-network prior.0newproposals/catalog/Excel/author
+levels. Search log/prior check giữ failures/versions/reading scope,không
+fullread/coverage/novelty. Technical closeout COMPLETE;memo characterization
+spine provisional,theoủyquyền;Understanding/ownership/selfwriting OPEN.
+MainRQ/contract/frozenplan/source/predictions/raw/DL137/catalog giữ byte.
+Results results/phase6/closeout_l6_4/; closeout/memo ở notes/phases/,T10 ở
+notes/theory/,priorcheck ở notes/literature/. Phase upper4200 không actual
+cumulative/reset. Master PHASE6§13/14/18 chưa có, không nhận fullplan apply.
+Dừng ở memo;không proxy fit/representation/metric/panel/Phase7design/run,
+P6v1.1/refine. D22/realism/CF/SUBpark/R09R10sealed/76p4outcomes giữ.
