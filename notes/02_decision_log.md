@@ -3657,3 +3657,97 @@ experiments.P6_band.run anchor. Match identity và10 scientific fields của
 V1.FIELDS, bỏ timing/resources khỏi so byte; không claim timing phải bằng
 nhau. Hai saved sign anchors được label bằng cùng luật. Commit report/raw
 trước đọc report; FAIL thì dừng, không sửa sau control để cứu Gate.
+
+
+### DL-135 — Gate D-entry Phase 6: GO trước L6.3 (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Chốt kỹ thuật theo ủy quyền hiện hành;
+không bổ sung xác nhận tác giả tự viết/tự đọc hoặc Understanding PASS.
+Gate này xác nhận pipeline/freeze, không xác nhận H1; G1 giữ nguyên.
+
+**Đóng băng.** Runner tại commit e3b0fa92be1d8bf412fe3a1c53fe4008d1643bbe.
+Predictions27 members,13 D,13 twin,A−; thứ tự A− rồi twin/D theo base ID.
+Predictions SHA256:
+`b61efc7df3743ab027ccf5093070e123cc7e25e90173895db1a586268859353b`.
+Analysis plan v2 SHA256:
+`fedc00ae95ac2d795dc83949e6fbb8d2d6654fcc7de7ae1b12e7b3e1dc56112b`.
+Code, helpers, tests, plan, predictions, probe summary và control report
+được ràng buộc bằng SHA trong machine record bên dưới, không chỉ bằng
+việc một SHA có xuất hiện đâu đó trong văn bản. Không sửa freeze sau Gate.
+
+**Positive control.** Đúng một replay P6B_B027C02 tại640/4,c=1/16;
+report PASS, field_mismatch=[], replay_bugs=[]. So10 scientific fields
+và identity/parameters/CF flag, không yêu cầu runtime/resources bằng nhau.
+P43_0021 → '-', P43_0018 → '+'. Raw/report commit094ff321 trước đọc report.
+Không in G_S/z của probe/replay; raw tiếp tục sealed tớiL6.4.
+Runner đo replay51.858484 CPU-s; GNU time toàn command53.69 CPU-s,
+wall50.35 s; các con số không phải total Phase6 actual. Không retry.
+
+**Luật đọc và stop.** Như DL-134 và analysis_plan_v2 §3–6: signed G_S
+READY không có negative gate; primary epsilon0.5%, R1/width1/400 và1/4000,
+nhãn theo z±d. Cần11/13 dấu cùng phía và U≤1; U≥2 INCONCLUSIVE.
+Twin không vào verdict, chữ 'lật dấu' aggregate cần H1_SUPPORTED và11 cặp.
+A− không '-' thì dừng validity. Không dừng sớm vì U: lịch mô tả vẫn cố
+định, không chọn lại; vẫn dừng BUG/execution/resource/budget/A− failure.
+Không retry, resume, refine hoặc P6 v1.1. INCONCLUSIVE có thể do numerics
+hoặc deadband; không tự chuyển thành kết luận H1/H0 từ subset thuận lợi.
+
+**Gián đoạn.** Mất điện/process kill: giữ mọi raw/partial, không resume
+hoặc chạy lại. Ghi EXECUTION_INTERRUPTED; verdict INCOMPLETE. Write-once
+reserve trước call và worker cần parent FD. Rescore đi lại raw schedule,
+kiểm identity/BUG/stops/calls/labels, không gọi evaluator.
+
+**Budget.** Trước anchor dùng upper2520 CPU-s; command anchor53.69,
+cộng reserve cho guard/audit/freeze/ghi kết quả, chốt **prior upper2600
+CPU-s** trước L6.3. Không reset các charges từ DL-129–134, kể cả failed
+attempts và external-reported130 CPU-s. Panel cap7200, mỗi call≤1800 CPU-s
+và3600 wall; Phase6 cap14400. Prior2600+panel7200=9800≤14400. Đây là
+upper bảo thủ, không actual cumulative. CLI phải dùng đúng prior đã ghi,
+không được giảm spent để làm mới budget. Probe estimate5864.27 CPU-s là
+ước tính có hệ số1.5, không guarantee hoặc cho phép vượt cap.
+
+**Forecast giữ nguyên trước panel.** MIXED:10 '-',2 '+',1 U; D rủi ro
+U là B013/B039/B019; twin B020/B050 rủi ro không '+'. Descriptive mean
+|truth/prediction| dự kiến khoảng0.85; nếu H0_SUPPORTED kiểm A1 ở state
+đuôi trước rồi A2. Đây là dự đoán theo ủy quyền, không fitted calibration.
+Chưa có panel truth để chấm forecasts này.
+
+**Kiểm đã thực thi.** Part B18 targeted/728 full PASS; Part C24 targeted/
+752 full PASS;4/4 local mutants KILLED. Freeze audit27 unique physical
+keys/order/roles/eta/disjoint PASS; report audit PASS, raw chỉ hash.
+Không thêm logfile/report riêng ngoài các artifacts lesson yêu cầu.
+
+**Lệnh duy nhất dành cho lesson L6.3 sau yêu cầu tiếp theo:**
+`env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -B -m experiments.P6_band.run run --spent-cpu-seconds 2600`
+Lệnh này **chưa chạy**. Gate GO không tự kích hoạt panel trong nhiệm vụ
+Part B/C. Panel output/cache chưa tồn tại; chưa có summary L6.3.
+CF/SUB park,R09/R10 sealed,76 outcomes p4 chưa mở,D22 deferred,realism/
+ownership/Understanding và G1 giữ nguyên. Không claim H1_SUPPORTED,
+mechanism, novelty hoặc independent validation từ Gate này.
+
+<!-- P6_GATE_D_ENTRY
+{
+  "status": "GO",
+  "policy": "STRICT_NO_RETRY",
+  "runner_commit": "e3b0fa92be1d8bf412fe3a1c53fe4008d1643bbe",
+  "N_members": 27,
+  "N_D": 13,
+  "panel_budget": 7200,
+  "phase_cap": 14400,
+  "call_cpu_cap": 1800,
+  "call_wall_cap": 3600,
+  "prior_phase_CPU_upper": 2600,
+  "files": {
+    "experiments/P6_band/probe.py": "3a80d7bd1467cc050faebeff923c44c8fd94edf2447aeba9e530104e5c312e85",
+    "experiments/P6_band/run.py": "62a533e56b6dee173fb61784d6c9529b2c1fdccbfec6343e26a290a8a08a8cc9",
+    "experiments/P6_band/window.py": "fc2036350f1bc401c093fa08400a86548128fcfb93def2a64b51727e2da2620d",
+    "notes/design/analysis_plan_v2.md": "fedc00ae95ac2d795dc83949e6fbb8d2d6654fcc7de7ae1b12e7b3e1dc56112b",
+    "notes/phases/PHASE_6.md": "d0a67b65495e696ba8042d17213873eb78e58cc55efabebf57f03368209b6296",
+    "results/phase6/gate_anchor/report.json": "082c14ed4b5f052463c8c3da668ec9768c79602e3aba2bd587341eda63d979ca",
+    "results/phase6/predictions.jsonl": "b61efc7df3743ab027ccf5093070e123cc7e25e90173895db1a586268859353b",
+    "results/phase6/probe/summary.json": "8ef543c116b5eabb59c673cd1275919bbae088ca46894d9113d1eb47d50c334b",
+    "tests/test_p6_probe.py": "d41d8de776ac0f5e9636314c9e3c4bd5c23929659df1e83856bb2ddcc61ff9be",
+    "tests/test_p6_run.py": "1d46b7c616bb4aaf465dbae47cdd9d4d6a8af8f522cae9cfcebcd5c324cd5696"
+  }
+}
+-->

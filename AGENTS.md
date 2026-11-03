@@ -599,3 +599,26 @@ HOLD đóng nhánh, không retune. PASS chỉ readiness, chưa PartB/C/L6.3 ho�
 Gate D-entry GO. B050 ở mép c6, B004/B014 c khác nhau nên không matched h
 comparison. G1/GateC=NARROW, ownership/Understanding OPEN, D22/realism,
 CF/SUB park/R09R10 sealed/76 outcomes chưa mở giữ nguyên. Không tự chạy truth.
+
+
+L6.2 Part B/C, 03-11 (DL-134–135): Part B PASS,9/9 calls,3 READY,
+ALL_MEMBERS27 (13D/13twin/A−), d0.06713178/0.11355604/0.04161525 pp;
+estimate5864.27 CPU-s<7200. Decision9f86813e trước codecc4f0c30,
+rawdc460fdb trước đọc summary. Probe raw computed/sealed tớiL6.4;
+audit chỉ summary hoặc hash bytes, không mở G_S/z. PHASE_6.md là bản
+triển khai từ lessons B/C, không bản gốc đầy đủ chưa được cung cấp.
+Part C freeze e3b0fa92,24 targeted/752 full PASS,4/4 local mutants KILLED.
+Một control replay P6B_B027C02,c1/16,640/4 PASS,0 field mismatch/BUG;
+saved anchors P43_0021 '-',P43_0018 '+'. Raw/report094ff321 trước đọc.
+DL-135 Gate D-entry GO; predictions.jsonl và analysis_plan_v2.md SHA cùng
+runner/helpers/tests/report hash được khóa trong machine record ở DL.
+Không sửa frozen source/plan/predictions; không có v1.1/retry/resume.
+L6.3 chưa chạy, panel output/cache chưa có. Chỉ khi user yêu cầu mới chạy
+run --spent-cpu-seconds 2600; prior upper2600 CPU-s là bao bảo thủ, không
+actual, không reset. Panel cap7200,Phase6cap14400,call1800CPU/3600wall.
+Signed G_S READY không có nonnegative gate; 11/13 dấu cùng phía,U≤1,
+twin không vào verdict; aggregate 'lật dấu' cần H1_SUPPORTED và11 cặp.
+A− phải '-', U nhiều không early stop; BUG/resource/execution/budget
+thì dừng. Gián đoạn INCOMPLETE, không resume hoặc chấm subset cứu verdict.
+Rescore đi lại raw schedule, không evaluator. G1/realism/D22/ownership/
+Understanding giữ nguyên; CF/SUB park,R09/R10 sealed,76 outcomes p4 chưa mở.

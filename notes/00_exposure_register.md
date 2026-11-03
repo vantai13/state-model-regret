@@ -1268,3 +1268,15 @@ hoặc in vào phiên. Chỉ đọc numerics summary:3READY,ALL_MEMBERS,27member
 estimate5864.27 CPU-s. Audit raw chỉ bằng SHA bytes. Luật nhãn/verdict/
 twin/A−/stop đã khóa trước probe; class/twin quyết cơ học, không retune.
 Không panel calls, CF/SUB,R09/R10 hoặc76 outcomes mới.
+
+
+## L6.2 Part C — freeze và positive control, 03/11/2026 (DL-135)
+
+Freeze27 parameter-only members tại e3b0fa92, theo quyết định ALL_MEMBERS
+của summary probe; không chọn lại sau truth. Một replay P6B_B027C02,c=1/16,
+640/4 qua runner mới, cùng physical key đã computed ở Part B. Machine so
+identity và scientific fields, không in G_S/z. Hai saved anchors P43_0021
+và P43_0018 kiểm nhãn đã lộ. Control PASS, raw094ff321 trước đọc report;
+probe/replay raw vẫn sealed tớiL6.4. Audit raw chỉ SHA, không parse outcomes.
+Gate D-entry GO chỉ mở khả năng chạy lesson sau; L6.3 panel/cache chưa có,
+0 panel calls. Không CF/SUB,R09/R10 hoặc76 p4 outcomes mới; G1 giữ nguyên.

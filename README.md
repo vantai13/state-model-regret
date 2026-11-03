@@ -12,14 +12,30 @@ Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, t
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**L6.2 Part A′: PASS readiness của cửa sổ D(ii), DL-133.**
+**L6.2 Part B/C hoàn tất: Gate D-entry GO theo DL-135; L6.3 chưa chạy.**
+Probe9/9 calls,3/3 class READY; d=0.06713/0.11356/0.04162 pp,
+ALL_MEMBERS27, estimate5864.27 CPU-s dưới cap7200. Raw probe/replay
+giữ kín G_S/z tớiL6.4. Positive control PASS: replay c=1/16 không field
+mismatch, hai saved anchors trái dấu được label đúng. Full752 tests PASS;
+4/4 local mutants KILLED. Runner e3b0fa92, control raw094ff321.
+Predictions và analysis plan v2 đã freeze; prior upper Phase6=2600 CPU-s,
+không actual tổng. Chỉ chạy L6.3 khi có yêu cầu mới; không retry/resume.
+[Probe summary](results/phase6/probe/summary.json) ·
+[Predictions](results/phase6/predictions.jsonl) ·
+[Plan v2](notes/design/analysis_plan_v2.md) ·
+[Control report](results/phase6/gate_anchor/report.json) ·
+[Runner](experiments/P6_band/run.py) · [DL-134/135](notes/02_decision_log.md).
+G1 và các giới hạn về A1/A2/realism/ownership giữ nguyên; Gate là
+verification của pipeline, không validation của H1.
+
+**Checkpoint Part A′: PASS readiness của cửa sổ D(ii), DL-133.**
 Một lượt tại `cc3b2623`; raw `832c70ac` trước diễn giải. Identity 14/14,
 D(ii) 13/13 base, twin 13/13, A− 1/1 qua. Chọn một c/base theo đỉnh
 |z_K320|, không thay điểm sau K640; |z_K640|=1.0591–2.9520%Cref_H1.
 Full 709 PASS trước sửa allowlist; targeted sau sửa 52 PASS. Runner 390.83
 CPU-s; closeout upper cộng dồn 1750 CPU-s, không phải actual tổng đo.
 Đây là adaptive predictor design trước truth, chưa xác nhận A1/A2/H1.
-**Part B/C/L6.3 chưa chạy; Gate D-entry chưa GO; G1 giữ nguyên.**
+Tại checkpoint DL-133, Part B/C/L6.3 chưa chạy; trạng thái mới ở DL-135 phía trên.
 [Runner](experiments/P6_band/select_dii.py) ·
 [Candidates](results/phase6/window_revision03/candidates.csv) ·
 [Summary](results/phase6/window_revision03/summary.json) ·
@@ -64,7 +80,8 @@ thành phần panel; cả hai thay đổi acceptance đều cần để H-L1 PAS
 là lượng hóa phù hợp một giới hạn được kỳ vọng, chưa phải contribution/novelty.
 **Gate C = NARROW, G1 giữ nguyên (DL-128)**; bàn giao Phase 6 theo ủy quyền,
 realism/D22/Understanding còn mở;
-chưa có finite-h M1 truth Phase 6, không retry/resume/refine Phase 5 hoặc confirmation độc lập.
+panel Phase 6 chưa chạy; probe/control đã computed và sealed như trên.
+Không retry/resume/refine Phase 5 hoặc gọi đó là confirmation độc lập.
 
 [Closeout L5.3: evidence, sensitivity, prior và claim](notes/phases/PHASE_5_closeout.md) ·
 [DL-128](notes/02_decision_log.md#dl-128--phase-5-gate-c-narrow-02112026) ·
