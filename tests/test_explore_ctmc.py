@@ -192,3 +192,39 @@ def test_m0_saturated_states_give_an_exact_tie():
     full = ctmc.m0_gap(F(7), F(3, 2), F(1, 2), 80, [0.1], 'A')[0] - 3 / 2 * 0.1 ** 2 / 2
     raw = (ctmc.m0_vhat(F(7), F(1, 2), 80, [0.1]) - ctmc.m0_vhat(F(17, 2), F(1, 2), 80, [0.1]))[0]
     assert np.allclose(full, raw, atol=1e-12)
+
+
+def test_switching_cost_needs_the_stage_f_flag_and_c0_rows_are_unchanged():
+    import json as _json
+    from pathlib import Path as _P
+    with pytest.raises(ValueError):
+        ctmc.evaluate(F(7), F(71, 10), F(1), F(1, 5), [F(2)], c=F(1, 2))
+    out = ctmc.evaluate(F(7), F(71, 10), F(1), F(1, 5), [F(2)], c=F(1, 2), allow_csw=True)
+    assert out['parameters'][4] == '1/2'
+    m0 = ctmc.evaluate_m0(F(7), F(71, 10), F(1), F(1, 5), [F(2)], c=F(1, 2), allow_csw=True)
+    assert m0['parameters'][4] == '1/2'
+    saved = _P(__file__).resolve().parents[1] / 'results/explore_ctmc/runs/xslice/X_u1_k1-5_hk50_x1-10.json'
+    if saved.exists():
+        old = _json.loads(saved.read_text())
+        new = ctmc.evaluate(*(F(x) for x in old['parameters'][:4]), [F(h) for h in old['hs']])
+        for r in old['h']:
+            r.pop('flags', None)              # added by scan.py when the row is written
+        assert _json.dumps(new['h'], default=float) == _json.dumps(old['h'], default=float)
+
+
+def test_csw_checker_runs_on_fake_runs(tmp_path, monkeypatch):
+    import json as _json
+    import pandas as _pd
+    from experiments.explore_ctmc import check_csw
+    base = ctmc.evaluate(F(7), F(15, 2), F(3, 2), F(1, 2), [F(4), F(40), F(400)], disagree=False)
+    base.update(status='COMPLETED')
+    folder = tmp_path / 'runs' / 'csw'
+    folder.mkdir(parents=True)
+    rows = []
+    for name in ('F_b1_c', 'F_b1_c0'):
+        (folder / f'{name}.json').write_text(_json.dumps(dict(base, id=name), default=float))
+        rows += [dict(id=name, h=r['h'], z_inf=base['asymptotic']['z_inf'], z_pred_first_order=r['G_S']) for r in base['h']]
+    _pd.DataFrame(rows).to_csv(tmp_path / 'PREDICTIONS_csw_numbers.csv', index=False)
+    monkeypatch.setattr(check_csw, 'OUT', tmp_path)
+    check_csw.main()
+    assert (tmp_path / 'score_csw.json').exists()

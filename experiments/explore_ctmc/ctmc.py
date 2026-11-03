@@ -265,15 +265,15 @@ def mm1_mean(load, mu=MU):
     return rho / (1 - rho)
 
 
-def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disagree=True, arrays=False):
+def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disagree=True, arrays=False, allow_csw=False):
     """All four cells, twins and asymptotic read-outs for one regime at each horizon in hs."""
     _amplitude(a, allow_zero=False)
     lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
     hs = [F(h) for h in hs]
     if not (min(lamA, lamB) >= A and max(lamA, lamB) + u < MU and kappa > 0 and c >= 0 and min(hs) > 0):
         raise ValueError('outside the ctmc-v1 domain')
-    if not control and not (F(1, 4) <= u <= 3 and c == 0):
-        raise ValueError('outside the ctmc-v1 scientific domain (u in [1/4, 3], c_sw = 0)')
+    if not control and not (F(1, 4) <= u <= 3 and (c == 0 or allow_csw)):
+        raise ValueError('outside the ctmc-v1 scientific domain (u in [1/4, 3], c_sw = 0 unless Stage F)')
     NA, NB = (int(N_scale) * choose_N(lam + u, kappa) for lam in (lamA, lamB))
     Ast, Asw = chain(lamA + u, kappa, NA), chain(lamA, kappa, NA)
     Bst, Bsw = chain(lamB, kappa, NB), chain(lamB + u, kappa, NB)
@@ -379,13 +379,14 @@ def evaluate(lamA, lamB, u, kappa, hs, c=0, a=A, control=False, N_scale=1, disag
     return out
 
 
-def evaluate_m0(lamA, lamB, u, kappa, hs, c=0):
+def evaluate_m0(lamA, lamB, u, kappa, hs, c=0, allow_csw=False):
     """Pre-registration read-outs that never touch the finite-h truth (no V, no true gap): stationary laws, r, s,
     T_int, bias g, and the mean-rollout decisions on old and new state at each h and at h = inf. Used to write
     zero-fit predictions before any truth is computed (L7.1 §4)."""
     lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
     hs = [F(h) for h in hs]
-    if not (min(lamA, lamB) >= A and max(lamA, lamB) + u < MU and F(1, 4) <= u <= 3 and kappa > 0 and c == 0):
+    if not (min(lamA, lamB) >= A and max(lamA, lamB) + u < MU and F(1, 4) <= u <= 3 and kappa > 0
+            and c >= 0 and (c == 0 or allow_csw)):
         raise ValueError('outside the ctmc-v1 scientific domain')
     NA, NB = (choose_N(lam + u, kappa) for lam in (lamA, lamB))
     Ast, Asw = chain(lamA + u, kappa, NA), chain(lamA, kappa, NA)
@@ -401,11 +402,12 @@ def evaluate_m0(lamA, lamB, u, kappa, hs, c=0):
     r_stay, r_switch = Ast.r + Bst.r, Asw.r + Bsw.r
     s, r_min = r_switch - r_stay, min(r_stay, r_switch)
     a_inf = s < 0
-    Eb = float(wA @ bA + wB @ bB)
+    cf = float(c)
+    Eb = float(wA @ bA + wB @ bB) + cf
     per_h = []
     for k, h in enumerate(hf):
-        new = pair_sum(wA, dhA[k], bA, wB, dhB[k], bB, 0.0, 1e-12)
-        old = pair_sum(pA, postA[:, k], postA[:, -1], pB, postB[:, k], postB[:, -1], 0.0, 1e-12)
+        new = pair_sum(wA, dhA[k], bA, wB, dhB[k], bB, cf, 1e-12)
+        old = pair_sum(pA, postA[:, k], postA[:, -1], pB, postB[:, k], postB[:, -1], cf, 1e-12)
         row = dict(h='inf' if h == math.inf else str(hs[k]), F_new=new[0], F_old=old[0], tie_new=new[2], tie_old=old[2],
                    B=old[1] - new[1])
         if h != math.inf:

@@ -59,6 +59,8 @@ def check_locks(stage_cases):
     need = {'PREDICTIONS_bridge.md', 'check_bridge.py'}
     if any(c.get('long') for c in stage_cases):
         need |= {'PREDICTIONS_asymptote.md', 'check_asymptote.py', 'PREDICTIONS_asymptote_numbers.csv'}
+    if any(c.get('csw') for c in stage_cases):
+        need |= {'PREDICTIONS_csw.md', 'check_csw.py', 'PREDICTIONS_csw_numbers.csv'}
     if not LOCKS.exists():
         raise SystemExit('full mode refused: no locks.json (predictions not locked)')
     locks = json.loads(LOCKS.read_text())['files']
@@ -80,9 +82,10 @@ def run_case(job):
     lamA, lamB, u, kappa, c = (F(x) for x in case['parameters'])
     try:
         if mode == 'm0':
-            out = ctmc.evaluate_m0(lamA, lamB, u, kappa, case['hs'])
+            out = ctmc.evaluate_m0(lamA, lamB, u, kappa, case['hs'], c=c, allow_csw=case.get('csw', False))
         else:
-            out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=case.get('disagree', True))
+            out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=case.get('disagree', True),
+                                allow_csw=case.get('csw', False))
             for r in out['h']:      # V6 and V11 on every row
                 flags = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9]
                 r['flags'] = flags
