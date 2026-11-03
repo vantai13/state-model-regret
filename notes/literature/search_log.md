@@ -689,3 +689,27 @@ Dừng khi: đủ lookup cho các ô UNSOURCED ưu tiên (chu kỳ TE WAN, flowl
 Đề xuất 3 nguồn (chờ tác giả duyệt; chưa tải, chưa note nội dung): SWAN, CONGA, Roy2015 — lý do ở
 [realism_v2_draft.md](../realism/realism_v2_draft.md) §6. B4 giữ làm phương án thay SWAN, không đề xuất trong đợt
 này. Đây là lookup theo tên, không phải khảo sát lĩnh vực; không 2×20, không saturation, không novelty.
+
+### L7.3-R1 đợt 2 — duyệt theo ủy quyền, tải và đọc (03/11/2026)
+
+Tác giả nhắn "bạn hãy tự làm tự chạy thực hiện cho tôi luôn đi" sau khi AI dừng ở bước "chờ duyệt 3 nguồn". AI hiểu tin
+nhắn này là ủy quyền cho AI duyệt cả 3 đề xuất. Ghi nhận đây là duyệt **AI-delegated**: tác giả không tự sàng
+abstract, và không có nguồn nào được ghi là tác giả đã đọc.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 03/11 | lookup (OA) | L7.3-R1 | 3 DOI: SWAN, CONGA, Roy2015 | paper-search `search_unpaywall` | 3 | 0 | Cả 3 trả `result: []` |
+| 03/11 | lookup (OA) | L7.3-R1 | 3 DOI trên | paper-pilot `inspect_open_access_pdf` (doi) | 3 | 0 | SWAN và Roy2015 bị 403 ở dl.acm.org; CONGA: "No PDF URL available" |
+| 03/11 | lookup | L7.3-R1 | 3 DOI trên | scholar-search `get_paper_details` | 3 | 2 | SWAN và Roy2015 khớp DOI/DBLP; CONGA bị 404 ở Semantic Scholar (lỗi công cụ, DOI đã kiểm qua Crossref ở đợt 1) |
+| 03/11 | lookup (bản tác giả) | L7.3-R1 | 3 exact title + "pdf" (Roy2015 thêm "ucsd") | WebSearch | 3 truy vấn | 3 URL chọn | Chỉ chọn trang hội nghị hoặc trang tác giả: conferences.sigcomm.org/…/p15.pdf, people.csail.mit.edu/alizadeh/…/conga-sigcomm14.pdf, cseweb.ucsd.edu/~snoeren/…/fb-sigcomm15.pdf. Không dùng bản TR, bản khóa học hay mirror khác; không dùng thư viện lậu |
+| 03/11 | download | L7.3-R1 | 3 URL trên | curl, lưu `~/papers/state-model-regret/l73/` | 3 | 3 | HTTP 200 application/pdf. Số trang 12/12/15 khớp tr. 15–26, 503–514, 123–137. sha256: 99bb9406a528…, b0a6e69eaa00…, d95df8228cb8… |
+| 03/11 | read (AI-T) | L7.3-R1 / realism | HKM13, AED14, RZB15 | pdftotext, grep theo câu hỏi h/τ/burst/tải, rồi đọc đoạn quanh kết quả | 3 | 3 | Mục đã đọc ghi trong từng note. Đã sửa 3 trích sai sau khi đối chiếu text: CONGA "lớn hơn 500 KB", CONGA ~100 µs ở §1 chứ không phải §2.1, Roy2015 §4.1 bổ sung Hadoop 5× và chu kỳ ngày. Không đọc toàn văn |
+
+Kết quả đợt 2:
+- **Note tạo mới:** [HKM13](papers/HKM13.md), [AED14](papers/AED14.md), [RZB15](papers/RZB15.md).
+- **Bản nháp:** [realism_v2_draft.md](../realism/realism_v2_draft.md) cập nhật §2–6.
+- **Không đổi:** catalog và Excel trên `main`, mức đọc của tác giả, nhãn PC, envelope v1. B4 không dùng, vẫn
+  metadata-only.
+- **Phạm vi:** không backward/forward snowball, không 2×20, không saturation, không novelty.
+- **Lý do dừng:** đã đủ để lấp các ô h/τ của (i) và (iii) và thêm bằng chứng đa thang cho (ii). Các ô còn UNSOURCED
+  (f/T_slow, thời lượng flowlet, h/τ của NDT) cần nguồn khác. Theo giới hạn 3 nguồn mỗi đợt, đợt này không đề xuất thêm.
