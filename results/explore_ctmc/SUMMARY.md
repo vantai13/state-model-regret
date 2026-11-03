@@ -105,9 +105,38 @@ trên state mới cùng giảm và tiến sát nhau, nên z_∞(c*) chỉ còn �
 | F-R4 | G_S(c*) < G_S(0) từ h/T_int ≥ 3 | 100% | toán + onset |
 | F-R5 | hybrid khi có harm | không có dòng harm | INCONCLUSIVE |
 
+## 5b. D22: state mới chỉ có backlog, không có mode ([PREDICTIONS_d22.md](PREDICTIONS_d22.md), [score](score_d22.json))
+
+Làm sau L7.1 theo yêu cầu "thực hiện D22 luôn đi". Định nghĩa theo contract D22: a_cb0(Y, Q) dùng M0 cố định,
+a_cb1(Y, Q) dùng model đúng, Q = hai backlog hiện tại, mode suy từ (Y, Q). Tách G_S = F + V (F: giá trị backlog,
+V: phần do mode oracle) và S = F1 + V1. Phạm vi: 2.767 tuple đã chạy có N ≤ 3.000 mỗi path (bridge 821, xslice 86,
+pslice 78, asym 29, wide 1.753). G_S, S của các tuple này đã thấy; phần mới là phép tách. Control V3-D22 (Monte Carlo
+đầu-cuối) đạt, |z| ≤ 2,72; V7-D22 giống từng bit giữa hai máy. Khóa ở `b2523097`.
+
+| ID | Dự đoán | Kết quả | |
+|---|---|---|---|
+| D-T1 | F + V = G_S, F1 + V1 = S; F1, V1 ≥ 0 | đúng trên 2.941 dòng, sai số ≤ 4e−14 | toán |
+| D-T2 | F, V tới giá trị zero-fit từ h/T_int ≥ 10 | 94,2% | toán + onset |
+| D-R1 | dòng harm: F < −0,1% ở ≥ 80% | **100% (n = 949)** | ✅ |
+| D-R2 | tỷ lệ F/G_S khớp zero-fit ±0,1 từ h/T_int ≥ 3 | 99,8% | ✅ |
+| D-R3 | horizon ngắn (h < T_int), dòng harm: F < 0 | 100% | ✅ |
+| D-R4 | với model đúng, F1 ≥ V1 ở ≥ 70% dòng S ≥ 0,5% | 100% (n = 301) | ✅ |
+| D-R5 | h ≥ 3·T_int: Static không thua M0 với (Y, Q) ở ≥ 90% | 86,6% | ❌ |
+
+**Đọc:**
+- **Harm không cần mode oracle.** Ở mọi dòng có G_S < −0,5%, state mới chỉ gồm backlog đã làm M0 tệ hơn; phần
+  backlog chiếm trung vị 82% harm, phần mode 18%. Câu "harm chỉ vì S1 biết mode" bị bác trong ctmc-v1.
+- **Với model đúng, mode gần như không thêm gì sau khi đã có backlog hiện tại + backlog cũ:** V1/S trung vị 2,8%,
+  lớn nhất 26%.
+- D-R5 trượt chủ yếu ở δ = 0 (85/98 dòng): s = 0 nên Static luôn Stay, còn M0 với backlog gần tối ưu. Bỏ δ = 0 thì đạt
+  98%. Dự đoán viết không loại δ = 0 dù Stage E đã cho thấy Static dở ở x = 0; giải thích này là hậu nghiệm, verdict
+  FAIL giữ nguyên.
+- Giới hạn: N ≤ 3.000 loại các góc tải nặng/κ lớn (tại đó phần mode lớn nhất theo xu hướng zero-fit: tỷ lệ backlog
+  0,32 ở κ > 5). Ô (y, n) khối lượng < 1e−20 bị bỏ, tổng ≤ 1e−12.
+
 ## 6. Tổng số và cách đọc
 
-**Dự đoán rủi ro: 15 đạt, 6 trượt, 1 INCONCLUSIVE** (bridge 6/10, asymptote 6/8, Stage F 3/3 + 1 INC). Mọi dự đoán
+**Dự đoán rủi ro: 19 đạt, 7 trượt, 1 INCONCLUSIVE** (bridge 6/10, asymptote 6/8, Stage F 3/3 + 1 INC, D22 4/5). Mọi dự đoán
 nhãn toán đều đạt; theo lesson, chúng chỉ chứng tỏ code và lý thuyết chain-hữu-hạn nhất quán.
 
 Đọc theo bảng kết cục của lesson (mục 12):
@@ -129,8 +158,8 @@ nhãn toán đều đạt; theo lesson, chúng chỉ chứng tỏ code và lý t
 **Được** (sau khi control đạt, có số dự đoán khóa trước đạt/trượt): kết quả trong hai representation Markov ở
 a/μ = 0,6, plant hai path, S1 gồm mode oracle, P1 stationary. Phần còn lại ghi là "exploration, AI theo ủy quyền".
 
-**Chưa được:** mạng thật; biên độ khác (held-out cho L7.2); traffic không-Markov; "telemetry khả thi gây hại" (D22
-chưa làm); novelty; nâng G-level (vẫn G1, fragile; tác giả chưa tự dẫn lại; chưa có realism).
+**Chưa được:** mạng thật; biên độ khác (held-out cho L7.2); traffic không-Markov; "telemetry khả thi gây hại" ngoài
+ctmc-v1 (D22 chỉ trong model, N ≤ 3.000); novelty; nâng G-level (vẫn G1, fragile; tác giả chưa tự dẫn lại; chưa có realism).
 
 ## 8. Hạn chế
 
@@ -138,18 +167,19 @@ chưa làm); novelty; nâng G-level (vẫn G1, fragile; tác giả chưa tự d�
 - Mật độ điểm theo thiết kế Sobol, không theo tần suất ngoài đời.
 - Exposure trước khóa: 3 timing probe (T1–T3) in truth, bị loại khỏi chấm; số của bridge viết sau khi thấy M0-only và
   dữ liệu fluid (được phép); Stage F viết sau khi đọc D và E; ba base của F có truth c = 0 ở h/κ = 50/150 trong xslice.
-- D22 (state mới chỉ có backlog) chưa làm; S1 vẫn gồm mode oracle.
+- D22 chỉ trên N ≤ 3.000; các tuple của D22 đã có G_S/S từ Stage D/E (phần mới là phép tách).
 - Lesson ghi gcp1 + gcp2; chỉ có một VM GCP. "Prompt gốc" của lesson không có trong repo; làm theo phụ lục L7.1.
 
 ## 9. Chi phí
 
 Khoảng 19,2 CPU-giờ đo trong các file kết quả: Stage E 16,1; asym 1,4; bridge/xslice/pslice 0,5; Stage F 0,03;
 M0-only 0,7; control 0,4. Thêm V5 (ước lượng 2–3 CPU-giờ, không ghi vào file) và một ít case tính trùng khi chia việc
-giữa hai máy. Toàn bộ khoảng 22 CPU-giờ trên ngân sách 200. Hai máy: local 10 lõi, GCP 8 vCPU.
+giữa hai máy. L7.1 khoảng 22 CPU-giờ. D22 thêm 20,8 CPU-giờ (truth 9,1; M0-only 11,5 vì phải dựng luật đồng thời
+(Y, X); control 0,3). Tổng khoảng 43 CPU-giờ trên ngân sách 200. Hai máy: local 10 lõi, GCP 8 vCPU (GCP tắt giữa chừng
+rồi bật lại; firewall phải thêm IP mới vì mạng của tác giả đổi IP ra ngoài).
 
 ## 10. Việc tiếp theo (không tự làm)
 
 - **L7.2 (tác giả):** viết thẻ giả thuyết cho biên độ a/μ ≠ 0,6 và mở held-out một lần. Có hai dự đoán đối nghịch cần
   chọn: SUMMARY fluid §5.6 đoán x* gần như không đổi theo a; review đoán x* dịch theo a.
-- **D22** nếu muốn trả lời "harm có phải chỉ vì S1 biết mode".
 - Tác giả tự dẫn lại z_∞ và khai triển bậc một (mục 16 lesson).
