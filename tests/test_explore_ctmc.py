@@ -407,3 +407,19 @@ def test_l72_checker_fields_exist_in_real_output():
         assert k in r
     assert {'static', 'ko_new', 'M0_new'} <= set(r['regret']) and {'M0_old', 'M0_new'} <= set(r['shares'])
     assert 'F' in r['d22'] and 's' in out
+
+
+def test_robust_runner_records_a_killed_case_instead_of_hanging(tmp_path):
+    """A case whose worker is killed by the kernel (CPU hard limit) must become UNRESOLVED, not hang the scan."""
+    import json as _json
+    from experiments.explore_ctmc import scan
+    done = tmp_path / 'ok.json'
+    killed = tmp_path / 'killed.json'
+    jobs = [({'id': 'ok', 'parameters': ['7', '15/2', '3/2', '1/2', '0'], 'hs': ['1'], 'a': '6'}, 'm0', done, 900),
+            ({'id': 'killed', 'parameters': ['7', '15/2', '3/2', '1/2', '0'], 'hs': ['1'], 'a': '6', '_test_kill': True},
+             'm0', killed, 900)]
+    results = list(scan.run_robust(jobs, workers=2))
+    assert {r[0] for r in results} == {'ok.json', 'killed.json'}
+    assert _json.loads(done.read_text())['status'] == 'COMPLETED'
+    rec = _json.loads(killed.read_text())
+    assert rec['status'] == 'UNRESOLVED' and 'signal 9' in rec['error']

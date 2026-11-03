@@ -150,6 +150,48 @@ def run_case(job):
     return path.name, out['status'], out['cpu']
 
 
+def _child(job):
+    if job[0].get('_test_kill'):             # test hook: simulate the kernel kill at the CPU hard limit
+        os.kill(os.getpid(), signal.SIGKILL)
+    run_case(job)
+
+
+def run_robust(jobs, workers):
+    """One forked process per case. multiprocessing.Pool loses the task of a worker the kernel kills (SIGKILL at the
+    RLIMIT_CPU hard limit, cap + 60 CPU-s) and then waits forever (seen 03/11/2026 on both machines). Here the parent
+    notices the dead child and writes the row itself: UNRESOLVED for a kill by signal 9 or SIGXCPU, ERROR otherwise."""
+    ctx = multiprocessing.get_context('fork')
+    pending, active = list(jobs), {}
+    while pending or active:
+        while pending and len(active) < workers:
+            job = pending.pop(0)
+            if job[2].exists():
+                yield job[2].name, 'SKIP', 0.0
+                continue
+            p = ctx.Process(target=_child, args=(job,))
+            p.start()
+            active[p] = job
+        time.sleep(0.2)
+        for p in [p for p in active if not p.is_alive()]:
+            case, mode, path, cap = active.pop(p)
+            p.join()
+            if path.exists():
+                d = json.loads(path.read_text())
+                yield path.name, d['status'], d.get('cpu') or 0.0
+                continue
+            sig = -p.exitcode if p.exitcode is not None and p.exitcode < 0 else None
+            status = 'UNRESOLVED' if sig in (signal.SIGKILL, signal.SIGXCPU) else 'ERROR'
+            out = dict(id=case['id'], parameters=case['parameters'], hs=[str(F(h)) for h in case['hs']], mode=mode,
+                       status=status, cpu=None, host=socket.gethostname(), tags=case.get('tags', {}),
+                       error=(f'worker died with signal {sig} (exitcode {p.exitcode}) without writing its row; recorded '
+                              f'by the parent. Signal 9 here is the kernel kill at the CPU hard limit (cap {cap} + 60 '
+                              f'CPU-s) unless the kernel log shows an OOM kill.'))
+            tmp = path.with_suffix('.tmp')
+            tmp.write_text(json.dumps(out) + '\n')
+            tmp.rename(path)
+            yield path.name, status, 0.0
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('stage')
@@ -183,10 +225,14 @@ def main():
     print(f'{a.stage} [{a.mode}] shard {i}/{n} on {socket.gethostname()}: {len(mine)} cases, {len(todo)} to run, '
           f'{a.workers} workers', flush=True)
     start, cpu = time.monotonic(), 0.0
-    with multiprocessing.get_context('fork').Pool(a.workers, maxtasksperchild=1) as pool:
-        for k, (name, status, c) in enumerate(pool.imap_unordered(run_case, todo), 1):
-            cpu += c
-            print(f'[{k}/{len(todo)} {time.monotonic() - start:.0f}s cpu {cpu:.0f}s] {status} {name}', flush=True)
+    if a.mode == 'l72':
+        stream = run_robust(todo, a.workers)
+    else:
+        pool = multiprocessing.get_context('fork').Pool(a.workers, maxtasksperchild=1)
+        stream = pool.imap_unordered(run_case, todo)
+    for k, (name, status, c) in enumerate(stream, 1):
+        cpu += c
+        print(f'[{k}/{len(todo)} {time.monotonic() - start:.0f}s cpu {cpu:.0f}s] {status} {name}', flush=True)
 
 
 if __name__ == '__main__':
