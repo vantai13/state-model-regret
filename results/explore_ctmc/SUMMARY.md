@@ -214,14 +214,25 @@ KO = model đúng bỏ đúng phần dài hạn: gap_KO = Δ − h·s. Hoàn thi
 | | không có phần dài hạn | có h·s |
 |---|---|---|
 | ngắn hạn fluid | M0: G_S trung vị tới −3,9% ở dòng harm; phụ thuộc state 32% | Hybrid: ≈ 0; phụ thuộc state 0% (tầm thường) |
-| ngắn hạn đúng | **KO: G_S ≈ 0 hoặc dương (trung vị +0,02…+0,37); phụ thuộc state 90%** | M1: G_S = S ≥ 0; phụ thuộc state 0% |
+| ngắn hạn đúng | **KO: G_S ≈ 0 hoặc dương (trung vị +0,02…+0,37), vì sai đều (chọn đúng ~14% state); phụ thuộc state 90%** | M1: G_S = S ≥ 0; phụ thuộc state 0% |
 
 - KO-R1: |G_S^KO| < ½|G_S^M0| ở 95,2% dòng harm (n = 252). KO-R2: G_S^KO ≥ −0,25% ở 99,3% dòng (nhỏ nhất −0,36%).
 - KO-R5: KO khác Static ở ≥ 50% state ở 100% dòng h ≥ 4·T_int, nên phép knockout không tầm thường.
 - Onset của KO theo khoảng: 89,6% ở (2; 4], 96,9% ở (4; 7], 100% ở (7; 15] và (15; 40].
-- **Đọc:** mù horizon một mình, khi phần ngắn hạn đúng, không tạo harm từ state tươi. Harm của M0 là **tương tác**
-  giữa mù horizon và xấp xỉ ngắn hạn kiểu fluid (thông tin mới làm cấu trúc drain của M0 lệch có hướng khỏi hành động
-  dài hạn). Đây là kết quả trong ctmc-v1 ở a = 6, không phải ngoài đời. Cơ chế vì sao xấp xỉ fluid lệch có hướng còn mở.
+- ~~Đọc: mù horizon một mình không tạo harm; harm là tương tác giữa mù horizon và xấp xỉ fluid~~ (**rút lại sau review
+  mentor, 03/11 tối**). Số đúng, cách đọc sai. Trên dòng harm có h > 4·T_int (n = 138): KO chọn đúng action dài hạn chỉ
+  ở 13% (state cũ) và 15% (state mới) số state, regret 31,6% / 31,5% C_ref, so với M0 là 0,83 / 0,67 và 3,4% / 6,5%.
+  **KO sai đều với cả hai loại state**, nên state mới không còn chỗ để làm nó tệ thêm: G_S^KO ≈ 0 không chứng minh mù
+  horizon vô hại. Bỏ h·s khỏi model đúng chỉ để lại chi phí chuyển tiếp sang chế độ mới, và chi phí đó gần như luôn
+  nghiêng ngược với action dài hạn ở các dòng harm.
+- **Điều KO thật sự cho thấy:** harm từ state tươi xảy ra khi twin, với state cũ, đang **đúng nhờ lấy trung bình**. Ở
+  a = 6, h ≥ 4·T_int, δ ≠ 0: dòng harm (G_S < −0,1; n = 543) có M0 chọn đúng action dài hạn ở 0,90 (cũ) so với 0,73
+  (mới), trung vị; dòng help (G_S > 0,1; n = 63) ở 0,24 so với 0,34. Giả thuyết cơ chế (của mentor, chưa kiểm):
+  trung bình gap drain của M0 trên posterior gần dừng tăng theo tải, nên M0 với state cũ hành xử như một **planner dừng
+  ngầm**; state tươi thay backlog điển hình bằng backlog thực tế và M0 chuyển sang phản ứng theo dao động. KO không có
+  planner ngầm vì gap của nó đo so với mức dừng của từng action.
+- **Nhãn:** KO-R1 và KO-R2 được viết sau khi thấy z_∞^KO nhỏ, nên chủ yếu là toán/onset; verdict giữ nguyên, không
+  dùng chúng làm bằng chứng cơ chế. Tỷ lệ regret KO/M0 tươi trên dòng harm (h > 4·T_int): q10 1,71, trung vị 2,6, q90 7,2.
 
 ### B. Số zero-fit ở biên độ held-out ([l72/](l72/), không có cột truth)
 
