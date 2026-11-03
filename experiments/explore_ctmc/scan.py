@@ -55,6 +55,20 @@ def case_keys(case):
     return [(lamA, lamB, u, kappa, str(F(h)), c) for h in case['hs']]
 
 
+def check_l72_locks(stage):
+    """Held-out truth needs locks_l72.json: card, checker, the six case lists and the frozen zero-fit files unchanged."""
+    path = OUT / 'locks_l72.json'
+    if not path.exists():
+        raise SystemExit('l72 refused: no locks_l72.json (card not locked)')
+    locks = json.loads(path.read_text())
+    for rel, sha in locks['files'].items():
+        if hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() != sha:
+            raise SystemExit(f'l72 refused: {rel} changed since the lock')
+    if f'results/explore_ctmc/cases/{stage}.json' not in locks['files']:
+        raise SystemExit(f'l72 refused: {stage} is not a locked case list')
+    return locks
+
+
 def check_locks(stage_cases, d22=False, ko=False):
     need = {'PREDICTIONS_bridge.md', 'check_bridge.py'}
     if any(c.get('long') for c in stage_cases):
@@ -86,7 +100,16 @@ def run_case(job):
     lamA, lamB, u, kappa, c = (F(x) for x in case['parameters'])
     try:
         amp = F(case.get('a', 6))
-        if mode == 'zf':
+        if mode == 'l72':
+            if not case['id'].startswith(('Za', 'Sa', 'Xa')):
+                raise ValueError('l72 mode runs only the locked held-out case lists')
+            if case.get('d22', True) and max(ctmc.choose_N(l + u, kappa, a=amp) for l in (lamA, lamB)) <= ctmc.D22_NMAX:
+                out = ctmc.evaluate_d22(lamA, lamB, u, kappa, case['hs'], c, a=amp)
+            else:
+                out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=False, a=amp)
+            for r in out['h']:
+                r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9]
+        elif mode == 'zf':
             out = ctmc.evaluate_m0(lamA, lamB, u, kappa, case['hs'], c=c, a=amp)
             if case.get('d22', True) and max(out['N'].values()) <= ctmc.D22_NMAX:
                 d = ctmc.evaluate_d22_m0(lamA, lamB, u, kappa, case['hs'], c=c, a=amp)
@@ -130,7 +153,7 @@ def run_case(job):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('stage')
-    p.add_argument('--mode', choices=('full', 'm0', 'd22', 'd22m0', 'ko', 'zf'), default='full')
+    p.add_argument('--mode', choices=('full', 'm0', 'd22', 'd22m0', 'ko', 'zf', 'l72'), default='full')
     p.add_argument('--workers', type=int, default=os.cpu_count())
     p.add_argument('--shard', nargs=2, type=int, default=[0, 1])
     p.add_argument('--cap', type=int, default=3600)
@@ -144,12 +167,14 @@ def main():
         raise SystemExit(f'{len(refused)} cases refused (sealed/CF/panel/control/probe): {refused[:5]}')
     if a.mode in ('full', 'd22', 'ko'):
         check_locks(cases, d22=a.mode == 'd22', ko=a.mode == 'ko')
+    if a.mode == 'l72':
+        check_l72_locks(a.stage)
     i, n = a.shard
     mine = [c for j, c in enumerate(cases) if j % n == i]
     if a.only:
         keep = set(json.loads(a.only.read_text()))
         mine = [c for c in mine if c['id'] in keep]
-    folder = OUT / dict(m0='m0', full='runs', d22='runs_d22', d22m0='m0_d22', ko='runs_ko', zf='m0_l72')[a.mode] / a.stage
+    folder = OUT / dict(m0='m0', full='runs', d22='runs_d22', d22m0='m0_d22', ko='runs_ko', zf='m0_l72', l72='runs_l72')[a.mode] / a.stage
     folder.mkdir(parents=True, exist_ok=True)
     jobs = [(c, a.mode, folder / f"{c['id']}.json", a.cap) for c in mine]
     todo = [j for j in jobs if not j[2].exists()]

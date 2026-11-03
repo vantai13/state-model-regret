@@ -340,3 +340,70 @@ def test_ko_checker_runs_on_fake_runs(tmp_path, monkeypatch):
     monkeypatch.setattr(check_ko.sys, 'argv', ['check_ko'])
     check_ko.main()
     assert (tmp_path / 'score_ko.json').exists()
+
+
+def _fake_l72(tmp_path, unresolved_every=0):
+    import json as _json
+    import shutil
+    import pandas as _pd
+    root = _P_root()
+    (tmp_path / 'l72').mkdir()
+    for f in ('ZEROFIT_a3.csv', 'ZEROFIT_a7p5.csv', 'compare_amplitudes.json'):
+        shutil.copy(root / 'results/explore_ctmc/l72' / f, tmp_path / 'l72' / f)
+    rng = np.random.default_rng(0)
+    for tag in ('a3', 'a7p5'):
+        z = _pd.read_csv(tmp_path / 'l72' / f'ZEROFIT_{tag}.csv', dtype={'h': str})
+        z = z[z.status == 'COMPLETED']
+        for (stage, cid), g in z.groupby(['stage', 'id']):
+            folder = tmp_path / 'runs_l72' / stage
+            folder.mkdir(parents=True, exist_ok=True)
+            k = len(list(folder.glob('*.json')))
+            if unresolved_every and k % unresolved_every == 0:
+                (folder / f'{cid}.json').write_text(_json.dumps(dict(id=cid, status='UNRESOLVED')))
+                continue
+            rows = []
+            for r in g.itertuples():
+                gs = r.z_pred1 + rng.normal(0, 0.02)
+                row = dict(h=r.h, G_S=gs, S=abs(rng.normal(0, .3)), M=abs(rng.normal(0, 1)), h_kappa=r.h_kappa,
+                           h_Tint=r.h_Tint, regret=dict(static=abs(rng.normal(0, .02)), ko_new=10.0, M0_new=2.0),
+                           shares=dict(M0_old=0.9, M0_new=0.7))
+                if max(r.N_A, r.N_B) <= 3000 and stage.endswith(('asym', 'sobol')):
+                    row['d22'] = dict(F=0.8 * gs)
+                rows.append(row)
+            (folder / f'{cid}.json').write_text(_json.dumps(dict(id=cid, status='COMPLETED', s=float(g.s.iloc[0]), h=rows)))
+
+
+def _P_root():
+    from pathlib import Path as _P
+    return _P(__file__).resolve().parents[1]
+
+
+def test_l72_checker_scores_fake_truth(tmp_path, monkeypatch):
+    import json as _json
+    from experiments.explore_ctmc import check_l72
+    _fake_l72(tmp_path)
+    monkeypatch.setattr(check_l72, 'OUT', tmp_path)
+    check_l72.main()
+    out = _json.loads((tmp_path / 'score_l72.json').read_text())
+    assert out['a3']['L72-1']['verdict'] == 'PASS'          # fake G_S = z_pred1 + 0.02 noise
+    assert out['a3']['L72-7']['verdict'] in ('PASS', 'INCONCLUSIVE')
+    assert set(out['cross_amplitude']) == {'L72-4'}
+
+
+def test_l72_checker_unresolved_rule(tmp_path, monkeypatch):
+    import json as _json
+    from experiments.explore_ctmc import check_l72
+    _fake_l72(tmp_path, unresolved_every=5)                 # 20% of cases unresolved -> every gate INCONCLUSIVE
+    monkeypatch.setattr(check_l72, 'OUT', tmp_path)
+    check_l72.main()
+    out = _json.loads((tmp_path / 'score_l72.json').read_text())
+    assert out['a3']['L72-3']['verdict'] == 'INCONCLUSIVE' and out['a7p5']['L72-2']['verdict'] == 'INCONCLUSIVE'
+
+
+def test_l72_checker_fields_exist_in_real_output():
+    out = ctmc.evaluate_d22(F(7), F(15, 2), F(3, 2), F(1, 2), [F(40)])
+    r = out['h'][0]
+    for k in ('G_S', 'S', 'M', 'h_kappa', 'h_Tint'):
+        assert k in r
+    assert {'static', 'ko_new', 'M0_new'} <= set(r['regret']) and {'M0_old', 'M0_new'} <= set(r['shares'])
+    assert 'F' in r['d22'] and 's' in out
