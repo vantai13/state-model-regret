@@ -1280,3 +1280,16 @@ và P43_0018 kiểm nhãn đã lộ. Control PASS, raw094ff321 trước đọc r
 probe/replay raw vẫn sealed tớiL6.4. Audit raw chỉ SHA, không parse outcomes.
 Gate D-entry GO chỉ mở khả năng chạy lesson sau; L6.3 panel/cache chưa có,
 0 panel calls. Không CF/SUB,R09/R10 hoặc76 p4 outcomes mới; G1 giữ nguyên.
+
+
+## L6.3 — panel một lần, chỉ fact, 03/11/2026 (DL-136)
+
+Run tại8b37f559,27 physical keys/81 level calls theo predictions freeze;
+raw+summary d7a298f0 đã commit/push trước rescore/counts. Các keys nay
+là computed, không dùng lại như fresh panel. Console trong run chỉ
+progress/status. Sau commit: RESCORE MATCH và chỉ in aggregate counts:
+D '-'3,'+'2,U8; verdict INCONCLUSIVE; A− '-'; twin '+'11,'-'0,U2;
+2 intervention pairs, wording flag=false. Không in/đọc z hoặc lý do U
+của từng điểm ở lượt này, không diễn giải/fit/đổi G-level. Probe/replay
+raw vẫn sealed tớiL6.4. Không retry/resume/refine; không CF/SUB,R09/R10
+hoặc76 p4 outcomes mới. Source và frozen artifacts giữ byte.

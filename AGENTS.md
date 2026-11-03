@@ -622,3 +622,20 @@ A− phải '-', U nhiều không early stop; BUG/resource/execution/budget
 thì dừng. Gián đoạn INCOMPLETE, không resume hoặc chấm subset cứu verdict.
 Rescore đi lại raw schedule, không evaluator. G1/realism/D22/ownership/
 Understanding giữ nguyên; CF/SUB park,R09/R10 sealed,76 outcomes p4 chưa mở.
+
+
+L6.3 / 03-11 (DL-136): đã chạy đúng một lần tại8b37f559,81/81 calls,
+27/27 members,stop_reason=null,0 noncompleted calls. Raw+summary
+d7a298f0 commit/push trước rescore/counts. RESCORE MATCH; tự tính verdict
+từ counts khớp: D13 '-'3,'+'2,U8 → INCONCLUSIVE vì U8>cap1. A− '-',
+twin '+'11,'-'0,U2; intervention_pairs2/13,wording_allowed=false.
+Runner1339.9 CPU-s,command1342.18 CPU-s,wall1252.36s; prior2600 và
+panelcap7200 giữ nguyên; closeout phase upper4000 CPU-s, không actual
+cumulative hoặc reset chi phí.10 frozen hashes PASS;82 data files khớp
+byte raw commit. Không source/config/test mới;752 full PASS là lịch sử C.
+tmux và Windows keep-awake tạm (WSL inhibit denied), đã giải phóng.
+Console log ngoàiGit ~/.cache/state-model-regret/phase6/l6_3_ops_rusb0l0o/.
+L6.3 COMPLETE chỉ execution/fact. L6.4 chưa đọc z/reasons/prior/claim hoặc
+Gate D; không chạy lại panel dù old Gate GO. Probe/replay raw vẫn sealed
+tớiL6.4. G1/D22/realism/ownership/Understanding và CF/SUBpark,R09R10sealed,
+76 p4 outcomes chưa mở giữ nguyên.

@@ -12,14 +12,24 @@ Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, t
 Hai exploration `mechanism-regime-v2` và `p4-regions` đã được gộp;
 chúng vẫn là exploration, không phải confirmation hoặc author-self work.
 
-**L6.2 Part B/C hoàn tất: Gate D-entry GO theo DL-135; L6.3 chưa chạy.**
+**L6.3 đã chạy đúng một lần: execution COMPLETE, verdict INCONCLUSIVE (fact).**
+81/81 calls,27/27 members; stop_reason=null. D13: '-'3,'+'2,U8;
+A− '-'; twin '+'11,'-'0,U2;2/13 intervention pairs, wording flag=false.
+Raw `d7a298f0` commit/push trước rescore; RESCORE MATCH và verdict tính
+độc lập từ counts khớp. Runner1339.9 CPU-s/cap7200; prior upper2600,
+closeout phase upper4000 CPU-s, không actual tổng. Source/freeze giữ byte.
+[Summary](results/phase6/summary.json) · [DL-136](notes/02_decision_log.md).
+**L6.4 chưa thực hiện; chưa đọc z/lý do U từng điểm, chưa diễn giải hoặc
+đổi G-level. Raw probe/replay vẫn niêm phong. Không retry/resume/refine.**
+
+**Checkpoint L6.2 Part B/C: Gate D-entry GO theo DL-135.**
 Probe9/9 calls,3/3 class READY; d=0.06713/0.11356/0.04162 pp,
 ALL_MEMBERS27, estimate5864.27 CPU-s dưới cap7200. Raw probe/replay
 giữ kín G_S/z tớiL6.4. Positive control PASS: replay c=1/16 không field
 mismatch, hai saved anchors trái dấu được label đúng. Full752 tests PASS;
 4/4 local mutants KILLED. Runner e3b0fa92, control raw094ff321.
-Predictions và analysis plan v2 đã freeze; prior upper Phase6=2600 CPU-s,
-không actual tổng. Chỉ chạy L6.3 khi có yêu cầu mới; không retry/resume.
+Predictions và analysis plan v2 đã freeze; prior upper Phase6=2600 CPU-s
+trước L6.3, không actual tổng. Panel nay đã chạy; không retry/resume.
 [Probe summary](results/phase6/probe/summary.json) ·
 [Predictions](results/phase6/predictions.jsonl) ·
 [Plan v2](notes/design/analysis_plan_v2.md) ·
@@ -80,7 +90,7 @@ thành phần panel; cả hai thay đổi acceptance đều cần để H-L1 PAS
 là lượng hóa phù hợp một giới hạn được kỳ vọng, chưa phải contribution/novelty.
 **Gate C = NARROW, G1 giữ nguyên (DL-128)**; bàn giao Phase 6 theo ủy quyền,
 realism/D22/Understanding còn mở;
-panel Phase 6 chưa chạy; probe/control đã computed và sealed như trên.
+panel Phase 6 đã chạy một lần, chỉ ghi counts; probe/control vẫn sealed như trên.
 Không retry/resume/refine Phase 5 hoặc gọi đó là confirmation độc lập.
 
 [Closeout L5.3: evidence, sensitivity, prior và claim](notes/phases/PHASE_5_closeout.md) ·

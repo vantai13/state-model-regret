@@ -3751,3 +3751,65 @@ mechanism, novelty hoặc independent validation từ Gate này.
   }
 }
 -->
+
+
+### DL-136 — L6.3: panel chạy một lần (fact, chưa diễn giải) (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**. Thực hiện lesson L6.3 theo yêu cầu.
+Giữ forecast DL-135; không tạo thêm xác nhận tác giả tự viết forecast.
+Source/plan/predictions và 10 frozen hashes khớp trước run; HEAD lúc chạy
+là 8b37f559272b2692c3f25d51842fe96e188b0a6c. Panel output, summary và
+cache panel đều chưa tồn tại trước lệnh. Không sửa frozen source/config.
+
+**Lệnh đúng một lần, như DL-135:**
+`env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 /usr/bin/time .venv/bin/python -B -m experiments.P6_band.run run --spent-cpu-seconds 2600`
+Lệnh chạy trong tmux p6_l63_20261103, một worker/BLAS thread 1, không RNG.
+WSL: systemd-inhibit bị từ chối; thay bằng process Windows keep-awake
+tạm thời. Trước run, BatteryStatus=2 (AC), pin 96%; đĩa trống 862 GB, RAM
+khả dụng 10 GiB. Không đổi power plan lâu dài; keep-awake đã giải phóng
+khi xong. Operational wrapper chỉ gọi lệnh một lần và commit/push raw
+ngay sau kết thúc, không mở panel files trong lúc chạy.
+
+**Niêm phong dữ liệu trước đọc counts.** Commit
+`d7a298f09f2d4a37c6f1dea1b4e9ebeb12609c67` gồm 81 raw JSON rows và
+summary.json, đã push origin/main trước rescore. Console trong lúc chạy
+chỉ progress/status; cuối command chỉ stop_reason, verdict và CPU.
+Không retry, resume, refine hoặc sửa dữ liệu sau run.
+
+**Fact.** stop_reason=null; calls 81/81, 27/27 members đã chấm;
+noncompleted_calls=0. D có N_D=13: '-' 3, '+' 2, U 8. Verdict của runner:
+**INCONCLUSIVE**. Tính độc lập từ counts, không gọi hàm verdict của
+runner: ceil(4×13/5)=11, floor(13/10)=1; U 8 > 1 nên INCONCLUSIVE, khớp.
+A− P6_B001C00 có nhãn '-'. Twin: '+' 11, '-' 0, U 2. intervention_pairs=2/13;
+intervention_wording_allowed=false. Chỉ ghi số đếm, chưa diễn giải.
+
+**Rescore và integrity.** Lệnh env/threads như trên, thay phần module
+command bằng `experiments.P6_band.run rescore`: **RESCORE MATCH**, 0.16
+CPU-s, không evaluator. 10 frozen hashes PASS; 81 raw rows và summary
+khớp byte commit dữ liệu (82/82 files), chỉ kiểm bytes, không in outcomes.
+Integrity audit 0.39 CPU-s. Không chạy lại pytest/full suite cho frozen
+code không thay đổi; 752 full tests PASS là kiểm đã làm ở L6.2 Part C.
+
+**CPU/budget.** Runner 1339.9 CPU-s trên panel cap 7200; GNU time toàn
+command user 1237.35 + system 104.83 = 1342.18 CPU-s, wall 1252.36 s. Prior upper
+đã khóa 2600 CPU-s; receipt-based phase upper 3939.9 CPU-s, không actual
+tổng đo từ đầu phase. Dành closeout upper 4000 CPU-s bao startup/preflight,
+rescore/integrity/operational logging và ghi kết quả. Giữ charges cũ,
+không reset budget nhờ cache; Phase 6 cap 14400 giữ nguyên.
+
+**Deviation thí nghiệm:** không. Không gián đoạn, BUG, resource failure
+hoặc chỉnh source/threshold/order. Environment dùng tmux và process
+keep-awake thay systemd-inhibit, không đổi các tham số tính toán.
+
+**Paths.** Raw: results/phase6/panel/; số đếm/resources:
+results/phase6/summary.json. Operational console log ngoài Git:
+/home/vantai/.cache/state-model-regret/phase6/l6_3_ops_rusb0l0o/console.log;
+status.json và supervisor.py cùng thư mục ghi việc gọi lệnh/commit, không
+phải source khoa học. Không tạo CSV, plot hoặc report mới. README,
+AGENTS và exposure register cập nhật checkpoint.
+
+**Điểm dừng.** L6.3 execution COMPLETE; raw đã commit, rescore MATCH và
+DL-136 có fact. L6.4 chưa thực hiện; chưa đọc z/lý do U theo từng điểm,
+không prior check hoặc đổi G-level. Raw probe/replay tiếp tục niêm phong
+tới L6.4; G1, D22/realism/ownership/Understanding và park/sealed khác
+giữ nguyên. Không chạy lại panel dù Gate record lịch sử vẫn GO.
