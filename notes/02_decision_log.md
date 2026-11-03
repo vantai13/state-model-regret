@@ -3394,3 +3394,44 @@ framework, report, plot hoặc config mới; chỉ cập nhật DL/exposure/poin
 cần thiết sau kết quả. H1, identity, window cũ và Phase5 frozen bytes giữ
 nguyên. G1, Gate C=NARROW, D22 deferred, CF/SUB park, R09/R10 sealed,
 76 high-ratio outcomes chưa mở và các xác nhận còn OPEN giữ nguyên.
+
+**Điều chỉnh tương thích trước compute.** Full suite trên hai file mới đã
+qua 709 tests (125.51 s). Khi rà guard ở window.py, phát hiện allowlist
+certificate cũ sẽ từ chối cả module select_dii.py sau khi nó được commit,
+mặc dù không có dependency tính số nào của certificate thay đổi. Cho phép
+thêm đúng đường dẫn độc lập này trong allowlist; mọi thay đổi khác ở src/
+experiments vẫn bị từ chối. Điều này thay thế yêu cầu giữ byte window.py
+trong đoạn thực thi phía trên, chỉ cho đúng một thay đổi guard, không đổi
+bases, costs, flags, witness, builder hay bất kỳ giá trị dự đoán nào.
+Runner mới kiểm window.py khớp chính xác bản 34ed25d0 với một thay thế
+allowlist đó; ghi SHA cũ/mới riêng. Predictor, identity, test cũ và sáu
+artifact lịch sử vẫn phải khớp byte. Không sửa hash hoặc receipt lịch sử.
+Thêm test cho allowlist và mutation ngoài dependency để không nới guard
+chung. Chạy targeted sau thay đổi này; không lặp full numerics không cần
+thiết khi chỉ allowlist thay đổi. Đây là sửa tương thích trước outcome,
+không thay tiêu chí readiness hoặc chạy lại scan.
+
+**Preflight trước lượt tính thật.** Targeted ban đầu 23/23 PASS (0.43 s,
+0.73 CPU-s); thêm kiểm nonfinite/partial output rồi 24/24 PASS (0.48 s,
+0.71 CPU-s). Full suite: 709 PASS trong 125.51 s, 122.24 CPU-s. Sau thay
+đổi allowlist nói trên và thêm test mutation của guard: 52 PASS, 8 numeric
+regressions deselected trong 1.26 s, 1.34 CPU-s. Tám regressions này đã
+chạy trong full suite; không gọi lượt targeted cuối là full suite 710 tests.
+Các tests mới dùng synthetic numerics, không chạy 14 identity/K640 thật.
+Không có test failure trong các lượt này. Diff check PASS.
+
+Commands thực tế: env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+MKL_NUM_THREADS=1 .venv/bin/python -B -m pytest -q -p no:cacheprovider
+tests/test_p6_select.py; full suite bỏ filepath. Lượt targeted cuối dùng
+cả test_p6_select.py và test_p6_predictor.py với -k loại T1, T2,
+quadrature_mean, cold_first và lattice_identity_detects. Mỗi lượt có
+/usr/bin/time để đo user+system CPU, tính cả descendants.
+
+Tổng tests đo được 125.02 CPU-s. Prior upper 1.180 + preflight reserve 20
++ tests 125.02 = 1.325,02 CPU-s; dùng **prior upper 1.330 CPU-s** trước
+run để bao thêm các guards/metadata. Không reset chi phí hay trừ cache.
+Command run khóa: env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+MKL_NUM_THREADS=1 /usr/bin/time .venv/bin/python -B -m
+experiments.P6_band.select_dii --spent-cpu-seconds 1330. Output reserve
+trước call và source phải đã commit. Không identity/K640 thật hoặc probe
+Part B nào đã chạy tại thời điểm entry preflight này.

@@ -151,7 +151,7 @@ def load_identity_samples():
     saved = V1.load(PREVIOUS/'summary.json')
     V1.require(saved['ref']==REF and saved['identity_base_ids']==list(IDENTITY_BASES),'IDENTITY_SCOPE_CHANGED')
     changed=V1.git('diff','--name-only','bf972c9c','--','src','experiments').decode().splitlines()
-    V1.require(set(changed)<={'experiments/P6_band/window.py'},'IDENTITY_DEPENDENCY_CHANGED')
+    V1.require(set(changed)<={'experiments/P6_band/window.py','experiments/P6_band/select_dii.py'},'IDENTITY_DEPENDENCY_CHANGED')
     for path in ('experiments/P6_band/identity.py','experiments/P6_band/predictor.py'):
         V1.require(hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==saved['source_sha256'][path],
                    'IDENTITY_SOURCE_CHANGED:'+path)
