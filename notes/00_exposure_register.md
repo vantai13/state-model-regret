@@ -1257,3 +1257,14 @@ point theo kết quả hoặc rerun. Audit dùng saved z_K640, không tính lạ
 CDF; hai Phase5 rescore giữ nguyên. Không mở PartB/C/L6.3, CF/SUB,
 R09/R10 hoặc76 p4 high-ratio outcomes. Pilot truth c>0 lịch sử vẫn
 exposed; không gọi toàn bộ c>0 là chưa từng thấy.
+
+
+## L6.2 Part B — 03/11/2026, DL-134
+
+Decision9f86813e trước codecc4f0c30; rawdc460fdb trước đọc summary.
+Đã tính9 calls cho B027C02/B040C02/B050C02,c=1/16 tại640/4,320/4,640/2.
+Ba physical keys là computed, sealed until L6.4; G_S/z của raw chưa đọc
+hoặc in vào phiên. Chỉ đọc numerics summary:3READY,ALL_MEMBERS,27members,
+estimate5864.27 CPU-s. Audit raw chỉ bằng SHA bytes. Luật nhãn/verdict/
+twin/A−/stop đã khóa trước probe; class/twin quyết cơ học, không retune.
+Không panel calls, CF/SUB,R09/R10 hoặc76 outcomes mới.

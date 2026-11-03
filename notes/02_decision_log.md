@@ -3590,3 +3590,43 @@ chi phí cũ. Lệnh một lượt: env OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
 MKL_NUM_THREADS=1 /usr/bin/time .venv/bin/python -B -m
 experiments.P6_band.probe --spent-cpu-seconds 1910. Code và entry phải
 commit trước call. Probe cap1800 và Phase6cap14400 giữ nguyên.
+
+**Kết quả Part B.** Code cc4f0c30 trước run; raw và summary commit
+dc460fdb trước khi đọc summary. Đủ9/9 calls, không BUG/execution/resource
+failure. Cả3 class READY; quyết định PASS/ALL_MEMBERS, giữ13 D,13 twin,A−.
+d lần lượt0.067131778/0.113556041/0.041615246 pp. Max width theo class
+0.001205905/0.005981568/0.000978635 pp, đều dưới0.025 pp; mọi R1 delta
+≤0.25 pp. CPU main lần lượt51.07/124.79/143.74 s; CPU3 lần lượt70.74/
+160.77/193.92 s. Estimate panel5864.269366 CPU-s, dưới7200. expected_U_hint=0
+chỉ là heuristic, không bảo đảm power hoặc loại trừ U ở panel c lớn.
+
+Runner tính427.488188 CPU-s; GNU time user407.14+system20.88=428.02 CPU-s,
+wall400.30 s (parent/controller và child có CPU cộng dồn, không phải wall).
+Receipt upper2337.488188 CPU-s. Dành closeout/preparation upper2370 CPU-s
+đến đầu Part C, bao startup và summary audit; không reset prior. Forecast
+3 READY/ALL_MEMBERS đúng; forecast main50/90/70 đánh giá thấp hai class
+h16, giữ nguyên forecast. d quan sát gần scale forecast, không calibration.
+
+Audit chỉ đọc summary: tự kiểm widths/deltas/d, kept classes và budget;
+raw chỉ đọc bytes để hash, không parse/in G_S/z. Cả9 raw SHA và2 source
+SHA MATCH. Các keys probe là computed, sealed tớiL6.4, không là clean
+held-out. Không nới tolerance, probe vòng hai hoặc xem panel truth.
+
+**Chuyển Part C theo dependency đã đạt.** Freeze27 members, thứ tự A− rồi
+twin/D theo base. Dùng lại signed G_S readiness của probe. Sửa mã mẫu để
+rescore thực sự đi lại raw schedule, không tin saved stop/points bị sửa;
+không chấm N=0 là H1_SUPPORTED. Gate ràng buộc committed runner/source,
+predictions/plan/report hashes; workers cần parent reservation và guards.
+Positive control duy nhất replay P6B_B027C02 tại640/4,c=1/16 qua runner
+mới; machine chỉ so identity và scientific fields, không in outcome.
+Hai saved anchors P43_0021/P43_0018 kiểm nhãn trái dấu. FAIL thì dừng.
+
+Forecast trước positive control và L6.3, theo ủy quyền: nếu đủ N_D=13,
+dự đoán MIXED với10 '-',2 '+',1 U; không gọi10/13 là H1_SUPPORTED.
+Các D rủi ro U là B013/B039/B019; twin B020/B050 rủi ro không '+'.
+Kỳ vọng descriptive mean |truth/prediction| khoảng0.85, chưa có bằng
+chứng ở c>0 panel; không fit hệ số hoặc dùng forecast để chỉnh model.
+Nếu H0_SUPPORTED, kiểm A1 ở state đuôi trước, rồi A2; không tự sửa H1.
+Forecast control replay MATCH và hai nhãn anchor đúng. Các forecasts này
+giữ nguyên khi lập DL-135; chưa có panel outcomes. Part C chỉ tới Gate,
+không chạy L6.3 dù GO.
