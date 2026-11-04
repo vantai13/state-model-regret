@@ -22,3 +22,10 @@ times exponential đối xứng. Coarse SNMP utilization và egress counts khôn
 cho bound offered peak trong queue. Không lấy70% làm dải realism; không suy
 novelty/PC hoặc phổ quát mọi DC. Chưa có CV_rate ở đủ4cửa sổ hay absolute buffer
 theo thời gian cho hai bối cảnh. Nguồn giúp nêu limitation, chưa lấp các dải đó.
+
+**Bổ sung L7.3 (04/11/2026, AI-T, chỉ §6.4).**
+- §6.4/PDF10–11 (Fig. 14–15): chu kỳ ngày và chênh lệch ngày thường/cuối tuần có ở mọi DC trong một tuần đo.
+- Chênh lệch đỉnh–đáy dưới 10% ở ít nhất 80% link biên; aggregation biến động hơn một chút (PRV2 biến động rõ).
+- Ở lõi, phần lớn DC biến động dưới 1%; riêng CLD4 và CLD5 biến động rõ.
+- Không có phần nào ở §6.4 nói câu "không dự đoán được từ 150 s"; MicroTE dẫn câu đó từ [13] Kandula'09 và
+  [6] Benson WREN'09.

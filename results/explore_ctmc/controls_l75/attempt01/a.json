@@ -1,0 +1,126 @@
+{
+ "criterion": "relative <= 1e-12 on z_inf and z_pred1, decision shares equal (<= 1e-12)",
+ "PASS": false,
+ "old": [
+  {
+   "id": "A_u1-2_lA9_x-1_k1-2",
+   "common_h": [
+    "151",
+    "454",
+    "4540",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u1_lA7_x1_k1-2",
+   "common_h": [
+    "377/10",
+    "113",
+    "1130",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u1_lA7_x1-4_k1-2",
+   "common_h": [
+    "123/10",
+    "37",
+    "370",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u1_lA7_x-1_k1-20",
+   "common_h": [
+    "501/100",
+    "15",
+    "150",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u1_lA7_x-1-2_k1-2",
+   "common_h": [
+    "189/20",
+    "142/5",
+    "284",
+    "inf"
+   ],
+   "max_rel": 3.9493708130251057e-16,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u1_lA7_x1-2_k1-2",
+   "common_h": [
+    "84/5",
+    "503/10",
+    "503",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u1_lA7_x1-4_k1-20",
+   "common_h": [
+    "331/50",
+    "199/10",
+    "199",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u2_lA13-2_x-1-4_k1-2",
+   "common_h": [
+    "84/5",
+    "503/10",
+    "503",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u2_lA13-2_x1-4_k1-20",
+   "common_h": [
+    "209/10",
+    "627/10",
+    "627",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  },
+  {
+   "id": "A_u1-2_lA9_x-2_k1-20",
+   "common_h": [
+    "427/5",
+    "256",
+    "2560",
+    "inf"
+   ],
+   "max_rel": 0.0,
+   "max_share_diff": 0.0
+  }
+ ],
+ "xs_max_rel": 5.243022641354466e-14,
+ "xs_max_share_diff": 2.940609438004116e-05,
+ "n_xs": 269,
+ "n_fail": 3,
+ "control": "a",
+ "host": "dt4n-research-01",
+ "cpu": 55.950160501999996,
+ "note": "AI (Claude) theo \u1ee7y quy\u1ec1n; criteria fixed in SPEC_tau.md \u00a75 before the run",
+ "attempt": "attempt01",
+ "diagnosis": "FAIL caused by the control code, not the evaluator: the xs reference CSV (l72/ZEROFIT_a6_xs.csv, zf_report) stores F_old and F_new at h = inf, while this attempt compared them with the shares at h = 10 T_int (new[\"h\"][0]). z_inf and z_pred1 agreed to 5.2e-14 relative. Fixed in attempt02 by comparing the same field (h = inf); the criterion is unchanged. Diagnosed 04/11/2026 by AI (Claude)."
+}

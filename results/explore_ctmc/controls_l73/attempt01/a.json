@@ -1,0 +1,5 @@
+{
+ "PASS": false,
+ "note": "Interactive run of control (a) before controls2.py existed (04/11/2026). True-model and stationary parts matched ctmc-v1 to <= 3.7e-13 pp; M0 parts did not: worst |dF_new| 2.671e-4 and |dG_S| = |dM| = |dGamma| 7.495e-4 pp at regime (8, 7, 1, kappa = 2), h = 20. Cause: two states (path A state 69, path B state 109) whose light-load zero time T equals h = 20 to ~1e-9; ctmc-v1 rounded the gap to exactly 0, ctmc-v2 to +/-1e-13, so the exact-tie rule T >= h was decided by rounding and a both-paths near-tie pair flipped. Fix (ctmc2.saturated, SPEC_v2 §2): also treat as saturated when max|d| (h - T)^2 <= 1e-12 (1 + h). ctmc-v1 not changed (its results are locked).",
+ "worst": {"zf_F_new": 2.671e-04, "zf_z_pred1": 1.730e-02, "truth_G_S": 7.495e-04, "truth_M": 7.495e-04, "truth_Gamma": 7.495e-04, "truth_G_M": 1.701e-13, "truth_S": 3.670e-13, "zf_z_inf": 2.034e-13, "zf_T_int_rel": 1.016e-13}
+}

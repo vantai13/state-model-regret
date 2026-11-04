@@ -660,3 +660,166 @@ author-venue/discovery;0 nguồn tự đề xuất ngoài6,0 catalog/Excel/autho
 updates. PDF/page/sha/source claims và E/M/R ở [prior check](L6_4_prior_check.md).
 Gao là road traffic, không làm computer-network prior. Dừng đủ bounded
 sources/targeted reads; không2×20,saturation,coverage,novelty hoặcprior clearance.
+
+## L7.3-R1 — realism use cases: library review + metadata lookup (03/11/2026)
+
+Người phụ trách: **Doan Van Tai**; AI (Claude) theo ủy quyền L7.3 Phần 1; skill paper-research.
+
+```text
+THẺ TÌM KIẾM — L7.3-R1 / 03-11-2026
+Câu hỏi: các bối cảnh routing thật (flowlet LB trong DC; TE/lập lịch flow DC ở thang giây; TE trên WAN;
+  vòng what-if của NDT) có horizon h, tuổi telemetry τ, thang burst và tải nào, có nguồn?
+PC / mục đích: realism / RQ3 (định vị use case), không đổi nhãn PC.
+Câu chặn: nếu nguồn cho h, τ, T_mode cùng định nghĩa thì có thể gán vùng state/chuyển tiếp/tiệm cận của
+  ctmc-v1; nếu không, ô giữ UNSOURCED, không suy OUT.
+GIỮ nếu: nguồn networking đo hoặc mô tả chu kỳ quyết định, tuổi đo, thang burst/đa thang.
+BỎ nếu: road traffic/vehicle routing, sai số KPI không có quyết định.
+Điểm vào: thư viện hiện có (ZLK17, BAM10, NDT1, LTWW94, T00/worksheet v1); exact-title lookup cho
+  SWAN, B4, CONGA, Roy2015.
+Ngân sách: một buổi; tối đa 3 đề xuất mới; không tải/đọc trước khi tác giả duyệt.
+Dừng khi: đủ lookup cho các ô UNSOURCED ưu tiên (chu kỳ TE WAN, flowlet LB, burst đa thang DC).
+```
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 03/11 | library | L7.3-R1 / realism | catalog + notes/literature/papers + notes/realism + T00 | grep local | 33 notes, 8 realism files | 4 dùng lại (ZLK17, BAM10, NDT1, LTWW94) + T00 (Planck/Hedera/MicroTE/Kuźniar ở mức note) | LTWW94 đã có từ L3R.4 (không phải nguồn mới); CONGA/SWAN/MicroTE/B4 không có trong catalog |
+| 03/11 | lookup | L7.3-R1 | "SWAN achieving high utilization software-driven WAN"; "B4 experience globally-deployed software defined WAN"; "CONGA distributed congestion-aware load balancing datacenters"; "Inside the Social Network's Datacenter Network" | paper-search `search_dblp`, max 5 | 0 | 0 | Cả 4 trả rỗng: hạn chế công cụ (dblp), không phải bằng chứng không có bài |
+| 03/11 | lookup | L7.3-R1 | cùng 4 exact titles | paper-search `search_crossref`, max 5, relevance | 20 | 4 | SWAN 10.1145/2486001.2486012 (SIGCOMM'13, tr.15–26; CCR 10.1145/2534169.2486012); B4 10.1145/2486001.2486019 (SIGCOMM'13, tr.3–14); CONGA 10.1145/2619239.2626316 (SIGCOMM'14, tr.503–514); Roy et al. 10.1145/2785956.2787472 (SIGCOMM'15, tr.123–137). Mức: metadata-only (+ abstract Crossref của bản CCR). 16 kết quả khác lệch chủ đề |
+
+Đề xuất 3 nguồn (chờ tác giả duyệt; chưa tải, chưa note nội dung): SWAN, CONGA, Roy2015 — lý do ở
+[realism_v2_draft.md](../realism/realism_v2_draft.md) §6. B4 giữ làm phương án thay SWAN, không đề xuất trong đợt
+này. Đây là lookup theo tên, không phải khảo sát lĩnh vực; không 2×20, không saturation, không novelty.
+
+### L7.3-R1 đợt 2 — duyệt theo ủy quyền, tải và đọc (03/11/2026)
+
+Tác giả nhắn "bạn hãy tự làm tự chạy thực hiện cho tôi luôn đi" sau khi AI dừng ở bước "chờ duyệt 3 nguồn". AI hiểu tin
+nhắn này là ủy quyền cho AI duyệt cả 3 đề xuất. Ghi nhận đây là duyệt **AI-delegated**: tác giả không tự sàng
+abstract, và không có nguồn nào được ghi là tác giả đã đọc.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 03/11 | lookup (OA) | L7.3-R1 | 3 DOI: SWAN, CONGA, Roy2015 | paper-search `search_unpaywall` | 3 | 0 | Cả 3 trả `result: []` |
+| 03/11 | lookup (OA) | L7.3-R1 | 3 DOI trên | paper-pilot `inspect_open_access_pdf` (doi) | 3 | 0 | SWAN và Roy2015 bị 403 ở dl.acm.org; CONGA: "No PDF URL available" |
+| 03/11 | lookup | L7.3-R1 | 3 DOI trên | scholar-search `get_paper_details` | 3 | 2 | SWAN và Roy2015 khớp DOI/DBLP; CONGA bị 404 ở Semantic Scholar (lỗi công cụ, DOI đã kiểm qua Crossref ở đợt 1) |
+| 03/11 | lookup (bản tác giả) | L7.3-R1 | 3 exact title + "pdf" (Roy2015 thêm "ucsd") | WebSearch | 3 truy vấn | 3 URL chọn | Chỉ chọn trang hội nghị hoặc trang tác giả: conferences.sigcomm.org/…/p15.pdf, people.csail.mit.edu/alizadeh/…/conga-sigcomm14.pdf, cseweb.ucsd.edu/~snoeren/…/fb-sigcomm15.pdf. Không dùng bản TR, bản khóa học hay mirror khác; không dùng thư viện lậu |
+| 03/11 | download | L7.3-R1 | 3 URL trên | curl, lưu `~/papers/state-model-regret/l73/` | 3 | 3 | HTTP 200 application/pdf. Số trang 12/12/15 khớp tr. 15–26, 503–514, 123–137. sha256: 99bb9406a528…, b0a6e69eaa00…, d95df8228cb8… |
+| 03/11 | read (AI-T) | L7.3-R1 / realism | HKM13, AED14, RZB15 | pdftotext, grep theo câu hỏi h/τ/burst/tải, rồi đọc đoạn quanh kết quả | 3 | 3 | Mục đã đọc ghi trong từng note. Đã sửa 3 trích sai sau khi đối chiếu text: CONGA "lớn hơn 500 KB", CONGA ~100 µs ở §1 chứ không phải §2.1, Roy2015 §4.1 bổ sung Hadoop 5× và chu kỳ ngày. Không đọc toàn văn |
+
+Kết quả đợt 2:
+- **Note tạo mới:** [HKM13](papers/HKM13.md), [AED14](papers/AED14.md), [RZB15](papers/RZB15.md).
+- **Bản nháp:** [realism_v2_draft.md](../realism/realism_v2_draft.md) cập nhật §2–6.
+- **Không đổi:** catalog và Excel trên `main`, mức đọc của tác giả, nhãn PC, envelope v1. B4 không dùng, vẫn
+  metadata-only.
+- **Phạm vi:** không backward/forward snowball, không 2×20, không saturation, không novelty.
+- **Lý do dừng:** đã đủ để lấp các ô h/τ của (i) và (iii) và thêm bằng chứng đa thang cho (ii). Các ô còn UNSOURCED
+  (f/T_slow, thời lượng flowlet, h/τ của NDT) cần nguồn khác. Theo giới hạn 3 nguồn mỗi đợt, đợt này không đề xuất thêm.
+
+## L7.3-R2 — danh sách nguồn để tác giả tải (04/11/2026)
+
+Người phụ trách: **Doan Van Tai**; AI (Claude) soạn. Tác giả nhắn: "bạn đưa tất cả tên bài báo mà bạn muốn tải đi tôi
+sẽ tải và bạn kiểm tra tốt hơn". Đợt này chỉ tra metadata và sàng tiêu đề/abstract; chưa tải PDF, chưa tạo note.
+
+```text
+THẺ TÌM KIẾM — L7.3-R2 / 04-11-2026
+Câu hỏi: nguồn nào lấp được các ô UNSOURCED của realism v2: f/T_slow (phương sai tải theo thang) cho DC và WAN,
+  thời lượng flowlet, h/τ của vòng what-if NDT? Nguồn nào cho bản gốc của số đang trích gián tiếp (MicroTE)?
+PC / mục đích: realism / RQ3; không đổi nhãn PC.
+Câu chặn: nếu nguồn cho T_mode/f dưới 5 phút ở WAN hoặc f ở thang giây–phút ở DC thì nhãn (ii)/(iii) có thể đổi
+  từ UNRESOLVED/không bền sang có điều kiện rõ hơn; nếu không, giữ nguyên.
+GIỮ nếu: đo traffic DC/WAN theo nhiều thang thời gian, chu kỳ TE, flowlet, NDT có thời gian vòng.
+BỎ nếu: road/urban traffic, dự báo traffic không có thang thời gian hay quyết định, digital twin ngoài mạng.
+Ngân sách: một lượt; tối đa 3 đề xuất mới có ưu tiên, phần còn lại ghi dự phòng theo yêu cầu tác giả.
+```
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | library | L7.3-R2 | P07 DOTE (đã có PDF) | grep text local | 1 | 1 | TE epoch "a few minutes", demand 5 phút, Appendix A về predictability (PDF3, 6, 9, 18). Chỉ AI grep, chưa note mới |
+| 04/11 | backward | L7.3-R2 | references của RZB15 [12, 13, 14, 17, 26, 27] và AED14 [2, 8, 18, 28]; P07 [Roughan 2002] | pdftotext local | 11 | 4 | MicroTE (= RZB15 [14], AED14 [9]), Kandula IMC'09, Bullet Trains, Roughan IMW'02. Benson IMC'10 = BAM10 đã có; Hedera đã có trong T00; VL2, ECHO bỏ (không thang thời gian) |
+| 04/11 | lookup | L7.3-R2 | MicroTE; Kandula'09; Ghabashneh'22; B4 and After; HULA; Planck; Kuźniar'18; Bullet Trains; Roughan'02 | paper-search `search_crossref`, max 3 | 24 | 9 | Mỗi bài 1 DOI khớp tiêu đề và tác giả. Planck và Roughan có 2 bản (conf + CCR; IMW + chương sách 2003), gộp thành 1 công trình mỗi bài |
+| 04/11 | lookup | L7.3-R2 | 10.1145/1005686.1005697 | `get_crossref_paper_by_doi` | 1 | 1 | Lakhina et al., SIGMETRICS'04, tr. 61–72 |
+| 04/11 | lookup | L7.3-R2 | LetFlow; Hedera (exact title) | paper-search `search_dblp` | 0 | 0 | Cả 2 rỗng: hạn chế công cụ |
+| 04/11 | lookup | L7.3-R2 | LetFlow NSDI'17 | WebSearch | 9 | 1 | Trang USENIX chính thức, open access, tr. 407–420, không có DOI |
+| 04/11 | keyword | L7.3-R2 | "datacenter traffic predictability timescales traffic engineering measurement"; "network digital twin what-if analysis routing optimization loop time" | paper-search `search_semantic` | 0 | 0 | Cả 2 lỗi HTTP 429 (rate limit) |
+| 04/11 | keyword | L7.3-R2 | "data center traffic predictability timescale traffic engineering" | `search_openalex`, max 20, relevance | 20 | 1 | Lakhina'04 (phân rã OD flow thành trend chu kỳ, burst ngắn, nhiễu). 19 bài bỏ: road/air traffic, dự báo ML không có thang, anomaly |
+| 04/11 | keyword | L7.3-R2 | "network digital twin what-if analysis routing" | `search_openalex`, max 20, relevance | 20 | 3 dự phòng | TwinNet (Comput. Netw. 2022), Polverini (NOMS'23), Aben-Athar (ICC Wksp'25). NDT1 trùng thư viện; còn lại ngoài mạng hoặc survey. Abstract không nêu h, τ |
+
+Kết quả:
+- **Đề xuất ưu tiên (3):** MicroTE 10.1145/2079296.2079304; Ghabashneh et al. 10.1145/3517745.3561430; Roughan et al.
+  10.1145/637201.637213. Lakhina 10.1145/1005686.1005697 là phương án thay cho Roughan.
+- **Dự phòng (metadata-only):** Kandula'09, B4, B4 and After, HULA, LetFlow, Bullet Trains, TwinNet, Polverini'23,
+  Aben-Athar'25.
+- **Bản chính thức để đối chiếu nguồn đã đọc:** SWAN, CONGA, RZB15, NDT1 (đang đọc arXiv v2), Planck, Kuźniar'18.
+- **Mức đọc:** mọi ứng viên mới đều metadata-only (+ abstract OpenAlex nếu có). Chưa tải, chưa note.
+- **Phạm vi:** không 2×20, không saturation, không novelty.
+- **Lý do dừng:** đủ ứng viên cho từng ô UNSOURCED; Semantic Scholar bị rate limit; chờ tác giả tải.
+
+### L7.3-R2 đợt 2 — tác giả tải và paper cũ trong Downloads (04/11/2026)
+
+Tác giả nhắn: "tôi đã tải rồi á, bạn còn có là các paper cũ của tôi bạn hãy xem thử mục tải về ở window ... và bổ sung
+thông tin thêm cho lesson đi". AI coi việc tác giả tải là duyệt các nguồn đó, và tin nhắn là ủy quyền đọc paper cũ.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | intake | L7.3-R2 | `C:\Users\VAN TAI\Downloads` (file mới 04/11) | ls theo thời gian, pdftotext trang 1, pdfinfo | 4 | 4 | MicroTE VoR (12 tr.); Roughan, `download.pdf` (10 tr., bản tác giả của bản ITC 2003, không phải IMW 2002); Kuźniar'18 AM (25 tr., trong `tmp/`); SWAN ACM VoR. Ghabashneh'22 và các bản VoR khác chưa có |
+| 04/11 | library (author files) | L7.3-R2 / NDT | paper NDT cũ trong Downloads và `Downloads\Digital Twin` | pdftotext trang 1 + grep thời gian vòng | 8 | 4 | Giữ ZBEK26, VGC23, HHZ26, AAA25 (có số thời gian). Bỏ 3 survey không có số vòng routing; Kuri & Kumar CDC'92 là R34 đã có. Zotero storage: 1 PDF AoI survey (Yates 2020), không thuộc câu hỏi này |
+| 04/11 | lookup | L7.3-R2 | Vilalta (title); 10.1109/TNSM.2026.3737654; 10.1038/s41598-026-71181-2 | `search_crossref`, `get_crossref_paper_by_doi` | 5 | 3 | VGC23 = IEEE ComMag 61(12):128–134, DOI 10.1109/MCOM.003.2300105; ZBEK26 = TNSM 23:8111–8124; HHZ26 = Sci. Rep. 2026 |
+| 04/11 | backward | L7.3-R2 | BAAZ11 refs [5, 6, 13, 17] | pdftotext local | 4 | 0 mới | Câu 150 s: BAAZ11 §4/PDF4 trích [13] Kandula'09 và [6] Benson WREN'09. BAM10 (= [5]) §6.4 có chu kỳ ngày, không có câu 150 s |
+| 04/11 | read (AI-T) | L7.3-R2 / realism | BAAZ11, RGK03, KPKC18, SWAN VoR (so trang), BAM10 §6.4, P07 (grep), 4 paper NDT | pdftotext + grep + đọc đoạn quanh; render KPKC18 PDF9 để đọc Table 2 | 11 | — | SWAN VoR trùng chữ 12/12 trang với bản đã đọc. KPKC18 AM khớp số 250/400 ms của T00 |
+
+Kết quả:
+- **Note mới:** [BAAZ11](papers/BAAZ11.md), [RGK03](papers/RGK03.md), [KPKC18](papers/KPKC18.md),
+  [NDT_timing_L73](papers/NDT_timing_L73.md).
+- **Bổ sung:** [BAM10](papers/BAM10.md), [P07](papers/P07.md), [HKM13](papers/HKM13.md).
+- **Bản nháp:** [realism v2](../realism/realism_v2_draft.md) cập nhật §2–6, thêm §3e.
+- **Lưu PDF:** chép (không di chuyển) vào `~/papers/state-model-regret/l73/{BAAZ11,RGK03,KPKC18,HKM13,ndt_old}/`, có
+  sha256 trong note.
+- **AAA25:** trước đây tác giả quyết định "không đọc thêm" (đợt 26/10); lần này đọc theo yêu cầu mới, chỉ để tìm thời
+  gian vòng.
+- **Không đổi:** catalog và Excel trên `main`, mức đọc của tác giả, nhãn PC.
+- **Phạm vi:** không novelty, không 2×20.
+- **Lý do dừng:** đã dùng hết các file tác giả cung cấp có liên quan; các ô còn thiếu cần Kandula'09, Benson WREN'09,
+  Ghabashneh'22 hoặc nguồn NDT có thời gian giữ quyết định.
+
+### L7.3-R2 đợt 3 — quét toàn bộ Downloads và đính chính (04/11/2026)
+
+Tác giả nhắn: "liệt kê thêm các bài đi để tôi tải và kiểm tra trong thư mục windown tôi nhiều bài á, coi bài nào dùng
+được không".
+
+**Đính chính đợt 2.** Dòng intake ở đợt 2 ghi "Ghabashneh'22 ... chưa có" là **sai**. Hai file `Downloads/tmp/imc2022.pdf`
+(GZL22) và `odflows-sigm04.pdf` (LPC04) đã được tải lúc 06:38 cùng ngày; lượt quét đầu chỉ xem file mới ở thư mục gốc
+và `tmp/10.1016@…`. Dòng cũ giữ nguyên làm lịch sử.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | intake (toàn bộ) | L7.3-R2 | `C:\Users\VAN TAI\Downloads` đệ quy (Documents, Desktop, OneDrive: 0 PDF; Zotero: 1) | find + pdftotext trang 1 + sha256 so với `~/papers/state-model-regret/` | 132 | 2 mới | 24 file trùng thư viện theo sha256. 2 mới dùng được: GZL22, LPC04. 106 còn lại không dùng: CV, thuyết minh/báo cáo NCKH, slide và lab môn học, sách IELTS, tài liệu RL (Sutton & Barto, DQN, survey GNN/RL routing), benchmark CIS, survey/eBook NDT chung |
+| 04/11 | read (AI-T) | L7.3-R2 / realism | GZL22, LPC04 | pdftotext + grep + đọc đoạn quanh | 2 | 2 | GZL22: burst 1 ms trung vị 2 ms, p90 8 ms, 7,5/s; tải trong/ngoài burst 65,5%/5,5%. LPC04: chu kỳ/spike/nhiễu 92/6/2% (Sprint) và 70/19/12% (Abilene) |
+| 04/11 | lookup | L7.3-R2 | Benson WREN'09; Jupiter Evolving; FLARE; Heffes–Lucantoni; Yates AoI survey | `search_crossref`, max 3 | 15 | 5 | DOI: 10.1145/1592681.1592692 (WREN'09; bản CCR 10.1145/1672308.1672325); 10.1145/3544216.3544265; 10.1145/1232919.1232925; 10.1109/JSAC.1986.1146393; 10.1109/JSAC.2021.3065072 (bản arXiv v1 đã có trong Zotero của tác giả) |
+| 04/11 | keyword | L7.3-R2 | "backbone traffic variability fine timescales seconds minutes traffic matrix" | `search_openalex`, max 15 | 15 | 1 | OnlineTE (arXiv 2605.16187, 2026): abstract nói TE WAN triển khai thu demand định kỳ và "can take minutes to react". Còn lại là luận văn, Starlink, Tor, anomaly, hoặc trùng (RZB15) |
+
+Kết quả:
+- **Note mới:** [GZL22](papers/GZL22.md), [LPC04](papers/LPC04.md).
+- **Bản nháp:** realism v2 thêm §3c′ và §3f, sửa §2, §4–6.
+- **Đề xuất cho tác giả tải (metadata-only):** Kandula'09, Benson WREN'09, Jupiter Evolving, FLARE, Heffes–Lucantoni.
+  OnlineTE và LetFlow là open access.
+- **Không đổi:** catalog và Excel trên `main`, nhãn PC.
+
+### L7.3-R2 đợt 4 — tác giả tải 8 bài, chốt Phần 1 (04/11/2026)
+
+Tác giả nhắn: "tôi tải hết rồi á, hoàn thiện đầy đủ lesson và push lên đi". Tác giả tải là duyệt các nguồn đã liệt kê.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | intake | L7.3-R2 | Downloads, file mới sau 07:00 | find -newermt + pdftotext/pdfinfo + sha256 | 9 file | 8 | Jupiter, Benson WREN'09, Kandula'09, Heffes–Lucantoni, OnlineTE v1, LetFlow, FLARE (2 file trùng sha256, giữ 1), Yates JSAC |
+| 04/11 | read (AI-T) | L7.3-R2 / realism | 8 bài trên | pdftotext + grep; render tr. 202–206, 208 (KSG09, mất chữ số khi trích text), tr. 69 (BAAZ09), tr. 1189 (YSB21), tr. 858 (HL86) | 8 | 8 | Câu "≥ 150 s": **không tìm thấy** trong KSG09 (ảnh 6/7 trang; tr. 207 chỉ grep) và BAAZ09 (grep toàn văn). KSG09: TM đổi trung vị 82% ở 10 s và 100 s. YSB21 eq. 21 cho P/2 + L |
+| 04/11 | backward | L7.3-R2 | GNM26 refs [17, 35, 46] | pdftotext | 3 | 0 đề xuất | RedTE (SIGCOMM'24) và Namyar et al. (NSDI'24) là ứng viên cho thang dưới 5 phút ở WAN. Chưa tra DOI; giữ cho đợt sau theo giới hạn 3 đề xuất mỗi đợt |
+
+Kết quả:
+- **Note mới:** [KSG09](papers/KSG09.md), [BAAZ09](papers/BAAZ09.md), [PMO22](papers/PMO22.md),
+  [KKSB07](papers/KKSB07.md), [VPA17](papers/VPA17.md), [GNM26](papers/GNM26.md), [HL86](papers/HL86.md),
+  [YSB21](papers/YSB21.md).
+- **Bản nháp:** [realism v2](../realism/realism_v2_draft.md) viết lại thành bản hợp nhất "hoàn tất kỹ thuật Phần 1", thêm
+  §0 tóm tắt, §5 kết luận, §6 bàn giao Phần 2 và §7 nguồn.
+- **Không đổi:** catalog và Excel trên `main`, mức đọc của tác giả, nhãn PC/Gate.
+- **Phạm vi:** không novelty, không 2×20, không saturation.
+- **Lý do dừng:** mọi ô của bảng use case đã có nguồn hoặc UNSOURCED rõ lý do. Các lỗ còn lại cần nguồn mới (WAN dưới
+  5 phút; h của NDT; f của DC).

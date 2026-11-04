@@ -1,0 +1,239 @@
+"""Doan Van Tai — run ctmc-v1 cases, one write-once JSON per case [EXPLORATION ONLY; AI (Claude) theo ủy quyền].
+
+  python -m experiments.explore_ctmc.scan STAGE [--mode full|m0] [--workers N] [--shard I N] [--cap CPU_S]
+
+--mode m0 computes only mean-rollout and stationary quantities (allowed before the predictions are locked).
+--mode full computes the truth and refuses to start unless results/explore_ctmc/locks.json lists the sha256 of
+every prediction file the stage needs and the files on disk still match (bridge for every full stage; asymptote
+as well when any case has h/kappa > 160 or h/T_int >= 10). Cases equal to a sealed/CF/panel key of the fluid
+namespace, to a V3 control regime or to an exposed timing probe are refused. A case that exceeds the per-case CPU
+cap is written as UNRESOLVED and reported, never retried silently.
+"""
+import os
+for _v in ('OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS'):
+    os.environ.setdefault(_v, '1')
+
+import argparse
+from fractions import Fraction as F
+import hashlib
+import json
+import multiprocessing
+from pathlib import Path
+import resource
+import signal
+import socket
+import time
+
+ROOT = Path(__file__).resolve().parents[2]
+OUT = ROOT / 'results/explore_ctmc'
+LOCKS = OUT / 'locks.json'
+
+
+class CpuCap(Exception):
+    pass
+
+
+def _cap(signum, frame):
+    raise CpuCap('per-case CPU cap reached')
+
+
+def fluid_forbidden():
+    from experiments.explore_mech.scan import forbidden_keys
+    return forbidden_keys()
+
+
+def controls_and_probes():
+    ids = json.loads((OUT / 'controls/v3_ids.json').read_text())
+    keys = {tuple(str(F(x)) for x in v[:4]) + (str(F(v[4])),) for v in ids['V3'].values()}
+    for lamA, lamB, u, kappa, hs in ids['exposed_timing_probes'].values():
+        keys |= {(str(F(lamA)), str(F(lamB)), str(F(u)), str(F(kappa)), str(F(h))) for h in hs}
+    return keys
+
+
+def case_keys(case):
+    lamA, lamB, u, kappa, c = (str(F(x)) for x in case['parameters'])
+    return [(lamA, lamB, u, kappa, str(F(h)), c) for h in case['hs']]
+
+
+def check_l72_locks(stage):
+    """Held-out truth needs locks_l72.json: card, checker, the six case lists and the frozen zero-fit files unchanged."""
+    path = OUT / 'locks_l72.json'
+    if not path.exists():
+        raise SystemExit('l72 refused: no locks_l72.json (card not locked)')
+    locks = json.loads(path.read_text())
+    for rel, sha in locks['files'].items():
+        if hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() != sha:
+            raise SystemExit(f'l72 refused: {rel} changed since the lock')
+    if f'results/explore_ctmc/cases/{stage}.json' not in locks['files']:
+        raise SystemExit(f'l72 refused: {stage} is not a locked case list')
+    return locks
+
+
+def check_locks(stage_cases, d22=False, ko=False):
+    need = {'PREDICTIONS_bridge.md', 'check_bridge.py'}
+    if any(c.get('long') for c in stage_cases):
+        need |= {'PREDICTIONS_asymptote.md', 'check_asymptote.py', 'PREDICTIONS_asymptote_numbers.csv'}
+    if d22:
+        need |= {'PREDICTIONS_d22.md', 'check_d22.py', 'PREDICTIONS_d22_numbers.csv'}
+    if ko:
+        need |= {'PREDICTIONS_ko.md', 'check_ko.py', 'PREDICTIONS_ko_numbers.csv'}
+    if any(c.get('csw') for c in stage_cases):
+        need |= {'PREDICTIONS_csw.md', 'check_csw.py', 'PREDICTIONS_csw_numbers.csv'}
+    if not LOCKS.exists():
+        raise SystemExit('full mode refused: no locks.json (predictions not locked)')
+    locks = json.loads(LOCKS.read_text())['files']
+    for name in need:
+        path = (ROOT / 'experiments/explore_ctmc' / name) if name.endswith('.py') else (OUT / name)
+        if name not in locks or hashlib.sha256(path.read_bytes()).hexdigest() != locks[name]:
+            raise SystemExit(f'full mode refused: {name} missing from locks or changed since it was locked')
+    return locks
+
+
+def run_case(job):
+    case, mode, path, cap = job
+    if path.exists():
+        return path.name, 'SKIP', 0.0
+    signal.signal(signal.SIGXCPU, _cap)
+    resource.setrlimit(resource.RLIMIT_CPU, (cap, cap + 60))
+    from experiments.explore_ctmc import ctmc
+    t = time.process_time()
+    lamA, lamB, u, kappa, c = (F(x) for x in case['parameters'])
+    try:
+        amp = F(case.get('a', 6))
+        if mode == 'l72':
+            if not case['id'].startswith(('Za', 'Sa', 'Xa')):
+                raise ValueError('l72 mode runs only the locked held-out case lists')
+            if case.get('d22', True) and max(ctmc.choose_N(l + u, kappa, a=amp) for l in (lamA, lamB)) <= ctmc.D22_NMAX:
+                out = ctmc.evaluate_d22(lamA, lamB, u, kappa, case['hs'], c, a=amp)
+            else:
+                out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=False, a=amp)
+            for r in out['h']:
+                r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9]
+        elif mode == 'zf':
+            out = ctmc.evaluate_m0(lamA, lamB, u, kappa, case['hs'], c=c, a=amp)
+            if case.get('d22', True) and max(out['N'].values()) <= ctmc.D22_NMAX:
+                d = ctmc.evaluate_d22_m0(lamA, lamB, u, kappa, case['hs'], c=c, a=amp)
+                out.update(z_F_inf=d['z_F_inf'], z_V_inf=d['z_V_inf'], F_cb=d['h'][-1]['F_cb'], dep_inf=d['dep_inf'])
+        elif mode == 'ko':
+            if max(ctmc.choose_N(l + u, kappa) for l in (lamA, lamB)) <= ctmc.D22_NMAX:
+                out = ctmc.evaluate_d22(lamA, lamB, u, kappa, case['hs'], c)
+            else:
+                out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=False)
+            for r in out['h']:
+                r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9]
+        elif mode == 'd22m0':
+            out = ctmc.evaluate_d22_m0(lamA, lamB, u, kappa, case['hs'], c=c, allow_csw=case.get('csw', False))
+        elif mode == 'd22':
+            out = ctmc.evaluate_d22(lamA, lamB, u, kappa, case['hs'], c, allow_csw=case.get('csw', False))
+            for r in out['h']:
+                r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9] + \
+                    [k for k in ('F1', 'V1') if r['d22'][k] < -1e-9]
+        elif mode == 'm0':
+            out = ctmc.evaluate_m0(lamA, lamB, u, kappa, case['hs'], c=c, allow_csw=case.get('csw', False))
+        else:
+            out = ctmc.evaluate(lamA, lamB, u, kappa, case['hs'], c, disagree=case.get('disagree', True),
+                                allow_csw=case.get('csw', False))
+            for r in out['h']:      # V6 and V11 on every row
+                flags = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9]
+                r['flags'] = flags
+            out['V11_static_sign_ok'] = (out['s'] < 0) == (lamB < lamA) if lamA != lamB else None
+        out['status'] = 'COMPLETED'
+    except CpuCap as exc:
+        out = dict(parameters=case['parameters'], status='UNRESOLVED', error=str(exc))
+    except Exception as exc:
+        out = dict(parameters=case['parameters'], status='ERROR', error=f'{type(exc).__name__}: {exc}')
+    out.update(id=case['id'], hs=[str(F(h)) for h in case['hs']], mode=mode, cpu=time.process_time() - t,
+               host=socket.gethostname(), tags=case.get('tags', {}))
+    tmp = path.with_suffix('.tmp')
+    tmp.write_text(json.dumps(out, default=float) + '\n')
+    tmp.rename(path)
+    return path.name, out['status'], out['cpu']
+
+
+def _child(job):
+    if job[0].get('_test_kill'):             # test hook: simulate the kernel kill at the CPU hard limit
+        os.kill(os.getpid(), signal.SIGKILL)
+    run_case(job)
+
+
+def run_robust(jobs, workers):
+    """One forked process per case. multiprocessing.Pool loses the task of a worker the kernel kills (SIGKILL at the
+    RLIMIT_CPU hard limit, cap + 60 CPU-s) and then waits forever (seen 03/11/2026 on both machines). Here the parent
+    notices the dead child and writes the row itself: UNRESOLVED for a kill by signal 9 or SIGXCPU, ERROR otherwise."""
+    ctx = multiprocessing.get_context('fork')
+    pending, active = list(jobs), {}
+    while pending or active:
+        while pending and len(active) < workers:
+            job = pending.pop(0)
+            if job[2].exists():
+                yield job[2].name, 'SKIP', 0.0
+                continue
+            p = ctx.Process(target=_child, args=(job,))
+            p.start()
+            active[p] = job
+        time.sleep(0.2)
+        for p in [p for p in active if not p.is_alive()]:
+            case, mode, path, cap = active.pop(p)
+            p.join()
+            if path.exists():
+                d = json.loads(path.read_text())
+                yield path.name, d['status'], d.get('cpu') or 0.0
+                continue
+            sig = -p.exitcode if p.exitcode is not None and p.exitcode < 0 else None
+            status = 'UNRESOLVED' if sig in (signal.SIGKILL, signal.SIGXCPU) else 'ERROR'
+            out = dict(id=case['id'], parameters=case['parameters'], hs=[str(F(h)) for h in case['hs']], mode=mode,
+                       status=status, cpu=None, host=socket.gethostname(), tags=case.get('tags', {}),
+                       error=(f'worker died with signal {sig} (exitcode {p.exitcode}) without writing its row; recorded '
+                              f'by the parent. Signal 9 here is the kernel kill at the CPU hard limit (cap {cap} + 60 '
+                              f'CPU-s) unless the kernel log shows an OOM kill.'))
+            tmp = path.with_suffix('.tmp')
+            tmp.write_text(json.dumps(out) + '\n')
+            tmp.rename(path)
+            yield path.name, status, 0.0
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument('stage')
+    p.add_argument('--mode', choices=('full', 'm0', 'd22', 'd22m0', 'ko', 'zf', 'l72'), default='full')
+    p.add_argument('--workers', type=int, default=os.cpu_count())
+    p.add_argument('--shard', nargs=2, type=int, default=[0, 1])
+    p.add_argument('--cap', type=int, default=3600)
+    p.add_argument('--reverse', action='store_true')
+    p.add_argument('--only', type=Path, help='JSON list of case IDs to run (subset of the stage)')
+    a = p.parse_args()
+    cases = json.loads((OUT / 'cases' / f'{a.stage}.json').read_text())
+    bad, ctrl = fluid_forbidden(), controls_and_probes()
+    refused = [c['id'] for c in cases if any(k in bad or k[:5] in ctrl for k in case_keys(c))]
+    if refused:
+        raise SystemExit(f'{len(refused)} cases refused (sealed/CF/panel/control/probe): {refused[:5]}')
+    if a.mode in ('full', 'd22', 'ko'):
+        check_locks(cases, d22=a.mode == 'd22', ko=a.mode == 'ko')
+    if a.mode == 'l72':
+        check_l72_locks(a.stage)
+    i, n = a.shard
+    mine = [c for j, c in enumerate(cases) if j % n == i]
+    if a.only:
+        keep = set(json.loads(a.only.read_text()))
+        mine = [c for c in mine if c['id'] in keep]
+    folder = OUT / dict(m0='m0', full='runs', d22='runs_d22', d22m0='m0_d22', ko='runs_ko', zf='m0_l72', l72='runs_l72')[a.mode] / a.stage
+    folder.mkdir(parents=True, exist_ok=True)
+    jobs = [(c, a.mode, folder / f"{c['id']}.json", a.cap) for c in mine]
+    todo = [j for j in jobs if not j[2].exists()]
+    if a.reverse:
+        todo.reverse()
+    print(f'{a.stage} [{a.mode}] shard {i}/{n} on {socket.gethostname()}: {len(mine)} cases, {len(todo)} to run, '
+          f'{a.workers} workers', flush=True)
+    start, cpu = time.monotonic(), 0.0
+    if a.mode == 'l72':
+        stream = run_robust(todo, a.workers)
+    else:
+        pool = multiprocessing.get_context('fork').Pool(a.workers, maxtasksperchild=1)
+        stream = pool.imap_unordered(run_case, todo)
+    for k, (name, status, c) in enumerate(stream, 1):
+        cpu += c
+        print(f'[{k}/{len(todo)} {time.monotonic() - start:.0f}s cpu {cpu:.0f}s] {status} {name}', flush=True)
+
+
+if __name__ == '__main__':
+    main()
