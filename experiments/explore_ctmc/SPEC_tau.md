@@ -42,10 +42,14 @@ z_∞ và từ z_pred1 ở h = 10·T_int.
 |---|---|---|
 | (a) | τ = 1 tái lập zero-fit v1: 10 regime asym cũ và `zf_a6_xs` | z_∞, F_new, F_old, z_pred1 lệch tương đối ≤ 1e−12 và mọi share quyết định trùng |
 | (b) | Posterior qua `expm_multiply` so với `scipy.linalg.expm` dày, N nhỏ, 4 giá trị τ | lệch tuyệt đối ≤ 1e−10 (đã chuẩn hóa theo max\|v\|) |
-| (c) | Monte Carlo đầu-cuối (CRN, `mc.end_to_end`, gồm D22) ở hai regime control, mỗi regime hai τ ≠ 1 | mọi \|z\| ≤ 3,5 |
+| (c) | Monte Carlo đầu-cuối (CRN, `mc.end_to_end`, gồm D22) ở hai regime control, τ/T_int ∈ {1/10; 3}, h = 3·T_int, 200.000 episode | mọi \|z\| ≤ 3,5 khi se > 0; khi se = 0 (MC không thấy bất đồng nào) thì báo "MC không phân giải" và cần \|exact\| ≤ 1e−4·C_ref |
 | (d) | Cô lập: sau mỗi context, hàm và hằng của `ctmc` trở lại nguyên; τ = 1 sau một lần τ ≠ 1 cho cùng bit | đúng |
 | (e) | D22: marginal của J khớp π, tower check (trong `evaluate_d22`) ở hai τ | ≤ 1e−10 |
 | (f) | τ lớn: F_old(τ = 10·T_int) so với quyết định trên posterior dừng (Y không mang thông tin) | chỉ báo cáo |
+
+**Sửa (c), 04/11, sau một lần chạy thử 2.000 episode và trước lượt chính thức:** ở τ = 3·T_int, M0 và M1 trên state cũ
+gần như luôn chọn Switch; G_M chỉ khác 0 trên khối lượng ~1e−7 nên MC thấy se = 0 và z = ∞ (exact 9e−7). Tiêu chí cũ
+"mọi |z| ≤ 3,5" không định nghĩa được z ở trường hợp này. Đại lượng đó không được MC kiểm, và được báo riêng.
 
 D22_NMAX_TAU: J có (N + 1) cột và chi phí `expm_multiply` tăng theo τ·‖Q‖, nên D22 zero-fit chỉ tính khi
 N·(1 + τ·‖Q‖) nằm dưới ngân sách đo ở Stage 0 (ghi trong báo cáo, kể cả số điểm bỏ).
