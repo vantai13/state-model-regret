@@ -1,0 +1,165 @@
+{
+ "seed": 20261105,
+ "n_per_stratum": 27,
+ "cap": 900.0,
+ "d22_budget": 60.0,
+ "seen_tuples": 3725,
+ "strata": {
+  "neg": {
+   "accepted": 27,
+   "dropped": {
+    "domain": 41,
+    "seen": 0,
+    "cost": 8
+   },
+   "x_range": [
+    "-3/2",
+    "-1/10"
+   ]
+  },
+  "band": {
+   "accepted": 27,
+   "dropped": {
+    "domain": 3,
+    "seen": 0,
+    "cost": 10
+   },
+   "x_range": [
+    "1/50",
+    "7/20"
+   ]
+  },
+  "pos": {
+   "accepted": 27,
+   "dropped": {
+    "domain": 51,
+    "seen": 0,
+    "cost": 10
+   },
+   "x_range": [
+    "2/5",
+    "3/2"
+   ]
+  }
+ },
+ "counts": {
+  "sobol": {
+   "regimes": 81,
+   "units": 728,
+   "d22_units": 658,
+   "est_truth_cpu_h": 3.323492754713203,
+   "max_unit": 417.7172778435536
+  },
+  "old": {
+   "regimes": 10,
+   "units": 90,
+   "d22_units": 83,
+   "est_truth_cpu_h": 0.44010323118510125,
+   "max_unit": 314.3245887692308
+  },
+  "xs": {
+   "regimes": 269,
+   "units": 807,
+   "d22_units": 735,
+   "est_truth_cpu_h": 2.8424184062973348,
+   "max_unit": 429.6183036923077
+  }
+ },
+ "x_class": {
+  "sobol": {
+   "neg": 27,
+   "band": 27,
+   "pos": 27
+  },
+  "old": {
+   "neg": 5,
+   "band": 3,
+   "pos": 2
+  },
+  "xs": {
+   "neg": 90,
+   "band": 42,
+   "pos": 137
+  }
+ },
+ "xs_dropped_by_cost": [
+  {
+   "id": "Xa6_u1_lA7_k1-5_x19-10",
+   "N": {
+    "A": 236,
+    "B": 4877
+   },
+   "T_int_max": 2712.751312655709,
+   "x": 1.9
+  },
+  {
+   "id": "Xa6_u1_lA7_k1-5_x39-20",
+   "N": {
+    "A": 236,
+    "B": 9762
+   },
+   "T_int_max": 10865.398755021588,
+   "x": 1.95
+  },
+  {
+   "id": "Xa6_u1_lA7_k1_x37-20",
+   "N": {
+    "A": 491,
+    "B": 6707
+   },
+   "T_int_max": 2487.082666138953,
+   "x": 1.85
+  },
+  {
+   "id": "Xa6_u1_lA7_k1_x19-10",
+   "N": {
+    "A": 491,
+    "B": 10060
+   },
+   "T_int_max": 5597.009688001713,
+   "x": 1.9
+  },
+  {
+   "id": "Xa6_u1_lA7_k1_x39-20",
+   "N": {
+    "A": 491,
+    "B": 20118
+   },
+   "T_int_max": 22393.44477233616,
+   "x": 1.95
+  },
+  {
+   "id": "Xa6_u2_lA13-2_k1-5_x7-10",
+   "N": {
+    "A": 317,
+    "B": 4877
+   },
+   "T_int_max": 2712.751312655709,
+   "x": 0.7
+  },
+  {
+   "id": "Xa6_u2_lA13-2_k1_x7-10",
+   "N": {
+    "A": 662,
+    "B": 10060
+   },
+   "T_int_max": 5597.009688001713,
+   "x": 0.7
+  }
+ ],
+ "controls": {
+  "CT1": [
+   "7",
+   "13/2",
+   "1",
+   "3/10"
+  ],
+  "CT2": [
+   "7",
+   "29/4",
+   "1",
+   "3/10"
+  ]
+ },
+ "note": "AI (Claude) theo \u1ee7y quy\u1ec1n; stationary quantities only, no truth, no zero-fit outcomes."
+}
