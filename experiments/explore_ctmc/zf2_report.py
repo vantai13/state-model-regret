@@ -80,7 +80,8 @@ def main():
     ok = df[df.status == 'COMPLETED']
     one = ok.drop_duplicates(['stage', 'id'])
     summ = dict(rows=len(df), cases={s: int((df.drop_duplicates(['stage', 'id']).stage == s).sum()) for s in STAGES},
-                not_completed=df[df.status != 'COMPLETED'][['stage', 'id', 'status', 'error']].to_dict('records'))
+                not_completed=df[df.status != 'COMPLETED'].reindex(columns=['stage', 'id', 'status', 'error'])
+                .to_dict('records'))
     stat = {}
     for combo, g in one.groupby('combo'):
         stat[combo] = dict(n=len(g), T_int=q(g.T_int_max), T_relax_over_T_int=q(g.T_relax_over_T_int),
