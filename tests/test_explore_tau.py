@@ -150,7 +150,7 @@ def _fake_l75(n_reg=12, dose_up=0.0, s_down=0.0, onset_err=0.0, edge_shift=0.0, 
 
 def test_check_l75_all_pass_and_single_failures():
     from experiments.explore_ctmc import check_l75
-    v = lambda m: {k: r['verdict'] for k, r in check_l75.score(m).items()}
+    v = lambda m: {k: r['verdict'] for k, r in check_l75.score(m).items() if r['verdict'] != 'REPORT'}
     assert v(_fake_l75()) == {'L75-1': 'PASS', 'L75-2': 'PASS', 'L75-3': 'PASS', 'L75-4': 'PASS'}
     assert v(_fake_l75(dose_up=0.2))['L75-1'] == 'FAIL'         # truth harm shrinks as tau grows
     assert v(_fake_l75(s_down=0.05))['L75-3'] == 'FAIL'         # S decreases with tau
@@ -168,3 +168,12 @@ def test_nearest_grid_multiple_handles_rounding():
     from experiments.explore_ctmc import check_l75
     got = check_l75.nearest([6.998, 7.002, 14.9, 0.2996], T5.H_GRID)
     assert got.tolist() == [7.0, 7.0, 15.0, 0.3]
+
+
+def test_grid_tau_rounding_to_one_second_stays_on_the_grid():
+    folder = ROOT / 'results/explore_ctmc/cases_l75'
+    if not folder.exists():
+        pytest.skip('case lists not written yet')
+    case = next(c for c in json.loads((folder / 'sobol.json').read_text()) if c['id'] == 'TB0001')
+    gm = T5.tau_grid_map(case, 'sobol')
+    assert gm['1'] == 0.3 and len(gm) == 8 and len(case['taus']) == 8      # 0.3 T_int rounds to exactly 1 s

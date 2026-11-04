@@ -57,12 +57,15 @@ def q(s):
 
 
 def tau_index(df):
-    """Position of each unit's tau on its regime's grid (0..7), ref tau = 1 s marked -1."""
+    """Position of each unit's tau on its regime's grid (0..7) from the exact case-list map (tau.tau_grid_map); the
+    extra reference tau = 1 s is marked -1 (a grid tau that rounds to 1 s, TB0001, keeps its grid index)."""
     out = {}
-    for (st, rid), g in df[df.h == 'inf'].groupby(['stage', 'id']):
-        grid = sorted(g[~g.is_ref_tau].tau_s.unique())
-        for t in g.tau_s.unique():
-            out[(st, rid, t)] = grid.index(t) if t in grid else -1
+    for st in ('sobol', 'old', 'xs'):
+        grid = T5.XS_TAU if st == 'xs' else T5.TAU_GRID
+        for c in json.loads((OUT / 'cases_l75' / f'{st}.json').read_text()):
+            gm = T5.tau_grid_map(c, st)
+            for t in c['taus']:
+                out[(st, c['id'], float(F(t)))] = [float(m) for m in grid].index(gm[t]) if t in gm else -1
     return out
 
 
@@ -70,7 +73,10 @@ def monotone(df):
     """Per regime (sobol, old): z_inf over the 8 grid tau sorted by tau. Strictly: every step <= +1e-9 (non-increasing)
     or every step >= -1e-9 (non-decreasing)."""
     rows = []
-    for (st, rid), g in df[(df.h == 'inf') & df.stage.isin(['sobol', 'old']) & ~df.is_ref_tau].groupby(['stage', 'id']):
+    idx = tau_index(df)
+    sel = df[(df.h == 'inf') & df.stage.isin(['sobol', 'old'])]
+    sel = sel[[idx[(s, i, t)] >= 0 for s, i, t in zip(sel.stage, sel.id, sel.tau_s)]]
+    for (st, rid), g in sel.groupby(['stage', 'id']):
         g = g.sort_values('tau_s')
         z = g.z_inf.values
         dz = np.diff(z)
@@ -107,7 +113,9 @@ def x_star(df):
 def n_estimates(df):
     """Predicted rows by tau bin x h bin (sobol + old, grid tau), from z_pred1 at finite h: all rows and predicted harm
     (z_pred1 < -0.5). Zero-fit predictions only; a guide for the author's n_min, not a result."""
-    fin = df[df.stage.isin(['sobol', 'old']) & (df.h != 'inf') & (df.status == 'COMPLETED') & ~df.is_ref_tau]
+    idx = tau_index(df)
+    fin = df[df.stage.isin(['sobol', 'old']) & (df.h != 'inf') & (df.status == 'COMPLETED')]
+    fin = fin[[idx[(s, i, t)] >= 0 for s, i, t in zip(fin.stage, fin.id, fin.tau_s)]]
     tab = {}
     for tl, th in TAU_BINS:
         for hl, hh in H_BINS:

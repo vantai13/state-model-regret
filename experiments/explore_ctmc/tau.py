@@ -128,6 +128,14 @@ def tint_max(lamA, lamB, u, kappa):
     return max(T.values()), T, NA, NB
 
 
+def tau_grid_map(case, stage):
+    """{tau string: grid multiple} for one case-list entry, exactly as design_l75 built it (tau = rational(m * T_int)).
+    A grid tau that rounds to 1 s is a grid point (TB0001: 0.3 T_int = 1 s); the extra reference tau = 1 s is not."""
+    from experiments.explore_ctmc.design import rational
+    grid = XS_TAU if stage == 'xs' else TAU_GRID
+    return {str(rational(m * case['T_int_max'])): float(m) for m in grid}
+
+
 def q_norm(lamA, lamB, u, kappa):
     """Largest row rate of the Stay generators (sets the cost of e^{Q tau} pushes)."""
     return 2 * (float(max(lamA + u, lamB)) + ctmc.A + ctmc.MU + 1 / float(kappa))

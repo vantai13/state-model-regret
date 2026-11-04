@@ -32,6 +32,9 @@ CASES = OUT / 'cases_l75'
 TRUTH_HOST = 'dt4n-research-01'
 STAGES = ('sobol', 'old', 'xs')
 LOCKS_L75 = OUT / 'locks_l75.json'
+# Truth without D22 (card §3, decided 04/11 before any lock): no prediction uses D22 and the D22 joint J was 92% of the
+# zero-fit CPU; D22 at tau stays in the zero fit only. The case lists' d22 flags are kept for the zero fit.
+TRUTH_D22 = False
 
 
 def unit_name(case, tau):
@@ -65,7 +68,7 @@ def run_unit(job):
     tau, unit = F(case['tau']), case['unit']
     try:
         if mode == 'l75':
-            kw = dict(d22=True) if unit['d22'] else dict(disagree=False)
+            kw = dict(d22=True) if (TRUTH_D22 and unit['d22']) else dict(disagree=False)
             out = T5.evaluate(lamA, lamB, u, kappa, case['hs'], tau, **kw)
             for r in out['h']:
                 r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9] + \

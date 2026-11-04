@@ -13,7 +13,8 @@ Readings fixed before any truth (strictest where the card is silent):
   R2  UNRESOLVED (card §5): unit = (regime, tau). A series (regime, h) over tau is unresolved if any of its units is. A
       prediction or part is INCONCLUSIVE when more than 10% of its eligible units (L75-2) or series (L75-1, -3, -4) are
       unresolved, or when fewer than N_MIN remain.
-  R3  Series predictions (L75-1, L75-3) use the 8 grid tau of a regime sorted by tau; the reference tau = 1 s is ignored.
+  R3  Series predictions (L75-1, L75-3) use the 8 grid tau of a regime sorted by tau, mapped exactly from the case list
+      (tau.tau_grid_map); the extra reference tau = 1 s is ignored, but a grid tau that rounds to 1 s (TB0001) is kept.
   R4  L75-4 edge: first sign change + -> - over x > 0 (rule of zf_report.x_star, linear interpolation) of truth G_S and of
       zero-fit z_pred1 at the same (family, tau). A series with no zero-fit edge is excluded (reported); a series with a
       zero-fit edge but no truth edge FAILS.
@@ -46,8 +47,11 @@ def load(out=OUT):
     z = z[(z.status == 'COMPLETED') & (z.h != 'inf')].copy()
     z['h_mult'] = nearest(z.h_Tint.values, T5.H_GRID)
     z.loc[z.stage == 'xs', 'h_mult'] = 10.0
-    grid = {st: (T5.XS_TAU if st == 'xs' else T5.TAU_GRID) for st in ('sobol', 'old', 'xs')}
-    z['tau_mult'] = [np.nan if r else nearest(t, grid[s])[0] for s, t, r in zip(z.stage, z.tau_Tint, z.is_ref_tau)]
+    gmap = {}
+    for st in ('sobol', 'old', 'xs'):
+        for c in json.loads((out / 'cases_l75' / f'{st}.json').read_text()):
+            gmap.update({(st, c['id'], t): m for t, m in T5.tau_grid_map(c, st).items()})
+    z['tau_mult'] = [gmap.get((s, i, t), np.nan) for s, i, t in zip(z.stage, z.id, z.tau)]      # R3: exact grid map
     recs, status = [], {}
     for st in ('sobol', 'old', 'xs'):
         for f in sorted((out / 'runs_l75' / st).glob('*.json')):
@@ -112,7 +116,7 @@ def score(m):
     keep1 = lambda g: g.h_mult.iloc[0] >= 7 and (g.z_pred1 < -0.5).all()
     hit1 = lambda g: (np.diff(g.G_S.values) <= TOL_DOSE).all()
     s1 = series_score(main, keep1, hit1)
-    res['L75-1'] = dict(label='LABEL1', threshold=0.90, **s1, verdict=verdict(s1['n'], s1['unresolved_share'], s1['value'], 0.90))
+    res['L75-1'] = dict(label='onset (zero-fit 87/87)', threshold=0.90, **s1, verdict=verdict(s1['n'], s1['unresolved_share'], s1['value'], 0.90))
     # L75-2 onset at every tau: |G_S - z_pred1| <= 0.1 pp, per tau group x h multiple {7, 15, 30}
     parts = {}
     for gname, taus in TAU_GROUPS.items():
@@ -129,6 +133,10 @@ def score(m):
         d = e[e.done]
         report[f'{gname} h=3T'] = dict(n=len(d), value=float(((d.G_S - d.z_pred1).abs() <= 0.1).mean()) if len(d) else None)
     res['L75-2'] = dict(label='onset', parts=parts, report_only=report, verdict=combine(list(parts.values())))
+    # R-a report only: help band (sobol stratum 'band'), truth G_S non-decreasing in tau, every h; never a verdict
+    band = main[main.stratum == 'band'] if 'stratum' in main else main.iloc[0:0]
+    ra = series_score(band, lambda g: True, lambda g: (np.diff(g.G_S.values) >= -TOL_DOSE).all())
+    res['R-a'] = dict(label='chỉ báo', **ra, verdict='REPORT')
     # L75-3 model right: S non-decreasing in tau (tolerance TOL_S), every (regime, h) series
     s3 = series_score(main, lambda g: True, lambda g: (np.diff(g.S.values) >= -TOL_S).all())
     res['L75-3'] = dict(label='rủi ro', threshold=0.90, **s3, verdict=verdict(s3['n'], s3['unresolved_share'], s3['value'], 0.90))
@@ -162,7 +170,7 @@ def main():
     m = load()
     res = score(m)
     units = m.drop_duplicates(['stage', 'id', 'tau']).unit_status.value_counts().to_dict()
-    verdicts = {k: v['verdict'] for k, v in res.items()}
+    verdicts = {k: v['verdict'] for k, v in res.items() if v['verdict'] != 'REPORT'}
     res['counts'] = dict(unit_status=units, verdicts=verdicts, PASS=sum(v == 'PASS' for v in verdicts.values()),
                          FAIL=sum(v == 'FAIL' for v in verdicts.values()),
                          INCONCLUSIVE=sum(v == 'INCONCLUSIVE' for v in verdicts.values()))
