@@ -853,3 +853,15 @@ Kết quả:
   - không dò ngược từ M00/Dahlin;
   - không tra venue SIGCOMM/NSDI riêng.
 - **Không đổi:** catalog/Excel trên `main`, nhãn PC/Gate, mức đọc của tác giả. Không tải PDF, không note nội dung mới.
+
+### L7.4-N1 đợt 2 — tác giả tải 3 nguồn đề xuất, AI đọc targeted (04/11/2026)
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | intake | L7.4-N1 | Downloads/tmp (dahlin2000.pdf, fischer2009.pdf) và Downloads (3492866.3549711.pdf), file sau 15:00 | find -newermt + pdfinfo + sha256 | 3 | 3 | Không trùng sha256 với thư viện. Chép vào `~/papers/state-model-regret/l74/{DAH00,SS22,FV09}/` |
+| 04/11 | read (AI-T) | C3,C5,τ | DAH00 §1, §3, §4.1 Eq. 2–3, §5–5.1, §6 | pdftotext -raw, page headers | 1 | 1 | §6 tr. 1045: LI giải nghịch lý thêm thông tin tệ hơn |
+| 04/11 | read (AI-T) | τ | SS22 Abstract, §1, §3.1, Thm 3.4/3.6 | pdftotext -raw | 1 | 1 | Không đọc §4–6 (lập lịch) và thí nghiệm |
+| 04/11 | read (AI-T) | C3,C6 | FV09 Abstract, §1.1, §2.3, §4 mở đầu, §6 | pdftotext -raw | 1 | 1 | Năm số tạp chí là 2009 (đề xuất ghi 2008 theo DOI); không đọc chứng minh |
+
+Kết quả: 3 note mới. L7_4_novelty_check §5 ghi ảnh hưởng tới wording. Catalog/Excel trên `main` chưa cập nhật (sẽ làm ở
+merge nếu tác giả muốn), mức đọc của tác giả không đổi.

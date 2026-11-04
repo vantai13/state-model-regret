@@ -61,3 +61,19 @@ của telemetry bị thay". Câu này đến giờ chỉ là dự đoán zero-fi
 
 Không tải PDF, không tạo note nội dung cho ba nguồn mới cho tới khi tác giả duyệt (AGENTS.md mục 4). Catalog/Excel trên
 `main` giữ nguyên.
+
+## 5. Đã đọc (04/11/2026, sau khi tác giả tải cả ba)
+
+Tác giả tải ba nguồn đề xuất (Downloads/tmp và Downloads), nên ba nguồn được coi là đã duyệt. AI đọc targeted và ghi note:
+[DAH00](papers/DAH00.md), [SS22](papers/SS22.md), [FV09](papers/FV09.md). Mức đọc AI-T; tác giả chưa tự đọc.
+
+| Nguồn | Ảnh hưởng tới claim (AI đề xuất, chờ tác giả) |
+|---|---|
+| DAH00 | **Nghịch lý "thêm thông tin có thể tệ hơn" trong cân tải đã được nêu và chữa** bằng diễn giải theo tuổi và horizon của pha (§6, tr. 1045). Cơ chế ở đó là herding, nhiều request, hại do tin **cũ**. Câu thực dụng của τ ("twin phải nhìn được horizon thì refresh mới có ích") phải trích DAH00 như nguyên tắc gần nhất. Không viết là ý mới |
+| SS22 | **"Feature tươi nhất có thể không tốt nhất" đã có định lý** cho người dự đoán Bayes tối ưu khi chuỗi xa Markov (Thm 3.4, tr. 34). Dự đoán L75-3 (S(τ) không giảm, Y chỉ có backlog) là một trường hợp của khung này. Harm của M0 (C-τ1) đến từ model sai, không phải từ tính không Markov, nên không bị SS22 bao trùm, nhưng chưa xác nhận |
+| FV09 | Cùng họ M00/Dahlin: dao động do nhiều agent phản ứng theo bảng cũ. Thuốc chữa là làm chậm theo 1/T (§1.1, tr. 3358). Dùng để tách phạm vi một quyết định của ta; không xác nhận C6 |
+
+**Wording đề xuất sau khi đọc:**
+- C3/C5: "Với một quyết định giữ suốt h và twin mean-value mù horizon, state tươi có thể hại *mà không cần herding*." Câu
+  này phải đi kèm trích M00, DAH00, FV09 cho nhánh herding và SS22 cho nhánh suy luận.
+- Không còn đề xuất mới nào trong đợt này. Ba đề xuất L2.8 follow-up và RedTE/Namyar vẫn chờ.
