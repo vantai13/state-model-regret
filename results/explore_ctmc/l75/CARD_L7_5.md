@@ -31,6 +31,17 @@
 - **C-τ4 (biên dải dịch theo τ, rủi ro).** Trên lát x ở h = 10·T_int, biên trên của dải giúp đo bằng truth khớp biên tính
   từ z_pred1 ở cùng (τ, h), tới 0,01, ở cả ba tuổi τ/T_int ∈ {0,01; 0,1; 1}.
 
+### Định vị so với prior (đọc 04/11, AI-T; [L7_4_novelty_check §5](../../../notes/literature/L7_4_novelty_check.md) trên nhánh `synthesis-l74`)
+
+- **C-τ3** là một trường hợp của Shisher–Sun 2022 (SS22, Thm 3.4, tr. 34). Với người quyết định Bayes tối ưu, sai số
+  không giảm theo AoI khi chuỗi (target, feature) Markov, và có thể không đơn điệu khi chuỗi xa Markov. Y chỉ có backlog
+  nên xa Markov; đó là lý do L75-3 là rủi ro. Kết quả nào của L75-3 cũng phải báo kèm trích SS22.
+- **C-τ1** khác SS22: M0 không phải người quyết định tối ưu, harm đến từ model mù horizon.
+- **Câu thực dụng** ("muốn refresh có ích thì twin phải nhìn được horizon hoặc tuổi") có nguyên tắc gần nhất là
+  Dahlin 2000 (DAH00, §6, tr. 1045). Dahlin nói về herding và thông tin cũ trong cân tải nhiều request, không phải một
+  quyết định.
+- Không claim novelty.
+
 ## 3. Tập, trần, cách chạy
 
 | Tập | File (write-once, commit `39afbda5`) | Nội dung | Unit | Dùng cho |
