@@ -19,6 +19,9 @@ T_int/T_mode dưới đây là đại lượng dừng của chain, không phải
   - **Paper NDT cũ của tác giả** trong thư mục Downloads (theo yêu cầu đọc của tác giả):
     [NDT_timing_L73](../literature/papers/NDT_timing_L73.md).
   - **Nguồn đã có trong thư viện:** đọc thêm BAM10 §6.4 và P07 DOTE.
+  - **Đính chính cùng ngày:** Ghabashneh'22 ([GZL22](../literature/papers/GZL22.md)) và Lakhina'04
+    ([LPC04](../literature/papers/LPC04.md)) cũng đã được tác giả tải lúc 06:38 vào `Downloads/tmp/`. Lượt quét đầu của
+    AI bỏ sót hai file này nên đã ghi nhầm là "chưa tải"; nay đã đọc AI-T.
   - Mức đọc AI-T; tác giả tự đọc: chưa có xác nhận.
 
 ## 1. Câu hỏi và cách quy đổi
@@ -64,9 +67,9 @@ Quy ước trong bảng: **AI-tính** là phép tính của AI từ số trong b
 
 | Bối cảnh | Horizon h | Tuổi τ | Thang burst | Tải | Nguồn và giới hạn định nghĩa |
 |---|---|---|---|---|---|
-| (i) Flowlet LB trong DC | ≥ T_fl. T_fl mặc định 500 µs, khoảng bền 300 µs–1 ms (AED14 §3.6/PDF6). Flowlet trung vị theo byte ≈ 500 KB (§2.6.1/PDF4), tức ≈ 0,4–4 ms ở 1–10 Gb/s (AI-tính; rate từng flow UNSOURCED) | DRE τ = 160 µs mặc định, 100–500 µs (§3.2/PDF5, §3.6/PDF6). Cộng trễ piggyback (§3.3/PDF5, UNSOURCED); phản ứng ở thang RTT ≈ 100 µs (§1/PDF2) | p90 hot-burst < 200 µs, Web 50 µs (ZLK17 §5.1/PDF4). Heavy hitter đổi giữa các khoảng 1/10/100 ms (RZB15 §5.3/PDF10–11) | **UNSOURCED** cho tải tức thời. Trung bình 1 phút: 99% link < 10% (RZB15 §4.1/PDF5), không phải ρ của một mode | Metric CONGA là rate lượng tử 3 bit, không phải backlog. Mục tiêu min-max congestion. h là thời lượng flowlet, không cố định (AED14 note) |
+| (i) Flowlet LB trong DC | ≥ T_fl. T_fl mặc định 500 µs, khoảng bền 300 µs–1 ms (AED14 §3.6/PDF6). Flowlet trung vị theo byte ≈ 500 KB (§2.6.1/PDF4), tức ≈ 0,4–4 ms ở 1–10 Gb/s (AI-tính; rate từng flow UNSOURCED) | DRE τ = 160 µs mặc định, 100–500 µs (§3.2/PDF5, §3.6/PDF6). Cộng trễ piggyback (§3.3/PDF5, UNSOURCED); phản ứng ở thang RTT ≈ 100 µs (§1/PDF2) | p90 hot-burst < 200 µs, Web 50 µs (ZLK17 §5.1/PDF4, counter 25 µs). Ở mẫu 1 ms: burst trung vị 2 ms, p90 8 ms, 7,5 burst/s; tải trong burst 65,5%, ngoài burst 5,5% (GZL22 §5–6/PDF7). Heavy hitter đổi giữa các khoảng 1/10/100 ms (RZB15 §5.3/PDF10–11) | **UNSOURCED** cho tải tức thời. Trung bình 1 phút: 99% link < 10% (RZB15 §4.1/PDF5), không phải ρ của một mode | Metric CONGA là rate lượng tử 3 bit, không phải backlog. Mục tiêu min-max congestion. h là thời lượng flowlet, không cố định (AED14 note) |
 | (ii) TE/lập lịch flow DC ở thang giây | MicroTE quyết định lại route mỗi khoảng 1 s, nên h = 1 s (BAAZ11 §5/PDF6, primary). Hedera 5 s (T00, Hedera §5.4; AED14 §1/PDF2) | MicroTE: server ghi ma trận traffic mỗi 0,1 s, gửi mỗi 1 s (§5.1.3/PDF7); cài route < 40 ms trung bình, < 150 ms tệ nhất (§7.3.2/PDF11); LP 0,6 s ở 100 ToR (§7.3.3/PDF11). τ_eff ≈ 0,5 + 0,05 + 0,04–0,15 ≈ 0,6–0,7 s, chưa tính LP (AI-tính). Hedera τ_eff ≈ 5 s (T00) | Thành phần thang giây: traffic cặp ToR ổn định (đổi ≤ 20%) trung bình 1,6–2,5 s (CLD, 60% cặp) hoặc 1,5–5 s (UNV, 35% cặp); khoảng 35% traffic dự đoán được qua 1 s (BAAZ11 §4.1.1/PDF5, Fig. 2). Microburst như (i). Đa thang: LTWW94 §4–5; BAM10 §5.2 (ON/OFF), §6.4/PDF10–11 (chu kỳ ngày/tuần, biên < 10% đỉnh–đáy ở ≥ 80% link); RZB15 §5.2 (Frontend ổn định 1–10 s, Hadoop không), §4.1 (chu kỳ ngày). "Không dự đoán được từ ≥ 150 s" vẫn là dẫn lại: BAAZ11 §4/PDF4 trích Kandula'09 và Benson WREN'09, hai bài chưa đọc | Hotspot ≥ 70% theo cửa sổ 5 phút (BAM10 §6.2–6.3/PDF9) là định nghĩa. RZB15: trung bình 1 phút < 1% ở link host (§4.1/PDF5). MicroTE không cho ρ | Thời gian ổn định là run-length dưới ngưỡng 20% trên top 100 cặp, không phải thời gian lưu mode. Mục tiêu MicroTE là MLU, không phải backlog. Hedera 5 s do giới hạn đọc register NetFPGA (T00) |
-| (iii) TE trên WAN | T_c = 5 phút (HKM13 §4/PDF5). Testbed dùng 1 phút để stress-test (§5.1/PDF8) | Demand = trung bình 5 phút gần nhất (§4.2/PDF6). Broker báo mỗi T_s = 5 phút (§3/PDF4). Cập nhật xong ≈ 22 s (§6.6/PDF11). τ_eff ≈ 2,5 + 2,5 + 0,4 ≈ 5 phút (AI-tính theo công thức T00) | **UNSOURCED** dưới 5 phút: log 5 phút (HKM13 §6.1/PDF9); SNMP 5 phút không đặc trưng được phần ngẫu nhiên (RGK03 §2.2/PDF3). Trên 5 phút: phần lớn biến động là xu hướng và chu kỳ ngày/tuần dự đoán được (RGK03 §1–2.2/PDF2–3; P07 App. A/PDF18). Phần dư có peakedness a ≈ 0,5–3 (RGK03 §4/PDF6, §6/PDF9). Interactive: chỉ 1% thời gian lệch dự báo > 1% (HKM13 §6.6/PDF11). Customer-facing: có lúc > 100× trung bình (P07 §2.1/PDF3) | Một nửa link < 30%, ba phần tư < 50% trên IDN (§2/PDF2); link bận 40–60% (§1/PDF1) | Background traffic là elastic và bị SWAN điều khiển rate, nên tải không ngoại sinh. Mục tiêu throughput/fairness, không phải backlog (HKM13 note). Thành phần chậm là chu kỳ theo giờ, gần với mode quan sát được hơn là mode Markov ẩn (RGK03 note). Epoch TE "a few minutes" (P07 §3/PDF6) |
+| (iii) TE trên WAN | T_c = 5 phút (HKM13 §4/PDF5). Testbed dùng 1 phút để stress-test (§5.1/PDF8) | Demand = trung bình 5 phút gần nhất (§4.2/PDF6). Broker báo mỗi T_s = 5 phút (§3/PDF4). Cập nhật xong ≈ 22 s (§6.6/PDF11). τ_eff ≈ 2,5 + 2,5 + 0,4 ≈ 5 phút (AI-tính theo công thức T00) | **UNSOURCED** dưới 5 phút: log 5 phút (HKM13 §6.1/PDF9); SNMP 5 phút không đặc trưng được phần ngẫu nhiên (RGK03 §2.2/PDF3). Trên 5 phút: phần lớn biến động là xu hướng và chu kỳ ngày/tuần dự đoán được (RGK03 §1–2.2/PDF2–3; P07 App. A/PDF18). Phần dư có peakedness a ≈ 0,5–3 (RGK03 §4/PDF6, §6/PDF9). Tỷ lệ phương sai ở bin 5–10 phút (OD flow chuẩn hóa): chu kỳ 70–92%, spike 6–19%, nhiễu 2–12% (LPC04 Table 2/PDF9). Interactive: chỉ 1% thời gian lệch dự báo > 1% (HKM13 §6.6/PDF11). Customer-facing: có lúc > 100× trung bình (P07 §2.1/PDF3) | Một nửa link < 30%, ba phần tư < 50% trên IDN (§2/PDF2); link bận 40–60% (§1/PDF1) | Background traffic là elastic và bị SWAN điều khiển rate, nên tải không ngoại sinh. Mục tiêu throughput/fairness, không phải backlog (HKM13 note). Thành phần chậm là chu kỳ theo giờ, gần với mode quan sát được hơn là mode Markov ẩn (RGK03 note). Epoch TE "a few minutes" (P07 §3/PDF6) |
 | (iv) Vòng what-if của NDT | **UNSOURCED**: AAA25 kích hoạt theo failure và chưa đo thời gian phản hồi (§VI/PDF6). ZBEK26 tối ưu trọng số IGP và route BGP nhưng không nêu thời gian giữ | Các phần góp vào τ: đồng bộ NDT quang 0,009–0,96 s trung bình (VGC23 §III/PDF5–6); twin cập nhật < 5 ms, 0,173 s mỗi yêu cầu route, rerouting 187–214 ms (HHZ26 Tables 11, 15/PDF24–25); một lần đánh giá twin 200 ms cho 25k flow, search N = 1000 vòng hoặc theo time budget (ZBEK26 §I-C/PDF2, §IV-D/PDF6, §V-D/PDF9). Cận trên AI-tính nếu đánh giá tuần tự: ≈ 200 s | **UNSOURCED** | **UNSOURCED** | NDT là thủ tục ra quyết định gắn vào một vòng khác; h là của vòng đó, NDT cộng thêm vào τ ([NDT_timing_L73](../literature/papers/NDT_timing_L73.md)). NDT1 §IV-B/PDF5: optimizer đổi trọng số OSPF theo delay dự đoán |
 | Trễ actuation (chung) | — | Planck ARP 2,5–3,5 ms / OpenFlow 4–9 ms (§7.2/Fig. 16); Kuźniar gap 250/400 ms (§4.1/Table 2; đã kiểm trên bản AM, KPKC18), đuôi tới 22 s ở một switch và tới 4 phút ở một firmware (KPKC18 Table 2/PDF9). MicroTE cài route 40–150 ms (BAAZ11 §7.3.2/PDF11). SWAN: ≈ 22 s mỗi lần cập nhật, data plane đổi trong ≈ 600 ms (HKM13 §6.6/PDF11) | — | — | Các khoảng đo khác định nghĩa; không cộng máy móc (T00) |
 
@@ -128,6 +131,20 @@ Với h = 5 phút, chu kỳ ngày gần như hằng trong một horizon và bi�
 là mode ẩn của ctmc-v1, nên **không** làm (iii) thành "vùng state" theo nghĩa telemetry tươi có giá trị. Ô (iii) vẫn
 UNRESOLVED; mức lệch contract tăng thêm một điểm (mode có cấu trúc xác định).
 
+### 3c′. Tỷ lệ phương sai ở WAN (LPC04)
+
+LPC04 Table 2/PDF9 phân rã các OD flow đã chuẩn hóa ở bin 5–10 phút:
+
+| | Chu kỳ | Spike | Nhiễu |
+|---|---:|---:|---:|
+| Sprint | 92% | 6% | 2% |
+| Abilene | 70% | 19% | 12% |
+
+Đây là con số f có nguồn đầu tiên cho WAN, nhưng ở thang ≥ 5 phút. Phần chu kỳ là xác định theo giờ, không phải mode ẩn.
+Phần còn lại (8–30%) là spike và nhiễu, và thang thời gian của chúng dưới 5 phút vẫn chưa đo. Ô (iii) vẫn UNRESOLVED.
+Nhưng bây giờ có thể nói rõ: trên 5 phút, ctmc-v1 (hai mode Markov ẩn, đối xứng) **không** mô tả phần lớn phương sai
+của WAN.
+
 ### 3d. Khi thang burst chậm hơn (kịch bản đa thang, ILLUSTRATIVE)
 
 Giả sử nền có thêm một thành phần chậm, mang tỷ lệ f phương sai, với thời gian mode T_slow. Khi đó T_int bị thành phần
@@ -181,6 +198,27 @@ Giới hạn của phép quy đổi này:
 - Top 100 cặp ToR không phải tải của một path.
 - MicroTE không cho ρ, và 35% traffic dự đoán được là tỷ lệ traffic, không phải tỷ lệ phương sai f.
 
+### 3f. Burst DC hiện đại: bất đối xứng và phụ thuộc độ phân giải (GZL22, ILLUSTRATIVE)
+
+Ở mẫu 1 ms, burst dài trung vị 2 ms, khoảng 7,5 burst/s (GZL22 §6/PDF7), nên T_on ≈ 2 ms và T_off ≈ 133 ms (AI-tính).
+
+Với chuỗi Markov hai trạng thái, thời gian tương quan của mode là 1/(1/T_on + 1/T_off) ≈ 1,97 ms. Đây là đồng nhất thức
+toán; nó đúng cho dữ liệu chỉ khi ON/OFF xấp xỉ exponential. Nghĩa là ngay cả khi OFF dài, mode "quên" sau khoảng
+T_on.
+
+ctmc-v1 chỉ có hai mode đối xứng, nên chưa tính được T_int cho cặp (T_on, T_off) và (65,5%, 5,5%) này. Nếu tạm coi T_int
+cùng bậc với 2 ms:
+- (ii) với h = 1 s cho h/T_int cỡ vài trăm, tức vẫn tiệm cận;
+- (i) với h = 0,5–4 ms cho h/T_int ≈ 0,25–2, tức state hoặc chuyển tiếp.
+
+Đây chỉ là bậc độ lớn, không phải tính toán.
+
+Hai điểm lệch mới:
+1. Thang burst phụ thuộc độ phân giải: 25 µs cho p90 dưới 200 µs (ZLK17), còn 1 ms cho 2–8 ms (GZL22), dù cùng ngưỡng
+   50%.
+2. Cả hai mode đều ổn định trên link host (65,5% và 5,5%). Stake thật là tranh chấp buffer chung của rack, nằm ngoài
+   ctmc-v1.
+
 ## 4. Mối đe dọa realism
 
 | Mối đe dọa | Nguồn hoặc UNSOURCED | Ảnh hưởng tới nhãn vùng |
@@ -194,7 +232,7 @@ Giới hạn của phép quy đổi này:
 | Buffer hữu hạn | ZLK17 §6.4/PDF7 (shared buffer cấp phát động, chỉ normalized) | Không có kích thước tuyệt đối để quy B_t |
 | Trễ actuation | Planck §7.2/Fig. 16 (qua T00); KPKC18 §4.1/Table 2 (250/400 ms; đuôi 22 s và 4 phút); BAAZ11 §7.3.2/PDF11 (40–150 ms); HKM13 §6.6/PDF11 (22 s, data plane 600 ms); NDT: HHZ26, ZBEK26 (0,17–0,2 s mỗi yêu cầu hoặc lần đánh giá) | Cộng vào τ hiệu dụng; khác định nghĩa; đuôi dài có thể làm τ ≫ trung bình |
 | Mode quan sát được (S1 oracle) | Planck đo rate, không backlog (T00); CONGA đo rate lọc với τ, không quan sát mode (AED14 §3.2); D22 L7.1 cho thấy harm đã có với backlog-only | Giảm, nhưng chỉ trong ctmc-v1 |
-| Mode có cấu trúc xác định (chu kỳ ngày/tuần) | RGK03 §2.2/PDF3 (m(t) gồm trend + chu kỳ, phần "predictable"); P07 App. A/PDF18 (regression 1 giờ dự đoán 5 phút sau); BAM10 §6.4 | Thành phần chậm của WAN và DC không phải mode Markov ẩn; ctmc-v1 không có trục "biết giờ là biết mode" |
+| Mode có cấu trúc xác định (chu kỳ ngày/tuần) | RGK03 §2.2/PDF3 (m(t) gồm trend + chu kỳ, phần "predictable"); LPC04 Table 2/PDF9 (chu kỳ 70–92% phương sai ở bin 5–10 phút); P07 App. A/PDF18 (regression 1 giờ dự đoán 5 phút sau); BAM10 §6.4; GZL22 §7 (ở DC: chu kỳ ngày có nhưng "not as dominant") | Thành phần chậm của WAN và DC không phải mode Markov ẩn; ctmc-v1 không có trục "biết giờ là biết mode" |
 
 ## 5. Kết luận tạm (AI, theo ủy quyền; cập nhật 04/11/2026; chưa có tác giả đọc)
 
@@ -202,7 +240,8 @@ Giới hạn của phép quy đổi này:
   trong ctmc-v1 state tươi có giá trị. Điều này nhất quán với việc CONGA dùng state tươi ở thang RTT, nhưng **không phải
   validation**:
   - metric, mục tiêu và h đều khác contract;
-  - T_mode không đo cùng định nghĩa.
+  - T_mode không đo cùng định nghĩa, và còn phụ thuộc độ phân giải đo (ZLK17 25 µs so với GZL22 1 ms, §3f);
+  - burst thật có ON/OFF bất đối xứng (GZL22), khác hai mode đối xứng của ctmc-v1.
 - **(ii) DC TE ở thang giây.** Sau đợt 3, h và τ đã có nguồn primary (BAAZ11: h = 1 s, τ_eff ≈ 0,6–0,7 s). Nhãn vẫn
   **không bền**, và bây giờ biết rõ vì sao:
   - Nếu chỉ có microburst: tiệm cận.
@@ -211,8 +250,8 @@ Giới hạn của phép quy đổi này:
   - f (tỷ lệ phương sai) vẫn UNSOURCED. Câu "≥ 150 s không dự đoán được" vẫn là dẫn lại hai bước.
 - **(iii) WAN TE.** Vẫn **UNRESOLVED**:
   - Dưới 5 phút không có số đo.
-  - Trên 5 phút, phần lớn biến động là chu kỳ dự đoán được (RGK03, P07). Đó là mode có cấu trúc xác định, khác giả định
-    mode ẩn của ctmc-v1.
+  - Trên 5 phút, phần lớn biến động là chu kỳ dự đoán được (RGK03, P07). LPC04 định lượng: 70–92% phương sai ở bin
+    5–10 phút. Đó là mode có cấu trúc xác định, khác giả định mode ẩn của ctmc-v1.
   - Plant khác contract nhiều nhất: tải elastic bị điều khiển, mục tiêu là throughput, mode biết theo giờ.
 - **(iv) NDT what-if.** h vẫn UNSOURCED. Bốn paper cũ chỉ cho phần NDT cộng vào τ: từ vài ms (cập nhật twin) tới
   0,2–1 s (đồng bộ, đánh giá), có thể tới cỡ trăm giây nếu search tuần tự (AI-tính). Cách đọc hợp lý: NDT what-if
@@ -224,7 +263,7 @@ Giới hạn của phép quy đổi này:
   T_mode.
 - **Ưu tiên bằng chứng tiếp theo.**
   1. Phân rã phương sai tải theo thang (f, T_slow) cho DC hiện đại và WAN. Ứng viên chưa có: Kandula'09 và Benson
-     WREN'09 (nguồn gốc câu 150 s), Ghabashneh'22, Lakhina'04.
+     WREN'09 (nguồn gốc câu 150 s). Ghabashneh'22 và Lakhina'04 đã đọc (§3c′, §3f).
   2. Thời lượng flowlet hoặc rate từng flow của DC (ứng viên LetFlow, metadata-only).
   3. Thời gian giữ quyết định của một vòng NDT what-if thật (chưa có ứng viên).
 - Phần 2 (held-out hai thang, 4 mode) là nơi kiểm công thức ở §3d. Thẻ của Phần 2 do tác giả viết.
@@ -247,7 +286,10 @@ Giới hạn của phép quy đổi này:
 | 1′ | SWAN, bản ACM | DOI 10.1145/2486001.2486012 | VoR, sha256 104dfbe99511…, trùng chữ bản đã đọc | [HKM13](../literature/papers/HKM13.md) |
 | 7–10 | Paper NDT cũ của tác giả: ZBEK26, VGC23, HHZ26, AAA25 | xem note | Author version / AM / in press / arXiv | [NDT_timing_L73](../literature/papers/NDT_timing_L73.md) |
 
-Tác giả chưa tải Ghabashneh'22 (DOI 10.1145/3517745.3561430) và các bản chính thức của CONGA, RZB15, NDT1, Planck.
+| 11 | Ghabashneh et al., IMC 2022, tr. 567–580 | DOI 10.1145/3517745.3561430 | Camera-ready (acmart), sha256 b541bce41ace… | [GZL22](../literature/papers/GZL22.md) |
+| 12 | Lakhina et al., SIGMETRICS 2004, tr. 61–72 | DOI 10.1145/1005686.1005697 | Camera-ready 2004, sha256 3c6a24aef511… | [LPC04](../literature/papers/LPC04.md) |
+
+Chưa có bản chính thức của CONGA, RZB15, NDT1 và Planck (bản đang đọc là bản tác giả hoặc arXiv).
 
 Ghi chú về nguồn:
 - B4 (DOI 10.1145/2486001.2486019) không dùng và vẫn là metadata-only.

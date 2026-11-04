@@ -779,3 +779,26 @@ Kết quả:
 - **Phạm vi:** không novelty, không 2×20.
 - **Lý do dừng:** đã dùng hết các file tác giả cung cấp có liên quan; các ô còn thiếu cần Kandula'09, Benson WREN'09,
   Ghabashneh'22 hoặc nguồn NDT có thời gian giữ quyết định.
+
+### L7.3-R2 đợt 3 — quét toàn bộ Downloads và đính chính (04/11/2026)
+
+Tác giả nhắn: "liệt kê thêm các bài đi để tôi tải và kiểm tra trong thư mục windown tôi nhiều bài á, coi bài nào dùng
+được không".
+
+**Đính chính đợt 2.** Dòng intake ở đợt 2 ghi "Ghabashneh'22 ... chưa có" là **sai**. Hai file `Downloads/tmp/imc2022.pdf`
+(GZL22) và `odflows-sigm04.pdf` (LPC04) đã được tải lúc 06:38 cùng ngày; lượt quét đầu chỉ xem file mới ở thư mục gốc
+và `tmp/10.1016@…`. Dòng cũ giữ nguyên làm lịch sử.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | intake (toàn bộ) | L7.3-R2 | `C:\Users\VAN TAI\Downloads` đệ quy (Documents, Desktop, OneDrive: 0 PDF; Zotero: 1) | find + pdftotext trang 1 + sha256 so với `~/papers/state-model-regret/` | 132 | 2 mới | 24 file trùng thư viện theo sha256. 2 mới dùng được: GZL22, LPC04. 106 còn lại không dùng: CV, thuyết minh/báo cáo NCKH, slide và lab môn học, sách IELTS, tài liệu RL (Sutton & Barto, DQN, survey GNN/RL routing), benchmark CIS, survey/eBook NDT chung |
+| 04/11 | read (AI-T) | L7.3-R2 / realism | GZL22, LPC04 | pdftotext + grep + đọc đoạn quanh | 2 | 2 | GZL22: burst 1 ms trung vị 2 ms, p90 8 ms, 7,5/s; tải trong/ngoài burst 65,5%/5,5%. LPC04: chu kỳ/spike/nhiễu 92/6/2% (Sprint) và 70/19/12% (Abilene) |
+| 04/11 | lookup | L7.3-R2 | Benson WREN'09; Jupiter Evolving; FLARE; Heffes–Lucantoni; Yates AoI survey | `search_crossref`, max 3 | 15 | 5 | DOI: 10.1145/1592681.1592692 (WREN'09; bản CCR 10.1145/1672308.1672325); 10.1145/3544216.3544265; 10.1145/1232919.1232925; 10.1109/JSAC.1986.1146393; 10.1109/JSAC.2021.3065072 (bản arXiv v1 đã có trong Zotero của tác giả) |
+| 04/11 | keyword | L7.3-R2 | "backbone traffic variability fine timescales seconds minutes traffic matrix" | `search_openalex`, max 15 | 15 | 1 | OnlineTE (arXiv 2605.16187, 2026): abstract nói TE WAN triển khai thu demand định kỳ và "can take minutes to react". Còn lại là luận văn, Starlink, Tor, anomaly, hoặc trùng (RZB15) |
+
+Kết quả:
+- **Note mới:** [GZL22](papers/GZL22.md), [LPC04](papers/LPC04.md).
+- **Bản nháp:** realism v2 thêm §3c′ và §3f, sửa §2, §4–6.
+- **Đề xuất cho tác giả tải (metadata-only):** Kandula'09, Benson WREN'09, Jupiter Evolving, FLARE, Heffes–Lucantoni.
+  OnlineTE và LetFlow là open access.
+- **Không đổi:** catalog và Excel trên `main`, nhãn PC.
