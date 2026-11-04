@@ -75,6 +75,9 @@ Phạm vi chung, trừ khi ghi khác:
 - **Claim co lại khi:**
   - không dự báo được biên dải tới ±0,05 bằng z_∞ (L72-2 FAIL); chỉ giữ "dải hẹp" định tính;
   - dấu ở dải giúp có thể đổi theo τ (bảng τ của mentor; L7.5).
+  - ở τ ≥ T_int, dải giúp zero-fit kéo tới x ≈ 0,42–0,5 (L7.5 Stage 0); "dải hẹp" chỉ đúng khi τ ≪ T_int. Theo bit prior
+    (mentor review 04/11), dải giúp ở τ lớn là tập regime mà quyết định mù của M0 (F_stat) sai so với action dài hạn: 33/91
+    regime, tất cả có s > 0, F_stat = 1, x ∈ [0,03; 0,50] (`l75/PRIOR_BIT.csv`, zero-fit).
 
 ## C4 — Harm có cả khi telemetry tươi chỉ có backlog
 

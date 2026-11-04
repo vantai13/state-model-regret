@@ -865,3 +865,9 @@ Kết quả:
 
 Kết quả: 3 note mới. L7_4_novelty_check §5 ghi ảnh hưởng tới wording. Catalog/Excel trên `main` chưa cập nhật (sẽ làm ở
 merge nếu tác giả muốn), mức đọc của tác giả không đổi.
+
+### L7.5 — lookup sách chuẩn cho T11 (04/11/2026)
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | lookup | T11 (mentor review) | "Puterman Markov Decision Processes Discrete Stochastic Dynamic Programming average reward" | `search_crossref`, max 8 | 8 | 1 | Wiley 1994, DOI 10.1002/9780470316887; Ch. 8 tr. 331–440 (…ch8). Metadata-only; nội dung chưa đọc, không tải. Các kết quả còn lại là bài điểm sách |

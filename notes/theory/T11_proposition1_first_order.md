@@ -133,6 +133,14 @@ Nguồn: `results/explore_ctmc/runs/asym/…json` (truth) và `m0/asym/…json` 
 - z_pred1 tính với quyết định ở h và với quyết định ở h = ∞ trùng nhau từ h ≥ T_int (cột `z_pred_first_order_inf_decisions`
   của file truth).
 
+## 7b. Nguồn chuẩn (mentor review 04/11: T11 là công cụ, không phải đóng góp)
+
+- Bước 1 (V = h r + g − e^{Qh} g) và vai trò của bias g là khai triển gain/bias chuẩn của bài toán chi phí trung bình.
+- Trích: M. L. Puterman, *Markov Decision Processes: Discrete Stochastic Dynamic Programming*, Wiley, 1994,
+  DOI 10.1002/9780470316887. Chương 8 "Average Reward and Related Criteria", tr. 331–440, DOI 10.1002/9780470316887.ch8.
+- **Mức đọc: metadata-only** (Crossref, 04/11/2026). Mục cụ thể (phương trình đánh giá, khai triển Laurent) và phiên bản
+  thời gian liên tục (có thể ở chương khác) **chưa kiểm**. Cần đọc trước khi trích số mục trong paper.
+
 ## 8. Phạm vi và việc của tác giả
 
 - Chứng minh dùng không gian state hữu hạn (N cắt). Với chuỗi vô hạn cần thêm điều kiện để g_a tồn tại, ‖ε_h‖ giảm
