@@ -693,3 +693,8 @@ Full pytest có **1 FAIL có chủ đích** (`test_p6_predictor::test_identity_s
 `window.py` từ chối khi có file mới dưới `experiments/`. Không sửa nguồn đóng băng; rescore MATCH, gate record DL-135 khớp.
 Note mới DAH00/SS22/FV09 (AI-T); catalog/Excel chưa thêm nguồn L7.3/L7.4. Điểm vào:
 `notes/synthesis/L7_4_REPORT.md`, `results/explore_ctmc/SUMMARY.md`, `results/explore_ctmc/l75/STAGE0_REPORT_L75.md`.
+
+L7.5/04-11 (DL-140): thẻ τ sửa theo mentor review, khóa theo ủy quyền (`8649c43b`), truth một lần trên GCP. 4/4 PASS:
+L75-1a/1b và L75-2 là onset (zero-fit báo trước); L75-3 (328 chuỗi) và L75-4 (8 series) là rủi ro. D22 chỉ báo. Checker
+`main()` lỗi ở phần D22 chỉ báo; file điểm ghi bằng `score_l75_post.py` từ `score()` đã khóa. Gate Phase 7 chưa chấm,
+không tag. Câu cơ chế, A1–A3 bản tác giả, Understanding và L8 vẫn OPEN. Kết quả: `results/explore_ctmc/l75/RESULTS_L7_5.md`.

@@ -4142,3 +4142,39 @@ của tác giả trong khi Gate Phase 7 còn HOLD**. Vì vậy **không gắn ta
 - `explore/v13-population`, `explore/v13-regime-map`: đã trên origin, DL-122 không merge.
 
 Không rewrite history.
+
+### DL-140 — L7.5: thẻ τ sửa theo mentor review, khóa theo ủy quyền, truth một lần (4/4 PASS); merge vào main (04/11/2026)
+
+**Quyết định và ủy quyền.**
+- Mentor review thẻ τ và `check_l75.py`, không xem truth nào ở τ ≠ 1. Mentor đề xuất bit prior, L75-1a/1b, bộ lọc biên độ
+  của L75-3, eligibility L75-4 (8 series, n_min 6) và stage D22 chỉ báo.
+- Tác giả nhắn "bạn không chờ tôi nói khóa đâu… tự chạy luôn đi". AI quyết thay ba việc mentor để cho tác giả (dùng bit
+  prior; nhận 8 series; bật D22), rồi khóa ở `8649c43b` (`results/explore_ctmc/locks_l75.json`).
+- Merge vào main theo yêu cầu "push đi". **Gate Phase 7 chưa chấm; không tag.**
+
+**Fact.**
+- Truth chạy một lần trên `dt4n-research-01`: 1.625/1.625 unit, 0 UNRESOLVED, 10,5 CPU-h.
+- Verdict, theo `results/explore_ctmc/score_l75.json`:
+
+  | Dự đoán | Kết quả | Loại |
+  |---|---|---|
+  | L75-1a | 171/174 | onset |
+  | L75-1b | 98/98 | onset |
+  | L75-2 | 1,000 ở 9/9 phần | onset |
+  | L75-3 | 328/328 chuỗi có thông tin | rủi ro |
+  | L75-4 | 8/8 | rủi ro |
+
+- Stage D22 chỉ báo: 741/741 unit, 7,87 CPU-h.
+
+**Sai lệch có ghi.** `check_l75.main()` đã khóa lỗi ở phần D22 chỉ báo: thuộc tính `DataFrame.flags` che cột `flags`.
+- File khóa không sửa.
+- `experiments/explore_ctmc/score_l75_post.py` ghi file điểm từ `load()`/`score()` đã khóa, sau khi kiểm hash.
+- File điểm tạo trên GCP trùng phần verdict với lần chấm lại ở local.
+
+**Kiểm trên main sau merge.**
+- Full pytest: 824 PASS, 1 FAIL có chủ đích như DL-139.
+- P6 rescore: MATCH. `gate_record`: khớp DL-135.
+- Hash khóa L7.5: khớp.
+
+**Không đổi:** G1, MainRQ/contract, Gate C/D. Thẻ do AI soạn; Understanding, L8, author-self OPEN. Câu cơ chế (vì sao M0 mù
+chọn Switch ở 0 < x ≲ 0,47) chờ tác giả tự viết. Kết quả: `results/explore_ctmc/l75/RESULTS_L7_5.md`.

@@ -10,7 +10,7 @@ Main RQ:
 **Phase 7 exploration CTMC đã merge vào main theo yêu cầu tác giả (DL-139); Gate Phase 7 HOLD, không tag.**
 - L7.1–L7.3 là test theo thẻ do AI soạn.
 - L7.4 tổng hợp: [báo cáo](notes/synthesis/L7_4_REPORT.md), [claim–evidence](notes/synthesis/CLAIMS_EVIDENCE.md).
-- L7.5 Stage 0 chỉ có zero-fit; [thẻ τ](results/explore_ctmc/l75/CARD_L7_5.md) chưa khóa.
+- L7.5: [thẻ τ](results/explore_ctmc/l75/CARD_L7_5.md) khóa sau mentor review; truth một lần, 4/4 PASS ([kết quả](results/explore_ctmc/l75/RESULTS_L7_5.md), DL-140).
 - G1 không đổi.
 
 
