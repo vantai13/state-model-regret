@@ -5,8 +5,10 @@
 
 STAGE is sobol, old or xs (results/explore_ctmc/cases_l75/STAGE.json).
   zf   zero fit only (tau.evaluate_m0; D22 parts when the unit's d22 flag is set): never calls V.
-  l75  truth (tau.evaluate), refused unless locks_l75.json holds every locked file unchanged, the stage is locked,
-       and the host is dt4n-research-01. No --shard, no --ids: every unit of the stage once, on one host.
+  l75  truth (tau.evaluate, no D22), refused unless locks_l75.json holds every locked file unchanged, the stage is
+       locked, and the host is dt4n-research-01. No --shard, no --ids: every unit of the stage once, on one host.
+  l75d22  report-only D22 truth stage (decided 04/11 before the lock, after the mentor's review): units with the d22
+       flag only, separate folder runs_l75_d22, its UNRESOLVED never touches L75-1..4; needs d22_stages in the lock.
 One forked process per unit under RLIMIT_CPU (scan2.run_robust); a unit that dies or hits the cap is written by the
 parent as UNRESOLVED and is never retried silently.
 """
@@ -67,8 +69,8 @@ def run_unit(job):
     lamA, lamB, u, kappa = (F(x) for x in case['parameters'][:4])
     tau, unit = F(case['tau']), case['unit']
     try:
-        if mode == 'l75':
-            kw = dict(d22=True) if (TRUTH_D22 and unit['d22']) else dict(disagree=False)
+        if mode in ('l75', 'l75d22'):
+            kw = dict(d22=True) if (mode == 'l75d22' or (TRUTH_D22 and unit['d22'])) else dict(disagree=False)
             out = T5.evaluate(lamA, lamB, u, kappa, case['hs'], tau, **kw)
             for r in out['h']:
                 r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9] + \
@@ -90,7 +92,7 @@ def run_unit(job):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('stage', choices=STAGES)
-    ap.add_argument('--mode', choices=('zf', 'l75'), default='zf')
+    ap.add_argument('--mode', choices=('zf', 'l75', 'l75d22'), default='zf')
     ap.add_argument('--workers', type=int, default=os.cpu_count())
     ap.add_argument('--cap', type=int, default=900)
     a = ap.parse_args()
@@ -99,13 +101,17 @@ def main():
     leaked = [c['id'] for c in cases if T5.is_control(c['parameters'])]
     if leaked:
         raise SystemExit(f'control regimes in the case list: {leaked}')
-    if a.mode == 'l75':
-        check_l75_locks(a.stage)
-    folder = OUT / ('runs_l75' if a.mode == 'l75' else 'm0_l75') / a.stage
+    if a.mode in ('l75', 'l75d22'):
+        locks = check_l75_locks(a.stage)
+        if a.mode == 'l75d22' and (a.stage not in locks.get('d22_stages', []) or not locks.get('d22_report_only')):
+            raise SystemExit(f'l75d22 refused: {a.stage} is not a locked report-only D22 stage')
+    folder = OUT / {'zf': 'm0_l75', 'l75': 'runs_l75', 'l75d22': 'runs_l75_d22'}[a.mode] / a.stage
     folder.mkdir(parents=True, exist_ok=True)
     jobs = []
     for c in cases:
         for un in c['units']:
+            if a.mode == 'l75d22' and not un['d22']:      # D22 stage: only units whose joint J fits the budget
+                continue
             jobs.append((dict(c, tau=un['tau'], unit=un), folder / unit_name(c, un['tau']), a.cap, a.mode))
     todo = sorted([j for j in jobs if not j[1].exists()], key=lambda j: -j[0]['unit']['est_truth'])     # heaviest first
     print(f'{a.stage} [{a.mode}] on {socket.gethostname()}: {len(jobs)} units, {len(todo)} to run, {a.workers} workers, '

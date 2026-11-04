@@ -125,43 +125,99 @@ def test_run_unit_zero_fit_writes_a_completed_row(tmp_path):
 
 
 # ---------------------------------------------------------------- check_l75 on fake data (no truth at tau != 1 exists)
-def _fake_l75(n_reg=12, dose_up=0.0, s_down=0.0, onset_err=0.0, edge_shift=0.0, undone=0):
+def _fake_l75(n_reg=12, dose_up=0.0, s_down=0.0, onset_err=0.0, edge_shift=0.0, undone=0, wrong_gs=None):
+    """Fake merged frame: n_reg prior-correct regimes (harm growing with tau), n_reg prior-wrong regimes (help at large
+    tau), 12 x-slice families x 3 tau. Returns (frame, eligibility table)."""
     import pandas as pd
     rows = []
     taus = [float(t) for t in T5.TAU_GRID]
-    for r in range(n_reg):
+    for r in range(2 * n_reg):
+        correct = r < n_reg
         for hm in (float(h) for h in T5.H_GRID):
             for k, t in enumerate(taus):
-                z = -1.0 - 0.1 * k
+                z = (-1.0 - 0.1 * k) if correct else (0.5 + 0.1 * k)
+                g = z + onset_err + (dose_up * k if correct else 0.0)
+                if not correct and t == 10.0 and wrong_gs is not None:
+                    g = wrong_gs
                 rows.append(dict(stage='sobol', id=f'R{r}', h=f'{hm}', tau=f'{t}', tau_s=t, tau_mult=t, h_mult=hm,
-                                 z_pred1=z, G_S=z + onset_err + (dose_up * k), S=0.5 + 0.01 * k - s_down * k,
-                                 done=not (r < undone), x=-0.5, family='f'))
+                                 z_pred1=z, G_S=g, S=0.5 + 0.01 * k - s_down * k, prior_correct=correct,
+                                 stratum='neg' if correct else 'band', done=not (r < undone), x=-0.5, family='f'))
+    elig = []
     for fam in range(12):
         for t in (float(x) for x in T5.XS_TAU):
+            elig.append(dict(family=f'fam{fam}', tau_mult=t, eligible=True))
             for x in np.arange(-0.5, 1.0, 0.05):
                 x = round(float(x), 2)
                 if x == 0:
                     continue
                 z = 0.25 - x
                 rows.append(dict(stage='xs', id=f'X{fam}_{x}', h='10', tau=f'{t}', tau_s=t, tau_mult=t, h_mult=10.0,
-                                 z_pred1=z, G_S=z - edge_shift, S=0.1, done=True, x=x, family=f'fam{fam}'))
-    return pd.DataFrame(rows)
+                                 z_pred1=z, G_S=z - edge_shift, S=0.1, prior_correct=True, stratum='xs', done=True,
+                                 x=x, family=f'fam{fam}'))
+    return pd.DataFrame(rows), pd.DataFrame(elig)
+
+
+def _verdicts(fake):
+    from experiments.explore_ctmc import check_l75
+    m, elig = fake
+    return {k: r['verdict'] for k, r in check_l75.score(m, elig).items() if r['verdict'] != 'REPORT'}
 
 
 def test_check_l75_all_pass_and_single_failures():
-    from experiments.explore_ctmc import check_l75
-    v = lambda m: {k: r['verdict'] for k, r in check_l75.score(m).items() if r['verdict'] != 'REPORT'}
-    assert v(_fake_l75()) == {'L75-1': 'PASS', 'L75-2': 'PASS', 'L75-3': 'PASS', 'L75-4': 'PASS'}
-    assert v(_fake_l75(dose_up=0.2))['L75-1'] == 'FAIL'         # truth harm shrinks as tau grows
-    assert v(_fake_l75(s_down=0.05))['L75-3'] == 'FAIL'         # S decreases with tau
-    assert v(_fake_l75(onset_err=0.5))['L75-2'] == 'FAIL'
-    assert v(_fake_l75(edge_shift=0.05))['L75-4'] == 'FAIL'     # truth edge 0.05 left of the zero-fit edge
+    assert _verdicts(_fake_l75()) == {'L75-1': 'PASS', 'L75-2': 'PASS', 'L75-3': 'PASS', 'L75-4': 'PASS'}
+    assert _verdicts(_fake_l75(dose_up=0.2))['L75-1'] == 'FAIL'      # 1a: harm shrinks as tau grows
+    assert _verdicts(_fake_l75(wrong_gs=-0.3))['L75-1'] == 'FAIL'    # 1b: prior wrong but fresh state does not help
+    assert _verdicts(_fake_l75(s_down=0.05))['L75-3'] == 'FAIL'      # S decreases with tau
+    assert _verdicts(_fake_l75(onset_err=0.5))['L75-2'] == 'FAIL'
+    assert _verdicts(_fake_l75(edge_shift=0.05))['L75-4'] == 'FAIL'  # truth edge 0.05 left of the zero-fit edge
 
 
 def test_check_l75_unresolved_series_give_inconclusive():
+    v = _verdicts(_fake_l75(undone=3))                               # 3 of 24 regimes unresolved (> 10%)
+    assert v['L75-1'] == 'INCONCLUSIVE' and v['L75-3'] == 'INCONCLUSIVE'
+
+
+def test_amplitude_filter_never_drops_a_failing_series():
+    """(a) mentor review §3a: a series that fails (a step drop > TOL_S) is never classified 'flat'."""
     from experiments.explore_ctmc import check_l75
-    res = check_l75.score(_fake_l75(undone=2))                  # 2 of 12 regimes unresolved (> 10%)
-    assert res['L75-1']['verdict'] == 'INCONCLUSIVE' and res['L75-3']['verdict'] == 'INCONCLUSIVE'
+    rng = np.random.default_rng(7)
+    for _ in range(20000):
+        v = np.cumsum(rng.normal(0, rng.choice([1e-4, 3e-3, 1e-2, 0.1]), 8))
+        c = check_l75.s_class(v)
+        if (np.diff(v) < -check_l75.TOL_S).any():
+            assert c == 'fail'
+        if c == 'flat':
+            assert v.max() - v.min() < check_l75.AMP_MIN and (np.diff(v) >= -check_l75.TOL_S).all()
+    assert check_l75.AMP_MIN <= check_l75.TOL_S
+
+
+def test_l75_4_eligibility_reproduces_the_frozen_eight_series():
+    """(b) the eligibility rule applied to ZEROFIT_tau.csv gives the frozen table: 6 families at tau = T_int and the
+    two u = 2 families at tau = 0.1 T_int."""
+    import pandas as pd
+    l75 = ROOT / 'results/explore_ctmc/l75'
+    if not (l75 / 'L75_4_ELIGIBILITY.csv').exists():
+        pytest.skip('eligibility table not frozen yet')
+    from experiments.explore_ctmc import prefreeze_l75
+    got = prefreeze_l75.eligibility(pd.read_csv(l75 / 'ZEROFIT_tau.csv', dtype={'h': str, 'tau': str}))
+    frozen = pd.read_csv(l75 / 'L75_4_ELIGIBILITY.csv')
+    ok = {(r.family, float(r.tau_mult)) for r in got.itertuples() if r.eligible}
+    assert ok == {(r.family, float(r.tau_mult)) for r in frozen.itertuples() if r.eligible}
+    fams = set(got.family)
+    assert ok == {(f, 1.0) for f in fams} | {('u2_lA13/2_k1', 0.1), ('u2_lA13/2_k1/5', 0.1)}
+
+
+def test_l75_1_reads_the_frozen_prior_bit():
+    """(c) load() attaches PRIOR_BIT.csv; 1a has 174 series over 58 regimes, 1b 98 rows over 33 regimes."""
+    l75 = ROOT / 'results/explore_ctmc/l75'
+    if not (l75 / 'PRIOR_BIT.csv').exists():
+        pytest.skip('prior bit not frozen yet')
+    from experiments.explore_ctmc import check_l75
+    res = check_l75.score(check_l75.load())
+    p = res['L75-1']['parts']
+    assert (p['1a prior đúng']['eligible'], p['1a prior đúng']['regimes']) == (174, 58)
+    assert (p['1b prior sai']['eligible'], p['1b prior sai']['regimes']) == (98, 33)
+    assert res['L75-3']['eligible'] == 546 and res['L75-4']['eligible'] == 8
 
 
 def test_nearest_grid_multiple_handles_rounding():
