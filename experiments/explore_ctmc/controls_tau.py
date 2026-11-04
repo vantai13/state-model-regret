@@ -53,7 +53,8 @@ def ctrl_a():
         new = T5.evaluate_m0(*p, c['hs'], 1)
         r = xs_ref.loc[c['id']]
         d = max(rel(new['z_inf'], r.z_inf), rel(new['h'][0]['z_pred_first_order'], r.z_pred1))
-        sh = max(abs(new['h'][0]['F_old'] - r.F_old), abs(new['h'][0]['F_new'] - r.F_new))
+        # the L7.2 CSV stores F_old, F_new at h = inf (zf_report: d['h'][-1]); attempt01 compared h[0] by mistake
+        sh = max(abs(new['h'][-1]['F_old'] - r.F_old), abs(new['h'][-1]['F_new'] - r.F_new))
         xs_rows.append(dict(id=c['id'], max_rel=d, max_share_diff=sh))
     allr = rows + xs_rows
     ok = all(r['max_rel'] <= REL for r in allr) and all(r['max_share_diff'] <= 1e-12 for r in allr)
