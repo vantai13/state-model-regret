@@ -36,7 +36,10 @@ def test_slow_modulator_without_amplitude_lumps_to_ctmc_v1():
     assert v2.T_int == pytest.approx(v1.T_int, rel=1e-10)
 
 
-def test_truth_guard():
+def test_truth_guard(monkeypatch, tmp_path):
+    # The L7.3 card is locked since 4514477e, so the guard opens by design; test the refusal branch against a
+    # missing lock file (fixed 04/11/2026 after the lock).
+    monkeypatch.setattr(ctmc2, 'LOCKS_L73', tmp_path / 'locks_l73.json')
     with pytest.raises(PermissionError):
         ctmc2.evaluate(F(7), F(8), F(1), F(1, 5), F(2), F(4), F(2), [F(1)])
     ctmc2.truth_allowed(F(7), F(8), F(1), F(1, 5), F(2), F(6), F(0))           # a_s = 0: ctmc-v1 control
