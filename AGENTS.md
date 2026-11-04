@@ -682,3 +682,14 @@ notes/theory/,priorcheck ở notes/literature/. Phase upper4200 không actual
 cumulative/reset. Master PHASE6§13/14/18 chưa có, không nhận fullplan apply.
 Dừng ở memo;không proxy fit/representation/metric/panel/Phase7design/run,
 P6v1.1/refine. D22/realism/CF/SUBpark/R09R10sealed/76p4outcomes giữ.
+
+
+Phase 7 (exploration CTMC)/04-11 (DL-139): theo yêu cầu "push hết và merge code vào", đã merge `explore/tau-l75` và
+`synthesis-l74` vào main (gồm L7.1–L7.3, L7.4 tổng hợp, L7.5 Stage 0). **Gate Phase 7 HOLD, không tag
+`phase-7-evidence`**. Tất cả là exploration: thẻ L7.2/L7.3 do AI soạn và khóa không qua mentor review; thẻ τ
+`results/explore_ctmc/l75/CARD_L7_5.md` **chưa khóa**, chỉ khóa sau mentor review và lời "khóa" của tác giả. Truth τ ≠ 1
+chưa chạy, và chỉ chạy trên `dt4n-research-01`. T11/abstract/A3 là bản AI làm thay; Understanding/L8/author-self OPEN.
+Full pytest có **1 FAIL có chủ đích** (`test_p6_predictor::test_identity_samples_reused_with_original_provenance`): guard
+`window.py` từ chối khi có file mới dưới `experiments/`. Không sửa nguồn đóng băng; rescore MATCH, gate record DL-135 khớp.
+Note mới DAH00/SS22/FV09 (AI-T); catalog/Excel chưa thêm nguồn L7.3/L7.4. Điểm vào:
+`notes/synthesis/L7_4_REPORT.md`, `results/explore_ctmc/SUMMARY.md`, `results/explore_ctmc/l75/STAGE0_REPORT_L75.md`.

@@ -5,7 +5,14 @@ Người phụ trách: **Doan Van Tai**.
 Main RQ:
 > For load-changing routing actions, how do improvements in current-state information and action-response model fidelity differ and interact in their effect on expected decision regret?
 
-## Trạng thái hiện hành — 03/11/2026
+## Trạng thái hiện hành — 04/11/2026
+
+**Phase 7 exploration CTMC đã merge vào main theo yêu cầu tác giả (DL-139); Gate Phase 7 HOLD, không tag.**
+- L7.1–L7.3 là test theo thẻ do AI soạn.
+- L7.4 tổng hợp: [báo cáo](notes/synthesis/L7_4_REPORT.md), [claim–evidence](notes/synthesis/CLAIMS_EVIDENCE.md).
+- L7.5 Stage 0 chỉ có zero-fit; [thẻ τ](results/explore_ctmc/l75/CARD_L7_5.md) chưa khóa.
+- G1 không đổi.
+
 
 Phase 5 đã đóng sau bước đọc kết quả L5.3 và discovery Phase 4, theo
 [quyết định numbering v1.2](notes/phases/PHASE_4_entry_decision.md).
@@ -147,6 +154,7 @@ không dùng nó một mình để claim confirmation độc lập.
 - [Decomposition](results/lessons/l4_6_v2/report.md), [T08 clipping](notes/theory/T08_clipping_anchor.md), [T09 limits](notes/theory/T09_stationary_dominance_limits.md).
 - [Baseline A3](results/lessons/p4_a3/report.md), [SV FAIL_SCREEN và SUB checkpoint](results/lessons/l4_5/part_b/report.md).
 - [Paper library](papers/README.md); mọi lần tìm paper theo [search protocol](notes/literature/search_protocol.md).
+- Phase 7: [CTMC SUMMARY](results/explore_ctmc/SUMMARY.md), [L7.3 kết quả](results/explore_ctmc/l73/RESULTS_L7_3.md), [L7.5 Stage 0](results/explore_ctmc/l75/STAGE0_REPORT_L75.md), [threats](notes/synthesis/THREATS.md), [T11](notes/theory/T11_proposition1_first_order.md).
 
 SUB/CF-v2 vẫn park, R09/R10 vẫn sealed, D22 native DEFERRED;
 G1, realism, L8 và Understanding không tự nâng. Cấu trúc dấu theo x vẫn
@@ -163,7 +171,7 @@ không mặc định a≠6 là held-out sạch.
 Không tạo thêm file lesson/report cho lượt dọn này; lesson và lộ trình in trong chat.
 
 ```bash
-.venv/bin/python -m pytest -q -p no:cacheprovider
+.venv/bin/python -m pytest -q -p no:cacheprovider   # 1 FAIL có chủ đích sau DL-139 (guard P6 window)
 .venv/bin/python -m experiments.P4_01_recount.verify_artifacts
 ```
 

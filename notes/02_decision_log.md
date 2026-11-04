@@ -4104,3 +4104,41 @@ ownership/author-self vẫn OPEN. MainRQ/contract/frozen engine/Phase5/raw
 giữ nguyên;D22/realism,CF/SUBpark,R09/R10sealed,76 p4 outcomes chưa mở giữ.
 Dừng sau memo, không thiết kế hoặc chạy Phase7. Không thêm human prerequisite
 để chặn phần kỹ thuật đã được ủy quyền thực hiện.
+
+### DL-139 — Merge exploration Phase 7 (L7.1–L7.5 Stage 0) vào main theo yêu cầu tác giả (04/11/2026)
+
+**Yêu cầu.** Tác giả nhắn: "tiếp theo push hết và merge code vào cho tôi đi" (04/11/2026). AI (Claude) thực hiện.
+Mentor khuyên chỉ merge khi Gate Phase 7 GO và gắn tag `phase-7-evidence`. Lần merge này là **theo yêu cầu trực tiếp
+của tác giả trong khi Gate Phase 7 còn HOLD**. Vì vậy **không gắn tag**, và mọi nội dung giữ nhãn exploration, AI theo
+ủy quyền.
+
+**Đã merge (merge commit `--no-ff`).**
+- `explore/tau-l75` (`e1ea5b98`). Nhánh này chứa:
+  - `explore/ctmc-phase7`: L7.1, D22, L7.2;
+  - `explore/realism-l73`: L7.3 Phần 1;
+  - `explore/twoscale-l73`: L7.3 Phần 2;
+  - L7.5 Stage 0: zero-fit τ, thẻ τ **chưa khóa**.
+- `synthesis-l74` (`5cdc2b14`): L7.4 tổng hợp, note DAH00/SS22/FV09.
+- Cả hai nhánh tách từ `e2f32275` (HEAD của main lúc đó); merge không xung đột.
+
+**Trạng thái bằng chứng (không đổi do merge).**
+- G1 giữ; MainRQ, contract, frozen engine, Phase 5/6 raw và Gate C = NARROW, Gate D = REFORMULATE giữ nguyên.
+- Mọi thẻ L7.2, L7.3 do AI soạn và khóa không qua mentor review. Thẻ τ chưa khóa, truth ở τ ≠ 1 chưa chạy.
+- A1 (T11), A2 (abstract), A3 là bản AI làm thay. Understanding, author-self, L8 vẫn OPEN.
+- Catalog và Excel chưa thêm các nguồn L7.3/L7.4. Mức đọc của tác giả không đổi.
+
+**Kiểm sau merge.**
+- Full pytest: 821 PASS, **1 FAIL có chủ đích**: `tests/test_p6_predictor.py::test_identity_samples_reused_with_original_provenance`.
+  - `experiments/P6_band/window.py::load_identity_samples` chỉ cho dùng lại chứng chỉ identity khi
+    `git diff bf972c9c -- src experiments` chứa đúng 4 file P6_band.
+  - Merge thêm 36 file mới dưới `experiments/explore_ctmc/`, không sửa file cũ nào; trước merge tập này đúng 4 file.
+  - Guard fail-closed nên từ chối dùng lại chứng chỉ. Phase 6 đã đóng, không lượt chạy nào cần dùng lại.
+  - **Không sửa** `window.py` hay test vì cả hai thuộc nguồn đóng băng.
+- `experiments.P6_band.run rescore`: **RESCORE MATCH**.
+- `R.gate_record`: 10/10 hash khớp bản khóa DL-135.
+
+**Không làm.** Không tag, không merge các nhánh lưu trữ hay cũ:
+- `archive/claude-cleanup-2026-11-02`, `backup/before-history-rewrite`: giữ cục bộ có chủ đích;
+- `explore/v13-population`, `explore/v13-regime-map`: đã trên origin, DL-122 không merge.
+
+Không rewrite history.
