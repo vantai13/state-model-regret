@@ -78,3 +78,64 @@ def test_case_lists_exclude_control_regimes():
         for c in json.loads(f.read_text()):
             assert tuple(F(x) for x in c['parameters'][:7]) not in ctrl
             assert max(c['N'].values()) <= 3000
+
+
+# ---------------------------------------------------------------- check_l73 on fake data (no truth exists yet)
+def _fake(n_per=12, seed=0, gs_err=0.0, static_reg=0.0, m0_minus_static=-0.5, F=-1.0, G_S=-1.0):
+    import pandas as pd
+    rng = np.random.default_rng(seed)
+    rows = []
+    k = 0
+    for ratio in (10, 100):
+        for lo, hi in ((0.3, 1), (1, 4), (4, 7), (7, 15), (15, 40)):
+            for j in range(n_per):
+                k += 1
+                h_Tint = lo + (hi - lo) * (j + 0.5) / n_per
+                rows.append(dict(stage='asym', id=f'A{k}', h=str(k), h_Tint=h_Tint, delta=0.5, ratio=ratio,
+                                 combo=f'c{ratio}', z_pred1=-2.0, G_S=-2.0 + gs_err, reg_static=static_reg,
+                                 reg_M0_new=static_reg + m0_minus_static, F=F if h_Tint <= 1 else -0.5, done=True))
+    for j in range(n_per * 2):
+        rows.append(dict(stage='mid', id=f'M{j}', h='2', h_Tint=0.05, delta=1.0, ratio=100, combo='cm', z_pred1=0.0,
+                         G_S=G_S, reg_static=1.0, reg_M0_new=1.0 + m0_minus_static, F=F, done=True))
+    return pd.DataFrame(rows)
+
+
+def test_check_l73_all_pass_and_single_failures():
+    from experiments.explore_ctmc import check_l73
+    res = check_l73.score(_fake())
+    assert {k: v['verdict'] for k, v in res.items()} == {'L73-1': 'PASS', 'L73-2': 'PASS', 'L73-3': 'PASS', 'L73-4': 'PASS'}
+    res = check_l73.score(_fake(m0_minus_static=0.0))                    # M0 fresh does not beat Static by 0.1 pp
+    assert res['L73-3']['verdict'] == 'FAIL' and res['L73-1']['verdict'] == 'PASS'
+    res = check_l73.score(_fake(F=0.2))                                  # backlog-only does not harm
+    assert res['L73-4']['verdict'] == 'FAIL'
+    res = check_l73.score(_fake(static_reg=0.3))
+    assert res['L73-2']['verdict'] == 'FAIL'
+
+
+def test_check_l73_onset_is_scored_per_ratio_and_bin():
+    from experiments.explore_ctmc import check_l73
+    m = _fake()
+    bad = (np.isclose(m.ratio, 100)) & (m.h_Tint > 4) & (m.h_Tint <= 7)
+    m.loc[bad, 'G_S'] = m.loc[bad, 'z_pred1'] + 0.5                    # one ratio, one bin off by 0.5 pp
+    res = check_l73.score(m)
+    assert res['L73-1']['parts']['ratio100 (4;7]']['verdict'] == 'FAIL'
+    assert res['L73-1']['parts']['ratio10 (4;7]']['verdict'] == 'PASS'
+    assert res['L73-1']['verdict'] == 'FAIL'
+
+
+def test_check_l73_unresolved_and_n_min_give_inconclusive():
+    from experiments.explore_ctmc import check_l73
+    m = _fake()
+    mid = m.stage == 'mid'
+    idx = m[mid].index[:4]                                              # 4 of 24 MID cases unresolved (> 10%)
+    m.loc[idx, 'done'] = False
+    assert check_l73.score(m)['L73-3']['verdict'] == 'INCONCLUSIVE'
+    m = _fake(n_per=3)                                                  # too few rows in every bin
+    assert check_l73.score(m)['L73-1']['verdict'] == 'INCONCLUSIVE'
+
+
+def test_scan2_truth_refused_without_locks(tmp_path, monkeypatch):
+    from experiments.explore_ctmc import scan2
+    monkeypatch.setattr(scan2, 'LOCKS_L73', tmp_path / 'locks_l73.json')
+    with pytest.raises(SystemExit):
+        scan2.check_l73_locks('asym')

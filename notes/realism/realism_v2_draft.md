@@ -25,6 +25,15 @@ Nó **không** nghĩa là tác giả đã đọc, không nghĩa là có Gate, v�
 
 Mức đọc của mọi nguồn mới là AI-T. Tác giả tự đọc: chưa có xác nhận.
 
+> **Đính chính 04/11/2026 (L7.3 Phần 2, AI theo ủy quyền).**
+> 1. **Bộ mốc vùng** đổi sang mốc của bản đồ twin Stage E: state h/T_int < 0,3; chuyển tiếp 0,3–3; tiệm cận ≥ 3. Mốc
+>    4–7·T_int chỉ còn là "onset của z_pred1". Nhãn trong §1 và §3 đọc theo
+>    [zone_thresholds_L73.md](zone_thresholds_L73.md), có bảng đổi nhãn từng dòng; số h/T_int không đổi.
+> 2. **Công thức xấp xỉ §3d** chỉ đúng bậc độ lớn: trên 1.051 case ctmc-v2, nó ước T_int cao hơn giá trị chính xác
+>    11–98% (trung vị 49%) ([zerofit_summary](../../results/explore_ctmc/l73/zerofit_summary.json)). Queue khuếch đại
+>    thành phần chậm: chỉ 5% phương sai ở thang chậm đã làm T_int gần gấp ba (bảng dừng của mentor, tái lập ở
+>    controls_l73/attempt03/g.json). T_relax/T_int chỉ 1,4–1,9, nên hai đồng hồ gần nhau.
+
 ## 0. Tóm tắt kết quả Phần 1
 
 | Use case | h (nguồn) | τ (nguồn) | Vùng trong ctmc-v1 | Vì sao chưa bền |

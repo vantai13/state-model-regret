@@ -145,6 +145,22 @@ def ctrl_d_truth():
     return dict(PASS=worst <= 0.01, worst_pp=worst, N=a['N'], N2=b['N'], hs=[str(h) for h in hs])
 
 
+def ctrl_d_zf():
+    """SPEC_v2 §6 (d), zero-fit part: N -> 2N at the heaviest case of the case lists (no D22 at 2N)."""
+    cases = [c for st in ('asym', 'mid', 'sobol', 'xs')
+             for c in json.loads((ROOT / f'results/explore_ctmc/cases_l73/{st}.json').read_text())]
+    c = max(cases, key=lambda c: (max(c['N'].values()), c['id']))
+    p = [F(x) for x in c['parameters']]
+    a = ctmc2.evaluate_m0(*p[:7], c['hs'], c=p[7], relax=False)
+    b = ctmc2.evaluate_m0(*p[:7], c['hs'], c=p[7], relax=False, N_scale=2)
+    worst = abs(a['z_inf'] - b['z_inf'])
+    for r1, r2 in zip(a['h'][:-1], b['h'][:-1]):
+        worst = max(worst, abs(r1['z_pred_first_order'] - r2['z_pred_first_order']))
+    worst = max(worst, abs(a['z_inf_ko'] - b['z_inf_ko']))
+    return dict(PASS=worst <= 0.01, worst_pp=worst, case=c['id'], N=a['N'], N2=b['N'],
+                T_int_rel_change=abs(a['T_int_max'] - b['T_int_max']) / a['T_int_max'])
+
+
 def ctrl_f():
     rows = []
     for name, reg in ctmc2.CONTROL_REGIMES.items():
@@ -203,7 +219,7 @@ def main():
         return
     dest = OUT / f'attempt{a.attempt}'
     dest.mkdir(parents=True, exist_ok=True)
-    todo = dict(a=ctrl_a, b=ctrl_b, c=lambda: ctrl_c(a.episodes), d_truth=ctrl_d_truth, f=ctrl_f, g=ctrl_g)
+    todo = dict(a=ctrl_a, b=ctrl_b, c=lambda: ctrl_c(a.episodes), d_truth=ctrl_d_truth, d_zf=ctrl_d_zf, f=ctrl_f, g=ctrl_g)
     for name, fn in todo.items():
         if a.only and name not in a.only:
             continue

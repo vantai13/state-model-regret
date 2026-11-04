@@ -18,9 +18,9 @@ STAGES = ('asym', 'mid', 'sobol', 'xs')
 BINS = [0, 1, 4, 7, 15, 40.0001]
 
 
-def rows(stage):
+def rows(stage, src=None):
     recs = []
-    for f in sorted((SRC / stage).glob('*.json')):
+    for f in sorted(((src or SRC) / stage).glob('*.json')):
         d = json.loads(f.read_text())
         base = dict(stage=stage, id=d['id'], status=d['status'], combo=d.get('tags', {}).get('combo'))
         if d['status'] != 'COMPLETED':
@@ -74,12 +74,18 @@ def x_star(df):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--src', default='m0_l73')
+    a = ap.parse_args()
     DEST.mkdir(parents=True, exist_ok=True)
-    df = pd.concat([rows(s) for s in STAGES], ignore_index=True)
+    src = OUT / a.src
+    df = pd.concat([rows(s, src) for s in STAGES], ignore_index=True)
     df.to_csv(DEST / 'ZEROFIT_2s.csv', index=False)
     ok = df[df.status == 'COMPLETED']
     one = ok.drop_duplicates(['stage', 'id'])
-    summ = dict(rows=len(df), cases={s: int((df.drop_duplicates(['stage', 'id']).stage == s).sum()) for s in STAGES},
+    summ = dict(source=a.src, hosts=sorted(set(json.loads(f.read_text()).get('host', '?') for st in STAGES
+                                              for f in (src / st).glob('*.json'))), rows=len(df), cases={s: int((df.drop_duplicates(['stage', 'id']).stage == s).sum()) for s in STAGES},
                 not_completed=df[df.status != 'COMPLETED'].reindex(columns=['stage', 'id', 'status', 'error'])
                 .to_dict('records'))
     stat = {}

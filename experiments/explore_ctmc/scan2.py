@@ -43,8 +43,29 @@ def est_truth_cpu(NA, NB, Tf, Ts, hmax, peak=6.0, load=9.0, mu=10.0):
     return 1.5e-6 * (NA + NB) * 4 * float(hmax) * norm / 52
 
 
+TRUTH_HOST = 'dt4n-research-01'
+TRUTH_STAGES = ('asym', 'sobol', 'mid')
+LOCKS_L73 = OUT / 'locks_l73.json'
+
+
+def check_l73_locks(stage):
+    """Truth needs locks_l73.json: every locked file unchanged, the stage locked, and the single truth host."""
+    import hashlib
+    if not LOCKS_L73.exists():
+        raise SystemExit('l73 truth refused: no locks_l73.json (card not locked)')
+    locks = json.loads(LOCKS_L73.read_text())
+    for rel, sha in locks['files'].items():
+        if hashlib.sha256((ROOT / rel).read_bytes()).hexdigest() != sha:
+            raise SystemExit(f'l73 truth refused: {rel} changed since the lock')
+    if stage not in TRUTH_STAGES or f'results/explore_ctmc/cases_l73/{stage}.json' not in locks['files']:
+        raise SystemExit(f'l73 truth refused: {stage} is not a locked truth stage')
+    if socket.gethostname() != TRUTH_HOST:
+        raise SystemExit(f'l73 truth refused: single-host rule, truth runs only on {TRUTH_HOST}')
+    return locks
+
+
 def run_case(job):
-    case, path, cap = job
+    case, path, cap, mode = job
     if path.exists():
         return
     signal.signal(signal.SIGXCPU, _cap)
@@ -54,17 +75,23 @@ def run_case(job):
     p = [F(x) for x in case['parameters']]
     lamA, lamB, u, Tf, Ts, af, as_, c = p
     try:
-        if case.get('d22', True) and max(case['N'].values()) <= ctmc2.D22_NMAX:
+        if mode == 'l73':
+            out = ctmc2.evaluate_d22(lamA, lamB, u, Tf, Ts, af, as_, case['hs'], c=c)
+            for r in out['h']:
+                r['flags'] = [k for k in ('S', 'M', 'G_M') if r[k] < -1e-9] + \
+                    [k for k in ('F1', 'V1') if r['d22'][k] < -1e-9]
+        elif case.get('d22', True) and max(case['N'].values()) <= ctmc2.D22_NMAX:
             out = ctmc2.evaluate_d22_m0(lamA, lamB, u, Tf, Ts, af, as_, case['hs'], c=c)
         else:
             out = ctmc2.evaluate_m0(lamA, lamB, u, Tf, Ts, af, as_, case['hs'], c=c)
-        out['est_truth_cpu'] = est_truth_cpu(out['N']['A'], out['N']['B'], Tf, Ts, max(F(h) for h in case['hs']))
+        if mode != 'l73':
+            out['est_truth_cpu'] = est_truth_cpu(out['N']['A'], out['N']['B'], Tf, Ts, max(F(h) for h in case['hs']))
         out['status'] = 'COMPLETED'
     except CpuCap as exc:
         out = dict(parameters=case['parameters'], status='UNRESOLVED', error=str(exc))
     except Exception as exc:
         out = dict(parameters=case['parameters'], status='ERROR', error=f'{type(exc).__name__}: {exc}')
-    out.update(id=case['id'], hs=case['hs'], mode='zf2', cpu=time.process_time() - t, host=socket.gethostname(),
+    out.update(id=case['id'], hs=case['hs'], mode=mode, cpu=time.process_time() - t, host=socket.gethostname(),
                tags=case.get('tags', {}), f_nominal=case.get('f'))
     tmp = path.with_suffix('.tmp')
     tmp.write_text(json.dumps(out, default=float) + '\n')
@@ -85,7 +112,7 @@ def run_robust(jobs, workers):
             active[proc] = job
         time.sleep(0.2)
         for proc in [q for q in active if not q.is_alive()]:
-            case, path, cap = active.pop(proc)
+            case, path, cap, mode = active.pop(proc)
             proc.join()
             if path.exists():
                 d = json.loads(path.read_text())
@@ -93,7 +120,7 @@ def run_robust(jobs, workers):
                 continue
             sig = -proc.exitcode if proc.exitcode is not None and proc.exitcode < 0 else None
             status = 'UNRESOLVED' if sig in (signal.SIGKILL, signal.SIGXCPU) else 'ERROR'
-            out = dict(id=case['id'], parameters=case['parameters'], hs=case['hs'], mode='zf2', status=status,
+            out = dict(id=case['id'], parameters=case['parameters'], hs=case['hs'], mode=mode, status=status,
                        cpu=None, host=socket.gethostname(), tags=case.get('tags', {}),
                        error=f'worker died with signal {sig} (exitcode {proc.exitcode}) without writing its row')
             tmp = path.with_suffix('.tmp')
@@ -108,19 +135,31 @@ def main():
     ap.add_argument('--workers', type=int, default=os.cpu_count())
     ap.add_argument('--cap', type=int, default=900)
     ap.add_argument('--shard', nargs=2, type=int, default=[0, 1])
+    ap.add_argument('--dest', default='m0_l73', help='output folder under results/explore_ctmc (single-host reruns)')
+    ap.add_argument('--ids', type=Path, help='JSON list of case IDs to run (subset of the stage)')
+    ap.add_argument('--mode', choices=('zf2', 'l73'), default='zf2')
     a = ap.parse_args()
     from experiments.explore_ctmc import ctmc2
     cases = json.loads((CASES / f'{a.stage}.json').read_text())
     leaked = [c['id'] for c in cases if tuple(F(x) for x in c['parameters'][:7]) in ctmc2.CONTROL_REGIMES.values()]
     if leaked:
         raise SystemExit(f'control regimes in the case list: {leaked}')
+    if a.mode == 'l73':
+        check_l73_locks(a.stage)
+        if a.dest == 'm0_l73':
+            a.dest = 'runs_l73'
+        if a.ids or a.shard != [0, 1]:
+            raise SystemExit('l73 truth runs every case of the stage once, on one host: no --ids, no --shard')
     i, n = a.shard
     mine = [c for j, c in enumerate(cases) if j % n == i]
-    folder = DEST / a.stage
+    if a.ids:
+        keep = set(json.loads(a.ids.read_text()))
+        mine = [c for c in mine if c['id'] in keep]
+    folder = OUT / a.dest / a.stage
     folder.mkdir(parents=True, exist_ok=True)
-    jobs = [(c, folder / f"{c['id']}.json", a.cap) for c in mine]
+    jobs = [(c, folder / f"{c['id']}.json", a.cap, a.mode) for c in mine]
     todo = sorted([j for j in jobs if not j[1].exists()], key=lambda j: -max(j[0]['N'].values()))   # heaviest first
-    print(f'{a.stage} [zf2] shard {i}/{n} on {socket.gethostname()}: {len(mine)} cases, {len(todo)} to run, '
+    print(f'{a.stage} [{a.mode}] shard {i}/{n} on {socket.gethostname()}: {len(mine)} cases, {len(todo)} to run, '
           f'{a.workers} workers, cap {a.cap} CPU-s', flush=True)
     start, cpu = time.monotonic(), 0.0
     for k, (name, status, c) in enumerate(run_robust(todo, a.workers), 1):
