@@ -29,7 +29,7 @@ ghi là giới hạn. Claim C1–C7 xem [CLAIMS_EVIDENCE](CLAIMS_EVIDENCE.md).
 | K5 | P1: hệ ở phân phối dừng của Stay tại t0 | ❌ | Giới hạn. Khởi đầu ngoài dừng (sau sự kiện) chưa kiểm |
 | K6 | "Harm" định nghĩa bằng ngưỡng −0,5% C_ref | ◐ | Báo cả −0,1% ở các phép đo cơ chế; ngưỡng ghi trong thẻ trước truth |
 | K7 | c_sw = 0 hầu hết | ◐ | Stage F (c_sw > 0): harm biến mất ở c* (F-R2). Claim C3 chỉ ở c_sw = 0 |
-| K8 | Tuổi telemetry τ cố định 1 s | 🔄 | L7.5 Stage 0 (zero-fit, chưa truth). Mentor coi đây là lỗ hổng lớn nhất |
+| K8 | Tuổi telemetry τ cố định 1 s | 🔄 | L7.5 Stage 0 xong (zero-fit 1.625 unit, control PASS, nhánh `explore/tau-l75`). Zero-fit: dấu của liều–đáp ứng phụ thuộc x. Thẻ τ nháp **chưa khóa**, chờ mentor review; chưa truth |
 
 ## 3. External validity (có chuyển sang mạng thật không)
 

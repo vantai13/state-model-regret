@@ -19,7 +19,7 @@ marker riêng và legend.
 | [F4](../../results/explore_ctmc/figures_l74/F4_backlog.png) | C4 harm chỉ với backlog | `runs_d22/*`, dòng G_S < −0,5% | F/G_S trung vị 0,89 ở κ ≈ 0,03, giảm còn 0,49 ở κ ≈ 3. n trùng D-R1 (949) | 949 |
 | [F5](../../results/explore_ctmc/figures_l74/F5_planner.png) | C5 planner ngầm (giả thuyết) | mọi truth ctmc-v1 a = 6 (`runs/`, `runs_ko/`, `runs_d22/`), mỗi (tham số, h) một dòng; h ≥ 4·T_int, δ ≠ 0 | harm: M0 chọn action dài hạn ở 0,895 (cũ) so với 0,723 (mới); help: 0,257 so với 0,345. **Sau mở, mô tả**. SUMMARY §11A ghi n 543 trên tập hẹp hơn, cùng giá trị | 604 harm / 110 help |
 | [F6](../../results/explore_ctmc/figures_l74/F6_clocks.png) | C6 hai đồng hồ | `runs/asym` + `m0/asym`, \|z_∞\| ≥ 0,5 (đúng đại lượng của AS-R4) | ρ = −0,921 (h/T_int) so với −0,735 (h/κ), tái lập đúng `score_asymptote.json` | 210 |
-| F7 (chờ) | τ, liều–đáp ứng | L7.5 `l75/ZEROFIT_tau.csv` (nhánh `explore/tau-l75`) | z_∞ theo τ/T_int; **chỉ zero-fit**, chưa truth | — |
+| F7 | τ, liều–đáp ứng (chưa claim) | nhánh `explore/tau-l75`: `results/explore_ctmc/l75/F7_tau_zinf.png`, `F7_data.csv` (commit `a621c633`) | trung vị z_∞ theo τ/T_int theo tầng x: ngoài dải giúp harm tăng rồi bão hòa ở τ ≈ 0,3–1·T_int; trong dải đổi dấu. **Chỉ zero-fit**, chưa truth, chưa được viết thành claim | 91 regime |
 
 **Lưu ý khi dùng trong paper:**
 - F1, F2 trộn các nguồn có thiết kế khác nhau (asym, Sobol, lát x). Số điểm theo h/T_int phản ánh lưới, không phản ánh tần
