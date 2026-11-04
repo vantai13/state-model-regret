@@ -823,3 +823,33 @@ Kết quả:
 - **Phạm vi:** không novelty, không 2×20, không saturation.
 - **Lý do dừng:** mọi ô của bảng use case đã có nguồn hoặc UNSOURCED rõ lý do. Các lỗ còn lại cần nguồn mới (WAN dưới
   5 phút; h của NDT; f của DC).
+
+## L7.4-N1 — novelty: bốn claim lõi và claim τ (04/11/2026)
+
+Theo L7.4 §4.2 mục 3 và yêu cầu "đóng vai trò là tôi… về phần bài paper cần bài nào nói tôi sẽ lấy cho bạn". AI (Claude)
+chạy. Thẻ: câu hỏi là có prior nào cùng estimand/cơ chế/regime với C1, C3/C5, C4, C6 và claim τ không
+([L7_4_novelty_check](L7_4_novelty_check.md) §2). Trước khi tìm đã đọc lại L6_4_prior_check, M00, information_harm,
+state_staleness, freshness_decision_value. Ngân sách: 1 buổi, tối đa 3 đề xuất mới.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | keyword | Q1 / C3,C5 | "interpreting stale load information age load balancing" | `search_openalex`, max 20, relevance | 20 | 2 | Dahlin TPDS 2000 (+ ICDCS'99, cùng công trình); Fischer–Vöcking TCS 2008. AoI survey đã có (YSB21). Còn lại ngoài ngành (thể thao, điện) |
+| 04/11 | keyword | Q2 / τ | "age of information fresher updates worse decisions non-monotone value of information" | `search_openalex`, max 20 | 18 | 0 mới | Arı et al. ISIT 2024 (10.1109/isit57864.2024.10619298, sai số không đơn điệu theo tuổi) chỉ sàng; 2609.06351 đã chờ duyệt; còn lại ngoài ngành |
+| 04/11 | keyword | Q3 / C1 | "certainty equivalent fluid model controller queue state information harm long horizon" | `search_openalex`, max 20 | 20 | 0 | Toàn bộ ngoài ngành (y tế, kinh tế, công nghiệp) |
+| 04/11 | keyword | Q4 / τ | "does fresher data always improve remote inference age of information non-monotone" | `search_openalex`, max 20 | 16 | 0 mới | Arı et al. 2410.08706 (cùng nhóm Q2); coupon-collector 2603.26998 chỉ sàng |
+| 04/11 | keyword | Q5 / C3,C4 | "optimal routing control queues delayed queue length information" | `search_openalex`, max 20 | 20 | 0 mới | Kuri–Kumar TAC 1995 = R34 (đã có, cần VoR). Jacko–Niño-Mora 2008, He–Yang–Yao 2025 (RJSQ, dao động JSQ khi có trễ), Doldo–Pender 2021 chỉ sàng |
+| 04/11 | forward | Q6 / C3 | các bài trích Dahlin 10.1109/71.888643 | `get_citing_papers` (OpenAlex), max 40, most-cited | 40 (trên 114) | 0 mới | Chủ yếu cân tải web/CDN; Fischer–Vöcking xuất hiện lại. Truncated tại max_results |
+| 04/11 | keyword | Q7 / C4,NDT | "network digital twin telemetry freshness staleness decision quality what-if" | `search_openalex`, max 20 | 20 | 0 | CENTILE 2608.01725 đã chờ duyệt; còn lại DT ngoài mạng (xe, lưới điện, nhà máy) |
+| 04/11 | keyword | Q8 / C1 | "value of state information misspecified model certainty equivalence average cost bias long horizon Markov" | `search_openalex`, max 20 | 20 | 0 | Ngoài ngành (kinh tế, tài chính, RL chung) |
+| 04/11 | keyword | Q9 / C2,C6 | "static versus dynamic routing value of queue state information horizon relaxation time" | `search_openalex`, max 20 | 20 | 0 | Vehicle routing chiếm đa số; routing hai server quan sát một phần chỉ sàng |
+| 04/11 | lookup | τ | "How does data freshness affect real-time supervised learning Shisher Sun" | `search_crossref`, max 5 | 5 | 1 | DOI 10.1145/3492866.3549711, MobiHoc 2022 tr. 31–40 |
+| 04/11 | lookup | C3 | DOI 10.1109/71.888643 | `get_crossref_paper_by_doi` | 1 | (đã tính ở Q1) | IEEE TPDS 11(10):1033–1047 |
+
+Kết quả:
+- **Đề xuất (chờ duyệt, metadata-only):** Dahlin 2000; Shisher–Sun 2022; Fischer–Vöcking 2008.
+- **Dừng:** đạt luật 2×20 (Q7 và Q8 liên tiếp, mỗi query 20 kết quả, không giữ mới); Q9 cũng không giữ.
+- **Hạn chế:**
+  - chỉ OpenAlex và Crossref; không Semantic Scholar hay Google Scholar;
+  - không dò ngược từ M00/Dahlin;
+  - không tra venue SIGCOMM/NSDI riêng.
+- **Không đổi:** catalog/Excel trên `main`, nhãn PC/Gate, mức đọc của tác giả. Không tải PDF, không note nội dung mới.
