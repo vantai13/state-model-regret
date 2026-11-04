@@ -297,9 +297,12 @@ def test_state_dependence_is_disagreement_with_static():
         assert dep[t] == pytest.approx(want)
 
 
-def test_heldout_amplitudes_only_in_zero_fit_mode():
+def test_heldout_amplitudes_only_in_zero_fit_mode(monkeypatch, tmp_path):
     m = ctmc.evaluate_m0(F(7), F(15, 2), F(1), F(1, 2), [F(4)], a=3)
     assert m['a'] == 3 and 'z_inf_ko' in m
+    # The L7.2 card has been locked since 58312baf, so the guard now allows held-out truth by design; test the refusal
+    # branch against a missing lock file (fixed 04/11/2026: the test predated the lock and failed after it).
+    monkeypatch.setattr(ctmc, 'LOCKS_L72', tmp_path / 'locks_l72.json')
     with pytest.raises(PermissionError):
         ctmc.evaluate(F(7), F(15, 2), F(1), F(1, 2), [F(4)], a=3)
     with pytest.raises(PermissionError):
