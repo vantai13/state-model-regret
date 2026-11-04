@@ -802,3 +802,24 @@ Kết quả:
 - **Đề xuất cho tác giả tải (metadata-only):** Kandula'09, Benson WREN'09, Jupiter Evolving, FLARE, Heffes–Lucantoni.
   OnlineTE và LetFlow là open access.
 - **Không đổi:** catalog và Excel trên `main`, nhãn PC.
+
+### L7.3-R2 đợt 4 — tác giả tải 8 bài, chốt Phần 1 (04/11/2026)
+
+Tác giả nhắn: "tôi tải hết rồi á, hoàn thiện đầy đủ lesson và push lên đi". Tác giả tải là duyệt các nguồn đã liệt kê.
+
+| Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 04/11 | intake | L7.3-R2 | Downloads, file mới sau 07:00 | find -newermt + pdftotext/pdfinfo + sha256 | 9 file | 8 | Jupiter, Benson WREN'09, Kandula'09, Heffes–Lucantoni, OnlineTE v1, LetFlow, FLARE (2 file trùng sha256, giữ 1), Yates JSAC |
+| 04/11 | read (AI-T) | L7.3-R2 / realism | 8 bài trên | pdftotext + grep; render tr. 202–206, 208 (KSG09, mất chữ số khi trích text), tr. 69 (BAAZ09), tr. 1189 (YSB21), tr. 858 (HL86) | 8 | 8 | Câu "≥ 150 s": **không tìm thấy** trong KSG09 (ảnh 6/7 trang; tr. 207 chỉ grep) và BAAZ09 (grep toàn văn). KSG09: TM đổi trung vị 82% ở 10 s và 100 s. YSB21 eq. 21 cho P/2 + L |
+| 04/11 | backward | L7.3-R2 | GNM26 refs [17, 35, 46] | pdftotext | 3 | 0 đề xuất | RedTE (SIGCOMM'24) và Namyar et al. (NSDI'24) là ứng viên cho thang dưới 5 phút ở WAN. Chưa tra DOI; giữ cho đợt sau theo giới hạn 3 đề xuất mỗi đợt |
+
+Kết quả:
+- **Note mới:** [KSG09](papers/KSG09.md), [BAAZ09](papers/BAAZ09.md), [PMO22](papers/PMO22.md),
+  [KKSB07](papers/KKSB07.md), [VPA17](papers/VPA17.md), [GNM26](papers/GNM26.md), [HL86](papers/HL86.md),
+  [YSB21](papers/YSB21.md).
+- **Bản nháp:** [realism v2](../realism/realism_v2_draft.md) viết lại thành bản hợp nhất "hoàn tất kỹ thuật Phần 1", thêm
+  §0 tóm tắt, §5 kết luận, §6 bàn giao Phần 2 và §7 nguồn.
+- **Không đổi:** catalog và Excel trên `main`, mức đọc của tác giả, nhãn PC/Gate.
+- **Phạm vi:** không novelty, không 2×20, không saturation.
+- **Lý do dừng:** mọi ô của bảng use case đã có nguồn hoặc UNSOURCED rõ lý do. Các lỗ còn lại cần nguồn mới (WAN dưới
+  5 phút; h của NDT; f của DC).
