@@ -714,3 +714,8 @@ External validity wave1/14-11 (DL-143, nhánh ext/validity, không merge main): 
 A1 180/180 (luật bậc một vòng kín zero-fit, Δ≥3T_int), harm giữ 32/32, Δ≤T_int đảo dấu (mô tả). EV-B alarm: harm 18→0,
 q95 lặp lại PASS, q75 R3 FAIL. EV-D simulator gói độc lập 3 lớp traffic: plug-in không harm (T12), nowcast có harm theo
 luật, hybrid xóa harm (4/4 PASS). Cần tác giả: nguồn trace, literature, thẻ Δ*, tự kiểm T12. `results/ext_validity/WAVE1_REPORT.md`.
+
+External validity wave2/14-11 (DL-144, nhánh ext/validity): EV-A2 Δ* Z1 FAIL 15/30 (harm side 30/30; luật định vị Δ* chỉ
+khi Δ*≳1,1T_int; dưới đó feedback vòng kín). W2-LIT 3 nguồn AI-T (Bumpensanti&Wang MS2020, Soleymani CDC2019, Mendelson&Kuang
+OR2026), chưa xác nhận prior cho luật vòng kín/đảo dấu; không novelty. EV-D2 trace MAWI thật: D1/D3/D4 PASS, hiệu ứng ≈0 vì
+τ≪T_int≈78s. Wave3 đề xuất: τ thực tế (SNMP) trên trace. `results/ext_validity/WAVE2_REPORT.md`.

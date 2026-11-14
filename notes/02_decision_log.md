@@ -4278,3 +4278,28 @@ thiết kế, khóa, chạy và chấm. Không mentor review, không dự đoán
 - R3 q75 FAIL vì ngưỡng do AI đặt.
 
 **Không đổi:** MainRQ/contract/PC/Gate/G1, nhãn C5/K7, frozen sources. Không novelty. Push nhánh `ext/validity` theo yêu cầu "chỉ push lên nhánh chưa merge vào main".
+
+### DL-144 — External validity wave 2: EV-A2 Δ*, literature W2, EV-D2 real MAWI trace (14/11/2026)
+
+**Ủy quyền.** "bạn có thể quyết định thay tôi… literature… tải về nếu cần… ra lệnh cho codex tìm". Claude điều phối và
+chấm; Codex viết code EV-D2 (extractor, trace_cox) và đọc 3 nguồn literature. Mọi thẻ `LOCKED_AI_DELEGATED`.
+
+**Fact** (chi tiết: `results/ext_validity/WAVE2_REPORT.md`):
+- **EV-A2:** Z1 FAIL 15/30. Phía harm ở 2Δ* đạt 30/30; phía help ở Δ*/2 đạt 15/30. Mọi ô trượt có Δ*/T_int ≤ 1,14. Exploration sau mở: xấp xỉ epoch tách rời đạt 16/30.
+- **W2-LIT:** Claude chạy 5 query, sàng 100 kết quả, giữ 3 nguồn: Bumpensanti & Wang MS 2020; Soleymani et al. CDC 2019; Mendelson & Kuang OR 2026. Codex đọc AI-T, ghi trong `notes/literature/W2_prior_check.md`. Không novelty claim.
+- **EV-D2:**
+  - MAWI 2025-03-11: 215.748.878 gói, khớp số MAWI công bố;
+  - lấy mẫu theo flow 1/1000, CoV 4,0 ở 10 ms;
+  - 20 regime ở thời gian thật;
+  - D1 40/40, D3 40/40, D4 40/40 PASS; D2 NOT_EVALUABLE;
+  - nowcast β₁ ≈ 0,995 vì τ ≪ T_int ≈ 78 s.
+
+**Sai lệch có ghi:**
+- c = 25 bỏ trước khóa;
+- launch EV-D2 đầu tiên vỡ trước khi có output vì thiếu thư mục;
+- extractor cần `-lm`;
+- nới assertion thời gian của test MC.
+
+Full pytest: 902 PASS, 1 FAIL có chủ đích (guard P6).
+
+**Không đổi:** MainRQ/contract/PC/Gate/G1, nhãn C5/K7. Push nhánh `ext/validity`, không merge main.
