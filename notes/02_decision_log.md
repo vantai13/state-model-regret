@@ -4325,3 +4325,33 @@ Full pytest: 902 PASS, 1 FAIL có chủ đích (guard P6).
 
 **Không đổi:** MainRQ/contract/PC/Gate/G1. Claim thực tế phải nói rõ: dấu harm dự đoán được; độ lớn ±40–60%;
 hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương quan chậm nhất. Push `ext/validity`.
+
+### DL-146 — Independent audit of waves 1–3, errata, and EV-D4 stopped as infeasible (14/11/2026)
+
+**Ủy quyền.** "thực hiện như bạn đề xuất". AI (Claude) điều phối; Codex làm auditor độc lập. Nhánh `ext/validity`.
+
+**Audit** (`notes/ops/codex/AUDIT_report.md`, `results/ext_validity/audit/`, commit `b45d9407`):
+- **Verdict:** tính lại 26/26 verdict có score, cộng 4 verdict EV-D không có `score.json`, từ dữ liệu thô bằng script không import code chấm. 9.070 phép kiểm, 0 sai lệch.
+- **Lock:** 2/65 hash lệch, cùng do `packet.py` được sửa sau (bản cũ phát lại cho kết quả trùng từng bit).
+- **Diễn giải:**
+  - T12 chỉ nói O(1), không nói hại nhỏ hơn ngưỡng ở h hữu hạn. Claude đã kiểm phản ví dụ bằng giải tích.
+  - Phép dẫn T12 thiếu điều kiện state đủ thông tin.
+  - Độ lệch pha A–B trong trace replay cố định trong mỗi lần chạy.
+  - Chưa chứng minh được hybrid FAIL không do ŝ.
+  - Quần thể alarm khác controller kích hoạt theo sự kiện thật.
+  - "120/124" là số đếm trên hàng đã chọn, các hàng tương quan mạnh.
+
+**Đính chính** (`d809200f`): thêm mục cuối vào T12 note và WAVE1/2/3_REPORT. Verdict không đổi.
+
+**EV-D4** (`results/ext_validity/ev_d4/REPORT_EV_D4.md`):
+- **Thiết kế:** trace 4 giờ liên tục, sửa B3 (chung pha), thêm D5/D6.
+- **Lần 1 (mod 250):** T_int trung vị 1445 s, 20/20 regime bị loại theo luật khai trước.
+- **Lần 2 (mod 10):** thiết kế lại đúng một lần, ghi trước; 16/20 bị loại, nên **dừng, không chạy test**.
+- **Chẩn đoán train-only:** lặp một đoạn 15 phút làm T_int ngắn đi 6–10 lần (trung vị 57/104 s so với 536 s).
+- **Hệ quả:** T_int của wave 2–3 có thể bị rút ngắn bởi việc lặp trace. Vì vậy "30 T_int" ở đó không phải horizon dài của traffic liên tục.
+
+**Code:**
+- `packet.background` thêm tùy chọn `path_keys` (chung pha), giữ mặc định trùng từng bit, có test; 51/51 test ext PASS.
+- `trace_cox.arrivals` nhận thêm tham số `phase`.
+
+**Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ. Claim thực tế của wave 3 phải ghi rằng T_int đo trên trace lặp 15 phút.

@@ -1,0 +1,90 @@
+{
+  "case": {
+    "lamA": 6.0,
+    "lamB": 7.4375,
+    "u": 1.25,
+    "seed": 13015,
+    "n_inst": 10000,
+    "spacing_mult": 3,
+    "train_T": 100000.0,
+    "sample_dt": 0.2,
+    "h_mult": [
+      10,
+      30
+    ],
+    "batches": 40,
+    "id": "LP03_loop1000",
+    "cls": "trace_cox",
+    "params": {
+      "series": "results/ext_validity/ev_d4/diag_loop15/series_202304121000.npz",
+      "key": "s0",
+      "path_keys": [
+        "s0",
+        "s1"
+      ],
+      "bin": 0.01
+    },
+    "stratum": "pos",
+    "trace": "ditl4h",
+    "tau": 30.0
+  },
+  "seed": 13015,
+  "mean_stay": 13.116068820646193,
+  "mean_switch": 25.793578073422026,
+  "s_train": 12.677509252775833,
+  "T_int": 27.409533477170182,
+  "T_int_censored": false,
+  "shares": {
+    "10": {
+      "F_new": 0.3433550065019506,
+      "F_old": 0.3433149944983495,
+      "F_new_rate": 0.3515074522356707,
+      "F_old_rate": 0.3514654396318896,
+      "F_old_fluid_nowcast": 0.0,
+      "F_old_ratefluid_nowcast": 0.0,
+      "F_old_ratefluid_nowcast_hybrid_train": 0.0
+    },
+    "30": {
+      "F_new": 0.3433550065019506,
+      "F_old": 0.3433149944983495,
+      "F_new_rate": 0.3515074522356707,
+      "F_old_rate": 0.3514654396318896,
+      "F_old_fluid_nowcast": 0.0,
+      "F_old_ratefluid_nowcast": 0.0,
+      "F_old_ratefluid_nowcast_hybrid_train": 0.0
+    }
+  },
+  "nowcast": {
+    "A": {
+      "beta": [
+        4.39219303568239,
+        -0.006015132624800353,
+        0.010007892463304333
+      ],
+      "gamma": [
+        5.948378389789623,
+        0.006500819384730354,
+        0.0024039181788222596
+      ],
+      "r2_backlog": 4.345984285170079e-05,
+      "r2_rate": 8.042882775571858e-05
+    },
+    "B": {
+      "beta": [
+        3.3339037222770878,
+        0.4270399868513353,
+        0.2210932641652817
+      ],
+      "gamma": [
+        7.321778372492345,
+        0.021572396155238198,
+        -0.0047166583189042315
+      ],
+      "r2_backlog": 0.19683408098984134,
+      "r2_rate": 0.0006420757599675531
+    }
+  },
+  "CPU": 33.931809027,
+  "case_sha256": "18e2ea4f8d99df058f560c3fd95424a3de1f3a4f762e65fc60dcc5eb8ad725b5",
+  "wall": 33.93950581299987
+}

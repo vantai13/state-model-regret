@@ -723,3 +723,7 @@ OR2026), chưa xác nhận prior cho luật vòng kín/đảo dấu; không nove
 External validity wave3/14-11 (DL-145, ext/validity): τ∈{30,300}s trên 2 trace MAWI thật. Twin nowcast bị telemetry tươi
 làm hại −0,6…−4,1%, dấu theo luật D2 PASS cả hai trace (120/124); độ lớn D3 FAIL; hybrid D4 FAIL (sai số transient của fluid,
 không do ŝ); T12 D1 FAIL ở trace 2 vì biến động theo phút (cần h ≫ thang chậm nhất). `results/ext_validity/WAVE3_REPORT.md`.
+Audit + EV-D4/14-11 (DL-146, ext/validity): Codex audit độc lập tính lại mọi verdict wave1–3 khớp (9070 checks); sửa diễn giải:
+T12 chỉ O(1) không phải ngưỡng ở h hữu hạn, pha A–B cố định trong trace replay, hybrid-FAIL chưa quy được, 120/124 là đếm chọn lọc.
+EV-D4 (trace DITL 4 h liên tục) dừng trước test: T_int 535–1445 s, luật khả thi loại 16–20/20 regime. Chẩn đoán train-only:
+lặp đoạn 15 phút làm T_int ngắn 6–10 lần → "30 T_int" của wave 2–3 không phải horizon dài của traffic liên tục. `results/ext_validity/ev_d4/REPORT_EV_D4.md`.
