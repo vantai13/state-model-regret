@@ -8,6 +8,7 @@ from experiments.ext_validity import packet as P
 
 def main():
     O = Path('results/ext_validity/ev_d2')
+    (O / 'test').mkdir(parents=True, exist_ok=True)   # Claude: first launch failed because this directory did not exist
     tasks = []
     for c in json.loads((O / 'cases_c1.json').read_text()):
         tr = json.loads((O / 'train' / f"{c['id']}_s{c['seed']}.json").read_text())
