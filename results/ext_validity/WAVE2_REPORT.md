@@ -65,3 +65,10 @@ Doan Van Tai — **AI (Claude) điều phối, Codex viết code và đọc lite
    - quyết nhãn C5/K7;
    - chấm Gate Phase 7;
    - L8 (người đọc thật).
+
+## Đính chính sau audit độc lập (14/11/2026, DL-146)
+
+Theo `notes/ops/codex/AUDIT_report.md` mục C:
+- **Truth EV-D2 < 0,25 pp** chỉ đúng ở h = 30T (nowcast max 0,135 pp), không đúng ở mọi h (h = 3T max 0,437 pp). D2 NOT_EVALUABLE vẫn đúng.
+- **Luật closed-loop chưa được kiểm trên packet/trace.** Các nhánh đó chỉ kiểm số hạng dẫn one-shot ước lượng từ train.
+- **Ba "điều kiện harm" là moderator, không phải điều kiện cần.** Bằng chứng: q75 vẫn giữ harm 4/18.

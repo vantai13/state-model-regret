@@ -68,3 +68,11 @@ Doan Van Tai — **AI (Claude) điều phối, Codex viết code** theo ủy quy
 - `ev_b/`, `ev_b_rep/`, `ev_d/` (CARD, train, test, predictions, score)
 - `ev_e_twin_classes.csv`
 - Code ở `experiments/ext_validity/`; brief Codex ở `notes/ops/codex/`.
+
+## Đính chính sau audit độc lập (14/11/2026, DL-146)
+
+Codex tính lại mọi verdict từ dữ liệu thô bằng script riêng, không import code chấm: tất cả khớp. Các con số dưới đây được sửa theo mục C của `notes/ops/codex/AUDIT_report.md`:
+- **Đảo dấu khi Δ ≤ T_int:** dấu ngược ở **181/240 = 75,4%** hàng Δ ≤ T, không phải "~80%". Các trung vị −0,86/−0,91 → +0,30/+0,39 chỉ đúng trên đường chéo Δ = h_p. Nếu giữ h_p = 10T thì trung vị tại Δ = T vẫn âm (−0,018/−0,091%). Không được nói toàn bộ vùng Δ ≤ T đảo dấu.
+- **EV-B:** con số 15/20 và KO ≈ 12% tính trên neg + pos, bỏ band. Trên toàn panel: M0 harm 18/30, regret trung vị của KO 8,68%. Hybrid có 0 harm ở cả hai cách tính.
+- **EV-D:** `ev_d/score.json` không tồn tại. Codex tính lại D1–D4 đều khớp report (116/120, 61/64, 120/120, 120/120).
+- **EV-B, mô hình alarm:** quần thể alarm là occupancy dừng có điều kiện "backlog cũ ≥ ngưỡng". Mô hình này không có first passage, không có hysteresis và không có retrigger. Kết quả EV-B chưa đại diện cho mọi controller kích hoạt theo sự kiện, vì quần thể khác có thể đổi dấu (toy của audit: +1 so với −1).

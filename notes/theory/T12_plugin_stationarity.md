@@ -48,3 +48,20 @@ Nghĩa là G_S bị chặn khi h tăng; tính theo %C_ref ∝ h, nó → 0.
 
 - Cần tính dừng tại thời điểm quyết định. Quyết định theo alarm (EV-B) phá điều này: quần thể state bị chọn khác đi.
 - Cần thời gian trộn hữu hạn. Heavy-tail không cắt đuôi (T_int vô hạn) nằm ngoài phát biểu.
+
+## Đính chính sau audit độc lập (14/11/2026, DL-146)
+
+AI (Claude) ghi theo ủy quyền. Nguồn: `notes/ops/codex/AUDIT_report.md` mục B1–B3. Claude đã kiểm lại B1 bằng giải tích. Tác giả chưa tự kiểm.
+
+1. **Mệnh đề chỉ nói G_S(h) = O(1)**, tức không có số hạng tăng theo h. Nó **không** nói G_S ≥ 0, cũng không nói |G_S| < 0,25% C_ref ở h hữu hạn.
+   - Phản ví dụ: CTMC hai trạng thái đối xứng (T_int = 1/2), dừng và trộn, dùng một policy cố ý sai. Ta có G_S = −(1 − e^{−2h})(1 − e^{−2τ})/4, nên tại τ = 1 là **−1,44% E_stay ở h = 30 T_int** và −0,14% ở 300 T_int.
+   - Vì vậy hệ quả 2 phải đọc là: twin plug-in không bị hại **tăng theo h**. Một hại bị chặn vẫn có thể vượt ngưỡng thực tế ở h vừa phải.
+2. **Lỗ hổng trong phép dẫn.** Bước thay D(h) bằng E[D | Z_t] trong tích với a′ = φ(O(Z_{t−τ})) cần hai điều kiện:
+   - Z_t phải đủ để biết chi phí tương lai khi đã biết quá khứ (Markov với state đầy đủ);
+   - phần dư o(1) phải đều theo state.
+
+   Nếu Z thiếu memory, đẳng thức sai. Ví dụ iid của audit: G thực = 0, còn vế phải = −0,5. CTMC đầy đủ state của repo thỏa điều kiện này, nhưng traffic thật thì chưa chắc.
+3. **Phép thử đúng nội dung T12** là hại của plug-in không tăng từ h = 10 lên h = 30 T_int, chứ không phải ngưỡng −0,25% tại 30 T_int. Phép thử này là D6 của EV-D4.
+   - Dữ liệu EV-D3 (post-hoc, mô tả), τ = 30 s: |G(30T)|/|G(10T)| ≈ 1,05–1,11 cho plug-in, so với 1,8–2,7 cho nowcast. Kết quả này hợp với T12.
+   - Ở τ = 300 s trên trace 2, plug-in đổi dấu (+0,45% → −0,58%). Kết quả này chưa giải thích được.
+4. **Trace lặp tuần hoàn thì tương quan không bao giờ tắt.** Vì vậy "thang trộn chậm nhất" trong báo cáo wave 3 chưa được đo, và không được dùng như một điều kiện đã chứng minh.

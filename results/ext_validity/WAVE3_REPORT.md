@@ -58,3 +58,19 @@ Wave 2 (EV-D2) thấy hiệu ứng ≈ 0 ở τ = 1 s, vì τ ≪ T_int của tr
 2. Đổi T_int "nhanh" thành thang tương quan chậm nhất trong luật, rồi kiểm lại D1/D3. Đây là mở rộng lý thuyết.
 3. Twin có model transient tốt hơn: kiểm xem hybrid + model transient có xóa được harm ở τ lớn không.
 4. Phần của tác giả: tự kiểm T12 (nay có thêm điều kiện thang chậm), quyết khuyến nghị nào đưa vào paper.
+
+## Đính chính sau audit độc lập (14/11/2026, DL-146)
+
+Verdict D1–D4 của cả hai trace được tính lại độc lập và đều khớp. Cách diễn giải phải sửa theo `notes/ops/codex/AUDIT_report.md`:
+
+1. **"120/124 đúng dấu" chỉ là phép đếm trên các hàng có |dự đoán| ≥ 0,25 pp**, không phải kiểm định thống kê.
+   - Các hàng tương quan rất mạnh: hai twin nowcast có tương quan 0,9996–0,9999; h = 10T và h = 30T dùng cùng seed.
+   - SE trong một lần chạy không gồm sai số của train và của pha trace.
+2. **"Độ lớn ±40–60%" không có mẫu số.** Thay bằng: trên các hàng được chọn ở h = 30T, trung vị |G − dự đoán|/|dự đoán| là 42% (trace 1) và 19% (trace 2); tối đa 347% và 106%.
+3. **"Hybrid FAIL không do ŝ" chưa được chứng minh.** Lệch trung vị của ŝ là 5,1%, nhưng tối đa tới 148%. Muốn khẳng định cần đối chứng: thay ŝ bằng giá trị chuẩn trên cùng đường đi traffic.
+4. **Bỏ cách giải thích D1 FAIL ở trace 2 bằng "thang trộn chậm".** Có hai lý do:
+   - Trace 1 cũng dao động theo phút (0,69–2,86×).
+   - Có một lỗi thiết kế lớn hơn (audit B3): hai đường A và B lặp **cùng** một chuỗi với hai pha độc lập, nên độ lệch pha A–B cố định trong cả lần chạy và ngẫu nhiên giữa các lần (train khác test). Nguồn sai số này chưa được định lượng.
+
+   EV-D4 sửa lỗi này: A và B dùng hai mẫu luồng khác nhau, chung một pha thời gian thật, trên trace 4 giờ.
+5. **T12:** xem đính chính trong `notes/theory/T12_plugin_stationarity.md`. D1 FAIL không bác T12, và D1 PASS cũng không chứng minh T12.
