@@ -82,11 +82,14 @@ def relaxation(params):
     return float(tr)
 
 
-def arrivals(lam, params, T, rng):
+def arrivals(lam, params, T, rng, phase=None):
+    # Claude (EV-D4, after audit B3): an explicit phase lets two paths share real-time alignment; default unchanged
     if not np.isfinite([lam, T]).all() or min(lam, T) < 0:
         raise ValueError('invalid trace rate or duration')
     rates, dt = series(params)
-    phase = rng.uniform(0, len(rates)*dt)
+    phase = rng.uniform(0, len(rates)*dt) if phase is None else float(phase)
+    if not 0 <= phase < len(rates)*dt:
+        raise ValueError('phase outside [0, L)')
     index = int(phase/dt)
     offset = phase-index*dt
     pieces = []

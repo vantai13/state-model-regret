@@ -103,6 +103,25 @@ def arrivals(cls, lam, params, T, rng):
     return np.sort(np.concatenate(pieces))
 
 
+def background(case, T, rng):
+    """Claude (EV-D4, after audit B3). Default: one independent arrival stream per path (unchanged; for trace_cox the
+    same key with independent phases, so the A-B relative phase is fixed within a run and random across runs).
+    trace_cox with params['path_keys'] = [kA, kB]: two disjoint flow samples of one link, one shared phase
+    (real-time alignment), so the run integrates over the trace's own joint A-B structure."""
+    p = case['params']
+    if case['cls'] == 'trace_cox' and 'path_keys' in p:
+        from experiments.ext_validity.trace_cox import arrivals as trace_arrivals, series
+        keys = p['path_keys']
+        if len(keys) != 2:
+            raise ValueError('path_keys needs two keys')
+        lens = {len(series(dict(p, key=k))[0]) for k in keys}
+        if len(lens) != 1:
+            raise ValueError('path series must have equal length')
+        phase = rng.uniform(0, lens.pop()*series(p)[1])
+        return [trace_arrivals(case[k], dict(p, key=key), T, rng, phase=phase) for k, key in zip(('lamA', 'lamB'), keys)]
+    return [arrivals(case['cls'], case[k], p, T, rng) for k in ('lamA', 'lamB')]
+
+
 def departures(times, services, initial=0.):
     """Vectorised Lindley recursion, last axis = ordered packets."""
     sums = np.cumsum(services, axis=-1)
@@ -115,7 +134,7 @@ def backlog(run, ts):
 
 
 def long_run(case, action, T, rng):
-    bg = [arrivals(case['cls'], case[k], case['params'], T, rng) for k in ('lamA', 'lamB')]
+    bg = background(case, T, rng)   # Claude (EV-D4): same draws as before unless path_keys is set
     flow = poisson(case['u'], T, rng)
     runs = []
     for j in range(2):
@@ -127,7 +146,7 @@ def long_run(case, action, T, rng):
 def long_run_crn(case, T, rng):
     """Claude (review, 14/11): both actions on the SAME background arrivals, managed-flow arrivals and per-packet
     service times (common random numbers), so the stationary difference s = r_Sw - r_St has low variance."""
-    bg = [arrivals(case['cls'], case[k], case['params'], T, rng) for k in ('lamA', 'lamB')]
+    bg = background(case, T, rng)   # Claude (EV-D4): same draws as before unless path_keys is set
     flow = poisson(case['u'], T, rng)
     sbg = [rng.exponential(1/MU, b.size) for b in bg]
     sfl = rng.exponential(1/MU, flow.size)
@@ -435,6 +454,7 @@ def validate(case):
         raise ValueError('initial_mode is a conditional-physics test hook only')
     arrivals(case['cls'],case['lamA'],case['params'],0,np.random.default_rng(0))
     arrivals(case['cls'],case['lamB'],case['params'],0,np.random.default_rng(0))
+    background(case,0.,np.random.default_rng(0))   # Claude (EV-D4): validates path_keys
     rate_settings(case)
 
 

@@ -341,3 +341,30 @@ def test_tau_parameter_default_is_bitwise_and_large_tau_shrinks():
     assert a['shares'] == b['shares'] and a['nowcast'] == b['nowcast'] and a['T_int'] == b['T_int']
     c = P.train(dict(base, tau=20.0))
     assert c['nowcast']['A']['beta'][1] < a['nowcast']['A']['beta'][1]
+
+
+def test_background_default_bitwise_and_shared_phase(tmp_path):
+    """Claude (EV-D4, audit B3): without path_keys the background draws are bitwise the old per-path calls;
+    with path_keys both paths share one phase, so a square-wave trace puts A and B arrivals in the same on-bins."""
+    from experiments.ext_validity import trace_cox as TC
+    f = tmp_path / 'sq.npz'
+    on = np.tile(np.r_[np.ones(50), np.zeros(50)], 20)          # 0.5 s on, 0.5 s off, L = 20 s
+    np.savez(f, s0=on, s1=on, all=2 * on)
+    for c in (case(), dict(case(), cls='trace_cox', params=dict(series=str(f), key='s0', bin=.01))):
+        old = [P.arrivals(c['cls'], c[k], c['params'], 50., np.random.default_rng(5)) for k in ('lamA',)]
+        r1, r2 = np.random.default_rng(5), np.random.default_rng(5)
+        ref = [P.arrivals(c['cls'], c[k], c['params'], 50., r1) for k in ('lamA', 'lamB')]
+        got = P.background(c, 50., r2)
+        assert all(np.array_equal(x, y) for x, y in zip(ref, got)) and np.array_equal(old[0], ref[0])
+    c = dict(case(), cls='trace_cox', params=dict(series=str(f), key='s0', bin=.01, path_keys=['s0', 's1']))
+    P.validate(dict(c, id='ok'))
+    for seed in range(5):
+        a, b = P.background(c, 200., np.random.default_rng(seed))
+        assert len(a) > 500 and len(b) > 500
+        # on-windows are a 0.5 s arc of t mod 1 s; a shared phase puts A and B in the SAME arc (union ~ 50 of 100 bins)
+        ua, ub = (set(np.floor((x % 1.) * 100).astype(int)) for x in (a, b))
+        assert len(ua) <= 51 and len(ub) <= 51 and len(ua | ub) <= 51
+    with pytest.raises(ValueError):
+        P.background(dict(c, params=dict(c['params'], path_keys=['s0'])), 1., np.random.default_rng(0))
+    with pytest.raises(ValueError):
+        TC.arrivals(1., c['params'], 1., np.random.default_rng(0), phase=20.)
