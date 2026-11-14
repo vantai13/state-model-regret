@@ -1,0 +1,109 @@
+location,claim,actual,status,evidence
+WAVE1_REPORT.md/DL-143,ev_a/A1,PASS 180/180,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_a/A2,PASS 40/40,PASS,audit/recomputed_rows.csv; CARD
+WAVE2_REPORT.md/DL-144,ev_a2/Z1,FAIL 15/30,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b/B1,PASS 30/30,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b/B2,PASS 10/10,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b_rep/q75/R1,PASS 30/30,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b_rep/q75/R2,PASS 14/14,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b_rep/q75/R3,FAIL 4/18 retained,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b_rep/q95/R1,PASS 30/30,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b_rep/q95/R2,PASS 7/7,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_b_rep/q95/R3,PASS 0/18 retained,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_d/D1,PASS 116/120,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_d/D2,PASS 61/64,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_d/D3,PASS 120/120,PASS,audit/recomputed_rows.csv; CARD
+WAVE1_REPORT.md/DL-143,ev_d/D4,PASS 120/120,PASS,audit/recomputed_rows.csv; CARD
+WAVE2_REPORT.md/DL-144,ev_d2/D1,PASS 40/40,PASS,audit/recomputed_rows.csv; CARD
+WAVE2_REPORT.md/DL-144,ev_d2/D2,NOT_EVALUABLE 0/0,PASS,audit/recomputed_rows.csv; CARD
+WAVE2_REPORT.md/DL-144,ev_d2/D3,PASS 40/40,PASS,audit/recomputed_rows.csv; CARD
+WAVE2_REPORT.md/DL-144,ev_d2/D4,PASS 40/40,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3/D1,PASS 78/80,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3/D2,PASS 54/56,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3/D3,FAIL 39/80,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3/D4,FAIL 47/80,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3b/D1,FAIL 54/80,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3b/D2,PASS 66/68,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3b/D3,FAIL 62/80,PASS,audit/recomputed_rows.csv; CARD
+WAVE3_REPORT.md/DL-145,ev_d3b/D4,FAIL 64/80,PASS,audit/recomputed_rows.csv; CARD
+W1:12,60 regimes × 7 = 420; 6.2 CPU-h,60 × 7 = 420; 6.233005554 CPU-h,PASS,ev_a/run01/*.json
+W1:12/DL143,32/32 one-shot harm retained,32/32,PASS,ev_a/run01/*.json
+W1:13,"median neg dm=10,hm=10",-0.8614814888630434,PASS,audit/exploratory.json
+W1:13,"median neg dm=1/2,hm=1/2",0.29672714307736503,PASS,audit/exploratory.json
+W1:13,"median pos dm=10,hm=10",-0.9110845845696935,PASS,audit/exploratory.json
+W1:13,"median pos dm=1/2,hm=1/2",0.3931199682693168,PASS,audit/exploratory.json
+W1:13,sign agreement ~80% at Delta<=T,181/240=75.4167%,ERRATUM,ev_a/run01; predictions
+W1:13/DL143,Delta<=T reverses harm (general reading),"At Delta=T,hp=10T: medians neg=-0.0178073%, pos=-0.0909329%; reversal is not universal.",OVERCLAIM,audit/exploratory.json
+W1:16,EV-E M0 all,"{'strata': 'all', 'twin': 'M0', 'n': 30, 'harm': 18, 'median_regret': 4.325903174064278, 'max_regret': 136.9193974803276}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E margin all,"{'strata': 'all', 'twin': 'margin', 'n': 30, 'harm': 7, 'median_regret': 0.04581337629717539, 'max_regret': 9.568780209181002}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E hybrid all,"{'strata': 'all', 'twin': 'hybrid', 'n': 30, 'harm': 0, 'median_regret': 0.0007212701946101098, 'max_regret': 0.012861298093804388}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E hybrid_mm1 all,"{'strata': 'all', 'twin': 'hybrid_mm1', 'n': 30, 'harm': 0, 'median_regret': 0.0006831962065915247, 'max_regret': 0.2509882153084704}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E ko all,"{'strata': 'all', 'twin': 'ko', 'n': 30, 'harm': 0, 'median_regret': 8.681164584360538, 'max_regret': 255.80003649277126}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E static all,"{'strata': 'all', 'twin': 'static', 'n': 30, 'harm': 0, 'median_regret': 0.0039930914311679475, 'max_regret': 0.9302292528918122}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E M0 negpos,"{'strata': 'negpos', 'twin': 'M0', 'n': 20, 'harm': 15, 'median_regret': 4.620605799703272, 'max_regret': 121.93721955587883}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E margin negpos,"{'strata': 'negpos', 'twin': 'margin', 'n': 20, 'harm': 7, 'median_regret': 0.14314672224327027, 'max_regret': 9.568780209181002}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E hybrid negpos,"{'strata': 'negpos', 'twin': 'hybrid', 'n': 20, 'harm': 0, 'median_regret': 5.2899142842107394e-05, 'max_regret': 0.005521258531635982}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E hybrid_mm1 negpos,"{'strata': 'negpos', 'twin': 'hybrid_mm1', 'n': 20, 'harm': 0, 'median_regret': 2.36184620152614e-05, 'max_regret': 0.027188206196741893}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E ko negpos,"{'strata': 'negpos', 'twin': 'ko', 'n': 20, 'harm': 0, 'median_regret': 11.83215743193474, 'max_regret': 255.80003649277126}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E static negpos,"{'strata': 'negpos', 'twin': 'static', 'n': 20, 'harm': 0, 'median_regret': 0.0002345720050066474, 'max_regret': 0.12434186076444835}",PASS,ev_e_twin_classes.csv
+W1:16,EV-E 15/20 vs panel EV-B 30,15/20 uses neg+pos only; all strata: 18/30. KO median 11.8322% is also neg+pos; all strata 8.68116%.,SCOPE_OMITTED,ev_e_twin_classes.csv
+W1:17,"20 × 3 classes, Pareto alpha=1.5, cap=100","[('mmpp2', {'kappa': 0.5}), ('onoff_exp', {'K': 8, 'f': 0.25, 'T_c': 1.0, 'b': 1.9162}), ('onoff_pareto', {'K': 8, 'f': 0.25, 'T_c': 1.0, 'b': 1.9162, 'alpha': 1.5, 'cap': 100})]",PASS,ev_d/cases.json
+W1:42,pilot s=-0.22 vs exact=-1.00,No archived raw pilot numeric evidence found in scoped artifacts.,UNVERIFIED,W1 prose only
+W1:46,"73 local completed then 107 GCP, 48 GB",test.log contains 71 records; final 180 outputs exist but do not store host. Launch split/RAM not independently identifiable.,UNVERIFIED,ev_d/test.log; test/*.json
+W1:48,12 vCPU/quota/VM stopped,Local results do not establish cloud lifecycle or quota.,UNVERIFIED,No GCP access per brief
+W1:68,ev_d includes score.json,File absent; report verdicts reproducible.,ERRATUM,ev_d/ directory
+W2:11,median relative error at 2Delta*=13%,0.13047264879706794,PASS,ev_a2/truth.csv; predictions.csv
+W2:11,15/16 at Delta*/T>=1.1,15/16,PASS,ev_a2/cases.json;truth.csv
+DL144,every miss at Delta*/T<=1.14,1.1369371167401792,PASS,ev_a2/cases.json;truth.csv
+W2:12,16/30 decoupled exact epoch,16,LIMITED_EVIDENCE,ev_a2/exploration_decoupled_posthoc.txt (rounded summary; no full raw outputs)
+W2:13/DL144,5 queries/100 records + 3 AI-T sources,Existing literature notes record 3 targeted reads; 5/100 is orchestrator-reported and not re-executed.,LIMITED_EVIDENCE,notes/literature/W2_prior_check.md; search_log.md
+W2:18-28,Literature years/versions/asymptotic bounds,"2020/v3, 2019/v1, 2026/v2 and conditional bounds agree with existing W2_prior_check; no primary-paper re-audit.",LOCAL_NOTE_ONLY,notes/literature/W2_prior_check.md
+"W2:14,DL144/W3:16,37,DL145","Trace 20250311 counts, CoV, minute ranges","{'trace': '20250311', 'bins': 90001, 'period_seconds': 900.01, 'packets': 215748878, 'metadata_packets': 215748878, 'binary_npz_exact': True, 'parse_error_pct': 0.08419603461390886, 'cov_10ms': 3.992249000001946, 'cov_1s': 2.4780114172094834, 'minute_ratio_min': 0.6929785048210184, 'minute_ratio_max': 2.8610655217501404, 'circular_acf_at_period': 1.0, 'circular_acf_300s': 0.008424297449929221, 's0_packets': 193493, 'selected_packet_fraction': 0.0008968435979537284}",PASS,binary/NPZ/metadata (official website not fetched)
+"W2:14,DL144/W3:16,37,DL145","Trace 20260414 counts, CoV, minute ranges","{'trace': '20260414', 'bins': 90003, 'period_seconds': 900.03, 'packets': 381285157, 'metadata_packets': 381285157, 'binary_npz_exact': True, 'parse_error_pct': 0.06213879445613982, 'cov_10ms': 4.283826656314017, 'cov_1s': 1.6058342808175814, 'minute_ratio_min': 0.6293750399069791, 'minute_ratio_max': 1.7723322108970418, 'circular_acf_at_period': 1.0, 'circular_acf_300s': 0.005706288733115295, 's0_packets': 297567, 'selected_packet_fraction': 0.0007804316389898178}",PASS,binary/NPZ/metadata (official website not fetched)
+W2:14/DL144; W3:18,ev_d2 median train T_int,77.50708641109247,PASS,train/*.json
+W2:14; EV-D3a/b CARD train facts,ev_d2 tau=1.0 beta1 path A,0.9947484268555727,PASS,train/*.json
+EV-D3a/b CARD train facts,ev_d2 tau=1.0 Fdiff fluid_nowcast,-0.002514025140251397,PASS,train/*.json
+W2:14/DL144; W3:18,ev_d3 median train T_int,72.02647873249342,PASS,train/*.json
+W2:14; EV-D3a/b CARD train facts,ev_d3 tau=30.0 beta1 path A,0.8288130245449584,PASS,train/*.json
+EV-D3a/b CARD train facts,ev_d3 tau=30.0 Fdiff fluid_nowcast,-0.03219465839751923,PASS,train/*.json
+W2:14; EV-D3a/b CARD train facts,ev_d3 tau=300.0 beta1 path A,-0.33044708452683347,PASS,train/*.json
+EV-D3a/b CARD train facts,ev_d3 tau=300.0 Fdiff fluid_nowcast,0.07911033099297893,PASS,train/*.json
+W2:14/DL144; W3:18,ev_d3b median train T_int,40.14596471199156,PASS,train/*.json
+W2:14; EV-D3a/b CARD train facts,ev_d3b tau=30.0 beta1 path A,0.6163728641081012,PASS,train/*.json
+EV-D3a/b CARD train facts,ev_d3b tau=30.0 Fdiff fluid_nowcast,-0.011849554866459944,PASS,train/*.json
+W2:14; EV-D3a/b CARD train facts,ev_d3b tau=300.0 beta1 path A,-0.0787955675668983,PASS,train/*.json
+EV-D3a/b CARD train facts,ev_d3b tau=300.0 Fdiff fluid_nowcast,0.13183650952858578,PASS,train/*.json
+W2:14,all truth magnitudes <0.25 pp,"{'h30_nowcast_max': 0.13532834233070629, 'h3_nowcast_max': 0.4365989040326048}",SCOPE_OMITTED,ev_d2/test/*.json
+W2:51,c25 T_int about26min/backlog about7000,"{'median_Tint_minutes': 26.104349124666772, 'median_backlog_stay': 7138.364072640727}",PASS,ev_d2/train/*_c25_*.json
+W2:55,test MC wall assertion 30->120s,Current test has120s; Git diff validates historical change.,PASS,tests/test_ext_closed_loop.py; git history
+DL144,historical pytest902PASS+1intentionalFAIL,Historical execution not rerun or confirmed by saved local log in audit scope.,UNVERIFIED,Current targeted suite:50PASS
+W2:37,closed-loop law verified across4panels/3traffic classes/real trace,EV-A tests closed-loop magnitude; EV-A2 fails threshold. Packet arms test a distinct one-shot train-estimated leading term.,OVERCLAIM,CARDs and audit verdict table
+W2:38-41,unselected decision times necessary for harm,"q75 retains harm4/18; selection is a moderator, not necessary-condition proof.",OVERCLAIM,ev_b_rep/q75/truth.csv
+W3:19-24/DL145,ev_d3 30.0 fluid median/harm,"{'experiment': 'ev_d3', 'tau': 30.0, 'twin': 'fluid', 'n': 20, 'median_Tint': 71.97661958431426, 'median_tau_T': 0.4168159980073999, 'median_G': 0.11348626687097832, 'min_G': -0.022593881655469997, 'max_G': 0.6912616309685595, 'harm_point': 0, 'harm_exceeds_2se': 0}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 30.0 ratefluid median/harm,"{'experiment': 'ev_d3', 'tau': 30.0, 'twin': 'ratefluid', 'n': 20, 'median_Tint': 71.97661958431426, 'median_tau_T': 0.4168159980073999, 'median_G': 0.11708854412258118, 'min_G': -0.011245838210360116, 'max_G': 0.7313406493653689, 'harm_point': 0, 'harm_exceeds_2se': 0}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 30.0 fluid_nowcast median/harm,"{'experiment': 'ev_d3', 'tau': 30.0, 'twin': 'fluid_nowcast', 'n': 20, 'median_Tint': 71.97661958431426, 'median_tau_T': 0.4168159980073999, 'median_G': -0.5971627641460074, 'min_G': -1.3714132784190556, 'max_G': 0.14483462045548146, 'harm_point': 11, 'harm_exceeds_2se': 11}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 30.0 ratefluid_nowcast median/harm,"{'experiment': 'ev_d3', 'tau': 30.0, 'twin': 'ratefluid_nowcast', 'n': 20, 'median_Tint': 71.97661958431426, 'median_tau_T': 0.4168159980073999, 'median_G': -0.6281289610630344, 'min_G': -1.5434982679895801, 'max_G': 0.1496656498059585, 'harm_point': 11, 'harm_exceeds_2se': 11}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 30.0 ratefluid_nowcast_hybrid_train median/harm,"{'experiment': 'ev_d3', 'tau': 30.0, 'twin': 'ratefluid_nowcast_hybrid_train', 'n': 20, 'median_Tint': 71.97661958431426, 'median_tau_T': 0.4168159980073999, 'median_G': 0.0, 'min_G': -0.5202863485687953, 'max_G': 0.17281413345334418, 'harm_point': 1, 'harm_exceeds_2se': 1}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 300.0 fluid median/harm,"{'experiment': 'ev_d3', 'tau': 300.0, 'twin': 'fluid', 'n': 20, 'median_Tint': 72.02647873249342, 'median_tau_T': 4.16521982827356, 'median_G': 0.27641124880271595, 'min_G': -0.6987524878616722, 'max_G': 1.827316814292907, 'harm_point': 1, 'harm_exceeds_2se': 1}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 300.0 ratefluid median/harm,"{'experiment': 'ev_d3', 'tau': 300.0, 'twin': 'ratefluid', 'n': 20, 'median_Tint': 72.02647873249342, 'median_tau_T': 4.16521982827356, 'median_G': 0.23834016272228126, 'min_G': -0.7520664432538915, 'max_G': 1.8590750709903876, 'harm_point': 1, 'harm_exceeds_2se': 1}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 300.0 fluid_nowcast median/harm,"{'experiment': 'ev_d3', 'tau': 300.0, 'twin': 'fluid_nowcast', 'n': 20, 'median_Tint': 72.02647873249342, 'median_tau_T': 4.16521982827356, 'median_G': -1.226347869813035, 'min_G': -4.699366003028569, 'max_G': 2.409831586477302, 'harm_point': 14, 'harm_exceeds_2se': 14}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 300.0 ratefluid_nowcast median/harm,"{'experiment': 'ev_d3', 'tau': 300.0, 'twin': 'ratefluid_nowcast', 'n': 20, 'median_Tint': 72.02647873249342, 'median_tau_T': 4.16521982827356, 'median_G': -1.23651931968551, 'min_G': -4.768048437421709, 'max_G': 2.4299517317254646, 'harm_point': 14, 'harm_exceeds_2se': 14}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3 300.0 ratefluid_nowcast_hybrid_train median/harm,"{'experiment': 'ev_d3', 'tau': 300.0, 'twin': 'ratefluid_nowcast_hybrid_train', 'n': 20, 'median_Tint': 72.02647873249342, 'median_tau_T': 4.16521982827356, 'median_G': -0.27146552027600873, 'min_G': -1.7006382412670855, 'max_G': 0.0, 'harm_point': 10, 'harm_exceeds_2se': 10}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 30.0 fluid median/harm,"{'experiment': 'ev_d3b', 'tau': 30.0, 'twin': 'fluid', 'n': 20, 'median_Tint': 40.17891142776613, 'median_tau_T': 0.7508482030266339, 'median_G': 0.21360228690114824, 'min_G': -0.2773967105195872, 'max_G': 1.545715641361275, 'harm_point': 1, 'harm_exceeds_2se': 0}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 30.0 ratefluid median/harm,"{'experiment': 'ev_d3b', 'tau': 30.0, 'twin': 'ratefluid', 'n': 20, 'median_Tint': 40.17891142776613, 'median_tau_T': 0.7508482030266339, 'median_G': 0.21169330743990217, 'min_G': -0.3555499777815512, 'max_G': 1.5631613367004715, 'harm_point': 1, 'harm_exceeds_2se': 0}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 30.0 fluid_nowcast median/harm,"{'experiment': 'ev_d3b', 'tau': 30.0, 'twin': 'fluid_nowcast', 'n': 20, 'median_Tint': 40.17891142776613, 'median_tau_T': 0.7508482030266339, 'median_G': -1.6307272096117296, 'min_G': -18.73772514708539, 'max_G': 0.1723317495739087, 'harm_point': 14, 'harm_exceeds_2se': 14}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 30.0 ratefluid_nowcast median/harm,"{'experiment': 'ev_d3b', 'tau': 30.0, 'twin': 'ratefluid_nowcast', 'n': 20, 'median_Tint': 40.17891142776613, 'median_tau_T': 0.7508482030266339, 'median_G': -1.6493546046276153, 'min_G': -19.461218803168006, 'max_G': 0.19026643777396218, 'harm_point': 14, 'harm_exceeds_2se': 14}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 30.0 ratefluid_nowcast_hybrid_train median/harm,"{'experiment': 'ev_d3b', 'tau': 30.0, 'twin': 'ratefluid_nowcast_hybrid_train', 'n': 20, 'median_Tint': 40.17891142776613, 'median_tau_T': 0.7508482030266339, 'median_G': 0.0, 'min_G': -1.1483924518620405, 'max_G': 0.015521425887484296, 'harm_point': 3, 'harm_exceeds_2se': 3}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 300.0 fluid median/harm,"{'experiment': 'ev_d3b', 'tau': 300.0, 'twin': 'fluid', 'n': 20, 'median_Tint': 40.13131140525207, 'median_tau_T': 7.516974251614021, 'median_G': -0.5817968972212881, 'min_G': -6.697732619956139, 'max_G': 1.1709624683918487, 'harm_point': 13, 'harm_exceeds_2se': 13}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 300.0 ratefluid median/harm,"{'experiment': 'ev_d3b', 'tau': 300.0, 'twin': 'ratefluid', 'n': 20, 'median_Tint': 40.13131140525207, 'median_tau_T': 7.516974251614021, 'median_G': -0.6289751032895196, 'min_G': -7.01363176833309, 'max_G': 1.214187427120899, 'harm_point': 13, 'harm_exceeds_2se': 13}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 300.0 fluid_nowcast median/harm,"{'experiment': 'ev_d3b', 'tau': 300.0, 'twin': 'fluid_nowcast', 'n': 20, 'median_Tint': 40.13131140525207, 'median_tau_T': 7.516974251614021, 'median_G': -4.091807191283813, 'min_G': -32.59500359805963, 'max_G': 4.161187467010972, 'harm_point': 16, 'harm_exceeds_2se': 16}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 300.0 ratefluid_nowcast median/harm,"{'experiment': 'ev_d3b', 'tau': 300.0, 'twin': 'ratefluid_nowcast', 'n': 20, 'median_Tint': 40.13131140525207, 'median_tau_T': 7.516974251614021, 'median_G': -4.177822405859589, 'min_G': -33.29220620673305, 'max_G': 4.173205900234183, 'harm_point': 16, 'harm_exceeds_2se': 16}",PASS,audit/exploratory.json
+W3:19-24/DL145,ev_d3b 300.0 ratefluid_nowcast_hybrid_train median/harm,"{'experiment': 'ev_d3b', 'tau': 300.0, 'twin': 'ratefluid_nowcast_hybrid_train', 'n': 20, 'median_Tint': 40.13131140525207, 'median_tau_T': 7.516974251614021, 'median_G': 0.0, 'min_G': -2.5174162213440536, 'max_G': 0.0, 'harm_point': 2, 'harm_exceeds_2se': 2}",PASS,audit/exploratory.json
+W3:29,120/124 significant effects,54+66=120 of56+68=124 prediction-selected rows; not124independent/significance-tested effects.,SCOPE_OMITTED,"CARD D2, raw predictions/test"
+W3:30/DL145,magnitude within +-40-60%,"{'h30_abs_error_over_abs_pred_median': {'ev_d': 0.28184843062927756, 'ev_d2': None, 'ev_d3': 0.423782018551373, 'ev_d3b': 0.19297025124099543}, 'h30_abs_error_over_abs_pred_max': {'ev_d': 1.7582691542093023, 'ev_d2': None, 'ev_d3': 3.4691822484112786, 'ev_d3b': 1.0625487571852565}}",ERRATUM,prediction_diagnostics.csv
+W3:32/DL145,"s error5%, hence not cause of hybridFAIL","{'median_rel_error': 0.05102904138454575, 'max_rel_error': 1.4767143176109618, 'max_error_id': 'RB01_t2503_tau300'}",OVERCLAIM,ev_d3/diag_s_long.json
+W3:35-39/DL145,D1FAIL diagnoses failure of T12 mixing assumption,"D1 is a finite-h threshold, T12 an O(1)/o(h) statement. Both trace loops have exact periodic dependence, not a measured finite slowest mixing time.",OVERCLAIM,audit/repro_checks.json; T12:15-27
+W3:43,"54min stalled download,0byte",Download timing/terminal process not recorded in scoped numerical artifacts.,UNVERIFIED,W3 prose only
+T12:43,pilot9/9 no harm at30T,Panel120rows recomputable; nine pilot outputs not archived in scoped directory.,UNVERIFIED,T12 prose; no pilotraw in scoped outputs
+T12:15-27,O(1) derivation from conditioning on Z_t,Needs future-cost sufficiency given history and L1/uniform remainder; insufficient-state toy gives G=0 versus RHS=-0.5.,PROOF_GAP,audit/repro_checks.json
+T12:36,plug-in cannot be harmed at long horizon,"Mixing CTMC toy G=-0.216166 and -1.441108% at30T, still bounded and converges to0% as h grows.",OVERCLAIM,audit/repro_checks.json

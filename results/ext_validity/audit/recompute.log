@@ -1,0 +1,83 @@
+{
+  "packet_completion": {
+    "ev_d": {
+      "completed": 180,
+      "expected": 180
+    },
+    "ev_d2": {
+      "completed": 60,
+      "expected": 60
+    },
+    "ev_d3": {
+      "completed": 80,
+      "expected": 80
+    },
+    "ev_d3b": {
+      "completed": 80,
+      "expected": 80
+    }
+  },
+  "csw_controls": {
+    "controls": {
+      "complete": true,
+      "prediction_vs_engine_inputs": true,
+      "per_h_shares_match": true,
+      "mc": true
+    },
+    "consistency_max": 0.0,
+    "per_h_share_max": 0.0,
+    "max_mc_z": 1.350060771087992
+  },
+  "checks": 9070,
+  "failed_checks": [],
+  "lock_entries": 65,
+  "verdict_mismatches": [],
+  "missing_score": [
+    {
+      "experiment": "ev_d",
+      "ID": "D1",
+      "reported": "MISSING_SCORE",
+      "recomputed": "PASS",
+      "match": null,
+      "k": 116,
+      "n": 120,
+      "share": 0.9666666666666667,
+      "threshold": 0.9
+    },
+    {
+      "experiment": "ev_d",
+      "ID": "D2",
+      "reported": "MISSING_SCORE",
+      "recomputed": "PASS",
+      "match": null,
+      "k": 61,
+      "n": 64,
+      "share": 0.953125,
+      "threshold": 0.85
+    },
+    {
+      "experiment": "ev_d",
+      "ID": "D3",
+      "reported": "MISSING_SCORE",
+      "recomputed": "PASS",
+      "match": null,
+      "k": 120,
+      "n": 120,
+      "share": 1.0,
+      "threshold": 0.8
+    },
+    {
+      "experiment": "ev_d",
+      "ID": "D4",
+      "reported": "MISSING_SCORE",
+      "recomputed": "PASS",
+      "match": null,
+      "k": 120,
+      "n": 120,
+      "share": 1.0,
+      "threshold": 0.9
+    }
+  ]
+}
+LOCK MISMATCHES: [('results/ext_validity/ev_d/lock.json', 'experiments/ext_validity/packet.py'), ('results/ext_validity/ev_d2/lock.json', 'experiments/ext_validity/packet.py')]
+VERDICTS: [('ev_a', 'A1', 'PASS', '180/180'), ('ev_a', 'A2', 'PASS', '40/40'), ('ev_a2', 'Z1', 'FAIL', '15/30'), ('ev_b', 'B1', 'PASS', '30/30'), ('ev_b', 'B2', 'PASS', '10/10'), ('ev_b_rep/q75', 'R1', 'PASS', '30/30'), ('ev_b_rep/q75', 'R2', 'PASS', '14/14'), ('ev_b_rep/q75', 'R3', 'FAIL', '14/18'), ('ev_b_rep/q95', 'R1', 'PASS', '30/30'), ('ev_b_rep/q95', 'R2', 'PASS', '7/7'), ('ev_b_rep/q95', 'R3', 'PASS', '18/18'), ('ev_d', 'D1', 'PASS', '116/120'), ('ev_d', 'D2', 'PASS', '61/64'), ('ev_d', 'D3', 'PASS', '120/120'), ('ev_d', 'D4', 'PASS', '120/120'), ('ev_d2', 'D1', 'PASS', '40/40'), ('ev_d2', 'D2', 'NOT_EVALUABLE', '0/0'), ('ev_d2', 'D3', 'PASS', '40/40'), ('ev_d2', 'D4', 'PASS', '40/40'), ('ev_d3', 'D1', 'PASS', '78/80'), ('ev_d3', 'D2', 'PASS', '54/56'), ('ev_d3', 'D3', 'FAIL', '39/80'), ('ev_d3', 'D4', 'FAIL', '47/80'), ('ev_d3b', 'D1', 'FAIL', '54/80'), ('ev_d3b', 'D2', 'PASS', '66/68'), ('ev_d3b', 'D3', 'FAIL', '62/80'), ('ev_d3b', 'D4', 'FAIL', '64/80'), ('csw_harm', 'S1', 'FAIL', '385/450'), ('csw_harm', 'S2', 'PASS', '288/288'), ('csw_harm', 'S3', 'NOT_EVALUABLE', '0/0')]

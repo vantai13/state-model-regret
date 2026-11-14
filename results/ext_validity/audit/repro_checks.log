@@ -1,0 +1,94 @@
+{
+  "closed_loop": {
+    "status": "COMPLETED",
+    "kronecker_push_max_abs": 2.3592239273284576e-16,
+    "stationary_mass_error": 0.0,
+    "independent_transition_residual": 1.8359879588869532e-15,
+    "production_J": 2.9130002130437758,
+    "explicit_observation_epoch_J": 2.913000213043775,
+    "cost_abs_diff": 8.881784197001252e-16
+  },
+  "T12": {
+    "mixing_plugin_negative_but_bounded": [
+      {
+        "h": 15.0,
+        "h_Tint": 30.0,
+        "tau": 1.0,
+        "G": -0.2161661791908266,
+        "pct_denominator_h": -1.4411078612721773,
+        "D1_style_no_SE": false
+      },
+      {
+        "h": 150.0,
+        "h_Tint": 300.0,
+        "tau": 1.0,
+        "G": -0.21616617919084685,
+        "pct_denominator_h": -0.14411078612723124,
+        "D1_style_no_SE": true
+      }
+    ],
+    "conditioning_gap": {
+      "actual_G": 0.0,
+      "T12_rhs_without_history_sufficiency": -0.5,
+      "note": "The equality fails for insufficient Z, not a refutation of the Markov theorem."
+    }
+  },
+  "packet": {
+    "scalar_lindley_100_max_abs": 1.7763568394002505e-15,
+    "zero_u_long_run_CRN_bitwise": true,
+    "zero_u_future_CRN_bitwise": true
+  },
+  "trace": {
+    "phases_T20": [
+      0.1364703726496287,
+      0.190236418574969
+    ],
+    "phases_T21": [
+      0.1364703726496287,
+      0.15861550251807505
+    ],
+    "same_seed_different_duration_changes_path_B_phase": true,
+    "periodic_intensity_covariance_at_integer_periods": [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "relative_phase_constant_over_all_cycles": true,
+    "square_wave_joint_intensity_product": {
+      "phase_aligned_time_mean": 2.0,
+      "half_period_offset_time_mean": 0.0,
+      "independent_uniform_phases_ensemble_mean": 1.0
+    }
+  },
+  "validation": {
+    "invalid_tau_values_accepted": [
+      "-1.0",
+      "nan",
+      "50000.0"
+    ],
+    "current_scored_cases_affected": false
+  },
+  "alarm": {
+    "stationary_threshold_occupancy": [
+      0.0,
+      0.5,
+      0.5
+    ],
+    "upward_crossing_entry_population": [
+      0.0,
+      1.0,
+      0.0
+    ],
+    "toy_signed_outcome_occupancy": 1.0,
+    "toy_signed_outcome_crossing": -1.0,
+    "note": "Synthetic population distinction; not an alternative EV-B score."
+  },
+  "completion_gate": {
+    "completed": 80,
+    "total": 100,
+    "A2_implementation": "PASS",
+    "A2_card": "INCONCLUSIVE",
+    "current_panel_affected": false
+  }
+}
