@@ -1,0 +1,95 @@
+{
+  "case": {
+    "lamA": 8.25,
+    "lamB": 7.59,
+    "u": 0.75,
+    "seed": 7004,
+    "n_inst": 10000,
+    "spacing_mult": 3,
+    "train_T": 100000.0,
+    "sample_dt": 0.2,
+    "h_mult": [
+      3,
+      10,
+      30
+    ],
+    "batches": 40,
+    "id": "TN04_c1",
+    "cls": "trace_cox",
+    "params": {
+      "series": "results/ext_validity/ev_d2/series_c1.npz",
+      "key": "s0",
+      "bin": 0.01
+    },
+    "stratum": "neg",
+    "time_scale": 1
+  },
+  "seed": 7004,
+  "mean_stay": 469.9808618086181,
+  "mean_switch": 446.9891378913789,
+  "s_train": -22.9917239172392,
+  "T_int": 94.74806059140194,
+  "T_int_censored": false,
+  "shares": {
+    "3": {
+      "F_new": 0.7091230912309123,
+      "F_old": 0.7091310913109131,
+      "F_new_rate": 0.6971309713097131,
+      "F_old_rate": 0.6971389713897139,
+      "F_old_fluid_nowcast": 0.6928869288692887,
+      "F_old_ratefluid_nowcast": 0.691050910509105,
+      "F_old_ratefluid_nowcast_hybrid_train": 0.9996679966799668
+    },
+    "10": {
+      "F_new": 0.8177921779217793,
+      "F_old": 0.8178001780017801,
+      "F_new_rate": 0.8061280612806128,
+      "F_old_rate": 0.8061360613606136,
+      "F_old_fluid_nowcast": 0.8012240122401224,
+      "F_old_ratefluid_nowcast": 0.7995179951799518,
+      "F_old_ratefluid_nowcast_hybrid_train": 1.0
+    },
+    "30": {
+      "F_new": 0.8177921779217793,
+      "F_old": 0.8178001780017801,
+      "F_new_rate": 0.8061280612806128,
+      "F_old_rate": 0.8061360613606136,
+      "F_old_fluid_nowcast": 0.8012240122401224,
+      "F_old_ratefluid_nowcast": 0.7995179951799518,
+      "F_old_ratefluid_nowcast_hybrid_train": 1.0
+    }
+  },
+  "nowcast": {
+    "A": {
+      "beta": [
+        -3.0935136324492336,
+        0.9965453080264515,
+        0.5002499090629536
+      ],
+      "gamma": [
+        5.79629951613727,
+        0.3470306464838778,
+        -0.0013971709831041568
+      ],
+      "r2_backlog": 0.9975011538957628,
+      "r2_rate": 0.1201682037631463
+    },
+    "B": {
+      "beta": [
+        -2.7538361260963575,
+        0.994167086399381,
+        0.4949688774000413
+      ],
+      "gamma": [
+        5.060300161047982,
+        0.3455609156512444,
+        -0.0005301998524891993
+      ],
+      "r2_backlog": 0.9965305152616104,
+      "r2_rate": 0.11907796588452557
+    }
+  },
+  "CPU": 41.031921632999996,
+  "case_sha256": "d99eac99c30c8fd9e08174ab58372b0736cdfeb7e7dbbe3eaee09bba864e6a6f",
+  "wall": 41.062176421000004
+}
