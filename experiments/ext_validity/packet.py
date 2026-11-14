@@ -64,6 +64,9 @@ def poisson(rate, T, rng):
 
 def arrivals(cls, lam, params, T, rng):
     """Sorted stationary arrivals in [0,T]; independent sources per call."""
+    if cls == 'trace_cox':
+        from experiments.ext_validity.trace_cox import arrivals as trace_arrivals
+        return trace_arrivals(lam, params, T, rng)
     if T < 0 or lam < 0 or cls not in ('mmpp2', 'onoff_exp', 'onoff_pareto'):
         raise ValueError('invalid arrival class, rate or duration')
     if cls == 'mmpp2':
@@ -165,6 +168,13 @@ def fluid_gap(q, case, h):
 
 def rate_settings(case):
     p = case['params']
+    if case['cls'] == 'trace_cox':
+        from experiments.ext_validity.trace_cox import relaxation
+        tr = relaxation(p)
+        w = p.get('rate_window', tr)
+        if not np.isfinite(w) or w <= 0:
+            raise ValueError('rate_window must be finite and positive')
+        return tr, w
     tr = p['kappa']/2 if case['cls'] == 'mmpp2' else p['T_c']*p['f']*(1-p['f'])
     w = p.get('rate_window', tr)
     if not np.isfinite([tr, w]).all() or min(tr, w) <= 0:
