@@ -4227,3 +4227,32 @@ Không có mentor review, không có dự đoán do tác giả viết. Explorati
 - Nhãn C5 trong `CLAIMS_EVIDENCE.md` và câu K7 trong `THREATS.md` chưa sửa, chờ tác giả.
 - Full pytest: 849 PASS, 1 FAIL có chủ đích như DL-139 (guard P6 khi có file mới dưới `experiments/`).
 - Nguồn đóng băng không sửa. Không tag, không push.
+
+### DL-142 — c_sw > 0 ở vùng harm (ctmc-v1): dự đoán zero-fit commit trước truth; S2 PASS, S1 FAIL (14/11/2026)
+
+**Ủy quyền.** Tác giả: "hãy tự thiết kế và kiểm tra thí nghiệm giúp tôi… tôi muốn 1 bằng chứng thật mạnh". AI (Claude)
+thiết kế, khóa, chạy và chấm. Không mentor review, không dự đoán do tác giả viết. Exploration, G1.
+
+**Thiết kế.**
+- Lấp chỗ trống THREATS K7: Stage F chỉ kiểm dải giúp.
+- Dự đoán: 720 số z_pred1(regime, c, h) do `ctmc.evaluate_m0` tính, chỉ từ M0 và phân phối dừng (luật bậc một C1/T11).
+- Panel: 30 regime vùng harm mới (seed 20261141). c ∈ {0; ¼; ½; 1; 2; 4}; h ∈ {1; 3; 10; 30} × T_int_max.
+- Dung sai thừa kế F-R1/F-R2.
+- Đối thủ: K7 nghĩa đen, và null thực nghiệm G_S(0, h).
+- Panel đầu (seed 20261117) bỏ vì trùng chuỗi Sobol. File dự đoán đầu bỏ vì lọc h bằng số thực. Cả hai giữ `discarded_*`, trước mọi truth.
+
+**Trình tự.** Prereg commit `8e6a8f4a` → truth một lần (180/180 COMPLETED, 7.595 CPU-s local) → MC định trước 6/6 PASS
+(|z| ≤ 1,35) → raw commit `6a87ce69` → chấm dưới lock.
+
+**Fact.**
+- Control PASS.
+- **S1 FAIL:** 385/450 = 85,6% < 90%. Cả 65 ô trượt ở 3 T_int; 300/300 ô ở 10/30 T_int nằm trong 0,1 pp.
+- **S2 PASS:** trên 288 ô, sai số trung vị của luật 0,0003 pp so với null 1,31 pp; luật gần hơn ở 288/288.
+- S3 NOT_EVALUABLE: luật dự đoán 0 ô đổi dấu.
+- K7 mô tả: harm mất ở 6,9% theo truth (luật 8,1%); luật đúng trạng thái 98,8%.
+- Mô tả sau chấm: hướng đúng 288/288, trong đó 119 ô harm tăng (tới 9,3 pp).
+
+**Lỗi có ghi.** Dung sai tuyệt đối 0,1 pp quá chặt cho harm lớn ở 3 T_int. Không đổi sau khi chạy.
+
+**Không đổi.** Contract/PC/Gate/G1. Câu K7 trong `THREATS.md` và nhãn C5 chờ tác giả; câu đề xuất ở
+`results/explore_ctmc/csw_harm/RESULTS_CSW_HARM.md` §4.

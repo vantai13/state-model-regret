@@ -704,3 +704,8 @@ không dự đoán tác giả. I_Δ 3 vòng: ngoài band ρ=Γ_add/Γ 0,11→1,1
 CE đã sửa (NK bỏ đúng Jensen của sai số M0): N1 NK giữ 1,00 harm 26/26, N2/N3 PASS; P1 FAIL (QM 23/26), PB 26/26. Kênh
 phương sai của review ngoài bị bác ở h dài; cơ chế ứng viên = gộp quyết định + bias (C5), chưa loại trừ mọi đối thủ. Không
 đổi contract/PC/Gate/G1; nhãn C5 và câu K7 (F-R2 đọc sai) chờ tác giả. Ghi chú: `notes/synthesis/MECHANISM_IDELTA_CE.md`.
+
+c_sw vùng harm/14-11 (DL-142): AI thiết kế/khóa/chạy/chấm theo ủy quyền; 720 dự đoán zero-fit (luật bậc một, chỉ M0)
+commit 8e6a8f4a trước truth, raw 6a87ce69 trước chấm. 30 regime mới, 180/180 job, MC 6/6. S2 PASS (luật thắng null dùng
+truth 288/288, 0,0003 vs 1,31 pp; hướng 288/288 gồm 119 ô harm tăng), S1 FAIL 85,6% (mọi ô trượt ở 3 T_int), S3 N/E.
+c ≤ 4 không xóa harm (còn 93%). K7/C5 chưa sửa, chờ tác giả. Kết quả: `results/explore_ctmc/csw_harm/RESULTS_CSW_HARM.md`.

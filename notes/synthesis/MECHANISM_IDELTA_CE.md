@@ -20,6 +20,7 @@ thiết kế. Có hai giải thích cạnh tranh, và C5 vẫn ghi "chưa đứn
 | I_Δ vòng 2 | 45 regime mới, thẻ khóa | Ngoài band: tỷ lệ Γ tái tạo bằng model chỉ lệch hằng, ρ = Γ_add/Γ, có trung vị **0,11 ở h ≈ T_int, 1,13 ở 7 T_int** (H1 PASS) | [RESULTS_IDELTA2.md](../../results/explore_ctmc/idelta/RESULTS_IDELTA2.md) |
 | I_Δ vòng 3 | 40 regime mới, thẻ khóa | Lặp lại ngoài band: **ρ 0,011 → 1,145** (B4). Phía harm ở 7 T_int: 80% dòng có ρ ≥ 0,75. Ngoại lệ help band lặp lại (B1/B3). Câu "help cần sai số phụ thuộc state" trượt sát nút (B2 7/11) | [RESULTS_IDELTA3.md](../../results/explore_ctmc/idelta/RESULTS_IDELTA3.md) |
 | Knockout CE (sửa) | 40 regime mới, thẻ khóa; nhánh **NK** bỏ đúng phần "hiệu chỉnh ngầm" K | **NK giữ 1,00 harm, 26/26 dòng** ở 7 T_int (N1 PASS). K ≈ 4% Jensen (N3). Ở T_int, K ≈ 78% nhưng chỉ mang ~11% harm (N2 PASS). Twin CE: PB 26/26 vẫn harm, QM 23/26 (P1 FAIL) | [RESULTS_CE.md](../../results/explore_ctmc/ce_knockout/RESULTS_CE.md) |
+| c_sw > 0 ở vùng harm (bổ sung 14/11, DL-142) | 30 regime mới; 720 dự đoán zero-fit commit trước truth | Luật bậc một thắng null dùng truth ở **288/288** ô (sai 0,0003 so với 1,31 pp; S2 PASS); đúng hướng 288/288, gồm 119 ô harm *tăng*. S1 FAIL (85,6%; mọi ô trượt ở 3 T_int). Harm còn ở 93% ô harm | [RESULTS_CSW_HARM.md](../../results/explore_ctmc/csw_harm/RESULTS_CSW_HARM.md) |
 
 **Mấu chốt đại số** (AI dẫn, xem [DESIGN_CE.md](../../results/explore_ctmc/ce_knockout/DESIGN_CE.md) §0):
 - Gap của twin cũ là E[Δ̂|y], tức trung bình các gap twin tươi. Khoản Jensen có mặt ở cả truth cũ lẫn twin cũ.
@@ -37,12 +38,13 @@ thiết kế. Có hai giải thích cạnh tranh, và C5 vẫn ghi "chưa đứn
 | M5 | Harm còn với twin cắm backlog trung bình (26/26), nhưng yếu và đổi dấu ở 3/26 khi cắm cả mode. Claim C3 nên nói rõ: twin gộp Bayes; với twin plug-in thì phụ thuộc cách cắm | P1 FAIL theo luật đã khai; phần PB đạt ngưỡng của nó |
 | M6 | Cơ chế của help band (0 < x < 0,35) | **chưa có**: ba ứng viên đã trượt |
 | M7 | Hướng theo h chuyển sang plant fluid ở mức median (ρ 0,10 → 0,86) | khai trước; chưa kiểm thang T_int |
+| M8 | Ở vùng harm, switching cost c ≤ 4 không xóa harm. Luật zero-fit của M4 dự đoán đúng c đổi harm ra sao (đúng hướng 288/288; ≤ 0,002 pp từ 10 T_int) | khai trước, số zero-fit commit trước truth; S2 PASS, S1 FAIL ở 3 T_int |
 
 ## 4. Hệ quả cho đề tài (đề xuất, tác giả quyết)
 
 - **Đề xuất review ngoài.** Đọc Γ = VSS_tươi − VSS_cũ là đúng về đại số và giúp diễn đạt, nhưng không phải novelty. Kênh phương sai bị bác ở ctmc-v1 khi h dài. Theo luật của chính đề xuất, đi hướng dự phòng: luật horizon cộng gộp quyết định (C5, T11).
 - **C5 ("planner dừng ngầm")** nay có thêm phép thử khai trước ủng hộ: N1, cộng vòng 3 B4 và phía harm của B2. Nhãn "chưa đứng" trong [CLAIMS_EVIDENCE.md](CLAIMS_EVIDENCE.md) **chưa đổi**, chờ tác giả.
-- **THREATS K7** đọc F-R2 thành "harm biến mất khi c_sw > 0". Thực tế Stage F dùng base trong dải giúp, nên chưa ai kiểm harm ở vùng harm khi c_sw > 0. Đề xuất sửa câu chữ; **chưa sửa**.
+- **THREATS K7** đọc F-R2 thành "harm biến mất khi c_sw > 0". Thực tế Stage F dùng base trong dải giúp. Nay đã kiểm vùng harm (M8); câu thay thế đề xuất ở [RESULTS_CSW_HARM.md](../../results/explore_ctmc/csw_harm/RESULTS_CSW_HARM.md) §4. **Chưa sửa**, tác giả quyết.
 
 ## 5. Giới hạn
 
@@ -56,5 +58,5 @@ thiết kế. Có hai giải thích cạnh tranh, và C5 vẫn ghi "chưa đứn
 
 1. Tác giả tự viết câu cơ chế M4 bằng lời mình (L-self) và quyết nhãn C5.
 2. Kiểm M3/M4 trên plant fluid: nhánh NK ở contract v1.2, nơi T08 cho e = 0 khi q ≥ hD.
-3. c_sw > 0 ở vùng harm (lấp chỗ trống của K7).
+3. ~~c_sw > 0 ở vùng harm~~: đã làm (M8). Còn lại: cùng phép thử trên plant fluid.
 4. Help band: xem từng state ở vài regime, nơi M0 và model chỉ lệch hằng quyết định khác nhau, trước khi đặt giả thuyết mới.
