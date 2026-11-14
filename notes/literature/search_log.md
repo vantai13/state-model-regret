@@ -871,3 +871,102 @@ merge nếu tác giả muốn), mức đọc của tác giả không đổi.
 | Ngày | Loại | Thẻ / Q / PC | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
 |---|---|---|---|---|---:|---:|---|
 | 04/11 | lookup | T11 (mentor review) | "Puterman Markov Decision Processes Discrete Stochastic Dynamic Programming average reward" | `search_crossref`, max 8 | 8 | 1 | Wiley 1994, DOI 10.1002/9780470316887; Ch. 8 tr. 331–440 (…ch8). Metadata-only; nội dung chưa đọc, không tải. Các kết quả còn lại là bài điểm sách |
+
+### W2-LIT — prior gần nhất cho các phát hiện external-validity wave 1 (14/11/2026)
+
+Thẻ: Q1 vòng kín (tần suất quyết định lại × state cũ × planner xấp xỉ); Q2 quyết định theo sự kiện so với định kỳ;
+Q3 xử lý dữ liệu cũ plug-in so với age-aware. Mục đích: ranh giới novelty cho DL-143, không đổi nhãn PC.
+- GIỮ: chất lượng quyết định với state cũ, trong hàng đợi, mạng hoặc điều khiển.
+- BỎ: chỉ tối thiểu AoI không có quyết định; MANET/PHY; vehicle routing.
+
+Tác giả ủy quyền chọn và tải nguồn ("bạn có thể quyết định thay tôi… tải về nếu cần"). Thư viện được kiểm trước: catalog,
+`notes/literature/papers/`, `~/papers/state-model-regret/current`, `C:\Users\VAN TAI\Downloads` (106 PDF). P04, S11, DAH00,
+R34, CEH23, R01/R02/R04 đã có. AI: Claude.
+
+| Ngày | Loại | Thẻ / Q | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 14/11 | keyword | W2 Q1 | "stale network state information routing re-optimization interval performance traffic engineering" | scholar-search (Semantic Scholar), limit 20, relevance | 20 | 0 mới | Chỉ Shaikh/Rexford/Shin 2001 sát; đó là P04 đã có. Còn lại MANET/TE hệ thống |
+| 14/11 | keyword | W2 Q1/Q3 | "value of information age decision period controller closed loop stale state queue" | scholar-search, limit 20 | 20 | 1 | Soleymani/Baras/Johansson, Stochastic Control with Stale Information Part I (arXiv 1810.10983). R32 (2403.11926) đã có |
+| 14/11 | keyword | W2 Q2 | "event-triggered versus periodic decision making stale information value queueing routing" | scholar-search, limit 20 | 20 | 0 | Khojasteh 2016 (event-triggered stabilization) khác bài toán; còn lại không liên quan |
+| 14/11 | keyword | W2 Q3 | "interpreting stale load information age-aware estimation load balancing herd effect" | scholar-search, limit 20 | 20 | 1 | Mendelson & Kuang, Load Balancing Using Sparse Communication (arXiv 2206.02410): ra quyết định trên state xấp xỉ |
+| 14/11 | keyword | W2 Q1 (OR) | "re-solving frequency deterministic linear program network revenue management bounded regret" | scholar-search, limit 20 | 20 | 1 | Bumpensanti & Wang (MS 2020): re-solve DLP thường xuyên không giảm bậc mất mát. Jasin & Kumar 2012/2013 CLOSED, chỉ metadata |
+| 14/11 | lookup | W2 | DOI 10.1287/mnsc.2019.3365; DOI 10.1109/CDC40024.2019.9029447 | paper-search Crossref | 2 | 2 | MS 66(7):2993–3009 (online 07/2020); CDC 2019 tr. 4178–4182. Mendelson & Kuang: chỉ arXiv v2, chưa thấy bản xuất bản |
+
+**Dừng discovery của Claude:** 5 query × 20 = 100 kết quả sàng. Giữ 3 nguồn mới, đúng giới hạn 3 nguồn/đợt. Phần đọc
+targeted giao cho Codex (brief `notes/ops/codex/W2-LIT_brief.md`). Đây là lượt dừng theo ngân sách; chưa đạt luật dừng
+"2 query × 20 không giữ mới".
+
+**W2-LIT — thực thi targeted reading, 14/11/2026 (Codex; AI-T, không author-read).**
+Ủy quyền và ba nguồn giữ nguyên brief. Câu hỏi/PC: Q1 re-solving/decision period, Q2 event/periodic,
+Q3 stale plug-in/estimation; kiểm prior DL-143 và cách diễn giải PC1–PC3, không tự đổi nhãn.
+Đã đọc protocol, claims/library/log, WAVE1_REPORT và T12 trước nội dung paper. Bảng dưới ghi
+thao tác của lượt này riêng với discovery của Claude ở trên; `0 mới` nghĩa không thêm công trình
+ngoài ba nguồn được giao, không phải không có prior. Trang là PDF của version được nêu.
+
+| Ngày | Loại | Thẻ / Q | Query / seed | Tool, bộ lọc, thứ tự | Đã sàng | Giữ unique | Lý do / hạn chế / dừng |
+|---|---|---|---|---|---:|---:|---|
+| 14/11 | lookup | W2 / library | Bumpensanti/Soleymani/Mendelson, ba arXiv IDs | catalog.json + notes/literature/papers/*.md + search_log; find tên PDF current/Downloads | 3 identities | 0 mới | Có đề xuất trong log; không thấy record nội dung tương ứng, R32 là bài Soleymani khác. `rg` thiếu, dùng grep/find |
+| 14/11 | lookup | W2 Q1 | 10.1287/mnsc.2019.3365 | paper_search.get_crossref_paper_by_doi, exact DOI | 1 | 1/3 đã giao | MS66(7):2993–3009, issue date 01/07/2020; chưa dùng làm online date |
+| 14/11 | lookup | W2 Q1/Q3 | 10.1109/CDC40024.2019.9029447 | paper_search.get_crossref_paper_by_doi, exact DOI | 1 | 1/3 đã giao | CDC2019 tr.4178–4182; abstract field rỗng |
+| 14/11 | lookup | W2 Q3 / publication | Load Balancing Using Sparse Communication | paper_search.search_dblp, max_results=5, exact title query | 0 | 0 mới | Trả []; không suy chưa xuất bản |
+| 14/11 | lookup | W2 Q3 / publication | ARXIV:2206.02410 | scholar_search.get_paper_details, requested title/authors/year/venue/IDs/journal/OA | 0 | 0 mới | BLOCKED: requires approval, but approval policy is never; không phải 0 kết quả tìm |
+| 14/11 | lookup | W2 Q1 / version | https://arxiv.org/abs/1802.06192 | web.open official arXiv, không lọc năm | 1 work, 3 version entries | 0 mới | v1 17/02/2018; v2 23/05/2018; v3 11/12/2018; chọn v3 |
+| 14/11 | lookup | W2 Q1/Q3 / version | https://arxiv.org/abs/1810.10983 | web.open official arXiv | 1 work, 1 version entry | 0 mới | v1 25/10/2018; không version mới được liệt kê |
+| 14/11 | lookup | W2 Q3 / version | https://arxiv.org/abs/2206.02410 | web.open official arXiv | 1 work, 2 version entries | 0 mới | v1 06/06/2022; v2 23/05/2024; đọc v2 theo brief |
+| 14/11 | lookup | W2 / local PDF check trước tải | current + /mnt/c/Users/VAN TAI/Downloads, recursive *.pdf | Python3 pathlib + pdftotext first page; scan hoàn tất không timeout | 29+146 PDF first pages | 0 matches | Không thấy ba title/author signatures. Không nhận đã đọc nội dung 175 PDF |
+| 14/11 | lookup | W2 Q3 / publication | Load Balancing Using Sparse Communication Mendelson Kuang | paper_search.search_crossref, max_results=5, relevance mặc định | 5 | 1 matching work, 0 mới | **Có journal DOI 10.1287/opre.2022.0359**, OR74(2):1026–1046; 4 kết quả khác title/tác giả loại. Đính chính trạng thái chưa thấy publication ở lượt trước |
+| 14/11 | lookup | W2 Q1 / publisher | https://pubsonline.informs.org/doi/10.1287/mnsc.2019.3365 | web.open official publisher | 1 | 0 mới | Online **16/03/2020**, issue July2020; Crossref date ở trên là issue date |
+| 14/11 | lookup | W2 Q1/Q3 / publisher | https://ieeexplore.ieee.org/document/9029447 | web.open IEEE | 0 full text | 0 mới | JavaScript/robot challenge; không xác nhận VoR contents |
+| 14/11 | lookup | W2 Q3 / DOI verification | 10.1287/opre.2022.0359 | paper_search.get_crossref_paper_by_doi | 1 | 0 mới | Title/authors/venue/pages khớp; date 01/03/2026 là issue |
+| 14/11 | lookup | W2 Q3 / publisher | https://pubsonline.informs.org/doi/10.1287/opre.2022.0359 | web.open official publisher | 1 | 0 mới | Online **19/06/2025**; issue March–April2026; cite-as2025. Request Access; metadata không đồng nghĩa đọc VoR |
+| 14/11 | lookup | W2 Q1 / VoR access | publisher View PDF → doi/epdf/10.1287/mnsc.2019.3365 | web.click từ landing official | 0 PDF | 0 mới | Chuyển về abstract; dùng arXiv OA, không gọi đây là no OA toàn công trình |
+| 14/11 | forward | W2 Q1 optional / seed Bumpensanti–Wang | DOI:10.1287/mnsc.2019.3365 | scholar_search.get_paper_citations, limit20; title/year/IDs/abstract/URL | 0 | 0 mới | BLOCKED approval policy never; chuyển cùng một-hop screen sang OpenAlex |
+| 14/11 | lookup | W2 / local check phụ trước tải | Cùng hai folder, first-page title/signatures | Python3 + pdftotext, timeout2s/file | 175 attempted; 173 hoàn tất, 2 timeout | 0 matches | Hai timeout: NCKH-SV/slide-nghiem-thu-DT4N-20phut.pdf và xem-thu-3-phong-cach.pdf; scan trước không timeout đã hoàn tất. Không sửa Downloads |
+| 14/11 | forward | W2 Q1 optional / cùng seed | 10.1287/mnsc.2019.3365 → OpenAlex W3011259582 | paper_search.get_citing_papers; most-cited; max_results20/max_pages1/max_requests3/timeout30; không year filter | **20 returned; 13 screened; 7 chưa sàng vì output truncation** | **0 đề xuất** | 100 available theo tool; 1page/2requests, truncated=max_results. Các record nhìn đủ liệt kê dưới; không trang2/enrichment/download, không saturation |
+| 14/11 | download | W2 Q1 | arXiv1802.06192v3 | paper_search.download_with_fallback, source=arxiv, use_scihub=false, save_path=current | 0 PDF | 0 mới | BLOCKED approval policy never; không bật shadow-library fallback |
+| 14/11 | download | W2 Q1 | https://arxiv.org/pdf/1802.06192v3 | Python3 urllib official OA; %PDF/pdfinfo/pdftotext/SHA256 | 1 PDF, 44tr | 1/3 đã giao | Lưu current/Bumpensanti2020_Resolving_arxivv3.pdf; SHA trong W2_prior_check.md |
+| 14/11 | download | W2 Q1/Q3 | https://arxiv.org/pdf/1810.10983v1 | Python3 urllib official OA; %PDF/pdfinfo/pdftotext/SHA256 | 1 PDF, 6tr | 1/3 đã giao | Lưu current/Soleymani2019_StaleControlI_arxivv1.pdf; khác pagination CDC5tr |
+| 14/11 | download | W2 Q3 | https://arxiv.org/pdf/2206.02410v2 | Python3 urllib official OA; %PDF/pdfinfo/pdftotext/SHA256 | 1 PDF, 60tr | 1/3 đã giao | Lưu current/Mendelson2022_SparseCommunication_arxivv2.pdf; không gọi là VoR |
+| 14/11 | read (attempt) | W2 Q1/Q3 / Soleymani | local PDF tr.1–6 | paper_pilot.get_pdf_page_text | 0 pages từ MCP | 0 mới | BLOCKED approval policy never; chuyển local extraction; không ghi pilot đã đọc |
+| 14/11 | read (navigation) | W2 Q1/Q3 | Bumpensanti v3 + Mendelson v2 | pdftotext -layout + page/heading/theorem index | 2 indexes | 0 mới | Chỉ chọn trang cho targeted read, chưa dùng index để xác nhận theorem |
+| 14/11 | read (AI-T) | W2 Q1/Q3 / Soleymani | v1 abstract/§I–V tr.1–6 | local pdftotext -layout, toàn text request | 1 work | 0 mới | Output bị cắt tại §III; phần thiếu đọc tiếp ở hàng dưới; không lấy preview làm đủ |
+| 14/11 | read (AI-T) | W2 Q1/Q3 / Soleymani | v1 §II assumptions/§III tr.3–4 | local extracted pages, đọc lại trọn hai trang | 2 pages | 0 mới | Đủ Prop.1, Lemma1, Thm1–2 Eq.(8)–(16). Phân biệt χ với J, không gán Prop.2 thành J cải thiện |
+| 14/11 | read (AI-T) | W2 Q1 / Bumpensanti | v3 §1.1–1.2 tr.2–5 | local extracted pages | 4 pages | 0 mới | Contributions, scaling, degeneracy; references được nhắc không coi đã primary-read |
+| 14/11 | read (AI-T) | W2 Q1 / Bumpensanti | v3 abstract tr.1; §2/§3 đầu tr.7–10 | local extracted pages | 5 pages | 0 mới | Inventory/Poisson/nonanticipating; revenue loss khác HO regret; DLP/SPA/FR |
+| 14/11 | read (AI-T) | W2 Q1 / Bumpensanti | v3 §3–4 tr.11–16 | local extracted pages | 6 pages | 0 mới | Alg2–3, Fig3, IRT schedule+threshold, Thm1/Prop1; không appendix audit |
+| 14/11 | read (AI-T) | W2 Q1 / Bumpensanti | v3 tr.17–19 và23 | local extracted pages | 4 pages | 0 mới | §4.3/§5 Prop2–3, §7 mở đầu; Θ(√T) là worst-case, không mọi instance |
+| 14/11 | read (AI-T) | W2 Q1 / Bumpensanti | v3 §6 tr.20–22; §7 tiếp tr.24 | local extracted pages | 4 pages | 0 mới | IR/FRT so threshold/schedule, không quy toàn benefit cho infrequency; không tải paper trong references |
+| 14/11 | read (AI-T) | W2 Q3 / Mendelson | v2 abstract/§1 tr.1–5 | local extracted pages | 5 pages | 0 mới | Citation footnote yêu cầu G.Mendelson/X.Kuang; communication/state approximation pipeline |
+| 14/11 | read (AI-T) | W2 Q3 / Mendelson | v2 §2 tr.6–11 | local extracted pages | 6 pages | 0 mới | CARE, JSAQ, no message delay, metrics, Thm2.3–2.5; không bỏ infinite-backlog assumption |
+| 14/11 | read (AI-T) | W2 Q2/Q3 / Mendelson | v2 §2 tiếp tr.12; §4/§5 tr.16–20 | local extracted pages | 6 pages | 0 mới | Eq11–15, basic cộng own arrivals, MSR/emulation, RT/DT; không đồng nhất basic với frozen snapshot |
+| 14/11 | read (AI-T) | W2 Q2/Q3 / Mendelson | v2 §5.4 tr.21; §7.1–7.2 tr.31–35 | local extracted pages | 6 pages | 0 mới | ET definition, Eq46–48, Thm7.3/7.6/7.7/Cor7.8; bounded-service và homogeneous conditions giữ rõ |
+| 14/11 | read (AI-T) | W2 Q3 / Mendelson | v2 §8/§9 tr.46–51 | local extracted pages | 6 pages | 0 mới | Thm8.1 statement và simulation setup; proof text có xem, không audit chứng minh |
+| 14/11 | read (AI-T) | W2 Q2/Q3 / Mendelson | v2 §9.3–9.4 tr.52–57 | local extracted pages | 6 pages | 0 mới | Load .5/10% communication thua RR; không phải freshness-harm theorem; tr56–57 có mismatch mô tả, không dùng số đó |
+| 14/11 | lookup | W2 Q3 / VoR access | publisher PDF download → doi/pdf/10.1287/opre.2022.0359 | web.click official landing | 0 PDF | 0 mới | Chuyển abstract/Request Access; giữ bản đọc v2, không infer identical theorem VoR |
+| 14/11 | read (AI-T, visual check) | W2 Q1/Q3 / Soleymani | v1 tr.4 Eq14–16/Fig3 | pdftoppm -f4 -l4 -scale-to1600 + view_image | 1 image | 0 mới | Đối chiếu rendered equations, Γ/error/future-value; không đổi reading level tác giả |
+| 14/11 | read (AI-T, visual check) | W2 Q3 / Mendelson | v2 tr.34 Theorem7.3 | pdftoppm -f34 -l34 -scale-to1600 + view_image | 1 image | 0 mới | Xác nhận λ̄min>Σμ̄i−Kμ̄min và uniform o_p(√n) |
+| 14/11 | read (navigation) | W2 Q3 / Mendelson | v2 đầu tr.58 | local page boundary check | 1 reference-page excerpt | 0 mới | §9 kết thúc tr57; tr58 bắt đầu references, không citation chaining/không đọc nguồn mới |
+
+**Forward screen đã thực sàng (13/20, chỉ metadata/abstract hiện trong output):**
+The Bayesian Prophet (10.1287/mnsc.2020.3624); Online Linear Programming: Dual Convergence, New Algorithms, and
+Regret Bounds (10.1287/opre.2021.2164); Real-Time Spatial–Intertemporal Pricing and Relocation in a Ride-Hailing
+Network (10.1287/opre.2022.2425); Online Allocation and Pricing: Constant Regret via Bellman Inequalities
+(10.1287/opre.2020.2061); Constant Regret Resolving Heuristics for Price-Based Revenue Management
+(10.1287/opre.2021.2219); Bifurcating Constraints…Reusable Resources (10.1287/opre.2022.2282);
+Large Deviations Optimal Scheduling of Closed Queueing Networks (arXiv1803.04959);
+Online Advertisement Allocation… (10.1287/mnsc.2021.04091); Degeneracy Is OK…
+(10.1287/opre.2022.0641); Near-Optimal Primal-Dual Algorithms… (10.2139/ssrn.3728397);
+Dynamic Pricing with External Information and Inventory Constraint (10.1287/mnsc.2023.4963);
+Fluid Policies, Reoptimization, and Performance Guarantees in Dynamic Resource Allocation (10.1287/opre.2022.0601);
+The Benefits of Delay to Online Decision Making (10.1287/mnsc.2023.00549).
+Các ID trên lấy từ đúng forward tool result lượt này; không là nguồn đã đọc primary/đã kiểm DOI publisher.
+Có title gần fluid/reoptimization nhưng chưa đủ để kết luận cùng stale-state/Δ estimand; ride-hailing ngoài
+scope. **Không đề xuất nguồn thứ tư**, không enrichment, không tải/đọc thêm.
+
+**Kết quả/dừng:** 3/3 OA PDF tải được và 3 AI-T; note [W2_prior_check.md](W2_prior_check.md) chứa version,
+SHA256, exact pages, Fact/AI đề xuất/Unclear và tóm tắt 5 dòng. Dừng sau scope được giao và 1 forward
+screen hữu hạn; không 2×20/saturation/novelty clearance. Access failures: scholar details/citations,
+paper-search download, paper-pilot pages bị approval policy never; IEEE challenge, publisher PDF redirects.
+Fallback urllib/pdftotext/pdftoppm dùng được; không dùng shadow libraries. Không simulation, không thay
+catalog/Excel/mức đọc tác giả/PC/Gate, không commit. Raw text/ảnh kiểm tạm ở `/tmp/w2-lit/`; PDF lâu dài ở
+`/home/vantai/papers/state-model-regret/current/`. Chỉ hai file Markdown trong brief được viết.
