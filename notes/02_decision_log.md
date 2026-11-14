@@ -4303,3 +4303,25 @@ chấm; Codex viết code EV-D2 (extractor, trace_cox) và đọc 3 nguồn lite
 Full pytest: 902 PASS, 1 FAIL có chủ đích (guard P6).
 
 **Không đổi:** MainRQ/contract/PC/Gate/G1, nhãn C5/K7. Push nhánh `ext/validity`, không merge main.
+
+### DL-145 — External validity wave 3: realistic telemetry age on two real MAWI traces (EV-D3a/b) (14/11/2026)
+
+**Ủy quyền.** "tiếp tục làm đi"; chạy song song trên VM GCP và máy tác giả. Mọi thẻ `LOCKED_AI_DELEGATED`.
+
+**Fact** (chi tiết: `results/ext_validity/WAVE3_REPORT.md`):
+- **EV-D3a** (trace 2025-03-11, 40 case, τ ∈ {30, 300} s): D1 PASS 78/80, D2 PASS 54/56, D3 FAIL 39/80, D4 FAIL 47/80.
+- **EV-D3b** (trace 2026-04-14, 381.285.157 gói, 40 case mới): D2 PASS 66/68, D1 FAIL 54/80, D3 FAIL 62/80, D4 FAIL 64/80.
+- **Harm của twin nowcast:** −0,6/−1,2% (trace 1) và −1,6/−4,1% (trace 2).
+- **Sau mở:**
+  - ŝ lệch 5% so với lần chạy CRN dài gấp 10, nên hybrid FAIL không do ŝ;
+  - plug-in có F_old = F_new trong train;
+  - trace 2 có biến động theo phút mạnh, nên giả định trộn của T12 bị vi phạm ở h ≈ 20 phút.
+
+**Sai lệch có ghi:**
+- tải trace 2 qua pipe bị treo, tải lại có resume;
+- `pkill` cắt phiên SSH;
+- train EV-D3b đầu tiên sai đường dẫn (không output);
+- τ thành tham số theo case (mặc định giữ nguyên từng bit).
+
+**Không đổi:** MainRQ/contract/PC/Gate/G1. Claim thực tế phải nói rõ: dấu harm dự đoán được; độ lớn ±40–60%;
+hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương quan chậm nhất. Push `ext/validity`.

@@ -719,3 +719,7 @@ External validity wave2/14-11 (DL-144, nhánh ext/validity): EV-A2 Δ* Z1 FAIL 1
 khi Δ*≳1,1T_int; dưới đó feedback vòng kín). W2-LIT 3 nguồn AI-T (Bumpensanti&Wang MS2020, Soleymani CDC2019, Mendelson&Kuang
 OR2026), chưa xác nhận prior cho luật vòng kín/đảo dấu; không novelty. EV-D2 trace MAWI thật: D1/D3/D4 PASS, hiệu ứng ≈0 vì
 τ≪T_int≈78s. Wave3 đề xuất: τ thực tế (SNMP) trên trace. `results/ext_validity/WAVE2_REPORT.md`.
+
+External validity wave3/14-11 (DL-145, ext/validity): τ∈{30,300}s trên 2 trace MAWI thật. Twin nowcast bị telemetry tươi
+làm hại −0,6…−4,1%, dấu theo luật D2 PASS cả hai trace (120/124); độ lớn D3 FAIL; hybrid D4 FAIL (sai số transient của fluid,
+không do ŝ); T12 D1 FAIL ở trace 2 vì biến động theo phút (cần h ≫ thang chậm nhất). `results/ext_validity/WAVE3_REPORT.md`.
