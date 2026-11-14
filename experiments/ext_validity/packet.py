@@ -299,7 +299,8 @@ def train(case):
     warm, T, dt = case.get('warmup', 1000.), case.get('train_T', 20000.), case.get('sample_dt', .1)
     _, w = rate_settings(case)
     warm = max(warm, w)  # Include the complete stale lookback before sampling.
-    ts = np.arange(warm + TAU, warm + T, dt)
+    tau = float(case.get('tau', TAU))   # Claude (EV-D3): telemetry age per case; default 1 s keeps old cases bit-identical
+    ts = np.arange(warm + tau, warm + T, dt)
     means, fresh, stale = [], None, None
     bg, both = long_run_crn(case, warm+T, rng)          # Claude (review): CRN estimate of s
     for action in (0, 1):
@@ -308,9 +309,9 @@ def train(case):
         means.append(float(qs.sum(axis=1).mean()))
         if action == 0:
             fresh = qs
-            stale = np.column_stack([backlog(r, ts-TAU) for r in runs])
+            stale = np.column_stack([backlog(r, ts-tau) for r in runs])
             rate_new = np.column_stack([window_rate(a, ts, w) for a in bg])
-            rate_old = np.column_stack([window_rate(a, ts-TAU, w) for a in bg])
+            rate_old = np.column_stack([window_rate(a, ts-tau, w) for a in bg])
     ti, censored = tint(fresh.sum(axis=1), dt)
     fitted = fit_nowcast(fresh, stale, rate_new, rate_old)
     shares = {str(m): dict(F_new=float((fluid_gap(fresh, case, m*ti)<0).mean()),
@@ -376,11 +377,12 @@ def simulate(case, h, training, timing_only=False):
     _, w = rate_settings(case)
     warm = max(warm, w)
     # Claude (review): optional spacing in units of T_int; futures may overlap (unbiased; batch means for se)
+    tau = float(case.get('tau', TAU))   # Claude (EV-D3)
     spacing = max(TAU, case['spacing_mult']*training['T_int']) if 'spacing_mult' in case else max(h+TAU, case.get('gap',0.))
-    ts = warm+TAU+np.arange(n)*spacing
+    ts = warm+tau+np.arange(n)*spacing
     bg, runs = long_run(case, 0, ts[-1]+h, rng)
     fresh = np.column_stack([backlog(r, ts) for r in runs])
-    stale = np.column_stack([backlog(r, ts-TAU) for r in runs])
+    stale = np.column_stack([backlog(r, ts-tau) for r in runs])
     costs = np.concatenate([futures(fresh[s:s+256], ts[s:s+256], bg, case, h, rng) for s in range(0,n,256)])
     d, stay = costs[:,1]-costs[:,0], costs[:,0]
     batches = case.get('batches',40)
@@ -388,7 +390,7 @@ def simulate(case, h, training, timing_only=False):
     a,b,u = case['lamA'],case['lamB'],case['u']
     shifts = dict(fluid=0., hybrid_mm1=mm1(a)+mm1(b+u)-mm1(a+u)-mm1(b), hybrid_train=training['s_train'])
     go, gn, twins = fluid_gap(stale,case,h), fluid_gap(fresh,case,h), {}
-    rate_old = np.column_stack([window_rate(a, ts-TAU, w) for a in bg])
+    rate_old = np.column_stack([window_rate(a, ts-tau, w) for a in bg])
     ro = ratefluid_gap(stale, rate_old, case, h)
     rn = ratefluid_gap(fresh, np.column_stack([window_rate(a, ts, w) for a in bg]), case, h)
     maps = {name: (go+h*shift, gn+h*shift) for name, shift in shifts.items()}
@@ -409,7 +411,7 @@ def simulate(case, h, training, timing_only=False):
         ratio = stats['mean']/stay.mean()
         twins[name] = dict(G_S=stats['mean'], se=stats['se'], pct_E_stay=100*ratio,
                            se_pct=100*batch_stats(z-ratio*stay,batches)['se']/stay.mean())
-    return dict(case=case, seed=case.get('seed',1)+1000000, h=h, tau=TAU, n_inst=n, batches=batches,
+    return dict(case=case, seed=case.get('seed',1)+1000000, h=h, tau=tau, n_inst=n, batches=batches,
                 spacing=spacing, E_stay=batch_stats(stay,batches),
                 s_train=training['s_train'], T_int=training['T_int'], twins=twins,
                 F_old=float((go<0).mean()), F_new=float((gn<0).mean()),

@@ -331,3 +331,13 @@ def test_crn_s_estimate_close_to_exact():
     NA, NB = Cm.choose_N(a + u, k), Cm.choose_N(b + u, k)
     s = (Cm.chain(a, k, NA).r + Cm.chain(b + u, k, NB).r) - (Cm.chain(a + u, k, NA).r + Cm.chain(b, k, NB).r)
     assert abs(t['s_train'] - s) <= 0.1 * abs(s) + 0.05
+
+
+def test_tau_parameter_default_is_bitwise_and_large_tau_shrinks():
+    """Claude (EV-D3): an explicit tau=1 equals the default bitwise; a larger tau lowers the nowcast slope beta1."""
+    base = dict(id='tau', cls='mmpp2', lamA=7.0, lamB=7.5, u=1.0, params=dict(kappa=0.5), seed=11, train_T=4000.,
+                sample_dt=0.2, h_mult=[1])
+    a, b = P.train(dict(base)), P.train(dict(base, tau=1.0))
+    assert a['shares'] == b['shares'] and a['nowcast'] == b['nowcast'] and a['T_int'] == b['T_int']
+    c = P.train(dict(base, tau=20.0))
+    assert c['nowcast']['A']['beta'][1] < a['nowcast']['A']['beta'][1]
