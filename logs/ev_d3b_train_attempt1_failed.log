@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/ubuntu/smr_ext_d3/experiments/ext_validity/packet.py", line 489, in <module>
+    main()
+    ~~~~^^
+  File "/home/ubuntu/smr_ext_d3/experiments/ext_validity/packet.py", line 471, in main
+    validate(c)
+    ~~~~~~~~^^^
+  File "/home/ubuntu/smr_ext_d3/experiments/ext_validity/packet.py", line 436, in validate
+    arrivals(case['cls'],case['lamA'],case['params'],0,np.random.default_rng(0))
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/smr_ext_d3/experiments/ext_validity/packet.py", line 69, in arrivals
+    return trace_arrivals(lam, params, T, rng)
+  File "/home/ubuntu/smr_ext_d3/experiments/ext_validity/trace_cox.py", line 88, in arrivals
+    rates, dt = series(params)
+                ~~~~~~^^^^^^^^
+  File "/home/ubuntu/smr_ext_d3/experiments/ext_validity/trace_cox.py", line 61, in series
+    st = path.stat()
+  File "/home/ubuntu/.local/share/uv/python/cpython-3.14.5-linux-x86_64-gnu/lib/python3.14/pathlib/__init__.py", line 654, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/ubuntu/smr_ext_d3/results/ext_validity/ev_d3/series_20260414.npz'
+TRAIN_EXIT 1
