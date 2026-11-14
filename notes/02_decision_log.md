@@ -4256,3 +4256,25 @@ thiết kế, khóa, chạy và chấm. Không mentor review, không dự đoán
 
 **Không đổi.** Contract/PC/Gate/G1. Câu K7 trong `THREATS.md` và nhãn C5 chờ tác giả; câu đề xuất ở
 `results/explore_ctmc/csw_harm/RESULTS_CSW_HARM.md` §4.
+
+### DL-143 — External validity wave 1 (EV-A closed loop, EV-B alarm, EV-D packet/realistic traffic, EV-E twin classes) (14/11/2026)
+
+**Ủy quyền và vai trò.**
+- Tác giả cho "full quyền" external validity.
+- Claude điều phối: brief, review, khóa dự đoán, chấm, VM. Codex viết code (closed_loop.py, packet.py) qua `codex exec`.
+- Mọi thẻ `LOCKED_AI_DELEGATED`; không dự đoán của tác giả, không mentor review. Nhánh `ext/validity` (không merge main).
+
+**Fact** (chi tiết: `results/ext_validity/WAVE1_REPORT.md`):
+- **EV-A** (60 regime mới, 420 job, GCP 12 vCPU): A1 PASS 180/180 (luật bậc một vòng kín, zero-fit, Δ ≥ 3 T_int), A2 PASS 40/40. Harm one-shot giữ trong vòng kín 32/32. Mô tả: Δ ≤ T_int đảo dấu.
+- **EV-B** (30 regime, alarm q90): B1 PASS 30/30, B2 PASS 10/10; harm 18 → 0. Lặp lại: q75 R3 FAIL 4/18 (22%), q95 R3 PASS 0/18; luật R1/R2 PASS ở cả hai mức.
+- **EV-D** (simulator gói độc lập, 60 case, 3 lớp traffic): D1 PASS 116/120 (plug-in không harm dài hạn), D2 PASS 61/64, D3 PASS 120/120, D4 PASS 120/120.
+- **EV-E** (mô tả): M0 + h·s, kể cả khi s lấy từ công thức M/M/1, xóa harm.
+- **T12** (AI dẫn): plug-in dưới tính dừng thì F_old = F_new, nên không có harm tăng theo h.
+
+**Sai lệch có ghi:**
+- Codex launch qua `ssh -f` trong sandbox thất bại; Claude launch lại.
+- Trước khóa EV-D: ŝ sửa sang CRN, nới test R², thêm h 30 T_int.
+- Sau khóa EV-D: OOM ở local; chạy tiếp các job thiếu trên GCP, cùng code và seed; script chạy tiếp đầu tiên thiếu `__main__` guard.
+- R3 q75 FAIL vì ngưỡng do AI đặt.
+
+**Không đổi:** MainRQ/contract/PC/Gate/G1, nhãn C5/K7, frozen sources. Không novelty. Push nhánh `ext/validity` theo yêu cầu "chỉ push lên nhánh chưa merge vào main".

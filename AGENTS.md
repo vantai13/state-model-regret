@@ -709,3 +709,8 @@ c_sw vùng harm/14-11 (DL-142): AI thiết kế/khóa/chạy/chấm theo ủy qu
 commit 8e6a8f4a trước truth, raw 6a87ce69 trước chấm. 30 regime mới, 180/180 job, MC 6/6. S2 PASS (luật thắng null dùng
 truth 288/288, 0,0003 vs 1,31 pp; hướng 288/288 gồm 119 ô harm tăng), S1 FAIL 85,6% (mọi ô trượt ở 3 T_int), S3 N/E.
 c ≤ 4 không xóa harm (còn 93%). K7/C5 chưa sửa, chờ tác giả. Kết quả: `results/explore_ctmc/csw_harm/RESULTS_CSW_HARM.md`.
+
+External validity wave1/14-11 (DL-143, nhánh ext/validity, không merge main): Claude điều phối, Codex code. EV-A vòng kín
+A1 180/180 (luật bậc một vòng kín zero-fit, Δ≥3T_int), harm giữ 32/32, Δ≤T_int đảo dấu (mô tả). EV-B alarm: harm 18→0,
+q95 lặp lại PASS, q75 R3 FAIL. EV-D simulator gói độc lập 3 lớp traffic: plug-in không harm (T12), nowcast có harm theo
+luật, hybrid xóa harm (4/4 PASS). Cần tác giả: nguồn trace, literature, thẻ Δ*, tự kiểm T12. `results/ext_validity/WAVE1_REPORT.md`.
