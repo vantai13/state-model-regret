@@ -28,14 +28,15 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'results/ext_validity/ev_d4'
 CASES, PRED = OUT / 'cases.json', OUT / 'predictions.csv'
-SERIES = 'results/ext_validity/ev_d4/series_ditl4h.npz'
+SERIES = 'results/ext_validity/ev_d4/series_ditl4h_mod10.npz'   # attempt 2 (attempt 1 = mod 250, see ATTEMPT1.md)
 SEED = 20261221
 STRATA = dict(neg=(-1.5, -0.1, 8), band=(0.02, 0.35, 4), pos=(0.4, 1.5, 8))
 TAUS = (1, 10, 30, 60, 120, 300)
 NOWCAST = (('fluid_nowcast', 'F_old_fluid_nowcast', 'F_new'), ('ratefluid_nowcast', 'F_old_ratefluid_nowcast', 'F_new_rate'))
 PLUGIN = ('fluid', 'ratefluid')
 BIN_NS = 10_000_000
-MOD = 250   # Claude: chosen before any train, see CARD (0.1 % samples of this link carry ~110-160 pkt/s and are dominated by a few flows)
+MOD = 10   # Claude, attempt 2: paths = two disjoint 10 % flow subsets. Attempt 1 (MOD 250, volume-matched to EV-D3b) gave
+           # train T_int median 1445 s, so all 120 cases failed the pre-train rule 30*T_int <= 7200 s (see attempt1_mod250/ATTEMPT1.md)
 
 
 def series(src):
