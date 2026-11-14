@@ -698,3 +698,9 @@ L7.5/04-11 (DL-140): thẻ τ sửa theo mentor review, khóa theo ủy quyền 
 L75-1a/1b và L75-2 là onset (zero-fit báo trước); L75-3 (328 chuỗi) và L75-4 (8 series) là rủi ro. D22 chỉ báo. Checker
 `main()` lỗi ở phần D22 chỉ báo; file điểm ghi bằng `score_l75_post.py` từ `score()` đã khóa. Gate Phase 7 chưa chấm,
 không tag. Câu cơ chế, A1–A3 bản tác giả, Understanding và L8 vẫn OPEN. Kết quả: `results/explore_ctmc/l75/RESULTS_L7_5.md`.
+
+I_Δ + knockout CE/14-11 (DL-141): AI soạn, khóa, chạy, tự chấm theo ủy quyền; exploration ctmc-v1, không mentor review,
+không dự đoán tác giả. I_Δ 3 vòng: ngoài band ρ=Γ_add/Γ 0,11→1,13 (v2), 0,011→1,145 (v3); band lặp lại, cơ chế band chưa có.
+CE đã sửa (NK bỏ đúng Jensen của sai số M0): N1 NK giữ 1,00 harm 26/26, N2/N3 PASS; P1 FAIL (QM 23/26), PB 26/26. Kênh
+phương sai của review ngoài bị bác ở h dài; cơ chế ứng viên = gộp quyết định + bias (C5), chưa loại trừ mọi đối thủ. Không
+đổi contract/PC/Gate/G1; nhãn C5 và câu K7 (F-R2 đọc sai) chờ tác giả. Ghi chú: `notes/synthesis/MECHANISM_IDELTA_CE.md`.

@@ -4178,3 +4178,52 @@ Không rewrite history.
 
 **Không đổi:** G1, MainRQ/contract, Gate C/D. Thẻ do AI soạn; Understanding, L8, author-self OPEN. Câu cơ chế (vì sao M0 mù
 chọn Switch ở 0 < x ≲ 0,47) chờ tác giả tự viết. Kết quả: `results/explore_ctmc/l75/RESULTS_L7_5.md`.
+
+### DL-141 — Exploration I_Δ (ba vòng) và knockout CE đã sửa trên ctmc-v1; ghi chú cơ chế (14/11/2026)
+
+**Ủy quyền.** Toàn bộ do AI (Claude) soạn, khóa, chạy và tự chấm theo các lời nhắn của tác giả:
+- "kiểm tra… nếu chưa có hãy thiết kế và chạy";
+- "tự soạn thực hiện rồi tự chạy";
+- "tiếp tục đi";
+- "tự thiết kế và sửa lại" đề xuất CE của một review AI ngoài;
+- "chấp nhận, chạy đi" (giữ nguyên ngưỡng AI, status `LOCKED_AI_DELEGATED`);
+- "oke bạn làm cho tôi đi" (ghi chú + commit).
+
+Không có mentor review, không có dự đoán do tác giả viết. Exploration, G1.
+
+**Fact.**
+- **I_Δ vòng 1** (9 regime L7.5, thiết kế viết trước):
+  - Control PASS (identity 3,4e−12).
+  - Fluid e = 0 chính xác khi q ≥ hD. Dấu tại state rỗng mode thấp: 36/36.
+  - P1 (E|I_Δ| > |Γ|) FAIL ở h ≥ 3 T_int; P7 NOT_EVALUABLE.
+- **I_Δ vòng 2** (45 regime mới, thẻ `b1968cc2`):
+  - H1–H4 PASS. Ngoài band, trung vị ρ = Γ_add/Γ là 0,11 ở T_int và 1,13 ở 7 T_int.
+  - Fluid F1/F2 PASS; F3/F4 NOT_EVALUABLE.
+- **I_Δ vòng 3** (40 regime mới, thẻ `a02d4592`):
+  - B1/B3/B4 PASS (ρ ngoài band 0,011 → 1,145; band 0,454).
+  - B2 FAIL (7/11 = 64% so với ngưỡng 70%).
+  - Fluid G2/G3/G4 PASS; G1 FAIL (76% điểm tăng, trái dự đoán).
+- **Knockout CE đã sửa** (40 regime mới, seed 20261116, lock `lock_ce.json`; hiệu chỉnh trên 85 regime đã lộ, hai lượt, NK thêm sau lượt 1):
+  - N1 PASS: NK giữ 1,00 harm, 26/26.
+  - N2 PASS: 0,89, 14/15.
+  - N3 PASS: K/Ĵ = 0,043.
+  - P1 FAIL: QM 23/26 = 88,5% < 90%; PB 26/26.
+  - Control C1–C4 PASS. 323,8 CPU-s local, một run.
+
+**Sai lệch / lỗi có ghi.**
+- Vòng 1: ngưỡng reach của P7 nằm ngoài bulk. Vòng 2: mức h ngắn ½ s quá nhỏ cho F3/F4.
+- Vòng 3: AI đoán sai hướng ở G1.
+- CE: tỷ số surrogate κ_CE bị hạ xuống mô tả sau lượt hiệu chỉnh 1, trước thẻ. Ngưỡng 90% cho QM quá chặt so với đuôi đã thấy khi hiệu chỉnh.
+- Không sửa sau khi chạy, không chạy lại.
+
+**Đọc** (chi tiết: `notes/synthesis/MECHANISM_IDELTA_CE.md`):
+- Ở h dài, harm tái tạo được bằng bias hằng cộng ngưỡng, và không cần "hiệu chỉnh ngẫu nhiên ngầm". Kênh phương sai của review ngoài bị bác ở ctmc-v1.
+- Cơ chế ứng viên là gộp quyết định cộng bias (C5); chưa có phép thử loại trừ mọi đối thủ.
+- P1 FAIL nên câu C3 cần ghi "twin gộp Bayes".
+- Cơ chế help band chưa có.
+
+**Không đổi.**
+- MainRQ, contract (nhánh PB/QM/NK chỉ là diagnostic; contract vẫn cấm rollout từ mean-state cho primary), PC, Gate, G1.
+- Nhãn C5 trong `CLAIMS_EVIDENCE.md` và câu K7 trong `THREATS.md` chưa sửa, chờ tác giả.
+- Full pytest: 849 PASS, 1 FAIL có chủ đích như DL-139 (guard P6 khi có file mới dưới `experiments/`).
+- Nguồn đóng băng không sửa. Không tag, không push.
