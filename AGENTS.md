@@ -727,3 +727,6 @@ Audit + EV-D4/14-11 (DL-146, ext/validity): Codex audit độc lập tính lại
 T12 chỉ O(1) không phải ngưỡng ở h hữu hạn, pha A–B cố định trong trace replay, hybrid-FAIL chưa quy được, 120/124 là đếm chọn lọc.
 EV-D4 (trace DITL 4 h liên tục) dừng trước test: T_int 535–1445 s, luật khả thi loại 16–20/20 regime. Chẩn đoán train-only:
 lặp đoạn 15 phút làm T_int ngắn 6–10 lần → "30 T_int" của wave 2–3 không phải horizon dài của traffic liên tục. `results/ext_validity/ev_d4/REPORT_EV_D4.md`.
+EV-D4b/15-11 (DL-147, ext/validity): trace DITL 4 h liên tục, tải ≤0,775, 6 mức τ, chỉ chạy GCP; khóa e8700550, raw 29e65ffd trước
+điểm 380ffb6c. D1 240/240, D6 (T12 dạng O(1)) 237/240, D4 239/240 PASS (hybrid 71/120 ô G=0, policy tĩnh); D2 FAIL 70%, D3 FAIL,
+D5 FAIL. Post-hoc: luật dấu hỏng ở τ≈0,5–1,1 T_int (hệ số dốc sai), đúng hơn ở τ≪T_int/τ≫T_int. `results/ext_validity/ev_d4b/REPORT_EV_D4B.md`.

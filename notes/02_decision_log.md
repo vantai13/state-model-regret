@@ -4355,3 +4355,27 @@ hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương q
 - `trace_cox.arrivals` nhận thêm tham số `phase`.
 
 **Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ. Claim thực tế của wave 3 phải ghi rằng T_int đo trên trace lặp 15 phút.
+
+### DL-147 — EV-D4b: dose response trên trace thật liên tục 4 giờ, tải thấp (15/11/2026)
+
+**Ủy quyền.** "thiết kế chạy trên cloud đi rồi tôi tắt máy". AI tự thiết kế, khóa, chạy và chấm (`LOCKED_AI_DELEGATED`).
+
+**Trình tự:**
+- Thẻ `e8700550` trước test.
+- Một lần chạy trên VM: 240/240 job, 44 phút. Bản băm dữ liệu thô ghi trước khi chấm.
+- Dữ liệu thô `29e65ffd`, điểm `380ffb6c`.
+- Chấm lại local trùng từng byte; script stdlib độc lập khớp.
+
+**Fact:**
+- **PASS:** D1 240/240, D6 (T12 dạng O(1)) 237/240, D4 239/240 (71/120 case ở 30T có G = 0 vì hybrid thành policy tĩnh).
+- **FAIL:** D2 110/158 (69,6%), D3 139/240, D5 Spearman 0,54.
+- **Post-hoc** (`ev_d4b/posthoc.json`):
+  - lỗi dấu tập trung ở τ ≈ 0,5–1,1 T_int, nơi phần tăng thực/dự đoán chỉ 0,22 và −0,01, và dấu đúng 25/52;
+  - ở τ ≤ 0,3 T_int và τ ≈ 2,7 T_int, hệ số dốc gần đúng;
+  - đổi F_train sang F_test không sửa được dấu.
+
+**Hệ quả:**
+- T12 đã sửa được ủng hộ trên traffic thật liên tục.
+- Claim "luật dấu cho twin nowcast" phải thu hẹp về τ ≪ T_int hoặc τ ≫ T_int, và về các trace đã kiểm. Chưa tách được ba nguyên nhân: lặp trace, tải, trace.
+
+**Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ.
