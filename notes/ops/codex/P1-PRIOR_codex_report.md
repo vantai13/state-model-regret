@@ -1,0 +1,1 @@
+Codex was stopped by Claude at the author's request (15/11, Codex tokens low) right after it wrote P1_prior_candidates.md and the P1-PRIOR search-log section; it produced no final message. Steps 2-4 were done by Claude (P1_prior_matrix.md).
