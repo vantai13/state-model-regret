@@ -1,0 +1,107 @@
+{
+  "case": {
+    "id": "LP02_r03",
+    "arm": "L",
+    "regime": "LP02",
+    "r": 0.3,
+    "tau": 4.57,
+    "lamA": 6.25,
+    "lamB": 6.59,
+    "u": 0.25,
+    "seed": 15014,
+    "n_inst": 10000,
+    "spacing_mult": 3,
+    "train_T": 100000.0,
+    "sample_dt": 0.2,
+    "h_mult": [
+      10,
+      30
+    ],
+    "batches": 40,
+    "cls": "trace_cox",
+    "params": {
+      "series": "results/ext_validity/ev_d4/diag_loop15/series_202304121000.npz",
+      "key": "s0",
+      "path_keys": [
+        "s0",
+        "s1"
+      ],
+      "bin": 0.01
+    },
+    "stratum": "pos",
+    "trace": "ditl4h"
+  },
+  "seed": 1015014,
+  "h": 152.26626148693433,
+  "tau": 4.57,
+  "n_inst": 10000,
+  "batches": 40,
+  "spacing": 45.679878446080295,
+  "E_stay": {
+    "mean": 1038.682861615542,
+    "se": 5.510361643641406
+  },
+  "s_train": 0.386042985891379,
+  "T_int": 15.226626148693432,
+  "twins": {
+    "fluid": {
+      "G_S": 0.7649024710682792,
+      "se": 0.8317256948538816,
+      "pct_E_stay": 0.07364158005635797,
+      "se_pct": 0.08011560870299315
+    },
+    "hybrid_mm1": {
+      "G_S": -0.2516867714225683,
+      "se": 0.24689866570016705,
+      "pct_E_stay": -0.0242313395862815,
+      "se_pct": 0.023716975758569323
+    },
+    "hybrid_train": {
+      "G_S": 0.0,
+      "se": 0.0,
+      "pct_E_stay": 0.0,
+      "se_pct": 0.0
+    },
+    "ratefluid": {
+      "G_S": 0.9249753225599859,
+      "se": 0.8542071344739567,
+      "pct_E_stay": 0.08905271827834936,
+      "se_pct": 0.08225626589390886
+    },
+    "ratefluid_hybrid_train": {
+      "G_S": 0.0,
+      "se": 0.0,
+      "pct_E_stay": 0.0,
+      "se_pct": 0.0
+    },
+    "fluid_nowcast": {
+      "G_S": 9.306952408169563,
+      "se": 0.7566845250268831,
+      "pct_E_stay": 0.8960340785534631,
+      "se_pct": 0.07274147758915676
+    },
+    "ratefluid_nowcast": {
+      "G_S": 8.837631585529287,
+      "se": 0.8428123426082461,
+      "pct_E_stay": 0.8508498514920572,
+      "se_pct": 0.08077378095973599
+    },
+    "ratefluid_nowcast_hybrid_train": {
+      "G_S": 0.0,
+      "se": 0.0,
+      "pct_E_stay": 0.0,
+      "se_pct": 0.0
+    }
+  },
+  "F_old": 0.3836,
+  "F_new": 0.3834,
+  "F_old_rate": 0.407,
+  "F_new_rate": 0.4049,
+  "F_old_fluid_nowcast": 0.5723,
+  "F_old_ratefluid_nowcast": 0.5791,
+  "F_old_ratefluid_nowcast_hybrid_train": 0.0,
+  "CPU": 13.32146984200017,
+  "case_sha256": "cc91383209581329017c8a275ddbdf55e563cd34f40f5e91c785b92e092858e4",
+  "wall": 13.322143331000007,
+  "h_mult": 10
+}
