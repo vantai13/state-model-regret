@@ -1,0 +1,64 @@
+LOCK_PASS 70 files and external data
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 898, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 894, in main
+    {'fetch': fetch, 'design': design, 'predict': predict, 'verify-lock': verify_lock, 'score': score}[args.command]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 869, in score
+    write_json(out / 'score.json', dict(hypotheses=hypothesis_counts(verdict_cells), cells=verdict_cells,
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               n_cells=len(verdict_cells), descriptive_harm={name: sum(r[f'z_GS_{name}'] < -.1 for r in records)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                                          for name in ('M0', 'P', 'CE')}))
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 63, in write_json
+    json.dump(value, f, indent=2, allow_nan=False)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/json/__init__.py", line 181, in dump
+    for chunk in iterable:
+                 ^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/json/encoder.py", line 444, in _iterencode
+    yield from _iterencode_dict(o, _current_indent_level)
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/json/encoder.py", line 413, in _iterencode_dict
+    yield from chunks
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/json/encoder.py", line 413, in _iterencode_dict
+    yield from chunks
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/json/encoder.py", line 413, in _iterencode_dict
+    yield from chunks
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/json/encoder.py", line 451, in _iterencode
+    newobj = _default(o)
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/json/encoder.py", line 182, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type int64 is not JSON serializable
+when serializing dict item 'passed'
+when serializing dict item 'H3'
+when serializing dict item 'hypotheses'
+Command exited with non-zero status 1
+	Command being timed: "python3 -m experiments.ext_validity.ev_te score"
+	User time (seconds): 3.58
+	System time (seconds): 2.36
+	Percent of CPU this job got: 41%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:14.23
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 117916
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 12
+	Minor (reclaiming a frame) page faults: 41024
+	Voluntary context switches: 49205
+	Involuntary context switches: 14
+	Swaps: 0
+	File system inputs: 1067008
+	File system outputs: 2056
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 1
