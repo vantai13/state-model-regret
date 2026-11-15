@@ -970,3 +970,283 @@ paper-search download, paper-pilot pages bị approval policy never; IEEE challe
 Fallback urllib/pdftotext/pdftoppm dùng được; không dùng shadow libraries. Không simulation, không thay
 catalog/Excel/mức đọc tác giả/PC/Gate, không commit. Raw text/ảnh kiểm tạm ở `/tmp/w2-lit/`; PDF lâu dài ở
 `/home/vantai/papers/state-model-regret/current/`. Chỉ hai file Markdown trong brief được viết.
+
+## P-REF1 — thay Puterman 1994 bằng nguồn gần đây cho khai triển gain–bias (15/11/2026)
+
+Thẻ tìm kiếm.
+- **Câu hỏi:** nguồn chuẩn nào gần đây (ưu tiên từ 2017) trình bày phương trình Poisson / hàm giá trị tương đối của chuỗi Markov chi phí trung bình, để trích ở Mệnh đề 1 của paper?
+- **Mục đích:** gọi tên công cụ, không kiểm prior và không ảnh hưởng nhãn PC.
+- **Lý do:** tác giả yêu cầu tránh trích dẫn quá cũ.
+- **Giữ** nếu là sách hoặc bài peer-reviewed trình bày hoặc dùng phương trình Poisson cho chi phí trung bình, ưu tiên queueing/networking.
+- **Bỏ** nếu thuộc MCMC, vật lý, sinh học, hoặc không có nội dung chi phí trung bình.
+- **Ngân sách:** một phiên; tối đa 3 đề xuất.
+
+| Ngày | Loại | Mục đích | Query / đối tượng | Công cụ, bộ lọc | Số thực sàng | Giữ | Lý do |
+|---|---|---|---|---|---|---|---|
+| 15/11 | lookup (library) | P-REF1 | grep "poisson equation\|relative value" trong `~/papers/state-model-regret/current/*.txt` | local | 2 file (S11 và bản arXiv của nó) | 0 mới | S11 (IEEE TIT 2026) dùng RVI và trích Puterman [89] cùng Bertsekas: sách kinh điển vẫn được bài mới ở venue mạnh trích |
+| 15/11 | lookup | P-REF1 | "Meyn Control Systems and Reinforcement Learning" | Crossref, from-pub-date 2020 | 5 | 1 | Meyn 2022, CUP, DOI 10.1017/9781009051873. Mục lục (front matter CUP, đang kiểm): §6.5 Poisson's Equation, §10.4 Average Cost |
+| 15/11 | keyword | P-REF1 | "Poisson equation relative value function average cost continuous-time Markov chain queueing" | OpenAlex, from 2017 | 20 | 1 | Bilenne 2021, Queueing Systems 99(3–4):199–230, DOI 10.1007/s11134-021-09713-y (Crossref kiểm), OA HAL hal-02925284: phương trình Poisson cho dispatching vào server song song, rất gần bài toán chọn đường. Bỏ: MCMC/ước lượng (5), vật lý/thủy văn/sản xuất (4), tổng quan MDP queue 2019 (để dự phòng), Niño-Mora 2020 PEVA birth–death (dự phòng), các mục khác lạc đề |
+| 15/11 | lookup (TOC) | P-REF1 | Meyn 2022 front matter (CUP assets PDF) | curl + WebFetch | 0 | — | Không tải được (curl treo >120 s, WebFetch lỗi). Mục lục §6.5/§10.4 chỉ có qua tóm tắt web search, **chưa xác nhận từ PDF** |
+
+**Quyết định (tác giả, 15/11):** "nếu paper uy tín mới nhất gần đây vẫn dùng nguồn đó thì bạn cứ để". S11 (IEEE TIT 2026) trích Puterman 1994, nên **giữ Puterman** cho khai triển gain–bias, ở mức metadata-only và trích không ghi số chương. Meyn 2022 là phương án dự phòng (metadata Crossref). Bilenne 2021 là **đề xuất** cho phần Literature Review, nhóm "quyết định trong hàng đợi dựa trên phương trình Poisson"; chờ tác giả duyệt, chưa tải và chưa viết note.
+**Dừng:** đạt mục đích lookup. Đây không phải khảo sát lĩnh vực.
+
+## P-REF2 — cách trích dữ liệu MAWI trong bài gần đây (15/11/2026)
+
+Tác giả hỏi các bài mới trích nguồn trace MAWI thế nào. Đây là thao tác lookup, không phải khảo sát.
+
+| Ngày | Loại | Mục đích | Query / đối tượng | Công cụ, bộ lọc | Số thực sàng | Giữ | Lý do |
+|---|---|---|---|---|---|---|---|
+| 15/11 | lookup | P-REF2 | grep "mawi" trong `~/papers/state-model-regret/current/*.txt` | local | 0 | 0 | Thư viện không có bài nào dùng MAWI |
+| 15/11 | lookup | P-REF2 | "Traffic data repository at the WIDE project" | OpenAlex | 5 | 1 | Cho, Mitsuya, Kato, USENIX ATC 2000, OpenAlex W149523093, 234 trích dẫn |
+| 15/11 | forward | P-REF2 | bài trích W149523093 từ 2024-01-01 | OpenAlex `cites:` | 9 | — | Bài gần đây vẫn trích bài này khi dùng MAWI: IEEE/ACM ToN 2024 (DeviceRadar, 10.1109/tnet.2024.3398778), IEEE TNSM 2025 (ClearNET, 10.1109/tnsm.2025.3567654), NOMS 2024, HPSR 2025, Computer Networks 2026 |
+| 15/11 | lookup | P-REF2 | trang USENIX ATC 2000 của bài | WebFetch usenix.org | 1 | 1 | Xác nhận tên, tác giả, hội nghị, San Diego, 06/2000. Trang không ghi số trang hay track; đường dẫn PDF chứa "freenix" |
+
+**Kết luận:** theo thông lệ của bài gần đây (ToN 2024, TNSM 2025), trích Cho et al. 2000 cho dữ liệu MAWI. Đây là nguồn cũ được bài mới uy tín vẫn trích, đúng luật của tác giả. Mức đọc: metadata. Bài chỉ dùng để ghi nguồn dữ liệu, không làm chỗ dựa cho claim nội dung nào.
+
+## P1-PRIOR — phần Claude (bước 2–3, song song với Codex bước 1), 15/11/2026
+
+| Ngày | Loại | Mục đích | Đối tượng | Công cụ | Số thực | Giữ | Ghi chú |
+|---|---|---|---|---|---|---|---|
+| 15/11 | screen (abstract) | P1 K2/K3/K5 | 54 ứng viên trong pool của Codex (`/tmp/p1_prior_session/pool_combined.json`) | OpenAlex abstract_inverted_index | 17 abstract đọc | ~16 đề cử | Chọn theo estimand/cơ chế/regime |
+| 15/11 | read AI-T | P1 | Hyytiä et al. 2022 QUESTA (OA Lancaster) | curl + pdftotext | 1 | 1 (trùng thấp) | Ghi chú bài toán mở về thông tin kích thước job, không về độ tươi |
+| 15/11 | read AI-T | P1 | Goren et al. 2022 ToN (arXiv v2) | curl + pdftotext | 1 | 1 (prior bắt buộc) | Nghịch lý herding với nhiều dispatcher |
+| 15/11 | read AI-A | P1 | PSP LCN 2026 (arXiv) | curl + pdftotext | 1 | 1 (thấp–TB) | |
+| 15/11 | lookup | P1 | Atar & Lipshutz MOR | OpenAlex, arXiv (0), Crossref | 1 | 1 | Không có OA → tác giả tải; Crossref: 46(1):268–300, 2021 |
+| 15/11 | read AI-T | P1 | Atar & Lipshutz 2021 (PDF tác giả tải) | pdftotext | 1 | 1 (TB) | §1 tr.1–3 và related work |
+| 15/11 | read AI-T | P1 | Beraldi et al. 2022 (PDF tác giả tải; postprint 403) | pdftotext | 1 | 1 (thấp–TB) | Abstract, Conclusions |
+
+## P1-PRIOR
+
+15/11/2026 · Người phụ trách: **Doan Van Tai**. AI thực hiện **bước 1: search,
+dedup, title/abstract screening, log**, theo
+[brief đã duyệt](../ops/codex/P1-PRIOR_brief.md). Claude thực hiện bước 2–4;
+lượt này không tải PDF, không tạo reading note, không sửa catalog/Excel/claim/Gate,
+không commit. Batch tối đa 40 ứng viên là phạm vi cụ thể đã được tác giả duyệt.
+
+Thẻ mục đích/phạm vi của phiên (không phải experimental preregistration):
+- Câu hỏi: những nguồn nào có thể là prior sát K2 (horizon/state value dưới model
+  đơn giản), K3 (stationary plug-in và cost theo horizon), K5 (fresh telemetry có
+  thể làm decision của mean-value twin xấu đi, kể cả một decision maker)?
+- Mục đích: **prior check của K2/K3/K5 trong brief hiện hành**. Đây không phải
+  các tên lưới K2/K3/K5 trong `claims.md` cũ. Liên quan lịch sử PC3/PC4/PC5/PC6
+  về interaction, prediction, model adequacy và information; không đồng nhất ID
+  hoặc đổi nhãn PC từ lượt tìm này.
+- Câu chặn: nếu một nguồn có cùng estimand, mechanism hoặc regime, bước 2–4 cần
+  đối chiếu giả định và vị trí primary trước khi tác giả cân nhắc câu chữ claim;
+  **chưa xác nhận overlap** bằng title/abstract.
+- Giữ/bỏ: đúng screening của brief; networking/queueing/networked control/AoI/DT
+  trước; loại VRP, tài chính, sinh học và prediction/estimation-only. Nguồn
+  survey không giải quyết câu hỏi được ghi riêng. Một seed không tự động đạt
+  tiêu chí KEEP.
+- Bộ lọc: ưu tiên 2017+, không cắt cứng năm; nguồn cũ trực tiếp phải có lý do.
+  Forward tối đa 50 bài mới nhất mỗi seed, ngày xuất bản không sau 15/11/2026
+  trong fallback có hỗ trợ sort. Backward kiểm toàn bibliography của version
+  được nêu, không coi số indexed references là full bibliography.
+- Ngân sách: không đặt token limit theo yêu cầu; giới hạn nghiệp vụ vẫn là
+  5 seed, 8 query gốc + tối đa 4 refinement, tối đa 40 KEEP. Keyword dừng ở
+  2 query hợp lệ liên tiếp, mỗi query sàng 20 records và không có KEEP mới;
+  metadata lookup/enrichment không tính là keyword discovery mới.
+- Đã mở protocol, skill `paper-research`, `claims.md`, thư viện/catalog và log
+  hiện có. Log có thay đổi sẵn và được thêm P-REF2 từ bên ngoài trong lúc làm;
+  nối sau toàn bộ nội dung ấy, không ghi đè.
+
+
+### Kết quả và cách đếm
+
+Các số KEEP được đối chiếu với **40 công trình cuối cùng**, sau ranking/cap; một work có thể xuất hiện ở nhiều operations. “Mới” tính theo ledger canonical seed → backward nguồn → forward mới nhất → q1…q12, không có nghĩa là mới trong thư viện. “Trùng KEEP” đếm lần xuất hiện lại của **40 work giữ**, gồm aliases xác minh; không được diễn giải là số trùng của toàn bộ record bị loại. Tổng **53 KEEP appearances = 40 unique + 13 lặp**. Metadata lookup/retry không thêm discovery count.
+
+Keyword có **240 result slots / 228 OpenAlex IDs khác nhau**, với **12 exact-ID repeats** giữa các keyword queries; title/DOI version duplicates có thể nhiều hơn 12. Forward có **87 result slots / 86 IDs khác nhau** trước gộp version; không cộng hai số unique này vì có giao nhau. Backward có **295 reference entries**, trong đó **294 có title**, **1 private communication của M00 không có title để sàng**. Không cộng các tổng đó thành số công trình unique của toàn lĩnh vực.
+
+q1 unified trả 19 records sau tool dedup từ raw20; đã lấy lại raw20 qua OpenAlex HTTP và sàng đủ 20 slots. Bảng keyword dùng raw20, không cộng lại lượt 19. Tool backward trả 99/29/29/11/33 indexed records cho S11/M00/SS22/R51/WM26, tổng201; đây là lượt đối chiếu bổ trợ, không cộng thêm vào 295 reference entries của nguồn. OpenAlex “complete” không chứng nhận bibliography của PDF đầy đủ.
+
+| Loại / đối tượng | Records/entries sàng | KEEP appearances | KEEP unique mới trong ledger | Trùng KEEP | # trong bảng |
+|---|---:|---:|---:|---:|---|
+| lookup / 5 seed (4 trong KEEP) | 5 | 4 | 4 | 0 | 13, 20, 21, 22 |
+| backward / S11 | 106 | 5 | 5 | 0 | 9, 10, 38, 39, 40 |
+| backward / M00 | 29 | 5 | 4 | 1 | 6, 9, 11, 12, 28 |
+| backward / SS22 | 34 | 0 | 0 | 0 | — |
+| backward / R51 | 79 | 0 | 0 | 0 | — |
+| backward / WM26 | 47 | 0 | 0 | 0 | — |
+| forward / S11 | 8 | 2 | 2 | 0 | 1, 19 |
+| forward / M00 | 50 | 8 | 7 | 1 | 4, 14, 15, 24, 26, 27, 31 |
+| forward / SS22 | 28 | 2 | 1 | 1 | 18, 20 |
+| forward / R51 | 0 | 0 | 0 | 0 | — |
+| forward / WM26 | 1 | 0 | 0 | 0 | — |
+| keyword / q1 | 20 | 0 | 0 | 0 | — |
+| keyword / q2 | 20 | 1 | 1 | 0 | 25 |
+| keyword / q3 | 20 | 3 | 3 | 0 | 5, 16, 29 |
+| keyword / q4 | 20 | 8 | 4 | 4 | 5, 17, 23, 26, 29, 30, 31, 32 |
+| keyword / q5 | 20 | 1 | 1 | 0 | 36 |
+| keyword / q6 | 20 | 2 | 1 | 1 | 1, 37 |
+| keyword / q7 | 20 | 2 | 2 | 0 | 3, 33 |
+| keyword / q8 | 20 | 0 | 0 | 0 | — |
+| keyword / q9 | 20 | 6 | 1 | 5 | 3, 7, 26, 29 |
+| keyword / q10 | 20 | 1 | 1 | 0 | 2 |
+| keyword / q11 | 20 | 3 | 3 | 0 | 8, 34, 35 |
+| keyword / q12 | 20 | 0 | 0 | 0 | — |
+
+### Lookup seed / version
+
+| Seed | ID/version đã phân giải | Chaining và quyết định sàng trong batch |
+|---|---|---|
+| S11 | [TIT72(4),2026](https://doi.org/10.1109/TIT.2026.3663678); [arXiv2504.19507v3](https://arxiv.org/abs/2504.19507v3); OpenAlex `W7128640669` + `W4415025761` | Gộp hai record; KEEP #20. Related DOI TWC trên arXiv không dùng thay DOI TIT. |
+| M00 | [TPDS11(1),2000](https://doi.org/10.1109/71.824633); `W2154007983` | KEEP #13. Backward chính theo 29 references publisher-deposited; local submission 26 references là version khác. |
+| SS22 | [MobiHoc2022](https://doi.org/10.1145/3492866.3549711); [arXiv2208.06948v2](https://arxiv.org/abs/2208.06948v2); cùng `W4297882599` | Dùng đủ backward/forward; không vào top40 theo DROP inference/prediction-only: abstract tối ưu inference error, chưa xác nhận downstream control cost. Không hạ mức đọc lịch sử. |
+| R51=P03 | [ICML2026/PMLR306](https://proceedings.mlr.press/v306/amad26a.html); [arXiv2606.25923v1](https://arxiv.org/abs/2606.25923); `W7165868403` | KEEP #21, một công trình. Forward chỉ có record arXiv trong OpenAlex; chưa xác nhận coverage của citations trỏ trực tiếp PMLR. |
+| WM26 | [arXiv2610.05550v1](https://arxiv.org/abs/2610.05550v1); `W7220709663` | KEEP #22 như seed phương pháp do brief chỉ định; không mở rộng sang hàng loạt robotics/world-model papers. |
+
+### Backward: toàn bibliography của version được nêu
+
+| Seed | Nguồn kiểm toàn list | Entries | Title sàng | Indexed records (chỉ đối chiếu) | KEEP refs / lý do không giữ |
+|---|---|---:|---:|---:|---|
+| S11 | Journal local, PDF38–40, refs[1]–[106] | 106 | 106 | 99 | KEEP [62]→#40, [63]→#38, [81]→#9, [82]→#10, [85]→#39. Inference/AoI-only, surveys, sách công cụ không làm downstream-cost prior trong top40. |
+| M00 | Crossref publisher-deposited 29 reference entries; DOI→title đối chiếu OpenAlex/local | 29 | 28 | 29 | KEEP keys bibL00063→#11, bibL000613→#6, bibL00062→#9, bibL000615→#28, bibL000626→#12; 1 Fox/private communication không có title. Index không phải mapping một-một với publisher list. |
+| SS22 | MobiHoc10trang local, PDF10, refs[1]–[34] | 34 | 34 | 29 | 0 trong top40. [25] là preprint của chính seed, không tạo paper thứ hai; phần lớn là inference/AoI/scheduling/khái niệm. AoI-penalty/NCS [16] sàng nhưng không vào top40. |
+| R51 | PMLR local, PDF10–14 (printed9–13), 79 entries tác giả–năm | 79 | 79 | 11 | 0 mới trong top40. Các bài generic RL/value-aware/model learning, y học/sản xuất hoặc prediction-only không tự động thành networking prior. Không đọc nội dung chúng. |
+| WM26 | arXivv1 local, PDF11–13, 47 entries | 47 | 47 | 33 | 0 mới trong top40. Các nguồn visual/latent robotics, representation và RL thông thường không mở rộng scope; không dùng title để xác nhận thiếu overlap. |
+
+M00 submission local PDF26–28 có26 entries (một entry lặp và một private communication); đã xem để đối chiếu version, **không thay 29 publisher entries bằng26** và không cộng26 lần nữa. Không tải bản journal trong bước này. Đọc bibliography của PDF có sẵn chỉ là navigation/title screen; không nâng thành targeted/full-paper reading.
+
+| Existing source | PDF pages / reference start | SHA256 |
+|---|---|---|
+| S11 | 40 / 38 | `1f92236d3c8627d45ddeda39087f176b754e6f089a1ac27675170045e991a758` |
+| M00_submission | 28 / 26 | `dda7224355c6d0b9c364af23691038f042430e1171c9394721367ead7b637f49` |
+| R51 | 27 / 10 | `0eeefa24013f8f5018ffcb3ec01212b43754b425448b38be9aef8b83a052df53` |
+| WM26 | 40 / 11 | `94201c596276c55c295df09d5b1b34530db7c08617e2b97954311cdd9e38de4a` |
+| SS22 | 10 / 10 | `5746a8f7891ab733eb72bf8bfe93b4051dc1c15fe55a90c6db573b24bd07bb25` |
+
+### Forward: recent50 tối đa mỗi seed
+
+Tool `get_paper_citations(paper_id, limit=50, fields=paperId,title,year,publicationDate,externalIds,venue,abstract)` đã gọi cho đủ5 seed nhưng bị approval policy chặn. `get_citing_papers(max_results=50,max_pages=1)` đã thử đủ5 seed; không nhận default most-cited là most-recent. Official HTTP recent queries bên dưới thay thế, không lấy thêm page2 của M00. S11 gộp journal+arXiv thành8 (dưới cap50); SS22 DOI và arXiv resolve về cùng work ID.
+
+| Seed | Canonical HTTP filter/order | Có sẵn qua filter | Returned/title sàng | Ghi chú |
+|---|---|---:|---:|---|
+| S11 | `cites:W7128640669 + cites:W4415025761, to_publication_date:2026-11-15; sort=publication_date:desc; per-page=50` | 8 | 8 | Dưới cap50; S11 merge/sort sau2 calls |
+| M00 | `cites:W2154007983, to_publication_date:2026-11-15; sort=publication_date:desc; per-page=50` | 220 | 50 | First50; không sàng220 work |
+| SS22 | `cites:W4297882599, to_publication_date:2026-11-15; sort=publication_date:desc; per-page=50` | 28 | 28 | Không thêm page2 |
+| R51 | `cites:W7165868403, to_publication_date:2026-11-15; sort=publication_date:desc; per-page=50` | 0 | 0 | Record arXiv; coverage của PMLR chưa xác nhận |
+| WM26 | `cites:W7220709663, to_publication_date:2026-11-15; sort=publication_date:desc; per-page=50` | 1 | 1 | Không thêm page2 |
+
+S11 — ordered work IDs (hợp nhất, publication date giảm dần): `W4414878594, W7212074562, W7125710509, W7171541349, W4416242768, W7134823645, W7137011872, W7214155553`.
+
+M00 — ordered work IDs: `W4415273694, W4414197051, W4411261526, W4415795854, W4366850691, W4321021232, W4387198027, W3047429007, W3163301155, W4308451809, W4304889873, W4283023103, W4289296199, W3034803276, W4301404792, W4224103281, W3157062855, W4214577142, W2947689360, W3183583221, W3112985684, W3126315241, W4206322103, W3129709458, W3092012013, W3048145959, W3035005890, W3003135340, W3021329401, W2981878267, W2973593380, W2963447861, W2921990381, W4237799490, W3004103998, W2893188751, W2889020559, W2963146589, W4302373421, W2786117165, W2951574773, W2886142489, W4307461945, W2904160374, W2766516557, W2744698795, W2734540495, W2606538187, W2950213319, W2595942638`.
+
+SS22 — ordered work IDs: `W7172392009, W7128610548, W7128640669, W7140167002, W4375959465, W7134823645, W7154595175, W7160495705, W7115735109, W4415014394, W4415883708, W7117932905, W4414538497, W4410863163, W4413360958, W4405909473, W4405103452, W4409156867, W4401693748, W4395686776, W4400411024, W4401539202, W4393147626, W4390189149, W4388836069, W4387150077, W4387397220, W4388283421`.
+
+R51 — ordered work IDs: không có record trả về.
+
+WM26 — ordered work IDs: `W7225724421`.
+
+### Keyword: 8 gốc + 4 refinements
+
+CSDL canonical: OpenAlex, relevance mặc định, max20/query, không hard year/venue filter. Ưu tiên2017+ khi ranking; không cắt bỏ direct older prior. q1 đồng thời thử Semantic Scholar (429); q2–q12 dùng OpenAlex vì rate limit. Lookup exact title/DOI/version/OA không được ghi thành keyword coverage.
+
+| Query | Query text thật | Results sàng | Final KEEP appearances | New unique KEEP | Trùng KEEP | Exact-ID lặp trong keyword | Lý do refinement |
+|---|---|---:|---:|---:|---:|---:|---|
+| q1 | `value of information routing` | 20 | 0 | 0 | 0 | 0 | Gốc trong brief |
+| q2 | `model mismatch regret network control` | 20 | 1 | 1 | 0 | 0 | Gốc trong brief |
+| q3 | `stale state routing decision` | 20 | 3 | 3 | 0 | 0 | Gốc trong brief |
+| q4 | `stale information load balancing queue` | 20 | 8 | 4 | 4 | 2 | Gốc trong brief |
+| q5 | `network digital twin synchronization decision quality` | 20 | 1 | 1 | 0 | 0 | Gốc trong brief |
+| q6 | `telemetry freshness network control decision` | 20 | 2 | 1 | 1 | 0 | Gốc trong brief |
+| q7 | `certainty equivalence stale state queueing` | 20 | 2 | 2 | 0 | 0 | Gốc trong brief |
+| q8 | `age of information non-monotone decision` | 20 | 0 | 0 | 0 | 0 | Gốc trong brief |
+| q9 | `stale information` | 20 | 6 | 1 | 5 | 5 | Bỏ các qualifiers dài của q3/q4 để bắt thuật ngữ stale-information chuẩn; dblp cùng query được dùng kiểm networking venues. |
+| q10 | `transient error approximation queue` | 20 | 1 | 1 | 0 | 0 | Bổ sung nhánh transient/stationary approximation và finite planning cost của K2, thiếu trong các query routing chung. |
+| q11 | `value of information networked control model` | 20 | 3 | 3 | 0 | 0 | Nối information/model với control cost, thay vì chỉ freshness hoặc prediction; nhắm K2/K3. |
+| q12 | `non-monotonic age information decision cost` | 20 | 0 | 0 | 0 | 5 | Đổi non-monotone thành non-monotonic và thêm cost để kiểm wording của q8; không nới field. |
+
+q1 — ordered IDs: `W7172393590, W3112936986, W7160610904, W2156938163, W2888774360, W2162228023, W2171691110, W2168039849, W3048644094, W257629238, W3021329401, W1573549353, W1968301777, W1499554562, W160309212, W2109212697, W1576436660, W2334519497, W4390423687, W2126044492`.
+
+q2 — ordered IDs: `W3135088450, W7165617482, W3193362061, W4281631481, W2147602678, W4415796545, W3110108666, W4396645948, W7213915520, W7106100682, W4221140968, W3119715644, W4386555910, W3204550979, W4396944578, W4224904029, W2992943766, W2949595678, W7164967062, W2743381431`.
+
+q3 — ordered IDs: `W2111010037, W1996350158, W7167054579, W2105950958, W7221814252, W1591579330, W2134744973, W2132476946, W1974999478, W2156216151, W7221633250, W2107873710, W2773305873, W7214299859, W775519579, W1850852150, W7160611021, W822351967, W1993467593, W7216133319`.
+
+q4 — ordered IDs: `W1591579330, W2969687560, W2766516557, W7202202643, W1485036126, W4224103281, W7171923648, W2598178428, W2152734062, W3108572510, W1996350158, W2134889667, W7169668629, W2106352837, W4390120002, W2068666958, W4312865849, W2465793152, W2914329808, W4313463292`.
+
+q5 — ordered IDs: `W4386446982, W7167888127, W3163356365, W4402508647, W4380303648, W4391709798, W7117358182, W3034026586, W4292826080, W7164000077, W4386316965, W4281853153, W7166535664, W3049282540, W7169816659, W4402273269, W4391661336, W4408223328, W7168275270, W7133316366`.
+
+q6 — ordered IDs: `W4380551571, W7214160966, W7225151644, W7225326069, W2954539995, W4414246837, W3207272587, W7172453838, W7120487119, W7214242595, W4385993956, W7212074562, W4281386595, W7223710283, W7138930749, W3210632405, W7223088788, W2777733988, W7220690585, W7170168281`.
+
+q7 — ordered IDs: `W2898525400, W7214624296, W2914821757, W7220047976, W7172117445, W1523975487, W7208733461, W7216773348, W7172519589, W7221822908, W7159646120, W3042374675, W4412998200, W7225738949, W7168265455, W7140351472, W4416242768, W4382364307, W7221107516, W7214935228`.
+
+q8 — ordered IDs: `W1598449990, W3125396196, W3043659689, W2997442646, W2588468001, W2963270598, W2904264726, W2963082493, W2966441493, W4360951929, W2766733751, W3124223012, W2105555541, W2069346990, W3122128387, W2804379400, W2970029779, W3080961847, W3154559866, W4394564113`.
+
+q9 — ordered IDs: `W3125011952, W2119813346, W1996350158, W3125562143, W3123257702, W2898525400, W4390120002, W4235332869, W2148709600, W74921979, W2351852387, W1974999478, W4224103281, W3097085274, W7171949233, W4387613282, W7171714236, W2122960754, W2109440766, W2124982134`.
+
+q10 — ordered IDs: `W2340877559, W2272549047, W2283172982, W2140138077, W2109224762, W2082808096, W1530176215, W220235936, W2498242778, W1979137087, W2570200584, W2145900838, W7223736352, W2962064951, W3090606157, W2132012447, W4411319975, W1758785599, W7164364993, W2130345833`.
+
+q11 — ordered IDs: `W2164584356, W2922422094, W2102928860, W4226305442, W3123730101, W3188790189, W2777945502, W4408325374, W2128464968, W3154503377, W4413120628, W2115033790, W4393026911, W1696613443, W2167805594, W2059260784, W2073458555, W2086881031, W2926203989, W3043654417`.
+
+q12 — ordered IDs: `W2997442646, W2962737918, W3043659689, W1575636007, W4416073063, W7160847980, W2607384700, W2971291634, W4411983377, W2904206628, W4417201787, W2588468001, W3196870774, W2123129791, W2963082493, W3019450228, W2248060815, W2156007017, W2966441493, W4382140465`.
+
+### Sàng, gộp trùng và giới hạn cap40
+
+Gộp các aliases của work giữ: S11 journal/arXiv; R51=P03/PMLR/arXiv; Dahlin ICDCS1999→TPDS2000 (`W2109440766`→`W2122960754`); Adaptive routing PODC2005→TCS2009 (`W2119813346`→`W1996350158`); Hyper-Scalable JSQ conference summary→POMACS37trang (`W2921990381`→`W4237799490`); Altman–Nain SIGMETRICS/PER (`W3013672175`→`W2026076901`). Khác title/DOI mà chưa đủ version evidence không tự gộp. Same query/payload được gọi lại không sinh candidate mới.
+
+- **DROP estimation/prediction-only ở mức abstract:** SS22 và các remote-inference descendants như Timely Communications for Remote Inference, On the Monotonicity of Information Aging; self-adaptive NDT `10.1016/j.comnet.2025.111967` sau khi kiểm [arXiv2507.20971v2](https://arxiv.org/abs/2507.20971v2) chỉ báo delay/jitter prediction NMSE trong abstract. Không dùng non-monotone inference error làm evidence cho negative decision value.
+- **DROP scope:** q1 vehicle-routing/TSP/TRP, finance từ q2/q9/q12, biology/fish telemetry từ q6, LLM/expert routing và generic visual-RL papers không có đúng field/intervention. Routing game dạng graph/network vẫn được sàng theo exception network-like routing; không tự coi tất cả road-network routing là VRP.
+- **Sàng nhưng không giữ trong cap40 vì xa estimand/regime hơn:** q1 Bayesian Routing Games (`10.1287/opre.2020.1999`), online shortest-path routing (`10.1109/ACC.2014.6859133`), thesis partial traveler information; q2 graph-informed spatial-regret và network-coupled LQG learning; q3 localized routing/admission/hierarchical flows và thesis variants; q4 stale-metric update timing/Learned Load Balancing; q7 control-performance AoI proxy; q8 age/quality/energy scheduling. Không coi việc bị outrank là bằng chứng paper không có kết quả liên quan.
+- **Metadata/abstract còn thiếu, không ghi DROP vì không liên quan:** Dodoor (M00-forward#1), một số EJOR/Peva dispatching records, Periodic load balancing, On the implications of routing metric staleness in delay tolerant networks. Ngoài cap, không dùng chúng cho zero-yield/saturation claim.
+- **Incidental metadata lookup, không là KEEP thứ41:** `Routing with too much information?`, DOI `10.1007/s11134-022-09818-y`, thấy trên trang tác giả khi phân giải M00-forward Dynamic Routing. Crossref/publisher/Lancaster/Berkeley xác nhận identity; publisher không có abstract, chỉ institutional introductory blurb. Không đọc PDF hoặc ghi note; không suy kết quả từ title. `Distributed JSQ with Sparse/Unreliable Updates` cũng đã sàng nhưng không vào top40: abstract không nêu rõ cost metric ngoài stability/performance chung; giữ nguồn dynamic-regret từ q2 có metric rõ hơn.
+
+Older-source rationale có trong từng dòng #5–#7, #9–#13, #16, #28–#29. Năm issue theo Crossref/primary: heavy-traffic JSQ2021 (online2020), Distributed Dispatching2023 (online2022), compute-cluster feedback2023 (online2022), Learning VoI2026 (online2025), Adaptive routing2009 (online/index2008). Không lấy năm trong DOI làm publication year.
+
+### Enrichment / OA lookup, không cộng discovery
+
+Đã có **33/33 DOI của các work giữ có DOI publisher** đối chiếu metadata Crossref trong phiên; 4 preprint xác minh arXiv landing, R51 xác minh PMLR+arXiv, Cao/Nyberg xác minh Lund và thesis xác minh IDEALS. Không kết luận peer review của arXiv từ việc có DOI DataCite. Tổng có86 MCP calls (12 scholar_search +74 paper_search), gồm các tool lookup/retry/OA probes; số calls không phải số papers.
+
+Web lookup theo exact known title/DOI/OA gồm: Cao/Nyberg; Micro load balancing; Dynamic Routing; stale-edge Computer Networks; Routing with too much information; Katsikopoulos/Engelbrecht; Altman/Stidham; heavy-traffic JSQ; M00 Harvard; Dahlin UT Austin; Whitt Columbia; R34 IISc; Mirchandaney/Towsley/Stankovic; Robustness JSQ; sparse JSQ/Fodor; P04/Rexford. Có25 exact-title/OA search requests (4+4+4+4+4+4+1), không thêm discovery query thứ13. Số SERP hits mỗi request không có payload phân chia đủ để đếm: **N/A**, không ước đoán. Chỉ dùng nguồn publisher/arXiv/kho tác giả-trường để xác minh nội dung kỹ thuật; kết quả ResearchGate/aggregator không là căn cứ theorem/OA-certified.
+
+SERP có thể hiển thị excerpt PDF; lượt này chỉ sử dụng title/abstract và bibliographic metadata. Không gọi tool tải/đọc PDF mới, không mở PDF link để đọc theorem hoặc phần thân. Navigation một blurb giới thiệu không được ghi thành abstract/full-text reading. Các mức AI-T/author của phiên cũ không bị sửa.
+
+Chưa tìm được OA xác minh cho **#10, #11, #27, #28**; tác giả có thể lấy qua thư viện trường. “Chưa tìm được” chỉ nói về phiên này. **#12** có trang tác giả trỏ published PDF nhưng direct target chưa lấy được; **#14** có author-preprint link trên Drive nhưng chưa kiểm quyền mở file; **#36** có publisher OA status theo metadata nhưng chưa xác minh direct PDF URL. Không coi các link này là PDF đã tải/đã đọc. Các URL còn lại cũng được ghi ở mức metadata, chưa kiểm byte/version equality của PDF. R34 đã tìm được link bản TAC1995 tại IISc; không dùng bản CDC1992 hai trang thay journal.
+
+### Lỗi và fallback
+
+- `scholar_search`: **12 calls bị chặn** bởi `MCP tool call requires approval, but approval policy is never`: batch seed details, WM26 details, và 5×2 backward/forward. Không có graph payload từ server này; không ghi chúng là search thành công.
+- `paper_search`: **4 OpenAlex 429** (M00/SS22/WM26 backward và M00 forward), cộng **2 Semantic Scholar 429** trong R51 unified lookup và q1. Bounded retry theo work ID lấy được M00/SS22 references; WM26 references và recent citations lấy qua official OpenAlex HTTP. Fallback là read-only metadata, không tải PDF.
+- `get_citing_papers` sắp theo citation count và không có sort parameter. Chỉ dùng kết quả đó để đối chiếu; canonical forward dùng HTTP `sort=publication_date:desc`, `to_publication_date:2026-11-15`, `per-page=50`. R51 có 0 returned trên record arXiv, không đồng nghĩa 0 citations của bản PMLR.
+- **5 `search_dblp` calls** (q1/q3/q4/q5/q9) đều trả0. Official API trên `dblp.org` và `dblp.uni-trier.de` trả HTTP202 HTML, không phải JSON, nên **không coi 0 là evidence không có bài hoặc query hợp lệ để chấm 2×20**. Một số dblp record pages vẫn tra được qua web để đối chiếu venue.
+- **3 Unpaywall probes** cho DOI của R34/P13/VoI-delay đều trả0, kể cả nguồn có repository OA tìm được sau đó. Không dùng kết quả rỗng này kết luận paywall; OA tra tiếp qua arXiv, publisher, kho trường và trang tác giả.
+- Publisher/author access có 403/cache-miss/timeouts: ScienceDirect adaptive-routing landing, Columbia HTML khi HTTP trực tiếp, Lancaster landing, MPI repository, KTH/DiVA và trang Stankovic. Web cache/primary metadata có thể vẫn dùng được; không đánh đồng access failure với paper không tồn tại. Direct access của bản preprint Drive #14 chưa kiểm.
+- Local `rg` và `python` không có; dùng `python3`. Một check chống ghi đè dừng vì P-REF2 được thêm từ ngoài; đã xác nhận prefix cũ còn nguyên và append sau P-REF2. Một preview metadata vấp `None` DOI; đã sửa biểu thức, xuất lại và kiểm dữ liệu cuối. Không mất/sửa source hoặc log cũ.
+
+### Receipts và reproducibility
+
+Payload HTTP/JSON/tool envelopes tạm ở `/tmp/p1_prior_session/` (ngoài repo; không coi là kho lâu dài). Hai Markdown giữ query/params, ordered IDs, version/source hashes và quyết định sàng. Không tuyên bố full raw-payload reproducibility sau khi cache tạm bị xóa. Các SHA dưới đây là payload nhận thật hoặc SHA của JSON tool envelope theo serialization nêu, không chứng minh abstract/metadata đúng.
+
+| Receipt | Status / số records | SHA256 |
+|---|---|---|
+| M00_crossref_raw | 200 / N/A | `89c1afaf47f224ea328104c7e311a350e478f660a9c19bda51fe25759f5f2f49` |
+| q1_raw | 200 / 20 | `dd8419ab36bc736dc3cf38cb2fd0198c8ae8f9f7a17cf5102fc228eeadb1c196` |
+| S11_forward_recent | 200 / 7 | `1f24e845761ef528b41f2fd46d171d72e783c07dc66ec9be8136cfe8ec0fadd2` |
+| S11_arxiv_forward_recent | 200 / 1 | `99b777253e40f9946356fa555ea0adcf8524fb6c66e403dbe9f55bb47f632bec` |
+| M00_forward_recent | 200 / 50 | `b8d929b1ffdfa2cda9b4d5c96550540f2c41d942969c1223e6c6bc591dd60947` |
+| SS22_forward_recent | 200 / 28 | `7b5ee2a8edf1d0373981e2e17c13e8677498a99e777dbc20f1d9895fe1810ab0` |
+| R51_forward_recent | 200 / 0 | `52a67dc65b104bd196c457e3aaa9272f789f2fc0581d067dd47c141acc1b9e50` |
+| WM26_forward_recent | 200 / 1 | `d0060b53f81eb9a2fd3c1d518eef29efbd23d209b1838d0a5e17ecc1001ca2b7` |
+| WM26_backward_http | 200 / 33 | `2e546f46c02919c6693f36014b0d71e3ed496bb403886fc666a9e31fda86bb7f` |
+| dblp_q9_http | 202 / N/A | `eb9b4208d3cf78e01a9a45bf319e3d794bf52586511dd7801ee87fee51a5fe10` |
+| dblp_q9_mirror | 202 / N/A | `08ba0002295d0714cc80ef51892289f88093b1c8214358b1ee4ccb2548a51916` |
+| q2 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `0cb6c25c109fbf7bbc21976e1dbf30a4ecb23cf05a5561a89e75ba5650ee2e08` |
+| q3 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `60ee2e1cefc400f4c3d3c185b8e7e877e734e0064baf9a21f253d2754492c388` |
+| q4 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `2d130fa3ef8b1ff02de910bcb51ea3b38ed6ce5f95230a276b04851e99548632` |
+| q5 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `95b8ba011329a15d7a606f3b42fa21f13b4d82ae063157a1400d6170d9993fcb` |
+| q6 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `d4b738ddfa6737d492802a7e076526ad101a23ea2857246a1bb915b204d1ec44` |
+| q7 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `e1d8f551c4c32cc28fa5968b8f3a533a008c3997dc9760cb3f8e3f70ccff71c2` |
+| q8 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `b79fbcb80ed20f9df43144e69929abd407f9ba904ad297fbe2eed70fa1e649d4` |
+| q9 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `746b07a7333ab81d7aae57ead3a96527c3602f38891624a3a02f970a5d6db791` |
+| q10 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `8ccbe68f3f5377d3626a5749643374e982cd76428dc2e0f3abb3706fedf19c0f` |
+| q11 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `412905435d783cad1eaf0bce55c63f02d6fdedb8ccbeb3e4786e7af8535ff9f8` |
+| q12 MCP envelope (UTF-8, sorted JSON keys, compact separators) | 20 | `9b31afa854405e05baf2644a578a65afed5f0cbae2ef0396062ca51886a24b9d` |
+
+### Dừng / bàn giao
+
+**2×20: CHƯA ĐẠT.** New KEEP theo q1…q12 trong ledger cuối là `0,1,3,4,1,1,2,0,1,1,3,0`; không có hai query liên tiếp bằng0. q11 còn3 work mới, q12 không thêm work. Dừng vì đã dùng đủ **8 query gốc + 4 refinement** và đạt **cap40**, không vì token budget. Cap/ranking không là evidence saturation; chưa xác nhận mức overlap của K2/K3/K5 từ abstract. Không chọn/đổi claim, không làm bước2–4.
+
+Đầu ra: [P1_prior_candidates.md](P1_prior_candidates.md), 40 dòng; không tạo file report riêng, không thêm catalog/Excel, không tạo CSV/biểu đồ, không simulation, không commit. Chỉ hai file trong brief được ghi trong repo. Log P-REF2 phát sinh từ ngoài trong lúc làm được giữ nguyên trước heading P1-PRIOR. **Chưa xác nhận overlap/claim boundary**; bàn giao targeted reading/matrix cho Claude theo bước2–4.
+| 15/11 | read AI-T | P1 | Hyytiä & Righter 2021 VALUETOOLS (AAM esa.hi.is) | curl + pdftotext | 1 | 1 (TB) | Abstract, §1, §6 tr.12–13 |
+| 15/11 | lookup | P1 Table I bib | Goren ToN, Hyytiä LNICST, Othman TNSM, Beraldi ComNet | Crossref DOI | 4 | 4 | Metadata cho 5 mục bib mới (cùng Atar) |
+| 15/11 | select | P1 bước 2 | 40 ứng viên + 5 seed | Claude phán đoán | 45 | 11 vào Table I | Lý do ở P1_prior_matrix.md |
