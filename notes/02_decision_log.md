@@ -4379,3 +4379,40 @@ hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương q
 - Claim "luật dấu cho twin nowcast" phải thu hẹp về τ ≪ T_int hoặc τ ≫ T_int, và về các trace đã kiểm. Chưa tách được ba nguyên nhân: lặp trace, tải, trace.
 
 **Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ.
+
+### DL-148 — EV-D4c: luật dấu hỏng ở τ ≈ T_int chỉ trên traffic liên tục; lặp trace che lỗi (15/11/2026)
+
+**Ủy quyền.** "nếu có thể thì làm cả 2 cũng được, bạn có nhiệm vụ phân chia cho codex làm đi". Claude thiết kế, khóa, chấm; Codex viết code và chấm lại độc lập (`LOCKED_AI_DELEGATED`).
+
+**Trình tự:**
+- Thẻ `8136c510` trước mọi output.
+- Code `1fc67ac9`; lock `d818dbc4` sau train, trước test.
+- Một lần chạy test trên VM (nâng tạm lên n2-standard-32): 960/960 job, 55 phút.
+- Dữ liệu thô `a820c7c6` trước điểm `f5852a42`; chấm lại local trùng từng byte; Codex chấm lại độc lập `d4429686`: MATCH.
+
+**Thiết kế:** ba nhánh trên trace DITL:
+- C: liên tục, tải thấp;
+- L: cùng regime và seed, đoạn 15 phút lặp;
+- H: lặp, tải cao.
+
+τ = r·T_int, r gồm 8 mức.
+
+**Fact:**
+- H1 FAIL (C low 71,2%).
+- H2 PASS (C band 54,2%, tỷ lệ phần tăng 0,196).
+- H3 = LOOPING (band L 1,00, H 0,99).
+- D6-C FAIL 87,2%. Post-hoc: 235/240 ở τ ≤ 1,2·T_int và 44/80 ở τ ≥ 2,5·T_int, nơi lợi ích của plug-in vẫn tăng.
+- D6-L/H PASS (khám phá).
+- Dự đoán AI trước khi chạy: đúng H2, H3; sai H1, D6-C.
+
+**Hệ quả:**
+- Wave 3 PASS là do lặp trace; không phải do tải, cũng không phải do khác trace.
+- Trên traffic liên tục, luật dấu chỉ đứng ở τ rất nhỏ và τ ≥ 2,5·T_int.
+- T12 đứng ở τ ≲ T_int, cần h dài so với thành phần chậm nhất.
+- Giả thuyết thống nhất (chưa kiểm): thành phần chậm làm phần dư e^{−γh} chưa tắt ở 30·T_int.
+
+**Paper:** claims_scope K3, K8 cập nhật trong `state-model-regret-papers/paper_smr/ledger/`.
+
+**Hạ tầng:** VM trả về n2-custom-12-49152 theo quy tắc của tác giả.
+
+**Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ.

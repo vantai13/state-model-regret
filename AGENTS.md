@@ -730,3 +730,7 @@ lặp đoạn 15 phút làm T_int ngắn 6–10 lần → "30 T_int" của wave 
 EV-D4b/15-11 (DL-147, ext/validity): trace DITL 4 h liên tục, tải ≤0,775, 6 mức τ, chỉ chạy GCP; khóa e8700550, raw 29e65ffd trước
 điểm 380ffb6c. D1 240/240, D6 (T12 dạng O(1)) 237/240, D4 239/240 PASS (hybrid 71/120 ô G=0, policy tĩnh); D2 FAIL 70%, D3 FAIL,
 D5 FAIL. Post-hoc: luật dấu hỏng ở τ≈0,5–1,1 T_int (hệ số dốc sai), đúng hơn ở τ≪T_int/τ≫T_int. `results/ext_validity/ev_d4b/REPORT_EV_D4B.md`.
+EV-D4c/15-11 (DL-148, ext/validity): 3 nhánh trên trace DITL (C liên tục tải thấp, L lặp 15 phút cùng regime, H lặp tải cao),
+τ=r·T_int 8 mức; khóa d818dbc4, raw a820c7c6 trước điểm f5852a42, Codex chấm lại MATCH. H2 PASS (band C 54%, dốc 0,20), H3 LOOPING
+(L 100%, H 99%), H1 FAIL 71%, D6-C FAIL 87% (post-hoc 235/240 ở τ≤1,2T_int, 44/80 ở τ≥2,5T_int). Lặp trace che lỗi luật dấu;
+T12 chỉ giữ ở τ≲T_int trên traffic thật. `results/ext_validity/ev_d4c/REPORT_EV_D4C.md`.
