@@ -47,7 +47,7 @@ Do not change any existing file. If `packet.py` cannot handle something the card
 3. **`design`** → `cases_all.json` (480 cases = 3 arms × 20 × 8).
    - For each regime, read `train_probe/{regime}_probe_s{seed}.json`.
      - If `T_int_censored`, or T_int ≤ 0: keep the regime out of `cases_all` and list it in `design_excluded.json`.
-     - Else make 8 cases with `tau = round(r * T_int_probe, 2)`, `id = f'{regime}_r{r:g}'`, the same seed.
+     - Else make 8 cases with `tau = round(r * T_int_probe, 2)`, `id = f'{regime}_r{round(r*10):02d}'` (r01, r03, r05, r08, r10, r12, r25, r50; `packet.validate` forbids dots in ids — amended 15/11 after Codex's stop report; keep the numeric field `r`), the same seed.
    - If any τ < 0.01, raise.
 4. **(train, existing CLI)** `--cases OUT/cases_all.json --out OUT/train`.
 5. **`select`** → `cases.json` + `selection.json`.
@@ -95,7 +95,7 @@ Do not change any existing file. If `packet.py` cannot handle something the card
 ## `ev_d4c_pipeline.sh STAGE` (runs on the VM in `~/smr`; started by Claude)
 The pattern is `ev_d4b_pipeline.sh`: log to `~/ev_d4c.log`, with `STAGE_START`/`STAGE_DONE` lines and timestamps.
 - **`train`:**
-  1. probe train (`--workers ${WORKERS:-12}`);
+  1. probe train (`--workers ${WORKERS:-32}`; the VM is now n2-standard-32, 128 GB);
   2. `design`;
   3. main train;
   4. `select`;
@@ -105,7 +105,7 @@ The pattern is `ev_d4b_pipeline.sh`: log to `~/ev_d4c.log`, with `STAGE_START`/`
   - On any failure, stop with a `FAILED step=...` line. **No poweroff.**
 - **`test`:**
   1. `verify-lock` (abort, then sync and poweroff if it fails);
-  2. `run` with retry on fewer workers (12, 6, 3) under `timeout 9h`;
+  2. `run` with retry on fewer workers (${WORKERS:-32}, 16, 8) under `timeout 9h`;
   3. `manifest`;
   4. `score`;
   5. `PIPELINE_DONE`, `sync`, `sudo -n poweroff`.
@@ -139,3 +139,7 @@ Then run `pytest -q tests/test_ev_d4c.py` and the existing `tests/test_ext_packe
   - how long one probe train takes locally for one C and one L case, if you measured it;
   - otherwise use EV-D4b: 120 trains plus 240 tests took about 44 min for the test on 12 vCPU, and test cost scales roughly with T_int.
 - Any place where the card was ambiguous and the choice you made.
+
+## Amendment 15/11 (after the first Codex stop report)
+- Case ids use `_r{round(r*10):02d}` (see `design`), because `packet.validate` rejects dots. Nothing else changes.
+- Your stop was correct. Continue now with the full brief, including the τ < 1 s smoke check.
