@@ -734,3 +734,8 @@ EV-D4c/15-11 (DL-148, ext/validity): 3 nhánh trên trace DITL (C liên tục t�
 τ=r·T_int 8 mức; khóa d818dbc4, raw a820c7c6 trước điểm f5852a42, Codex chấm lại MATCH. H2 PASS (band C 54%, dốc 0,20), H3 LOOPING
 (L 100%, H 99%), H1 FAIL 71%, D6-C FAIL 87% (post-hoc 235/240 ở τ≤1,2T_int, 44/80 ở τ≥2,5T_int). Lặp trace che lỗi luật dấu;
 T12 chỉ giữ ở τ≲T_int trên traffic thật. `results/ext_validity/ev_d4c/REPORT_EV_D4C.md`.
+EV-TE/16-11 (DL-149, ext/validity): Abilene/GÉANT SNDlib, tải điều biến tổng hợp, stale/fresh chỉ khác tuổi; khóa 56dbc52b, raw effcf40e
+trước điểm ae046daa (lần 1 lỗi ghi JSON numpy int64, wrapper chỉ đổi encoder, CSV trùng byte), Codex chấm lại khớp H1–H4 (Γ ngược dấu
+do quy ước; code khóa theo paper §II). H1 195/196, H2 192/192, H3 183/192, H4 191/196 đều PASS; Abilene 128 ô cùng dấu do r_Switch=0, đa dạng
+dấu chỉ ở GÉANT 68 ô; H4 yếu (165 ô qua vế 2se, C_ref Abilene ≈0,3% E_stay). Arm R TM thật: h/T_int 0,01–0,21, G_S ~1e−3 % E_stay.
+Paper chưa sửa. `results/ext_validity/ev_te/REPORT_EV_TE.md`.

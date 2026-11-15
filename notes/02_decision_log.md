@@ -4416,3 +4416,35 @@ hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương q
 **Hạ tầng:** VM trả về n2-custom-12-49152 theo quy tắc của tác giả.
 
 **Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ.
+
+### DL-149 — EV-TE: luật độ dốc nhiều action đứng trên hai topology WAN thật với tải tổng hợp; H4 yếu (16/11/2026)
+
+**Ủy quyền.** Tác giả chọn hướng (c) "tự thiết kế thí nghiệm và chạy trên server gcp", duyệt thiết kế ("oke", 15/11) và giao chạy, kiểm tra ("bạn tự chạy kiểm tra tất cả"). Claude thiết kế, viết thẻ, khóa, chấm; Codex viết code và chấm lại độc lập (`LOCKED_AI_DELEGATED`). Không có mentor review, không có kỳ vọng của tác giả trước khi chạy.
+
+**Trình tự:**
+- Code (73 test), train seed A, 732 dự đoán, thẻ, khóa 70 file và dấu vân tay dữ liệu: `56dbc52b`, trước mọi giá trị của seed B.
+- Arm R v2 mô tả, ngoài khóa: `14a4d79e`.
+- Một lần chạy truth trên VM (tạm nâng lên n2-standard-32): 61/61 regime, 3 giờ 38 phút, rc=0, CPU worker 113 997,5 s.
+- Dữ liệu thô `effcf40e`, trước điểm `ae046daa`.
+- Lần chấm 1 tính đủ số nhưng lỗi khi ghi JSON (numpy int64). Lần 2 qua `ev_te_score_post.py`, chỉ thay bộ mã hóa JSON (tiền lệ L7.5); CSV trùng từng byte. Lần 1 giữ nguyên.
+- Codex chấm lại độc lập: H1–H4 và mọi cờ khớp; Γ ngược dấu do quy ước, code đã khóa theo paper §II.
+
+**Fact:**
+- H1 PASS 195/196, H2 PASS 192/192, H3 PASS 183/192, H4 PASS 191/196.
+- Theo regime: 48/49, 48/48, 45/48, 45/49.
+- Abilene đóng góp 128/196 ô, cùng một dấu do cấu trúc ($r_{Switch}=0$). Đa dạng dấu chỉ ở GÉANT: H1 67/68, H3 55/64.
+- H3: tỷ số $z$/pred trung vị 0,966; sai số tương đối của phần tăng trung vị 6,2%. 9 ô trượt đều ở GÉANT, đo nhỏ hơn dự đoán 25–37%.
+- Với twin M0, telemetry tươi làm chi phí tăng ở 128/128 ô Abilene (11–77% $E_{stay}$ tại 30·T_int) và ở 35/68 ô GÉANT.
+- H4 yếu: 165/196 ô PASS chỉ nhờ vế 2 se, vì $C_{ref}$ ở Abilene chỉ khoảng 0,3% $E_{stay}$.
+- Arm R: epoch TE 5–60 phút trên TM Abilene thật nằm ở $h/T_{int}$ = 0,01–0,21; $G_S$ cỡ $10^{-3}$% $E_{stay}$.
+- Dự báo của AI trước khi chạy: H4 "nên PASS" (đúng, nhưng kiểm định yếu); H1/H2 "không chắc"; H3 "khó nhất".
+
+**Hệ quả:**
+- Trên topology thật với tải điều biến tổng hợp, luật dấu và độ lớn phần tăng dài hạn đứng.
+- Kết quả không nói gì về vận hành thật ở epoch TE thông thường, nơi $h\ll T_{int}$.
+- Corollary 1 chỉ được kiểm ở độ nhạy thấp.
+- Paper chưa sửa; viết EV-TE vào paper khi tác giả yêu cầu.
+
+**Hạ tầng:** VM trả về n2-custom-12-49152 và để TERMINATED theo quy tắc của tác giả.
+
+**Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ, file đã khóa (`ev_te.py` sha256 `4eb87842…`).
