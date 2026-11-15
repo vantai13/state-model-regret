@@ -1,0 +1,93 @@
+{
+  "regimes": 64,
+  "retained": 61,
+  "excluded": [
+    {
+      "id": "G1_r80_b3_s0",
+      "reason": "P(total backlog > 0) < 0.01",
+      "P_Q_positive": 0.00925
+    },
+    {
+      "id": "G2_r80_b3_s0",
+      "reason": "P(total backlog > 0) < 0.01",
+      "P_Q_positive": 0.0097125
+    },
+    {
+      "id": "G3_r80_b3_s0",
+      "reason": "P(total backlog > 0) < 0.01",
+      "P_Q_positive": 0.009895
+    }
+  ],
+  "T_int": {
+    "min": 0.29286487927110616,
+    "max": 96.6333042803148,
+    "unit": "fast-mode time units; calibration estimate"
+  },
+  "T_int_final_grid": {
+    "min": 0.3101737929201913,
+    "max": 92.51269978086954
+  },
+  "final_check_ratio": {
+    "min": 0.5966271953192599,
+    "max": 2.819649863857005
+  },
+  "dt": {
+    "min": 0.007321621981777654,
+    "max": 0.05
+  },
+  "CPU_total": 13264.092035384001,
+  "nonstationary_regimes": [
+    "G4_r80_b3_s0",
+    "G4_r80_b3_s1",
+    "G4_r80_b6_s0",
+    "G4_r80_b6_s1",
+    "G1_r90_b3_s0",
+    "G1_r90_b3_s1",
+    "G1_r90_b6_s0",
+    "G1_r90_b6_s1",
+    "G4_r90_b3_s0",
+    "G4_r90_b3_s1",
+    "G4_r90_b6_s0",
+    "G4_r90_b6_s1"
+  ],
+  "nonstationary_action_utilization_max": 1.1968225970095976,
+  "s_signs": {
+    "abilene": {
+      "single_OD": {
+        "n": 24,
+        "switch_lower": 24,
+        "switch_higher": 0,
+        "zero": 0,
+        "median_r_stay": 409.51404186682134,
+        "median_r_switch": 0.0
+      },
+      "two_OD": {
+        "n": 8,
+        "lower_by_action": {
+          "1": 8,
+          "2": 8,
+          "3": 8
+        }
+      }
+    },
+    "geant": {
+      "single_OD": {
+        "n": 21,
+        "switch_lower": 6,
+        "switch_higher": 15,
+        "zero": 0,
+        "median_r_stay": 779.7043152789306,
+        "median_r_switch": 1953.788857151568
+      },
+      "two_OD": {
+        "n": 8,
+        "lower_by_action": {
+          "1": 0,
+          "2": 3,
+          "3": 0
+        }
+      }
+    }
+  },
+  "any_switch_lower": 41
+}

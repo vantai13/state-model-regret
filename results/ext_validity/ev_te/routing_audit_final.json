@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "topology": "abilene",
+      "ods": 132,
+      "no_second_path": [
+        "ATLAM5_ATLAng",
+        "ATLAng_ATLAM5"
+      ],
+      "path_mismatches": []
+    },
+    {
+      "topology": "geant",
+      "ods": 462,
+      "no_second_path": [],
+      "path_mismatches": []
+    }
+  ],
+  "total_ods": 594,
+  "PASS": true,
+  "initial_audit": "routing_audit.json used [first] versus [first,None] for two leaf-link demands; final audit normalizes absent second paths to None. No routing/code change."
+}

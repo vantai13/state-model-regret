@@ -1,0 +1,248 @@
+{
+  "status": "IMPLEMENTED_AND_EXECUTED_WITH_DESIGN_ISSUES",
+  "responsible": "Doan Van Tai",
+  "training": {
+    "regimes": 64,
+    "retained": 61,
+    "excluded": [
+      {
+        "id": "G1_r80_b3_s0",
+        "reason": "P(total backlog > 0) < 0.01",
+        "P_Q_positive": 0.00925
+      },
+      {
+        "id": "G2_r80_b3_s0",
+        "reason": "P(total backlog > 0) < 0.01",
+        "P_Q_positive": 0.0097125
+      },
+      {
+        "id": "G3_r80_b3_s0",
+        "reason": "P(total backlog > 0) < 0.01",
+        "P_Q_positive": 0.009895
+      }
+    ],
+    "T_int": {
+      "min": 0.29286487927110616,
+      "max": 96.6333042803148,
+      "unit": "fast-mode time units; calibration estimate"
+    },
+    "T_int_final_grid": {
+      "min": 0.3101737929201913,
+      "max": 92.51269978086954
+    },
+    "final_check_ratio": {
+      "min": 0.5966271953192599,
+      "max": 2.819649863857005
+    },
+    "dt": {
+      "min": 0.007321621981777654,
+      "max": 0.05
+    },
+    "CPU_total": 13264.092035384001,
+    "nonstationary_regimes": [
+      "G4_r80_b3_s0",
+      "G4_r80_b3_s1",
+      "G4_r80_b6_s0",
+      "G4_r80_b6_s1",
+      "G1_r90_b3_s0",
+      "G1_r90_b3_s1",
+      "G1_r90_b6_s0",
+      "G1_r90_b6_s1",
+      "G4_r90_b3_s0",
+      "G4_r90_b3_s1",
+      "G4_r90_b6_s0",
+      "G4_r90_b6_s1"
+    ],
+    "nonstationary_action_utilization_max": 1.1968225970095976,
+    "s_signs": {
+      "abilene": {
+        "single_OD": {
+          "n": 24,
+          "switch_lower": 24,
+          "switch_higher": 0,
+          "zero": 0,
+          "median_r_stay": 409.51404186682134,
+          "median_r_switch": 0.0
+        },
+        "two_OD": {
+          "n": 8,
+          "lower_by_action": {
+            "1": 8,
+            "2": 8,
+            "3": 8
+          }
+        }
+      },
+      "geant": {
+        "single_OD": {
+          "n": 21,
+          "switch_lower": 6,
+          "switch_higher": 15,
+          "zero": 0,
+          "median_r_stay": 779.7043152789306,
+          "median_r_switch": 1953.788857151568
+        },
+        "two_OD": {
+          "n": 8,
+          "lower_by_action": {
+            "1": 0,
+            "2": 3,
+            "3": 0
+          }
+        }
+      }
+    },
+    "any_switch_lower": 41
+  },
+  "budget": {
+    "N": 500,
+    "K": 128,
+    "R_dec": 128,
+    "R_eval": 256,
+    "workers": 32,
+    "retained_regimes": 61,
+    "instances": 30500,
+    "group_envelope": [
+      {
+        "topology": "abilene",
+        "slow": 0,
+        "pilot": "A4_r90_b6_s0",
+        "regimes": 16,
+        "CPU_per_instance": 0.5217390876666667,
+        "N": 500,
+        "projected_CPU": 4173.912701333334
+      },
+      {
+        "topology": "abilene",
+        "slow": 1,
+        "pilot": "A2_r90_b6_s1",
+        "regimes": 16,
+        "CPU_per_instance": 4.033242931666667,
+        "N": 500,
+        "projected_CPU": 32265.943453333337
+      },
+      {
+        "topology": "geant",
+        "slow": 0,
+        "pilot": "G4_r90_b6_s0",
+        "regimes": 13,
+        "CPU_per_instance": 3.5266881150000002,
+        "N": 500,
+        "projected_CPU": 22923.4727475
+      },
+      {
+        "topology": "geant",
+        "slow": 1,
+        "pilot": "G4_r90_b6_s1",
+        "regimes": 16,
+        "CPU_per_instance": 15.763740676333335,
+        "N": 500,
+        "projected_CPU": 126109.92541066668
+      }
+    ],
+    "projected_CPU_s": 185473.25431283333,
+    "reserve_multiplier": 2.0,
+    "reserved_CPU_s": 370946.50862566667,
+    "budget_CPU_s": 800000,
+    "within_projected_budget": true,
+    "ideal_work_divided_by_32_hours": 3.2200217762644674,
+    "longest_single_regime_hours_at_2x": 4.378816854537037,
+    "greedy_schedule_upper_hours_under_envelope": 7.4620006040972235,
+    "assumptions": [
+      "Each regime uses the CPU/instance of the largest training-workload proxy in its topology/slow group.",
+      "A factor of two is a planning reserve, not a confidence interval or a measured GCP speed ratio.",
+      "Schedule bound assumes the envelope applies, 32 available CPUs, and negligible I/O/VM interference.",
+      "Proposal only; no truth run or parameter lock adopted."
+    ],
+    "pilot_N_per_regime": 3,
+    "pilot_seed": 777,
+    "pilot_peak_memory_MiB": 64.41015625,
+    "pilot_CPU_s": 71.536232432
+  },
+  "arm_r_parsing": {
+    "file_count": 48096,
+    "valid_file_count": 3149,
+    "malformed_count": 44947,
+    "missing_file_count": 7776,
+    "missing_or_malformed_bins": 52723,
+    "first": "2004-03-01T00:00:00",
+    "last": "2004-09-10T23:55:00",
+    "train_end_exclusive": "2004-05-01T00:00:00",
+    "train_bins": 17568,
+    "train_valid_bins": 1617,
+    "test_bins": 38304,
+    "test_valid_bins": 1532
+  },
+  "arm_r": [
+    {
+      "id": "R1_r80",
+      "managed": [
+        "LOSAng_CHINng"
+      ],
+      "bottleneck": "ATLAng_IPLSng:ATLAng>IPLSng",
+      "T_int_minutes": 115.2686225857245,
+      "T_int_censored": false,
+      "tint_segment_bins": 205
+    },
+    {
+      "id": "R4_r80",
+      "managed": [
+        "LOSAng_CHINng",
+        "WASHng_IPLSng"
+      ],
+      "bottleneck": "ATLAng_IPLSng:ATLAng>IPLSng",
+      "T_int_minutes": 115.2686225857245,
+      "T_int_censored": false,
+      "tint_segment_bins": 205
+    },
+    {
+      "id": "R1_r90",
+      "managed": [
+        "LOSAng_CHINng"
+      ],
+      "bottleneck": "ATLAng_IPLSng:ATLAng>IPLSng",
+      "T_int_minutes": 115.48700952843642,
+      "T_int_censored": false,
+      "tint_segment_bins": 205
+    },
+    {
+      "id": "R4_r90",
+      "managed": [
+        "LOSAng_CHINng",
+        "WASHng_IPLSng"
+      ],
+      "bottleneck": "ATLAng_IPLSng:ATLAng>IPLSng",
+      "T_int_minutes": 115.48700952843642,
+      "T_int_censored": false,
+      "tint_segment_bins": 205
+    }
+  ],
+  "tests": {
+    "passed": 73,
+    "failed": 0,
+    "wall_s": 12.73,
+    "log": "tests_sparse_final.log"
+  },
+  "source_sha256": {
+    "experiments/ext_validity/ev_te.py": "a56b9b07ad452e7876d6e53a7b545937c62b57ec2533fc8d467ec5d05304c059",
+    "experiments/ext_validity/ev_te_trace.py": "17247f5132d79ceef7db6637af99d13eae9c69f7b27bd6e0a4f90b916453c263",
+    "experiments/ext_validity/ev_te_pipeline.sh": "46c970a9b5b22cd7ea40dcb734a1f6f630ca46f42400ee67cb73701c8471e1a4",
+    "tests/test_ev_te.py": "febe33b49f3bb372f70d04c6eb3dc58b4908a2a9c57809916d4a054492eefdd0"
+  },
+  "data_recheck_pass": true,
+  "missing_lock_verify_exit": 1,
+  "no_truth_run": true,
+  "no_arm_r_run": true,
+  "no_score_run": true,
+  "no_costs_written_by_timing": true,
+  "no_commit": true,
+  "no_ssh": true,
+  "no_network_requests": true,
+  "no_existing_tracked_file_changes": true,
+  "open_design_issues": [
+    "dt/T_int uses explicitly recorded two-stage seed-A calibration.",
+    "12 regimes contain nonstationary actions; their finite-run r_a are not finite stationary means.",
+    "Sparse TM missing-OD semantics unresolved; strict parser marks 44947 files incomplete.",
+    "Seed-777 timing is an explicit pre-lock exception; truth fails closed without lock."
+  ]
+}

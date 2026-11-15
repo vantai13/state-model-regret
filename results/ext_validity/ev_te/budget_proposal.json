@@ -1,0 +1,65 @@
+{
+  "N": 500,
+  "K": 128,
+  "R_dec": 128,
+  "R_eval": 256,
+  "workers": 32,
+  "retained_regimes": 61,
+  "instances": 30500,
+  "group_envelope": [
+    {
+      "topology": "abilene",
+      "slow": 0,
+      "pilot": "A4_r90_b6_s0",
+      "regimes": 16,
+      "CPU_per_instance": 0.5217390876666667,
+      "N": 500,
+      "projected_CPU": 4173.912701333334
+    },
+    {
+      "topology": "abilene",
+      "slow": 1,
+      "pilot": "A2_r90_b6_s1",
+      "regimes": 16,
+      "CPU_per_instance": 4.033242931666667,
+      "N": 500,
+      "projected_CPU": 32265.943453333337
+    },
+    {
+      "topology": "geant",
+      "slow": 0,
+      "pilot": "G4_r90_b6_s0",
+      "regimes": 13,
+      "CPU_per_instance": 3.5266881150000002,
+      "N": 500,
+      "projected_CPU": 22923.4727475
+    },
+    {
+      "topology": "geant",
+      "slow": 1,
+      "pilot": "G4_r90_b6_s1",
+      "regimes": 16,
+      "CPU_per_instance": 15.763740676333335,
+      "N": 500,
+      "projected_CPU": 126109.92541066668
+    }
+  ],
+  "projected_CPU_s": 185473.25431283333,
+  "reserve_multiplier": 2.0,
+  "reserved_CPU_s": 370946.50862566667,
+  "budget_CPU_s": 800000,
+  "within_projected_budget": true,
+  "ideal_work_divided_by_32_hours": 3.2200217762644674,
+  "longest_single_regime_hours_at_2x": 4.378816854537037,
+  "greedy_schedule_upper_hours_under_envelope": 7.4620006040972235,
+  "assumptions": [
+    "Each regime uses the CPU/instance of the largest training-workload proxy in its topology/slow group.",
+    "A factor of two is a planning reserve, not a confidence interval or a measured GCP speed ratio.",
+    "Schedule bound assumes the envelope applies, 32 available CPUs, and negligible I/O/VM interference.",
+    "Proposal only; no truth run or parameter lock adopted."
+  ],
+  "pilot_N_per_regime": 3,
+  "pilot_seed": 777,
+  "pilot_peak_memory_MiB": 64.41015625,
+  "pilot_CPU_s": 71.536232432
+}

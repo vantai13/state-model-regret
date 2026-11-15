@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 894, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 890, in main
+    {'fetch': fetch, 'design': design, 'predict': predict, 'verify-lock': verify_lock, 'score': score}[args.command]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 710, in verify_lock
+    lock = read_json(out / 'lock.json')  # Missing lock deliberately fails closed.
+  File "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py", line 68, in read_json
+    return json.loads(Path(path).read_text())
+                      ~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/vantai/state-model-regret/results/ext_validity/ev_te/lock.json'
