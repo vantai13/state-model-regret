@@ -1,0 +1,93 @@
+{
+  "case": {
+    "id": "CN04_probe",
+    "arm": "C",
+    "regime": "CN04",
+    "r": null,
+    "tau": 1.0,
+    "lamA": 7.25,
+    "lamB": 6.685,
+    "u": 0.5,
+    "seed": 15004,
+    "n_inst": 10000,
+    "spacing_mult": 3,
+    "train_T": 100000.0,
+    "sample_dt": 0.2,
+    "h_mult": [
+      10,
+      30
+    ],
+    "batches": 40,
+    "cls": "trace_cox",
+    "params": {
+      "series": "results/ext_validity/ev_d4/series_ditl4h_mod10.npz",
+      "key": "s0",
+      "path_keys": [
+        "s0",
+        "s1"
+      ],
+      "bin": 0.01
+    },
+    "stratum": "neg",
+    "trace": "ditl4h"
+  },
+  "seed": 15004,
+  "mean_stay": 48.26661266612666,
+  "mean_switch": 37.92419924199242,
+  "s_train": -10.342413424134243,
+  "T_int": 174.10674879141587,
+  "T_int_censored": false,
+  "shares": {
+    "10": {
+      "F_new": 0.6145821458214582,
+      "F_old": 0.6145781457814579,
+      "F_new_rate": 0.5833638336383364,
+      "F_old_rate": 0.583359833598336,
+      "F_old_fluid_nowcast": 0.6266042660426604,
+      "F_old_ratefluid_nowcast": 0.5995519955199552,
+      "F_old_ratefluid_nowcast_hybrid_train": 1.0
+    },
+    "30": {
+      "F_new": 0.6145821458214582,
+      "F_old": 0.6145781457814579,
+      "F_new_rate": 0.5833638336383364,
+      "F_old_rate": 0.583359833598336,
+      "F_old_fluid_nowcast": 0.6266042660426604,
+      "F_old_ratefluid_nowcast": 0.5995519955199552,
+      "F_old_ratefluid_nowcast_hybrid_train": 1.0
+    }
+  },
+  "nowcast": {
+    "A": {
+      "beta": [
+        -0.9725747559257142,
+        0.9979098596197822,
+        0.1457758755629224
+      ],
+      "gamma": [
+        0.007227012005793343,
+        0.9991834541653558,
+        -3.253403570691038e-05
+      ],
+      "r2_backlog": 0.9985644034870406,
+      "r2_rate": 0.9962265439572365
+    },
+    "B": {
+      "beta": [
+        -0.0419802062916328,
+        0.9925690513323746,
+        0.01468517791069679
+      ],
+      "gamma": [
+        0.025302544771617443,
+        0.9960465083247151,
+        0.0001276736713712312
+      ],
+      "r2_backlog": 0.9868278763762154,
+      "r2_rate": 0.9949685286602359
+    }
+  },
+  "CPU": 46.798595892,
+  "case_sha256": "d6d5373751c991a16de4dbc215e71d2d1dceae40c07359dead721e1eb3cfa517",
+  "wall": 46.80649170099999
+}

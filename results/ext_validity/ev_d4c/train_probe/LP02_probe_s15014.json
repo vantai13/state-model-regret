@@ -1,0 +1,93 @@
+{
+  "case": {
+    "id": "LP02_probe",
+    "arm": "L",
+    "regime": "LP02",
+    "r": null,
+    "tau": 1.0,
+    "lamA": 6.25,
+    "lamB": 6.59,
+    "u": 0.25,
+    "seed": 15014,
+    "n_inst": 10000,
+    "spacing_mult": 3,
+    "train_T": 100000.0,
+    "sample_dt": 0.2,
+    "h_mult": [
+      10,
+      30
+    ],
+    "batches": 40,
+    "cls": "trace_cox",
+    "params": {
+      "series": "results/ext_validity/ev_d4/diag_loop15/series_202304121000.npz",
+      "key": "s0",
+      "path_keys": [
+        "s0",
+        "s1"
+      ],
+      "bin": 0.01
+    },
+    "stratum": "pos",
+    "trace": "ditl4h"
+  },
+  "seed": 15014,
+  "mean_stay": 6.712545125451254,
+  "mean_switch": 7.097966979669796,
+  "s_train": 0.38542185421854214,
+  "T_int": 15.2287243906181,
+  "T_int_censored": false,
+  "shares": {
+    "10": {
+      "F_new": 0.3862218622186222,
+      "F_old": 0.386219862198622,
+      "F_new_rate": 0.4089460894608946,
+      "F_old_rate": 0.4089460894608946,
+      "F_old_fluid_nowcast": 0.46103261032610326,
+      "F_old_ratefluid_nowcast": 0.4766307663076631,
+      "F_old_ratefluid_nowcast_hybrid_train": 0.0
+    },
+    "30": {
+      "F_new": 0.3862218622186222,
+      "F_old": 0.386219862198622,
+      "F_new_rate": 0.4089460894608946,
+      "F_old_rate": 0.4089460894608946,
+      "F_old_fluid_nowcast": 0.46103261032610326,
+      "F_old_ratefluid_nowcast": 0.4766307663076631,
+      "F_old_ratefluid_nowcast_hybrid_train": 0.0
+    }
+  },
+  "nowcast": {
+    "A": {
+      "beta": [
+        0.305302115509196,
+        0.812631031077188,
+        0.04370120204972472
+      ],
+      "gamma": [
+        5.282987639191729,
+        0.1437979856521176,
+        0.02145945055211937
+      ],
+      "r2_backlog": 0.684119021774394,
+      "r2_rate": 0.024988656159816713
+    },
+    "B": {
+      "beta": [
+        0.7665351909421341,
+        0.9313643582847648,
+        -0.07864184942602093
+      ],
+      "gamma": [
+        5.431003954955658,
+        0.13444058097631975,
+        0.07357253293382011
+      ],
+      "r2_backlog": 0.8382862641307331,
+      "r2_rate": 0.04920948307619166
+    }
+  },
+  "CPU": 41.996901097999995,
+  "case_sha256": "6b7a316160e103bbcf5c597ee0110ca40ca718fff59fb7246502f8b4be66d8ab",
+  "wall": 42.00382788
+}

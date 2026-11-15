@@ -2,7 +2,7 @@
 
 Doan Van Tai — **AI (Claude) theo ủy quyền** (`LOCKED_AI_DELEGATED` once `lock.json` exists). The author asked for both EV-D4b follow-ups and for the coding to go to Codex. Claude wrote this card and the score specification; Codex implements the code; Claude reviews, locks and reads the result.
 
-Status: **DESIGN**. This section and the hypotheses below were committed before any EV-D4c probe, train or test existed. The section "Seen before the lock" is added after train. The lock is written after `predict`, before the test seed.
+Status: **LOCKED_AI_DELEGATED** (lock after train, before the test seed). The Why/Panel/Rows/Hypotheses sections and the hypotheses below were committed before any EV-D4c probe, train or test existed. The section "Seen before the lock" is added after train. The lock is written after `predict`, before the test seed.
 
 ## Why
 
@@ -99,4 +99,17 @@ One run. No rerun to rescue a verdict.
 
 ## Seen before the lock
 
-(To be filled after train: kept regimes, T_int ranges, nowcast β₁ per r, how many rows pass the filter per group.)
+Train only (probe + main train, finished 15/11 02:44 UTC on the VM n2-standard-32). No D, no test output. `select` kept **20/20 regimes in every arm**; no design exclusion.
+
+| | C | L | H |
+|---|---|---|---|
+| T_int (s), min / median / max | 61.9 / 125.8 / 181.3 | 9.8 / 19.3 / 26.7 | 19.9 / 74.3 / 144.9 |
+| nowcast β₁ (path A, median), r = 0.1 / 0.3 / 0.5 / 0.8 / 1.0 / 1.2 / 2.5 / 5 | .94 / .79 / .64 / .40 / .26 / .14 / −.13 / .00 | .80 / .49 / .30 / .13 / .07 / .03 / .01 / .02 | .93 / .81 / .73 / .60 / .51 / .41 / −.01 / −.20 |
+| F_old − F_new, fluid nowcast, h30 (median), same r order | .04 / .05 / .06 / .05 / .06 / .07 / .20 / .38 | .10 / .22 / .26 / .31 / .32 / .31 / .31 / .16 | .06 / .07 / .08 / .05 / .00 / −.01 / .05 / .05 |
+| h30 rows with \|pred\| ≥ 0.25 pp (approx., E_stay ≈ train mean_stay·h), low / band / high, of 120 / 120 / 80 | 73 / 83 / 67 | 94 / 106 / 67 | 98 / 105 / 76 |
+
+- Erratum on `seen_before_lock.json`: its `n_filter_rows_h30` divides by the train `mean_stay`, which is a cost **rate**, not the horizon cost, so it counts every row. The approximate counts in the table above use mean_stay·h (checked on EV-D4b: 14.80·3197.6 = 47 312 vs test E_stay 46 677). The score is not affected: it normalises by the test E_stay(h30), as the card says.
+- Every group has ≥ 10 rows, so no group is expected to be NOT_EVALUABLE.
+- In L the nowcast loses information faster in units of T_int (β₁ .80 already at r = 0.1). In H, F_old − F_new is about 0 at r = 1.0–1.2, so band predictions in H are driven by large ŝ rather than by the share difference.
+- Status: **LOCKED_AI_DELEGATED** from the commit that adds `lock.json`.
+
