@@ -1,7 +1,7 @@
 """Doan Van Tai — EV-TE Arm R, train-only OLS and descriptive TM replay.
 
-Only train is authorized by the EV-TE brief. run and summary are explicit CLI
-commands for a later authorization. Training never evaluates test actions.
+The Arm R v2 brief authorizes train, run and descriptive summary locally.
+Training never evaluates test actions. Arm S and historical Arm R stay separate.
 Physical Arm R units: rates converted Mb/s -> Mb/min; cost Mb*minutes.
 """
 import argparse
@@ -16,13 +16,22 @@ import numpy as np
 
 from experiments.ext_validity import ev_te as S
 
-OUT = S.OUT / 'arm_r'
+OUT = S.OUT / 'arm_r_v2'
 BIN = 5.
 AGES = (1, 2)
 HORIZONS = (1, 2, 3, 6, 12)
 
 
-def parse_tm(path, od_ids):
+class NodeOutageError(ValueError):
+    """A node lacks source or destination entries; the whole bin is missing."""
+
+
+def parse_tm(path, od_ids, *, counts=None):
+    """Fill omitted ODs with zero only when every node has entries both ways.
+
+    Presence of an explicit zero entry counts as coverage, not as an outage.
+    Optional counters distinguish omissions in files from zeros actually used.
+    """
     match = re.fullmatch(r'demandMatrix-abilene-zhang-5min-(\d{8}-\d{4})\.txt', Path(path).name)
     if not match:
         raise ValueError('malformed TM timestamp')
@@ -30,37 +39,51 @@ def parse_tm(path, od_ids):
     if timestamp.minute % 5:
         raise ValueError('TM timestamp is off the 5-minute grid')
     ss = S.sections(Path(path).read_text())
-    values = {}
+    expected = set(od_ids)
+    nodes = {node for name in od_ids for node in name.split('_')}
+    values, sources, targets = {}, set(), set()
     for line in ss['DEMANDS']:
         m = re.fullmatch(r'(\S+)\s*\(\s*(\S+)\s+(\S+)\s*\)\s+(\S+)\s+(\S+)\s+(\S+)', line)
         if not m:
             raise ValueError('malformed TM demand')
         name, source, target, unit, value, _ = m.groups()
         value = float(value)
-        if name in values or name != source+'_'+target or float(unit) != 1 or not math.isfinite(value) or value < 0:
+        if name not in expected or name in values or name != source+'_'+target or float(unit) != 1 or not math.isfinite(value) or value < 0:
             raise ValueError('invalid or duplicate TM OD')
         values[name] = value
-    if set(values) != set(od_ids):
-        raise ValueError(f'TM OD count/content: got {len(values)}, expected {len(od_ids)}')
-    return timestamp, np.array([values[name] for name in od_ids])
+        sources.add(source)
+        targets.add(target)
+    absent = len(expected)-len(values)
+    if counts is not None:
+        counts['absent_od_entries_in_files'] += absent
+    missing_sources, missing_targets = sorted(nodes-sources), sorted(nodes-targets)
+    if missing_sources or missing_targets:
+        raise NodeOutageError(f'node outage: no source entries {missing_sources}; no destination entries {missing_targets}')
+    if counts is not None:
+        counts['absent_od_entries_filled_with_zero'] += absent
+    return timestamp, np.array([values.get(name, 0.) for name in od_ids])
 
 
 def load_trace():
     net = S.parse_native(S.data_root() / 'sndlib-networks-native/abilene.txt')
     ids = [d['id'] for d in net['demands']]
-    rows, malformed, all_stamps = {}, [], []
-    for path in S.tm_files():
+    rows, malformed, all_stamps, outages = {}, [], [], []
+    counts = dict(absent_od_entries_in_files=0, absent_od_entries_filled_with_zero=0)
+    files = S.tm_files()
+    for path in files:
         try:
             stamp = datetime.strptime(path.stem.rsplit('5min-', 1)[1], '%Y%m%d-%H%M')
             all_stamps.append(stamp)
-            stamp, row = parse_tm(path, ids)
+            stamp, row = parse_tm(path, ids, counts=counts)
             if stamp in rows:
                 raise ValueError('duplicate TM timestamp')
             rows[stamp] = row
+        except NodeOutageError as error:
+            outages.append(dict(file=path.name, reason=str(error)))
         except (ValueError, OSError) as error:
             malformed.append(dict(file=path.name, reason=str(error)))
     if not rows:
-        raise ValueError('no complete TMs')
+        raise ValueError('no valid TMs')
     first, last = min(all_stamps), max(all_stamps)
     count = int((last-first).total_seconds()/300)+1
     times = [first+timedelta(minutes=5*i) for i in range(count)]
@@ -74,8 +97,10 @@ def load_trace():
     split = datetime(end_month//12, end_month%12+1, 1)
     train = np.array([stamp < split for stamp in times])
     return net, times, values, valid, train, dict(
-        file_count=len(S.tm_files()), valid_file_count=len(rows), malformed_count=len(malformed),
-        malformed_files=malformed, missing_file_count=count-len(all_stamps),
+        **counts, file_count=len(files), valid_file_count=len(rows), valid_bins=int(valid.sum()),
+        node_outage_bins=len(outages), node_outage_files=outages,
+        malformed_count=len(malformed), malformed_files=malformed,
+        missing_file_count=count-len(set(all_stamps)), absent_file_bins=count-len(set(all_stamps)),
         missing_or_malformed_bins=int((~valid).sum()),
         first=first.isoformat(), last=last.isoformat(), train_end_exclusive=split.isoformat(),
         train_bins=int(train.sum()), train_valid_bins=int((train & valid).sum()),
@@ -127,6 +152,31 @@ def replay_stay(rates, incidence, cap, valid):
         q, _ = S.fluid_step(q, incidence @ rates[i], cap, BIN)
         queues[i] = q
     return queues
+
+
+def backlog_stats(rates, queues, incidence, cap, valid, mask):
+    """Stay backlog occupancy within valid bins, with the replay's gap resets.
+
+    Each bin has constant load. If any link grows, total backlog is positive
+    for the entire bin except possibly its initial instant. Otherwise the last
+    initially nonempty link determines the time until total backlog vanishes.
+    """
+    ix = np.flatnonzero(valid & mask)
+    if not len(ix):
+        return dict(valid_bins=0, observed_minutes=0., backlogged_minutes=0.,
+                    fraction_time_backlogged=None, fraction_end_bins_backlogged=None)
+    before = np.zeros_like(queues[ix])
+    continuing = (ix > 0) & valid[np.maximum(ix-1, 0)]
+    before[continuing] = queues[ix[continuing]-1]
+    drift = rates[ix] @ incidence.T-cap
+    drain = np.divide(before, -drift, out=np.zeros_like(before), where=drift < 0)
+    drain[(before > 0) & (drift == 0)] = BIN
+    duration = np.minimum(BIN, drain.max(axis=1, initial=0.))
+    duration[np.any(drift > 0, axis=1)] = BIN
+    return dict(valid_bins=len(ix), observed_minutes=len(ix)*BIN,
+                backlogged_minutes=float(duration.sum()),
+                fraction_time_backlogged=float(duration.mean()/BIN),
+                fraction_end_bins_backlogged=float(np.any(queues[ix] > 0, axis=1).mean()))
 
 
 def relaxation(rates, valid):
@@ -203,7 +253,7 @@ def train(out=OUT):
                                'Nonpositive lag-1 correlation gives minimum relaxation 5 min.'],
                   CPU=time.process_time()-start, test_costs_computed=False)
     S.write_json(out / 'train.json', result)
-    print(json.dumps(dict(command='Arm R train', parsing={k: v for k, v in parsing.items() if k != 'malformed_files'},
+    print(json.dumps(dict(command='Arm R train', parsing={k: v for k, v in parsing.items() if k not in ('malformed_files', 'node_outage_files')},
                           regimes=[{k: r[k] for k in ('id', 'managed', 'T_int_minutes', 'T_int_censored')} for r in regimes],
                           CPU=result['CPU'])), flush=True)
 
@@ -280,7 +330,9 @@ def run(out=OUT):
                                 days=np.array([times[i].strftime('%Y-%m-%d') for i in ix]),
                                 timestamps=np.array([times[i].isoformat() for i in ix]),
                                 pipelines=np.array(['P_old', 'P_new', 'N_old', 'N_new']))
-        counts.append(dict(id=regime['id'], n_instances=len(ix)))
+        occupancy = {name: backlog_stats(rr, q, inc[0], cp, valid, mask) for name, mask in (
+            ('train', train_mask), ('test', ~train_mask), ('evaluated_windows', np.isin(np.arange(len(rr)), ix)))}
+        counts.append(dict(id=regime['id'], n_instances=len(ix), backlog_occupancy=occupancy))
     S.write_json(out / 'run.json', dict(regimes=counts, CPU=time.process_time()-start, descriptive=True))
 
 

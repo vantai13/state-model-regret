@@ -249,3 +249,128 @@ def test_paired_increment_se_preserves_covariance():
     assert mean == pytest.approx(4.975)
     assert se == pytest.approx(np.std(np.arange(200)*.05, ddof=1)/np.sqrt(200))
     assert se < .25
+
+
+@pytest.fixture
+def arm_r_tms(tmp_path):
+    nodes = [f'n{i:02d}' for i in range(12)]
+    pairs = [(source, target) for source in nodes for target in nodes if source != target]
+    ids = [f'{source}_{target}' for source, target in pairs]
+
+    def write(stamp, omit=(), value=1.):
+        path = tmp_path / f'demandMatrix-abilene-zhang-5min-{stamp}.txt'
+        lines = [f'{source}_{target} ( {source} {target} ) 1 {value} UNLIMITED'
+                 for source, target in pairs if f'{source}_{target}' not in omit]
+        path.write_text('NODES (\n)\nLINKS (\n)\nDEMANDS (\n'+'\n'.join(lines)+'\n)\n')
+        return path
+
+    return nodes, ids, write
+
+
+def test_arm_r_absent_od_is_zero_in_original_order(arm_r_tms):
+    _, ids, write = arm_r_tms
+    counts = dict(absent_od_entries_in_files=0, absent_od_entries_filled_with_zero=0)
+    stamp, values = R.parse_tm(write('20040101-0000', omit={ids[0]}), ids[::-1], counts=counts)
+    assert stamp.isoformat() == '2004-01-01T00:00:00'
+    np.testing.assert_array_equal(values, [1.]*131+[0.])
+    assert counts == dict(absent_od_entries_in_files=1, absent_od_entries_filled_with_zero=1)
+
+
+def test_arm_r_explicit_zero_entries_are_not_node_outage(arm_r_tms):
+    _, ids, write = arm_r_tms
+    _, values = R.parse_tm(write('20040101-0000', value=0.), ids)
+    np.testing.assert_array_equal(values, np.zeros(132))
+
+
+@pytest.mark.parametrize('direction', ['source', 'destination', 'both'])
+def test_arm_r_node_outage_is_missing_even_with_other_entries(arm_r_tms, direction):
+    nodes, ids, write = arm_r_tms
+    omit = {name for name in ids if
+            (direction in ('source', 'both') and name.startswith(nodes[0]+'_')) or
+            (direction in ('destination', 'both') and name.endswith('_'+nodes[0]))}
+    assert len(omit) == (22 if direction == 'both' else 11)
+    counts = dict(absent_od_entries_in_files=0, absent_od_entries_filled_with_zero=0)
+    with pytest.raises(R.NodeOutageError, match='node outage'):
+        R.parse_tm(write('20040101-0000', omit=omit), ids, counts=counts)
+    assert counts['absent_od_entries_in_files'] == len(omit)
+    assert counts['absent_od_entries_filled_with_zero'] == 0
+
+
+@pytest.mark.parametrize('bad_entry', [
+    'unknown_n00 ( unknown n00 ) 1 1 UNLIMITED',
+    'n00_n01 ( n00 n01 ) 1 1 UNLIMITED',
+    'n00_n00 ( n00 n00 ) 1 -1 UNLIMITED',
+])
+def test_arm_r_parser_still_rejects_invalid_or_duplicate_ods(arm_r_tms, bad_entry):
+    _, ids, write = arm_r_tms
+    path = write('20040101-0000')
+    text = path.read_text()
+    path.write_text(text[:-2]+bad_entry+'\n)\n')
+    with pytest.raises(ValueError, match='invalid or duplicate TM OD'):
+        R.parse_tm(path, ids)
+
+
+def test_arm_r_load_trace_counts_outages_absent_files_and_zero_fill(arm_r_tms, monkeypatch):
+    nodes, ids, write = arm_r_tms
+    paths = [write('20040101-0000'),
+             write('20040101-0010', omit={ids[0]}),
+             write('20040101-0015', omit={name for name in ids if nodes[0] in name.split('_')}),
+             write('20040101-0020')]
+    monkeypatch.setattr(T, 'tm_files', lambda: paths)
+    monkeypatch.setattr(T, 'parse_native', lambda path: dict(demands=[dict(id=name) for name in ids]))
+    _, times, values, valid, train, stats = R.load_trace()
+    np.testing.assert_array_equal(valid, [True, False, True, False, True])
+    assert train.all() and len(times) == 5
+    assert np.isnan(values[[1, 3]]).all()
+    assert values[2, 0] == 0. and values[2, 1] == 1.
+    assert stats['file_count'] == 4 and stats['valid_bins'] == 3
+    assert stats['node_outage_bins'] == 1 and stats['absent_file_bins'] == 1
+    assert stats['malformed_count'] == 0 and stats['missing_or_malformed_bins'] == 2
+    assert stats['absent_od_entries_in_files'] == 23
+    assert stats['absent_od_entries_filled_with_zero'] == 1
+    assert stats['train_end_exclusive'] == '2004-03-01T00:00:00'
+
+
+def test_arm_r_run_drops_windows_crossing_missing_bins(tmp_path, monkeypatch):
+    from datetime import datetime, timedelta
+
+    times = [datetime(2004, 3, 1)+timedelta(minutes=5*i) for i in range(60)]
+    rates, valid, train = np.ones((60, 1)), np.ones(60, bool), np.arange(60) < 5
+    valid[[25, 39]] = False  # A node outage and an absent file are both missing.
+    rates[~valid] = np.nan
+    monkeypatch.setattr(R, 'load_trace', lambda: ({}, times, rates, valid, train, {}))
+    monkeypatch.setattr(R, 'route_arrays', lambda network, managed: (np.ones((2, 1, 1)), np.array([.5])))
+    regime = dict(id='tiny', network={}, managed=['od'], active_indices=[0], relevant_indices=[0],
+                  alpha=1., mean_rates=[60.], relaxation_minutes=[5.],
+                  OLS={str(age): dict(rate=[[0., 1., 0.]], backlog=[[0., 1., 0.]]) for age in R.AGES})
+    T.write_json(tmp_path/'train.json', dict(regimes=[regime]))
+    R.run(out=tmp_path)
+    with np.load(tmp_path/'raw/tiny.npz', allow_pickle=False) as raw:
+        selected = [times.index(datetime.fromisoformat(stamp)) for stamp in raw['timestamps']]
+        assert selected == list(range(5, 13))+list(range(43, 48))
+        assert all(not ({25, 39} & set(range(i-3, i+13))) for i in selected)
+        assert raw['V'].shape == (13, 2, 4, 5)
+        np.testing.assert_array_equal(raw['V'][:, :, 0], raw['V'][:, :, 1])
+    assert T.read_json(tmp_path/'run.json')['regimes'][0]['n_instances'] == 13
+
+
+def test_arm_r_backlog_time_fraction_includes_partial_draining_and_gap_reset():
+    rates = np.array([[1.4], [0.], [0.], [1.4], [np.nan], [0.]])
+    valid, incidence, cap = np.isfinite(rates[:, 0]), np.ones((1, 1)), np.array([1.])
+    queues = R.replay_stay(rates, incidence, cap, valid)
+    stats = R.backlog_stats(rates, queues, incidence, cap, valid, np.ones(6, bool))
+    assert stats['observed_minutes'] == 25.
+    assert stats['backlogged_minutes'] == pytest.approx(12.)
+    assert stats['fraction_time_backlogged'] == pytest.approx(.48)
+    assert stats['fraction_end_bins_backlogged'] == pytest.approx(.4)
+    only_drain = R.backlog_stats(rates, queues, incidence, cap, valid, np.arange(6) == 1)
+    assert only_drain['backlogged_minutes'] == pytest.approx(2.)
+    no_bins = R.backlog_stats(rates, queues, incidence, cap, valid, np.zeros(6, bool))
+    assert no_bins['fraction_time_backlogged'] is None
+
+
+def test_arm_r_backlog_time_fraction_with_nonempty_zero_drift():
+    rates, incidence, cap, valid = np.array([[1.4], [1.], [0.]]), np.ones((1, 1)), np.array([1.]), np.ones(3, bool)
+    queues = R.replay_stay(rates, incidence, cap, valid)
+    stats = R.backlog_stats(rates, queues, incidence, cap, valid, valid)
+    assert stats['backlogged_minutes'] == pytest.approx(12.)
