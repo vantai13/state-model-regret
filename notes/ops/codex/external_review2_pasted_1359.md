@@ -1,0 +1,62 @@
+**Mình khuyên giữ bài và thu hẹp câu hỏi nghiên cứu. Nếu nộp nguyên bản hiện tại cho IEEE TNSM, đánh giá giả lập của mình là *weak reject*.** Điểm yếu nhất là khoảng cách giữa điều bài chứng minh được và điều một operator có thể dùng. Bạn đã chỉ ra khi nào telemetry mới làm một twin chọn đường đắt hơn trong mô hình. Reviewer vẫn có thể hỏi rất cụ thể: *Ở thời điểm tôi thực sự phải quyết định đổi đường, đọc thêm backlog có giúp tôi chọn tốt hơn một quy tắc đơn giản không?*
+
+Trong repo có một kết quả giúp bạn trả lời câu đó. Theo mình, nó đáng đầu tư hơn việc thêm topology hoặc mở rộng sang một thuật toán routing mới.
+
+:chatgpt-content-reference{index="6"}[Bản thẩm định đầy đủ, gồm bảng đối chiếu prior work và thiết kế thí nghiệm — SMR_review_2026-11-16.pdf](sandbox:/workspace/scratch/0440b644fdcf/output/SMR_review_2026-11-16.pdf)
+
+## Nhánh nào thực sự quan trọng?
+
+Mình đã so sánh cả **11 nhánh GitHub** với `main` tại `d794db1`, đọc code và các báo cáo liên quan, rồi tính lại các tiêu chí từ bảng số đã lưu. Mình chưa chạy lại toàn bộ mô phỏng.
+
+| Nhánh | Kết quả kiểm tra | Cách dùng cho paper |
+|---|---|---|
+| `ext/validity` tại `9e27fb6` | Đi trước `main` **62 commit**, không thiếu commit nào từ `main` | Đây là mốc quan trọng nhất. Nó chứa bằng chứng vòng kín, cảnh báo backlog, MAWI, Abilene và GÉANT mà bản PDF đang dùng. [So sánh hai mốc Git](https://github.com/vantai13/state-model-regret/compare/d794db1145a156807d95e4b2fbf8a31afa20716c...9e27fb68336f93e459e9b4482465f71440baf785) |
+| `explore/v13-population` và `explore/v13-regime-map` | Phân kỳ với `main` lần lượt **+1/−248** và **+3/−248**. Nhánh regime-map chứa lịch sử của population rồi thêm hai commit | Hữu ích để giải thích cách bạn phát hiện các vùng hành vi. Các regime này đã được quan sát và được chính repo ghi là *discovery*. [Bản đồ và errata](https://github.com/vantai13/state-model-regret/blob/574a36fb4213a79d3d2aa305a489701cfc3059f2/results/explore_v13/regime_map/REGIME_MAP.md) |
+| Bảy nhánh còn lại ngoài `main` | Đều là tổ tiên của `main`, gồm các nhánh CTMC, mechanism, realism, two-scale, synthesis và tau | Lịch sử của chúng đã có trong `main`. Danh sách từng nhánh nằm ở trang 1 của bản thẩm định. |
+
+Vì vậy, đề xuất trong prompt cũ về việc chuyển từ “một observation mỗi cell” sang đánh giá trên phân phối **đã được dự án thực hiện**. Việc đáng làm khi công bố là dẫn tới đúng SHA chứa bằng chứng của bản nộp.
+
+## Điểm mạnh nhất và những lý do reviewer có thể reject
+
+**Điểm mạnh nhất là bạn đo được cái giá của một quyết định sai.** Twin nhìn queue, chọn Stay hoặc Switch, rồi giữ lựa chọn trong \(h\) giây. Nếu Switch đắt hơn về dài hạn và số đo mới khiến twin Switch thường xuyên hơn, sai lầm ấy tích lũy chừng nào route còn được giữ. Ngược lại, với twin *plug-in* dùng cùng một quy tắc trên cùng loại dữ liệu, tính dừng làm cho tần suất Switch của hai phía bằng nhau. Các quyết định cá biệt vẫn có thể khác, nhưng thành phần chi phí tăng tuyến tính theo \(h\) triệt tiêu. Đây là một phân biệt cụ thể giữa hai cách xây twin. SMR_paper_draft(2).pdf
+
+Bạn cũng có **một kết quả dương và một kết quả âm đáng đặt cạnh nhau**. Mình áp lại tiêu chí EV-TE và thu đúng **192/192 ô đủ điều kiện** dự đoán đúng dấu của *phần tăng* từ \(7T_{\mathrm{int}}\) đến \(30T_{\mathrm{int}}\). Trong đó, GÉANT có **32 âm và 32 dương** trên 16 regime. Đây là bằng chứng phân biệt dấu tốt hơn riêng Abilene, nơi cả 128 ô đều âm. Trong khi đó, với nowcast trên MAWI ở tuổi telemetry gần \(T_{\mathrm{int}}\), độ đúng dấu chỉ **54,2%** trên bản ghi bốn giờ, so với **100%** khi lặp đoạn 15 phút ở cùng nhóm tải thấp. Paper có giá trị ở chỗ nhận diện được cả trường hợp predictor hoạt động và trường hợp cách replay che mất thất bại. [Bảng EV-TE](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_te/REPORT_EV_TE.md) · [Đối chứng MAWI](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_d4c/REPORT_EV_D4C.md)
+
+Mình thấy **ba phản biện có thể quyết định kết quả review**.
+
+1. **Novelty của Proposition 1 dễ bị đánh giá là tăng thêm ít.** Phần gain–bias đã có trong Markov reward theory. Goren và cộng sự đã cho thấy thông tin queue chính xác hơn có thể làm hiệu năng xấu đi khi nhiều dispatcher cùng dồn tải. DT² cũng đã nghiên cứu việc twin dự đoán khá tốt nhưng xếp hạng policy sai. Phần riêng của bạn là **một controller, một hành động được giữ trong \(h\), cách xử lý tuổi telemetry và một dự đoán có thể kiểm trước khi xem finite-horizon cost**. Qua các nguồn đã đối chiếu, mình xem đây là ứng viên đóng góp, chưa đủ căn cứ để tuyên bố ưu tiên “đầu tiên”. [unibw.de](https://www.unibw.de/technische-informatik/mitarbeiter/professoren/siegle/publikationen/rocks_mrm_paper_2014.pdf?utm_source=chatgpt.com)
+2. **Hiệu ứng lớn nhất chưa gặp tình huống vận hành thuyết phục nhất.** Trên traffic matrices Abilene thật, với \(h=5\)–60 phút, \(h/T_{\mathrm{int}}\) chỉ khoảng **0,011–0,21**. Mình kiểm lại 80 ô mô tả và thấy \(|G_S|\) lớn nhất khoảng **0,00702% chi phí Stay**. Hơn nữa, công thức exact dùng chi phí dừng và bias của các action. Nếu operator chủ yếu có log khi Stay, bài cần chỉ ra cách biết Switch sẽ đắt đến đâu và sai số ước lượng có làm đảo dấu hay không. [Dữ liệu Arm R](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_te/arm_r_v2/summary.json)
+3. **Cách giải thích “posterior averaging gây harm” vẫn còn đối thủ.** Trong CTMC chính, phía fresh nhận thêm cả độ mới lẫn hidden mode. Thí nghiệm backlog-only xử lý được một phần quan trọng bằng cách *thêm backlog hiện tại vào thông tin cũ*. Knockout Jensen cũng đã được làm và harm còn ở **26/26** dòng đủ điều kiện tại \(7T_{\mathrm{int}}\). Câu hỏi còn mở là việc lấy trung bình thực sự sửa các quyết định tốn kém, hay hai controller chỉ bị đẩy về cùng một action. Đếm số lần Switch và đo chi phí tại đúng những lần hai controller bất đồng mới phân biệt được hai khả năng. [Ghi chú và kết quả knockout](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/notes/synthesis/MECHANISM_IDELTA_CE.md)
+
+Có một sửa đổi nhỏ nhưng đáng làm ngay. Abstract nói Corollary 1 không cho *finite-horizon harm bound*. Trong mô hình hữu hạn của bài, phương trình (12) thực ra cho một cận tại mọi \(h\), dù cận có thể rất lỏng. Câu chính xác hơn là **corollary không bảo đảm harm nhỏ ở horizon vận hành**. Mình ghi phép suy ra ngắn ở trang 5 của bản thẩm định.
+
+## Kết quả trong repo có thể nâng bài lên một mức
+
+Trong EV-B, bạn giữ nguyên twin và xét những lúc **backlog cũ trên đường A đã cao**. Đây là câu hỏi rất tự nhiên đối với người vận hành. Nếu một cảnh báo đã cho biết A đông, liệu đo lại queue có cung cấp thêm thông tin đáng tiền?
+
+Mình đếm lại các CSV ở \(h=10T_{\mathrm{int}}\). Mỗi hàng dưới đây xét 18 regime mà refresh từng gây hại ít nhất 0,25% chi phí tham chiếu khi lấy thời điểm ngẫu nhiên. “Có lợi rõ” dùng ngưỡng đối xứng +0,25%. q75 và q95 dùng **cùng một panel mới**. q90 thuộc panel ban đầu. [Thẻ kiểm tra](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_b_rep/CARD.md) · [Kết quả q90](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_b/truth.csv) · [Kết quả q75](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_b_rep/q75/truth.csv) · [Kết quả q95](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_b_rep/q95/truth.csv)
+
+| Khi backlog cũ của A đạt ngưỡng | Còn hại rõ | Gần 0 | Có lợi rõ |
+|---|---:|---:|---:|
+| q90, panel đầu | 0 | 9 | 9 |
+| q75, panel lặp | 4 | 7 | 7 |
+| q95, panel lặp | 0 | 11 | 7 |
+
+**Chi tiết đáng khai thác nằm trong 11 trường hợp gần 0.** Ở 10/11 trường hợp, cả hai twin đều chọn Switch ít nhất 99% số lần. Cảnh báo đã gần như quyết định hành động. Nhưng ở regime **BP03**, với cùng \(h=433\) giây, kết quả khác hẳn. Ở q75, số đo mới khiến twin Switch 51,9% thay vì 36,9% và **tốn thêm 526,8 packet·s**. Ở q95, số đo mới khiến nó Switch 73,3% thay vì 76,0% và **tiết kiệm 99,7 packet·s**. Cùng mạng, cùng twin, cùng thời gian giữ route, giá trị của phép đo đổi dấu theo hoàn cảnh ra quyết định. Đây là phân tích hậu kiểm trên dữ liệu đã mở. [Xác suất action q75](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_b_rep/q75/predictions.csv) · [Xác suất action q95](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/results/ext_validity/ev_b_rep/q95/predictions.csv)
+
+**RQ mình đề xuất cho bản mạnh hơn là “Khi controller đã biết có cảnh báo nghẽn, trong điều kiện nào lấy thêm backlog mới đủ để cải thiện quyết định định tuyến, và lợi ích đó kéo dài đến horizon nào?”**
+
+Bước tiếp theo chỉ cần **một thí nghiệm ghép cặp**. Trên một panel mới, cho cả hai controller biết cùng backlog cũ và cùng cảnh báo. Một bên được đọc thêm backlog hiện tại, cả hai đều không thấy hidden mode. So chúng với quy tắc đơn giản nhất có thể thắng bài của bạn: **mỗi khi có cảnh báo, chọn một action cố định đã học trên tập train**. Ghi ba số là tỷ lệ hai bên chọn khác nhau, packet·s tiết kiệm trên mỗi lần khác nhau, và lợi ích trên toàn bộ thời gian vận hành. Chọn trước ít nhất một horizon mà người vận hành thực sự có thể giữ route. Code EV-B hiện lấy mọi thời điểm backlog nằm trên ngưỡng, nên nếu muốn nói về *lần đầu một sự cố kích hoạt cảnh báo*, cần kiểm riêng kiểu trigger đó. [Code chọn thời điểm quyết định](https://github.com/vantai13/state-model-regret/blob/9e27fb68336f93e459e9b4482465f71440baf785/experiments/ext_validity/alarm.py)
+
+Nếu refresh thắng baseline này trên một workload chưa dùng và tại horizon có ý nghĩa, bạn có một câu chuyện quản trị mạng để nhắm **TNSM**. Nếu lợi ích biến mất, mình sẽ giữ bài theo hướng **ranh giới áp dụng của predictor**, lấy đối chứng MAWI liên tục và replay lặp làm trọng tâm rồi kiểm trên ngày hoặc link mới. Cả hai hướng đều tận dụng được phần lý thuyết bạn đã hoàn thành.
+
+## Venue nên nhắm
+
+| Venue | Rank và thời điểm đã kiểm tra ngày 16/11/2026 | Đánh giá cho bài của bạn |
+|---|---|---|
+| **IEEE Transactions on Network and Service Management** | **Q1 SJR 2025**, ngành *Computer Networks and Communications*. IEEE cũng ghi JIF Q1 và SCIE. Regular paper nhận quanh năm. [researchcloud.net](https://researchcloud.net/journal/1932-4537?utm_source=chatgpt.com) | **Mục tiêu journal số 1** nếu có bằng chứng về giá trị của refresh tại một quyết định quản trị cụ thể. |
+| **Computer Networks** | **Q1 SJR 2025** ngành *Computer Networks and Communications*, **Q2 JCR–JIF 2025** ở *Computer Science, Information Systems* và *Telecommunications*. [SJR, Quartile, H-index](https://www.scimagojr.com/journalsearch.php?clean=0\&q=26811\&tip=sid\&utm_source=chatgpt.com) | Hợp nếu đóng góp cuối cùng thiên về queueing, routing và điều kiện predictor thành công hoặc thất bại. Nếu trường tính Q1 theo JCR, khác biệt này ảnh hưởng trực tiếp đến lựa chọn. |
+| **ACM SIGMETRICS 2027** | **A\*** theo ICORE 2026. Kỳ winter đăng ký abstract **04/01/2027**, nộp bài **11/01/2027**, đều 23:59 AoE. [portal.core.edu.au](https://portal.core.edu.au/conf-ranks/39/?utm_source=chatgpt.com) | Mục tiêu tham vọng nhất. Với bản hiện tại, rủi ro reject **rất cao**. Đáng nhắm nếu bạn chứng minh được điều kiện phân biệt cơ chế có giá trị vượt ra ngoài hai topology đã xét. |
+| **IEEE/IFIP NOMS 2027** | **B** theo ICORE 2026. Có thông báo gia hạn technical paper đến **30/11/2026**. Trang tổng quan IEEE còn ghi 09/11 và mình chưa xác nhận được trạng thái cổng nộp. [portal.core.edu.au](https://portal.core.edu.au/conf-ranks/723/?utm_source=chatgpt.com) | Phù hợp chủ đề cho bản hội nghị thu gọn. Với mục tiêu rank cao của bạn, mình ưu tiên dành thời gian cho phép thử trên. |
+
+**Việc mình sẽ làm đầu tiên nếu cùng bạn sửa bài là dùng BP03 để viết trước một dự đoán có thể sai trên panel mới.** Hãy chỉ ra khi nào cảnh báo đã đủ để chọn Switch, khi nào mẫu backlog mới còn có thể sửa một lựa chọn đắt, rồi khóa dự đoán trước khi chạy. Nếu phân biệt được hai trường hợp đó ngoài mẫu, bạn sẽ có câu trả lời thuyết phục hơn nhiều cho câu reviewer quan tâm nhất: *khi nào một bản đo mới thực sự đáng lấy?*
