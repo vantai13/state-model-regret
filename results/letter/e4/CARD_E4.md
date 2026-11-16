@@ -37,3 +37,8 @@ Unit for E4-1, E4-2 and E4-4: regime × τ × h with h ∈ {7, 15, 30}·T_int (`
 3. One truth run on GCP: `run --workers 32 --chunks all --card results/letter/e4/CARD_E4.json` (plus `--onset-theta` if set).
 4. Commit the raw outputs before `score`. Score with the locked code, then an independent rescore (Codex, no import of e4_geant).
 5. Result analysis (`result-analysis`): causes and improvements before concluding.
+
+## Addendum before truth (Claude, 16/11/2026, author delegation)
+- **W2 outcome for the onset rule:** P16 held; P15 was mechanically "not held" (true_s old side 127/256). The cause is a wording error in Claude's W2 card: the stale side was compared to *fresh* M0. On the same side the held-out share is 99–100% (post-hoc, INSIGHTS I23).
+- **Deviation from the rule above:** `onset_theta` = 0.5 (W2's selection for true s) is set in `CARD_E4.json`, but the onset pipeline is **descriptive only**. It is not used by E4-1…E4-4, and it is reported separately as a deviation. Without this addendum the rule would have set it to null.
+- **Lock:** `results/letter/e4/lock.json`, 27 files (code, EV-TE inputs, training checks, machine card). Nothing on seed 3000001 has been computed.

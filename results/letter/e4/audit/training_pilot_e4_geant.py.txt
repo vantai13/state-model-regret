@@ -1,0 +1,671 @@
+"""Doan Van Tai — LETTER E4 training checks, sharded runner and card scoring.
+
+Import the locked EV-TE engine without changing it. CLI examples and the card
+schema are available with --help and in CARD_FORMAT below. Test truth requires
+a separate card + SHA256 lock; --pilot uses seed 7000001 and never 3000001.
+Only scientific NPZ bytes are reproducible; CPU/wall measurements live in JSON.
+"""
+from concurrent.futures import ProcessPoolExecutor
+import argparse
+import csv
+import hashlib
+import io
+import json
+from multiprocessing import get_context
+from pathlib import Path
+import resource
+import time
+import zipfile
+
+import numpy as np
+
+from experiments.ext_validity import ev_te as T
+from experiments.letter.e4_rhat import rate_levels, ordering_comparison
+
+ROOT = T.ROOT
+EV = T.OUT
+OUT = ROOT / 'results/letter/e4'
+TEST_SEED, PILOT_SEED, TRAIN_SEED = 3000001, 7000001, 1
+N, CHUNK_SIZE, N_CHUNKS, K, R_EVAL, R_DEC = 500, 50, 10, 128, 256, 128
+TAUS, HS = (.3, 1., 3.), tuple(T.HS)
+TAU_INDEX = [T.TAUS.index(x) for x in TAUS]
+HYBRID_LEVELS = ('i', 'ii', 'noise_m50', 'noise_m25', 'noise_p25', 'noise_p50', 'reversed')
+SIDES = ('fresh', 'stale')
+CARD_FORMAT = {
+    'schema': 'letter-e4-card-v1',
+    'description': 'JSON; all numerical thresholds must be explicitly supplied by the author/orchestrator.',
+    'tests': {
+        'E4-1': ['abs_GS_pct_max', 'pass_fraction_min', 'h_multipliers', 'horizon_rule'],
+        'E4-2': ['regret_pct_max', 'pass_fraction_min', 'h_multipliers', 'horizon_rule'],
+        'E4-3': ['best_action_agreement_min'],
+        'E4-4': ['regret_pct_max', 'pass_fraction_min', 'h_multipliers', 'horizon_rule'],
+        'E4-5': ['descriptive=true'], 'E4-6': ['descriptive=true']},
+    'horizon_rule': {'all': 'one regime x tau unit; all specified horizons (and both sides for regret) must pass',
+                     'each': 'one regime x tau x horizon unit; both sides for regret must pass'},
+    'regret': '(L_pipeline - L_M1_new)/L_M1_new * 100, signed, with paired SE',
+    'G_S': '(L_stale - L_fresh), positive means stale costs more; percentages of C_ref',
+    'ties': 'exact primary objective ties before tie-break; rhat tie variants flag the original M0 tie',
+    'lock_format': {'sha256': {'repo-relative-or-absolute-file-path': 'sha256 hex'}},
+    'onset': 'off unless --onset-theta is supplied; truth theta must equal card onset_theta',
+}
+
+
+def json_bytes(value):
+    return (json.dumps(value, indent=2, sort_keys=True, allow_nan=False)+'\n').encode()
+
+
+def write_json(path, value):
+    path = Path(path)
+    payload = json_bytes(value)  # Validate before creating an output.
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('xb') as f:
+        f.write(payload)
+
+
+def write_npz(path, arrays):
+    """Fixed ZIP metadata/order; no timing or filenames in scientific bytes."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('xb') as f, zipfile.ZipFile(f, 'w', compression=zipfile.ZIP_DEFLATED) as z:
+        for name in sorted(arrays):
+            a = np.ascontiguousarray(arrays[name])
+            if a.dtype.hasobject:
+                raise ValueError('object arrays forbidden')
+            b = io.BytesIO()
+            np.lib.format.write_array(b, a, allow_pickle=False)
+            entry = zipfile.ZipInfo(name+'.npy', date_time=(1980, 1, 1, 0, 0, 0))
+            entry.compress_type = zipfile.ZIP_DEFLATED
+            entry.create_system, entry.external_attr = 3, 0o600 << 16
+            z.writestr(entry, b.getvalue())
+
+
+def stream_seed(seed, regime, chunk, purpose):
+    # EV-TE seed_for takes (seed, string, int), not arbitrary positional fields.
+    return T.seed_for(seed, f'E4|{regime}|chunk={chunk}|{purpose}')
+
+
+def selected_specs(ev=EV):
+    score = T.read_json(ev/'score.json')
+    ids = {c['regime'] for c in score['cells']
+           if c['stationary_rate_valid'] is True and c['regime'].startswith('G')}
+    specs = [s for s in T.read_json(ev/'regimes.json') if s['id'] in ids and s['topology'] == 'geant']
+    if len(specs) != 17 or {s['id'] for s in specs} != ids:
+        raise ValueError('expected exactly 17 confirmatory GEANT regimes')
+    return sorted(specs, key=lambda s: s['id'])
+
+
+def e4_grid(ti, dt):
+    taus, hs = T.grid(ti, dt)
+    return [taus[t] for t in TAU_INDEX], hs
+
+
+def pick(costs, rates=None, random_seed=None):
+    """Minimize n x action x h costs; exact ties only, no epsilon.
+
+    Default selects the lowest tied index (Stay=0 whenever it is tied).
+    rates restrict the secondary minimization to the primary minimizers.
+    """
+    c = np.asarray(costs, dtype=float)
+    if c.ndim != 3 or not np.isfinite(c).all() or c.shape[1] < 1:
+        raise ValueError('finite n x action x h cost array required')
+    tied = c == c.min(axis=1, keepdims=True)
+    flags = tied.sum(axis=1) > 1
+    if rates is not None:
+        if random_seed is not None:
+            raise ValueError('choose one tie-break rule')
+        r = np.asarray(rates, dtype=float)
+        if r.shape != (c.shape[1],) or not np.isfinite(r).all():
+            raise ValueError('finite per-action rates required')
+        secondary = np.where(tied, r[None, :, None], np.inf)
+        return secondary.argmin(axis=1).astype(np.int16), flags
+    if random_seed is None:
+        return c.argmin(axis=1).astype(np.int16), flags
+    rank = np.random.default_rng(random_seed).integers(tied.sum(axis=1))
+    choices = (tied & (tied.cumsum(axis=1)-1 == rank[:, None, :])).argmax(axis=1)
+    return choices.astype(np.int16), flags
+
+
+def hybrid_costs(costs, rates, horizons, ti=None, theta=None):
+    r, h = np.asarray(rates, dtype=float), np.asarray(horizons, dtype=float)
+    if r.shape != (costs.shape[1],) or h.shape != (costs.shape[2],):
+        raise ValueError('hybrid dimensions mismatch')
+    if not np.isfinite(r).all() or not np.isfinite(h).all() or np.any(h <= 0):
+        raise ValueError('invalid hybrid rates/horizons')
+    if theta is not None:
+        if ti is None or not np.isfinite(theta) or theta < 0 or ti <= 0:
+            raise ValueError('nonnegative fixed onset theta and positive T_int required')
+        h = np.maximum(0., h-theta*ti)
+    # Subtract a common action offset BEFORE adding to avoid a large common
+    # constant erasing tiny differences or changing ties by floating rounding.
+    return costs + (r-r[0])[None, :, None]*h[None, None, :]
+
+
+def pipeline_names(onset_theta=None):
+    names = ['M0', 'M0-tie-i', 'M0-tie-ii', 'M0-tie-iii', 'M0-tie-rand']
+    names += ['Hybrid-'+s for s in HYBRID_LEVELS]
+    if onset_theta is not None:
+        names += ['Onset-hybrid-'+s for s in HYBRID_LEVELS]
+    return names + ['M1_new']
+
+
+def twin_decisions(costs, levels, horizons, seed, ti, onset_theta=None):
+    result = [pick(costs)]
+    result += [pick(costs, rates=levels[s]) for s in ('i', 'ii', 'iii')]
+    result += [pick(costs, random_seed=T.seed_for(seed, 'M0-tie-rand'))]
+    result += [pick(hybrid_costs(costs, levels[s], horizons)) for s in HYBRID_LEVELS]
+    if onset_theta is not None:
+        result += [pick(hybrid_costs(costs, levels[s], horizons, ti, onset_theta)) for s in HYBRID_LEVELS]
+    return np.stack([r[0] for r in result], axis=1), np.stack([r[1] for r in result], axis=1)
+
+
+def mean_futures(model, fresh, dt, hs, rollouts, seed):
+    if rollouts < 1:
+        raise ValueError('positive rollout count required')
+    modes, queues = [np.repeat(x, rollouts, axis=0) for x in fresh]
+    costs, _, _ = T.futures(model, modes, queues, dt, hs, seed)
+    return costs.reshape(len(fresh[0]), rollouts, len(model.weights), len(hs)).mean(axis=1)
+
+
+def costs_for_decisions(values, decisions):
+    """Gather only, never reevaluate a pipeline's chosen action."""
+    values, decisions = np.asarray(values), np.asarray(decisions)
+    if (values.ndim != 3 or decisions.ndim < 2 or decisions.shape[0] != len(values)
+            or decisions.shape[-1] != values.shape[-1]
+            or not np.issubdtype(decisions.dtype, np.integer)
+            or np.any(decisions < 0) or np.any(decisions >= values.shape[1])):
+        raise ValueError('invalid action decisions')
+    ix = np.arange(len(values)).reshape((-1,)+(1,)*(decisions.ndim-1))
+    return values[ix, decisions, np.arange(values.shape[-1])]
+
+
+def compute_chunk(spec, training, chunk, *, seed=TEST_SEED, size=CHUNK_SIZE,
+                  k=K, r_eval=R_EVAL, r_dec=R_DEC, onset_theta=None):
+    """Pure scientific chunk result; timers are measured only by the caller."""
+    if chunk not in range(N_CHUNKS) or min(size, k, r_eval, r_dec) < 1:
+        raise ValueError('invalid chunk or sample counts')
+    m = T.make_model(spec)
+    ti, dt = training['T_int'], training['dt']
+    taus, hs = e4_grid(ti, dt)
+    levels, _ = rate_levels(m, training)
+    fresh, all_stale = T.instances(m, ti, dt, size, stream_seed(seed, spec['id'], chunk, 'instances'))
+    stale = [all_stale[t] for t in TAU_INDEX]
+    names = pipeline_names(onset_theta)
+    shape = (size, len(names), len(SIDES), len(TAUS), len(HS))
+    decisions = np.full(shape, -1, dtype=np.int16)
+    ties = np.zeros(shape, dtype=bool)
+    values = np.empty((size, len(m.weights), len(HS)))
+    for i in range(size):
+        f = tuple(x[i:i+1] for x in fresh)
+        root = stream_seed(seed, spec['id'], chunk, f'instance={i}')
+        # The decision and evaluation streams are separate; actions share CRN.
+        values[i] = mean_futures(m, f, dt, hs, r_eval, T.seed_for(root, 'evaluation'))[0]
+        fresh_cost = T.twin_costs(m, *f, dt, hs)
+        d, flags = twin_decisions(fresh_cost, levels, np.array(hs)*dt,
+                                  T.seed_for(root, 'fresh'), ti, onset_theta)
+        decisions[i, :-1, 0] = d[0, :, None, :]
+        ties[i, :-1, 0] = flags[0, :, None, :]
+        m1, mf = pick(mean_futures(m, f, dt, hs, r_dec, T.seed_for(root, 'M1_new')))
+        decisions[i, -1, 0] = m1[0, None, :]
+        ties[i, -1, 0] = mf[0, None, :]
+        for t, (state, age) in enumerate(zip(stale, taus)):
+            sm, sq = (x[i:i+1] for x in state)
+            pm, pq = T.posterior(m, sm, sq, dt, age, k, T.seed_for(root, 'posterior', t))
+            old = T.twin_costs(m, pm, pq, dt, hs).reshape(1, k, len(m.weights), len(hs)).mean(axis=1)
+            d, flags = twin_decisions(old, levels, np.array(hs)*dt,
+                                      T.seed_for(root, 'stale', t), ti, onset_theta)
+            decisions[i, :-1, 1, t] = d[0]
+            ties[i, :-1, 1, t] = flags[0]
+    available = np.ones((len(names), 2), dtype=bool)
+    available[-1, 1] = False
+    return dict(V=values, decisions=decisions, tie_flags=ties, available=available,
+                pipelines=np.array(names), sides=np.array(SIDES), h=np.array(hs)*dt,
+                tau=np.array(taus)*dt, h_mult=np.array(HS), tau_mult=np.array(TAUS),
+                instance_id=chunk*CHUNK_SIZE+np.arange(size))
+
+
+def run_chunk(task):
+    spec, tr, out, chunk, seed, theta = task
+    path = Path(out)/'raw'/f"{spec['id']}_chunk{chunk:02d}.npz"
+    T.new(path, path.with_suffix('.json'))
+    cpu, wall = time.process_time(), time.perf_counter()
+    arrays = compute_chunk(spec, tr, chunk, seed=seed, onset_theta=theta)
+    elapsed, seconds = time.process_time()-cpu, time.perf_counter()-wall
+    write_npz(path, arrays)
+    meta = dict(regime=spec['id'], chunk=chunk, seed=seed, pilot=seed == PILOT_SEED,
+                N=CHUNK_SIZE, K=K, R_eval=R_EVAL, R_dec=R_DEC,
+                T_int=tr['T_int'], dt=tr['dt'], onset_theta=theta,
+                CPU=elapsed, wall=seconds,
+                peak_memory_MiB=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024,
+                npz_sha256=T.sha256(path), pipelines=arrays['pipelines'].tolist(),
+                axes=dict(V=['instance', 'action', 'h'],
+                          decisions=['instance', 'pipeline', 'side', 'tau', 'h']),
+                seed_rule='seed_for(seed, E4|regime|chunk=id|purpose); per-instance child streams',
+                tie_definition=CARD_FORMAT['ties'], units=dict(queue='Mb', cost='Mb*time'))
+    write_json(path.with_suffix('.json'), meta)
+    print(json.dumps(dict(regime=spec['id'], chunk=chunk, CPU=elapsed, wall=seconds)), flush=True)
+    return meta
+
+
+def training_checks(out=OUT, ev=EV, n=100):
+    if n < 1:
+        raise ValueError('positive training N required')
+    targets = [out/'training_checks.json', out/'training_checks.csv', out/'card_format.json']
+    T.new(*targets)
+    start = time.process_time()
+    rows, cells = [], []
+    specs = selected_specs(ev)
+    for spec in specs:
+        tr = T.read_json(ev/'train'/f"{spec['id']}.json")
+        if tr['seed'] != TRAIN_SEED or tr['excluded']:
+            raise ValueError('invalid EV-TE training provenance')
+        m = T.make_model(spec)
+        levels, details = rate_levels(m, tr)
+        # Exact EV-TE training state stream, first N of the original n_train.
+        f, stale = T.instances(m, tr['T_int'], tr['dt'], n, T.seed_for(TRAIN_SEED, spec['id'], 2))
+        taus, hs = e4_grid(tr['T_int'], tr['dt'])
+        fc = T.twin_costs(m, *f, tr['dt'], hs)
+        _, fresh_ties = pick(fc)
+        old_flags = []
+        # Preserve EV-TE's original 32-instance batches and posterior seeds,
+        # including its four-age index t, then retain E4's three ages.
+        for t in TAU_INDEX:
+            flags = []
+            for left in range(0, n, 32):
+                sl = slice(left, min(left+32, n))
+                sm, sq = (x[sl] for x in stale[t])
+                root = T.seed_for(TRAIN_SEED, spec['id'], 100+left)
+                pm, pq = T.posterior(m, sm, sq, tr['dt'], tr['tau_steps'][t], K,
+                                    T.seed_for(root, 'posterior', t))
+                old = T.twin_costs(m, pm, pq, tr['dt'], hs).reshape(len(sm), K, len(m.weights), len(hs)).mean(axis=1)
+                flags.append(pick(old)[1])
+            old_flags.append(np.concatenate(flags))
+        old_flags = np.stack(old_flags, axis=1)
+        row = dict(regime=spec['id'], N=n, K=K,
+                   rhat={label: x.tolist() for label, x in levels.items()}, estimates=details,
+                   ii=ordering_comparison(levels['i'], levels['ii']),
+                   iii=ordering_comparison(levels['i'], levels['iii']),
+                   fresh_tie_share=float(fresh_ties.mean()), stale_tie_share=float(old_flags.mean()),
+                   fresh_tie_by_h=fresh_ties.mean(axis=0).tolist(),
+                   stale_tie_by_tau_h=old_flags.mean(axis=0).tolist(),
+                   zero_all_actions_share_by_h=(fc == 0).all(axis=1).mean(axis=0).tolist())
+        rows.append(row)
+        for t, tau in enumerate(TAUS):
+            for j, h in enumerate(HS):
+                cells.append(dict(regime=spec['id'], tau_mult=tau, h_mult=h,
+                                  fresh_tie_share=float(fresh_ties[:, j].mean()),
+                                  stale_tie_share=float(old_flags[:, t, j].mean())))
+        print(json.dumps(dict(regime=spec['id'], ii=row['ii']['best_action_agrees'],
+                              iii=row['iii']['best_action_agrees'],
+                              fresh_tie_share=row['fresh_tie_share'], stale_tie_share=row['stale_tie_share'])), flush=True)
+    summary = {s: {key: sum(r[s][key] for r in rows)
+                    for key in ('best_action_agrees', 'best_set_agrees', 'full_order_agrees')}
+               for s in ('ii', 'iii')}
+    result = dict(seed=TRAIN_SEED, N=n, K=K, regimes=rows, summary=summary, regime_count=len(rows),
+                  CPU=time.process_time()-start, test_seed_used=False,
+                  note='Training only. Exact ties; shares pool correlated horizons/ages, not independent trials.',
+                  state_seed='EV-TE seed_for(1, regime, 2), prefix N=100',
+                  source_sha256=input_hashes(ev=ev, include_training_check=False))
+    write_json(targets[0], result)
+    T.write_csv(targets[1], cells)
+    write_json(targets[2], CARD_FORMAT)
+    return result
+
+
+def input_hashes(ev=EV, include_training_check=True, out=OUT, card=None):
+    paths = [Path(__file__), Path(__file__).with_name('e4_rhat.py'), Path(T.__file__),
+             ROOT/'tests/test_letter_e4.py', ROOT/'notes/ops/codex/LETTER_E4_brief.md',
+             ROOT/'results/letter/E4_DESIGN.md', ev/'regimes.json', ev/'score.json']
+    paths += [ev/'train'/f"{s['id']}.json" for s in selected_specs(ev)]
+    if include_training_check:
+        paths.append(out/'training_checks.json')
+    if card is not None:
+        paths.append(Path(card).resolve())
+    return {str(p.relative_to(ROOT)) if p.is_relative_to(ROOT) else str(p): T.sha256(p) for p in paths}
+
+
+def read_card(path):
+    card = T.read_json(path)
+    if card.get('schema') != 'letter-e4-card-v1' or set(card.get('tests', {})) != set(CARD_FORMAT['tests']):
+        raise ValueError('card must use letter-e4-card-v1 and specify E4-1..E4-6')
+    for name in ('E4-1', 'E4-2', 'E4-4'):
+        rule = card['tests'][name]
+        threshold = 'abs_GS_pct_max' if name == 'E4-1' else 'regret_pct_max'
+        for field in (threshold, 'pass_fraction_min'):
+            value = rule.get(field)
+            if isinstance(value, bool) or not isinstance(value, (float, int)) or not np.isfinite(value) or value < 0:
+                raise ValueError(f'card needs nonnegative finite {name}.{field}')
+        horizons = rule.get('h_multipliers', [])
+        if (rule['pass_fraction_min'] > 1 or not horizons or len(set(horizons)) != len(horizons)
+                or not set(horizons) <= set(HS) or rule.get('horizon_rule') not in ('all', 'each')):
+            raise ValueError(f'invalid {name} horizons/fraction/unit')
+    frac = card['tests']['E4-3'].get('best_action_agreement_min')
+    if isinstance(frac, bool) or not isinstance(frac, (float, int)) or not np.isfinite(frac) or not 0 <= frac <= 1:
+        raise ValueError('invalid E4-3 agreement threshold')
+    if any(card['tests'][n].get('descriptive') is not True for n in ('E4-5', 'E4-6')):
+        raise ValueError('E4-5 and E4-6 are descriptive')
+    theta = card.get('onset_theta')
+    if theta is not None and (isinstance(theta, bool) or not isinstance(theta, (float, int))
+                              or not np.isfinite(theta) or theta < 0):
+        raise ValueError('invalid onset theta')
+    return card
+
+
+def verify_lock(out=OUT, ev=EV, card=None):
+    if card is None:
+        raise ValueError('truth/confirmatory score requires --card, before engine work')
+    read_card(card)
+    actual = input_hashes(ev, out=out, card=card)
+    recorded = T.read_json(out/'lock.json').get('sha256', {})
+    if not actual.keys() <= recorded.keys():
+        raise ValueError('lock omits mandatory E4 code, training, card or EV-TE inputs')
+    for name, digest in recorded.items():
+        p = Path(name) if Path(name).is_absolute() else ROOT/name
+        if T.sha256(p) != digest:
+            raise ValueError(f'LOCK_FAIL {name}')
+    print(f'LOCK_PASS {len(recorded)} files', flush=True)
+
+
+def parse_chunks(value):
+    if value == 'all':
+        return list(range(N_CHUNKS))
+    try:
+        chunks = [int(s) for s in value.split(',')]
+    except ValueError as error:
+        raise ValueError('chunks must be all or comma-separated indices 0..9') from error
+    if not chunks or len(set(chunks)) != len(chunks) or not set(chunks) <= set(range(N_CHUNKS)):
+        raise ValueError('chunks must be distinct indices 0..9')
+    return sorted(chunks)
+
+
+def run(out=OUT, ev=EV, workers=1, chunks=None, regimes=None, pilot=False, card=None, onset_theta=None):
+    if workers < 1:
+        raise ValueError('positive workers required')
+    # No input states or engine calls until truth card/lock have passed.
+    if not pilot:
+        verify_lock(out, ev, card)
+        if read_card(card).get('onset_theta') != onset_theta:
+            raise ValueError('CLI onset theta differs from locked card')
+    elif card is not None:
+        raise ValueError('pilot does not consume a truth card')
+    if onset_theta is not None and (not np.isfinite(onset_theta) or onset_theta < 0):
+        raise ValueError('onset theta must be fixed, finite and nonnegative')
+    T.new(out/'run_summary.json')
+    specs = selected_specs(ev)
+    ids = {s['id'] for s in specs}
+    wanted = set(regimes) if regimes else ids
+    if not wanted <= ids or not wanted:
+        raise ValueError('unknown/empty regime selection')
+    selected = [s for s in specs if s['id'] in wanted]
+    chunks = list(range(N_CHUNKS)) if chunks is None else chunks
+    if not chunks or len(set(chunks)) != len(chunks) or not set(chunks) <= set(range(N_CHUNKS)):
+        raise ValueError('invalid chunk selection')
+    if pilot and (len(selected) != 2 or len(chunks) != 1):
+        raise ValueError('pilot is exactly two regimes x one chunk')
+    seed = PILOT_SEED if pilot else TEST_SEED
+    tasks = []
+    for spec in selected:
+        tr = T.read_json(ev/'train'/f"{spec['id']}.json")
+        if tr['excluded'] or tr['seed'] != TRAIN_SEED:
+            raise ValueError('invalid training provenance')
+        for chunk in chunks:
+            path = out/'raw'/f"{spec['id']}_chunk{chunk:02d}.npz"
+            T.new(path, path.with_suffix('.json'))
+            tasks.append((spec, tr, out, chunk, seed, onset_theta))
+    # A single exclusive marker prevents accidentally starting two truth/pilot
+    # invocations. No resume/overwrite semantics; partial raw files are retained.
+    write_json(out/'run_start.json', dict(seed=seed, pilot=pilot, chunks=chunks,
+               regimes=sorted(wanted), workers=workers, onset_theta=onset_theta,
+               N_per_chunk=CHUNK_SIZE, K=K, R_eval=R_EVAL, R_dec=R_DEC,
+               source_sha256=input_hashes(ev, include_training_check=not pilot, out=out, card=card)))
+    T.native()  # Compile before spawning; time is recorded separately.
+    start = time.perf_counter()
+    with ProcessPoolExecutor(max_workers=workers, mp_context=get_context('spawn')) as pool:
+        results = list(pool.map(run_chunk, tasks))
+    result = dict(seed=seed, pilot=pilot, chunks_completed=len(results),
+                  CPU=sum(r['CPU'] for r in results), wall=time.perf_counter()-start, chunks=results)
+    if pilot:
+        old = {s['id']: T.read_json(ev/'raw'/f"{s['id']}.json")['CPU'] for s in specs}
+        ratios = [r['CPU']*N_CHUNKS/old[r['regime']] for r in results]
+        # Calibrate relative to ALL 17 historical EV-TE regime CPUs. Both
+        # extremes are reported; this range is not a confidence interval.
+        point = sum(old.values())*float(np.mean(ratios))
+        result['projection'] = dict(chunks=17*N_CHUNKS, reference_EV_CPU=sum(old.values()),
+                    pilot_E4_to_EV_CPU_ratios=ratios, total_CPU_seconds=point,
+                    ratio_range_CPU_seconds=[sum(old.values())*min(ratios), sum(old.values())*max(ratios)],
+                    ideal_32_worker_wall_seconds=max(point/32, max(r['CPU'] for r in results)),
+                    method='mean E4-chunk/(EV-regime/10) multiplier x summed 17 EV-regime CPU; not a CI or hardware guarantee')
+    write_json(out/'run_summary.json', result)
+    return result
+
+
+def paired(values):
+    values = np.asarray(values)
+    return float(values.mean()), float(values.std(ddof=1)/np.sqrt(len(values))) if len(values) > 1 else None
+
+
+def load_regime(out, spec, ev=EV):
+    paths = sorted((out/'raw').glob(f"{spec['id']}_chunk*.json"))
+    pieces, metadata = [], []
+    for path in paths:
+        meta = T.read_json(path)
+        if meta['regime'] != spec['id'] or meta['chunk'] not in range(N_CHUNKS):
+            raise ValueError('raw regime/chunk mismatch')
+        npz = path.with_suffix('.npz')
+        if T.sha256(npz) != meta['npz_sha256']:
+            raise ValueError('raw SHA256 mismatch')
+        with np.load(npz, allow_pickle=False) as data:
+            arrays = {key: data[key] for key in data.files}
+        if (meta['seed'] not in (TEST_SEED, PILOT_SEED) or meta['pilot'] != (meta['seed'] == PILOT_SEED)
+                or meta['N'] != CHUNK_SIZE or meta['K'] != K
+                or meta['R_eval'] != R_EVAL or meta['R_dec'] != R_DEC):
+            raise ValueError('raw sample configuration mismatch')
+        if arrays['V'].shape != (CHUNK_SIZE, 2**len(spec['managed']), len(HS)) or not np.isfinite(arrays['V']).all():
+            raise ValueError('invalid raw per-action V')
+        names = pipeline_names(meta['onset_theta'])
+        if arrays['pipelines'].tolist() != names or arrays['sides'].tolist() != list(SIDES):
+            raise ValueError('raw pipeline/side schema mismatch')
+        tr = T.read_json(ev/'train'/f"{spec['id']}.json")
+        taus, hs = e4_grid(tr['T_int'], tr['dt'])
+        if (meta['dt'] != tr['dt'] or meta['T_int'] != tr['T_int']
+                or not np.array_equal(arrays['h'], np.array(hs)*tr['dt'])
+                or not np.array_equal(arrays['tau'], np.array(taus)*tr['dt'])
+                or not np.array_equal(arrays['h_mult'], HS)
+                or not np.array_equal(arrays['tau_mult'], TAUS)):
+            raise ValueError('raw grid differs from training inputs')
+        expected_shape = (CHUNK_SIZE, len(names), 2, len(TAUS), len(HS))
+        if arrays['decisions'].shape != expected_shape or arrays['tie_flags'].shape != expected_shape:
+            raise ValueError('raw decision/tie shape mismatch')
+        available = np.ones((len(names), 2), dtype=bool)
+        available[-1, 1] = False
+        d = arrays['decisions']
+        if (not np.array_equal(arrays['available'], available)
+                or not np.issubdtype(d.dtype, np.integer)
+                or arrays['tie_flags'].dtype != np.dtype(bool)
+                or not np.all(d[:, -1, 1] == -1)
+                or np.any(arrays['tie_flags'][:, -1, 1])
+                or np.any(d[:, :, 0] < 0) or np.any(d[:, :-1, 1] < 0)
+                or np.any(d >= arrays['V'].shape[1])):
+            raise ValueError('invalid raw action availability/indices/ties')
+        for t in range(1, len(TAUS)):
+            if (not np.array_equal(d[:, :, 0, t], d[:, :, 0, 0])
+                    or not np.array_equal(arrays['tie_flags'][:, :, 0, t], arrays['tie_flags'][:, :, 0, 0])):
+                raise ValueError('fresh decisions/ties must not depend on tau')
+        if not np.array_equal(arrays['instance_id'], meta['chunk']*CHUNK_SIZE+np.arange(CHUNK_SIZE)):
+            raise ValueError('raw instance index mismatch')
+        if pieces:
+            if any(not np.array_equal(arrays[key], pieces[0][key])
+                   for key in ('h', 'tau', 'h_mult', 'tau_mult', 'available', 'pipelines', 'sides')):
+                raise ValueError('inconsistent chunk schemas')
+            if any(meta[key] != metadata[0][key] for key in ('seed', 'onset_theta', 'dt', 'T_int')):
+                raise ValueError('inconsistent chunk provenance')
+        pieces.append(arrays)
+        metadata.append(meta)
+    if not pieces:
+        return None, []
+    if len({m['chunk'] for m in metadata}) != len(metadata):
+        raise ValueError('duplicate chunk')
+    result = dict(pieces[0])
+    for key in ('V', 'decisions', 'tie_flags', 'instance_id'):
+        result[key] = np.concatenate([r[key] for r in pieces], axis=0)
+    return result, metadata
+
+
+def descriptive_tables(out=OUT, ev=EV):
+    rows, regimes = [], []
+    for spec in selected_specs(ev):
+        raw, meta = load_regime(out, spec, ev)
+        if raw is None:
+            regimes.append(dict(regime=spec['id'], chunks=0, N=0, complete=False, CPU=0., seed=None, pilot=None))
+            continue
+        names, d, flags = raw['pipelines'].tolist(), raw['decisions'], raw['tie_flags']
+        ref_values = costs_for_decisions(raw['V'], d[:, names.index('M1_new'), 0, 0])
+        ref = ref_values.mean(axis=0)
+        regimes.append(dict(regime=spec['id'], chunks=len(meta), N=len(d),
+                            complete=len(meta) == N_CHUNKS, CPU=sum(m['CPU'] for m in meta),
+                            seed=meta[0]['seed'], pilot=meta[0]['pilot']))
+        for p, name in enumerate(names):
+            fresh = costs_for_decisions(raw['V'], d[:, p, 0, 0])
+            stale = costs_for_decisions(raw['V'], d[:, p, 1]) if raw['available'][p, 1] else None
+            for t, tau in enumerate(TAUS):
+                for j, h in enumerate(HS):
+                    lf, lfse = paired(fresh[:, j])
+                    rf, rfse = paired(fresh[:, j]-ref_values[:, j])
+                    old = stale[:, t, j] if stale is not None else None
+                    ls, lsse = paired(old) if old is not None else (None, None)
+                    gs, gsse = paired(old-fresh[:, j]) if old is not None else (None, None)
+                    rs, rsse = paired(old-ref_values[:, j]) if old is not None else (None, None)
+                    def pct(x):
+                        return 100*x/ref[j] if x is not None and ref[j] > 0 else None
+                    rows.append(dict(regime=spec['id'], tau_mult=tau, h_mult=h, tau=float(raw['tau'][t]),
+                                     h=float(raw['h'][j]), N=len(d), pipeline=name,
+                                     C_ref=float(ref[j]), E_stay=float(raw['V'][:, 0, j].mean()),
+                                     L_fresh=lf, L_fresh_se=lfse, L_stale=ls, L_stale_se=lsse,
+                                     G_S=gs, G_S_se=gsse, G_S_pct=pct(gs), G_S_se_pct=pct(gsse),
+                                     regret_fresh_pct=pct(rf), regret_fresh_se_pct=pct(rfse),
+                                     regret_stale_pct=pct(rs), regret_stale_se_pct=pct(rsse),
+                                     tie_fresh=float(flags[:, p, 0, t, j].mean()),
+                                     tie_stale=float(flags[:, p, 1, t, j].mean()) if old is not None else None))
+    # E4-5, and wrong-order cost (E4-6), from the exact same per-action V.
+    lookup = {(r['regime'], r['tau_mult'], r['h_mult'], r['pipeline']): r for r in rows}
+    reductions = []
+    for r in rows:
+        if r['pipeline'] != 'M0':
+            continue
+        key = (r['regime'], r['tau_mult'], r['h_mult'])
+        for level in ('i', 'ii'):
+            hybrid, tie = lookup[key+('Hybrid-'+level,)], lookup[key+('M0-tie-'+level,)]
+            reverse = lookup[key+('Hybrid-reversed',)]
+            for side in SIDES:
+                base, hy, tb = (x['L_'+side] for x in (r, hybrid, tie))
+                denom = base-hy
+                reductions.append(dict(regime=key[0], tau_mult=key[1], h_mult=key[2], level=level,
+                                       side=side, M0_loss=base, hybrid_loss=hy, tie_loss=tb,
+                                       hybrid_reduction=denom, tie_reduction=base-tb,
+                                       reduction_fraction=(base-tb)/denom if denom != 0 else None,
+                                       reversed_minus_hybrid=reverse['L_'+side]-hy,
+                                       denominator_positive=denom > 0))
+    return rows, regimes, reductions
+
+
+def merge(out=OUT, ev=EV):
+    paths = [out/'cells.csv', out/'regimes.csv', out/'reductions.csv', out/'merge.json']
+    T.new(*paths)
+    rows, regimes, reductions = descriptive_tables(out, ev)
+    for path, table in zip(paths[:3], (rows, regimes, reductions)):
+        T.write_csv(path, table)
+    write_json(paths[3], dict(complete_regimes=sum(r['complete'] for r in regimes),
+                             expected_regimes=17, regimes=regimes, cell_rows=len(rows),
+                             descriptive_only=True, cost_units='Mb*time',
+                             note='Paired SEs are conditional MC summaries; cells share states and are not independent.'))
+    return rows, regimes, reductions
+
+
+def score_tests(rows, regimes, training, card):
+    """No hidden pass thresholds; all must come from the locked JSON card."""
+    rules, result = card['tests'], {}
+    expected = {r['regime'] for r in regimes}
+    if expected != {r['regime'] for r in training['regimes']} or len(expected) != 17:
+        raise ValueError('training/truth regime set mismatch')
+    for name, pipe in (('E4-1', 'Hybrid-i'), ('E4-2', 'Hybrid-i'), ('E4-4', 'Hybrid-ii')):
+        rule = rules[name]
+        groups = {}
+        for row in rows:
+            if row['pipeline'] != pipe or row['h_mult'] not in rule['h_multipliers']:
+                continue
+            key = (row['regime'], row['tau_mult'])
+            if rule['horizon_rule'] == 'each':
+                key += (row['h_mult'],)
+            if name == 'E4-1':
+                value = row['G_S_pct']
+                passed = value is not None and abs(value) <= rule['abs_GS_pct_max']
+            else:
+                values = [row['regret_'+s+'_pct'] for s in SIDES]
+                passed = all(x is not None and x <= rule['regret_pct_max'] for x in values)
+            groups.setdefault(key, []).append(bool(passed))
+        unit_count = 17*len(TAUS)*(len(rule['h_multipliers']) if rule['horizon_rule'] == 'each' else 1)
+        per_unit = len(rule['h_multipliers']) if rule['horizon_rule'] == 'all' else 1
+        complete = all(r['complete'] and not r.get('pilot', True) for r in regimes)
+        complete &= len(groups) == unit_count and all(len(v) == per_unit for v in groups.values())
+        passed = sum(all(v) for v in groups.values())
+        fraction = passed/unit_count
+        result[name] = dict(passed=passed, denominator=unit_count, fraction=fraction,
+                            threshold=rule['pass_fraction_min'], complete=bool(complete),
+                            verdict=('PASS' if fraction >= rule['pass_fraction_min'] else 'FAIL')
+                            if complete else 'NOT_EVALUABLE', units=rule['horizon_rule'])
+    agreed = sum(r['ii']['best_action_agrees'] for r in training['regimes'])
+    result['E4-3'] = dict(passed=agreed, denominator=17, fraction=agreed/17,
+                          threshold=rules['E4-3']['best_action_agreement_min'], training_only=True,
+                          verdict='PASS' if agreed/17 >= rules['E4-3']['best_action_agreement_min'] else 'FAIL')
+    for name in ('E4-5', 'E4-6'):
+        result[name] = dict(verdict='DESCRIPTIVE', tables=['cells.csv', 'reductions.csv'])
+    return result
+
+
+def score(out=OUT, ev=EV, card=None):
+    T.new(out/'score.json')
+    if card is not None:
+        verify_lock(out, ev, card)
+    if not (out/'merge.json').exists():
+        merge(out, ev)
+    # Recompute from raw, never trust editable CSV summaries for verdicts.
+    rows, regimes, _ = descriptive_tables(out, ev)
+    result = dict(descriptive_only=card is None, complete_regimes=sum(r['complete'] for r in regimes),
+                  tests=None, note='No card: no E4 pass/fail verdicts. Finite-rollout M1_new may have negative measured regret.')
+    if card is not None:
+        c = read_card(card)
+        for r in regimes:
+            if r.get('N', 0):
+                _, meta = load_regime(out, next(s for s in selected_specs(ev) if s['id'] == r['regime']), ev)
+                if meta[0]['onset_theta'] != c.get('onset_theta'):
+                    raise ValueError('raw onset theta differs from card')
+        result['tests'] = score_tests(rows, regimes, T.read_json(out/'training_checks.json'), c)
+        result['card_sha256'] = T.sha256(card)
+    write_json(out/'score.json', result)
+    return result
+
+
+def main(argv=None):
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('command', choices=('train-checks', 'run', 'merge', 'score'))
+    p.add_argument('--out', type=Path, default=OUT)
+    p.add_argument('--ev-root', type=Path, default=EV)
+    p.add_argument('--workers', type=int, default=1)
+    p.add_argument('--chunks', default='all', help='all or comma-separated 0-based chunk indices, e.g. 0,3,9')
+    p.add_argument('--regimes', nargs='+')
+    p.add_argument('--pilot', action='store_true', help=f'two regimes x one chunk, separate seed {PILOT_SEED}')
+    p.add_argument('--card', type=Path, help='locked JSON card; required for truth, optional for score')
+    p.add_argument('--onset-theta', type=float, default=None, help='disabled by default; fixed by Claude after W2')
+    args = p.parse_args(argv)
+    if args.command == 'train-checks':
+        training_checks(args.out, args.ev_root)
+    elif args.command == 'run':
+        run(args.out, args.ev_root, args.workers, parse_chunks(args.chunks), args.regimes,
+            args.pilot, args.card, args.onset_theta)
+    elif args.command == 'merge':
+        merge(args.out, args.ev_root)
+    else:
+        score(args.out, args.ev_root, args.card)
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,56 @@
+{
+  "pilot_seed": 7000001,
+  "completed_chunks": 2,
+  "descriptive_rows_rescored": 468,
+  "raw": [
+    {
+      "regime": "G2_r90_b6_s1",
+      "raw_sha256_verified": true,
+      "descriptive_rows_rescored": 234,
+      "C_ref_positive_all_h": true,
+      "CPU": 370.887413057
+    },
+    {
+      "regime": "G3_r80_b3_s1",
+      "raw_sha256_verified": true,
+      "descriptive_rows_rescored": 234,
+      "C_ref_positive_all_h": true,
+      "CPU": 11.967744908
+    }
+  ],
+  "copy_sha256": {
+    "cells.csv": "df304f300fa3463b1e7d803d9946a5766f6e2ad71c4e413a2561645cde6283ec",
+    "merge.json": "dd1537f53b314f61ace07d4ce27ab2d6189bfdb43b3c9c0ebe7c84dbae58279c",
+    "raw/G2_r90_b6_s1_chunk00.json": "a81166526ecb3c97ed2194e9ad050b062d9e5cdf0354592e08a3323ce42d6ee5",
+    "raw/G2_r90_b6_s1_chunk00.npz": "c5430ba7f25d0d1b0ba55ad7de9131b1ba79a8600a65d35a7d56701179e93f6b",
+    "raw/G3_r80_b3_s1_chunk00.json": "1e8a3db8ed0a0fb7197bfa1ed00bdba5a2f8e921abc58e9beb00228db73d08d7",
+    "raw/G3_r80_b3_s1_chunk00.npz": "c27595efdadcebd5eea0f5ecc827c989fa69d0859c81748c28a1b313b9aa5aa6",
+    "reductions.csv": "e96a9d9935e512078cbc961b8e1126dbfd5e44b8e99b932e1bd7ea1597cc3a4d",
+    "regimes.csv": "f32a9583d357c771bfee900b3003c6a9c59a177f14d8002a5c9644612cc65197",
+    "run_start.json": "f7631d359eecddffe496fd6d438e64a34974d7618961cb3a01e988b947d89517",
+    "run_summary.json": "392c69b63853dc6b66ae4efcc172b0e46fa91adcc9f33bd73bf33c7672720b24",
+    "score.json": "944d9db8ca767136acd5ec979dcbda8a08969a56fac7548ec25c9e9d5dd0b66a"
+  },
+  "total_CPU": 382.855157965,
+  "projection": {
+    "chunks": 170,
+    "ideal_32_worker_wall_seconds": 380.01395393992385,
+    "method": "mean E4-chunk/(EV-regime/10) multiplier x summed 17 EV-regime CPU; not a CI or hardware guarantee",
+    "pilot_E4_to_EV_CPU_ratios": [
+      0.29620647451310184,
+      0.22608289990519298
+    ],
+    "ratio_range_CPU_seconds": [
+      10527.761618048125,
+      13793.131434107001
+    ],
+    "reference_EV_CPU": 46565.934984304,
+    "total_CPU_seconds": 12160.446526077563
+  },
+  "changed_functions_since_training_pilot": [
+    "score_tests"
+  ],
+  "historical_source_sha256_matches": true,
+  "no_truth_run_in_main_output": true,
+  "verdicts_absent": true
+}

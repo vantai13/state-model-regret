@@ -1,0 +1,14 @@
+{
+  "schema": "letter-e4-card-v1",
+  "written_by": "Claude, 16/11/2026, before any test-seed (3000001) outcome; author delegation",
+  "tests": {
+    "E4-1": {"abs_GS_pct_max": 0.25, "pass_fraction_min": 0.90, "h_multipliers": [7, 15, 30], "horizon_rule": "each", "pipeline": "hybrid level i"},
+    "E4-2": {"regret_pct_max": 0.5, "pass_fraction_min": 0.90, "h_multipliers": [7, 15, 30], "horizon_rule": "each", "pipeline": "hybrid level i, both sides"},
+    "E4-3": {"best_action_agreement_min": 0.90, "note": "training-only; already known before truth: 14/17 = 0.824, not met (INSIGHTS I21)"},
+    "E4-4": {"regret_pct_max": 0.5, "pass_fraction_min": 0.80, "h_multipliers": [7, 15, 30], "horizon_rule": "each", "pipeline": "hybrid level ii, both sides"},
+    "E4-5": {"descriptive": true},
+    "E4-6": {"descriptive": true}
+  },
+  "onset_theta": 0.5,
+  "onset_note": "Descriptive pipeline only (not used by E4-1..E4-4). Mechanical W2 P15 was 'not held' because the card compared the stale side to fresh M0 (Claude's wording error); the same-side comparison on the held-out families holds 99.2-100% (post-hoc, recorded in INSIGHTS I23). theta = W2's selection on asym (0.5)."
+}

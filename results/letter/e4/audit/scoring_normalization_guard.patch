@@ -1,0 +1,53 @@
+--- experiments/letter/e4_geant.py (training/pilot)
++++ experiments/letter/e4_geant.py (final)
+@@ -589,6 +589,7 @@
+     for name, pipe in (('E4-1', 'Hybrid-i'), ('E4-2', 'Hybrid-i'), ('E4-4', 'Hybrid-ii')):
+         rule = rules[name]
+         groups = {}
++        normalization_defined = True
+         for row in rows:
+             if row['pipeline'] != pipe or row['h_mult'] not in rule['h_multipliers']:
+                 continue
+@@ -597,19 +598,23 @@
+                 key += (row['h_mult'],)
+             if name == 'E4-1':
+                 value = row['G_S_pct']
++                normalization_defined &= value is not None and np.isfinite(value)
+                 passed = value is not None and abs(value) <= rule['abs_GS_pct_max']
+             else:
+                 values = [row['regret_'+s+'_pct'] for s in SIDES]
++                normalization_defined &= all(x is not None and np.isfinite(x) for x in values)
+                 passed = all(x is not None and x <= rule['regret_pct_max'] for x in values)
+             groups.setdefault(key, []).append(bool(passed))
+         unit_count = 17*len(TAUS)*(len(rule['h_multipliers']) if rule['horizon_rule'] == 'each' else 1)
+         per_unit = len(rule['h_multipliers']) if rule['horizon_rule'] == 'all' else 1
+         complete = all(r['complete'] and not r.get('pilot', True) for r in regimes)
+         complete &= len(groups) == unit_count and all(len(v) == per_unit for v in groups.values())
++        complete &= normalization_defined
+         passed = sum(all(v) for v in groups.values())
+         fraction = passed/unit_count
+         result[name] = dict(passed=passed, denominator=unit_count, fraction=fraction,
+                             threshold=rule['pass_fraction_min'], complete=bool(complete),
++                            normalization_defined=bool(normalization_defined),
+                             verdict=('PASS' if fraction >= rule['pass_fraction_min'] else 'FAIL')
+                             if complete else 'NOT_EVALUABLE', units=rule['horizon_rule'])
+     agreed = sum(r['ii']['best_action_agrees'] for r in training['regimes'])
+--- tests/test_letter_e4.py (training/pilot)
++++ tests/test_letter_e4.py (final)
+@@ -257,6 +257,16 @@
+         path.write_text(json.dumps(broken))
+         with pytest.raises(ValueError):
+             E.read_card(path)
++
++
++def test_undefined_normalization_never_becomes_a_false_verdict_or_exclusion():
++    rows, regimes, training = fake_tables()
++    rows[0]['G_S_pct'] = None
++    result = E.score_tests(rows, regimes, training, example_card())
++    assert result['E4-1']['verdict'] == 'NOT_EVALUABLE'
++    assert result['E4-1']['denominator'] == 51
++    assert result['E4-1']['normalization_defined'] is False
++    assert result['E4-2']['verdict'] == 'PASS'
+ 
+ 
+ def test_chunk_list_validation():

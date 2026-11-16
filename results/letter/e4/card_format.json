@@ -1,0 +1,46 @@
+{
+  "G_S": "(L_stale - L_fresh), positive means stale costs more; percentages of C_ref",
+  "description": "JSON; all numerical thresholds must be explicitly supplied by the author/orchestrator.",
+  "horizon_rule": {
+    "all": "one regime x tau unit; all specified horizons (and both sides for regret) must pass",
+    "each": "one regime x tau x horizon unit; both sides for regret must pass"
+  },
+  "lock_format": {
+    "sha256": {
+      "repo-relative-or-absolute-file-path": "sha256 hex"
+    }
+  },
+  "onset": "off unless --onset-theta is supplied; truth theta must equal card onset_theta",
+  "regret": "(L_pipeline - L_M1_new)/L_M1_new * 100, signed, with paired SE",
+  "schema": "letter-e4-card-v1",
+  "tests": {
+    "E4-1": [
+      "abs_GS_pct_max",
+      "pass_fraction_min",
+      "h_multipliers",
+      "horizon_rule"
+    ],
+    "E4-2": [
+      "regret_pct_max",
+      "pass_fraction_min",
+      "h_multipliers",
+      "horizon_rule"
+    ],
+    "E4-3": [
+      "best_action_agreement_min"
+    ],
+    "E4-4": [
+      "regret_pct_max",
+      "pass_fraction_min",
+      "h_multipliers",
+      "horizon_rule"
+    ],
+    "E4-5": [
+      "descriptive=true"
+    ],
+    "E4-6": [
+      "descriptive=true"
+    ]
+  },
+  "ties": "exact primary objective ties before tie-break; rhat tie variants flag the original M0 tie"
+}

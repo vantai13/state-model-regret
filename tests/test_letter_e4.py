@@ -1,0 +1,327 @@
+"""Doan Van Tai — E4 controls; old EV-TE truth only, never the E4 test seed."""
+from copy import deepcopy
+import json
+from types import SimpleNamespace
+
+import numpy as np
+import pytest
+
+from experiments.ext_validity import ev_te as T
+from experiments.letter import e4_geant as E
+from experiments.letter import e4_rhat as R
+
+
+@pytest.fixture(scope='module')
+def cheapest():
+    spec = next(s for s in E.selected_specs() if s['id'] == 'G3_r80_b3_s1')
+    return spec, T.read_json(E.EV/'train'/f"{spec['id']}.json")
+
+
+def toy(weights=(5., 7.), beta=.6, kappa=1.):
+    return T.Model(np.array(weights, dtype=float)[:, None, None], np.array([10.]),
+                   np.array([kappa]), beta, ['od'], ['link'])
+
+
+def test_regression_locked_geant_M0_new_first_instance_exact(cheapest):
+    """Replay the REAL locked EV-TE row, including seed 1000001 derivation."""
+    spec, tr = cheapest
+    seed, n = 1000001, 1
+    model = T.make_model(spec)
+    fresh, _ = T.instances(model, tr['T_int'], tr['dt'], n, T.seed_for(seed, spec['id'], 0))
+    values = E.mean_futures(model, fresh, tr['dt'], tr['h_steps'], 256,
+                           T.seed_for(seed, spec['id'], 100000))
+    chosen, _ = E.pick(T.twin_costs(model, *fresh, tr['dt'], tr['h_steps']))
+    pipeline = E.costs_for_decisions(values, chosen)
+    with np.load(E.EV/'raw'/f"{spec['id']}.npz", allow_pickle=False) as raw:
+        for t in range(len(T.TAUS)):
+            np.testing.assert_array_equal(pipeline[0], raw['pipeline_V'][0, t, 0])
+
+
+def test_per_action_evaluation_uses_shared_V_and_toy_old_pipeline_exact():
+    model, dt, hs, r = toy(), .05, [2, 10, 30], 16
+    f = (np.array([[1.], [-1.]]), np.array([[0.], [3.]]))
+    v = E.mean_futures(model, f, dt, hs, r, 82631)
+    direct = T.futures(model, *(np.repeat(x, r, axis=0) for x in f), dt, hs, 82631)[0]
+    np.testing.assert_array_equal(v, direct.reshape(2, r, 2, 3).mean(axis=1))
+    d = T.twin_costs(model, *f, dt, hs).argmin(axis=1)
+    expected = np.stack([v[i, d[i], np.arange(len(hs))] for i in range(len(d))])
+    np.testing.assert_array_equal(E.costs_for_decisions(v, d), expected)
+    multid = np.repeat(d[:, None, None], 3, axis=1)
+    got = E.costs_for_decisions(v, multid)
+    assert got.shape == (2, 3, 1, 3)
+    np.testing.assert_array_equal(got[:, 2, 0], expected)
+
+
+def test_exact_ties_stay_ranked_ties_and_no_epsilon():
+    c = np.array([[[0., 4., 1., 1e-30], [0., 1., 1., 0.], [2., 1., 0., 2.]]])
+    choice, flags = E.pick(c)
+    np.testing.assert_array_equal(choice, [[0, 1, 2, 1]])
+    np.testing.assert_array_equal(flags, [[True, True, False, False]])
+    ranked, ranked_flags = E.pick(c, rates=[10., 5., 0.])
+    np.testing.assert_array_equal(ranked, [[1, 2, 2, 1]])
+    np.testing.assert_array_equal(ranked_flags, flags)
+    # Never choose Stay if it is outside the minimizing set.
+    assert ranked[0, 1] != 0
+
+
+def test_random_ties_uniform_seeded_and_restricted():
+    c = np.zeros((12000, 3, 1))
+    c[:, 1] = 1
+    a, flags = E.pick(c, random_seed=702)
+    b, _ = E.pick(c, random_seed=702)
+    np.testing.assert_array_equal(a, b)
+    assert flags.all() and set(np.unique(a)) == {0, 2}
+    assert .48 < (a == 0).mean() < .52
+
+
+def test_constant_rhat_equals_M0_bitwise_even_at_tiny_cost_differences():
+    c = np.array([[[0., 1e-30, 1.], [1e-31, 0., 1.]]])
+    h = [.01, 1., 30.]
+    corrected = E.hybrid_costs(c, [1e100, 1e100], h)
+    np.testing.assert_array_equal(corrected, c)
+    np.testing.assert_array_equal(E.pick(corrected)[0], E.pick(c)[0])
+
+
+def test_reversed_rates_flip_best_action_and_noise_is_centered_on_stay():
+    model = toy(weights=(5., 7., 9.))
+    training = dict(r_a=[dict(mean=x) for x in (1., 3., 8.)])
+    levels, _ = R.rate_levels(model, training)
+    c = np.zeros((1, 3, 2))
+    np.testing.assert_array_equal(E.pick(E.hybrid_costs(c, levels['i'], [1, 30]))[0], [[0, 0]])
+    np.testing.assert_array_equal(E.pick(E.hybrid_costs(c, levels['reversed'], [1, 30]))[0], [[2, 2]])
+    np.testing.assert_array_equal(levels['noise_m50'], [1., 2., 4.5])
+    np.testing.assert_array_equal(levels['noise_p50'], [1., 4., 11.5])
+    assert all(levels[s][0] == 1 for s in E.HYBRID_LEVELS if s.startswith('noise'))
+
+
+def test_gaussian_single_link_formula_load_monotonic_and_factor_two():
+    low = R.gaussian_rates(toy(weights=(4.,), kappa=.1))
+    high = R.gaussian_rates(toy(weights=(7.,), kappa=.1))
+    expected = (.6*4)**2/(2*.1)/(10-4)
+    assert low['values'][0] == pytest.approx(expected)
+    assert low['link_T'][0][0] == pytest.approx(5.)
+    assert high['values'][0] > low['values'][0]
+    deterministic = R.gaussian_rates(toy(beta=0))
+    assert deterministic['values'] == [0., 0.]
+    assert deterministic['link_T'] == [[0.], [0.]]
+
+
+def test_gaussian_mixed_mode_integrated_covariance_and_unstable_flags():
+    model = SimpleNamespace(weights=np.array([[[3., 4.]], [[8., 4.]]]),
+                            capacity=np.array([10.]), kappa=np.array([1., .1]), beta=.5)
+    rate = R.gaussian_rates(model)
+    integral = (1.5**2/2 + 2.**2/.2)
+    assert rate['values'][0] == pytest.approx(integral/3)
+    assert rate['link_T'][0][0] == pytest.approx(integral/(1.5**2+2.**2))
+    assert rate['values'][1] is None and rate['unstable_links'] == [[], [0]]
+    assert R.ordering_rates(model)['values'] == [pytest.approx(.7/.3), None]
+    json.dumps(rate, allow_nan=False)
+
+
+def test_ordering_comparison_handles_exact_ties():
+    same = R.ordering_comparison([1, 1, 3], [10, 10, 11])
+    assert same['best_action_agrees'] and same['full_order_agrees'] and same['best_set_agrees']
+    broken = R.ordering_comparison([1, 1, 3], [10, 11, 12])
+    assert broken['best_action_agrees'] and not broken['full_order_agrees'] and not broken['best_set_agrees']
+
+
+def test_onset_disabled_default_and_fixed_theta_limits():
+    c = np.zeros((1, 2, 3))
+    h, r = np.array([1., 2., 4.]), [3., 1.]
+    assert not any(s.startswith('Onset') for s in E.pipeline_names())
+    assert len(E.pipeline_names(2)) == len(E.pipeline_names())+len(E.HYBRID_LEVELS)
+    np.testing.assert_array_equal(E.hybrid_costs(c, r, h, ti=1., theta=0), E.hybrid_costs(c, r, h))
+    shift = E.hybrid_costs(c, r, h, ti=1., theta=2)
+    np.testing.assert_array_equal(E.pick(shift)[0], [[0, 0, 1]])
+
+
+def test_ordering_only_is_never_used_as_hybrid_magnitude():
+    model = toy()
+    levels, _ = R.rate_levels(model, dict(r_a=[dict(mean=2.), dict(mean=1.)]))
+    c = np.zeros((1, 2, 2))
+    first = E.twin_decisions(c, levels, [1, 2], 987, 1.)
+    levels['iii'] = np.array([1e200, -1e200])
+    second = E.twin_decisions(c, levels, [1, 2], 987, 1.)
+    for col, name in enumerate(E.pipeline_names()[:-1]):
+        if name != 'M0-tie-iii':
+            np.testing.assert_array_equal(first[0][:, col], second[0][:, col])
+
+
+def test_sharding_same_chunk_gives_same_npz_bytes_and_other_chunk_independent(cheapest, tmp_path):
+    spec, tr = cheapest
+    kwargs = dict(seed=71931, size=2, k=4, r_eval=8, r_dec=4)
+    a = E.compute_chunk(spec, tr, 0, **kwargs)
+    b = E.compute_chunk(spec, tr, 0, **kwargs)
+    other = E.compute_chunk(spec, tr, 1, **kwargs)
+    E.write_npz(tmp_path/'a.npz', a)
+    E.write_npz(tmp_path/'different-name.npz', b)
+    assert (tmp_path/'a.npz').read_bytes() == (tmp_path/'different-name.npz').read_bytes()
+    assert not np.array_equal(a['V'], other['V'])
+    assert np.all(a['decisions'][:, -1, 1] == -1)
+    assert not a['available'][-1, 1]
+    # Fresh decisions/flags must be identical in all age columns.
+    for t in (1, 2):
+        np.testing.assert_array_equal(a['decisions'][:, :, 0, t], a['decisions'][:, :, 0, 0])
+        np.testing.assert_array_equal(a['tie_flags'][:, :, 0, t], a['tie_flags'][:, :, 0, 0])
+    with pytest.raises(FileExistsError):
+        E.write_npz(tmp_path/'a.npz', b)
+
+
+def test_stale_hybrid_averages_posterior_before_decision_and_independent_M1(cheapest):
+    spec, tr = cheapest
+    seed, chunk, k = 71932, 2, 4
+    raw = E.compute_chunk(spec, tr, chunk, seed=seed, size=1, k=k, r_eval=8, r_dec=4)
+    m = T.make_model(spec)
+    fresh, stale = T.instances(m, tr['T_int'], tr['dt'], 1, E.stream_seed(seed, spec['id'], chunk, 'instances'))
+    root = E.stream_seed(seed, spec['id'], chunk, 'instance=0')
+    taus, hs = E.e4_grid(tr['T_int'], tr['dt'])
+    levels, _ = R.rate_levels(m, tr)
+    for t, original_t in enumerate(E.TAU_INDEX):
+        pm, pq = T.posterior(m, *stale[original_t], tr['dt'], taus[t], k, T.seed_for(root, 'posterior', t))
+        mean = T.twin_costs(m, pm, pq, tr['dt'], hs).reshape(1, k, len(m.weights), len(hs)).mean(axis=1)
+        expected = E.pick(E.hybrid_costs(mean, levels['ii'], np.array(hs)*tr['dt']))[0]
+        np.testing.assert_array_equal(raw['decisions'][:, E.pipeline_names().index('Hybrid-ii'), 1, t], expected)
+    v = E.mean_futures(m, fresh, tr['dt'], hs, 8, T.seed_for(root, 'evaluation'))
+    np.testing.assert_array_equal(raw['V'], v)
+    m1 = E.mean_futures(m, fresh, tr['dt'], hs, 4, T.seed_for(root, 'M1_new'))
+    np.testing.assert_array_equal(raw['decisions'][:, -1, 0, 0], m1.argmin(axis=1))
+    assert T.seed_for(root, 'evaluation') != T.seed_for(root, 'M1_new')
+
+
+def test_truth_refused_without_card_before_any_engine_calls(tmp_path, monkeypatch):
+    monkeypatch.setattr(T, 'native', lambda: pytest.fail('engine before card'))
+    monkeypatch.setattr(T, 'instances', lambda *a: pytest.fail('instances before card'))
+    with pytest.raises(ValueError, match='requires --card'):
+        E.run(out=tmp_path)
+    assert not list(tmp_path.iterdir())
+
+
+def test_training_only_provenance_and_exactly_17_two_action_regimes(cheapest):
+    specs = E.selected_specs()
+    assert len(specs) == 17
+    assert all(s['topology'] == 'geant' and len(T.make_model(s).weights) == 2 for s in specs)
+    assert len({E.TRAIN_SEED, E.TEST_SEED, E.PILOT_SEED}) == 3
+    spec, tr = cheapest
+    assert tr['seed'] == E.TRAIN_SEED == 1
+    taus, hs = E.e4_grid(tr['T_int'], tr['dt'])
+    assert taus == [tr['tau_steps'][t] for t in E.TAU_INDEX] and hs == tr['h_steps']
+    for purpose in ('instances', 'evaluation', 'posterior', 'M1_new', 'M0-tie-rand'):
+        assert E.stream_seed(1, spec['id'], 0, purpose) != E.stream_seed(1, spec['id'], 1, purpose)
+
+
+def example_card():
+    tests = {}
+    for name in ('E4-1', 'E4-2', 'E4-4'):
+        tests[name] = dict(pass_fraction_min=1., h_multipliers=[7, 15, 30], horizon_rule='all')
+        tests[name]['abs_GS_pct_max' if name == 'E4-1' else 'regret_pct_max'] = .1
+    tests.update({'E4-3': dict(best_action_agreement_min=1.),
+                  'E4-5': dict(descriptive=True), 'E4-6': dict(descriptive=True)})
+    return dict(schema='letter-e4-card-v1', tests=tests)
+
+
+def fake_tables():
+    regimes = [dict(regime=f'r{i}', complete=True, pilot=False) for i in range(17)]
+    training = dict(regimes=[dict(regime=r['regime'], ii=dict(best_action_agrees=True)) for r in regimes])
+    rows = [dict(regime=r['regime'], tau_mult=t, h_mult=h, pipeline=pipe,
+                 G_S_pct=.05, regret_fresh_pct=.05, regret_stale_pct=.05)
+            for r in regimes for t in E.TAUS for h in (7, 15, 30)
+            for pipe in ('Hybrid-i', 'Hybrid-ii')]
+    return rows, regimes, training
+
+
+def test_card_drives_thresholds_and_explicit_horizon_unit():
+    card = example_card()
+    rows, regimes, training = fake_tables()
+    result = E.score_tests(rows, regimes, training, card)
+    assert all(result[n]['verdict'] == 'PASS' for n in ('E4-1', 'E4-2', 'E4-3', 'E4-4'))
+    assert result['E4-1']['denominator'] == 51
+    rows[0]['G_S_pct'] = .2
+    result = E.score_tests(rows, regimes, training, card)
+    assert result['E4-1']['passed'] == 50 and result['E4-1']['verdict'] == 'FAIL'
+    card['tests']['E4-1']['pass_fraction_min'] = .9
+    assert E.score_tests(rows, regimes, training, card)['E4-1']['verdict'] == 'PASS'
+    card['tests']['E4-1']['horizon_rule'] = 'each'
+    assert E.score_tests(rows, regimes, training, card)['E4-1']['denominator'] == 153
+    regimes[0]['complete'] = False
+    assert E.score_tests(rows, regimes, training, card)['E4-1']['verdict'] == 'NOT_EVALUABLE'
+
+
+def test_card_requires_thresholds_and_complete_definition(tmp_path):
+    card = example_card()
+    path = tmp_path/'card.json'
+    path.write_text(json.dumps(card))
+    assert E.read_card(path) == card
+    for field in ('horizon_rule', 'h_multipliers', 'pass_fraction_min', 'abs_GS_pct_max'):
+        broken = deepcopy(card)
+        del broken['tests']['E4-1'][field]
+        path.write_text(json.dumps(broken))
+        with pytest.raises(ValueError):
+            E.read_card(path)
+
+
+def test_undefined_normalization_never_becomes_a_false_verdict_or_exclusion():
+    rows, regimes, training = fake_tables()
+    rows[0]['G_S_pct'] = None
+    result = E.score_tests(rows, regimes, training, example_card())
+    assert result['E4-1']['verdict'] == 'NOT_EVALUABLE'
+    assert result['E4-1']['denominator'] == 51
+    assert result['E4-1']['normalization_defined'] is False
+    assert result['E4-2']['verdict'] == 'PASS'
+
+
+def test_chunk_list_validation():
+    assert E.parse_chunks('all') == list(range(10))
+    assert E.parse_chunks('9,0,3') == [0, 3, 9]
+    for value in ('', '-1', '10', '0,0', '1-3', 'a'):
+        with pytest.raises(ValueError):
+            E.parse_chunks(value)
+
+
+def test_json_write_once_and_invalid_data_does_not_create_file(tmp_path):
+    E.write_json(tmp_path/'once.json', dict(ok=True))
+    with pytest.raises(FileExistsError):
+        E.write_json(tmp_path/'once.json', dict(ok=False))
+    with pytest.raises(ValueError):
+        E.write_json(tmp_path/'bad.json', dict(value=float('nan')))
+    assert not (tmp_path/'bad.json').exists()
+
+
+def test_partial_merge_and_no_card_score_are_descriptive_only(cheapest, tmp_path, monkeypatch):
+    spec, tr = cheapest
+    model = T.make_model(spec)
+    names = E.pipeline_names()
+    taus, hs = E.e4_grid(tr['T_int'], tr['dt'])
+    shape = (E.CHUNK_SIZE, len(names), 2, len(E.TAUS), len(E.HS))
+    d = np.zeros(shape, dtype=np.int16)
+    d[:, :, 1] = 1  # all stale policies take the other action
+    d[:, -1, 1] = -1
+    d[:, -1, 0] = 1  # finite-rollout reference chooses action 1
+    availability = np.ones((len(names), 2), dtype=bool)
+    availability[-1, 1] = False
+    raw = dict(V=np.broadcast_to(np.array([2., 5.])[None, :, None],
+                                 (E.CHUNK_SIZE, len(model.weights), len(hs))).copy(),
+               decisions=d, tie_flags=np.zeros(shape, dtype=bool), available=availability,
+               pipelines=np.array(names), sides=np.array(E.SIDES), h=np.array(hs)*tr['dt'],
+               tau=np.array(taus)*tr['dt'], h_mult=np.array(E.HS), tau_mult=np.array(E.TAUS),
+               instance_id=np.arange(E.CHUNK_SIZE))
+    path = tmp_path/'raw'/f"{spec['id']}_chunk00.npz"
+    E.write_npz(path, raw)
+    E.write_json(path.with_suffix('.json'), dict(regime=spec['id'], chunk=0,
+                 seed=E.PILOT_SEED, pilot=True, N=E.CHUNK_SIZE, K=E.K,
+                 R_eval=E.R_EVAL, R_dec=E.R_DEC, onset_theta=None,
+                 dt=tr['dt'], T_int=tr['T_int'], CPU=1., npz_sha256=T.sha256(path)))
+    # These operations must gather saved V, without touching either engine.
+    monkeypatch.setattr(T, 'futures', lambda *a: pytest.fail('merge called futures'))
+    monkeypatch.setattr(T, 'twin_costs', lambda *a: pytest.fail('merge called twin'))
+    rows, regimes, reductions = E.merge(tmp_path)
+    assert sum(r['chunks'] for r in regimes) == 1
+    assert len(rows) == len(names)*len(E.TAUS)*len(E.HS)
+    m0 = next(r for r in rows if r['pipeline'] == 'M0')
+    assert m0['C_ref'] == 5. and m0['L_fresh'] == 2. and m0['L_stale'] == 5.
+    assert m0['G_S'] == 3. and m0['G_S_pct'] == 60.
+    assert m0['regret_fresh_pct'] == -60.  # never clamp negative MC regret
+    assert all(r['reduction_fraction'] is None for r in reductions)
+    result = E.score(tmp_path)
+    assert result['descriptive_only'] and result['tests'] is None
+    assert result['complete_regimes'] == 0
+    assert (tmp_path/'regimes.csv').exists() and (tmp_path/'reductions.csv').exists()
