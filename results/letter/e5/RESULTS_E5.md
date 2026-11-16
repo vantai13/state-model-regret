@@ -39,3 +39,20 @@ A record accepts an ordering only when a 99% batch-means interval (B = 10) exclu
 - the regret of the gated rule when it falls back (not computed);
 - measurement resolution of real traffic matrices (the replay here uses the exact demand path at the simulation step);
 - real traces.
+
+## Post-hoc: end-to-end expected regret (after the E5/E5b scores; `experiments/letter/e5_endtoend.py`, `endtoend_posthoc.json`)
+**Approximation:** at h ≥ 7·T_int, the hybrid with an estimated ordering acts like Hybrid-i (ordering correct) or Hybrid-reversed (ordering wrong).
+
+Long horizons (h = 15 and 30·T_int, 204 cells):
+
+| Policy | 100·T_int records | 300·T_int records |
+|---|---|---|
+| M0 (fluid twin) | 0/204 ≤ 0.5%, median 71.6% | same |
+| Hybrid with replayed ordering (ungated) | 72/204, median 4.1% | 110/204, median 0 |
+| Gated, falling back to M0 when inconclusive | 0/204, median 44.9% | 24/204, median 21.4% |
+| Hybrid with true ordering | 192/204, median 0 | same |
+
+**Reading:**
+- Even an uncertain replayed ordering cuts the fluid twin's regret sharply.
+- Falling back to the fluid twin when the record is inconclusive is worse than using the uncertain ordering. The gate is a diagnostic (when to keep recording), not a better policy.
+- Reaching the true-ordering result needs longer records for near-indifferent actions.
