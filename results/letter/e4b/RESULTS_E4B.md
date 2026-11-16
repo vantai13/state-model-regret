@@ -45,4 +45,4 @@ E4 (seed 3000001) had 102/102 on both E4-1 and E4-2 rules at h ∈ {15, 30}. **T
 - **For the letter:** report both seeds. Give the 14 regimes that are not near-empty (84/84 per seed) and the near-empty exception with its cause and absolute size. Do not write "all regimes from 15·T_int".
 
 ## 4. Independent rescore
-Codex, `experiments/letter/e4b_rescore.py`: pending.
+Codex, `experiments/letter/e4b_rescore.py` (no import of the scorer, simulator, wrapper or extra scorer): **MATCH**. Every field of cells/reductions/regimes and every verdict (E4-1…E4-4, X1–X3) identical; G_S sign convention agrees. This confirms the scoring from raw, not the simulator.
