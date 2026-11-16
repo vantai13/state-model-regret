@@ -17,8 +17,10 @@
 **3. Pipelines:**
 - M0 fresh and stale (posterior K = 128);
 - hybrid fresh and stale for each $\hat r$ level;
-- tie-break variant: M0 with ties broken toward the training-best action;
+- **tie-break baselines (required after W1a: about 50% zero-zero ties in topology):** M0 with ties broken toward the action with lowest $\hat r$ (same information as the hybrid), and M0 with uniformly random tie-breaking;
 - M1_new.
+
+Report which share of the hybrid's gain the tie-break baseline already captures.
 
 **4. $\hat r_a$ levels (topology analogues of the advisor's (i)–(iii)):**
 - **(i) Training estimate:** long simulation on the training seed. This is what EV-TE used as $r_a$; label it the "simulator" upper reference, not an operator-available quantity.
