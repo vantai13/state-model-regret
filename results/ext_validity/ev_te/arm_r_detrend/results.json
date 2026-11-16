@@ -1,0 +1,4826 @@
+{
+ "meta": {
+  "card": "results/ext_validity/ev_te/arm_r_detrend/CARD.md (ecb0f9a3)",
+  "outcome": "BOUNDARY",
+  "checks": {
+   "raw_reproduction_0.8": {
+    "value": 283.73381756496474,
+    "target": 283.733817565,
+    "ok": true
+   },
+   "raw_reproduction_0.9": {
+    "value": 438.89142381810916,
+    "target": 438.891423818,
+    "ok": true
+   },
+   "T_longest": {
+    "0.8": 131.65576945891175,
+    "0.9": 844.9551350049119
+   },
+   "T_1d_median": {
+    "0.8": 55.458678111373345,
+    "0.9": 32.22034084179466
+   },
+   "longest_over_1d": {
+    "0.8": 2.373943518713477,
+    "0.9": 26.224276743493576
+   }
+  },
+  "implied_h_over_T_int": {
+   "raw|R1|0.8": {
+    "5": 0.01762215037640052,
+    "15": 0.05286645112920156,
+    "30": 0.10573290225840312,
+    "60": 0.21146580451680624
+   },
+   "additive|R1|0.8": {
+    "5": 0.03797782672608543,
+    "15": 0.11393348017825627,
+    "30": 0.22786696035651255,
+    "60": 0.4557339207130251
+   },
+   "multiplicative|R1|0.8": {
+    "5": 0.010626527949440882,
+    "15": 0.031879583848322644,
+    "30": 0.06375916769664529,
+    "60": 0.12751833539329058
+   },
+   "raw|R4|0.8": {
+    "5": 0.01762215037640052,
+    "15": 0.05286645112920156,
+    "30": 0.10573290225840312,
+    "60": 0.21146580451680624
+   },
+   "additive|R4|0.8": {
+    "5": 0.03797782672608543,
+    "15": 0.11393348017825627,
+    "30": 0.22786696035651255,
+    "60": 0.4557339207130251
+   },
+   "multiplicative|R4|0.8": {
+    "5": 0.010626527949440882,
+    "15": 0.031879583848322644,
+    "30": 0.06375916769664529,
+    "60": 0.12751833539329058
+   },
+   "raw|R1|0.9": {
+    "5": 0.011392339263553626,
+    "15": 0.03417701779066088,
+    "30": 0.06835403558132176,
+    "60": 0.13670807116264352
+   },
+   "additive|R1|0.9": {
+    "5": 0.0059174739496327625,
+    "15": 0.01775242184889829,
+    "30": 0.03550484369779658,
+    "60": 0.07100968739559316
+   },
+   "multiplicative|R1|0.9": {
+    "5": 0.006362789947717358,
+    "15": 0.019088369843152077,
+    "30": 0.038176739686304154,
+    "60": 0.07635347937260831
+   },
+   "raw|R4|0.9": {
+    "5": 0.011392339263553626,
+    "15": 0.03417701779066088,
+    "30": 0.06835403558132176,
+    "60": 0.13670807116264352
+   },
+   "additive|R4|0.9": {
+    "5": 0.0059174739496327625,
+    "15": 0.01775242184889829,
+    "30": 0.03550484369779658,
+    "60": 0.07100968739559316
+   },
+   "multiplicative|R4|0.9": {
+    "5": 0.006362789947717358,
+    "15": 0.019088369843152077,
+    "30": 0.038176739686304154,
+    "60": 0.07635347937260831
+   }
+  },
+  "profile": "288 slots x weekday/weekend, 5-slot circular MA, train valid bins",
+  "train_valid_bins": 3742,
+  "CPU_seconds": 41.406533455,
+  "parsing": {
+   "absent_od_entries_in_files": 332697,
+   "absent_od_entries_filled_with_zero": 196870,
+   "file_count": 48096,
+   "valid_file_count": 41684,
+   "valid_bins": 41684,
+   "node_outage_bins": 6412,
+   "malformed_count": 0,
+   "missing_file_count": 7776,
+   "absent_file_bins": 7776,
+   "missing_or_malformed_bins": 14188,
+   "first": "2004-03-01T00:00:00",
+   "last": "2004-09-10T23:55:00",
+   "train_end_exclusive": "2004-05-01T00:00:00",
+   "train_bins": 17568,
+   "train_valid_bins": 3742,
+   "test_bins": 38304,
+   "test_valid_bins": 37942
+  }
+ },
+ "results": {
+  "raw|R1|0.8": {
+   "variant": "raw",
+   "set": "R1",
+   "rho": 0.8,
+   "managed": [
+    "LOSAng_CHINng"
+   ],
+   "alpha": 6.245521698221926,
+   "active_links": 10,
+   "P_Q_positive": 0.3311063602351684,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 116.04299072632966,
+      "min": 5.473332262214789,
+      "max": 191.87933598795325
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 119.73629370927107,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 201.745989902853,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 93.7166524726116,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 142.12950205728737,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 41.89510476296458,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 112.34968774338826,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 5.473332262214789,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 169.46077543748729,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 156.43509962917508,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 11.67447958882522,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 191.87933598795325,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 188.78184138265726,
+      "min": 123.97259652169357,
+      "max": 267.2161706686775
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 267.2161706686775,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 180.4851073761344,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 123.97259652169357,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 209.41874821142346,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 188.78184138265726,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 204.1577126129589,
+      "min": 128.9334781208991,
+      "max": 279.3819471050187
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 279.3819471050187,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 128.9334781208991,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 283.73381756496474,
+      "min": 283.73381756496474,
+      "max": 283.73381756496474
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 283.73381756496474,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 8,
+      "n_censored": 4,
+      "median": 76.70418136667139,
+      "min": 26.357960877548617,
+      "max": 149.30468550798736
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 137.07518518104908,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 76.20450484026587,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 100.4823808863515,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 26.357960877548617,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 31.709350697158932,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 77.20385789307691,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 36.92456155898306,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 124.47067371753913,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 149.30468550798736,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 188.66332335024728,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 91.46096956313276,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 229.51861200136028,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 133.4733569145177,
+      "min": 57.4980467829544,
+      "max": 167.98968620847307
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 133.4733569145177,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 64.53471330004002,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 57.4980467829544,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 151.54560166044823,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 167.98968620847307,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 1,
+      "n_censored": 1,
+      "median": 95.38591702724842,
+      "min": 95.38591702724842,
+      "max": 95.38591702724842
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 95.38591702724842,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 263.5875998088251,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 189.01211517149028,
+      "min": 189.01211517149028,
+      "max": 189.01211517149028
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 189.01211517149028,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "additive|R1|0.8": {
+   "variant": "additive",
+   "set": "R1",
+   "rho": 0.8,
+   "managed": [
+    "LOSAng_CHINng"
+   ],
+   "alpha": 6.245521698221926,
+   "active_links": 10,
+   "P_Q_positive": 0.16114377338321753,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 55.458678111373345,
+      "min": 4.258939572786066,
+      "max": 112.74627430495399
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 82.7722016013374,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 105.08827762563628,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 55.84900477011401,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 55.06835145263269,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 20.07037084326494,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 112.74627430495399,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 4.258939572786066,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 5.292938295315531,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 6.165536993705363,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 89.86530323118781,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 93.08074197587199,
+      "min": 4.2730754585332615,
+      "max": 146.30173717738128
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 146.30173717738128,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 93.08074197587199,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 124.89528219374618,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 4.2730754585332615,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 5.6480051204151165,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 141.3898274966557,
+      "min": 130.67021787852693,
+      "max": 152.1094371147845
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 152.1094371147845,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 130.67021787852693,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 131.65576945891175,
+      "min": 131.65576945891175,
+      "max": 131.65576945891175
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 131.65576945891175,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 11,
+      "n_censored": 1,
+      "median": 30.02085415221,
+      "min": 4.946577764996718,
+      "max": 141.02031102884538
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 58.884855656369716,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 141.02031102884538,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 19.131336418202014,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 4.946577764996718,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.866063862553247,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 54.90795000949018,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 27.63903988698054,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 21.063311988849176,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.86101554067785,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 73.295534022021,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 99.68325493872267,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 30.02085415221,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 55.92502403032156,
+      "min": 23.87310885338333,
+      "max": 103.30474024201423
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 100.91108321842319,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 23.87310885338333,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 28.52638634686369,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 83.32366171377943,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 103.30474024201423,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 45.80177151675875,
+      "min": 29.313242327081568,
+      "max": 62.290300706435936
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 62.290300706435936,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 29.313242327081568,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 226.08154147247296,
+      "min": 226.08154147247296,
+      "max": 226.08154147247296
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 226.08154147247296,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "multiplicative|R1|0.8": {
+   "variant": "multiplicative",
+   "set": "R1",
+   "rho": 0.8,
+   "managed": [
+    "LOSAng_CHINng"
+   ],
+   "alpha": 6.245521698221926,
+   "active_links": 12,
+   "P_Q_positive": 0.17022982362373063,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 9,
+      "n_censored": 3,
+      "median": 22.75576014105697,
+      "min": 2.4912591642672215,
+      "max": 92.64504093222996
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 92.64504093222996,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 53.73419946599197,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 31.884682798495003,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 22.75576014105697,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 14.804164765627673,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 88.31553755502017,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 5.857204542572018,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 2.4912591642672215,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 2.4912591642672215,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 242.89281332121513,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 26.375153593617696,
+      "min": 2.4952619600633277,
+      "max": 115.51462683217547
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 115.51462683217547,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 26.375153593617696,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 94.32537391539317,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 5.887730240498289,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 2.4952619600633277,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 106.82558392932486,
+      "min": 97.30997832726969,
+      "max": 116.34118953138004
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 116.34118953138004,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 97.30997832726969,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 470.5205711394263,
+      "min": 470.5205711394263,
+      "max": 470.5205711394263
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 470.5205711394263,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 32.15534806640625,
+      "min": 15.102726045570012,
+      "max": 79.9712363974282
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 57.386899838579126,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 177.33079721991083,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 15.102726045570012,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 30.743593854606328,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.33767347508021,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 44.72805215870869,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 29.801798296567778,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 24.85507625202759,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.065392606058275,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 79.9712363974282,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 93.25474443250198,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 33.56710227820617,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 56.02573397547732,
+      "min": 32.44539470229023,
+      "max": 102.17187916291952
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 131.19508395158505,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 34.51228612237539,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 32.44539470229023,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 77.53918182857926,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 102.17187916291952,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 66.03572134329127,
+      "min": 40.593880377644915,
+      "max": 91.47756230893762
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 91.47756230893762,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 40.593880377644915,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 447.25071375859113,
+      "min": 447.25071375859113,
+      "max": 447.25071375859113
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 447.25071375859113,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "raw|R4|0.8": {
+   "variant": "raw",
+   "set": "R4",
+   "rho": 0.8,
+   "managed": [
+    "LOSAng_CHINng",
+    "WASHng_IPLSng"
+   ],
+   "alpha": 6.245521698221926,
+   "active_links": 10,
+   "P_Q_positive": 0.3311063602351684,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 116.04299072632966,
+      "min": 5.473332262214789,
+      "max": 191.87933598795325
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 119.73629370927107,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 201.745989902853,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 93.7166524726116,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 142.12950205728737,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 41.89510476296458,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 112.34968774338826,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 5.473332262214789,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 169.46077543748729,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 156.43509962917508,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 11.67447958882522,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 191.87933598795325,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 188.78184138265726,
+      "min": 123.97259652169357,
+      "max": 267.2161706686775
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 267.2161706686775,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 180.4851073761344,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 123.97259652169357,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 209.41874821142346,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 188.78184138265726,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 204.1577126129589,
+      "min": 128.9334781208991,
+      "max": 279.3819471050187
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 279.3819471050187,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 128.9334781208991,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 283.73381756496474,
+      "min": 283.73381756496474,
+      "max": 283.73381756496474
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 283.73381756496474,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 8,
+      "n_censored": 4,
+      "median": 76.70418136667139,
+      "min": 26.357960877548617,
+      "max": 149.30468550798736
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 137.07518518104908,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 76.20450484026587,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 100.4823808863515,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 26.357960877548617,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 31.709350697158932,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 77.20385789307691,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 36.92456155898306,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 124.47067371753913,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 149.30468550798736,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 188.66332335024728,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 91.46096956313276,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 229.51861200136028,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 133.4733569145177,
+      "min": 57.4980467829544,
+      "max": 167.98968620847307
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 133.4733569145177,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 64.53471330004002,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 57.4980467829544,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 151.54560166044823,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 167.98968620847307,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 1,
+      "n_censored": 1,
+      "median": 95.38591702724842,
+      "min": 95.38591702724842,
+      "max": 95.38591702724842
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 95.38591702724842,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 263.5875998088251,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 189.01211517149028,
+      "min": 189.01211517149028,
+      "max": 189.01211517149028
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 189.01211517149028,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "additive|R4|0.8": {
+   "variant": "additive",
+   "set": "R4",
+   "rho": 0.8,
+   "managed": [
+    "LOSAng_CHINng",
+    "WASHng_IPLSng"
+   ],
+   "alpha": 6.245521698221926,
+   "active_links": 10,
+   "P_Q_positive": 0.16114377338321753,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 55.458678111373345,
+      "min": 4.258939572786066,
+      "max": 112.74627430495399
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 82.7722016013374,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 105.08827762563628,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 55.84900477011401,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 55.06835145263269,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 20.07037084326494,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 112.74627430495399,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 4.258939572786066,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 5.292938295315531,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 6.165536993705363,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 89.86530323118781,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 93.08074197587199,
+      "min": 4.2730754585332615,
+      "max": 146.30173717738128
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 146.30173717738128,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 93.08074197587199,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 124.89528219374618,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 4.2730754585332615,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 5.6480051204151165,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 141.3898274966557,
+      "min": 130.67021787852693,
+      "max": 152.1094371147845
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 152.1094371147845,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 130.67021787852693,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 131.65576945891175,
+      "min": 131.65576945891175,
+      "max": 131.65576945891175
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 131.65576945891175,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 11,
+      "n_censored": 1,
+      "median": 30.02085415221,
+      "min": 4.946577764996718,
+      "max": 141.02031102884538
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 58.884855656369716,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 141.02031102884538,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 19.131336418202014,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 4.946577764996718,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.866063862553247,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 54.90795000949018,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 27.63903988698054,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 21.063311988849176,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.86101554067785,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 73.295534022021,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 99.68325493872267,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 30.02085415221,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 55.92502403032156,
+      "min": 23.87310885338333,
+      "max": 103.30474024201423
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 100.91108321842319,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 23.87310885338333,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 28.52638634686369,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 83.32366171377943,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 103.30474024201423,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 45.80177151675875,
+      "min": 29.313242327081568,
+      "max": 62.290300706435936
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 62.290300706435936,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 29.313242327081568,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 226.08154147247296,
+      "min": 226.08154147247296,
+      "max": 226.08154147247296
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 226.08154147247296,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "multiplicative|R4|0.8": {
+   "variant": "multiplicative",
+   "set": "R4",
+   "rho": 0.8,
+   "managed": [
+    "LOSAng_CHINng",
+    "WASHng_IPLSng"
+   ],
+   "alpha": 6.245521698221926,
+   "active_links": 12,
+   "P_Q_positive": 0.17022982362373063,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 9,
+      "n_censored": 3,
+      "median": 22.75576014105697,
+      "min": 2.4912591642672215,
+      "max": 92.64504093222996
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 92.64504093222996,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 53.73419946599197,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 31.884682798495003,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 22.75576014105697,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 14.804164765627673,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 88.31553755502017,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 5.857204542572018,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 2.4912591642672215,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 2.4912591642672215,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 242.89281332121513,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 26.375153593617696,
+      "min": 2.4952619600633277,
+      "max": 115.51462683217547
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 115.51462683217547,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 26.375153593617696,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 94.32537391539317,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 5.887730240498289,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 2.4952619600633277,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 106.82558392932486,
+      "min": 97.30997832726969,
+      "max": 116.34118953138004
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 116.34118953138004,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 97.30997832726969,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 470.5205711394263,
+      "min": 470.5205711394263,
+      "max": 470.5205711394263
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 470.5205711394263,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 32.15534806640625,
+      "min": 15.102726045570012,
+      "max": 79.9712363974282
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 57.386899838579126,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 177.33079721991083,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 15.102726045570012,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 30.743593854606328,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.33767347508021,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 44.72805215870869,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 29.801798296567778,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 24.85507625202759,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.065392606058275,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 79.9712363974282,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 93.25474443250198,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 33.56710227820617,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 56.02573397547732,
+      "min": 32.44539470229023,
+      "max": 102.17187916291952
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 131.19508395158505,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 34.51228612237539,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 32.44539470229023,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 77.53918182857926,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 102.17187916291952,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 66.03572134329127,
+      "min": 40.593880377644915,
+      "max": 91.47756230893762
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 91.47756230893762,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 40.593880377644915,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 447.25071375859113,
+      "min": 447.25071375859113,
+      "max": 447.25071375859113
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 447.25071375859113,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "raw|R1|0.9": {
+   "variant": "raw",
+   "set": "R1",
+   "rho": 0.9,
+   "managed": [
+    "LOSAng_CHINng"
+   ],
+   "alpha": 7.026211910499667,
+   "active_links": 12,
+   "P_Q_positive": 0.6600748262960984,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 7,
+      "n_censored": 5,
+      "median": 155.52277607284063,
+      "min": 127.19158256502507,
+      "max": 194.93960420051047
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 147.2075776337305,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 127.19158256502507,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 213.07376449398276,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 161.5439045475725,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 241.57650272879948,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 136.49441560572555,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 155.52277607284063,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 194.35365850170567,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 194.93960420051047,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 135.7156904317574,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 217.54400091772288,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 281.27721934760206,
+      "min": 158.96886707287666,
+      "max": 285.20360124912946
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 459.020109144375,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 281.13080711787666,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 158.96886707287666,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 285.20360124912946,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 281.42363157732746,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 394.3525291752213,
+      "min": 204.10481636438715,
+      "max": 584.6002419860555
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 584.6002419860555,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 204.10481636438715,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 438.89142381810916,
+      "min": 438.89142381810916,
+      "max": 438.89142381810916
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 438.89142381810916,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 8,
+      "n_censored": 4,
+      "median": 76.70418136667138,
+      "min": 26.35796087754863,
+      "max": 149.30468550798722
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 137.07518518104905,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 76.20450484026584,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 100.4823808863515,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 26.35796087754863,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 31.709350697158932,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 77.20385789307691,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 36.92456155898306,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 124.47067371753913,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 149.30468550798722,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 188.6633233502472,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 91.46096956313279,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 229.51861200136022,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 133.47335691451772,
+      "min": 57.49804678295437,
+      "max": 167.98968620847305
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 133.47335691451772,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 64.53471330003998,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 57.49804678295437,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 151.5456016604482,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 167.98968620847305,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 1,
+      "n_censored": 1,
+      "median": 95.38591702724844,
+      "min": 95.38591702724844,
+      "max": 95.38591702724844
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 95.38591702724844,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 263.587599808825,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 189.01211517149028,
+      "min": 189.01211517149028,
+      "max": 189.01211517149028
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 189.01211517149028,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "additive|R1|0.9": {
+   "variant": "additive",
+   "set": "R1",
+   "rho": 0.9,
+   "managed": [
+    "LOSAng_CHINng"
+   ],
+   "alpha": 7.026211910499667,
+   "active_links": 12,
+   "P_Q_positive": 0.3872260823089257,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 8,
+      "n_censored": 4,
+      "median": 32.22034084179466,
+      "min": 9.364431146124291,
+      "max": 143.60077718498653
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 88.66674996884879,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 104.65870531511285,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 154.7377693906039,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 121.45726838767762,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 27.356858974585727,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 143.60077718498653,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 9.364431146124291,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 19.292040499819475,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 10.87524493429536,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 37.08382270900359,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 228.27705968259372,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 103.65012406829935,
+      "min": 10.572902799285032,
+      "max": 328.2961473330987
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 445.7826432830409,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 328.2961473330987,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 171.52242203580647,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 10.572902799285032,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 35.77782610079223,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 322.34096280820256,
+      "min": 181.84837454460782,
+      "max": 462.8335510717973
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 462.8335510717973,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 181.84837454460782,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 844.9551350049119,
+      "min": 844.9551350049119,
+      "max": 844.9551350049119
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 844.9551350049119,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 11,
+      "n_censored": 1,
+      "median": 30.02085415221,
+      "min": 4.946577764996719,
+      "max": 141.02031102884538
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 58.88485565636973,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 141.02031102884538,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 19.131336418202004,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 4.946577764996719,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.866063862553236,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 54.90795000949014,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 27.639039886980537,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 21.06331198884917,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.86101554067784,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 73.29553402202102,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 99.68325493872267,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 30.02085415221,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 55.92502403032156,
+      "min": 23.873108853383314,
+      "max": 103.30474024201415
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 100.91108321842319,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 23.873108853383314,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 28.52638634686369,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 83.32366171377943,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 103.30474024201415,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 45.80177151675873,
+      "min": 29.313242327081568,
+      "max": 62.290300706435886
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 62.290300706435886,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 29.313242327081568,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 226.08154147247296,
+      "min": 226.08154147247296,
+      "max": 226.08154147247296
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 226.08154147247296,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "multiplicative|R1|0.9": {
+   "variant": "multiplicative",
+   "set": "R1",
+   "rho": 0.9,
+   "managed": [
+    "LOSAng_CHINng"
+   ],
+   "alpha": 7.026211910499667,
+   "active_links": 12,
+   "P_Q_positive": 0.3621058257616248,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 11,
+      "n_censored": 1,
+      "median": 38.4758215221172,
+      "min": 2.4828569728568297,
+      "max": 190.9310271092321
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 100.34787174235724,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 190.9310271092321,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 136.03917595798376,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 183.76317543168804,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 21.778509629672513,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 2.4828569728568297,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 116.96038452586022,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 11.224271556855353,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 10.333680138208797,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 9.652501999256225,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 38.4758215221172,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 232.4270387634766,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 83.94624956138965,
+      "min": 11.262687091739137,
+      "max": 276.7162286021472
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 534.8213400168876,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 276.7162286021472,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 130.51100999323114,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 11.262687091739137,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 37.38148912954816,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 331.05657704803303,
+      "min": 136.83700666248606,
+      "max": 525.27614743358
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 525.27614743358,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 136.83700666248606,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 785.8188060716577,
+      "min": 785.8188060716577,
+      "max": 785.8188060716577
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 785.8188060716577,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 32.15534806640626,
+      "min": 15.10272604557001,
+      "max": 79.97123639742827
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 57.38689983857915,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 177.33079721991083,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 15.10272604557001,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 30.743593854606353,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.3376734750802,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 44.728052158708685,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 29.80179829656777,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 24.8550762520276,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.06539260605829,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 79.97123639742827,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 93.25474443250198,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 33.56710227820618,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 56.025733975477365,
+      "min": 32.44539470229022,
+      "max": 102.17187916291961
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 131.195083951585,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 34.512286122375414,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 32.44539470229022,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 77.53918182857932,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 102.17187916291961,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 66.0357213432913,
+      "min": 40.59388037764491,
+      "max": 91.47756230893768
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 91.47756230893768,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 40.59388037764491,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 447.250713758591,
+      "min": 447.250713758591,
+      "max": 447.250713758591
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 447.250713758591,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "raw|R4|0.9": {
+   "variant": "raw",
+   "set": "R4",
+   "rho": 0.9,
+   "managed": [
+    "LOSAng_CHINng",
+    "WASHng_IPLSng"
+   ],
+   "alpha": 7.026211910499667,
+   "active_links": 12,
+   "P_Q_positive": 0.6600748262960984,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 7,
+      "n_censored": 5,
+      "median": 155.52277607284063,
+      "min": 127.19158256502507,
+      "max": 194.93960420051047
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 147.2075776337305,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 127.19158256502507,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 213.07376449398276,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 161.5439045475725,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 241.57650272879948,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 136.49441560572555,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 155.52277607284063,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 194.35365850170567,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 194.93960420051047,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 135.7156904317574,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 217.54400091772288,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 281.27721934760206,
+      "min": 158.96886707287666,
+      "max": 285.20360124912946
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 459.020109144375,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 281.13080711787666,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 158.96886707287666,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 285.20360124912946,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 281.42363157732746,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 394.3525291752213,
+      "min": 204.10481636438715,
+      "max": 584.6002419860555
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 584.6002419860555,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 204.10481636438715,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 438.89142381810916,
+      "min": 438.89142381810916,
+      "max": 438.89142381810916
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 438.89142381810916,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 8,
+      "n_censored": 4,
+      "median": 76.70418136667138,
+      "min": 26.35796087754863,
+      "max": 149.30468550798722
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 137.07518518104905,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 76.20450484026584,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 100.4823808863515,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 26.35796087754863,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 31.709350697158932,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 77.20385789307691,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 36.92456155898306,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 124.47067371753913,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 149.30468550798722,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 188.6633233502472,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 91.46096956313279,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 229.51861200136022,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 5,
+      "n_censored": 0,
+      "median": 133.47335691451772,
+      "min": 57.49804678295437,
+      "max": 167.98968620847305
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 133.47335691451772,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 64.53471330003998,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 57.49804678295437,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 151.5456016604482,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 167.98968620847305,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 1,
+      "n_censored": 1,
+      "median": 95.38591702724844,
+      "min": 95.38591702724844,
+      "max": 95.38591702724844
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 95.38591702724844,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 263.587599808825,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 189.01211517149028,
+      "min": 189.01211517149028,
+      "max": 189.01211517149028
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 189.01211517149028,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "additive|R4|0.9": {
+   "variant": "additive",
+   "set": "R4",
+   "rho": 0.9,
+   "managed": [
+    "LOSAng_CHINng",
+    "WASHng_IPLSng"
+   ],
+   "alpha": 7.026211910499667,
+   "active_links": 12,
+   "P_Q_positive": 0.3872260823089257,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 8,
+      "n_censored": 4,
+      "median": 32.22034084179466,
+      "min": 9.364431146124291,
+      "max": 143.60077718498653
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 88.66674996884879,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 104.65870531511285,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 154.7377693906039,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 121.45726838767762,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 27.356858974585727,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": null,
+       "censored": true,
+       "error": "zero-variance train series"
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 143.60077718498653,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 9.364431146124291,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 19.292040499819475,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 10.87524493429536,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 37.08382270900359,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 228.27705968259372,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 103.65012406829935,
+      "min": 10.572902799285032,
+      "max": 328.2961473330987
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 445.7826432830409,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 328.2961473330987,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 171.52242203580647,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 10.572902799285032,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 35.77782610079223,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 322.34096280820256,
+      "min": 181.84837454460782,
+      "max": 462.8335510717973
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 462.8335510717973,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 181.84837454460782,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 844.9551350049119,
+      "min": 844.9551350049119,
+      "max": 844.9551350049119
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 844.9551350049119,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 11,
+      "n_censored": 1,
+      "median": 30.02085415221,
+      "min": 4.946577764996719,
+      "max": 141.02031102884538
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 58.88485565636973,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 141.02031102884538,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 19.131336418202004,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 4.946577764996719,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.866063862553236,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 54.90795000949014,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 27.639039886980537,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 21.06331198884917,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.86101554067784,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 73.29553402202102,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 99.68325493872267,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 30.02085415221,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 55.92502403032156,
+      "min": 23.873108853383314,
+      "max": 103.30474024201415
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 100.91108321842319,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 23.873108853383314,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 28.52638634686369,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 83.32366171377943,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 103.30474024201415,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 45.80177151675873,
+      "min": 29.313242327081568,
+      "max": 62.290300706435886
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 62.290300706435886,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 29.313242327081568,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 226.08154147247296,
+      "min": 226.08154147247296,
+      "max": 226.08154147247296
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 226.08154147247296,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  },
+  "multiplicative|R4|0.9": {
+   "variant": "multiplicative",
+   "set": "R4",
+   "rho": 0.9,
+   "managed": [
+    "LOSAng_CHINng",
+    "WASHng_IPLSng"
+   ],
+   "alpha": 7.026211910499667,
+   "active_links": 12,
+   "P_Q_positive": 0.3621058257616248,
+   "backlog": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 11,
+      "n_censored": 1,
+      "median": 38.4758215221172,
+      "min": 2.4828569728568297,
+      "max": 190.9310271092321
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 100.34787174235724,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 190.9310271092321,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 136.03917595798376,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 183.76317543168804,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 21.778509629672513,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 2.4828569728568297,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 116.96038452586022,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 11.224271556855353,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 10.333680138208797,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 9.652501999256225,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 38.4758215221172,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 232.4270387634766,
+       "censored": true,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 83.94624956138965,
+      "min": 11.262687091739137,
+      "max": 276.7162286021472
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 534.8213400168876,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 276.7162286021472,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 130.51100999323114,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 11.262687091739137,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 37.38148912954816,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 331.05657704803303,
+      "min": 136.83700666248606,
+      "max": 525.27614743358
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 525.27614743358,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 136.83700666248606,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 785.8188060716577,
+      "min": 785.8188060716577,
+      "max": 785.8188060716577
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 785.8188060716577,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   },
+   "bottleneck_load": {
+    "1d": {
+     "summary": {
+      "n": 12,
+      "n_uncensored": 10,
+      "n_censored": 2,
+      "median": 32.15534806640626,
+      "min": 15.10272604557001,
+      "max": 79.97123639742827
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 288,
+       "T_int": 57.38689983857915,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 288,
+       "stop": 576,
+       "T_int": 177.33079721991083,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 864,
+       "T_int": 15.10272604557001,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 864,
+       "stop": 1152,
+       "T_int": 30.743593854606353,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1152,
+       "stop": 1440,
+       "T_int": 25.3376734750802,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 1862,
+       "T_int": 44.728052158708685,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1862,
+       "stop": 2150,
+       "T_int": 29.80179829656777,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2438,
+       "T_int": 24.8550762520276,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2438,
+       "stop": 2726,
+       "T_int": 35.06539260605829,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3014,
+       "T_int": 79.97123639742827,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 3014,
+       "stop": 3302,
+       "T_int": 93.25474443250198,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 3302,
+       "stop": 3590,
+       "T_int": 33.56710227820618,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "2d": {
+     "summary": {
+      "n": 5,
+      "n_uncensored": 4,
+      "n_censored": 1,
+      "median": 56.025733975477365,
+      "min": 32.44539470229022,
+      "max": 102.17187916291961
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 576,
+       "T_int": 131.195083951585,
+       "censored": true,
+       "error": null
+      },
+      {
+       "start": 576,
+       "stop": 1152,
+       "T_int": 34.512286122375414,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2150,
+       "T_int": 32.44539470229022,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2150,
+       "stop": 2726,
+       "T_int": 77.53918182857932,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 2726,
+       "stop": 3302,
+       "T_int": 102.17187916291961,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "4d": {
+     "summary": {
+      "n": 2,
+      "n_uncensored": 2,
+      "n_censored": 0,
+      "median": 66.0357213432913,
+      "min": 40.59388037764491,
+      "max": 91.47756230893768
+     },
+     "windows": [
+      {
+       "start": 0,
+       "stop": 1152,
+       "T_int": 91.47756230893768,
+       "censored": false,
+       "error": null
+      },
+      {
+       "start": 1574,
+       "stop": 2726,
+       "T_int": 40.59388037764491,
+       "censored": false,
+       "error": null
+      }
+     ]
+    },
+    "longest": {
+     "summary": {
+      "n": 1,
+      "n_uncensored": 1,
+      "n_censored": 0,
+      "median": 447.250713758591,
+      "min": 447.250713758591,
+      "max": 447.250713758591
+     },
+     "windows": [
+      {
+       "start": 1574,
+       "stop": 3744,
+       "T_int": 447.250713758591,
+       "censored": false,
+       "error": null
+      }
+     ]
+    }
+   }
+  }
+ }
+}
