@@ -147,12 +147,15 @@ def analyze_data(raws):
     p20_nonpositive = defaultdict(int)
     p17, p18 = [], []
     p17_failures = []
+    p17_skipped = []
     by_table = defaultdict(list)
     for data in raws:
         tint_rows = next(ev['h'] for ev in data['evaluations'] if ev['age_label'] == 'Tint_1')
         p18.append(any(r['h_Tint'] <= 4 and r['bound']['D'] < .01 for r in tint_rows))
         for row in tint_rows:
             test = row['bound']['P17_holds']
+            if test is None:          # Claude 16/11: joint mass skipped (LETTER_W2_SKIP_JOINT); not evaluated, not a failure
+                p17_skipped.append(data['id']); continue
             p17.append(test is True)
             if test is not True:
                 p17_failures.append(dict(id=data['id'], h=row['h'], **row['bound']))
@@ -194,7 +197,7 @@ def analyze_data(raws):
         groups = {level+'_'+side: _fraction(source[level+'_'+side], threshold) for level in LEVELS for side in SIDES}
         predictions[label] = dict(**_joint_verdict(list(groups.values())), by_variant_and_side=groups,
                                   held_out_families=list(FAMILIES[1:]))
-    predictions['P17'] = dict(**_fraction(p17, 1.), counterexamples=p17_failures)
+    predictions['P17'] = dict(**_fraction(p17, 1.), counterexamples=p17_failures, regimes_not_evaluated=sorted(set(p17_skipped)))
     predictions['P18'] = _fraction(p18, .8)
     figures = [d for d in raws if d.get('e1') is not None]
     p19_clauses = [dict(held=d['e1']['P19_flat'] and d['e1']['P19_slope_identity'], status='EVALUATED') for d in figures]

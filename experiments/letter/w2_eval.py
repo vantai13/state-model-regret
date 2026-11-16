@@ -319,10 +319,13 @@ def run_regime(case, out, e1_ids=None):
     age_one = evaluate_age(p, 1., estimator)
     with tempfile.TemporaryDirectory(prefix='letter_w2_joint_') as tmp:
         joint_start = time.process_time()
-        joint = JointDisagreement(p['Ast'], p['Bst'], p['T_int'], tmp)
+        # Claude 16/11 (author delegation): the exact joint disagreement builds full exp(Q*T_int) per path, which
+        # takes hours for regimes with long T_int and large N. With LETTER_W2_SKIP_JOINT=1 it is skipped (P17 not
+        # evaluated for that regime); the bound D(h) is still computed. P17 is a math check already run on 71 regimes.
+        joint = None if os.environ.get('LETTER_W2_SKIP_JOINT') == '1' else JointDisagreement(p['Ast'], p['Bst'], p['T_int'], tmp)
         joint_cpu = time.process_time()-joint_start
         age_tint = evaluate_age(p, p['T_int'], estimator, include_bound=True, joint=joint)
-        joint_diagnostics = joint.diagnostics
+        joint_diagnostics = joint.diagnostics if joint is not None else dict(skipped='LETTER_W2_SKIP_JOINT=1')
         del joint
     figure_ids = e1_regimes() if e1_ids is None else e1_ids
     figure = e1_data(p) if case['id'] in figure_ids.values() else None
