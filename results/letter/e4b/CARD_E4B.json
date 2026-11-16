@@ -1,0 +1,16 @@
+{
+  "schema": "letter-e4-card-v1",
+  "written_by": "Claude, 16/11/2026, before any seed-5000001 outcome; author approval 'oke vừa viết vừa chạy luôn được không'",
+  "tests": {
+    "E4-1": {"abs_GS_pct_max": 0.25, "pass_fraction_min": 0.90, "h_multipliers": [15, 30], "horizon_rule": "each", "pipeline": "hybrid level i"},
+    "E4-2": {"regret_pct_max": 0.5, "pass_fraction_min": 0.90, "h_multipliers": [15, 30], "horizon_rule": "each", "pipeline": "hybrid level i, both sides"},
+    "E4-3": {"best_action_agreement_min": 0.90, "note": "training-only, carried over; known FAIL 14/17"},
+    "E4-4": {"regret_pct_max": 0.5, "pass_fraction_min": 0.80, "h_multipliers": [15, 30], "horizon_rule": "each", "pipeline": "hybrid level ii, both sides"},
+    "E4-5": {"descriptive": true},
+    "E4-6": {"descriptive": true}
+  },
+  "onset_theta": 0.5,
+  "onset_note": "Descriptive only, as in E4 (card addendum).",
+  "test_seed": 5000001,
+  "extra_tests": "X1-X3 in CARD_E4B.md, scored by experiments/letter/e4b_extra.py"
+}
