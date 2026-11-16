@@ -1,0 +1,59 @@
+{
+  "CPU": 42.57392878899998,
+  "K": 128,
+  "N": 50,
+  "R_dec": 128,
+  "R_eval": 256,
+  "T_int": 1.4074524026220994,
+  "axes": {
+    "V": [
+      "instance",
+      "action",
+      "h"
+    ],
+    "decisions": [
+      "instance",
+      "pipeline",
+      "side",
+      "tau",
+      "h"
+    ]
+  },
+  "chunk": 6,
+  "dt": 0.035186310065552485,
+  "npz_sha256": "a6db7742b06a6891ff970de773517ee54fa4625be264fa86425f98d396b41746",
+  "onset_theta": 0.5,
+  "peak_memory_MiB": 81.1015625,
+  "pilot": false,
+  "pipelines": [
+    "M0",
+    "M0-tie-i",
+    "M0-tie-ii",
+    "M0-tie-iii",
+    "M0-tie-rand",
+    "Hybrid-i",
+    "Hybrid-ii",
+    "Hybrid-noise_m50",
+    "Hybrid-noise_m25",
+    "Hybrid-noise_p25",
+    "Hybrid-noise_p50",
+    "Hybrid-reversed",
+    "Onset-hybrid-i",
+    "Onset-hybrid-ii",
+    "Onset-hybrid-noise_m50",
+    "Onset-hybrid-noise_m25",
+    "Onset-hybrid-noise_p25",
+    "Onset-hybrid-noise_p50",
+    "Onset-hybrid-reversed",
+    "M1_new"
+  ],
+  "regime": "G3_r80_b6_s0",
+  "seed": 5000001,
+  "seed_rule": "seed_for(seed, E4|regime|chunk=id|purpose); per-instance child streams",
+  "tie_definition": "exact primary objective ties before tie-break; rhat tie variants flag the original M0 tie",
+  "units": {
+    "cost": "Mb*time",
+    "queue": "Mb"
+  },
+  "wall": 42.57437442999998
+}
