@@ -1,0 +1,26 @@
+# E5b CARD: confidence-gated replay ordering (Claude, 17/11/2026, written after E5 and before any E5b outcome)
+
+- **Why (improvement step after E5; E5 verdicts unchanged):**
+  - E5 showed that replayed records order the actions correctly in a median 0.955 of 100·T_int records, but small-relative-gap regimes stay at 0.66–0.95 even at 300·T_int.
+  - Implied regret ≤ 0.5% held in only 72/204 long-horizon cells at 100·T_int, because a misordering costs about the relative gap.
+  - **Question:** can the NDT tell from the record itself when its ordering is reliable?
+- **Rule:**
+  - Within one record prefix of length L, split the per-step difference d_t = cost rate(Switch) − cost rate(Stay) into B = 10 equal batches.
+  - se = sd(batch means)/√B. The ordering is **confident** when |mean d| > 2.58·se (99%, normal approximation); its sign gives the ordering.
+  - **Sequential version:** stop at the first L in {10, 30, 100, 300}·T_int where the record is confident; never confident means no ordering after 300·T_int.
+- **Records:**
+  - R = 200 new records per regime, seed `seed_for(5200001, regime, rep)`, same regimes, burn-in and L grid as E5;
+  - L = 1 and 3·T_int are not used (batches shorter than T_int).
+- **Outcomes per L:**
+  - share of confident records;
+  - accuracy among confident records;
+  - share of all records that are confident and wrong.
+  - Sequential: the distribution of the stopping L, accuracy at stop, and the never-confident share.
+- **Forecasts (Claude):**
+  - G1: among confident records, accuracy ≥ 0.98 at every L (median over regimes).
+  - G2: confident-and-wrong ≤ 2% of records in every regime at L = 300·T_int.
+  - G3: small-gap regimes (relative gap < 0.5) are often never confident within 300·T_int.
+- **Reading rule:**
+  - If G1 and G2 hold, the letter can state an operator-checkable rule: record until the batch-means interval excludes zero.
+  - Otherwise, report the boundary only.
+- **One run; raw outputs committed before scoring.**
