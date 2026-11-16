@@ -1,0 +1,12 @@
+{
+  "owner": "Doan Van Tai",
+  "sha256": {
+    "experiments/letter/e3_agediff.py": "985989373ec9893941fba1334ea68a7b84a7cdd59e1a4d8bbbd8ed349b72697d",
+    "experiments/letter/shat.py": "c149e2bb82d048218447b338d462c657d61dc528ac34e97d400a28730a5e844e",
+    "tests/test_letter_w1b.py": "c84eeb39204285644fb9a4994f751ecbc361e5456618b98ea62078c6f13e91aa"
+  },
+  "changes_after_run_start": "Added read-only analyzer; age-only evaluator, estimators, pilot/selection rules and numeric worker unchanged after first pilot.",
+  "runtime_recovery": "First invocation failed before numeric computation: Python 3.14 forkserver listener denied by sandbox. Second invocation uses multiprocessing fork context, with same run_plan and eight workers.",
+  "tau_boundary": "tau=0 exact control passes; tau->0+ conjecture fails on positive-mass exact M0 ties. Strict xfail preserves that failure without altering decisions.",
+  "estimator_policy": "Use original ctmc.chain without changing amplitude namespace. INVALID -> level iii as instructed; no runtime patch or continuous-amplitude substitute."
+}

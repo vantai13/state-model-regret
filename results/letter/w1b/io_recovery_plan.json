@@ -1,0 +1,44 @@
+{
+  "owner": "Doan Van Tai",
+  "case": {
+    "id": "Za7p5_u3-2_lA31-4_x1-3_k2",
+    "parameters": [
+      "31/4",
+      "33/4",
+      "3/2",
+      "2",
+      "0"
+    ],
+    "hs": [
+      "320",
+      "707",
+      "2000",
+      "2120",
+      "6360",
+      "21200",
+      "63600"
+    ],
+    "a": "15/2",
+    "long": true,
+    "T_int_max": 2120.459186158,
+    "tags": {
+      "x": "1/3",
+      "u": "3/2",
+      "lamA": "31/4"
+    },
+    "family": "zf_a7p5_asym",
+    "regime_index": 92
+  },
+  "reason": "Preflight baseline is UNRESOLVED; omit only its P7/P8 comparison, still compute all E3/E2 outputs.",
+  "scheduling": "same unchanged Chain.V in four independent tasks, then same direct age evaluations in five independent tasks; max_workers=8, fork",
+  "scientific_changes": [],
+  "retry_reason": "I/O repair before any result from this case was saved or interpreted; 92 successful raws never rerun or overwritten",
+  "baseline_status": "UNRESOLVED",
+  "baseline_error": "per-case CPU cap reached",
+  "previous_interrupted_cpu": "unknown; report separately from measured successful CPU",
+  "source_sha256": {
+    "experiments/letter/e3_agediff.py": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+    "experiments/letter/shat.py": "541a81c79cd69252be97dfda1ffdb2911fd705bfb16c0d0dc943bdc4d23382bb",
+    "tests/test_letter_w1b.py": "9ab6dd79df6eaeb8418e3bc7b85ad570cfaa105ef7c775fed1e03673626dd398"
+  }
+}

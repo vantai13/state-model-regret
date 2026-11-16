@@ -25,7 +25,7 @@ def posterior_full(stay, vec, tau):
 
 
 def prepare_regime(lamA, lamB, u, kappa, hs, c=0, a=ctmc.A,
-                   control=False, N_scale=1, allow_csw=False):
+                   control=False, N_scale=1, allow_csw=False, v_table=None):
     """Compute the age-independent chains and gaps once for all requested ages."""
     ctmc._truth_allowed(a)
     lamA, lamB, u, kappa, c = (F(x) for x in (lamA, lamB, u, kappa, c))
@@ -44,9 +44,18 @@ def prepare_regime(lamA, lamB, u, kappa, hs, c=0, a=ctmc.A,
     Bst, Bsw = ctmc.chain(lamB, kappa, NB, a), ctmc.chain(lamB + u, kappa, NB, a)
     hf = [float(h) for h in hs]
 
+    def values(ch):
+        if v_table is None:
+            return ch.V(hs)
+        key = (str(ch.load), str(ch.kappa), ch.N, str(F(ch.a)))
+        out = np.asarray(v_table[key])
+        if out.shape != (len(hs), ch.n):
+            raise ValueError('precomputed V shape mismatch')
+        return out
+
     def gaps(st, sw, sign):
-        vst = st.V(hs)
-        vsw = vst if st is sw else sw.V(hs)
+        vst = values(st)
+        vsw = vst if st is sw else values(sw)
         dh = ctmc.m0_gap(min(st.load, sw.load), abs(sw.load - st.load), kappa,
                          st.N, hf + [math.inf], 'A' if sign > 0 else 'B', a=a)
         return sign * (vsw - vst), dh, sign * (sw.g - st.g)

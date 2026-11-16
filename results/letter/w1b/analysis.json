@@ -1,0 +1,3082 @@
+{
+  "verdict": {
+    "P7": "HELD",
+    "P8": "HELD",
+    "P9": "HELD",
+    "P10": "NOT_EVALUABLE",
+    "P11": "NOT_HELD_FINITE_PANEL",
+    "P12": "HELD"
+  },
+  "regimes": 93,
+  "rows_e3": 3255,
+  "rows_hybrid": 32550,
+  "raw_regimes": 93,
+  "p7": [
+    {
+      "family": "ALL",
+      "eligible": 217,
+      "age_harm": 194,
+      "fraction": 0.8940092165898618,
+      "confounded_median": -2.3210650261677297,
+      "age_median": -4.873667464239383
+    },
+    {
+      "family": "asym",
+      "eligible": 78,
+      "age_harm": 72,
+      "fraction": 0.9230769230769231,
+      "confounded_median": -2.5633999279851976,
+      "age_median": -5.484738232578579
+    },
+    {
+      "family": "zf_a3_asym",
+      "eligible": 82,
+      "age_harm": 78,
+      "fraction": 0.9512195121951219,
+      "confounded_median": -3.6599497055127057,
+      "age_median": -5.342389634653034
+    },
+    {
+      "family": "zf_a7p5_asym",
+      "eligible": 57,
+      "age_harm": 44,
+      "fraction": 0.7719298245614035,
+      "confounded_median": -1.5306193658741387,
+      "age_median": -3.9090719017464655
+    }
+  ],
+  "p8": [
+    {
+      "population": "all_nonzero",
+      "n": 644,
+      "median_ratio": 0.9637177229915084,
+      "confounded_median": -0.7951965971721772,
+      "age_median": -0.7490336879329651
+    },
+    {
+      "population": "confounded_negative",
+      "n": 491,
+      "median_ratio": 0.9644387409597858,
+      "confounded_median": -1.477014575873394,
+      "age_median": -1.3459017752174958
+    },
+    {
+      "population": "confounded_below_minus_0.1",
+      "n": 462,
+      "median_ratio": 0.9636823990688057,
+      "confounded_median": -1.630807360414439,
+      "age_median": -1.4568885032258883
+    }
+  ],
+  "p9": [
+    {
+      "level": "true_s",
+      "n": 1335,
+      "both_pass": 1310,
+      "fraction": 0.9812734082397003,
+      "new_pass": 1335,
+      "old_pass": 1310,
+      "max_new": 0.026567534275331893,
+      "max_old": 0.3536062272407155
+    },
+    {
+      "level": "true_s_eps_-0.5",
+      "n": 1335,
+      "both_pass": 1306,
+      "fraction": 0.9782771535580524,
+      "new_pass": 1335,
+      "old_pass": 1306,
+      "max_new": 0.04223789415653107,
+      "max_old": 0.3538006684196141
+    },
+    {
+      "level": "true_s_eps_-0.25",
+      "n": 1335,
+      "both_pass": 1310,
+      "fraction": 0.9812734082397003,
+      "new_pass": 1335,
+      "old_pass": 1310,
+      "max_new": 0.0035681941971389287,
+      "max_old": 0.35342119365140395
+    },
+    {
+      "level": "true_s_eps_-0.1",
+      "n": 1335,
+      "both_pass": 1310,
+      "fraction": 0.9812734082397003,
+      "new_pass": 1335,
+      "old_pass": 1310,
+      "max_new": 0.016022426503220735,
+      "max_old": 0.3535302043678897
+    },
+    {
+      "level": "true_s_eps_+0.1",
+      "n": 1335,
+      "both_pass": 1308,
+      "fraction": 0.9797752808988764,
+      "new_pass": 1335,
+      "old_pass": 1308,
+      "max_new": 0.04198936221683571,
+      "max_old": 0.35368903462380563
+    },
+    {
+      "level": "true_s_eps_+0.25",
+      "n": 1335,
+      "both_pass": 1306,
+      "fraction": 0.9782771535580524,
+      "new_pass": 1335,
+      "old_pass": 1306,
+      "max_new": 0.06347075380615576,
+      "max_old": 0.35383037514273713
+    },
+    {
+      "level": "true_s_eps_+0.5",
+      "n": 1335,
+      "both_pass": 1302,
+      "fraction": 0.9752808988764045,
+      "new_pass": 1335,
+      "old_pass": 1302,
+      "max_new": 0.09900750555949205,
+      "max_old": 0.35401428775756005
+    }
+  ],
+  "p10": {
+    "valid_regimes": 0,
+    "invalid_regimes": 93,
+    "correct_sign": 0,
+    "sign_fraction": null,
+    "sign_correct_rows": 0,
+    "equal_regret_rows": 0,
+    "max_regret_difference_pp": null,
+    "fallback_sign_correct": 93
+  },
+  "p11": [
+    {
+      "h_Tint": "<1",
+      "n": 995,
+      "max_abs_GS": 10.234978548183369,
+      "median_regret_new": 4.090610506392577,
+      "median_regret_old": 5.950739972795999,
+      "median_cost_ratio_new": 0.16004202780839852,
+      "median_cost_ratio_old": 0.2227786219462338
+    },
+    {
+      "h_Tint": "1\u2013<4",
+      "n": 925,
+      "max_abs_GS": 13.226312735159375,
+      "median_regret_new": 14.968737130524485,
+      "median_regret_old": 17.10667324257566,
+      "median_cost_ratio_new": 0.5441385237427443,
+      "median_cost_ratio_old": 0.5958767858231665
+    },
+    {
+      "h_Tint": "4\u2013<7",
+      "n": 80,
+      "max_abs_GS": 3.9763314617404446,
+      "median_regret_new": 18.554533237663353,
+      "median_regret_old": 20.052873002350434,
+      "median_cost_ratio_new": 0.844996031426444,
+      "median_cost_ratio_old": 0.8580399152280054
+    },
+    {
+      "h_Tint": ">=7",
+      "n": 1255,
+      "max_abs_GS": 2.0497578689142792,
+      "median_regret_new": 22.17412063374281,
+      "median_regret_old": 22.497657747871276,
+      "median_cost_ratio_new": 0.9444350190024504,
+      "median_cost_ratio_old": 0.947707886610945
+    }
+  ],
+  "p12": [
+    {
+      "level": "true_s",
+      "n": 995,
+      "new_worse": 515,
+      "old_worse": 469,
+      "either_worse": 581,
+      "max_new_increase_pp": 6.270353487610745,
+      "max_old_increase_pp": 6.846045499853112
+    },
+    {
+      "level": "mm1",
+      "n": 995,
+      "new_worse": 380,
+      "old_worse": 408,
+      "either_worse": 479,
+      "max_new_increase_pp": 6.270353487610745,
+      "max_old_increase_pp": 6.418469943855242
+    },
+    {
+      "level": "mmpp_est",
+      "n": 995,
+      "new_worse": 380,
+      "old_worse": 408,
+      "either_worse": 479,
+      "max_new_increase_pp": 6.270353487610745,
+      "max_old_increase_pp": 6.418469943855242
+    },
+    {
+      "level": "true_s_eps_-0.5",
+      "n": 995,
+      "new_worse": 365,
+      "old_worse": 384,
+      "either_worse": 461,
+      "max_new_increase_pp": 4.959467668312169,
+      "max_old_increase_pp": 6.836241685648718
+    },
+    {
+      "level": "true_s_eps_-0.25",
+      "n": 995,
+      "new_worse": 445,
+      "old_worse": 437,
+      "either_worse": 520,
+      "max_new_increase_pp": 4.959467668312169,
+      "max_old_increase_pp": 6.845606166065039
+    },
+    {
+      "level": "true_s_eps_-0.1",
+      "n": 995,
+      "new_worse": 460,
+      "old_worse": 457,
+      "either_worse": 542,
+      "max_new_increase_pp": 6.270353487610745,
+      "max_old_increase_pp": 6.845952933733907
+    },
+    {
+      "level": "true_s_eps_+0.1",
+      "n": 995,
+      "new_worse": 535,
+      "old_worse": 478,
+      "either_worse": 598,
+      "max_new_increase_pp": 6.270353487610745,
+      "max_old_increase_pp": 6.846095631438342
+    },
+    {
+      "level": "true_s_eps_+0.25",
+      "n": 995,
+      "new_worse": 570,
+      "old_worse": 488,
+      "either_worse": 619,
+      "max_new_increase_pp": 6.270353487610745,
+      "max_old_increase_pp": 6.846134952315683
+    },
+    {
+      "level": "true_s_eps_+0.5",
+      "n": 995,
+      "new_worse": 585,
+      "old_worse": 493,
+      "either_worse": 631,
+      "max_new_increase_pp": 6.270353487610745,
+      "max_old_increase_pp": 6.846161216173412
+    },
+    {
+      "level": "sign_flipped",
+      "n": 995,
+      "new_worse": 995,
+      "old_worse": 926,
+      "either_worse": 995,
+      "max_new_increase_pp": 37.51748953644716,
+      "max_old_increase_pp": 69.74319406027584
+    }
+  ],
+  "matched_baseline_regimes": 92,
+  "missing_baseline_ids": [
+    "Za7p5_u3-2_lA31-4_x1-3_k2"
+  ],
+  "max_fresh_baseline_abs_diff": 5.8862497098743916e-09,
+  "validity_flags": [],
+  "invalid_details": [
+    {
+      "id": "A_u1-2_lA9_x-1_k1-2",
+      "family": "asym",
+      "s": -12.667009122650803,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x-1_k1-20",
+      "family": "asym",
+      "s": -7.2666670005683685,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6737411676614963/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6737411676614963/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x-1_k2",
+      "family": "asym",
+      "s": -30.67116731438462,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x-2_k1-2",
+      "family": "asym",
+      "s": -15.834023174657116,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x-2_k1-20",
+      "family": "asym",
+      "s": -9.083334005665918,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=843965934212735/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=843965934212735/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3375634379492331/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3375634379492331/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x-2_k2",
+      "family": "asym",
+      "s": -38.3429389721159,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754991543253781/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754991543253781/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6745194596048521/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6745194596048521/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x1-2_k1-2",
+      "family": "asym",
+      "s": 31.666835406162058,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x1-2_k1-20",
+      "family": "asym",
+      "s": 18.166666831928808,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1-2_lA9_x1-2_k2",
+      "family": "asym",
+      "s": 76.66870882811563,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377617131134363/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377617131134363/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x-1-2_k1-2",
+      "family": "asym",
+      "s": -0.9959336578682478,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3374284902985043/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3374284902985043/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6751268758984661/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6751268758984661/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x-1-2_k1-20",
+      "family": "asym",
+      "s": -0.5709530806956034,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6746625891247971/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6746625891247971/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x-1-2_k2",
+      "family": "asym",
+      "s": -2.4230609222967985,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x-1_k1-2",
+      "family": "asym",
+      "s": -1.5847136510008362,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x-1_k1-20",
+      "family": "asym",
+      "s": -0.9083347420484218,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376646132945221/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x-1_k2",
+      "family": "asym",
+      "s": -3.8616522910746767,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1-2_k1-2",
+      "family": "asym",
+      "s": 1.900699473169631,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6747948894082791/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6747948894082791/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=421478433720717/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=421478433720717/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1-2_k1-20",
+      "family": "asym",
+      "s": 1.090000690556888,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1-2_k2",
+      "family": "asym",
+      "s": 4.612195524456144,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1-4_k1-2",
+      "family": "asym",
+      "s": 0.7817349297728384,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377495771626891/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377495771626891/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1-4_k1-20",
+      "family": "asym",
+      "s": 0.4482687446922613,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1-4_k2",
+      "family": "asym",
+      "s": 1.8980417298748726,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1_k1-2",
+      "family": "asym",
+      "s": 6.334730091720697,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=26297409699293/4398046511104 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=26297409699293/4398046511104 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1_k1-20",
+      "family": "asym",
+      "s": 3.6333347053086147,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u1_lA7_x1_k2",
+      "family": "asym",
+      "s": 15.356392176887745,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x-1-4_k1-2",
+      "family": "asym",
+      "s": -2.4894794663022264,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1686656472811993/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1686656472811993/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x-1-4_k1-20",
+      "family": "asym",
+      "s": -1.427382351909717,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3372219158735263/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3372219158735263/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x-1-4_k2",
+      "family": "asym",
+      "s": -6.050786893234058,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3372219158735263/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3372219158735263/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x1-2_k1-2",
+      "family": "asym",
+      "s": 23.164686924246155,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6749163668236915/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6749163668236915/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3371003423729077/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3371003423729077/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x1-2_k1-20",
+      "family": "asym",
+      "s": 13.287621791670187,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6750783027074999/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x1-2_k2",
+      "family": "asym",
+      "s": 56.12239207130068,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688842275599413/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688842275599413/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=421706307819213/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=421706307819213/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x1-4_k1-2",
+      "family": "asym",
+      "s": 5.429964276419341,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3374284902985043/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3374284902985043/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755396070100463/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755396070100463/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x1-4_k1-20",
+      "family": "asym",
+      "s": 3.1142870954473345,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377617131134363/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377617131134363/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "A_u2_lA13-2_x1-4_k2",
+      "family": "asym",
+      "s": 13.167257574728431,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688828791667265/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/35184372088832 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x-1_k1-2",
+      "family": "zf_a3_asym",
+      "s": -8.166746503108559,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x-1_k1-20",
+      "family": "zf_a3_asym",
+      "s": -6.816666753115793,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x-1_k2",
+      "family": "zf_a3_asym",
+      "s": -12.670182353350306,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x-2_k1-2",
+      "family": "zf_a3_asym",
+      "s": -10.208485656023576,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754991543253781/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754991543253781/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x-2_k1-20",
+      "family": "zf_a3_asym",
+      "s": -8.520833507371583,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376646132945221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376646132945221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x-2_k2",
+      "family": "zf_a3_asym",
+      "s": -15.840056269439899,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6747948894082791/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6747948894082791/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x1-2_k1-2",
+      "family": "zf_a3_asym",
+      "s": 20.416709001946302,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1686656472811993/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1686656472811993/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x1-2_k1-20",
+      "family": "zf_a3_asym",
+      "s": 17.0416667094645,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755315166669061/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755315166669061/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1-2_lA9_x1-2_k2",
+      "family": "zf_a3_asym",
+      "s": 31.668482122473478,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3367691699357821/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3367691699357821/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x-1-2_k1-2",
+      "family": "zf_a3_asym",
+      "s": -0.6417657614326497,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755396070100463/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755396070100463/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3375634379492331/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3375634379492331/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x-1-2_k1-20",
+      "family": "zf_a3_asym",
+      "s": -0.5355954190189962,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6748569805970087/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6748569805970087/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376646132945221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376646132945221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x-1-2_k2",
+      "family": "zf_a3_asym",
+      "s": -0.9984334311334244,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6738385033150337/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6738385033150337/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6751268758984661/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6751268758984661/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x-1_k1-2",
+      "family": "zf_a3_asym",
+      "s": -1.021010217579466,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x-1_k1-20",
+      "family": "zf_a3_asym",
+      "s": -0.8520836974924579,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x-1_k2",
+      "family": "zf_a3_asym",
+      "s": -1.588003882621834,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=420464165775457/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=420464165775457/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755369102397651/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755369102397651/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1-2_k1-2",
+      "family": "zf_a3_asym",
+      "s": 1.2251187678337025,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377212582483221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1-2_k1-20",
+      "family": "zf_a3_asym",
+      "s": 1.022500178619346,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688660233430841/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1-2_k2",
+      "family": "zf_a3_asym",
+      "s": 1.9047129377745158,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688842275599413/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688842275599413/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6745194596048521/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6745194596048521/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1-4_k1-2",
+      "family": "zf_a3_asym",
+      "s": 0.5038449158509444,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754182416875691/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1-4_k1-20",
+      "family": "zf_a3_asym",
+      "s": 0.42050874760586954,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6749730488023009/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1-4_k2",
+      "family": "zf_a3_asym",
+      "s": 0.7835700081983195,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1_k1-2",
+      "family": "zf_a3_asym",
+      "s": 4.083588668267472,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1686656472811993/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1686656472811993/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=844070484157333/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1_k1-20",
+      "family": "zf_a3_asym",
+      "s": 3.408333688276379,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u1_lA7_x1_k2",
+      "family": "zf_a3_asym",
+      "s": 6.343954945744777,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754829725731851/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x-1-4_k1-2",
+      "family": "zf_a3_asym",
+      "s": -1.6043632239805223,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376470784067175/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=211059771454439/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x-1-4_k1-20",
+      "family": "zf_a3_asym",
+      "s": -1.3389884570928148,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6745923784379705/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6745923784379705/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6747300925107409/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6747300925107409/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x-1-4_k2",
+      "family": "zf_a3_asym",
+      "s": -2.4942833892629395,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6754640933723365/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x1-2_k1-2",
+      "family": "zf_a3_asym",
+      "s": 14.933840085723768,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376646132945221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376646132945221/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=842642764179825/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x1-2_k1-20",
+      "family": "zf_a3_asym",
+      "s": 12.464762614667007,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6745923784379705/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6745923784379705/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x1-2_k2",
+      "family": "zf_a3_asym",
+      "s": 23.182444646318206,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=843493611760349/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=843493611760349/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x1-4_k1-2",
+      "family": "zf_a3_asym",
+      "s": 3.500235661866439,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=6755126388227659/2251799813685248 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3377698035050231/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x1-4_k1-20",
+      "family": "zf_a3_asym",
+      "s": 2.9214289286760415,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=3376079588366489/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688403992683153/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za3_u2_lA13-2_x1-4_k2",
+      "family": "zf_a3_asym",
+      "s": 5.437675439103701,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=843783784017579/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=843783784017579/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1688842275599413/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1688842275599413/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-1_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": -4.010850623925769,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4215273948419079/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4215273948419079/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1055298857272195/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1055298857272195/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-1_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": -1.9010421818928158,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8422981291437921/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8422981291437921/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8439085948730827/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8439085948730827/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-1_k2",
+      "family": "zf_a7p5_asym",
+      "s": -11.04543072505129,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1055298857272195/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1055298857272195/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": -5.615466401878827,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4222105688998533/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4222105688998533/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4222105688998533/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4222105688998533/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": -2.661459370860605,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443031456208053/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-2_k2",
+      "family": "zf_a7p5_asym",
+      "s": -15.466409782157527,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8439085948730827/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8439085948730827/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x1-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": 4.812710902874841,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444042827835907/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444042827835907/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8441176960167937/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8441176960167937/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x1-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": 2.2812502549752196,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4221953992642287/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4221953992642287/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x1-2_k2",
+      "family": "zf_a7p5_asym",
+      "s": 13.251699555571605,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4222122543812789/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4222122543812789/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8439659342127351/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8439659342127351/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x-1-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": -5.615466401878869,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444042827835907/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444042827835907/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8442019963415765/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8442019963415765/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x-1-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": -2.661459370860614,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4218227292648073/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4218227292648073/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444042827835907/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444042827835907/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x-1-2_k2",
+      "family": "zf_a7p5_asym",
+      "s": -15.46640978215764,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=527232016091413/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=527232016091413/70368744177664 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8419229248394553/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": 20.052934891193274,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443301167154205/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443301167154205/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=65939054460283/8796093022208 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=65939054460283/8796093022208 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": 9.50520935675971,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4218227292648073/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4218227292648073/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=2110884289291203/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=2110884289291203/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-2_k2",
+      "family": "zf_a7p5_asym",
+      "s": 55.21538626537031,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8442728021094613/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8442728021094613/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-4_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": 6.30251319486981,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8441176960167937/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8441176960167937/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443907985284575/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443907985284575/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-4_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": 2.987351703945876,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444143958336325/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8422981291437921/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8422981291437921/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-4_k2",
+      "family": "zf_a7p5_asym",
+      "s": 17.35483586189534,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8437837840175789/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8437837840175789/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x-1-6_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": -6.952045106952092,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=2109619695960937/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444042827835907/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x-1-6_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": -3.29513966439648,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4222122543812789/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4222122543812789/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x-1-6_k2",
+      "family": "zf_a7p5_asym",
+      "s": -19.14476384893483,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=4222105688998533/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=4222105688998533/562949953421312 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443031456208053/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443031456208053/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-3_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": 61.11238783104636,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8444211377997065/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8444211377997065/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443301167154205/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443301167154205/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-3_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": 28.968255503428352,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=2110884289291203/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=2110884289291203/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8433282364059967/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "estimated load/amplitude outside nonnegative stable model domain"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-3_k2",
+      "family": "zf_a7p5_asym",
+      "s": 168.26459100561442,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8442019963415765/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8442019963415765/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8442728021094613/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8442728021094613/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-6_k1-2",
+      "family": "zf_a7p5_asym",
+      "s": 14.705505562194269,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=65939054460283/8796093022208 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=65939054460283/8796093022208 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443907985284575/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443907985284575/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-6_k1-20",
+      "family": "zf_a7p5_asym",
+      "s": 6.970486881331027,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=2111010706958977/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=2111010706958977/281474976710656 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8443739429067225/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-6_k2",
+      "family": "zf_a7p5_asym",
+      "s": 40.491601473541834,
+      "status": "INVALID",
+      "sign_correct": null,
+      "effective_sign_correct": true,
+      "errors": [
+        {
+          "chain": "A_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=8442728021094613/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "A_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=8442728021094613/1125899906842624 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_stay",
+          "kind": "ValueError",
+          "message": "amplitude a=1055298857272195/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        },
+        {
+          "chain": "B_switch",
+          "kind": "ValueError",
+          "message": "amplitude a=1055298857272195/140737488355328 is not in this namespace (a = 6, held-out ['3', '15/2'], control 0)"
+        }
+      ]
+    }
+  ],
+  "minimum_regret_pp": -4.545232262487223e-11
+}

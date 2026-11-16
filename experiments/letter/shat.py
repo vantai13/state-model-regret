@@ -122,51 +122,145 @@ def case_work(case):
     return (na+nb+2)*(max(float(F(h)) for h in case['hs'])+4.4*case['T_int_max']+1)*(30+2/float(k))
 
 
-def run_one(case):
+def read_baseline(case):
+    """Preflight the existing baseline; UNRESOLVED is missing evidence, not zero."""
+    baseline = json.loads(saved_path(case).read_text())
+    if baseline['parameters'] != [str(F(v)) for v in case['parameters']]:
+        raise ValueError('saved baseline parameters do not match case')
+    available = baseline.get('status') == 'COMPLETED' and isinstance(baseline.get('h'), list)
+    if available and F(baseline['a']) != F(case.get('a',ctmc.A)):
+        raise ValueError('saved baseline amplitude does not match case')
+    if not available and baseline.get('status') != 'UNRESOLVED':
+        raise ValueError('unexpected missing baseline status')
+    if available:
+        missing = set(map(lambda h:str(F(h)),case['hs']))-{str(F(r['h'])) for r in baseline['h']}
+        if missing:
+            raise ValueError('baseline lacks horizons: '+str(missing))
+    return baseline, available
+
+
+def timed_v(job):
+    """Unchanged Chain.V in an independent worker, with its own CPU measurement."""
+    key, hs = job
+    t0 = time.process_time()
+    load,kappa,N,a = key
+    values = ctmc.chain(F(load),F(kappa),N,F(a)).V(hs)
+    return key, values, time.process_time()-t0
+
+
+def timed_age(p, case, label, tau, levels):
+    t0 = time.process_time()
+    la,lb,u,k,c = case['parameters']
+    out = evaluate_agediff(la,lb,u,k,case['hs'],tau,c=c,a=F(case.get('a',ctmc.A)),
+                           prepared=p,shat_levels=levels,disagree=False)
+    out.update(age_label=label,tau_Tint=tau/p['T_int'],cpu_seconds=time.process_time()-t0)
+    return out
+
+
+def run_one(case, parallel_pool=None):
     target = OUT / 'raw' / (case['id']+'.json')
     if target.exists():
         raise FileExistsError(target)
     t0, w0 = time.process_time(), time.monotonic()
+    baseline, baseline_available = read_baseline(case)
     la,lb,u,k,c = case['parameters']
     a = F(case.get('a',ctmc.A))
-    p = prepare_regime(la,lb,u,k,case['hs'],c=c,a=a)
-    prepared_cpu = time.process_time()-t0
+    child_cpu = 0.
+    v_components = []
+    v_table = None
+    if parallel_pool is not None:
+        na,nb = (ctmc.choose_N(F(load)+F(u),F(k),a=a) for load in (la,lb))
+        keys = {(str(F(load)),str(F(k)),N,str(a)) for load,N in
+                ((F(la)+F(u),na),(F(la),na),(F(lb),nb),(F(lb)+F(u),nb))}
+        print('V_JOBS '+json.dumps([list(key) for key in sorted(keys)]),flush=True)
+        futures = [parallel_pool.submit(timed_v,(key,case['hs'])) for key in sorted(keys)]
+        v_table = {}
+        for future in as_completed(futures):
+            key,values,cpu = future.result()
+            v_table[key] = values
+            child_cpu += cpu
+            v_components.append(dict(key=list(key),cpu_seconds=cpu))
+            print('V_DONE '+json.dumps(v_components[-1]),flush=True)
+    p = prepare_regime(la,lb,u,k,case['hs'],c=c,a=a,v_table=v_table)
+    prepared_cpu = time.process_time()-t0+child_cpu
     levels, estimates = estimate_levels(p,case['regime_index'])
     ages = [('seconds_1',1.)]+[(f'Tint_{v:g}',v*p['T_int']) for v in (.1,.3,1.,3.)]
-    evaluations = []
-    for label,tau in ages:
-        t_age = time.process_time()
-        out = evaluate_agediff(la,lb,u,k,case['hs'],tau,c=c,a=a,
-                               prepared=p,shat_levels=levels,disagree=False)
-        out.update(age_label=label,tau_Tint=tau/p['T_int'],cpu_seconds=time.process_time()-t_age)
-        evaluations.append(out)
-    baseline = json.loads(saved_path(case).read_text())
-    if baseline['parameters'] != [str(F(v)) for v in case['parameters']] or F(baseline['a']) != a:
-        raise ValueError('saved baseline parameters do not match case')
-    old_h = {str(F(row['h'])):row for row in baseline['h']}
-    max_diff = 0.
-    for row in evaluations[0]['h']:
-        old = old_h[row['h']]
-        for key in ('L10','L11','Cref'):
-            max_diff = max(max_diff,abs(row[key]-old[key]))
-            if not math.isclose(row[key],old[key],rel_tol=1e-10,abs_tol=1e-9):
-                raise ArithmeticError('fresh side differs from saved confounded baseline')
+    if parallel_pool is None:
+        evaluations = [timed_age(p,case,label,tau,levels) for label,tau in ages]
+    else:
+        futures = [parallel_pool.submit(timed_age,p,case,label,tau,levels) for label,tau in ages]
+        by_label = {}
+        for future in as_completed(futures):
+            ev = future.result()
+            by_label[ev['age_label']] = ev
+            child_cpu += ev['cpu_seconds']
+            print('AGE_DONE '+json.dumps(dict(id=case['id'],age=ev['age_label'],cpu_seconds=ev['cpu_seconds'])),flush=True)
+        evaluations = [by_label[label] for label,_ in ages]
+    max_diff = 0. if baseline_available else None
+    if baseline_available:
+        old_h = {str(F(row['h'])):row for row in baseline['h']}
+        for row in evaluations[0]['h']:
+            old = old_h[row['h']]
+            for key in ('L10','L11','Cref'):
+                max_diff = max(max_diff,abs(row[key]-old[key]))
+                if not math.isclose(row[key],old[key],rel_tol=1e-10,abs_tol=1e-9):
+                    raise ArithmeticError('fresh side differs from saved confounded baseline')
     out = dict(owner='Doan Van Tai',id=case['id'],family=case['family'],regime_index=case['regime_index'],
                status='COMPLETED',case=case,T_int=p['T_int'],s=p['s'],s_mm1=p['s_mm1'],
                estimates=estimates,levels=levels,evaluations=evaluations,
+               baseline_available=baseline_available,baseline_status=baseline.get('status'),
+               baseline_error=baseline.get('error'),
                saved_baseline=str(saved_path(case).relative_to(ROOT)),max_fresh_baseline_abs_diff=max_diff,
                baseline_sha256=hashlib.sha256(saved_path(case).read_bytes()).hexdigest(),
-               prepare_cpu_seconds=prepared_cpu,cpu_seconds=time.process_time()-t0,
+               prepare_cpu_seconds=prepared_cpu,cpu_seconds=time.process_time()-t0+child_cpu,
+               cpu_components_V=v_components,parallel_inside_regime=parallel_pool is not None,
                wall_seconds=time.monotonic()-w0)
     write_json_once(target,out)
     return dict(id=case['id'],family=case['family'],cpu_seconds=out['cpu_seconds'],
                 wall_seconds=out['wall_seconds'],estimator_status=estimates['status'])
 
 
+def recover(workers):
+    """Finish only missing raw, after an I/O interruption, without rerunning successes."""
+    if workers != 8:
+        raise ValueError('eight local workers required')
+    cases = load_cases()
+    pilot = json.loads((OUT/'pilot.json').read_text())
+    selected = [c for c in cases if pilot['decision']=='all_on_disk' or c['family']=='asym']
+    missing = [c for c in selected if not (OUT/'raw'/(c['id']+'.json')).exists()]
+    if len(missing)!=1 or missing[0]['id']!='Za7p5_u3-2_lA31-4_x1-3_k2':
+        raise ValueError('I/O recovery is restricted to the one interrupted raw case')
+    baseline,available = read_baseline(missing[0])
+    if available:
+        raise ValueError('recovery reason no longer matches original unresolved baseline')
+    write_json_once(OUT/'io_recovery_plan.json',dict(owner='Doan Van Tai',case=missing[0],
+                    reason='Preflight baseline is UNRESOLVED; omit only its P7/P8 comparison, still compute all E3/E2 outputs.',
+                    scheduling='same unchanged Chain.V in four independent tasks, then same direct age evaluations in five independent tasks; max_workers=8, fork',
+                    scientific_changes=[],retry_reason='I/O repair before any result from this case was saved or interpreted; 92 successful raws never rerun or overwritten',
+                    baseline_status=baseline['status'],baseline_error=baseline['error'],
+                    previous_interrupted_cpu='unknown; report separately from measured successful CPU',
+                    source_sha256={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ('experiments/letter/e3_agediff.py','experiments/letter/shat.py','tests/test_letter_w1b.py')}))
+    w0=time.monotonic()
+    with ProcessPoolExecutor(max_workers=workers,mp_context=multiprocessing.get_context('fork')) as pool:
+        result=run_one(missing[0],parallel_pool=pool)
+    print('RECOVERED '+json.dumps(result),flush=True)
+    raws=[json.loads((OUT/'raw'/(c['id']+'.json')).read_text()) for c in selected]
+    interruption=json.loads((OUT/'interruption.json').read_text())
+    write_json_once(OUT/'run_receipt.json',dict(status='COMPLETED',selected_ids=[c['id'] for c in selected],
+                    cpu_seconds=sum(r['cpu_seconds'] for r in raws),
+                    cpu_note='Measured successful evaluations only; interrupted case CPU unknown and excluded, not zero.',
+                    wall_seconds=time.time()-(OUT/'run_plan.json').stat().st_mtime,
+                    wall_note='Elapsed from immutable initial run_plan timestamp, including interruption and I/O repair.',
+                    recovery_wall_seconds=time.monotonic()-w0,receipts=[dict(id=r['id'],family=r['family'],cpu_seconds=r['cpu_seconds'],wall_seconds=r['wall_seconds']) for r in raws],
+                    failures=[],historical_interruption='interruption.json',interrupted_case_cpu_seconds=None))
+
+
 def run(workers):
     if workers != 8:
         raise ValueError('brief specifies eight local workers')
     cases = load_cases()
+    for case in cases:
+        read_baseline(case)
     # One median-work representative per family; no outcomes used in the selection.
     pilot, proxies = [], {}
     for fam in FAMILIES:
@@ -250,11 +344,12 @@ def analyze():
         regimes.append(dict(id=raw['id'],family=raw['family'],s=raw['s'],status=meta['status'],
                             sign_correct=meta['sign_correct'],effective_sign_correct=meta['effective_sign_correct'],
                             errors=meta['errors']))
-        max_fresh=max(max_fresh,raw['max_fresh_baseline_abs_diff'])
+        if raw['max_fresh_baseline_abs_diff'] is not None:
+            max_fresh=max(max_fresh,raw['max_fresh_baseline_abs_diff'])
         baseline=json.loads((ROOT/raw['saved_baseline']).read_text())
         if hashlib.sha256((ROOT/raw['saved_baseline']).read_bytes()).hexdigest()!=raw['baseline_sha256']:
             raise ValueError('saved baseline changed since run')
-        baseline_h={str(F(r['h'])):r for r in baseline['h']}
+        baseline_h={str(F(r['h'])):r for r in baseline.get('h',[])}
         for ev in raw['evaluations']:
             for r in ev['h']:
                 if r['flags']:flags.append(dict(id=raw['id'],age=ev['age_label'],h=r['h'],flags=r['flags']))
@@ -265,7 +360,8 @@ def analyze():
                                      tau=ev['tau'],tau_Tint=ev['tau_Tint'],a=ev['a'],T_int=raw['T_int'],
                                      h=r['h'],h_Tint=r['h_Tint'],h_bin=bin_name,level=level,s_true=raw['s'],s_hat=v['s_hat'],
                                      estimator_status=meta['status'],is_fallback=level=='mmpp_est' and meta['status']=='INVALID',
-                                     Cref=r['Cref'],G_S_M0_age=r['G_S'],G_S_M0_confounded=baseline_h[r['h']]['G_S'],
+                                     baseline_available=r['h'] in baseline_h,
+                                     Cref=r['Cref'],G_S_M0_age=r['G_S'],G_S_M0_confounded=baseline_h.get(r['h'],{}).get('G_S'),
                                      M0_new=r['regret']['M0_new'],M0_old=r['regret']['M0_old'],
                                      regret_new=v['regret_new'],regret_old=v['regret_old'],G_S_hybrid=v['G_S'],
                                      share_new=v['share_new'],share_old=v['share_old'],
@@ -288,7 +384,7 @@ def analyze():
         p7.append(dict(family=family,eligible=n,age_harm=hits,fraction=hits/n if n else None,
                        confounded_median=float(sub.G_S_M0_confounded.median()) if n else None,
                        age_median=float(sub.G_S_M0_age.median()) if n else None))
-    p8base=e3[e3.age_label=='seconds_1']
+    p8base=e3[(e3.age_label=='seconds_1')&e3.baseline_available]
     p8=[]
     for label,sub in [('all_nonzero',p8base[p8base.G_S_M0_confounded!=0]),
                        ('confounded_negative',p8base[p8base.G_S_M0_confounded<0]),
@@ -358,6 +454,8 @@ def analyze():
         csv(name,pd.DataFrame(records))
     score=dict(verdict=verdict,regimes=len(regimes),rows_e3=len(e3),rows_hybrid=len(df),
                raw_regimes=len(raw_files),p7=p7,p8=p8,p9=p9,p10=p10,p11=p11,p12=p12,
+               matched_baseline_regimes=int(e3[e3.baseline_available].id.nunique()),
+               missing_baseline_ids=sorted(set(e3[~e3.baseline_available].id)),
                max_fresh_baseline_abs_diff=max_fresh,validity_flags=flags,
                invalid_details=regimes,minimum_regret_pp=float(min(df.regret_new.min(),df.regret_old.min())))
     write_json_once(OUT/'analysis.json',score)
@@ -379,6 +477,7 @@ def analyze():
                f'Mọi regret/G_S trong bảng là % C_ref; cost ratio là excess cost/(h|s|), CPU là tổng process time. '
                f'Các bin dùng h/T_int thật, không làm tròn; P9 yêu cầu cả fresh và stale đạt riêng ở từng mức i/iv. '
                f'P8 dùng tỷ số literal khi baseline khác 0 và kèm hai harm subsets; P7 ghép saved baseline τ=1 s với age-only τ=T_int. '
+               f'P7/P8 chỉ trên {score["matched_baseline_regimes"]} regimes có baseline: case cuối có baseline UNRESOLVED vì CPU cap cũ, không điền 0 hoặc chạy lại baseline. '
                f'Estimator ii INVALID ở {invalid}/{len(regimes)} regimes; các dòng mmpp_est khi INVALID dùng iii và không chứng minh P10. '
                f'API gốc từ chối α̂ ngoài namespace cố định; chi tiết lỗi domain/API nằm trong raw và analysis.json. '
                f'P10 “matches” và P11 “≈” thiếu tolerance: phép so bằng số dùng 1e−9 pp; P11 NOT_HELD_FINITE_PANEL chỉ bác cách đọc đồng nhất ở mọi h, '
@@ -386,18 +485,23 @@ def analyze():
                f'Tại τ=0 mọi pipeline trùng nhau; control τ→0⁺ không đạt trên exact M0 ties, lưu boundary_check.json, không thêm epsilon. '
                f'Fresh so với baseline sai khác tuyệt đối tối đa {max_fresh:.6g}; không có validity flags. '
                f'Pilot và raw được lưu trước diễn giải; không commit theo brief. Run khởi đầu dừng trước computation vì forkserver bị sandbox chặn, '
-               f'run_fork.log dùng fork/pipes. Đây là mô tả panel hữu hạn, không population CI hoặc novelty claim.')
+               f'run_fork.log dùng fork/pipes. Sau 92 raw, đã dừng case cuối trước lỗi đọc baseline thiếu; recovery chỉ tính case chưa có raw, '
+               f'dùng cùng Chain.V/age calls trong các tasks độc lập, không đổi numerical evaluator. CPU báo ở bảng là các evaluations hoàn tất; '
+               f'CPU phần bị dừng không có số đo và không được coi là 0. interruption.json, io_recovery_plan.json và recovery.log giữ lịch sử. '
+               f'Đây là mô tả panel hữu hạn, không population CI hoặc novelty claim.')
     with (OUT/'README.md').open('x') as f:f.write('\n\n'.join(sections+[paragraph])+'\n')
     print(json.dumps(dict(verdict=verdict,regimes=len(regimes),rows=len(df),p10=p10,cpu_seconds=receipt['cpu_seconds']),indent=2))
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action',choices=('run','analyze'))
+    parser.add_argument('action',choices=('run','recover','analyze'))
     parser.add_argument('--workers',type=int,default=8)
     args=parser.parse_args()
     if args.action=='run':
         run(args.workers)
+    elif args.action=='recover':
+        recover(args.workers)
     else:
         analyze()
 
