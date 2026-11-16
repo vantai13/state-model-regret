@@ -4448,3 +4448,51 @@ hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương q
 **Hạ tầng:** VM trả về n2-custom-12-49152 và để TERMINATED theo quy tắc của tác giả.
 
 **Không đổi:** MainRQ/contract/PC/Gate/G1, verdict cũ, file đã khóa (`ev_te.py` sha256 `4eb87842…`).
+
+### DL-150 — Letter: các đợt W1–E5 cho bài IEEE Networking Letters (16–17/11/2026)
+
+**Ủy quyền.**
+- Thầy duyệt hướng letter (review 16/11).
+- Tác giả duyệt kế hoạch và giao: "thực hiện đi", "tự điều chỉnh … tự quyết định và chạy luôn".
+- Đêm 16–17/11 tác giả giao toàn quyền: "tôi cấp quyền và quyết định mọi thứ".
+- Mọi thẻ, code và phân tích do AI soạn (Claude điều phối, Codex code). Không có dự đoán do tác giả tự viết.
+
+**Trình tự và fact** (chi tiết trong `notes/INSIGHTS.md` I16–I28 ở thư mục letter, và trong `results/letter/*`):
+- **W1a** (93168d53):
+  - tỷ lệ hòa trên topology khoảng 50%;
+  - bổ đề kiểm bằng số 33/33.
+- **W1b** (0ff5f5c7):
+  - so sánh chỉ khác tuổi: harm ở 89% số dòng đủ điều kiện;
+  - hybrid với s đúng hoặc M/M/1 có regret khoảng 0 từ T_int trở lên;
+  - ŝ sai dấu có regret 15–22%.
+- **W2** (raw 71b979b4):
+  - MMPP từ bản ghi hữu hạn đúng dấu 88/93, 5 regime INVALID; M/M/1 đúng 93/93;
+  - P15 không đạt chỉ do thẻ viết sai phía (cùng phía: 99–100%);
+  - θ = 0,5.
+- **E4 GÉANT** (khóa fdb494ca, raw 4b6ad702, chấm 48b4ce01, chấm lại MATCH):
+  - E4-1/2/3/4 FAIL (87,6% / 85% / 82% / 72,5%);
+  - mọi ô trượt của hybrid (i) ở 7·T_int; ở 15–30·T_int đạt 102/102.
+- **E4b** (seed mới; khóa f8c980d4, raw 98c2f796, chấm lại MATCH):
+  - E4-1 PASS 97/102; E4-2 FAIL 90/102; E4-4 FAIL 81/102; X1–X3 đứng;
+  - cả 12 ô trượt E4-2 ở 2 regime gần rỗng;
+  - ngoài 3 regime gần rỗng (tách sau khi xem kết quả): 84/84 trên mỗi seed.
+- **E5 replay** (thẻ 9971f5b3 + sửa trước khi chạy, raw 20cc4e33):
+  - độ chính xác thứ tự trung vị 0,885 / 0,955 / 1,00 ở bản ghi 30 / 100 / 300·T_int;
+  - F1–F3 đứng; F4 không đứng (72/204 ở 100·T_int).
+- **E5b gated** (raw 24b9a1c4):
+  - thứ tự được chấp nhận mà sai: 5/716, 1/1202, 0/1943 ở 30 / 100 / 300·T_int;
+  - G1 không đứng ở 10·T_int.
+- **Hậu kiểm đầu-cuối** (b68f0231, sau khi xem kết quả):
+  - replay không cổng đưa regret trung vị horizon dài từ 72% (M0) xuống 4,1% (100·T_int) và 0 (300·T_int);
+  - cổng tin cậy kèm quay về M0 tệ hơn.
+
+**Hai review ngoài (AI) về letter v1:**
+- Các ý đã kiểm trên dữ liệu: luật dừng, tách hòa/không hòa, cửa sổ T_int, trung vị hai đỉnh, phá hòa ngẫu nhiên.
+- Hai quy định đã kiểm trên trang chính thức:
+  - IEEE yêu cầu khai báo dùng AI trong Acknowledgments;
+  - ToN không nhận kết quả đã đăng ở tạp chí khác.
+- Letter đã sửa theo các ý này (R8, R9).
+
+**Hạ tầng:** VM trả về n2-custom-12-49152 và để TERMINATED sau E4/E4b; E5 chạy local, 28 giây.
+
+**Không đổi:** MainRQ, contract, PC, Gate, G1; verdict đã khóa; file khóa của EV-TE. Nhánh `letter` không merge vào main (chứa ext/validity).

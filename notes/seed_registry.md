@@ -66,3 +66,14 @@ Doan Van Tai. Roots318400000–318409999 dành riêng generic verification, khô
 Prereg cbed2bc khai chính xác318400000+1000case+replicate trước rút:case0–2,rep0–7,
 24roots đã dùng. Không cấp lại cho confirmation. Burn1000s,measure4000s, không
 engine action/decision; [replicate seeds](../results/lessons/l3r_4/generic/replicates.csv).
+
+## Letter (nhánh `letter`), 16–17/11/2026
+
+Doan Van Tai; AI theo ủy quyền. Tất cả seed truyền qua `ev_te.seed_for(seed, regime, stream)`.
+- **E4 GÉANT:** test seed 3000001, pilot seed 7000001 (chỉ đo thời gian).
+- **E4b:** test seed 5000001.
+- **E5 replay:** seed 5100001 (200 bản ghi/regime), pilot seed 5199999 (chỉ đo thời gian).
+- **E5b gated:** seed 5200001.
+- **W1b/W2 (CTMC):** seed ước lượng 20261116 cộng chỉ số regime (xem README `02_Code`).
+
+Không cấp lại các seed này cho phép kiểm chứng sau.
