@@ -1,0 +1,335 @@
+{
+  "regime": "A_u2_lA13-2_x1-2_k1-20",
+  "parameters": [
+    "13/2",
+    "15/2",
+    "2",
+    "1/20",
+    "0"
+  ],
+  "N": {
+    "A": 246,
+    "B": 768
+  },
+  "T_int": 85.38684805021401,
+  "bar_h": 1536.3,
+  "bar_h_Tint": 17.992232235771695,
+  "s": 13.287621791670187,
+  "M_hat": 472043.53799999994,
+  "coincidence_bound": 35525.05823848155,
+  "coincidence_bound_Tint": 416.04836165857876,
+  "a_vhat_constant": {
+    "status": "PASS",
+    "paths": {
+      "A_stay": {
+        "status": "PASS",
+        "states": 494,
+        "max_T": 164.1,
+        "max_abs_error": 0.0,
+        "bitwise_constant": true
+      },
+      "A_switch": {
+        "status": "PASS",
+        "states": 494,
+        "max_T": 70.32857142857144,
+        "max_abs_error": 0.0,
+        "bitwise_constant": true
+      },
+      "B_stay": {
+        "status": "PASS",
+        "states": 1538,
+        "max_T": 307.26,
+        "max_abs_error": 0.0,
+        "bitwise_constant": true
+      },
+      "B_switch": {
+        "status": "PASS",
+        "states": 1538,
+        "max_T": 1536.3,
+        "max_abs_error": 0.0,
+        "bitwise_constant": true
+      }
+    },
+    "horizon_grid": [
+      1536.3,
+      1536.3000000000002,
+      1920.375,
+      3072.6,
+      6145.2
+    ],
+    "additional_local_grid": [
+      384.075,
+      768.15,
+      1152.225
+    ]
+  },
+  "b_literal_fresh_equals_stale": {
+    "status": "FAIL",
+    "meaning": "same action for every current state and every stale observation",
+    "counterexamples": [
+      {
+        "fresh_state_indices": [
+          493,
+          0
+        ],
+        "fresh_states_nm": [
+          [
+            246,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "stale_backlogs": [
+          0,
+          768
+        ],
+        "fresh_gap": -11540.918571428396,
+        "stale_posterior_mean_gap": 466453.6500494315,
+        "fresh_action": "Switch",
+        "stale_action": "Stay"
+      },
+      {
+        "fresh_state_indices": [
+          493,
+          0
+        ],
+        "fresh_states_nm": [
+          [
+            246,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "stale_backlogs": [
+          0,
+          768
+        ],
+        "fresh_gap": -11540.918571428396,
+        "stale_posterior_mean_gap": 466453.6500494308,
+        "fresh_action": "Switch",
+        "stale_action": "Stay"
+      },
+      {
+        "fresh_state_indices": [
+          493,
+          0
+        ],
+        "fresh_states_nm": [
+          [
+            246,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "stale_backlogs": [
+          0,
+          768
+        ],
+        "fresh_gap": -11540.918571428396,
+        "stale_posterior_mean_gap": 466453.65004942985,
+        "fresh_action": "Switch",
+        "stale_action": "Stay"
+      },
+      {
+        "fresh_state_indices": [
+          493,
+          0
+        ],
+        "fresh_states_nm": [
+          [
+            246,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "stale_backlogs": [
+          0,
+          768
+        ],
+        "fresh_gap": -11540.918571429327,
+        "stale_posterior_mean_gap": 466453.65004937537,
+        "fresh_action": "Switch",
+        "stale_action": "Stay"
+      },
+      {
+        "fresh_state_indices": [
+          493,
+          0
+        ],
+        "fresh_states_nm": [
+          [
+            246,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "stale_backlogs": [
+          0,
+          768
+        ],
+        "fresh_gap": -11540.918571427464,
+        "stale_posterior_mean_gap": 466453.65004920214,
+        "fresh_action": "Switch",
+        "stale_action": "Stay"
+      }
+    ]
+  },
+  "b_horizon_invariance": {
+    "status": "PASS",
+    "grid": [
+      {
+        "h": 1536.3,
+        "h_Tint": 17.992232235771695,
+        "fresh_changed_pairs": 0,
+        "stale_changed_pairs": 0
+      },
+      {
+        "h": 1536.3000000000002,
+        "h_Tint": 17.992232235771695,
+        "fresh_changed_pairs": 0,
+        "stale_changed_pairs": 0
+      },
+      {
+        "h": 1920.375,
+        "h_Tint": 22.49029029471462,
+        "fresh_changed_pairs": 0,
+        "stale_changed_pairs": 0
+      },
+      {
+        "h": 3072.6,
+        "h_Tint": 35.98446447154339,
+        "fresh_changed_pairs": 0,
+        "stale_changed_pairs": 0
+      },
+      {
+        "h": 6145.2,
+        "h_Tint": 71.96892894308678,
+        "fresh_changed_pairs": 0,
+        "stale_changed_pairs": 0
+      }
+    ]
+  },
+  "shifted_vs_unshifted_plateau_decisions": [
+    {
+      "h": 1536.3,
+      "fresh_changed_pairs": 0,
+      "stale_changed_pairs": 0
+    },
+    {
+      "h": 1536.3000000000002,
+      "fresh_changed_pairs": 0,
+      "stale_changed_pairs": 0
+    },
+    {
+      "h": 1920.375,
+      "fresh_changed_pairs": 0,
+      "stale_changed_pairs": 0
+    },
+    {
+      "h": 3072.6,
+      "fresh_changed_pairs": 0,
+      "stale_changed_pairs": 0
+    },
+    {
+      "h": 6145.2,
+      "fresh_changed_pairs": 0,
+      "stale_changed_pairs": 0
+    }
+  ],
+  "plateau_gap_ranges": {
+    "fresh": [
+      -11540.918571428574,
+      472043.53799999994
+    ],
+    "stale": [
+      -11160.90554716006,
+      466453.6500494445
+    ]
+  },
+  "c_true_s_hybrid": {
+    "status": "PASS",
+    "grid": [
+      {
+        "h": 35525.093763539786,
+        "h_Tint": 416.04877770694037,
+        "strictly_above_bound": true,
+        "fresh_gap_range": [
+          460503.0914721489,
+          944087.5480437279
+        ],
+        "stale_gap_range": [
+          460883.10448765755,
+          938497.6600866318
+        ],
+        "common_action": "Stay",
+        "status": "PASS"
+      },
+      {
+        "h": 35880.30882086637,
+        "h_Tint": 420.2088452751646,
+        "strictly_above_bound": true,
+        "fresh_gap_range": [
+          465223.05480861664,
+          948807.5113801956
+        ],
+        "stale_gap_range": [
+          465603.06782746315,
+          943217.6234254837
+        ],
+        "common_action": "Stay",
+        "status": "PASS"
+      },
+      {
+        "h": 71050.1164769631,
+        "h_Tint": 832.0967233171575,
+        "strictly_above_bound": true,
+        "fresh_gap_range": [
+          932546.1574287415,
+          1416130.6140003204
+        ],
+        "stale_gap_range": [
+          932926.170419693,
+          1410540.726020813
+        ],
+        "common_action": "Stay",
+        "status": "PASS"
+      },
+      {
+        "h": 142100.2329539262,
+        "h_Tint": 1664.193446634315,
+        "strictly_above_bound": true,
+        "fresh_gap_range": [
+          1876633.233428955,
+          2360217.6899986267
+        ],
+        "stale_gap_range": [
+          1877013.24634552,
+          2354627.8019332886
+        ],
+        "common_action": "Stay",
+        "status": "PASS"
+      }
+    ]
+  },
+  "evaluate_arrays_replay_match": true,
+  "true_V_horizons": [
+    "1/100"
+  ],
+  "cpu_s": 1.4844725840000024,
+  "wall_s": 1.4844922099996438
+}
