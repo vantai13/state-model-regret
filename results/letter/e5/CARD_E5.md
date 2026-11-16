@@ -19,3 +19,9 @@
   - Otherwise, state the record length needed, or that it is not reached, in the limitations.
   - Either way, report the numbers as measured.
 - **Protocol:** this card is committed before the code runs. One run; the raw outputs are committed before scoring. No rerun to improve the result.
+
+## Amendment before the main run (Claude, 17/11/2026)
+- The timing pilot (seed 5199999; G2_r80_b3_s1 and G2_r90_b6_s1, 2 records each) cost 0.25 CPU-s in total. The native trajectory is much cheaper than estimated.
+- Seen from the pilot: the 4 records at L = 100·T_int ordered both regimes correctly. No main-seed record has been computed.
+- To make the study more informative at negligible cost: **R = 200 records per regime, L/T_int ∈ {1, 3, 10, 30, 100, 300}** (prefixes of one 300·T_int record).
+- F2 now also reads: median accuracy ≥ 0.95 at L = 100·T_int (unchanged), ≤ 0.8 at L = 3·T_int (unchanged). The other forecasts and the reading rule are unchanged.
