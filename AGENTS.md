@@ -739,3 +739,5 @@ trước điểm ae046daa (lần 1 lỗi ghi JSON numpy int64, wrapper chỉ đ�
 do quy ước; code khóa theo paper §II). H1 195/196, H2 192/192, H3 183/192, H4 191/196 đều PASS; Abilene 128 ô cùng dấu do r_Switch=0, đa dạng
 dấu chỉ ở GÉANT 68 ô; H4 yếu (165 ô qua vế 2se, C_ref Abilene ≈0,3% E_stay). Arm R TM thật: h/T_int 0,01–0,21, G_S ~1e−3 % E_stay.
 Paper chưa sửa. `results/ext_validity/ev_te/REPORT_EV_TE.md`.
+Letter/16–17-11 (DL-150, nhánh `letter`, không merge main): W1–W2 CTMC, E4/E4b GÉANT (hai seed, chấm lại MATCH), E5/E5b replay bản ghi hữu hạn. Letter v1 5 trang ở
+`state-model-regret-papers/letter_smr` (git local), đã sửa theo hai review AI. Khai báo AI theo IEEE (Acknowledgments) và chiến lược venue (ToN) chờ tác giả và thầy.
