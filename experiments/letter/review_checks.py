@@ -18,11 +18,13 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'results/letter/review_checks'
 
 
-def ctmc_stationary():
+def ctmc_stationary(exclude=()):
     grid = (1 / 3, 1, 3, 10, 30)
     rows = {g: dict(static=[], hybrid_new=[], hybrid_old=[]) for g in grid}
     for f in sorted(glob.glob(str(ROOT / 'results/letter/w1b/raw/*.json'))):
         raw = json.loads(Path(f).read_text())
+        if raw['id'] in exclude:
+            continue
         ev = [e for e in raw['evaluations'] if e['age_label'] == 'Tint_1'][0]
         for g in grid:
             r = min(ev['h'], key=lambda x: abs(np.log(x['h_Tint'] / g)))
@@ -79,6 +81,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     res = dict(note='post hoc, saved data only; tau = T_int; GEANT regret is the fresh side for the hybrid',
                ctmc_stationary_vs_hybrid=ctmc_stationary(),
+               ctmc_stationary_vs_hybrid_fig3_92=ctmc_stationary(exclude=('Za7p5_u3-2_lA31-4_x1-3_k2',)),
                geant_stationary_vs_hybrid={run: geant(run) for run in ('e4', 'e4b')},
                geant_tie_random={run: tie_random(run) for run in ('e4', 'e4b')})
     (OUT / 'summary.json').write_text(json.dumps(res, indent=1) + '\n')
