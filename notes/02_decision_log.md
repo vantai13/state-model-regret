@@ -4496,3 +4496,13 @@ hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương q
 **Hạ tầng:** VM trả về n2-custom-12-49152 và để TERMINATED sau E4/E4b; E5 chạy local, 28 giây.
 
 **Không đổi:** MainRQ, contract, PC, Gate, G1; verdict đã khóa; file khóa của EV-TE. Nhánh `letter` không merge vào main (chứa ext/validity).
+
+**E6 (17/11/2026, nhánh `letter`):** regret đầu-cuối chính xác với tốc độ ước lượng từ bản ghi E5.
+- Mốc commit: thẻ 1c6385f9, raw d6c9f553 trước khi chấm. Kiểm chứng 0/4.284.000 lệch; 2128 CPU-s.
+- E6-1 đứng: 72/204 ở 100·T_int, median 4,56%.
+- E6-2 đứng: 115/204 ở 300·T_int, median 0,076%.
+- E6-3 không đứng ở bản ghi 100 và 300·T_int:
+  - hybrid và luật tĩnh dùng cùng bản ghi gần như trùng nhau ở horizon dài (chênh lệch theo ô: trung vị 0, trung bình ≤ +0,10 pp);
+  - hybrid tốt hơn rõ ở h ≤ 4–7·T_int.
+- Theo quy tắc đưa vào bài đã chốt trước khi chạy, số E6 thay số xấp xỉ trong đoạn E5 (R11).
+- **Acknowledgment:** tác giả quyết định (bắt buộc) không thêm gì cho tới khi tác giả yêu cầu; Claude đã gỡ mục do R10 chèn.
