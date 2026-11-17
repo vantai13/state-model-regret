@@ -1,0 +1,33 @@
+{
+  "owner": "Doan Van Tai",
+  "started_utc": "2026-11-17T07:39:47.978082+00:00",
+  "n_scale": 1,
+  "workers": 4,
+  "source_sha256": {
+    "experiments/letter/trunc_n2.py": "76ec92e894c02986c15ddb56c63d97921a8cba6e3b1c1ecb8d173ad2ec1eea32",
+    "experiments/letter/e3_agediff.py": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+    "experiments/explore_ctmc/ctmc.py": "46bd482aaf42ac764428aca4a48a9791947e34578573cf59a795d3eba829a332",
+    "experiments/letter/shat.py": "541a81c79cd69252be97dfda1ffdb2911fd705bfb16c0d0dc943bdc4d23382bb",
+    "results/letter/trunc_n2/CARD_TRUNC_N2.md": "b93bff3b08090f85f6e22bc4b9d12b8dddbdd8335349f07f1203ba2e9eb30bfa"
+  },
+  "host": "vantai",
+  "python_version": "3.14.5",
+  "python_full": "3.14.5 (main, May 10 2026, 10:21:34) [GCC 12.3.0]",
+  "nproc": 10,
+  "available_cpus": 10,
+  "scheduled_ids": [
+    "Za7p5_u1-2_lA17-2_x-2_k1-20"
+  ],
+  "saved_w1b_sha256": {
+    "Za7p5_u1-2_lA17-2_x-2_k1-20": "4def5edb31d13cde0775a170a3cfca3fe02a0ef7469e3e43ce492b583ff43bd4"
+  },
+  "scheduling": "descending saved W1b cpu_seconds; one bounded priority queue and process pool",
+  "choose_N_bindings": "ctmc.choose_N and all identity aliases in ctmc/e3_agediff/shat; restored per task",
+  "environment": {
+    "NPY_DISABLE_CPU_FEATURES": "AVX512F AVX512CD AVX512VL AVX512BW AVX512DQ AVX512VNNI AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR",
+    "OPENBLAS_CORETYPE": "Haswell",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  }
+}

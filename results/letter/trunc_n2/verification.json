@@ -1,0 +1,76 @@
+{
+  "owner": "Doan Van Tai",
+  "brief_matches_HEAD": true,
+  "branch": "letter",
+  "head_unchanged": true,
+  "protected_file_count": 128,
+  "protected_sha256_failures": [],
+  "existing_file_diff_stat": "",
+  "staged_diff_stat": "",
+  "unexpected_new_files": [],
+  "final_pytest": {
+    "command": "python3 -m pytest -q tests/test_letter_trunc_n2.py",
+    "passed": 21,
+    "failed": 0,
+    "seconds": 3.55,
+    "log": "results/letter/trunc_n2/pytest_verified.log",
+    "environment": "source .venv/bin/activate && source experiments/explore_ctmc/env.sh; PYTHONDONTWRITEBYTECODE=1; PYTEST_ADDOPTS disables cacheprovider and places basetemp under pilot/"
+  },
+  "n1_reproduction": {
+    "passed": true,
+    "max_relative_difference": 0.0,
+    "threshold": 1e-12,
+    "numeric_leaves": 5830,
+    "argmax": {
+      "regime": "Za7p5_u1-2_lA17-2_x-2_k1-20",
+      "age": "Tint_3",
+      "h": "659",
+      "field": "[].h[].hybrid_levels.sign_flipped.regret_old"
+    },
+    "missing_fields": [],
+    "extra_fields": [],
+    "unequal_discrete": [],
+    "excluded": "operational CPU/wall/time/SHA only; N included"
+  },
+  "manifest_checked_entries": 5,
+  "source_sha256": {
+    "experiments/letter/trunc_n2.py": "76ec92e894c02986c15ddb56c63d97921a8cba6e3b1c1ecb8d173ad2ec1eea32",
+    "experiments/letter/e3_agediff.py": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+    "experiments/explore_ctmc/ctmc.py": "46bd482aaf42ac764428aca4a48a9791947e34578573cf59a795d3eba829a332",
+    "experiments/letter/shat.py": "541a81c79cd69252be97dfda1ffdb2911fd705bfb16c0d0dc943bdc4d23382bb",
+    "results/letter/trunc_n2/CARD_TRUNC_N2.md": "b93bff3b08090f85f6e22bc4b9d12b8dddbdd8335349f07f1203ba2e9eb30bfa"
+  },
+  "additional_file_sha256": {
+    "experiments/letter/trunc_n2_gcp.sh": "ea550a1d01c40e05f2ba107efa021268e251e24f6275212416236a593d235792",
+    "tests/test_letter_trunc_n2.py": "ef61163bdb456f68338ef386957270244c37ff57faf352882e6864878e8438ef"
+  },
+  "pilot_ids": [
+    "Za7p5_u1-2_lA17-2_x-2_k1-20"
+  ],
+  "pilot_workers": 4,
+  "full_population_run": false,
+  "pilot_scientific_differences_scored": false,
+  "gcp_script_executed": false,
+  "network_used": false,
+  "ssh_used": false,
+  "commit_created": false,
+  "technical_failures_preserved": [
+    {
+      "stage": "pytest temporary directory setup",
+      "log": "results/letter/trunc_n2/pilot_unit_tests.log",
+      "fix": "Created missing parent under allowed output directory."
+    },
+    {
+      "stage": "V input adapter before any evaluation or numerical reproduction check",
+      "log": "results/letter/trunc_n2/pytest.log",
+      "artifacts": "results/letter/trunc_n2/pilot/failed_before_evaluation_01/",
+      "fix": "Convert saved rational horizons to Fraction, matching the original serial path; no tolerance change."
+    }
+  ],
+  "deviations": [
+    "An initial 1N adapter attempt aborted before any evaluation; retained its source, manifest, receipt and error log, then fixed the new adapter. The subsequent actual numerical reproduction check passed with zero difference."
+  ],
+  "full_compare_files_created": false,
+  "csv_created": false,
+  "figures_created": false
+}

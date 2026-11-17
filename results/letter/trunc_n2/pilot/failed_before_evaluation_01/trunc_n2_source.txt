@@ -1,0 +1,699 @@
+"""Doan Van Tai — LETTER-TRUNC-N2, using the unchanged W1b evaluator.
+
+Source .venv/bin/activate and experiments/explore_ctmc/env.sh first.
+The pilot measures cost only; only ``compare`` scores the full 27-case run.
+"""
+import argparse
+from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
+from contextlib import contextmanager
+from datetime import datetime, timezone
+from fractions import Fraction as F
+import hashlib
+import heapq
+import json
+import math
+import multiprocessing
+import os
+from pathlib import Path
+import platform
+import resource
+import socket
+import sys
+import time
+
+from experiments.explore_ctmc import ctmc
+from experiments.letter import e3_agediff, shat
+
+ROOT = Path(__file__).resolve().parents[2]
+OUT = ROOT / 'results/letter/trunc_n2'
+SAVED = ROOT / 'results/letter/w1b/raw'
+FAMILY = 'zf_a7p5_asym'
+LIGHTEST = 'Za7p5_u1-2_lA17-2_x-2_k1-20'
+HEAVIEST = 'Za7p5_u3-2_lA31-4_x1-3_k2'
+AGE_LABELS = ('seconds_1', 'Tint_0.1', 'Tint_0.3', 'Tint_1', 'Tint_3')
+SOURCE_FILES = ('experiments/letter/trunc_n2.py',
+                'experiments/letter/e3_agediff.py',
+                'experiments/explore_ctmc/ctmc.py',
+                'experiments/letter/shat.py',
+                'results/letter/trunc_n2/CARD_TRUNC_N2.md')
+# Inspected code path: prepare_regime and shat access ctmc.choose_N;
+# ctmc's evaluate/evaluate_m0 also use its module-global choose_N. Patch
+# identity aliases too, so a from-import binding in any path module is covered.
+CHOOSE_N_MODULES = (ctmc, e3_agediff, shat)
+THRESHOLDS = {'percentage_pp': 1e-6, 'relative': 1e-9, 'discrete': 0}
+
+
+def sha256(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def write_once(path, value):
+    path = Path(path)
+    payload = json.dumps(value, indent=2, allow_nan=False) + '\n'
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open('x') as handle:
+        handle.write(payload)
+
+
+def source_hashes():
+    return {name: sha256(ROOT / name) for name in SOURCE_FILES}
+
+
+@contextmanager
+def scaled_choose_n(scale):
+    if scale not in (1, 2):
+        raise ValueError('n_scale must be 1 or 2')
+    original = ctmc.choose_N
+
+    def wrapped(*args, **kwargs):
+        return scale * original(*args, **kwargs)
+
+    bindings = [(module, name, value)
+                for module in CHOOSE_N_MODULES
+                for name, value in list(vars(module).items())
+                if value is original]
+    try:
+        for module, name, _ in bindings:
+            setattr(module, name, wrapped)
+        yield
+    finally:
+        for module, name, value in reversed(bindings):
+            setattr(module, name, value)
+
+
+def load_population():
+    records = []
+    for path in sorted(SAVED.glob('*.json')):
+        raw = json.loads(path.read_text())
+        if raw.get('family') != FAMILY:
+            continue
+        case = raw['case']
+        if raw.get('status') != 'COMPLETED' or case['id'] != path.stem:
+            raise ValueError(f'invalid saved case: {path}')
+        if [ev['age_label'] for ev in raw['evaluations']] != list(AGE_LABELS):
+            raise ValueError(f'age order differs: {path}')
+        for ev in raw['evaluations']:
+            if [F(row['h']) for row in ev['h']] != [F(h) for h in case['hs']]:
+                raise ValueError(f'saved horizons differ: {path}')
+        guard_n(raw['evaluations'], raw, 1)
+        records.append(dict(raw=raw, path=str(path.relative_to(ROOT)), sha256=sha256(path)))
+    if len(records) != 27 or len({r['raw']['id'] for r in records}) != 27:
+        raise ValueError('expected exactly 27 unique zf_a7p5_asym cases')
+    return sorted(records, key=lambda r: (-r['raw']['cpu_seconds'], r['raw']['id']))
+
+
+def guard_n(evaluations, saved, scale):
+    if len(evaluations) != len(saved['evaluations']):
+        raise AssertionError('N guard: different number of ages')
+    for ev, old in zip(evaluations, saved['evaluations']):
+        if ev['age_label'] != old['age_label']:
+            raise AssertionError('N guard: different age order')
+        expected = {side: scale * n for side, n in old['N'].items()}
+        if ev['N'] != expected:
+            raise AssertionError(f'N guard: {ev["N"]} != {expected}')
+        if set(ev['chains']) != set(old['chains']):
+            raise AssertionError('N guard: chain names differ')
+        for name, chain in ev['chains'].items():
+            if chain['N'] != scale * old['chains'][name]['N']:
+                raise AssertionError(f'N guard: {name}')
+            side = name[0]
+            if chain['N'] != expected[side]:
+                raise AssertionError(f'N guard: chain/path inconsistency: {name}')
+
+
+def chain_keys(record, scale):
+    case = record['raw']['case']
+    la, lb, u, k, _ = map(F, case['parameters'])
+    a = F(case.get('a', ctmc.A))
+    with scaled_choose_n(scale):
+        na, nb = (ctmc.choose_N(load + u, k, a=a) for load in (la, lb))
+    for old in record['raw']['evaluations']:
+        if {'A': na, 'B': nb} != {s: scale * n for s, n in old['N'].items()}:
+            raise AssertionError('choose_N does not reproduce saved N exactly')
+    return sorted({(str(load), str(k), n, str(a)) for load, n in
+                   ((la + u, na), (la, na), (lb, nb), (lb + u, nb))})
+
+
+def current_rss_kib():
+    # Linux /proc reports current RSS; ru_maxrss below is a lifetime watermark.
+    for line in Path('/proc/self/status').read_text().splitlines():
+        if line.startswith('VmRSS:'):
+            return int(line.split()[1])
+    raise RuntimeError('VmRSS missing')
+
+
+def execute_job(stage, payload, scale):
+    """A pool worker never creates another pool, or estimates s-hat levels."""
+    ctmc._CHAINS.clear()
+    cpu0, wall0 = time.process_time(), time.monotonic()
+    rss0 = current_rss_kib()
+    with scaled_choose_n(scale):
+        if stage == 'V':
+            key, values, _ = shat.timed_v(payload)
+            value = (key, values)
+        elif stage == 'prepare':
+            case, table = payload
+            la, lb, u, k, c = case['parameters']
+            value = e3_agediff.prepare_regime(
+                la, lb, u, k, case['hs'], c=c,
+                a=F(case.get('a', ctmc.A)), v_table=table)
+        elif stage == 'age':
+            prepared, case, label, tau, levels = payload
+            # timed_age calls evaluate_agediff(..., disagree=False) unchanged.
+            value = shat.timed_age(prepared, case, label, tau, levels)
+        else:
+            raise ValueError(stage)
+    metrics = dict(cpu_seconds=time.process_time() - cpu0,
+                   wall_seconds=time.monotonic() - wall0,
+                   peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
+                   start_rss_kib=rss0, pid=os.getpid())
+    return value, metrics
+
+
+def run_population(records, scale, workers, output):
+    """One priority scheduler and one process pool for V -> prepare -> ages.
+
+    At most workers tasks are in flight. Newly ready stages of a heavier
+    regime precede any unsubmitted work of lighter regimes. Ages are submitted
+    in their saved order and written in that order, independent of completion.
+    """
+    output = Path(output).resolve()
+    output.relative_to(OUT.resolve())
+    if scale not in (1, 2) or workers < 1 or not records:
+        raise ValueError('invalid run arguments')
+    records = sorted(records, key=lambda r: (-r['raw']['cpu_seconds'], r['raw']['id']))
+    for path in [output / 'run_start.json', output / 'run_summary.json'] + [
+            output / 'raw' / (r['raw']['id'] + '.json') for r in records]:
+        if path.exists():
+            raise FileExistsError(path)
+    states, ready, pending = {}, [], {}
+    sequence = 0
+
+    def enqueue(rank, stage, payload):
+        nonlocal sequence
+        heapq.heappush(ready, (rank, sequence, stage, payload))
+        sequence += 1
+
+    for rank, record in enumerate(records):
+        keys = chain_keys(record, scale)
+        states[rank] = dict(record=record, keys=keys, table={}, ages={},
+                            metrics={'V': [], 'prepare': [], 'age': []}, start=None)
+        for key in keys:
+            enqueue(rank, 'V', (key, record['raw']['case']['hs']))
+    write_once(output / 'run_start.json', dict(
+        owner='Doan Van Tai', started_utc=datetime.now(timezone.utc).isoformat(),
+        n_scale=scale, workers=workers, source_sha256=source_hashes(),
+        host=socket.gethostname(), python_version=platform.python_version(),
+        python_full=sys.version, nproc=os.cpu_count(),
+        available_cpus=len(os.sched_getaffinity(0)),
+        scheduled_ids=[r['raw']['id'] for r in records],
+        saved_w1b_sha256={r['raw']['id']: r['sha256'] for r in records},
+        scheduling='descending saved W1b cpu_seconds; one bounded priority queue and process pool',
+        choose_N_bindings='ctmc.choose_N and all identity aliases in ctmc/e3_agediff/shat; restored per task',
+        environment={k: os.environ.get(k) for k in ('NPY_DISABLE_CPU_FEATURES',
+                     'OPENBLAS_CORETYPE', 'OMP_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'MKL_NUM_THREADS')}))
+    wall0, cpu0 = time.monotonic(), time.process_time()
+    child0 = resource.getrusage(resource.RUSAGE_CHILDREN)
+    completed, failure = [], None
+    pool = ProcessPoolExecutor(max_workers=workers,
+                               mp_context=multiprocessing.get_context('fork'))
+    try:
+        while ready or pending:
+            while ready and len(pending) < workers:
+                rank, _, stage, payload = heapq.heappop(ready)
+                state = states[rank]
+                if state['start'] is None:
+                    state['start'] = time.monotonic()
+                pending[pool.submit(execute_job, stage, payload, scale)] = (rank, stage, payload)
+            done, _ = wait(pending, return_when=FIRST_COMPLETED)
+            for future in done:
+                rank, stage, payload = pending.pop(future)
+                value, metrics = future.result()
+                state = states[rank]
+                old = state['record']['raw']
+                case = old['case']
+                if stage == 'V':
+                    key, values = value
+                    state['table'][key] = values
+                    metrics['key'] = list(key)
+                    if len(state['table']) == len(state['keys']):
+                        enqueue(rank, 'prepare', (case, state['table']))
+                elif stage == 'prepare':
+                    if (value['NA'], value['NB']) != tuple(
+                            scale * old['evaluations'][0]['N'][s] for s in ('A', 'B')):
+                        raise AssertionError('prepared N guard failed')
+                    for ev in old['evaluations']:
+                        enqueue(rank, 'age', (value, case, ev['age_label'], ev['tau'], old['levels']))
+                    state['table'] = {}  # V arrays no longer needed in the coordinator.
+                else:
+                    state['ages'][value['age_label']] = value
+                    metrics['age_label'] = value['age_label']
+                state['metrics'][stage].append(metrics)
+                print(json.dumps(dict(event='TASK_DONE', id=case['id'], stage=stage,
+                                      cpu_seconds=metrics['cpu_seconds'])), flush=True)
+                if len(state['ages']) == 5:
+                    evaluations = [state['ages'][label] for label in AGE_LABELS]
+                    guard_n(evaluations, old, scale)
+                    all_metrics = [m for group in state['metrics'].values() for m in group]
+                    result = dict(owner='Doan Van Tai', id=case['id'], family=FAMILY,
+                                  status='COMPLETED', case=case, n_scale=scale,
+                                  N=evaluations[0]['N'],
+                                  N_per_chain={n: ch['N'] for n, ch in evaluations[0]['chains'].items()},
+                                  saved_w1b_raw=state['record']['path'],
+                                  saved_w1b_sha256=state['record']['sha256'],
+                                  levels=old['levels'], evaluations=evaluations,
+                                  cpu_seconds=sum(m['cpu_seconds'] for m in all_metrics),
+                                  wall_seconds=time.monotonic() - state['start'],
+                                  peak_rss_kib=max(m['peak_rss_kib'] for m in all_metrics),
+                                  peak_rss_scope='max worker lifetime high-water RSS, not simultaneous aggregate',
+                                  cpu_scope='sum of measured process CPU inside V, prepare and age tasks; IPC excluded',
+                                  cpu_components_V=sorted(state['metrics']['V'], key=lambda m: m['key']),
+                                  prepare_cpu_seconds=state['metrics']['prepare'][0]['cpu_seconds'],
+                                  component_metrics=state['metrics'], n_guard='PASS')
+                    write_once(output / 'raw' / (case['id'] + '.json'), result)
+                    completed.append({k: result[k] for k in
+                                      ('id', 'cpu_seconds', 'wall_seconds', 'peak_rss_kib')})
+                    state['ages'] = {}
+    except BaseException as exc:
+        failure = dict(type=type(exc).__name__, message=str(exc))
+        for future in pending:
+            future.cancel()
+        # Stop unfinished work on failure; no automatic retry or resume.
+        for process in list(pool._processes.values()):
+            process.terminate()
+        raise
+    finally:
+        pool.shutdown(wait=True, cancel_futures=True)
+        children = resource.getrusage(resource.RUSAGE_CHILDREN)
+        summary = dict(owner='Doan Van Tai', status='COMPLETED' if failure is None else 'INCOMPLETE',
+                       n_scale=scale, workers=workers, completed=completed,
+                       expected_regimes=len(records), completed_regimes=len(completed),
+                       cpu_seconds=sum(r['cpu_seconds'] for r in completed),
+                       coordinator_cpu_seconds=time.process_time() - cpu0,
+                       worker_process_cpu_seconds=children.ru_utime + children.ru_stime
+                       - child0.ru_utime - child0.ru_stime,
+                       wall_seconds=time.monotonic() - wall0,
+                       peak_rss_kib=max([resource.getrusage(resource.RUSAGE_SELF).ru_maxrss]
+                                        + [r['peak_rss_kib'] for r in completed]),
+                       failure=failure, scored=False)
+        write_once(output / 'run_summary.json', summary)
+    return summary
+
+
+def flatten(value, path=()):
+    if isinstance(value, dict) and value:
+        for name, item in value.items():
+            yield from flatten(item, path + (name,))
+    elif isinstance(value, list) and value:
+        for index, item in enumerate(value):
+            yield from flatten(item, path + (index,))
+    else:
+        yield path, value
+
+
+def field_name(path):
+    text = ''
+    for part in path:
+        text += '[]' if isinstance(part, int) else ('.' if text else '') + part
+    return text
+
+
+def excluded(path, include_n=False):
+    for part in path:
+        if not isinstance(part, str):
+            continue
+        low = part.lower()
+        if (part == 'N' and not include_n) or low in ('cpu', 'wall', 'time', 'sha', 'sha256'):
+            return True
+        if low.startswith(('cpu_', 'wall_', 'time_')) or low.endswith(('_sha256', '_sha', '_timestamp')):
+            return True
+    return False
+
+
+def classify_field(path, value):
+    """Explicit scientific schema; unknown numeric leaves abort comparison.
+
+    Tie *mass*, action shares and departure probabilities are continuous
+    quantities. Boolean tie flags, selected actions and margin argmins are
+    discrete. Operational time fields are excluded, but physical tau/T_int/h
+    are continuous inputs/read-outs and remain checked.
+    """
+    parts = [p for p in path if isinstance(p, str)]
+    leaf = parts[-1]
+    if isinstance(value, bool):
+        return 'discrete'
+    if leaf in ('N', 'count', 'n_samples') or 'N' in parts or leaf.endswith(('_count', '_counts')):
+        return 'discrete'
+    if ('margin_best' in parts or leaf in ('decision', 'action', 'tie', 'tie_flag')
+            or leaf.endswith(('_decision', '_action', '_flag'))):
+        return 'discrete'
+    if leaf in ('G_S', 'G_M', 'G_SM', 'Gamma', 'S', 'M', 'G_S_hybrid', 'G_S_hybrid_mm1',
+                'G_S_ko', 'z_inf', 'z_inf_ko', 'M0_regret_new_pred', 'M0_regret_old_pred',
+                'z_pred_first_order_inf_decisions', 'z_pred_first_order_ko'):
+        return 'percentage_pp'
+    if 'regret' in parts or ('hybrid_levels' in parts and leaf in ('regret_new', 'regret_old')):
+        return 'percentage_pp'
+    if 'margin' in parts and leaf in ('new', 'old'):
+        return 'percentage_pp'
+    if 'shares' in parts and leaf in ('static', 'const'):
+        return 'discrete'
+    if any(p in parts for p in ('shares', 'tie_mass', 'dep_static')):
+        return 'relative'
+    if ('margin' in parts or 'hybrid_levels' in parts) and leaf in ('share_new', 'share_old'):
+        return 'relative'
+    if leaf in ('a', 'mu', 'tau', 'tau_Tint', 'h', 'h_kappa', 'h_Tint', 'load',
+                'r', 'r_stay', 'r_switch', 'r_min', 's', 's_mm1', 's_hat', 'T_int',
+                'var', 'residual', 'x', 'delta', 'L00', 'L01', 'L10', 'L11',
+                'Cref', 'E_stay', 'E_gap', 'excess_cost_new', 'excess_cost_old',
+                'F_new', 'F_old', 'F_new_ko', 'F_old_ko', 'B', 'B_ko', 'beta_C',
+                'tie_mass_new', 'tie_mass_old'):
+        return 'relative'
+    if not isinstance(value, (int, float)):
+        return 'discrete'  # namespace, age labels, parameters, flags, nulls/empty containers
+    raise ValueError(f'unclassified numeric field: {field_name(path)}')
+
+
+def numeric(value):
+    result = float(F(value)) if isinstance(value, str) else float(value)
+    if not math.isfinite(result):
+        raise ValueError('nonfinite comparison input')
+    return result
+
+
+def relative_difference(old, new):
+    old, new = numeric(old), numeric(new)
+    return abs(new - old) / abs(old) if old else (0.0 if new == 0 else math.inf)
+
+
+def json_metric(value):
+    return value if math.isfinite(value) else 'infinity'
+
+
+def location(regime, evaluations, path):
+    ev = evaluations[path[0]] if path and isinstance(path[0], int) and path[0] < len(evaluations) else {}
+    horizon = None
+    if 'h' in path:
+        pos = path.index('h')
+        if pos + 1 < len(path) and isinstance(path[pos + 1], int):
+            index = path[pos + 1]
+            if index < len(ev.get('h', [])):
+                horizon = ev['h'][index]['h']
+    return dict(regime=regime, age=ev.get('age_label'), h=horizon, field=field_name(path))
+
+
+def compare_evaluations(old_evaluations, new_evaluations, regime='synthetic'):
+    old, new = dict(flatten(old_evaluations)), dict(flatten(new_evaluations))
+    report = dict(groups={}, missing_fields=[], extra_fields=[], excluded_fields=[], violations=[])
+    for paths, name, evs in ((old.keys() - new.keys(), 'missing_fields', old_evaluations),
+                             (new.keys() - old.keys(), 'extra_fields', new_evaluations)):
+        report[name] = [location(regime, evs, p) for p in sorted(paths, key=str)]
+    groups = {g: dict(threshold=t, count=0, fields=set(), max_difference=0.0,
+                      argmax=None, passed=True, per_field={}) for g, t in THRESHOLDS.items()}
+    skipped = set()
+    for path in sorted(old.keys() & new.keys(), key=str):
+        if excluded(path):
+            skipped.add(field_name(path))
+            continue
+        left, right = old[path], new[path]
+        group = classify_field(path, left)
+        if classify_field(path, right) != group:
+            raise ValueError(f'field type/class changed: {field_name(path)}')
+        if group == 'discrete':
+            diff = float(type(left) is not type(right) or left != right)
+        elif group == 'percentage_pp':
+            diff = abs(numeric(right) - numeric(left))
+        else:
+            diff = relative_difference(left, right)
+        where = dict(location(regime, old_evaluations, path), baseline=left, candidate=right)
+        item = groups[group]
+        field = field_name(path)
+        item['count'] += 1
+        item['fields'].add(field)
+        if item['argmax'] is None or diff > item['max_difference']:
+            item.update(max_difference=diff, argmax=where)
+        previous = item['per_field'].get(field)
+        if previous is None or diff > previous['max_difference']:
+            item['per_field'][field] = dict(max_difference=diff, argmax=where)
+        if diff > item['threshold']:
+            item['passed'] = False
+            report['violations'].append(dict(where, group=group, difference=json_metric(diff)))
+    for item in groups.values():
+        item['max_difference'] = json_metric(item['max_difference'])
+        item['fields'] = sorted(item['fields'])
+        for field in item['per_field'].values():
+            field['max_difference'] = json_metric(field['max_difference'])
+    report.update(groups=groups, excluded_fields=sorted(skipped))
+    report['passed'] = all(g['passed'] for g in groups.values()) and not (
+        report['missing_fields'] or report['extra_fields'])
+    return report
+
+
+def reproduction_check(saved, candidate):
+    """All scientific numeric leaves, including N; runtime measurements excluded."""
+    old, new = dict(flatten(saved['evaluations'])), dict(flatten(candidate['evaluations']))
+    missing = [field_name(p) for p in old.keys() - new.keys()]
+    extra = [field_name(p) for p in new.keys() - old.keys()]
+    maximum, argmax, count, unequal = 0.0, None, 0, []
+    for path in old.keys() & new.keys():
+        if excluded(path, include_n=True):
+            continue
+        left, right = old[path], new[path]
+        if isinstance(left, (int, float)) and not isinstance(left, bool):
+            diff = relative_difference(left, right)
+            count += 1
+            if argmax is None or diff > maximum:
+                maximum, argmax = diff, location(saved['id'], saved['evaluations'], path)
+        elif type(left) is not type(right) or left != right:
+            unequal.append(location(saved['id'], saved['evaluations'], path))
+    return dict(passed=not (missing or extra or unequal) and maximum <= 1e-12,
+                max_relative_difference=json_metric(maximum), threshold=1e-12,
+                numeric_leaves=count, argmax=argmax, missing_fields=missing,
+                extra_fields=extra, unequal_discrete=unequal,
+                excluded='operational CPU/wall/time/SHA only; N included')
+
+
+def combine_reports(reports, expected_ids, missing_ids, extra_ids):
+    result = dict(owner='Doan Van Tai', thresholds=THRESHOLDS,
+                  relative_definition='abs(2N-1N)/abs(1N); both zero => 0; zero reference changed => infinity; no epsilon floor',
+                  expected_regimes=len(expected_ids), compared_regimes=len(reports),
+                  missing_regimes=missing_ids, extra_regimes=extra_ids,
+                  missing_fields=[], extra_fields=[], violations=[], groups={}, excluded_fields=[])
+    for name in ('missing_fields', 'extra_fields', 'violations'):
+        result[name] = [item for report in reports for item in report[name]]
+    for group, threshold in THRESHOLDS.items():
+        items = [r['groups'][group] for r in reports]
+        best = max(items, key=lambda x: float(x['max_difference']), default=None)
+        per_field = {}
+        for item in items:
+            for name, measured in item['per_field'].items():
+                if name not in per_field or float(measured['max_difference']) > float(per_field[name]['max_difference']):
+                    per_field[name] = measured
+        result['groups'][group] = dict(threshold=threshold,
+            max_difference=best['max_difference'] if best else None,
+            argmax=best['argmax'] if best else None, count=sum(i['count'] for i in items),
+            fields=sorted(per_field), per_field=per_field,
+            passed=bool(items) and all(i['passed'] for i in items))
+    result['excluded_fields'] = sorted({f for r in reports for f in r['excluded_fields']})
+    result['status'] = ('INCOMPLETE' if missing_ids else 'PASS' if reports and not extra_ids
+                        and all(r['passed'] for r in reports) else 'FAIL')
+    return result
+
+
+def compare(output=OUT):
+    output = Path(output)
+    for path in (output / 'compare.json', output / 'compare.md'):
+        if path.exists():
+            raise FileExistsError(path)
+    records = load_population()
+    expected = [r['raw']['id'] for r in records]
+    paths = {p.stem: p for p in (output / 'raw').glob('*.json')}
+    reports = []
+    for record in records:
+        saved = record['raw']
+        if saved['id'] not in paths:
+            continue
+        candidate = json.loads(paths[saved['id']].read_text())
+        if (candidate['n_scale'] != 2 or candidate['saved_w1b_sha256'] != record['sha256']
+                or candidate['case'] != saved['case'] or candidate['levels'] != saved['levels']):
+            raise ValueError('raw scale, saved SHA or fixed input mismatch')
+        guard_n(candidate['evaluations'], saved, 2)
+        reports.append(compare_evaluations(saved['evaluations'], candidate['evaluations'], saved['id']))
+    result = combine_reports(reports, expected, sorted(set(expected) - paths.keys()),
+                             sorted(paths.keys() - set(expected)))
+    write_once(output / 'compare.json', result)
+    lines = ['# LETTER-TRUNC-N2 comparison', '', 'Owner: Doan Van Tai', '',
+             f"Status: **{result['status']}**; {len(reports)}/27 regimes.", '',
+             '| Group | Maximum | Threshold | Arg-max (regime, age, h, field) |',
+             '|---|---:|---:|---|']
+    for group, item in result['groups'].items():
+        lines.append(f"| {group} | {item['max_difference']} | {item['threshold']} | {json.dumps(item['argmax'])} |")
+    lines += ['', 'Relative differences use the saved 1N value without an epsilon floor.',
+              'Tie masses/shares are continuous; boolean flags/decisions/counts are discrete.',
+              'Peak RSS and operational timings are excluded; T_int and physical ages are checked.', '']
+    for group, item in result['groups'].items():
+        lines += [f'## Explicit fields: {group}', ''] + ['- `' + f + '`' for f in item['fields']] + ['']
+    for name in ('missing_regimes', 'extra_regimes', 'missing_fields', 'extra_fields', 'excluded_fields', 'violations'):
+        lines += [f'## {name}', '', '```json', json.dumps(result[name], indent=2), '```', '']
+    with (output / 'compare.md').open('x') as handle:
+        handle.write('\n'.join(lines))
+    print(json.dumps(dict(status=result['status'], compared_regimes=len(reports))), flush=True)
+    return result
+
+
+def pilot_directory(scale, regime):
+    return OUT / 'pilot' / f'n{scale}_{regime}'
+
+
+def pilot(scale, workers, case_ids):
+    records = load_population()
+    light = sorted(records, key=lambda r: r['raw']['cpu_seconds'])
+    selected = case_ids or [LIGHTEST]
+    if len(selected) != len(set(selected)) or not set(selected) <= {r['raw']['id'] for r in light[:2]}:
+        raise ValueError('pilot restricted to the lightest and at most one additional light regime')
+    if scale == 1 and selected != [LIGHTEST]:
+        raise ValueError('1N code-path pilot is the specified lightest case only')
+    check_path = pilot_directory(1, LIGHTEST) / 'code_path_check.json'
+    if scale == 2:
+        check = json.loads(check_path.read_text())
+        start = json.loads((check_path.parent / 'run_start.json').read_text())
+        if not check['passed'] or start['source_sha256'] != source_hashes():
+            raise RuntimeError('stop: current 1N code-path check must pass before 2N pilot')
+    summaries = []
+    for case_id in selected:
+        record = next(r for r in records if r['raw']['id'] == case_id)
+        directory = pilot_directory(scale, case_id)
+        summaries.append(run_population([record], scale, workers, directory))
+        if scale == 1:
+            candidate = json.loads((directory / 'raw' / (case_id + '.json')).read_text())
+            check = reproduction_check(record['raw'], candidate)
+            write_once(directory / 'code_path_check.json', check)
+            print('CODE_PATH_CHECK ' + json.dumps(check), flush=True)
+            if not check['passed']:
+                raise RuntimeError('1N reproduction failed: stop; tolerance remains 1e-12')
+    if scale == 2:
+        project_cost(records)
+    return summaries
+
+
+def project_cost(records):
+    """Timing/state-count projection only: never compare 2N scientific leaves."""
+    measured = {}
+    for scale in (1, 2):
+        path = pilot_directory(scale, LIGHTEST) / 'raw' / (LIGHTEST + '.json')
+        measured[scale] = json.loads(path.read_text())
+    one, two = measured[1], measured[2]
+    v1 = sum(m['cpu_seconds'] for m in one['component_metrics']['V'])
+    v2 = sum(m['cpu_seconds'] for m in two['component_metrics']['V'])
+    prep1, prep2 = one['prepare_cpu_seconds'], two['prepare_cpu_seconds']
+    ages1 = {m['age_label']: m['cpu_seconds'] for m in one['component_metrics']['age']}
+    ages2 = {m['age_label']: m['cpu_seconds'] for m in two['component_metrics']['age']}
+    ratio_v, ratio_prep = v2 / v1, prep2 / prep1
+    age_ratios = {label: ages2[label] / ages1[label] for label in AGE_LABELS}
+    fraction_v = v1 / (v1 + prep1)
+    rows = []
+    for record in records:
+        raw = record['raw']
+        saved_v = raw.get('cpu_components_V')
+        # 26 serial W1b raws do not contain a V breakdown. Split their saved
+        # prepare cost using the measured 1N V fraction; disclose this inference.
+        v_cpu = sum(v['cpu_seconds'] for v in saved_v) if saved_v else raw['prepare_cpu_seconds'] * fraction_v
+        prep_cpu = raw['prepare_cpu_seconds'] - v_cpu
+        if prep_cpu < 0:
+            raise ValueError('saved prepare CPU smaller than its V components')
+        age_cpu = {e['age_label']: e['cpu_seconds'] for e in raw['evaluations']}
+        row = dict(id=raw['id'], baseline_cpu_seconds=raw['cpu_seconds'],
+                   saved_V_breakdown=bool(saved_v), baseline_V_cpu_seconds=v_cpu,
+                   baseline_prepare_only_cpu_seconds=prep_cpu,
+                   projected_V_cpu_seconds=v_cpu * ratio_v,
+                   projected_prepare_cpu_seconds=prep_cpu * ratio_prep,
+                   projected_age_cpu_seconds={label: age_cpu[label] * age_ratios[label] for label in AGE_LABELS},
+                   omitted_saved_estimator_and_other_cpu_seconds=raw['cpu_seconds'] - raw['prepare_cpu_seconds'] - sum(age_cpu.values()))
+        row['projected_total_cpu_seconds'] = row['projected_V_cpu_seconds'] + row['projected_prepare_cpu_seconds'] + sum(row['projected_age_cpu_seconds'].values())
+        if raw['id'] == HEAVIEST:
+            if not saved_v:
+                raise ValueError('heaviest regime requires saved per-chain V CPU')
+            row['projected_V_components'] = [dict(key=v['key'], cpu_seconds=v['cpu_seconds'] * ratio_v) for v in saved_v]
+            row['critical_path_wall_seconds'] = max(v['cpu_seconds'] for v in row['projected_V_components']) + row['projected_prepare_cpu_seconds'] + max(row['projected_age_cpu_seconds'].values())
+        rows.append(row)
+    heavy = next(r for r in rows if r['id'] == HEAVIEST)
+    heavy_raw = next(r['raw'] for r in records if r['raw']['id'] == HEAVIEST)
+    heavy_n = heavy_raw['evaluations'][0]['N']
+    states = sum(2 * (2 * n + 1) for n in heavy_n.values()) * 2
+    pilot_states = sum(2 * (n + 1) for n in two['N'].values()) * 2
+    all_metrics = [m for group in two['component_metrics'].values() for m in group]
+    base_rss = min(m['start_rss_kib'] for m in all_metrics)
+    # Conservatively scale all measured memory above the smallest worker start
+    # RSS by total state count, including V jobs; no dense pair matrices exist.
+    memory_slope = max(0, two['peak_rss_kib'] - base_rss) / pilot_states
+    estimated_rss_kib = base_rss + memory_slope * states
+    workers = min(32, max(1, int((128 * 1024**2 * .8) / (2 * estimated_rss_kib))))
+    total = sum(r['projected_total_cpu_seconds'] for r in rows)
+    wall = max(total / (workers * .9), heavy['critical_path_wall_seconds'])
+    projection = dict(owner='Doan Van Tai', pilot_ids=[LIGHTEST],
+        pilot_n1_cpu_seconds=one['cpu_seconds'], pilot_n2_cpu_seconds=two['cpu_seconds'],
+        pilot_n1_wall_seconds=one['wall_seconds'], pilot_n2_wall_seconds=two['wall_seconds'],
+        ratios=dict(chain_V=ratio_v, prepare=ratio_prep, ages=sum(ages2.values()) / sum(ages1.values()), per_age=age_ratios),
+        components_n1=dict(chain_V=v1, prepare=prep1, ages=ages1),
+        components_n2=dict(chain_V=v2, prepare=prep2, ages=ages2),
+        baseline_saved_cpu_seconds=sum(r['raw']['cpu_seconds'] for r in records),
+        projected_total_cpu_seconds=total, heaviest=heavy,
+        estimated_heaviest_peak_rss_kib=estimated_rss_kib,
+        rss_model=dict(base_worker_rss_kib=base_rss, pilot_peak_rss_kib=two['peak_rss_kib'],
+                       pilot_total_chain_states=pilot_states, heaviest_total_chain_states=states,
+                       formula='base + (pilot_peak - base) * heavy_states / pilot_states',
+                       scope='per-process high-water estimate; linear sparse-state model, not a memory guarantee'),
+        recommended_workers_n2_standard_32=workers,
+        projected_full_run_wall_seconds=wall,
+        recommended_timeout_seconds=max(7200, math.ceil(3 * wall / 3600) * 3600),
+        method='Use saved per-chain V CPU where available; otherwise split saved prepare CPU using light 1N V fraction; scale V/prepare and each saved age separately.',
+        limitations=['One light pilot, local hardware; timings are not a VM performance guarantee or confidence interval.',
+                     'Unknown serial V component splits inferred; saved estimator overhead is omitted because levels are fixed.',
+                     'Critical path assumes four V jobs then five age jobs can run in parallel; dispatch/IPC overhead is additional.',
+                     'RSS estimates exclude simultaneous process aggregation; worker recommendation uses 2x memory headroom and 80% of RAM.'],
+        pilot_scientific_differences_read=False, regimes=rows)
+    write_once(OUT / 'pilot' / 'projection.json', projection)
+    lines = ['# Local timing pilot — LETTER-TRUNC-N2', '', 'Owner: Doan Van Tai', '',
+             f'Regime: `{LIGHTEST}`; five saved ages and seven saved horizons.', '',
+             f"1N: {one['cpu_seconds']:.6f} process CPU-s; {one['wall_seconds']:.6f} wall-s.",
+             f"2N: {two['cpu_seconds']:.6f} process CPU-s; {two['wall_seconds']:.6f} wall-s.", '',
+             '| Component | 1N CPU-s | 2N CPU-s | 2N/1N |', '|---|---:|---:|---:|',
+             f'| Chain V | {v1:.6f} | {v2:.6f} | {ratio_v:.6f} |',
+             f'| Prepare (excluding V) | {prep1:.6f} | {prep2:.6f} | {ratio_prep:.6f} |']
+    lines += [f'| {label} | {ages1[label]:.6f} | {ages2[label]:.6f} | {age_ratios[label]:.6f} |' for label in AGE_LABELS]
+    lines += ['', f'Projected 27-case 2N CPU-s: {total:.6f}.',
+              f"Heaviest critical-path wall-s: {heavy['critical_path_wall_seconds']:.6f}.",
+              f'Heaviest per-process peak RSS estimate: {estimated_rss_kib / 1024:.3f} MiB.',
+              f'Recommended n2-standard-32 workers: {workers}; timeout: {projection["recommended_timeout_seconds"]} s.',
+              '', 'These are timing/state-count projections, not guarantees or scientific truncation verdicts.',
+              'No pilot 2N-versus-1N scientific differences were scored or reported.', '']
+    lines += ['- ' + item for item in projection['limitations']]
+    with (OUT / 'pilot' / 'timing_report.md').open('x') as handle:
+        handle.write('\n'.join(lines) + '\n')
+    print('TIMING_PROJECTION ' + json.dumps({k: projection[k] for k in
+          ('projected_total_cpu_seconds', 'estimated_heaviest_peak_rss_kib',
+           'recommended_workers_n2_standard_32', 'recommended_timeout_seconds')}), flush=True)
+    return projection
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    subs = parser.add_subparsers(dest='command', required=True)
+    for command in ('pilot', 'run'):
+        sub = subs.add_parser(command)
+        sub.add_argument('--n-scale', type=int, choices=(1, 2), required=True)
+        sub.add_argument('--workers', type=int, required=True)
+        if command == 'pilot':
+            sub.add_argument('--case', action='append', dest='case_ids')
+    subs.add_parser('compare')
+    args = parser.parse_args(argv)
+    if args.command == 'compare':
+        return 0 if compare()['status'] == 'PASS' else 2
+    if args.command == 'pilot':
+        pilot(args.n_scale, args.workers, args.case_ids)
+    else:
+        run_population(load_population(), args.n_scale, args.workers, OUT)
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

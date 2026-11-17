@@ -1,0 +1,650 @@
+{
+  "owner": "Doan Van Tai",
+  "pilot_ids": [
+    "Za7p5_u1-2_lA17-2_x-2_k1-20"
+  ],
+  "pilot_n1_cpu_seconds": 14.604636592000002,
+  "pilot_n2_cpu_seconds": 20.283694236,
+  "pilot_n1_wall_seconds": 5.0998691650002,
+  "pilot_n2_wall_seconds": 7.299374629999875,
+  "ratios": {
+    "chain_V": 1.340875037209786,
+    "prepare": 1.1390532833518126,
+    "ages": 1.602032195480175,
+    "per_age": {
+      "seconds_1": 1.5515638909938791,
+      "Tint_0.1": 1.553446773829323,
+      "Tint_0.3": 1.4504293997009856,
+      "Tint_1": 1.6156100924716466,
+      "Tint_3": 1.6223593718960965
+    }
+  },
+  "components_n1": {
+    "chain_V": 11.672873457000001,
+    "prepare": 0.14028571299999992,
+    "ages": {
+      "seconds_1": 0.06908841499999996,
+      "Tint_0.1": 0.1024600010000003,
+      "Tint_0.3": 0.23470521700000013,
+      "Tint_1": 0.657560589,
+      "Tint_3": 1.7276632000000003
+    }
+  },
+  "components_n2": {
+    "chain_V": 15.651864631,
+    "prepare": 0.15979290199999996,
+    "ages": {
+      "seconds_1": 0.10719508999999983,
+      "Tint_0.1": 0.15916615799999967,
+      "Tint_0.3": 0.34042334699999977,
+      "Tint_1": 1.0623615240000004,
+      "Tint_3": 2.8028905840000005
+    }
+  },
+  "baseline_saved_cpu_seconds": 11071.664482747,
+  "projected_total_cpu_seconds": 16155.311153664128,
+  "heaviest": {
+    "id": "Za7p5_u3-2_lA31-4_x1-3_k2",
+    "baseline_cpu_seconds": 4670.985279567,
+    "saved_V_breakdown": true,
+    "baseline_V_cpu_seconds": 2179.371904549,
+    "baseline_prepare_only_cpu_seconds": 0.7455731879999803,
+    "projected_V_cpu_seconds": 2922.2653836061027,
+    "projected_prepare_cpu_seconds": 0.8492475877704557,
+    "projected_age_cpu_seconds": {
+      "seconds_1": 1.466337743228337,
+      "Tint_0.1": 127.89924956087138,
+      "Tint_0.3": 297.0909484225942,
+      "Tint_1": 985.7258310324709,
+      "Tint_3": 2583.7404100236336
+    },
+    "omitted_saved_estimator_and_other_cpu_seconds": 0.05240560800029925,
+    "projected_total_cpu_seconds": 6919.037407976672,
+    "projected_V_components": [
+      {
+        "key": [
+          "31/4",
+          "2",
+          3159,
+          "15/2"
+        ],
+        "cpu_seconds": 481.9448012755606
+      },
+      {
+        "key": [
+          "37/4",
+          "2",
+          3159,
+          "15/2"
+        ],
+        "cpu_seconds": 498.2487201531068
+      },
+      {
+        "key": [
+          "33/4",
+          "2",
+          9518,
+          "15/2"
+        ],
+        "cpu_seconds": 941.3005289956725
+      },
+      {
+        "key": [
+          "39/4",
+          "2",
+          9518,
+          "15/2"
+        ],
+        "cpu_seconds": 1000.7713331817628
+      }
+    ],
+    "critical_path_wall_seconds": 3585.360990793167
+  },
+  "estimated_heaviest_peak_rss_kib": 311658.4974619289,
+  "rss_model": {
+    "base_worker_rss_kib": 52092,
+    "pilot_peak_rss_kib": 64192,
+    "pilot_total_chain_states": 4728,
+    "heaviest_total_chain_states": 101424,
+    "formula": "base + (pilot_peak - base) * heavy_states / pilot_states",
+    "scope": "per-process high-water estimate; linear sparse-state model, not a memory guarantee"
+  },
+  "recommended_workers_n2_standard_32": 32,
+  "projected_full_run_wall_seconds": 3585.360990793167,
+  "recommended_timeout_seconds": 10800,
+  "method": "Use saved per-chain V CPU where available; otherwise split saved prepare CPU using light 1N V fraction; scale V/prepare and each saved age separately.",
+  "limitations": [
+    "One light pilot, local hardware; timings are not a VM performance guarantee or confidence interval.",
+    "Unknown serial V component splits inferred; saved estimator overhead is omitted because levels are fixed.",
+    "Critical path assumes four V jobs then five age jobs can run in parallel; dispatch/IPC overhead is additional.",
+    "RSS estimates exclude simultaneous process aggregation; worker recommendation uses 2x memory headroom and 80% of RAM."
+  ],
+  "pilot_scientific_differences_read": false,
+  "regimes": [
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-3_k2",
+      "baseline_cpu_seconds": 4670.985279567,
+      "saved_V_breakdown": true,
+      "baseline_V_cpu_seconds": 2179.371904549,
+      "baseline_prepare_only_cpu_seconds": 0.7455731879999803,
+      "projected_V_cpu_seconds": 2922.2653836061027,
+      "projected_prepare_cpu_seconds": 0.8492475877704557,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 1.466337743228337,
+        "Tint_0.1": 127.89924956087138,
+        "Tint_0.3": 297.0909484225942,
+        "Tint_1": 985.7258310324709,
+        "Tint_3": 2583.7404100236336
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.05240560800029925,
+      "projected_total_cpu_seconds": 6919.037407976672,
+      "projected_V_components": [
+        {
+          "key": [
+            "31/4",
+            "2",
+            3159,
+            "15/2"
+          ],
+          "cpu_seconds": 481.9448012755606
+        },
+        {
+          "key": [
+            "37/4",
+            "2",
+            3159,
+            "15/2"
+          ],
+          "cpu_seconds": 498.2487201531068
+        },
+        {
+          "key": [
+            "33/4",
+            "2",
+            9518,
+            "15/2"
+          ],
+          "cpu_seconds": 941.3005289956725
+        },
+        {
+          "key": [
+            "39/4",
+            "2",
+            9518,
+            "15/2"
+          ],
+          "cpu_seconds": 1000.7713331817628
+        }
+      ],
+      "critical_path_wall_seconds": 3585.360990793167
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-6_k2",
+      "baseline_cpu_seconds": 1010.7732435920002,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 552.2480104693175,
+      "baseline_prepare_only_cpu_seconds": 6.636969567682627,
+      "projected_V_cpu_seconds": 740.4955715870764,
+      "projected_prepare_cpu_seconds": 7.559861977574956,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.8705515331244635,
+        "Tint_0.1": 16.466662677249147,
+        "Tint_0.3": 42.380889465032084,
+        "Tint_1": 170.63098555787084,
+        "Tint_3": 496.2621939083626
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0044017359998633765,
+      "projected_total_cpu_seconds": 1474.6667167062906
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-3_k1-2",
+      "baseline_cpu_seconds": 997.9058371230001,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 598.7118557167964,
+      "baseline_prepare_only_cpu_seconds": 7.1953765172033854,
+      "projected_V_cpu_seconds": 802.7977818121994,
+      "projected_prepare_cpu_seconds": 8.195917246873046,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.41935876755361107,
+        "Tint_0.1": 16.63350052437425,
+        "Tint_0.3": 43.968868285946286,
+        "Tint_1": 158.2405503653901,
+        "Tint_3": 410.06656367297813
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002309408000201074,
+      "projected_total_cpu_seconds": 1440.322540675315
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-2_k2",
+      "baseline_cpu_seconds": 989.4426214320001,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 550.5932375193742,
+      "baseline_prepare_only_cpu_seconds": 6.6170823476257965,
+      "projected_V_cpu_seconds": 738.2767278462474,
+      "projected_prepare_cpu_seconds": 7.537209374272483,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.7812886536555886,
+        "Tint_0.1": 16.859299973526166,
+        "Tint_0.3": 45.15533966106022,
+        "Tint_1": 149.8461238693253,
+        "Tint_3": 481.8274212465862
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002789593000215973,
+      "projected_total_cpu_seconds": 1440.2834106246733
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-3_k1-20",
+      "baseline_cpu_seconds": 520.822055782,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 365.2591962378291,
+      "baseline_prepare_only_cpu_seconds": 4.389720060171044,
+      "projected_V_cpu_seconds": 489.7669383466156,
+      "projected_prepare_cpu_seconds": 5.000125047533143,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.2594285871853876,
+        "Tint_0.1": 5.815750372240655,
+        "Tint_0.3": 16.201742453915706,
+        "Tint_1": 54.170502747843635,
+        "Tint_3": 166.38764697717113
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.003357996999966417,
+      "projected_total_cpu_seconds": 737.6021345325053
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-4_k2",
+      "baseline_cpu_seconds": 396.656946231,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 213.35749258841344,
+      "baseline_prepare_only_cpu_seconds": 2.564150813586423,
+      "projected_V_cpu_seconds": 286.0857358134755,
+      "projected_prepare_cpu_seconds": 2.9207044032248364,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.7545560782411879,
+        "Tint_0.1": 6.740591648355115,
+        "Tint_0.3": 17.63917754800184,
+        "Tint_1": 62.72418376941255,
+        "Tint_3": 202.66821198832704
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0027791840004738333,
+      "projected_total_cpu_seconds": 579.533161249038
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x1-2_k2",
+      "baseline_cpu_seconds": 395.36250798799995,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 213.16788730786428,
+      "baseline_prepare_only_cpu_seconds": 2.5618721191356997,
+      "projected_V_cpu_seconds": 285.83149882586395,
+      "projected_prepare_cpu_seconds": 2.9181088488289846,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.6422549249102448,
+        "Tint_0.1": 5.798442203831036,
+        "Tint_0.3": 17.982250356675312,
+        "Tint_1": 59.54096721516268,
+        "Tint_3": 204.79402153438852
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0025298909999946773,
+      "projected_total_cpu_seconds": 577.5075439096607
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x-1-6_k2",
+      "baseline_cpu_seconds": 387.038098172,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 228.62812602484306,
+      "baseline_prepare_only_cpu_seconds": 2.74767475115695,
+      "projected_V_cpu_seconds": 306.5617469907651,
+      "projected_prepare_cpu_seconds": 3.129747946888198,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.6905892029019299,
+        "Tint_0.1": 6.004253790441436,
+        "Tint_0.3": 15.684468411207995,
+        "Tint_1": 62.40251982448616,
+        "Tint_3": 165.33510266734035
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.003392454000277212,
+      "projected_total_cpu_seconds": 559.8084288340311
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-6_k1-2",
+      "baseline_cpu_seconds": 234.7960787500001,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 155.3551793570644,
+      "baseline_prepare_only_cpu_seconds": 1.867073448935514,
+      "projected_V_cpu_seconds": 208.3118819011367,
+      "projected_prepare_cpu_seconds": 2.12669614226899,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.4166274503360196,
+        "Tint_0.1": 3.1842386139512215,
+        "Tint_0.3": 8.031777484251757,
+        "Tint_1": 28.088774094131946,
+        "Tint_3": 84.89348085171322
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.004962816999977804,
+      "projected_total_cpu_seconds": 335.05347653778983
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-2_k1-2",
+      "baseline_cpu_seconds": 205.83092969500012,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 130.954293762943,
+      "baseline_prepare_only_cpu_seconds": 1.5738212650570063,
+      "projected_V_cpu_seconds": 175.59334352216743,
+      "projected_prepare_cpu_seconds": 1.7926662793720862,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.3556815738472243,
+        "Tint_0.1": 2.6938506794310673,
+        "Tint_0.3": 7.180654535657463,
+        "Tint_1": 25.52083979887272,
+        "Tint_3": 82.07502236675796
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0024275230002785975,
+      "projected_total_cpu_seconds": 295.212058756106
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-1_k2",
+      "baseline_cpu_seconds": 173.32567800899994,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 103.43875833926552,
+      "baseline_prepare_only_cpu_seconds": 1.2431369207345142,
+      "projected_V_cpu_seconds": 138.6984489370967,
+      "projected_prepare_cpu_seconds": 1.4159991912185104,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.5558534100896405,
+        "Tint_0.1": 2.798733081518244,
+        "Tint_0.3": 6.702633260733745,
+        "Tint_1": 25.9162139735303,
+        "Tint_3": 74.33484552987215
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002656217999742694,
+      "projected_total_cpu_seconds": 250.4227273840593
+    },
+    {
+      "id": "Za7p5_u1_lA8_x-1-2_k2",
+      "baseline_cpu_seconds": 166.36448611299988,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 102.19901157382301,
+      "baseline_prepare_only_cpu_seconds": 1.2282375251769224,
+      "projected_V_cpu_seconds": 137.03610344685328,
+      "projected_prepare_cpu_seconds": 1.399027985788678,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.46087109839772683,
+        "Tint_0.1": 2.5149006979101105,
+        "Tint_0.3": 6.281214833585888,
+        "Tint_1": 22.539074906225636,
+        "Tint_3": 69.33455339006929
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0030157730000155425,
+      "projected_total_cpu_seconds": 239.5657463588306
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-2_k2",
+      "baseline_cpu_seconds": 161.412499313,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 98.82408451102485,
+      "baseline_prepare_only_cpu_seconds": 1.1876773279751234,
+      "projected_V_cpu_seconds": 132.5107479959435,
+      "projected_prepare_cpu_seconds": 1.3528277599925718,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.5351042670455736,
+        "Tint_0.1": 2.6991373492969606,
+        "Tint_0.3": 6.01857722770869,
+        "Tint_1": 24.16352094477899,
+        "Tint_3": 65.23524489845408
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002437530999941373,
+      "projected_total_cpu_seconds": 232.51516044322037
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-2_k1-20",
+      "baseline_cpu_seconds": 103.25498230699998,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 76.48955477991362,
+      "baseline_prepare_only_cpu_seconds": 0.919258807086436,
+      "projected_V_cpu_seconds": 102.56293461167664,
+      "projected_prepare_cpu_seconds": 1.0470847624618753,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.20683826393440435,
+        "Tint_0.1": 1.06281037792565,
+        "Tint_0.3": 2.6939041398141117,
+        "Tint_1": 9.502400636679516,
+        "Tint_3": 28.046175824689175
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002487046999476661,
+      "projected_total_cpu_seconds": 145.12214861718138
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x1-6_k1-20",
+      "baseline_cpu_seconds": 86.557829019,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 62.4058202772375,
+      "baseline_prepare_only_cpu_seconds": 0.749999134762497,
+      "projected_V_cpu_seconds": 83.67840658634805,
+      "projected_prepare_cpu_seconds": 0.8542889769622408,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.1861462261993023,
+        "Tint_0.1": 0.8485766071981623,
+        "Tint_0.3": 2.3556430030364437,
+        "Tint_1": 8.57586133185737,
+        "Tint_3": 25.633450052541182
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0034502029999927686,
+      "projected_total_cpu_seconds": 122.13237278414275
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x-1-6_k1-2",
+      "baseline_cpu_seconds": 83.98938263199989,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 55.31678264950798,
+      "baseline_prepare_only_cpu_seconds": 0.6648024004919435,
+      "projected_V_cpu_seconds": 74.17289299348465,
+      "projected_prepare_cpu_seconds": 0.7572453570605149,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.31439929338115513,
+        "Tint_0.1": 1.1116531414629063,
+        "Tint_0.3": 2.821894806307747,
+        "Tint_1": 9.201852008024238,
+        "Tint_3": 31.54865003186606
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0022578309999516932,
+      "projected_total_cpu_seconds": 119.92858763158728
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x1-2_k1-2",
+      "baseline_cpu_seconds": 82.93199604799997,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 55.17333399322059,
+      "baseline_prepare_only_cpu_seconds": 0.6630784207794633,
+      "projected_V_cpu_seconds": 73.9805462711476,
+      "projected_prepare_cpu_seconds": 0.7552816523085825,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.2925524111263337,
+        "Tint_0.1": 1.2033068428771732,
+        "Tint_0.3": 3.5241160824037627,
+        "Tint_1": 9.075395831139822,
+        "Tint_3": 29.33626583476164
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002931714000055763,
+      "projected_total_cpu_seconds": 118.16746492576492
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-4_k1-2",
+      "baseline_cpu_seconds": 80.63071490499988,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 55.06477307178877,
+      "baseline_prepare_only_cpu_seconds": 0.6617737252113116,
+      "projected_V_cpu_seconds": 73.83497964158319,
+      "projected_prepare_cpu_seconds": 0.7537955345379047,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.2878835428140038,
+        "Tint_0.1": 1.023903057610394,
+        "Tint_0.3": 2.345249952623487,
+        "Tint_1": 8.639720642394302,
+        "Tint_3": 27.73055679388223
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002186334999578321,
+      "projected_total_cpu_seconds": 114.61608916544552
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x1-2_k1-20",
+      "baseline_cpu_seconds": 44.698789442999896,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 34.27223202079473,
+      "baseline_prepare_only_cpu_seconds": 0.41188697220523807,
+      "projected_V_cpu_seconds": 45.95478038614555,
+      "projected_prepare_cpu_seconds": 0.46916120806021316,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.2261003757326955,
+        "Tint_0.1": 0.4294539677284547,
+        "Tint_0.3": 1.024532123439717,
+        "Tint_1": 3.6492523137036446,
+        "Tint_3": 10.747905035589543
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0025227549998589893,
+      "projected_total_cpu_seconds": 62.50118541039982
+    },
+    {
+      "id": "Za7p5_u3-2_lA31-4_x-1-6_k1-20",
+      "baseline_cpu_seconds": 44.34821744999999,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 33.65196673747239,
+      "baseline_prepare_only_cpu_seconds": 0.4044325645274256,
+      "projected_V_cpu_seconds": 45.123082151290774,
+      "projected_prepare_cpu_seconds": 0.4606702405193579,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.20466099932141382,
+        "Tint_0.1": 0.4404109326943216,
+        "Tint_0.3": 1.1106978045442428,
+        "Tint_1": 3.804882812509846,
+        "Tint_3": 10.954957524510426
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.003074477000382103,
+      "projected_total_cpu_seconds": 62.099362465390385
+    },
+    {
+      "id": "Za7p5_u1_lA8_x1-4_k1-20",
+      "baseline_cpu_seconds": 43.78263368,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 32.43683745278487,
+      "baseline_prepare_only_cpu_seconds": 0.3898290242151319,
+      "projected_V_cpu_seconds": 43.49374562647069,
+      "projected_prepare_cpu_seconds": 0.4440360299780792,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.16267416765643952,
+        "Tint_0.1": 0.6026175464304327,
+        "Tint_0.3": 1.8530147437135358,
+        "Tint_1": 3.716985669831099,
+        "Tint_3": 11.165048108485477
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002984094999987974,
+      "projected_total_cpu_seconds": 61.43812189256575
+    },
+    {
+      "id": "Za7p5_u1_lA8_x-1-2_k1-2",
+      "baseline_cpu_seconds": 41.748283851999986,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 30.456688292353135,
+      "baseline_prepare_only_cpu_seconds": 0.3660314016468078,
+      "projected_V_cpu_seconds": 40.838613047295865,
+      "projected_prepare_cpu_seconds": 0.4169292698556625,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.2666430613779939,
+        "Tint_0.1": 0.5196387656027809,
+        "Tint_0.3": 1.1556230305596524,
+        "Tint_1": 4.244318189956681,
+        "Tint_3": 11.344474150255643
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0028111570001101427,
+      "projected_total_cpu_seconds": 58.78623951490428
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-1_k1-2",
+      "baseline_cpu_seconds": 40.37858319099996,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 29.208432721549862,
+      "baseline_prepare_only_cpu_seconds": 0.35102974645013063,
+      "projected_V_cpu_seconds": 39.164858312347704,
+      "projected_prepare_cpu_seconds": 0.39984158524817554,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.2349410704163636,
+        "Tint_0.1": 0.5206276090397506,
+        "Tint_0.3": 1.1813684976064873,
+        "Tint_1": 3.9696038452365987,
+        "Tint_3": 11.451000036608294
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002789654000025621,
+      "projected_total_cpu_seconds": 56.92224095650337
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-2_k1-2",
+      "baseline_cpu_seconds": 39.70190459600008,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 28.086845847201097,
+      "baseline_prepare_only_cpu_seconds": 0.3375504077989362,
+      "projected_V_cpu_seconds": 37.66095047047129,
+      "projected_prepare_cpu_seconds": 0.38448790030012153,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.27115175088896804,
+        "Tint_0.1": 0.5657454355703192,
+        "Tint_0.3": 1.2035895996151165,
+        "Tint_1": 4.4149509371161075,
+        "Tint_3": 11.637837290168168
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.002658544999917467,
+      "projected_total_cpu_seconds": 56.13871338413009
+    },
+    {
+      "id": "Za7p5_u1_lA8_x-1-2_k1-20",
+      "baseline_cpu_seconds": 23.987167877000047,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 19.200694289086485,
+      "baseline_prepare_only_cpu_seconds": 0.2307557859135585,
+      "projected_V_cpu_seconds": 25.745731669332564,
+      "projected_prepare_cpu_seconds": 0.26284313559726674,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.12149744628801154,
+        "Tint_0.1": 0.20823077393166575,
+        "Tint_0.3": 0.5165995509745661,
+        "Tint_1": 1.4669122460430533,
+        "Tint_3": 4.98997589887491
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.003482624999946893,
+      "projected_total_cpu_seconds": 33.31179072104204
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-1_k1-20",
+      "baseline_cpu_seconds": 23.33762899599992,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 17.97077706823415,
+      "baseline_prepare_only_cpu_seconds": 0.21597452276581208,
+      "projected_V_cpu_seconds": 24.096566370057232,
+      "projected_prepare_cpu_seconds": 0.24600648927673904,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.16985080851517254,
+        "Tint_0.1": 0.2570425213510388,
+        "Tint_0.3": 0.4714703800810754,
+        "Tint_1": 2.031994371640033,
+        "Tint_3": 5.337547837757139
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.0031682430000046224,
+      "projected_total_cpu_seconds": 32.61047877867843
+    },
+    {
+      "id": "Za7p5_u1-2_lA17-2_x-2_k1-20",
+      "baseline_cpu_seconds": 21.600106984000035,
+      "saved_V_breakdown": false,
+      "baseline_V_cpu_seconds": 17.234361208679623,
+      "baseline_prepare_only_cpu_seconds": 0.20712420632036554,
+      "projected_V_cpu_seconds": 23.109124726975182,
+      "projected_prepare_cpu_seconds": 0.23592550727085063,
+      "projected_age_cpu_seconds": {
+        "seconds_1": 0.14835552149926504,
+        "Tint_0.1": 0.22831048090630757,
+        "Tint_0.3": 0.5038703867548964,
+        "Tint_1": 1.4739167494488594,
+        "Tint_3": 4.306340055344871
+      },
+      "omitted_saved_estimator_and_other_cpu_seconds": 0.00197450999985449,
+      "projected_total_cpu_seconds": 30.00584342820023
+    }
+  ]
+}

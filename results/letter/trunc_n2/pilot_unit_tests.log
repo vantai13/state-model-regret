@@ -1,0 +1,19 @@
+...............E..                                                       [100%]
+==================================== ERRORS ====================================
+__________ ERROR at setup of test_write_once_refuses_existing_content __________
+
+self = PosixPath('/home/vantai/state-model-regret/results/letter/trunc_n2/pilot/pytest_tmp')
+mode = 448, parents = False, exist_ok = False
+
+    def mkdir(self, mode=0o777, parents=False, exist_ok=False):
+        """
+        Create a new directory at this given path.
+        """
+        try:
+>           os.mkdir(self, mode)
+E           FileNotFoundError: [Errno 2] No such file or directory: '/home/vantai/state-model-regret/results/letter/trunc_n2/pilot/pytest_tmp'
+
+/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/pathlib/__init__.py:1011: FileNotFoundError
+=========================== short test summary info ============================
+ERROR tests/test_letter_trunc_n2.py::test_write_once_refuses_existing_content
+17 passed, 1 deselected, 1 error in 3.34s

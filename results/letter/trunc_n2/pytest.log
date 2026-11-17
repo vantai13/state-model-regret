@@ -1,0 +1,58 @@
+..................F                                                      [100%]
+=================================== FAILURES ===================================
+____________________ test_n1_code_path_reproduces_saved_w1b ____________________
+concurrent.futures.process._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/process.py", line 254, in _process_worker
+    r = call_item.fn(*call_item.args, **call_item.kwargs)
+  File "/home/vantai/state-model-regret/experiments/letter/trunc_n2.py", line 152, in execute_job
+    key, values, _ = shat.timed_v(payload)
+                     ~~~~~~~~~~~~^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/letter/shat.py", line 147, in timed_v
+    values = ctmc.chain(F(load),F(kappa),N,F(a)).V(hs)
+  File "/home/vantai/state-model-regret/experiments/explore_ctmc/ctmc.py", line 100, in V
+    hs = [float(h) for h in hs]
+          ~~~~~^^^
+ValueError: could not convert string to float: '183/25'
+"""
+
+The above exception was the direct cause of the following exception:
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x77283211be30>
+
+    def test_n1_code_path_reproduces_saved_w1b(monkeypatch):
+        def forbidden(*args, **kwargs):
+            raise AssertionError('saved levels must be used; do not call estimate_levels')
+    
+        monkeypatch.setattr(shat, 'estimate_levels', forbidden)
+        directory = trunc.pilot_directory(1, trunc.LIGHTEST)
+        check_path = directory / 'code_path_check.json'
+        if not check_path.exists():
+>           trunc.pilot(1, 4, [trunc.LIGHTEST])
+
+tests/test_letter_trunc_n2.py:196: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/letter/trunc_n2.py:565: in pilot
+    summaries.append(run_population([record], scale, workers, directory))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/letter/trunc_n2.py:231: in run_population
+    value, metrics = future.result()
+                     ^^^^^^^^^^^^^^^
+/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/_base.py:443: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = None
+
+    def __get_result(self):
+        if self._exception is not None:
+            try:
+>               raise self._exception
+E               ValueError: could not convert string to float: '183/25'
+
+/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/_base.py:395: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_letter_trunc_n2.py::test_n1_code_path_reproduces_saved_w1b
+1 failed, 18 passed in 3.93s
