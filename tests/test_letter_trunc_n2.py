@@ -223,17 +223,21 @@ def test_all_saved_numeric_fields_have_explicit_comparison_classes():
         assert all(group['count'] for group in result['groups'].values())
 
 
-def test_n1_code_path_reproduces_saved_w1b(monkeypatch):
+def test_historical_local_n1_code_path_reproduces_saved_w1b(monkeypatch):
     def forbidden(*args, **kwargs):
         raise AssertionError('saved levels must be used; do not call estimate_levels')
 
     monkeypatch.setattr(shat, 'estimate_levels', forbidden)
     directory = trunc.pilot_directory(1, trunc.LIGHTEST)
     check_path = directory / 'code_path_check.json'
-    if not check_path.exists():
-        trunc.pilot(1, 4, [trunc.LIGHTEST])
+    # This is the committed phase-1 local fixture, not a new VM execution.
+    # The real VM-vs-local failure is retained in DEVIATION_01, never relaxed.
+    assert check_path.exists(), 'sync the historical phase-1 fixture; do not rerun truth in tests'
     start = json.loads((directory / 'run_start.json').read_text())
-    assert start['source_sha256'] == trunc.source_hashes()
+    historical = dict(start['source_sha256'])
+    assert historical.pop('experiments/letter/trunc_n2.py') == '76ec92e894c02986c15ddb56c63d97921a8cba6e3b1c1ecb8d173ad2ec1eea32'
+    assert historical == {name: value for name, value in trunc.source_hashes().items()
+                          if name != 'experiments/letter/trunc_n2.py'}
     saved = next(r for r in trunc.load_population() if r['raw']['id'] == trunc.LIGHTEST)
     raw = json.loads((directory / 'raw' / (trunc.LIGHTEST + '.json')).read_text())
     assert raw['saved_w1b_sha256'] == saved['sha256']
@@ -243,3 +247,61 @@ def test_n1_code_path_reproduces_saved_w1b(monkeypatch):
     assert check['numeric_leaves'] > 5000
     assert raw['n_guard'] == 'PASS'
     print('1N_MAX_RELATIVE_DIFFERENCE', check['max_relative_difference'])
+
+
+def synthetic_record(scale):
+    ev = synthetic()
+    ev[0]['N']['A'] *= scale
+    ev[0]['chains']['A_stay']['N'] *= scale
+    return dict(id='synthetic', case={'id': 'synthetic'}, levels={'true_s': 2.0},
+                evaluations=ev, n_scale=scale, saved_w1b_sha256='synthetic-sha')
+
+
+def test_same_platform_baseline_and_separate_output_roots(tmp_path, monkeypatch):
+    saved, one, two = (synthetic_record(scale) for scale in (1, 1, 2))
+    # Shared platform offset must disappear from the primary comparison.
+    one['evaluations'][0]['h'][0]['Cref'] += 1e-5
+    two['evaluations'][0]['h'][0]['Cref'] += 1e-5
+    two['evaluations'][0]['h'][0]['G_S'] += 5e-7
+    monkeypatch.setattr(trunc, 'load_population', lambda: [dict(raw=saved, sha256='synthetic-sha')])
+    trunc.write_once(tmp_path / 'one/raw/synthetic.json', one)
+    trunc.write_once(tmp_path / 'two/raw/synthetic.json', two)
+    result = trunc.compare(tmp_path / 'score', tmp_path / 'one', tmp_path / 'two')
+    assert result['status'] == 'PASS'
+    assert result['groups']['relative']['max_difference'] == 0
+    assert result['groups']['percentage_pp']['max_difference'] == pytest.approx(5e-7)
+    assert result['comparison']['same_platform']
+    assert result['comparison']['input_sha256']['synthetic']['baseline_sha256'] == trunc.sha256(tmp_path / 'one/raw/synthetic.json')
+    platform = trunc.compare(tmp_path / 'platform', candidate=tmp_path / 'one', candidate_scale=1)
+    assert platform['status'] == 'FAIL'
+    assert platform['groups']['relative']['max_absolute_difference'] == pytest.approx(1e-5)
+
+
+@pytest.mark.parametrize('damage', ['missing_baseline', 'wrong_scale', 'wrong_sha', 'wrong_N'])
+def test_same_platform_comparison_rejects_invalid_baseline(tmp_path, monkeypatch, damage):
+    saved, one, two = (synthetic_record(scale) for scale in (1, 1, 2))
+    monkeypatch.setattr(trunc, 'load_population', lambda: [dict(raw=saved, sha256='synthetic-sha')])
+    if damage == 'wrong_scale':
+        one['n_scale'] = 2
+    elif damage == 'wrong_sha':
+        one['saved_w1b_sha256'] = 'changed'
+    elif damage == 'wrong_N':
+        one['evaluations'][0]['N']['A'] += 1
+    if damage != 'missing_baseline':
+        trunc.write_once(tmp_path / 'one/raw/synthetic.json', one)
+    trunc.write_once(tmp_path / 'two/raw/synthetic.json', two)
+    with pytest.raises((ValueError, AssertionError)):
+        trunc.compare(tmp_path / 'score', tmp_path / 'one', tmp_path / 'two')
+    assert not (tmp_path / 'score/compare.json').exists()
+
+
+def test_cli_routes_distinct_run_and_compare_roots(tmp_path, monkeypatch):
+    calls = []
+    monkeypatch.setattr(trunc, 'load_population', lambda: 'population')
+    monkeypatch.setattr(trunc, 'run_population', lambda *args: calls.append(args))
+    assert trunc.main(['run', '--n-scale', '1', '--workers', '12', '--out', str(tmp_path / 'one')]) == 0
+    assert calls.pop() == ('population', 1, 12, tmp_path / 'one')
+    monkeypatch.setattr(trunc, 'compare', lambda *args: calls.append(args) or {'status': 'PASS'})
+    assert trunc.main(['compare', '--out', str(tmp_path / 'score'), '--baseline', str(tmp_path / 'one'),
+                       '--candidate', str(tmp_path / 'two')]) == 0
+    assert calls.pop() == (tmp_path / 'score', tmp_path / 'one', tmp_path / 'two', 2)

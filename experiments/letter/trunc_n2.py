@@ -411,7 +411,8 @@ def compare_evaluations(old_evaluations, new_evaluations, regime='synthetic'):
                              (new.keys() - old.keys(), 'extra_fields', new_evaluations)):
         report[name] = [location(regime, evs, p) for p in sorted(paths, key=str)]
     groups = {g: dict(threshold=t, count=0, fields=set(), max_difference=0.0,
-                      argmax=None, passed=True, per_field={}) for g, t in THRESHOLDS.items()}
+                      argmax=None, max_absolute_difference=0.0, argmax_absolute=None,
+                      passed=True, per_field={}) for g, t in THRESHOLDS.items()}
     skipped = set()
     for path in sorted(old.keys() & new.keys(), key=str):
         if excluded(path):
@@ -429,6 +430,9 @@ def compare_evaluations(old_evaluations, new_evaluations, regime='synthetic'):
             diff = relative_difference(left, right)
         where = dict(location(regime, old_evaluations, path), baseline=left, candidate=right)
         item = groups[group]
+        absolute = diff if group == 'discrete' else abs(numeric(right) - numeric(left))
+        if item['argmax_absolute'] is None or absolute > item['max_absolute_difference']:
+            item.update(max_absolute_difference=absolute, argmax_absolute=where)
         field = field_name(path)
         item['count'] += 1
         item['fields'].add(field)
@@ -439,7 +443,8 @@ def compare_evaluations(old_evaluations, new_evaluations, regime='synthetic'):
             item['per_field'][field] = dict(max_difference=diff, argmax=where)
         if diff > item['threshold']:
             item['passed'] = False
-            report['violations'].append(dict(where, group=group, difference=json_metric(diff)))
+            report['violations'].append(dict(where, group=group, difference=json_metric(diff),
+                                             absolute_difference=absolute))
     for item in groups.values():
         item['max_difference'] = json_metric(item['max_difference'])
         item['fields'] = sorted(item['fields'])
@@ -486,6 +491,7 @@ def combine_reports(reports, expected_ids, missing_ids, extra_ids):
     for group, threshold in THRESHOLDS.items():
         items = [r['groups'][group] for r in reports]
         best = max(items, key=lambda x: float(x['max_difference']), default=None)
+        best_absolute = max(items, key=lambda x: x['max_absolute_difference'], default=None)
         per_field = {}
         for item in items:
             for name, measured in item['per_field'].items():
@@ -494,6 +500,8 @@ def combine_reports(reports, expected_ids, missing_ids, extra_ids):
         result['groups'][group] = dict(threshold=threshold,
             max_difference=best['max_difference'] if best else None,
             argmax=best['argmax'] if best else None, count=sum(i['count'] for i in items),
+            max_absolute_difference=best_absolute['max_absolute_difference'] if best_absolute else None,
+            argmax_absolute=best_absolute['argmax_absolute'] if best_absolute else None,
             fields=sorted(per_field), per_field=per_field,
             passed=bool(items) and all(i['passed'] for i in items))
     result['excluded_fields'] = sorted({f for r in reports for f in r['excluded_fields']})
@@ -502,27 +510,57 @@ def combine_reports(reports, expected_ids, missing_ids, extra_ids):
     return result
 
 
-def compare(output=OUT):
+def compare(output=OUT, baseline=None, candidate=None, candidate_scale=2):
+    """Score separate run roots; baseline=None uses the saved local W1b.
+
+    The field classes, thresholds and relative denominator are unchanged.
+    A VM baseline is always a validated scale-1 run of the same saved inputs.
+    """
     output = Path(output)
+    candidate = Path(candidate) if candidate is not None else output
+    baseline = Path(baseline) if baseline is not None else None
+    if candidate_scale not in (1, 2):
+        raise ValueError('candidate_scale must be 1 or 2')
     for path in (output / 'compare.json', output / 'compare.md'):
         if path.exists():
             raise FileExistsError(path)
     records = load_population()
     expected = [r['raw']['id'] for r in records]
-    paths = {p.stem: p for p in (output / 'raw').glob('*.json')}
+    paths = {p.stem: p for p in (candidate / 'raw').glob('*.json')}
+    baseline_paths = ({p.stem: p for p in (baseline / 'raw').glob('*.json')}
+                      if baseline is not None else {})
+    if baseline is not None and set(baseline_paths) != set(expected):
+        raise ValueError('same-platform baseline must contain the complete population')
+    input_hashes = {}
+
+    def checked_raw(path, record, scale):
+        raw = json.loads(path.read_text())
+        saved = record['raw']
+        if (raw['n_scale'] != scale or raw['saved_w1b_sha256'] != record['sha256']
+                or raw['case'] != saved['case'] or raw['levels'] != saved['levels']):
+            raise ValueError('raw scale, saved SHA or fixed input mismatch')
+        guard_n(raw['evaluations'], saved, scale)
+        return raw
+
     reports = []
     for record in records:
         saved = record['raw']
         if saved['id'] not in paths:
             continue
-        candidate = json.loads(paths[saved['id']].read_text())
-        if (candidate['n_scale'] != 2 or candidate['saved_w1b_sha256'] != record['sha256']
-                or candidate['case'] != saved['case'] or candidate['levels'] != saved['levels']):
-            raise ValueError('raw scale, saved SHA or fixed input mismatch')
-        guard_n(candidate['evaluations'], saved, 2)
-        reports.append(compare_evaluations(saved['evaluations'], candidate['evaluations'], saved['id']))
+        current = checked_raw(paths[saved['id']], record, candidate_scale)
+        previous = (checked_raw(baseline_paths[saved['id']], record, 1)
+                    if baseline is not None else saved)
+        reports.append(compare_evaluations(previous['evaluations'], current['evaluations'], saved['id']))
+        input_hashes[saved['id']] = dict(
+            baseline_sha256=sha256(baseline_paths[saved['id']]) if baseline is not None else record['sha256'],
+            candidate_sha256=sha256(paths[saved['id']]))
     result = combine_reports(reports, expected, sorted(set(expected) - paths.keys()),
                              sorted(paths.keys() - set(expected)))
+    result['comparison'] = dict(
+        baseline=str(baseline) if baseline is not None else str(SAVED),
+        candidate=str(candidate), baseline_n_scale=1, candidate_n_scale=candidate_scale,
+        same_platform=baseline is not None, input_sha256=input_hashes)
+    result['relative_definition'] = 'abs(candidate-baseline)/abs(baseline); both zero => 0; zero reference changed => infinity; no epsilon floor'
     write_once(output / 'compare.json', result)
     lines = ['# LETTER-TRUNC-N2 comparison', '', 'Owner: Doan Van Tai', '',
              f"Status: **{result['status']}**; {len(reports)}/27 regimes.", '',
@@ -530,7 +568,8 @@ def compare(output=OUT):
              '|---|---:|---:|---|']
     for group, item in result['groups'].items():
         lines.append(f"| {group} | {item['max_difference']} | {item['threshold']} | {json.dumps(item['argmax'])} |")
-    lines += ['', 'Relative differences use the saved 1N value without an epsilon floor.',
+    lines += ['', f'Baseline: `{result["comparison"]["baseline"]}`; candidate: `{candidate}`.',
+              'Relative differences use the baseline 1N value without an epsilon floor.',
               'Tie masses/shares are continuous; boolean flags/decisions/counts are discrete.',
               'Peak RSS and operational timings are excluded; T_int and physical ages are checked.', '']
     for group, item in result['groups'].items():
@@ -685,16 +724,23 @@ def main(argv=None):
         sub = subs.add_parser(command)
         sub.add_argument('--n-scale', type=int, choices=(1, 2), required=True)
         sub.add_argument('--workers', type=int, required=True)
+        if command == 'run':
+            sub.add_argument('--out', type=Path, default=OUT)
         if command == 'pilot':
             sub.add_argument('--case', action='append', dest='case_ids')
-    subs.add_parser('compare')
+    sub = subs.add_parser('compare')
+    sub.add_argument('--out', type=Path, default=OUT)
+    sub.add_argument('--baseline', type=Path, help='Scale-1 run root; default: saved local W1b')
+    sub.add_argument('--candidate', type=Path, help='Candidate run root; default: --out')
+    sub.add_argument('--candidate-n-scale', type=int, choices=(1, 2), default=2)
     args = parser.parse_args(argv)
     if args.command == 'compare':
-        return 0 if compare()['status'] == 'PASS' else 2
+        return 0 if compare(args.out, args.baseline, args.candidate,
+                            args.candidate_n_scale)['status'] == 'PASS' else 2
     if args.command == 'pilot':
         pilot(args.n_scale, args.workers, args.case_ids)
     else:
-        run_population(load_population(), args.n_scale, args.workers, OUT)
+        run_population(load_population(), args.n_scale, args.workers, args.out)
     return 0
 
 
