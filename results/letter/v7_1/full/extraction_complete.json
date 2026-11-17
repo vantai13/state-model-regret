@@ -1,0 +1,45 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "EXTRACTED_NOT_SCORED",
+  "cells": {
+    "CTMC": 3255,
+    "GEANT": 612
+  },
+  "scales": 127,
+  "input_hash_verification": {
+    "status": "PASS",
+    "files": 833,
+    "changed": []
+  },
+  "compute": {
+    "workers": 16,
+    "compute_location": "gcp",
+    "reused_pilot_artifacts": [
+      "CTMC_Za7p5_u3-2_lA31-4_x1-3_k2",
+      "GEANT_e4_G2_r90_b6_s1_01"
+    ],
+    "new_extractions": 431,
+    "total_extractions": 433,
+    "new_worker_cpu_s": 3002.752686881,
+    "extraction_cpu_s_including_reused_pilot": 3219.413075463,
+    "extraction_wall_sum_s_including_reused_pilot": 3219.4752023889996,
+    "gcp_main_cpu_s": 1.5904994909999997,
+    "gcp_child_cpu_s": 3016.64878,
+    "gcp_elapsed_wall_s": 198.23586642499998,
+    "worker_max_peak_rss_kib": 138080,
+    "parent_peak_rss_kib": 138080,
+    "memory_scope": "maximum single-worker RSS, not simultaneous total VM memory",
+    "environment": {
+      "python": "3.14.5 (main, Jun  2 2026, 22:25:17) [Clang 22.1.3 ]",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "variables": {
+        "NPY_DISABLE_CPU_FEATURES": "AVX512F AVX512CD AVX512VL AVX512BW AVX512DQ AVX512VNNI AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR",
+        "OPENBLAS_CORETYPE": "Haswell",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1"
+      }
+    }
+  }
+}
