@@ -746,3 +746,4 @@ cùng bản ghi hòa ở h dài). Letter `letter_smr` (git local, không push) R
 theo tác giả; **không Acknowledgment/khai báo AI cho tới khi tác giả yêu cầu (bắt buộc)**. PDF mới: Downloads `SMR_letter_v5_5pages.pdf`.
 Gói `letter_smr/02_Code` phẳng theo repo mẫu (README theo Hình/Bảng/Mục V, 9/20 pipeline GÉANT, `paper_numbers.py`), mọi kiểm tra khớp.
 Chờ tác giả/thầy: license, nơi đăng code, venue. Điểm vào: `letter_smr/ROADMAP.md` và bộ nhớ `letter-current-state`.
+Letter R13/17-11: Part2 v6 6tr/100từ,322số/0unmatched,239/239checks,pkg54/54; clause TRUNC theo addendum, không rerun Part1/SSH/bậtVM. Closeout ở `letter_smr/notes/R13_closeout.md`; letter commit a418d49 (Claude commit sau khi kiểm lại: 0 unmatched, 239/0, 6tr, abstract 100 từ), không push letter. Còn: rút về 5 trang; Section V từ 21 lên ~150 số.
