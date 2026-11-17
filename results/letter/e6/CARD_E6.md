@@ -1,0 +1,21 @@
+# E6 CARD: exact end-to-end regret of the hybrid with record-based rate estimates (Claude, 17/11/2026, before any E6 outcome)
+
+- **Authority:** the author: "bạn hãy thực hiện hết cho tôi đi", in reply to the third external review. That review asked for the end-to-end regret of a finite-record hybrid on GÉANT, with the same records for the stationary baseline.
+- **Why:** the E5 regret numbers in the letter (72/204, 110/204) use a mixture approximation. It treats the hybrid as either fully correct (Hybrid-i) or fully reversed. E6 computes the actual hybrid decisions for each record's estimated rates, with magnitude and sign.
+- **Design:**
+  - Regenerate the exact E4 and E4b instances (seeds 3000001 and 5000001), the fluid-twin costs and the stale posterior averages with the E4 code.
+  - For every E5 record (seed 5100001; 200 per regime; L ∈ {30, 100, 300}·T_int), take r̂ = the record's time-average backlog per action.
+  - Hybrid decisions: argmin_a V̂_a + h·r̂_a, fresh and stale, every τ and h.
+  - Stationary rule from the same record: argmin_a r̂_a.
+  - Costs come from the saved per-action true costs V, and C_ref from the saved M1_new decisions. No new rollouts.
+- **Validation (must pass before any result is used):** with r̂ = the training rates (level i), the recomputed decisions equal the saved Hybrid-i decisions for every instance, τ, h and side; the same for the saved reversed and noise variants.
+- **Outcomes:**
+  - per cell (seed × regime × τ × h), the mean regret over the 200 records (worse of fresh and stale), for the hybrid and for the stationary rule;
+  - at h ∈ {15, 30}: the count of the 204 cells with mean regret ≤ 0.5% and the median;
+  - at h ∈ {1, 2, 4, 7}: the hybrid against the stationary rule from the same records.
+- **Forecasts (Claude):**
+  - E6-1: the mixture approximation is pessimistic, so exact cells ≤ 0.5% at L = 100 are ≥ 72/204.
+  - E6-2: at L = 300, ≥ 110/204.
+  - E6-3: the record-based hybrid is never worse than the record-based stationary rule at any h (median over cells), and better at 1–7·T_int.
+- **Inclusion rule, fixed before running:** whatever the outcome, the E6 numbers replace the mixture numbers in the letter's E5 paragraph, and the approximation clause is dropped. If E6-3 fails, the letter says so in the same paragraph.
+- **Protocol:** one run; raw outputs committed before scoring; the scoring script is separate from the run.
