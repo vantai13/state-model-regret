@@ -1,0 +1,61 @@
+{
+  "brief_HEAD": "3093fcaf56983ae7d11d9d24091cfba12494f946",
+  "implemented_by": "Claude after the Codex quota (author rule 17/11/2026)",
+  "owner": "Doan Van Tai",
+  "planned": {
+    "K": 64,
+    "N": 200,
+    "R_dec": 64,
+    "R_eval": 128,
+    "dt_s": 0.05,
+    "h_hours": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "pilot_N": 2,
+    "resolution_dt_s": 0.005,
+    "tau_minutes": [
+      5,
+      15
+    ]
+  },
+  "rules": {
+    "T_int": "same letter first-zero estimator, first instance per day/action; no concatenation; undefined if zero variance",
+    "busiest": "largest train-window mean directed-link Stay load; EV-TE link order breaks ties",
+    "capacity": "busiest Stay link train-window mean utilization = 0.9 (Section V rho); training data only",
+    "days": "phase-A manifest/cache eligibility unchanged; weekdays only",
+    "forecast": "one train-average weekday profile, 24 slots of the selected window; no actual future input to M0",
+    "hybrid": "M0 Switch-minus-Stay gap plus h*s_hat; stationary chooses Switch iff s_hat<0; exact ties Stay",
+    "managed": "top three ODs crossing that link, descending train-window mean volume, OD ID breaks ties; no filter requiring Switch to avoid it",
+    "pilot": "earliest train weekday and largest train-window total-demand weekday (earliest tie), distinct; N=2, keep K64/R_dec64/R_eval128",
+    "reporting": "all results exploratory training/pilot; no test card, outcome, SSH or commit",
+    "resolution": "retain dt=.05s trace every train day; independent dt=.005s first-instance rollout on earliest weekday for each regime; also subsample .01/.05s; resolved only if T_int>=10*dt and <=5% change at 2*dt; zero covariance remains UNDEFINED at every dt",
+    "s_hat": "pooled mean per-day N200 integral-cost-rate difference Switch-minus-Stay over 6h",
+    "telemetry": "full state at decision start versus 5/15min earlier; actual past TM, K=64 Stay posterior samples",
+    "truth": "real 15-min TM times independent OD two-state modulation, beta=.3, kappa=1/s; phase-A dt=.05s",
+    "warmup": "two hours before selected window, empty Stay queues and independent per-instance mode roots; same phase-A lookback construction",
+    "window": "maximize mean total demand across train weekdays and 24 slots; 73 within-day starts, 15-min grid, earliest exact tie"
+  },
+  "scenario": "congested_business_hours",
+  "seeds": {
+    "pilot": 7372001,
+    "train": 7302001
+  },
+  "source_sha256": {
+    "experiments/ext_validity/ev_te.py": "4eb87842c1397ebdcb5fa1efc4ea3fe5711821d093cead435fe7f57693ec084f",
+    "experiments/letter/e4_geant.py": "53035c71881180a973518c33aea3f8386e5588f75869e1681c695e90b6852b21",
+    "experiments/letter/v7_3_cong.py": "1c22657121f6f2d17f4f119851cf3fca8833c6a4a5c6896aaf0607390a3df53a",
+    "experiments/letter/v7_3_data.py": "5808dea5fd06786b5869a8a409334a0d62581f02e96c37ca542217b379730fbe",
+    "experiments/letter/v7_3_day.py": "7352d63b7d5b84ecf629b762dfcfae8af9814d0db6aeced3fb05fd423090c967",
+    "experiments/letter/v7_3_day_verify.py": "2b31f74da31ca0cbd937e79f16a31ffa796de413673416c15c060219902786ec",
+    "experiments/letter/v7_3_run.py": "eff938b88995afc438a5a660b90607c9247dd272a1fec8ed1349a4328e387837",
+    "experiments/letter/v7_3_sim.py": "0b2260492e648ba144a577a1c9094cebb353cff60972609bb9c6b928b15db7fe",
+    "notes/ops/codex/V7_3_congested_decision.md": "2b55e6c94f14d41e2987749341e0dc233b97da43bcd164304d5ca873cb437894",
+    "notes/ops/codex/V7_3_phaseA2_brief.md": "1562a98f49a5889346023a44629b7be25644b241eea3fc78172818e84b9380af",
+    "tests/test_letter_v7_3_day.py": "f859c26415144ca182a5506ba1a638895e1f73ae356b812af376314c8f1f4b80"
+  },
+  "test_outcomes_allowed": false,
+  "training_only": true
+}

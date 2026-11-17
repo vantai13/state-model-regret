@@ -1,0 +1,94 @@
+{
+  "K": 64,
+  "M0_tie_share_fresh": [
+    0.89,
+    0.89,
+    0.89,
+    0.89
+  ],
+  "M0_tie_share_stale": [
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "N": 200,
+  "T_int": [
+    {
+      "T_int_s": 19.518387907692368,
+      "censored": false,
+      "dt_s": 0.05,
+      "error": null,
+      "h6_over_T_int": 1106.6487715149492,
+      "lag1_acf": 0.9853265491305042,
+      "relative_change_at_2dt": 0.000433499001047581,
+      "status": "RESOLVED",
+      "steps_per_T_int": 390.3677581538473,
+      "variance_Mbit2": 1006.8204564356182
+    },
+    {
+      "T_int_s": null,
+      "censored": true,
+      "dt_s": 0.05,
+      "error": "zero-variance train series",
+      "h6_over_T_int": null,
+      "lag1_acf": null,
+      "relative_change_at_2dt": null,
+      "status": "UNDEFINED_ZERO_VARIANCE",
+      "steps_per_T_int": null,
+      "variance_Mbit2": 0.0
+    }
+  ],
+  "T_int_trace_instance": 0,
+  "conditional_MC_SE_Mbit": 0.020007028984137577,
+  "date": "2005-05-26",
+  "dt_s": 0.05,
+  "fine_resolution": null,
+  "mean_backlog_rates_Mbit": [
+    3.4467144559408327,
+    8.52210647773902e-07
+  ],
+  "owner": "Doan Van Tai",
+  "regime": "DAY2",
+  "s_hat_Mbit": -3.4467136037301866,
+  "seed": 13716786417251744554,
+  "timings": {
+    "M0_fresh": {
+      "CPU_s": 1.0636945940004807,
+      "wall_s": 1.0637131179973949
+    },
+    "M0_stale_300": {
+      "CPU_s": 69.41794681600004,
+      "wall_s": 69.54642881899781
+    },
+    "M0_stale_900": {
+      "CPU_s": 68.7030432399988,
+      "wall_s": 68.833511361001
+    },
+    "posterior_300": {
+      "CPU_s": 16.58554196700061,
+      "wall_s": 16.585855276000075
+    },
+    "posterior_900": {
+      "CPU_s": 49.097659217999535,
+      "wall_s": 49.10444018999988
+    },
+    "true_train_window": {
+      "CPU_s": 13.545629640999323,
+      "wall_s": 13.545821584000805
+    },
+    "warmup": {
+      "CPU_s": 1.8151844499989238,
+      "wall_s": 1.8152448940018076
+    }
+  },
+  "training_only": true
+}
