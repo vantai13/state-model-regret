@@ -1,0 +1,92 @@
+{
+  "owner": "Doan Van Tai",
+  "type": "training-prefix kernel timing; NOT a test or precision pilot",
+  "trace_sha256": "39f75928a27ab03a9751939277f980e7126bc22bdaef5268d57bb9207aa4b81c",
+  "calibration_interval_s": [
+    0.0,
+    3600.0
+  ],
+  "physics_interval_s": [
+    0.0,
+    300.0
+  ],
+  "parameter_case_id": "MN06_tau1",
+  "parameters": {
+    "lamA": 7.25,
+    "lamB": 7.03,
+    "u": 0.5
+  },
+  "training_mean_counts_per_bin": [
+    86.47357777777778,
+    160.61210555555556
+  ],
+  "measurements": [
+    {
+      "train_prefix_s": [
+        0.0,
+        60.0
+      ],
+      "rollout_count": 16,
+      "seed": 8722001,
+      "initial_queue": [
+        0,
+        0
+      ],
+      "generated_events": 15363,
+      "sampling_CPU_s": 0.00876624199999998,
+      "kernel_CPU_s": 0.0025514130000000024,
+      "CPU_s": 0.011316481999999961,
+      "wall_s": 0.01131660900045972,
+      "CPU_per_paired_rollout_h_s": 1.1788002083333294e-05,
+      "finite_check": true
+    },
+    {
+      "train_prefix_s": [
+        0.0,
+        120.0
+      ],
+      "rollout_count": 16,
+      "seed": 8722002,
+      "initial_queue": [
+        0,
+        0
+      ],
+      "generated_events": 30362,
+      "sampling_CPU_s": 0.014346815000000013,
+      "kernel_CPU_s": 0.0028247319999999965,
+      "CPU_s": 0.017170726000000025,
+      "wall_s": 0.017174760000671085,
+      "CPU_per_paired_rollout_h_s": 8.943086458333347e-06,
+      "finite_check": true
+    },
+    {
+      "train_prefix_s": [
+        0.0,
+        300.0
+      ],
+      "rollout_count": 16,
+      "seed": 8722003,
+      "initial_queue": [
+        0,
+        0
+      ],
+      "generated_events": 69400,
+      "sampling_CPU_s": 0.032247024999999985,
+      "kernel_CPU_s": 0.004868660000000025,
+      "CPU_s": 0.03711504299999996,
+      "wall_s": 0.037118580999958795,
+      "CPU_per_paired_rollout_h_s": 7.732300624999991e-06,
+      "finite_check": true
+    }
+  ],
+  "peak_process_memory_MiB": 56.19921875,
+  "environment": {
+    "python": "3.14.5",
+    "numpy": "2.5.3",
+    "platform": "Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.35"
+  },
+  "extrapolation_caveat": "Short q=0 prefixes do not measure long-horizon memory, posterior accuracy, or reference precision.",
+  "new_test_outcomes_computed": 0,
+  "test_entry_points_called": [],
+  "subprocesses": 0
+}

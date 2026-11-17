@@ -1,0 +1,87 @@
+{
+  "assumptions": [
+    "Reuse the same CRN trajectory for nested horizons in the central scenario.",
+    "Separate-horizon scenario plus an explicit 2x planning contingency is not a runtime bound or CI.",
+    "12 workers and 65% utilization are planning assumptions, not a VM recommendation or measurement.",
+    "K/R/N are proposals; this timing pilot measures neither posterior nor reference precision.",
+    "Small train-prefix q=0 costs can understate long-horizon sorting, queue and memory costs.",
+    "Posterior and history propagation are conservatively charged as paired action-cost rollouts.",
+    "All 1/2/4 h scenarios remain data-blocked until a sufficiently long continuous record is verified."
+  ],
+  "central_throughput_CPU_per_paired_rollout_s": 7.732300624999991e-06,
+  "new_test_outcomes_computed": 0,
+  "owner": "Doan Van Tai",
+  "parameters": {
+    "K": 128,
+    "R_dec": 128,
+    "R_eval": 256,
+    "R_train": 32,
+    "anchors": 12,
+    "history_replicates": 8,
+    "regimes": 20,
+    "taus_s": [
+      1,
+      10,
+      30,
+      60,
+      120,
+      300
+    ]
+  },
+  "rough_4h_array_volume_GiB_12_arrays_by_batch": {
+    "16": 0.30445861816406256,
+    "256": 4.871337890625001,
+    "8": 0.15222930908203128
+  },
+  "scenarios": {
+    "1_2_4h_requires_longer_data": {
+      "N_per_regime": 96,
+      "central_CPU_hours": 23.08591964864264,
+      "central_CPU_s": 83109.31073511351,
+      "cost_rollout_s_nested": 10616832000,
+      "cost_rollout_s_separate": 18579456000,
+      "holds_s": [
+        3600,
+        7200,
+        14400
+      ],
+      "ideal_12_worker_wall_hours": 1.9238266373868869,
+      "instance_history_rollout_s": 1152000,
+      "planning_12_worker_65pct_utilization_wall_hours": [
+        2.9597332882875182,
+        15.709740204674592
+      ],
+      "posterior_rollout_s": 128040960,
+      "separate_horizons_with_2x_contingency_CPU_hours": 122.53597359646182,
+      "separate_horizons_with_2x_contingency_CPU_s": 441129.5049472625,
+      "training_rollout_s": 2304000
+    },
+    "1_2h_available": {
+      "N_per_regime": 96,
+      "central_CPU_hours": 11.684178439042654,
+      "central_CPU_s": 42063.042380553554,
+      "cost_rollout_s_nested": 5308416000,
+      "cost_rollout_s_separate": 7962624000,
+      "holds_s": [
+        3600,
+        7200
+      ],
+      "ideal_12_worker_wall_hours": 0.9736815365868878,
+      "instance_history_rollout_s": 1152000,
+      "planning_12_worker_65pct_utilization_wall_hours": [
+        1.4979715947490582,
+        6.795834383136159
+      ],
+      "posterior_rollout_s": 128040960,
+      "separate_horizons_with_2x_contingency_CPU_hours": 53.00750818846204,
+      "separate_horizons_with_2x_contingency_CPU_s": 190827.02947846334,
+      "training_rollout_s": 2304000
+    }
+  },
+  "source_sha256": {
+    "audit.json": "73bbd408158d7bba506f872cd31f09d0ac57bae999d02d3cd6cb4ae99c9fdfbf",
+    "pilot.json": "44b21d823840286b533afc000c5ef65ad30953c333791510ae680d4d9aeb6feb"
+  },
+  "status": "DESIGN_DRAFT_NOT_LOCKED",
+  "worst_observed_throughput_CPU_per_paired_rollout_s": 1.1788002083333294e-05
+}

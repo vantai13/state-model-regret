@@ -1,0 +1,48 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "PASS_AUDIT_AND_DRAFT_ONLY",
+  "head": "fc3ee0a1096b76a271e78a5011f79916acf8e746",
+  "checks": {
+    "brief_matches_HEAD": true,
+    "HEAD_unchanged": true,
+    "tracked_worktree_diff_empty": true,
+    "input_hashes_unchanged": 33,
+    "raw_schemas_checked": 1200,
+    "raw_manifest_SHA_checked": 1200,
+    "D4c_train_probe_manifest_SHA_checked": 540,
+    "source_lock_entries_checked": 28,
+    "independent_inventory_counts_and_CPU_sums": true,
+    "independent_compute_scenarios": 2,
+    "final_tests_passed": 26
+  },
+  "pilot_train_kernel_CPU_s": 0.06560225099999994,
+  "new_test_outcomes_computed": 0,
+  "reuse_class": "B: engine reusable with adapters; full 1/2/4h question DATA_BLOCKED by verified 4h record",
+  "writes": "Only new v7_2 source files and results/letter/v7_2/*; test scratch is synthetic and in scope",
+  "parallel_jobs": "V7-1/V7-3 concurrent untracked files observed, not changed by this task",
+  "VM_access": false,
+  "commit": false,
+  "truth_run": false,
+  "source_and_artifact_sha256": {
+    "experiments/letter/v7_2_audit.py": "f84b26edf329a143e93026113871b26fc30f42a72dbffed6f1ee0f4afa9ebd24",
+    "experiments/letter/v7_2_checks.py": "78beb21e821f439593bd8c996fecfd2a3c54ef343ce5f0f77b2f584e8653ec78",
+    "results/letter/v7_2/DESIGN.md": "969bba7cfa50c9ca900bf2b8eee8eb65039f49e2a07dadb5af4c246adbcd614a",
+    "results/letter/v7_2/REPORT.md": "272451d3edb613861ab356d3468484e4c2dfd6dcdbf4a687dc59713b893ccc88",
+    "results/letter/v7_2/audit.json": "73bbd408158d7bba506f872cd31f09d0ac57bae999d02d3cd6cb4ae99c9fdfbf",
+    "results/letter/v7_2/audit.log": "de80bdb25c8970bc021c4cd7a6648da220a1cc1924449e382ca9b461e7221ce7",
+    "results/letter/v7_2/compute_estimate.json": "08aa20985b60c3e5dca5cbef877019ba9762da8566ee9490cfcaa50f40ffe138",
+    "results/letter/v7_2/compute_estimate.log": "c28351b53c0790daf2a2b40848d9013ed9e623d1b8455cbf926fe8bf02156318",
+    "results/letter/v7_2/initial_state.json": "cfba758ba72b7132762d8ccd3eade35b3387d29bb08a5a0d08c4db0f529d0edb",
+    "results/letter/v7_2/pilot.json": "44b21d823840286b533afc000c5ef65ad30953c333791510ae680d4d9aeb6feb",
+    "results/letter/v7_2/pilot.log": "a0caf2c15c4aeefc2ef9edc3022f9355351eaf98fd2cdf720582689307c31277",
+    "results/letter/v7_2/raw_inventory.csv": "6c0b8222fe046dde5b25596027f5285e18d9673b42ce6eb575b440d70de85815",
+    "results/letter/v7_2/tests.log": "778ba0fa026fd1c77c4b51f7169e740950279a96e6467e5168e92e71ba25ce2e",
+    "results/letter/v7_2/tests_final.log": "8e4b774df263e1d209f895b7412724636fadcbd18eff7c74d0902c1a606eb9a0"
+  },
+  "limitations": [
+    "No posterior/reference adapter or long-horizon accuracy verification yet.",
+    "4h hold needs a longer continuous record with the proposed chronological split.",
+    "Only binned trace-driven Cox input verified; literal PCAP packet replay not verified.",
+    "Compute projection is a planning scenario, not a guaranteed bound or CI."
+  ]
+}
