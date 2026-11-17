@@ -741,3 +741,8 @@ dấu chỉ ở GÉANT 68 ô; H4 yếu (165 ô qua vế 2se, C_ref Abilene ≈0,
 Paper chưa sửa. `results/ext_validity/ev_te/REPORT_EV_TE.md`.
 Letter/16–17-11 (DL-150, nhánh `letter`, không merge main): W1–W2 CTMC, E4/E4b GÉANT (hai seed, chấm lại MATCH), E5/E5b replay bản ghi hữu hạn. Letter v1 5 trang ở
 `state-model-regret-papers/letter_smr` (git local), đã sửa theo hai review AI. Khai báo AI theo IEEE (Acknowledgments) và chiến lược venue (ToN) chờ tác giả và thầy.
+Letter/17-11 tối (DL-150 + addendum E6): E6 regret đầu-cuối chính xác (raw d6c9f553, điểm 3c88f537; E6-1/2 đứng, E6-3 không đứng: luật tĩnh
+cùng bản ghi hòa ở h dài). Letter `letter_smr` (git local, không push) R10–R12: số E6 trong đoạn replay, câu tie rule, Corollary 1 giữ nguyên
+theo tác giả; **không Acknowledgment/khai báo AI cho tới khi tác giả yêu cầu (bắt buộc)**. PDF mới: Downloads `SMR_letter_v5_5pages.pdf`.
+Gói `letter_smr/02_Code` phẳng theo repo mẫu (README theo Hình/Bảng/Mục V, 9/20 pipeline GÉANT, `paper_numbers.py`), mọi kiểm tra khớp.
+Chờ tác giả/thầy: license, nơi đăng code, venue. Điểm vào: `letter_smr/ROADMAP.md` và bộ nhớ `letter-current-state`.
