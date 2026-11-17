@@ -1,0 +1,85 @@
+{
+  "K": 64,
+  "M0_tie_share_fresh": [
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "M0_tie_share_stale": [
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  ],
+  "N": 200,
+  "T_int": [
+    {
+      "P_backlog_positive": 0.0,
+      "T_int_s": null,
+      "censored": true,
+      "error": "zero-variance train series",
+      "h6_over_T_int": null,
+      "max_backlog_Mbit": 0.0
+    },
+    {
+      "P_backlog_positive": 0.0,
+      "T_int_s": null,
+      "censored": true,
+      "error": "zero-variance train series",
+      "h6_over_T_int": null,
+      "max_backlog_Mbit": 0.0
+    }
+  ],
+  "T_int_interpretation": "first independently seeded instance per night, 6h nonstationary record; no concatenation across nights",
+  "T_int_trace_instance": 0,
+  "date": "2005-06-04",
+  "demand_first_Mbps": 39990.84128,
+  "demand_last_Mbps": 29854.857601999996,
+  "mean_backlog_rates_Mbit": [
+    0.0,
+    0.0
+  ],
+  "s_hat_Mbit": 0.0,
+  "seed": 7600794915509607161,
+  "timings": {
+    "M0_fresh": {
+      "CPU_s": 0.00030586200000470853,
+      "wall_s": 0.0003066629997192649
+    },
+    "M0_stale_300": {
+      "CPU_s": 0.002551000999972075,
+      "wall_s": 0.0025518029997328995
+    },
+    "M0_stale_900": {
+      "CPU_s": 0.0015488059999881898,
+      "wall_s": 0.0015499969995289575
+    },
+    "posterior_300": {
+      "CPU_s": 0.32985044700001254,
+      "wall_s": 0.3298771460003991
+    },
+    "posterior_900": {
+      "CPU_s": 0.3333387630000004,
+      "wall_s": 0.33335352900030557
+    },
+    "true_train_night": {
+      "CPU_s": 0.004611210000007304,
+      "wall_s": 0.004613222000443784
+    },
+    "warmup": {
+      "CPU_s": 0.07136202699999217,
+      "wall_s": 0.07136245299989241
+    }
+  },
+  "total_demand_slope_Mbps_per_hour": -1911.7250143165181,
+  "training_only": true
+}

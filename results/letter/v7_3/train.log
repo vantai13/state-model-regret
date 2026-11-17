@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/letter/v7_3_run.py", line 223, in <module>
+    (train if a.command=='train' else pilot)()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/vantai/state-model-regret/experiments/letter/v7_3_run.py", line 47, in train
+    inc,cap=config['incidence'],float(config['capacity'])
+                                ~~~~~^^^^^^^^^^^^^^^^^^^^
+TypeError: only 0-dimensional arrays can be converted to Python scalars

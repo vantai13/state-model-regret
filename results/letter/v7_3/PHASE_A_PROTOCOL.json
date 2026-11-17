@@ -1,0 +1,65 @@
+{
+  "owner": "Doan Van Tai",
+  "phase": "A: data integrity, training and two-train-night pilot only",
+  "brief_commit": "fc3ee0a1096b76a271e78a5011f79916acf8e746",
+  "brief_sha256": "f03cc7c981e4cc9a209261d09203812547db5f9434dcb004952804f7c61ce98c",
+  "test_outcomes_allowed": false,
+  "data_rule_before_TM_download_or_parse": {
+    "calendar": "timestamps as supplied; no inferred timezone or DST conversion",
+    "split": "first 42 calendar dates starting at the earliest timestamp date, before completeness filtering; all later dates test",
+    "complete_day": "exactly one parseable finite nonnegative demand matrix at each of the 96 quarter-hour timestamps; same node IDs and admissible directed OD universe as native GEANT; absent OD entries are zero, invalid or duplicate OD IDs are corrupt",
+    "eligible_night": "complete calendar date plus all eight previous-day 22:00\u201323:45 matrices; no filtering on demand magnitude, costs, tie shares or model outputs",
+    "test_access": "download/parse/checksum/completeness/date labels only; no link loads, future decisions, simulated states, costs or outcomes",
+    "daytime_for_capacity": "06:00\u201321:45 on retained train dates; 22:00\u201323:45 used for warmup",
+    "consolidation": "undirected physical links (both directions off); stable original increasing train-mean-night total bidirectional load order; skip bridges, stop at first connected removal exceeding 0.8 on any directed link; reroute only affected ODs by EV-TE min-hop/lexicographic rule"
+  },
+  "numerical_rule": {
+    "time_unit": "second; E4 fast kappa=1 per second, beta=0.3, no slow mode",
+    "dt_seconds": 0.05,
+    "cost": "sum of directed-link fluid backlog integrals; no energy term, c=0",
+    "M0": "conditional mean fast mode decays exp(-2*kappa*t); future baseline is train-only weekday/weekend slot-matched mean profile",
+    "hybrid_gap": "M0 Switch-minus-Stay gap + h * s_hat",
+    "ties": "exact equality; choose Stay, reuse E4 pick",
+    "T_int": "existing EV-TE estimate_tint/letter FFT first-zero estimator, separately per night/instance/configuration; zero variance reported as undefined, no invented h/T_int",
+    "no_test_card": "Claude will write card after Phase A report; no test runner launch here"
+  },
+  "seeds": {
+    "train": 730001,
+    "pilot": 7370001,
+    "test_reserved_not_used": 7390001
+  },
+  "planned": {
+    "N": 200,
+    "K": 64,
+    "R_dec": 64,
+    "R_eval": 128,
+    "h_hours": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "tau_minutes": [
+      5,
+      15
+    ],
+    "pilot_N": 2,
+    "pilot_K": 4,
+    "pilot_R_dec": 4,
+    "pilot_R_eval": 8,
+    "pilot_selection": "earliest eligible weekday and earliest eligible weekend train dates; else first two retained train dates"
+  },
+  "limitations_to_report": [
+    "Daytime interpretation, clock timezone and fast-unit seconds are explicit implementation conventions where brief supplies no further definition.",
+    "T_int on a finite nonstationary six-hour night is descriptive, not a stationary network mixing-time certificate.",
+    "Fast modulation is synthetic.",
+    "Pilot CPU extrapolation on local hardware is not measured n2-standard-32 performance."
+  ],
+  "precomputation_clarifications": [
+    {
+      "reason": "First archive file inspected for parser schema has 441 sparse demands, native topology has 462 ODs. Omitted OD entries encode no demand, not a corrupt/missing TM. Reindex to the native directed OD universe with zero fill; retain presence mask for lossless round trip.",
+      "exposure": "one archive member schema only; no test outcomes or load aggregates",
+      "time": "before full archive parsing and training"
+    }
+  ]
+}

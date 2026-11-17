@@ -1,0 +1,14 @@
+........F...........                                                     [100%]
+=================================== FAILURES ===================================
+_________ test_consolidation_stops_before_utilization_over_point_eight _________
+
+    def test_consolidation_stops_before_utilization_over_point_eight():
+        net=triangle();config,inc=D.consolidate(net,np.array([2.,3.]),4.)
+        assert max((inc[1]@np.array([2.,3.]))/4)<=.8
+>       assert config['stop_link'] is not None
+E       assert None is not None
+
+tests/test_letter_v7_3.py:74: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_letter_v7_3.py::test_consolidation_stops_before_utilization_over_point_eight
+1 failed, 19 passed in 4.64s

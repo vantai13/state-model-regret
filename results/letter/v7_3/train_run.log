@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/letter/v7_3_run.py", line 223, in <module>
+    (train if a.command=='train' else pilot)()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/vantai/state-model-regret/experiments/letter/v7_3_run.py", line 57, in train
+    costs,_,_,trace=timer(timings,'true_train_night',lambda:S.variable(
+                    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inc,training['days'][j,:24],cap,*fresh,T.seed_for(root,'rate-rollout'),hs=hs,trace=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/letter/v7_3_run.py", line 33, in timer
+    result=fn()
+  File "/home/vantai/state-model-regret/experiments/letter/v7_3_run.py", line 57, in <lambda>
+    costs,_,_,trace=timer(timings,'true_train_night',lambda:S.variable(
+                                                            ~~~~~~~~~~^
+        inc,training['days'][j,:24],cap,*fresh,T.seed_for(root,'rate-rollout'),hs=hs,trace=True))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/letter/v7_3_sim.py", line 139, in variable
+    native().variable(len(modes),a,e,d,len(lengths),len(hs),np.ascontiguousarray(lengths),hs,
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                      weights,cap,beta,dt,np.ascontiguousarray(modes),np.ascontiguousarray(queues),
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                      seed,int(shortcut),int(trace),costs,fm,fq,backlog)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ctypes.ArgumentError: argument 19: TypeError: array must have flags ['C_CONTIGUOUS']

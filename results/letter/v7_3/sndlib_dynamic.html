@@ -1,0 +1,304 @@
+
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+     <title>SNDlib 1.0</title>
+     <link rel="stylesheet" href="assets/formatdefs.css" type="text/css"/>
+
+      <script type="text/javascript" language="Javascript">
+      <!--
+         function toFrameset() {
+
+           if(!this.parent._toc) {
+     	     var query;
+     	     if(this.location.search) {
+     	       query = this.location.search + "&frameset";
+             }
+     	     else {
+               query = "?frameset"
+             }		          
+
+             var pathname = this.location.pathname.replace(/\/sndlib\//, "");
+             
+             var url = pathname + query;
+             url = escape(url);
+	            
+             this.location.href = "home.action?show=" + url;
+           }
+         }
+      -->
+      </script> 
+    </head>
+
+<body class="body" onLoad="toFrameset()">
+
+
+   
+   <style text="text/css">
+      table.download td.what_to_get { text-align:  left; }
+      table.download td {
+         text-align: left;
+         vertical-align: middle;
+         padding-top:    0.4ex;
+         padding-bottom: 0.4ex;
+      }
+   </style>
+
+   <h1>Networks with multiple demand matrices</h1>
+
+   <hr/>
+   <p>
+   The classical approach for network design assumes a given single demand matrix.
+   A single matrix is either based on demand estimations, traffic forecasts,
+   population statistics, or simply generated randomly or manually. However, demands
+   can never be known with precision. Traffic in networks might increase exponentially over longer time
+   horizons but it also fluctuates heavily over the day or week.
+   </p>
+   <p>
+   To study such phenomena and to come up with reasonable approaches for multi-period, robust, or
+   stochastic network design problems we also provide multiple demand matrices for some of our networks.
+   These matrices are based on detailed measurements of traffic in real IP networks with a
+   certain level of anonymization. Please consult the corresponding readmes.
+   </p>
+
+   <hr/>
+
+   <p>
+   The matrices on this site have gone through several steps of conversion,
+   and some data was typed in by hand or transformed by automatic scripts.
+   While we made a lot of effort to make no mistakes and to double-check the results, we cannot
+   guarantee that everything is correct. Moreover, the original data may contain inaccuracies already.
+   </p>
+
+   <p>
+   We would like to thank Steve Uhlig, Yin Zhang,
+   and the <a href="http://www.dfn.de" target="_blank">DFN Verein</a>
+   for providing us with real data. The data has been processed with help from Andreas Bley, Kai Hennig, Filip Idzikowski, and Christian Raack.
+   </p>
+
+   <p>
+   Please cite
+     <a href="IdzikowskiOrlowskiRaackWoesnerWolisz2010b.bib">[3]</a>
+   and
+   <a href="KosterKutschkaRaack2010.bib">[4]</a>,
+   when using the dynamic traffic data in your publications.
+   </p>
+   <br/>
+
+   <table class="default download">
+         <tr class="table_header">
+            <td class="what_to_get">Network</td>
+            <td> Granularity </td>
+            <td> Horizon     </td>
+
+
+            <td> Number of matrices </td>
+            <td> native ASCII TGZ</td>
+            <td> XML TGZ</td>
+         </tr>
+
+         <tr class="odd">
+           <td>
+              <a class="toc_a" href="abilene.overview.action" target="_show">
+                abilene
+              </a>
+           </td>
+            <td class="what_to_get">5 min   </td>
+            <td class="what_to_get">6 month </td>
+
+
+            <td class="what_to_get">48096 </td>
+            <td>
+               <a href="download/directed-abilene-zhang-5min-over-6months-ALL-native.tgz">tgz (46.9 Mb)</a>
+           </td>
+           <td>
+               <a href="download/directed-abilene-zhang-5min-over-6months-ALL.tgz">tgz (51.3 Mb)</a>
+           </td>
+         </tr>
+
+         <tr class="even">
+           <td>
+              <a class="toc_a" href="geant.overview.action" target="_show">
+                geant
+              </a>
+           </td>
+            <td class="what_to_get">15 min  </td>
+            <td class="what_to_get">4 month </td>
+
+
+            <td class="what_to_get">11460 </td>
+            <td>
+               <a href="download/directed-geant-uhlig-15min-over-4months-ALL-native.tgz ">tgz (37.7 Mb)</a>
+            </td>
+            <td>
+               <a href="download/directed-geant-uhlig-15min-over-4months-ALL.tgz ">tgz (69.7 Mb)</a>
+            </td>
+         </tr>
+
+         <tr class="odd">
+           <td>
+              <a class="toc_a" href="nobel-germany.overview.action" target="_show">
+                nobel-germany
+              </a>
+           </td>
+            <td class="what_to_get">5 min </td>
+            <td class="what_to_get">1 day </td>
+
+
+            <td class="what_to_get">288 </td>
+            <td>
+               <a href="download/directed-nobel-germany-DFN-aggregated-5min-over-1day-native.tgz ">tgz (585 Kb)</a>
+            </td>
+            <td>
+               <a href="download/directed-nobel-germany-DFN-aggregated-5min-over-1day.tgz ">tgz (1.3 Mb)</a>
+            </td>
+         </tr>
+
+         <tr class="even">
+           <td>
+              <a class="toc_a" href="nobel-germany.overview.action" target="_show">
+              </a>
+           </td>
+            <td class="what_to_get">1 day   </td>
+            <td class="what_to_get">1 month </td>
+
+
+            <td class="what_to_get">28</td>
+            <td>
+               <a href="download/directed-nobel-germany-DFN-aggregated-1day-over-1month-native.tgz">tgz (66 Kb)</a>
+            </td>
+            <td>
+               <a href="download/directed-nobel-germany-DFN-aggregated-1day-over-1month.tgz">tgz (133 Kb)</a>
+            </td>
+         </tr>
+
+         <tr class="odd">
+           <td>
+              <a class="toc_a" href="nobel-germany.overview.action" target="_show">
+              </a>
+           </td>
+            <td class="what_to_get">1 month </td>
+            <td class="what_to_get">1 year  </td>
+
+
+            <td class="what_to_get">14 </td>
+            <td>
+               <a href="download/directed-nobel-germany-DFN-aggregated-1month-over-1year-native.tgz">tgz (35 Kb)</a>
+            </td>
+            <td>
+               <a href="download/directed-nobel-germany-DFN-aggregated-1month-over-1year.tgz">tgz (67 Kb)</a>
+            </td>
+         </tr>
+
+         <tr class="even">
+           <td>
+              <a class="toc_a" href="germany50.overview.action" target="_show">
+                germany50
+              </a>
+           </td>
+            <td class="what_to_get">5 min </td>
+            <td class="what_to_get">1 day </td>
+
+
+            <td class="what_to_get">288 </td>
+            <td>
+               <a href="download/directed-germany50-DFN-aggregated-5min-over-1day-native.tgz ">tgz (5.5 Mb)</a>
+            </td>
+            <td>
+               <a href="download/directed-germany50-DFN-aggregated-5min-over-1day.tgz ">tgz (6.2 Mb)</a>
+            </td>
+
+         </tr>
+
+         <tr class="odd">
+           <td>
+              <a class="toc_a" href="germany50.overview.action" target="_show">
+              </a>
+           </td>
+            <td class="what_to_get">1 day   </td>
+            <td class="what_to_get">1 month </td>
+
+
+            <td class="what_to_get">28 </td>
+            <td>
+               <a href="download/directed-germany50-DFN-aggregated-1day-over-1month-native.tgz">tgz (731 Kb)</a>
+            </td>
+            <td>
+               <a href="download/directed-germany50-DFN-aggregated-1day-over-1month.tgz">tgz (828 Kb)</a>
+            </td>
+
+         </tr>
+
+         <tr class="even">
+           <td>
+              <a class="toc_a" href="germany50.overview.action" target="_show">
+              </a>
+           </td>
+            <td class="what_to_get">1 month </td>
+            <td class="what_to_get">1 year  </td>
+
+
+            <td class="what_to_get">14 </td>
+            <td>
+               <a href="download/directed-germany50-DFN-aggregated-1month-over-1year-native.tgz">tgz (387 Kb)</a>
+            </td>
+            <td>
+               <a href="download/directed-germany50-DFN-aggregated-1month-over-1year.tgz">tgz (439 Kb)</a>
+            </td>
+
+         </tr>
+
+         <tr class="odd">
+           <td>
+              <a class="toc_a" href="brain.overview.action" target="_show">
+              brain
+              </a>
+           </td>
+            <td class="what_to_get"> 1 min </td>
+            <td class="what_to_get"> 7 days </td>
+
+
+            <td class="what_to_get"> 9723 </td>
+            <td>
+               <a href="download/directed-brain-1min-over-7days-native.tgz">tgz (604.2 Mb)</a>
+            </td>
+            <td>
+               <a href="download/directed-brain-1min-over-7days.tgz">tgz (797.5 Mb)</a>
+            </td>
+
+         </tr>
+         
+         <tr class="even">
+           <td>
+              <a class="toc_a" href="brain.overview.action" target="_show">
+              </a>
+           </td>
+            <td class="what_to_get">1 h </td>
+            <td class="what_to_get">375 days </td>
+
+
+            <td class="what_to_get"> 8993 </td>
+            <td>
+               <a href="download/directed-brain-1h-over-375day-native.tgz">tgz (577.4 Mb)</a>
+            </td>
+            <td>
+               <a href="download/directed-brain-1h-over-375day.tgz">tgz (759.7 Mb)</a>
+            </td>
+
+         </tr>
+
+      </table>
+   <br/>
+   <hr/>
+   <center>
+    <font size=-1 >
+       &copy; 2023 Poznan University of Technology (PUT)<BR>
+       <a target="_parent" href="https://www.put.poznan.pl">www.put.poznan.pl</a><br>
+    </font>
+  </center>
+ </body>
+</html>
+

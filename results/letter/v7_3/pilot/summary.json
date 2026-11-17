@@ -1,0 +1,57 @@
+{
+  "CPU_s_by_component": {
+    "M0_fresh": 3.7391134500022822,
+    "M0_stale_300": 47.700527999939446,
+    "M0_stale_900": 31.28277840004565,
+    "choices_fresh": 2.0328779999953723,
+    "choices_stale_300": 1.293587850001379,
+    "choices_stale_900": 0.838736400003412,
+    "metrics_gather": 36.29256479992904,
+    "paired_evaluation": 282804.6880368,
+    "posterior_300": 245.40070800005753,
+    "posterior_900": 88.69011600007583,
+    "reference_decision": 136644.11102879996,
+    "warmup": 10.755851100005287,
+    "write_raw_npz": 401.484835199966
+  },
+  "full": {
+    "K": 64,
+    "N": 200,
+    "R_dec": 64,
+    "R_eval": 128,
+    "target": "n2-standard-32",
+    "test_nights": 69,
+    "workers": 20
+  },
+  "hardware": {
+    "machine": "x86_64",
+    "platform": "Linux-6.6.87.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "processor": "AMD Ryzen 5 7535HS with Radeon Graphics",
+    "python": "3.14.5"
+  },
+  "ideal_wall_hours_20_workers": 5.83775431615,
+  "ideal_wall_s_20_workers": 21015.915538139998,
+  "limitations": [
+    "Local CPU-seconds, not measured n2-standard-32 seconds; ideal division by 20 assumes independent workers and no contention.",
+    "No test load intensity opened; workload can differ. Stress proxy is not an upper bound.",
+    "No cloud VM, SSH, test card or test outcomes in this phase."
+  ],
+  "owner": "Doan Van Tai",
+  "pilot_K": 4,
+  "pilot_N": 2,
+  "pilot_R_dec": 4,
+  "pilot_R_eval": 8,
+  "pilot_dates": [
+    "2005-05-05",
+    "2005-05-07"
+  ],
+  "projected_CPU_hours": 116.755086323,
+  "projected_CPU_s": 420318.3107628,
+  "projection": "linear in N for fresh/warmup, N*K for stale, N*R for reference/evaluation; average of two train pilot nights",
+  "stress_full_train_rollout_CPU_s": 87.07101053299999,
+  "stress_ideal_wall_hours_20_workers": 16.033142489421998,
+  "stress_projected_CPU_s": 1154386.2592383837,
+  "stress_proxy": "replace rollout components by max measured train N200 rollout cost times R_dec+R_eval per night; includes trace overhead",
+  "stress_train_night": "2005-05-10",
+  "training_only": true
+}
