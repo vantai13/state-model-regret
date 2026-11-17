@@ -1,0 +1,128 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "PILOT_ONLY_STOP_FOR_GCP",
+  "verdict": "NOT_EVALUABLE",
+  "reason": "projected local compute exceeds the brief's fixed 1200-second cap; stop after pilot",
+  "datasets": {
+    "CTMC": {
+      "expected_regimes": 93,
+      "expected_cells": 3255,
+      "scored_cells": 0,
+      "auc": {
+        "P1": {
+          "value": null,
+          "ci95": null
+        },
+        "P2": {
+          "value": null,
+          "ci95": null
+        },
+        "P3": {
+          "value": null,
+          "ci95": null
+        }
+      },
+      "auc_difference_P2_minus_P1": {
+        "value": null,
+        "ci95": null
+      },
+      "precision_P2_ge_1": null,
+      "regime_spearman": null,
+      "h_star_range_s": null,
+      "h_star_range_Tint": null,
+      "test": "NOT_EVALUABLE"
+    },
+    "GEANT": {
+      "expected_regimes": 17,
+      "expected_cells": 612,
+      "scored_cells": 0,
+      "auc": {
+        "P1": {
+          "value": null,
+          "ci95": null
+        },
+        "P2": {
+          "value": null,
+          "ci95": null
+        },
+        "P3": {
+          "value": null,
+          "ci95": null
+        }
+      },
+      "auc_difference_P2_minus_P1": {
+        "value": null,
+        "ci95": null
+      },
+      "precision_P2_ge_1": null,
+      "regime_spearman": null,
+      "h_star_range_s": null,
+      "h_star_range_Tint": null,
+      "test": "NOT_EVALUABLE"
+    }
+  },
+  "forecasts": {
+    "P3_between": "NOT_EVALUABLE",
+    "geant_precision_at_least_0p9": "NOT_EVALUABLE"
+  },
+  "pilot_ctmc_scale": {
+    "dataset": "CTMC",
+    "regime": "Za7p5_u3-2_lA31-4_x1-3_k2",
+    "seed": "none",
+    "family": "zf_a7p5_asym",
+    "M_hat": 155545971.85714287,
+    "Q90": 14245.65844950896,
+    "s_hat": 168.26459100561442,
+    "T_int_s": 2120.459186158,
+    "h_star_s": 84.66224750181475,
+    "h_star_Tint": 0.03992637446383105,
+    "horizon": "saturation_inf",
+    "gap_units": "packet*s",
+    "rate_units": "packet",
+    "source": "results/letter/w1b/raw/Za7p5_u3-2_lA31-4_x1-3_k2.json",
+    "max_relative_error": 1.4432899320127045e-15,
+    "scope": "PILOT_ONLY_1_OF_93_REGIMES"
+  },
+  "pilot_coverage": {
+    "ctmc_regimes": 1,
+    "ctmc_total": 93,
+    "geant_chunks": 1,
+    "geant_total": 340,
+    "geant_fresh_instances": 50,
+    "geant_required_per_regime_seed": 500
+  },
+  "compute": {
+    "pilot_cpu_s": 216.66038858200002,
+    "pilot_wall_s": 216.66644282499874,
+    "projected_conservative_wall_s": 12621.349153314397,
+    "projected_secondary_saved_CPU_scaled_wall_s": 2903.0178851345227,
+    "secondary_saved_CPU_ratio": 66.69529265185668,
+    "local_cap_s": 1200,
+    "secondary_projection": "original E4/E4b saved full-job CPU ratios, calibrated to the measured heaviest M0-only chunk; approximate, not a CI or guarantee"
+  },
+  "bootstrap_plan": {
+    "draws": 2000,
+    "seed": 20261118,
+    "unit": "regime with GEANT seeds together",
+    "status": "NOT_RUN"
+  },
+  "rescore": {
+    "status": "NOT_RUN",
+    "reason": "no full per-cell table; no AUC generated to compare"
+  },
+  "figure": {
+    "status": "NOT_CREATED",
+    "reason": "full-population P1/P2/Y bins unavailable; do not plot a selected pilot as the card population"
+  },
+  "input_hash_verification": {
+    "files": 804,
+    "status": "PASS",
+    "changed": []
+  },
+  "deviations": [
+    "E4/E4b raw has plant V/decisions/tie_flags, not M0 gaps; reconstructing the original predictor inputs is required and was piloted.",
+    "Created experiments/letter/v7_1_rescore.py as expressly required in item 6 despite its omission from the initial new-file list.",
+    "Stopped after pilot as required by the compute rule; full AUC/CI, precision, Spearman, h* ranges, figure and independent data rescore remain unrun."
+  ],
+  "inclusion": "Card not evaluable: no authorization to replace Table II; paper unchanged."
+}
