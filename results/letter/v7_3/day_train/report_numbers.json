@@ -1,0 +1,245 @@
+{
+  "owner": "Doan Van Tai",
+  "training_only": true,
+  "test_days_simulated": 0,
+  "sources": {
+    "configuration.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/v7_3/day_train/configuration.json",
+      "sha256": "2efcb2d09767c1da3294f265cdcb8f2ae31cfde3f89feb8992d63aba61b6ad39"
+    },
+    "summary.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/v7_3/day_train/summary.json",
+      "sha256": "a14bb7fd6e285fa2252e9d14247ea6d45f3fc2d1cc0581b702b2f782350befab"
+    },
+    "pilot/summary.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/v7_3/day_train/pilot/summary.json",
+      "sha256": "36fe607eba22abe7e2ded49008dca990e2dfae3b86506bd5280444f5e1f5efd9"
+    },
+    "verification_final_resume.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/v7_3/day_train/verification_final_resume.json",
+      "sha256": "406c4b738345ea855f7f1df2b29abc59bf62d63eef59a1a68a1fe4344dd6218a"
+    },
+    "nonstationarity.csv": {
+      "path": "/home/vantai/state-model-regret/results/letter/v7_3/day_train/nonstationarity.csv",
+      "sha256": "f36038133b480bf3a8fb406e4471637da949147c92c86e51549174daac047104"
+    }
+  },
+  "window": [
+    "10:15",
+    "16:15"
+  ],
+  "train_days": 26,
+  "test_weekdays_metadata_only": 50,
+  "capacity_Mbps": 23128.606845555554,
+  "regimes": [
+    {
+      "id": "DAY1",
+      "managed_OD": "hu1.hu_de1.de",
+      "max_mean_link_utilization": [
+        0.48814322159081197,
+        0.37141107986436034
+      ],
+      "modulated_upper_utilization": [
+        0.8709321013717181,
+        0.7843846617240654
+      ],
+      "peak_15min_link_utilization": [
+        0.6699477702859369,
+        0.6033728167108195
+      ],
+      "source": "hu1.hu",
+      "stay": [
+        "hu1.hu",
+        "at1.at",
+        "de1.de"
+      ],
+      "switch": [
+        "hu1.hu",
+        "sk1.sk",
+        "cz1.cz",
+        "de1.de"
+      ],
+      "switch_avoids_busiest_link": true,
+      "target": "de1.de",
+      "train_window_mean_volume_Mbps": 2699.851812230769
+    },
+    {
+      "id": "DAY2",
+      "managed_OD": "si1.si_de1.de",
+      "max_mean_link_utilization": [
+        0.48814322159081197,
+        0.4000909808707741
+      ],
+      "modulated_upper_utilization": [
+        0.8709321013717181,
+        0.7843846617240654
+      ],
+      "peak_15min_link_utilization": [
+        0.6699477702859369,
+        0.6033728167108195
+      ],
+      "source": "si1.si",
+      "stay": [
+        "si1.si",
+        "at1.at",
+        "de1.de"
+      ],
+      "switch": [
+        "si1.si",
+        "at1.at",
+        "ch1.ch",
+        "fr1.fr",
+        "de1.de"
+      ],
+      "switch_avoids_busiest_link": true,
+      "target": "de1.de",
+      "train_window_mean_volume_Mbps": 2036.5256574839725
+    },
+    {
+      "id": "DAY3",
+      "managed_OD": "hr1.hr_de1.de",
+      "max_mean_link_utilization": [
+        0.48814322159081197,
+        0.48814322159081197
+      ],
+      "modulated_upper_utilization": [
+        0.8709321013717181,
+        0.8709321013717181
+      ],
+      "peak_15min_link_utilization": [
+        0.6699477702859369,
+        0.6699477702859369
+      ],
+      "source": "hr1.hr",
+      "stay": [
+        "hr1.hr",
+        "hu1.hu",
+        "at1.at",
+        "de1.de"
+      ],
+      "switch": [
+        "hr1.hr",
+        "si1.si",
+        "at1.at",
+        "de1.de"
+      ],
+      "switch_avoids_busiest_link": false,
+      "target": "de1.de",
+      "train_window_mean_volume_Mbps": 1785.3082708974357
+    }
+  ],
+  "s_hat_Mbit": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "T_int_defined_by_action": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0
+    ]
+  ],
+  "C_ref_pilot_Mbit_s": [
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "projected_CPU_s": 1053.836597500002,
+  "slower_day_projected_CPU_s": 1583.0580750000001,
+  "nonstationarity_quantiles": {
+    "slope_Mbps_per_hour": [
+      -1748.4268002712956,
+      -81.11327025042979,
+      118.63636655304902,
+      468.5183522578335,
+      866.0001017895692
+    ],
+    "coefficient_of_variation": [
+      0.013347458346990956,
+      0.023001064994552296,
+      0.02605435481340134,
+      0.031609363847450826,
+      0.08916406092162645
+    ]
+  },
+  "protected_files": 1038,
+  "pytest": "54 passed, 18 deselected in 0.30s",
+  "congested_checkpoint": {
+    "snapshot_UTC": "2026-11-17T17:03:09.276096+00:00",
+    "scenario": "congested_business_hours",
+    "read_only": true,
+    "complete_raw_pairs": 15,
+    "expected_raw_pairs": 78,
+    "complete_stems": [
+      "DAY1_2005-05-05",
+      "DAY1_2005-05-06",
+      "DAY1_2005-05-09",
+      "DAY1_2005-05-10",
+      "DAY1_2005-05-11",
+      "DAY1_2005-05-12",
+      "DAY1_2005-05-13",
+      "DAY1_2005-05-16",
+      "DAY1_2005-05-17",
+      "DAY1_2005-05-18",
+      "DAY1_2005-05-20",
+      "DAY1_2005-05-23",
+      "DAY1_2005-05-24",
+      "DAY1_2005-05-25",
+      "DAY1_2005-05-26"
+    ],
+    "summary_present": false,
+    "pilot_summary_present": false,
+    "note": "Concurrent pre-existing training advanced during resume. No second job, simulation or overwrite was launched for this scenario.",
+    "inherited_metadata_corrections": {
+      "capacity_identical_to_phase_A": {
+        "saved": true,
+        "recomputed": false
+      },
+      "capacity_peak_utilization": {
+        "saved": 0.9,
+        "recomputed": 1.6593490684153878
+      }
+    }
+  }
+}
