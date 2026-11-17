@@ -57,6 +57,8 @@ def category(path, value):
         return 'discrete'
     if any(k in keys for k in ('shares', 'tie_mass', 'dep_static')):
         return 'relative'
+    if 'parameters' in keys:
+        return 'discrete'  # serialized case definitions, checked for exact identity
     if isinstance(value, (int, float)):
         return 'relative'
     try:

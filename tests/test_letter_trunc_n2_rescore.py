@@ -60,3 +60,8 @@ def test_independent_replay_detects_input_tampering(tmp_path):
     (tmp_path / 'two/raw/R00.json').write_text('{}')
     with pytest.raises(AssertionError):
         rescore.replay(tmp_path, path)
+
+
+def test_serialized_parameters_are_exact_discrete_metadata():
+    assert rescore.category((0, 'parameters', 0), '17/2') == 'discrete'
+    assert rescore.category((0, 'h', 0, 'h'), '17/2') == 'relative'

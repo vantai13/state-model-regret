@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/letter/trunc_n2.py", line 748, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/letter/trunc_n2.py", line 738, in main
+    return 0 if compare(args.out, args.baseline, args.candidate,
+                ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        args.candidate_n_scale)['status'] == 'PASS' else 2
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/letter/trunc_n2.py", line 526, in compare
+    raise FileExistsError(path)
+FileExistsError: results/letter/trunc_n2/compare.json

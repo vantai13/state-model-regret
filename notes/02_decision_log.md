@@ -4506,3 +4506,14 @@ hybrid chỉ đủ khi sai số transient nhỏ; T12 cần h ≫ thang tương q
   - hybrid tốt hơn rõ ở h ≤ 4–7·T_int.
 - Theo quy tắc đưa vào bài đã chốt trước khi chạy, số E6 thay số xấp xỉ trong đoạn E5 (R11).
 - **Acknowledgment:** tác giả quyết định (bắt buộc) không thêm gì cho tới khi tác giả yêu cầu; Claude đã gỡ mục do R10 chèn.
+
+**TRUNC-N2 (17/11/2026, tiếp tục theo resume brief):** raw 1N `2bb6531cc`,
+2N `91bee0fb0` push trước compare; deviation `b49b49538` chuyển phép so chính
+sang 2N-VM/1N-VM, giữ nguyên thresholds. Đủ 27/27: class (a) PASS, max
+7.7018285082886e-9 pp C_ref; (b) FAIL 8157/94230, gồm near-zero/cancellation
+và B_ko; (c) FAIL 10/5940 margin argmins, competing regrets lệch ≤4.69694e-14 pp.
+Overall FAIL. Phụ VM/local: (a) PASS 1.14406e-9 pp, (b) FAIL 1098, (c) PASS.
+Replay độc lập MATCH sau sửa schema chuỗi rational parameters, không import
+scorer, 32 tests PASS. VM TERMINATED/default12. Report và compare/replay ở
+`results/letter/trunc_n2/REPORT_TRUNC_N2.md` (commit kết quả chứa addendum này).
+Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity và margin changes.
