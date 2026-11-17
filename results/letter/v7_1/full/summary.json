@@ -1,0 +1,355 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "COMPLETE",
+  "analysis": "post-hoc with a prewritten fixed card",
+  "verdict": "DOES_NOT_HOLD",
+  "datasets": {
+    "CTMC": {
+      "regimes": 93,
+      "cells": 3255,
+      "Y1": 2551,
+      "Y0": 704,
+      "auc": {
+        "P1": {
+          "value": 0.9109044804176615,
+          "ci95": [
+            0.8894994303362217,
+            0.9310421121044199
+          ]
+        },
+        "P2": {
+          "value": 0.8180125441003528,
+          "ci95": [
+            0.7798530691168027,
+            0.8539885869587931
+          ]
+        },
+        "P3": {
+          "value": 0.945018219236663,
+          "ci95": [
+            0.929901841959978,
+            0.9586915359694225
+          ]
+        }
+      },
+      "auc_difference_P2_minus_P1": {
+        "value": -0.09289193631730863,
+        "ci95": [
+          -0.12680899489604358,
+          -0.06302506724692962
+        ]
+      },
+      "bootstrap": {
+        "seed": 20261118,
+        "draws_requested": 2000,
+        "draws_valid": 2000,
+        "draws_single_class": 0,
+        "unit": "regime; both GEANT seeds travel together",
+        "interval": "paired cluster percentile 95%; descriptive post-hoc interval"
+      },
+      "precision_P2_ge_1": {
+        "threshold": 1,
+        "selected": 2315,
+        "true_positive": 2047,
+        "false_positive": 268,
+        "value": 0.8842332613390929
+      },
+      "test": "DOES_NOT_HOLD",
+      "forecast_P3_between": {
+        "holds": false,
+        "inclusive": true
+      },
+      "h_star_range_s": [
+        3.212591981942911,
+        720.4947988191157
+      ],
+      "h_star_range_Tint": [
+        0.038515755761872876,
+        3.3041316550160045
+      ],
+      "failed_Y_by_regime": {
+        "A_u1-2_lA9_x1-2_k1-2": 14,
+        "A_u1-2_lA9_x1-2_k1-20": 15,
+        "A_u1-2_lA9_x1-2_k2": 10,
+        "A_u1_lA7_x-1-2_k1-2": 8,
+        "A_u1_lA7_x-1-2_k2": 9,
+        "A_u1_lA7_x-1_k2": 5,
+        "A_u1_lA7_x1-2_k1-2": 10,
+        "A_u1_lA7_x1-2_k1-20": 15,
+        "A_u1_lA7_x1-2_k2": 10,
+        "A_u1_lA7_x1-4_k1-2": 13,
+        "A_u1_lA7_x1-4_k1-20": 18,
+        "A_u1_lA7_x1-4_k2": 13,
+        "A_u1_lA7_x1_k1-2": 5,
+        "A_u1_lA7_x1_k1-20": 10,
+        "A_u1_lA7_x1_k2": 5,
+        "A_u2_lA13-2_x-1-4_k1-2": 5,
+        "A_u2_lA13-2_x-1-4_k1-20": 4,
+        "A_u2_lA13-2_x-1-4_k2": 5,
+        "A_u2_lA13-2_x1-2_k1-2": 5,
+        "A_u2_lA13-2_x1-2_k1-20": 10,
+        "A_u2_lA13-2_x1-2_k2": 5,
+        "A_u2_lA13-2_x1-4_k1-2": 13,
+        "A_u2_lA13-2_x1-4_k1-20": 17,
+        "A_u2_lA13-2_x1-4_k2": 10,
+        "Za3_u1-2_lA9_x1-2_k1-2": 10,
+        "Za3_u1-2_lA9_x1-2_k1-20": 15,
+        "Za3_u1-2_lA9_x1-2_k2": 10,
+        "Za3_u1_lA7_x-1-2_k1-2": 7,
+        "Za3_u1_lA7_x-1-2_k2": 10,
+        "Za3_u1_lA7_x-1_k2": 5,
+        "Za3_u1_lA7_x1-2_k1-2": 10,
+        "Za3_u1_lA7_x1-2_k1-20": 15,
+        "Za3_u1_lA7_x1-2_k2": 10,
+        "Za3_u1_lA7_x1-4_k1-2": 13,
+        "Za3_u1_lA7_x1-4_k1-20": 18,
+        "Za3_u1_lA7_x1-4_k2": 13,
+        "Za3_u1_lA7_x1_k1-2": 5,
+        "Za3_u1_lA7_x1_k1-20": 10,
+        "Za3_u1_lA7_x1_k2": 5,
+        "Za3_u2_lA13-2_x-1-4_k1-2": 5,
+        "Za3_u2_lA13-2_x-1-4_k2": 5,
+        "Za3_u2_lA13-2_x1-2_k1-2": 5,
+        "Za3_u2_lA13-2_x1-2_k1-20": 10,
+        "Za3_u2_lA13-2_x1-2_k2": 5,
+        "Za3_u2_lA13-2_x1-4_k1-2": 10,
+        "Za3_u2_lA13-2_x1-4_k1-20": 15,
+        "Za3_u2_lA13-2_x1-4_k2": 10,
+        "Za7p5_u1-2_lA17-2_x1-2_k1-2": 13,
+        "Za7p5_u1-2_lA17-2_x1-2_k1-20": 18,
+        "Za7p5_u1-2_lA17-2_x1-2_k2": 13,
+        "Za7p5_u1_lA8_x-1-2_k1-2": 4,
+        "Za7p5_u1_lA8_x-1-2_k2": 4,
+        "Za7p5_u1_lA8_x1-2_k1-2": 10,
+        "Za7p5_u1_lA8_x1-2_k1-20": 15,
+        "Za7p5_u1_lA8_x1-2_k2": 12,
+        "Za7p5_u1_lA8_x1-4_k1-2": 17,
+        "Za7p5_u1_lA8_x1-4_k1-20": 22,
+        "Za7p5_u1_lA8_x1-4_k2": 18,
+        "Za7p5_u3-2_lA31-4_x-1-6_k1-2": 4,
+        "Za7p5_u3-2_lA31-4_x-1-6_k1-20": 4,
+        "Za7p5_u3-2_lA31-4_x-1-6_k2": 4,
+        "Za7p5_u3-2_lA31-4_x1-3_k1-2": 10,
+        "Za7p5_u3-2_lA31-4_x1-3_k1-20": 15,
+        "Za7p5_u3-2_lA31-4_x1-3_k2": 10,
+        "Za7p5_u3-2_lA31-4_x1-6_k1-2": 19,
+        "Za7p5_u3-2_lA31-4_x1-6_k1-20": 20,
+        "Za7p5_u3-2_lA31-4_x1-6_k2": 17
+      }
+    },
+    "GEANT": {
+      "regimes": 17,
+      "cells": 612,
+      "Y1": 359,
+      "Y0": 253,
+      "auc": {
+        "P1": {
+          "value": 0.8245180397899303,
+          "ci95": [
+            0.7651312783571991,
+            0.8887653159238078
+          ]
+        },
+        "P2": {
+          "value": 0.6672134937848877,
+          "ci95": [
+            0.48229301854655443,
+            0.8625145545636272
+          ]
+        },
+        "P3": {
+          "value": 0.7452629724641351,
+          "ci95": [
+            0.6434932549269817,
+            0.862762013834646
+          ]
+        }
+      },
+      "auc_difference_P2_minus_P1": {
+        "value": -0.15730454600504262,
+        "ci95": [
+          -0.2924013062599034,
+          -0.00600285760242551
+        ]
+      },
+      "bootstrap": {
+        "seed": 20261118,
+        "draws_requested": 2000,
+        "draws_valid": 2000,
+        "draws_single_class": 0,
+        "unit": "regime; both GEANT seeds travel together",
+        "interval": "paired cluster percentile 95%; descriptive post-hoc interval"
+      },
+      "precision_P2_ge_1": {
+        "threshold": 1,
+        "selected": 546,
+        "true_positive": 347,
+        "false_positive": 199,
+        "value": 0.6355311355311355
+      },
+      "test": "DOES_NOT_HOLD",
+      "forecast_P3_between": {
+        "holds": true,
+        "inclusive": true
+      },
+      "h_star_range_s": [
+        0.0506572859493597,
+        44.90305964092265
+      ],
+      "h_star_range_Tint": [
+        0.040815535058972445,
+        2.9328479399925227
+      ],
+      "failed_Y_by_regime": {
+        "G1_r80_b6_s0": 9,
+        "G1_r80_b6_s1": 12,
+        "G2_r80_b3_s1": 30,
+        "G2_r80_b6_s0": 24,
+        "G2_r80_b6_s1": 12,
+        "G2_r90_b3_s0": 23,
+        "G2_r90_b3_s1": 6,
+        "G2_r90_b6_s0": 24,
+        "G3_r80_b3_s1": 30,
+        "G3_r80_b6_s0": 24,
+        "G3_r80_b6_s1": 6,
+        "G3_r90_b3_s0": 24,
+        "G3_r90_b3_s1": 6,
+        "G3_r90_b6_s0": 23
+      }
+    }
+  },
+  "geant_by_seed": {
+    "3000001": {
+      "cells": 306,
+      "Y1": 187,
+      "auc": {
+        "P1": 0.8548959690828203,
+        "P2": 0.7140160877185099,
+        "P3": 0.7753561317575158
+      },
+      "precision_P2_ge_1": {
+        "threshold": 1,
+        "selected": 273,
+        "true_positive": 181,
+        "false_positive": 92,
+        "value": 0.663003663003663
+      }
+    },
+    "5000001": {
+      "cells": 306,
+      "Y1": 172,
+      "auc": {
+        "P1": 0.7967719541825755,
+        "P2": 0.6228740020826102,
+        "P3": 0.710603956959389
+      },
+      "precision_P2_ge_1": {
+        "threshold": 1,
+        "selected": 273,
+        "true_positive": 166,
+        "false_positive": 107,
+        "value": 0.608058608058608
+      }
+    }
+  },
+  "regime_level": {
+    "CTMC:none": {
+      "regimes": 93,
+      "evaluable": 93,
+      "right_censored": 0,
+      "left_at_first_saved": 26,
+      "spearman": {
+        "T_int_s": 0.7194124320974268,
+        "h_star_s": 0.3699486349878446
+      },
+      "definition": "first saved h with Y=1 at every age and every later h; right-censored excluded, retained in table"
+    },
+    "GEANT:3000001": {
+      "regimes": 17,
+      "evaluable": 17,
+      "right_censored": 0,
+      "left_at_first_saved": 3,
+      "spearman": {
+        "T_int_s": 0.6519607843137255,
+        "h_star_s": 0.7034313725490197
+      },
+      "definition": "first saved h with Y=1 at every age and every later h; right-censored excluded, retained in table"
+    },
+    "GEANT:5000001": {
+      "regimes": 17,
+      "evaluable": 15,
+      "right_censored": 2,
+      "left_at_first_saved": 3,
+      "spearman": {
+        "T_int_s": 0.5249999999999999,
+        "h_star_s": 0.5857142857142856
+      },
+      "definition": "first saved h with Y=1 at every age and every later h; right-censored excluded, retained in table"
+    }
+  },
+  "forecast_geant_precision_at_least_0p9": {
+    "value": 0.6355311355311355,
+    "holds": false
+  },
+  "outcome": "max(regret_fresh_pct, regret_stale_pct) <= 0.5; signed saved percentages of C_ref; no SE allowance",
+  "auc_orientation": "larger predictor predicts Y=1; Mann-Whitney with exact ties counting 1/2",
+  "quantile": "generalized inverse CDF (inverted_cdf); equal fresh/stale mass and equal saved ages on each side",
+  "compute": {
+    "workers": 16,
+    "compute_location": "gcp",
+    "reused_pilot_artifacts": [
+      "CTMC_Za7p5_u3-2_lA31-4_x1-3_k2",
+      "GEANT_e4_G2_r90_b6_s1_01"
+    ],
+    "new_extractions": 431,
+    "total_extractions": 433,
+    "new_worker_cpu_s": 3002.752686881,
+    "extraction_cpu_s_including_reused_pilot": 3219.413075463,
+    "extraction_wall_sum_s_including_reused_pilot": 3219.4752023889996,
+    "gcp_main_cpu_s": 1.5904994909999997,
+    "gcp_child_cpu_s": 3016.64878,
+    "gcp_elapsed_wall_s": 198.23586642499998,
+    "worker_max_peak_rss_kib": 138080,
+    "parent_peak_rss_kib": 138080,
+    "memory_scope": "maximum single-worker RSS, not simultaneous total VM memory",
+    "environment": {
+      "python": "3.14.5 (main, Jun  2 2026, 22:25:17) [Clang 22.1.3 ]",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "variables": {
+        "NPY_DISABLE_CPU_FEATURES": "AVX512F AVX512CD AVX512VL AVX512BW AVX512DQ AVX512VNNI AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR",
+        "OPENBLAS_CORETYPE": "Haswell",
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1"
+      }
+    },
+    "raw_commit_before_scoring": "536dc4863",
+    "local_score_cpu_s": 8.01195616,
+    "local_score_wall_s": 8.016063014998508,
+    "local_score_peak_rss_kib": 170548
+  },
+  "deviations": [
+    "M0 fluid gaps are absent from E4/E4b raw; the unchanged pilot code reconstructs the original predictor inputs.",
+    "A new wrapper separates parallel GCP extraction from local scoring; original source files and card remain unchanged.",
+    "The two verified pilot extractions are reused, as planned in the pilot handoff; 431 extractions are new."
+  ],
+  "limitations": [
+    "Post-hoc finite-panel analysis; cluster CIs do not create a fresh confirmation experiment.",
+    "CTMC is truncated; GEANT maximum is empirical over 500 fresh instances per regime and seed.",
+    "GEANT uses the largest saved horizon (30 T_int), not a proved saturation time.",
+    "Seconds use the existing simulator time convention (GEANT fast switching rate 1/s); this is not a measured operational timescale.",
+    "Regime-onset correlations use the saved horizon grid; right-censored onsets are reported, never imputed."
+  ],
+  "input_hash_verification": {
+    "status": "PASS",
+    "files": 833,
+    "changed": []
+  },
+  "raw_hash_verification": {
+    "status": "PASS",
+    "files": 875,
+    "changed": []
+  },
+  "artifact_directory": "results/letter/v7_1/full"
+}

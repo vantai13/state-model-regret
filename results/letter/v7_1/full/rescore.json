@@ -1,0 +1,141 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "PASS",
+  "verdict": "DOES_NOT_HOLD",
+  "datasets": {
+    "CTMC": {
+      "auc": {
+        "P1": 0.9109044804176615,
+        "P2": 0.8180125441003528,
+        "P3": 0.945018219236663
+      },
+      "Y1": 2551,
+      "cells": 3255,
+      "precision_P2_ge_1": {
+        "hits": 2047,
+        "selected": 2315,
+        "value": 0.8842332613390929
+      }
+    },
+    "GEANT": {
+      "auc": {
+        "P1": 0.8245180397899303,
+        "P2": 0.6672134937848877,
+        "P3": 0.7452629724641351
+      },
+      "Y1": 359,
+      "cells": 612,
+      "precision_P2_ge_1": {
+        "hits": 347,
+        "selected": 546,
+        "value": 0.6355311355311355
+      }
+    }
+  },
+  "geant_by_seed": {
+    "3000001": {
+      "P1": 0.8548959690828203,
+      "P2": 0.7140160877185099,
+      "P3": 0.7753561317575158
+    },
+    "5000001": {
+      "P1": 0.7967719541825755,
+      "P2": 0.6228740020826102,
+      "P3": 0.710603956959389
+    }
+  },
+  "comparisons": [
+    {
+      "dataset": "CTMC",
+      "predictor": "P1",
+      "recomputed": 0.9109044804176615,
+      "saved": 0.9109044804176615,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "CTMC",
+      "predictor": "P2",
+      "recomputed": 0.8180125441003528,
+      "saved": 0.8180125441003528,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "CTMC",
+      "predictor": "P3",
+      "recomputed": 0.945018219236663,
+      "saved": 0.945018219236663,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT",
+      "predictor": "P1",
+      "recomputed": 0.8245180397899303,
+      "saved": 0.8245180397899303,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT",
+      "predictor": "P2",
+      "recomputed": 0.6672134937848877,
+      "saved": 0.6672134937848877,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT",
+      "predictor": "P3",
+      "recomputed": 0.7452629724641351,
+      "saved": 0.7452629724641351,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT:3000001",
+      "predictor": "P1",
+      "recomputed": 0.8548959690828203,
+      "saved": 0.8548959690828203,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT:3000001",
+      "predictor": "P2",
+      "recomputed": 0.7140160877185099,
+      "saved": 0.7140160877185099,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT:3000001",
+      "predictor": "P3",
+      "recomputed": 0.7753561317575158,
+      "saved": 0.7753561317575158,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT:5000001",
+      "predictor": "P1",
+      "recomputed": 0.7967719541825755,
+      "saved": 0.7967719541825755,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT:5000001",
+      "predictor": "P2",
+      "recomputed": 0.6228740020826102,
+      "saved": 0.6228740020826102,
+      "absolute_difference": 0.0
+    },
+    {
+      "dataset": "GEANT:5000001",
+      "predictor": "P3",
+      "recomputed": 0.710603956959389,
+      "saved": 0.710603956959389,
+      "absolute_difference": 0.0
+    }
+  ],
+  "max_absolute_auc_difference": 0.0,
+  "tolerance": 1e-12,
+  "method": "standard-library binary searches of negatives; integer twice-wins for exact ties",
+  "cells_sha256": "73bf8179958fab551bf75a5876b2d41f150973c109d06fac7b20291ac403acd8",
+  "summary_sha256": "0151cc8a19d93dc2126a44190527f6849f7b44e94bceb36cd7f8e4ea635e87f7",
+  "scorer_sha256": "0a77357a9754428df452bc2fca4105e3e58c904d417a47a2ea62fbd3c712e630",
+  "cpu_s": 0.11809076600000001,
+  "wall_s": 0.11811560000023746
+}
