@@ -4517,3 +4517,41 @@ Replay độc lập MATCH sau sửa schema chuỗi rational parameters, không i
 scorer, 32 tests PASS. VM TERMINATED/default12. Report và compare/replay ở
 `results/letter/trunc_n2/REPORT_TRUNC_N2.md` (commit kết quả chứa addendum này).
 Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity và margin changes.
+
+### DL-151 — V7-3: held daytime reroute trên ma trận GÉANT thật, giờ hành chính nghẽn (18/11/2026)
+
+**Bối cảnh:** tác giả chọn kịch bản ban ngày, khai trước hai kịch bản và ủy quyền cho Claude ban đêm. Codex viết code; card là của Claude.
+
+**Provisioned và night:** không có hàng đợi (ŝ=0, C_ref=0). Đây là quan sát về phạm vi: hiệu ứng cần mạng nghẽn.
+
+**Kịch bản nghẽn ρ=0,9:**
+- Mốc commit:
+  - training 3b28b2c21;
+  - card 0f8ec8229;
+  - lock eba210194.
+- **Run một lần INCOMPLETE:** 147/150 bản ghi. Ngày 2005-06-27 có tổng demand gấp 19,64 lần max của train (lỗi đo) và cần khoảng 40 giờ mỗi bản ghi.
+- **Tác giả duyệt DEVIATION 01** (a32137acd, viết trước khi đọc kết quả):
+  - dừng run;
+  - loại ngày bằng luật chỉ dựa trên input (> 2 lần max của train; mọi ngưỡng trong khoảng 1,23–19,64 cho cùng tập);
+  - raw 316a553ad commit trước khi chấm.
+- **Chấm qua wrapper gọi scorer đã khóa:** 2e0fc828a, rescore độc lập MATCH.
+  - H1 PASS 20/22 (độ phân giải thấp);
+  - H2 PASS 76/76;
+  - H3 PASS 16/16, chỉ từ 2 ngày.
+- **Dự báo:** F1/F2/F3 không đứng; F4–F7 đứng.
+
+**Đọc kết quả:**
+- Harm theo đợt: 2/8 ngày tính được ở mỗi regime, regret trung vị 26% C_ref, khoảng 5 ms.
+- Hybrid với ŝ học từ tháng 5–6 không bao giờ làm tệ hơn và trùng với luật tĩnh.
+- Tầng O (mô tả): M0 vượt 0,5% ở 70/408 case, hybrid 0/408.
+
+**Báo cáo:** `results/letter/v7_3/REPORT_V7_3.md`.
+
+**V7-2:** không chạy, lý do ở `notes/ops/codex/V7_2_decision.md`.
+
+**Phân vai từ 18/11:**
+- Argon viết prose (bản thử `letter_smr_argon`);
+- Codex chỉ viết code;
+- Claude kiểm.
+
+**Không đổi:** MainRQ, contract, PC, Gate, G1, các verdict đã khóa. Nhánh `letter` không merge vào main.
