@@ -1,0 +1,59 @@
+{
+  "absolute_tolerance": 0.0,
+  "analysis": "AMENDED_ANALYSIS_DEVIATION_01",
+  "cases_recomputed": 1176,
+  "independent_exclusion": {
+    "analysis": "AMENDED_ANALYSIS_DEVIATION_01",
+    "comparison": "test maximum > threshold_ratio * train maximum",
+    "completed_records": 147,
+    "demand_unit": "Mbit/s",
+    "excluded_days": [
+      {
+        "date": "2005-06-27",
+        "max_15min_total_demand_Mbps": 1551524.830142,
+        "ratio": 19.64350077523515,
+        "reason": "DEVIATION_V7_3_01: maximum 15-min total demand in the decision window exceeds 2x the training-window maximum"
+      }
+    ],
+    "lock_sha256": "e1bd0c956cb2a8af3fb73692b9f160fd53673c24ca6f3b1fd667b88ff3047b5b",
+    "original_run_status": "INCOMPLETE",
+    "original_usable_weekdays": 50,
+    "threshold_ratio": 2.0,
+    "top_5_test_ratios": [
+      {
+        "date": "2005-06-27",
+        "max_15min_total_demand_Mbps": 1551524.830142,
+        "ratio": 19.64350077523515
+      },
+      {
+        "date": "2005-06-23",
+        "max_15min_total_demand_Mbps": 96867.68613700001,
+        "ratio": 1.2264196039667914
+      },
+      {
+        "date": "2005-06-21",
+        "max_15min_total_demand_Mbps": 78323.77335,
+        "ratio": 0.9916393683362803
+      },
+      {
+        "date": "2005-07-18",
+        "max_15min_total_demand_Mbps": 73036.68831299999,
+        "ratio": 0.9247007947437851
+      },
+      {
+        "date": "2005-07-13",
+        "max_15min_total_demand_Mbps": 69476.241321,
+        "ratio": 0.8796227902614884
+      }
+    ],
+    "train_maximum_Mbps": 78984.130573,
+    "usable_weekdays": 49,
+    "wrapper_sha256": "b053d7955875cdf929d34863bbe5403572464d1b5940a1f408d381b1476f76ef"
+  },
+  "lock_sha256": "e1bd0c956cb2a8af3fb73692b9f160fd53673c24ca6f3b1fd667b88ff3047b5b",
+  "mismatches": [],
+  "original_run_status": "INCOMPLETE",
+  "relative_tolerance": 1e-12,
+  "rescorer_sha256": "fcb8cc1f12dab8fa1b8c256ae23deeb6d9efef6e66e82b1324edd7684657dcbc",
+  "status": "MATCH"
+}
