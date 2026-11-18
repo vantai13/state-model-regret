@@ -1267,3 +1267,8 @@ Payload HTTP/JSON/tool envelopes tạm ở `/tmp/p1_prior_session/` (ngoài repo
 - 3 lookup/keyword, tổng 15 kết quả, giữ 3.
 - Đây là **đề xuất chờ tác giả duyệt**: chưa tải PDF, chưa viết note, chưa đưa vào bib.
 - Không kết luận novelty. Dừng vì đã đủ 3 đề xuất cho một đợt.
+| 18/11 | keyword (Codex, 23 web queries, 302 hits; 5 Crossref queries, 34 records) | Letter v8: tìm nguồn mới cho novelty positioning (tác giả yêu cầu nguồn mới, 3 agent tìm, tải OA và kiểm) | xem `state-model-regret-papers/lit_v8/codex/search_log.md` | web + Crossref (dblp bị bot challenge) | 302 | 3 | Gast–Bortolussi–Tribastone 2019 PEVA (10.1016/j.peva.2018.09.005, HAL v1); Chen et al. CDC 2009 (10.1109/CDC.2009.5399685, bản author final UF); Allmeier–Gast 2022 POMACS (10.1145/3508033, arXiv v1). Ba PDF OA ở `~/papers/state-model-regret/intake/v8_lit/codex/`. Đọc AI-T; Claude kiểm lại các trích đoạn trong PDF (Chen tr.3 dòng 199, 289–290; GBT tr.2; AG §5.2.2 tr.16). |
+| 18/11 | keyword (Argon) | như trên | — | agy | 0 | 0 | **Lỗi:** quota Argon hết (429 RESOURCE_EXHAUSTED, reset sau 163 h), không có kết quả. |
+| 18/11 | keyword (Claude) | như trên | "refined mean field approximation"; "fluid approximation ... diffusion correction" (from 2017/2018) | `paper-search.search_crossref` | 20 | 1 | Gast & Van Houdt 2017 POMACS (10.1145/3154491), cùng dòng với GBT 2019; metadata. |
+
+**18/11:** đề xuất cuối gồm Chen 2009 và Allmeier–Gast 2022 (GBT 2019 dự phòng), chờ tác giả duyệt việc đưa vào bib. Không kết luận novelty. Dừng vì đã đủ đề xuất của đợt; Argon không chạy được.
