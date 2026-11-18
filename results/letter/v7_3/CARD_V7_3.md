@@ -107,3 +107,11 @@ In the V7-3 version of the letter, Section V gains one paragraph on real GÉANT 
 
 If H2 fails, the paper says that the correction learned in May–June did not keep regret low in the later weeks, with the numbers.
 Which V7 version becomes the letter is decided by the locked criteria (14c03bf), not by these verdicts alone.
+
+## Clarifications before the lock (Claude, 18/11/2026, after code review and before any test-day computation)
+The forecasts' populations were not fully specified above. The scorer's readings are adopted as written (forecasts only; tests H1–H3 unchanged):
+- F1: a weekday counts as S when it is S for every regime; per-regime S shares are also reported.
+- F2: "resolved" uses the H1 resolution (F_stale ≠ F_fresh and |G_S| > 2 se).
+- F4: all regimes and strata, h ≥ 2 h, unique decisions (fresh counted once per record and horizon).
+- F5: each locked pipeline separately must reach 80%; a joint count is reported descriptively.
+- F7: all four horizons of the DAY1/DAY2 S records (the card did not restrict them), with a per-horizon split.

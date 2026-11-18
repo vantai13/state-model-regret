@@ -1,0 +1,353 @@
+{
+  "float_int_conversions_reviewed": 68,
+  "capacity_conversions_normalized": 3,
+  "other_cast_inputs": "Python numeric/bool/string scalars, NumPy scalars from integer indexing or complete reductions; no other size-1 ndarray casts",
+  "compute_record_engine_sequence_unchanged": true,
+  "unmodified_modules": {
+    "v7_3_score.py": true,
+    "v7_3_rescore.py": true,
+    "v7_3_test_common.py": true
+  },
+  "conversions": [
+    {
+      "file": "v7_3_test.py",
+      "line": 108,
+      "conversion": "float(np.asarray(capacity).item())"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 128,
+      "conversion": "int(indices[0])"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 142,
+      "conversion": "float(np.asarray(config['capacity']).item())"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 145,
+      "conversion": "int(datetime.fromisoformat(date).weekday()>=5)"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 153,
+      "conversion": "int(s_hat<0)"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 159,
+      "conversion": "int(tau)"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 161,
+      "conversion": "int(tau)"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 164,
+      "conversion": "int(tau)"
+    },
+    {
+      "file": "v7_3_test.py",
+      "line": 227,
+      "conversion": "float(np.asarray(arrays['capacity']).item())"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 20,
+      "conversion": "int(numerator)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 20,
+      "conversion": "int(denominator)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 21,
+      "conversion": "float(numerator/denominator)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 56,
+      "conversion": "int(params['s_hat_pooled_Mbit'][meta['regime']]<0)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 91,
+      "conversion": "float(cref[:,hi].mean())"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 94,
+      "conversion": "int(tau)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 94,
+      "conversion": "int(h/3600)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 97,
+      "conversion": "float(raw['reference_tie_flags'][:,hi].mean())"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 103,
+      "conversion": "float(h/detail['T_int_s'])"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 109,
+      "conversion": "float((pair[:,1]-pair[:,0]).mean())"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 110,
+      "conversion": "float((pair[:,1]-pair[:,0]).std(ddof=1)/np.sqrt(n))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 113,
+      "conversion": "float(l[side])"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 114,
+      "conversion": "float(l[side]/h)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 115,
+      "conversion": "float(1000*l[side]/h/params['capacity_Mbps'])"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 116,
+      "conversion": "float(excess[side])"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 117,
+      "conversion": "float(excess[side]/h)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 118,
+      "conversion": "float(1000*excess[side]/h/params['capacity_Mbps'])"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 119,
+      "conversion": "float(100*excess[side]/cr)"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 121,
+      "conversion": "float(switch[p][:,si,hi].mean())"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 122,
+      "conversion": "float(tied[p][:,si,hi].mean())"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 123,
+      "conversion": "float(max(excess))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 132,
+      "conversion": "int(\n                    (decisions[1][:,si,hi]==decisions[2][:,si,hi]).sum())"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 135,
+      "conversion": "int(np.sign(params['s_hat_pooled_Mbit'][meta['regime']]*df))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 138,
+      "conversion": "int(np.sign(row['M0_G_S_Mbit_s']))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 181,
+      "conversion": "float(np.median(values))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 193,
+      "conversion": "float(np.median([-r[p+'_G_S_'+unit] for r in harm if r[p+'_G_S_'+unit] is not None]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 195,
+      "conversion": "float(np.median([r[p+'_fresh_tie_share'] for r in rows]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 196,
+      "conversion": "float(np.median([r[p+'_stale_tie_share'] for r in rows]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 199,
+      "conversion": "float(np.median([r[p+'_both_R_Mbit'] for r in excluded]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 200,
+      "conversion": "float(np.median([r[p+'_G_S_Mbit'] for r in excluded]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 227,
+      "conversion": "float(np.median(values))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 265,
+      "conversion": "float(np.median([abs(r['M0_G_S_'+unit]) for r in control6]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 269,
+      "conversion": "float(np.mean([r['M0_fresh_tie_share'] for r in fresh_unique]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 277,
+      "conversion": "float(np.mean([r['M0_fresh_tie_share'] for r in fresh_unique if r['h_hours']==h]))"
+    },
+    {
+      "file": "v7_3_score.py",
+      "line": 284,
+      "conversion": "float(np.mean([r[p+'_'+side+'_tie_share'] for r in rows\n                      if side=='stale' or r['tau_s']==params['tau_seconds'][0]]))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 52,
+      "conversion": "float(forecast[i,1,j]<forecast[i,0,j])"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 55,
+      "conversion": "float(p['s_hat_pooled_Mbit'][label['regime']]<0)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 63,
+      "conversion": "int(switch)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 86,
+      "conversion": "float(np.mean(reference[:,j]))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 89,
+      "conversion": "int(h/3600)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 91,
+      "conversion": "float(raw['reference_tie_flags'][:,j].mean())"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 97,
+      "conversion": "float(h/ti)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 101,
+      "conversion": "float(evaluated[name][:,si,j].mean())"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 112,
+      "conversion": "float(actions[name][:,si,j].mean())"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 113,
+      "conversion": "float(ties[name][:,si,j].mean())"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 115,
+      "conversion": "float(differences.mean())"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 116,
+      "conversion": "float(np.std(differences,ddof=1)/np.sqrt(count))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 123,
+      "conversion": "int(np.count_nonzero(\n                    actions['Hybrid'][:,si,j]==actions['Stationary'][:,si,j]))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 126,
+      "conversion": "int(np.sign(p['s_hat_pooled_Mbit'][label['regime']]*difference))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 129,
+      "conversion": "int(np.sign(row['M0_G_S_Mbit_s']))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 130,
+      "conversion": "int(h/3600)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 152,
+      "conversion": "int(n)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 152,
+      "conversion": "int(d)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 152,
+      "conversion": "float(n/d)"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 177,
+      "conversion": "float(np.median(values))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 281,
+      "conversion": "float(np.mean([r['M0_fresh_tie_share'] for r in unique]))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 291,
+      "conversion": "float(np.mean([r['M0_fresh_tie_share'] for r in uu]))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 298,
+      "conversion": "float(np.mean(group))"
+    },
+    {
+      "file": "v7_3_rescore.py",
+      "line": 346,
+      "conversion": "float(value)"
+    }
+  ]
+}

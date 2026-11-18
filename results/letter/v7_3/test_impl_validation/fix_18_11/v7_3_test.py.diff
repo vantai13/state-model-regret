@@ -1,0 +1,120 @@
+--- v7_3_test.py.before
++++ v7_3_test.py
+@@ -105,7 +105,7 @@
+ 
+ def strata(demand, incidence, capacity):
+     load = np.einsum('sd,aed->sae', np.asarray(demand), incidence, optimize=True)
+-    maximum = (load/float(capacity)).max(axis=(0,2))
++    maximum = (load/float(np.asarray(capacity).item())).max(axis=(0,2))
+     return dict(max_utilization_by_action=maximum.tolist(),
+                 stratum='S' if bool((maximum<1).all()) else 'O')
+ 
+@@ -139,7 +139,7 @@
+     seed_base = seed
+     seed = T.seed_for(seed, 'V7-3-A2|' + regime)
+     timings={};root=T.seed_for(seed,'V7-3|'+date)
+-    inc,cap=config['incidence'],float(config['capacity'].item())
++    inc,cap=config['incidence'],float(np.asarray(config['capacity']).item())
+     hs=np.rint(S.HOURS*3600/S.DT).astype(int)
+     fresh,stale=R.timer(timings,'warmup',lambda:S.warm_instances(inc,training['warm'][j],cap,n,T.seed_for(root,'warm')))
+     weekend=int(datetime.fromisoformat(date).weekday()>=5)
+@@ -215,21 +215,22 @@
+     _WORKER = (training, arrays, config, params, Path(out), verified, labels)
+ 
+ 
+-def _record(task):
++def write_record(training, arrays, config, params, out, regime, date, label, *,
++                 verified=None, training_only=False):
++    """Run and publish one record; train validation uses this same worker body."""
+     cpu_start,wall_start = time.process_time(),time.perf_counter()
+-    training, arrays, config, params, out, verified, labels = _WORKER
+-    regime, date = task
++    out = Path(out)
+     # Save the pre-truth input calculation too, for raw-only strata rescoring.
+-    j = require_day(training,config,date,regime,False,verified)
++    j = require_day(training,config,date,regime,training_only,verified)
+     r = [x['id'] for x in config['regimes']].index(regime)
+     utilization = np.einsum('sd,aed->sae',training['days'][j],
+-                           arrays['incidence'][r],optimize=True)/float(arrays['capacity'])
++                           arrays['incidence'][r],optimize=True)/float(np.asarray(arrays['capacity']).item())
+     raw, meta = compute_record(training, arrays, config, date, regime,
+         params['s_hat_pooled_Mbit'][regime], n=params['N_test'], k=params['K'],
+         r_dec=params['R_dec'], r_eval=params['R_eval'], seed=params['test_seed'],
+-        verified=verified)
++        verified=verified, training_only=training_only)
+     raw['input_utilization'] = utilization
+-    meta.update(labels[regime, date])
++    meta.update(label)
+     stem = out/'records'/f'{regime}_{date}'
+     R.timer(meta['timings'],'write_raw_npz',lambda: C.atomic_write(
+         stem.with_suffix('.npz'),lambda p: E.write_npz(p,raw)))
+@@ -239,6 +240,43 @@
+     C.write_json(stem.with_suffix('.json'),meta)
+     return dict(regime=regime,date=date,CPU_s=meta['CPU_s'],wall_s=meta['wall_s'],
+                 peak_memory_MiB=meta['peak_memory_MiB'],npz_sha256=meta['npz_sha256'])
++
++
++def _record(task):
++    training, arrays, config, params, out, verified, labels = _WORKER
++    regime, date = task
++    return write_record(training, arrays, config, params, out, regime, date,
++                        labels[regime,date], verified=verified)
++
++
++def prepare_inputs(params, out, *, verified=None, training_only=False, dates=None):
++    """Shared pre-pool steps; the validation bypass accepts train dates only."""
++    if not training_only:
++        checked_token(verified)
++    out = Path(out)
++    config = C.read_json(C.ROOT/params['training_dir']/'configuration.json')
++    with np.load(C.ROOT/params['training_dir']/'configuration.npz',allow_pickle=False) as f:
++        arrays = {k:f[k] for k in f.files}
++    manifest = C.read_json(D.OUT/'data_manifest.json')
++    if dates is None:
++        dates = A.weekday_dates(manifest['train_dates'] if training_only else manifest['test_dates'])
++    training, exclusions = load_days(dates,config,verified=verified,
++                                     training_only=training_only,manifest=manifest)
++    tasks, labels, inputs = [], {}, []
++    for r, regime in enumerate(params['regimes']):
++        for j,date in enumerate(training['dates'].tolist()):
++            label = strata(training['days'][j],arrays['incidence'][r],arrays['capacity'])
++            labels[regime,date] = label
++            inputs.append(dict(regime=regime,date=date,**label))
++            tasks.append((regime,date))
++    # All input-only strata are durably published before even worker startup.
++    payload = dict(requested_dates=dates,dates=training['dates'].tolist(),
++                   exclusions=exclusions,phase_A_exclusions_metadata=manifest['dropped_nights'],
++                   records=inputs,lock_sha256=verified.digest if verified is not None else None)
++    if training_only:
++        payload['training_only'] = True
++    C.write_json(out/'inputs.json',payload)
++    return training, arrays, config, tasks, labels
+ 
+ 
+ def _interrupt(signum, frame):
+@@ -263,24 +301,7 @@
+     old_term = signal.signal(signal.SIGTERM,_interrupt)
+     try:
+         params = C.read_json(C.ROOT/C.PARAMS)
+-        config = C.read_json(C.ROOT/params['training_dir']/'configuration.json')
+-        with np.load(C.ROOT/params['training_dir']/'configuration.npz',allow_pickle=False) as f:
+-            arrays = {k:f[k] for k in f.files}
+-        manifest = C.read_json(D.OUT/'data_manifest.json')
+-        dates = A.weekday_dates(manifest['test_dates'])
+-        training, exclusions = load_days(dates,config,verified=verified)
+-        tasks, labels, inputs = [], {}, []
+-        for r, regime in enumerate(params['regimes']):
+-            for j,date in enumerate(training['dates'].tolist()):
+-                label = strata(training['days'][j],arrays['incidence'][r],arrays['capacity'])
+-                labels[regime,date] = label
+-                inputs.append(dict(regime=regime,date=date,**label))
+-                tasks.append((regime,date))
+-        # All input-only strata are durably published before even worker startup.
+-        C.write_json(out/'inputs.json',dict(requested_dates=dates,
+-                     dates=training['dates'].tolist(),exclusions=exclusions,
+-                     phase_A_exclusions_metadata=manifest['dropped_nights'],records=inputs,
+-                     lock_sha256=verified.digest))
++        training,arrays,config,tasks,labels = prepare_inputs(params,out,verified=verified)
+         summary['expected_records'] = len(tasks)
+         if not tasks:
+             raise ValueError('no complete eligible test weekdays')

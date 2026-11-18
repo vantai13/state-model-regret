@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "python3",
+      "-m",
+      "compileall",
+      "-q",
+      "experiments/letter/v7_3_test.py",
+      "experiments/letter/v7_3_test_common.py",
+      "experiments/letter/v7_3_score.py",
+      "experiments/letter/v7_3_rescore.py",
+      "tests/test_letter_v7_3_test.py"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "bash",
+      "-n",
+      "experiments/letter/v7_3_test_gcp.sh"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

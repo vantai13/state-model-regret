@@ -1,0 +1,96 @@
+{
+  "actual_test_output_directory_exists": false,
+  "brief_head": "0f8ec8229f55c0f6f2ba034440b8e6b2caa2101a",
+  "environment": {
+    "benchmark_threads": {
+      "OMP_NUM_THREADS": 1,
+      "OPENBLAS_NUM_THREADS": 1
+    },
+    "host": "vantai",
+    "machine": "x86_64",
+    "numpy": "2.5.3",
+    "python": "3.14.5"
+  },
+  "implementation_sha256": {
+    "experiments/letter/v7_3_rescore.py": "aee4942146f48e3ebaecc85585da5185ccc283e19e385a50cc14e17c00810deb",
+    "experiments/letter/v7_3_score.py": "686eae22b516041fd1114d114f9d4b5bda3ff24c58f0e2baa76c4c95db6f472a",
+    "experiments/letter/v7_3_test.py": "7021270813797ae96f4c8b6bc8673c57e028c7c0c60b727952b7be0b27b97651",
+    "experiments/letter/v7_3_test_common.py": "0278e7269c55267237141b4ad1487411499f49bbc0944adde58ba3dbd777fd04",
+    "experiments/letter/v7_3_test_gcp.sh": "e3588b63d723b63ba66d9e15f9131c9a0ac63e56f3c26d75bf979159e649a1b1",
+    "tests/test_letter_v7_3_test.py": "a4715d2c0b7ca41e6ed260faa7e73b1133e9a29e964a3c01122ed721863af796"
+  },
+  "observed_head": "61670742df4b2bd805ac0e1bf7d98857cc518df5",
+  "owner": "Doan Van Tai",
+  "pilot_bytes_match_external_pilot_commit": {
+    "results/letter/v7_3/day_train_congested/pilot/DAY1_2005-05-05.json": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY1_2005-05-05.npz": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY1_2005-05-09.json": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY1_2005-05-09.npz": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY2_2005-05-05.json": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY2_2005-05-05.npz": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY2_2005-05-09.json": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY2_2005-05-09.npz": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY3_2005-05-05.json": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY3_2005-05-05.npz": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY3_2005-05-09.json": true,
+    "results/letter/v7_3/day_train_congested/pilot/DAY3_2005-05-09.npz": true,
+    "results/letter/v7_3/day_train_congested/pilot/component_timings.csv": true,
+    "results/letter/v7_3/day_train_congested/pilot/summary.json": true
+  },
+  "projection_six_existing_train_pilots": {
+    "CPU_hours": 74.15364012655554,
+    "CPU_s": 266953.10445559997,
+    "N": 32,
+    "added_trace_CPU_s": 50.79040965000132,
+    "ideal_wall_hours_30_workers": 2.472258285789352,
+    "independent_trace_CPU_s_per_record": 0.3386027310000088,
+    "limitation": "Train-only linear N extrapolation; no measured GCP time, CI or workload upper bound. Additional NPZ I/O and process/lock overhead not benchmarked.",
+    "pilot_N": 2,
+    "pilot_records": 6,
+    "records": 150,
+    "with_trace_CPU_hours": 74.16774857368056,
+    "workers": 30
+  },
+  "protected_bytes_match_brief_head": {
+    "experiments/letter/v7_3_a2_report.py": true,
+    "experiments/letter/v7_3_a2_verify.py": true,
+    "experiments/letter/v7_3_cong.py": true,
+    "experiments/letter/v7_3_data.py": true,
+    "experiments/letter/v7_3_day.py": true,
+    "experiments/letter/v7_3_day_verify.py": true,
+    "experiments/letter/v7_3_report.py": true,
+    "experiments/letter/v7_3_run.py": true,
+    "experiments/letter/v7_3_sim.py": true,
+    "experiments/letter/v7_3_verify.py": true,
+    "notes/ops/codex/V7_3_test_brief.md": true,
+    "results/letter/v7_3/CARD_V7_3.md": true,
+    "results/letter/v7_3/card_v7_3_params.json": true
+  },
+  "source_import_closure": [
+    "experiments/ext_validity/__init__.py",
+    "experiments/ext_validity/ev_te.py",
+    "experiments/ext_validity/packet.py",
+    "experiments/ext_validity/trace_cox.py",
+    "experiments/letter/__init__.py",
+    "experiments/letter/e4_geant.py",
+    "experiments/letter/e4_rhat.py",
+    "experiments/letter/v7_3_cong.py",
+    "experiments/letter/v7_3_data.py",
+    "experiments/letter/v7_3_day.py",
+    "experiments/letter/v7_3_rescore.py",
+    "experiments/letter/v7_3_run.py",
+    "experiments/letter/v7_3_score.py",
+    "experiments/letter/v7_3_sim.py",
+    "experiments/letter/v7_3_test.py",
+    "experiments/letter/v7_3_test_common.py"
+  ],
+  "tests": {
+    "fast_log": "results/letter/v7_3/test_impl_validation/pytest_complete.log",
+    "fast_regression_passed": 77,
+    "fast_seconds": 1.64,
+    "slow_log": "results/letter/v7_3/test_impl_validation/pytest_slow.log",
+    "slow_seconds": 91.25,
+    "slow_train_checks_passed": 2
+  },
+  "tracked_worktree_diff": []
+}
