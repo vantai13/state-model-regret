@@ -4555,3 +4555,31 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
 - Claude kiểm.
 
 **Không đổi:** MainRQ, contract, PC, Gate, G1, các verdict đã khóa. Nhánh `letter` không merge vào main.
+
+### DL-152 — Letter v8.4: review part 2, R2 phạm vi, posterior học, ủy quyền toàn quyền (19–20/11/2026)
+- **Đầu vào:** ba review AI ngoài của v8.3 (`letter_smr/reviewer/part_2/6–8.md`), đều Major Revision. Claude, Codex và Neon
+  (Gemini `gemini-4-neon-xhigh`, thay vai Argon) kiểm từng điểm.
+  - Lỗi thật: "prior-week"; V-C thiếu vai trò DAY3/1 h; abstract chỉ so với M0.
+  - Reviewer sai ở ba chỗ: tie CTMC (thực tế 1,55%), trung vị có dấu GÉANT "gần 0", AUC của Prop. 2.
+- **Quyết định của tác giả:** hướng A (letter về fluid twin mù dài hạn). Tác giả duyệt sàng lọc tài liệu rồi giao toàn quyền.
+- **Literature (R2-PRAC):**
+  - đọc AI-T TwinNet (ComNet 2022, VoR), DEFO (SIGCOMM 2015, VoR), m3 (SIGCOMM 2024, VoR do tác giả tải);
+  - P05 Polverini là twin GNN có tính hàng đợi;
+  - Liu 2003 không dùng (TCP vòng kín);
+  - note `notes/literature/papers/R2_PRAC_sources.md`; catalog/Excel chưa cập nhật.
+- **Lý thuyết (`letter_smr/briefs/p2_review/R2_O1_THEORY.md`):**
+  - G_S = E[(a_old − a_new)(V₁ − V₀ + c)];
+  - twin có ŝ(x) cùng dấu (inf > 0) và phần dư o(h) thì fresh và stale trùng quyết định khi h lớn, nên G_S = 0 với mọi kernel;
+  - ŝ(x) đổi dấu có thể giữ harm tuyến tính.
+  - Đưa vào paper dạng Remark 2, không phải định lý.
+- **R2-O1 (Codex):** pilot 1 regime khớp lý thuyết; dừng theo ngân sách.
+- **P2-TIER2 (Codex):** phân tích hậu kiểm; hybrid hơn stationary rule ở T_int trong 81/93 CTMC và 69/102 replay.
+- **PL (thẻ trước, lock, chạy một lần, chấm lại độc lập MATCH):** commit `b2237a8ad` (lock), `307dc4cb5` (raw), `6f250fa55` (scores).
+  - Sửa đổi A1 trước truth (chỉ dựa trên chi phí): 71/92 regime, 21 NOT_RUN.
+  - H-PL1 497/497; H-PL2 51/56 PASS; H-PL3 71/71 PASS; H-T4a 40/40 PASS; H-T4b 8/8 PASS.
+  - F4 sai (48 regime đủ điều kiện).
+  - Đọc: harm của M0 không do oracle posterior; ranh giới cùng dấu/đổi dấu của Remark 2 đứng.
+- **Letter v8.4:** `letter_smr_argon` commit `75a761e`; 6 trang, abstract 133 từ (tác giả rút gọn sau); PDF và zip trong
+  `C:\Papers\4_Ban_thao_cua_toi_SMR\`.
+- **Quota:** Codex hết quota tới 23/11; Claude làm nốt code, chấm và ledger.
+- **Không đổi:** MainRQ, contract, PC, Gate, G1, verdict đã khóa. Mọi phần AI làm theo ủy quyền, không phải tác giả tự làm. Nhánh `letter` không merge main.
