@@ -1,0 +1,34 @@
+{
+  "execution_note": "Planned records only. CARD stop rule applies; no pilot outcomes computed.",
+  "heaviest_decisions_CPU_s": 27.337847081000007,
+  "limitations": "Heaviest is measured for decisions, not a guarantee of heaviest truth; the second record adds an input-based evaluation-work stress proxy.",
+  "owner": "Doan Van Tai",
+  "pilot_outcomes_are_not_test_outcomes": true,
+  "records": [
+    {
+      "date": "2005-07-19",
+      "max_utilization_by_action": [
+        0.8759476199127156,
+        0.8759476199127156
+      ],
+      "regime": "DAY3",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-19",
+      "max_utilization_by_action": [
+        0.8759476199127156,
+        0.7502284601885107
+      ],
+      "regime": "DAY1",
+      "stratum": "S"
+    }
+  ],
+  "rule": "record 1: max measured decisions-only CPU (tie: descending regime/date); record 2: max input-only active-link/OD work proxy among remaining (tie: ascending regime/date)",
+  "seed": 7472001,
+  "status": "NOT_RUN_SIGNAL_STOP",
+  "work_proxies": [
+    253,
+    252
+  ]
+}
