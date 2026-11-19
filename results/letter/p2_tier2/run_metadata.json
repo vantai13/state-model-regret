@@ -1,0 +1,106 @@
+{
+  "responsible": "Doan Van Tai",
+  "status": "POST_HOC_EXPOSED",
+  "brief": "/home/vantai/state-model-regret-papers/letter_smr/briefs/P2_TIER2_BRIEF.md",
+  "AI_provenance": "Codex implementation under direct author instruction to execute P2_TIER2_BRIEF.md; not author-self or independent human review",
+  "timestamp_UTC": "2026-11-19T16:02:33.707962+00:00",
+  "argv": [
+    "/home/vantai/state-model-regret/experiments/letter/p2_tier2.py"
+  ],
+  "cwd": "/home/vantai/state-model-regret",
+  "python": "3.14.5 (main, May 10 2026, 10:21:34) [GCC 12.3.0]",
+  "numpy": "2.5.3",
+  "environment": {
+    "OPENBLAS_CORETYPE": "Haswell",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "NPY_DISABLE_CPU_FEATURES": "AVX512F AVX512CD AVX512VL AVX512BW AVX512DQ AVX512VNNI AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "code_sha256": "ce105a47e6d36bde34b0d36d452c34e0572baf28a053f07c9628d1b227f9641d",
+  "input_files": 823,
+  "source_data_roots": [
+    "results/letter/w1b",
+    "results/letter/w2",
+    "results/letter/e4",
+    "results/letter/e4b",
+    "results/letter/e6",
+    "results/letter/v7_1",
+    "results/letter/v7_3"
+  ],
+  "actual_result_roots_used": [
+    "w1b",
+    "e4",
+    "e4b",
+    "e6",
+    "v7_3"
+  ],
+  "no_new_truth": true,
+  "no_existing_files_modified": true,
+  "max_GEANT_raw_CSV_difference_pp": 1.4779288903810084e-12,
+  "figure_geometry": {
+    "width_points": 227.68,
+    "reference_pdf": "/home/vantai/state-model-regret-papers/letter_smr/figures/fig4_geant.pdf",
+    "signed_figure_height_inches": 2.9,
+    "fig3_height_inches": 3.55,
+    "axes_scale": "linear, no clipping",
+    "signed_figure": "strip of every regime/seed, per-seed median and IQR; strict signed GS",
+    "fig3_figure": "full93, median and IQR; ledger92 reconciliation in JSON"
+  },
+  "prior_failed_attempts": [
+    "run_01.log: KeyError: 'decisions'"
+  ],
+  "prior_completed_attempts": [
+    "run_02.log"
+  ],
+  "has_narrative_correction_snapshot": true,
+  "all_attempts_primitive_cpu_s": 101.74492530500001,
+  "timings": {
+    "CTMC_saved_selection": {
+      "cpu_s": 0.88490299,
+      "wall_s": 0.884914606998791
+    },
+    "2_Fig3_IQR": {
+      "cpu_s": 0.013149435999999959,
+      "wall_s": 0.013151228005881421
+    },
+    "GEANT_raw_replay": {
+      "cpu_s": 0.7513568309999998,
+      "wall_s": 0.7513895659940317
+    },
+    "1_Fig4_signed": {
+      "cpu_s": 0.006045531999999909,
+      "wall_s": 0.00604743499570759
+    },
+    "3_E6_replay": {
+      "cpu_s": 0.1935973000000002,
+      "wall_s": 0.19360882000182755
+    },
+    "4_paired_comparisons": {
+      "cpu_s": 0.028220657000000315,
+      "wall_s": 0.028222487999300938
+    },
+    "5_optimal_sign_splits": {
+      "cpu_s": 0.022115540000000156,
+      "wall_s": 0.02211727199755842
+    },
+    "6_primitive_signs": {
+      "cpu_s": 32.091586298,
+      "wall_s": 32.095679660000314
+    },
+    "7_VC_denominators": {
+      "cpu_s": 0.05043500400000056,
+      "wall_s": 0.04731039099715417
+    },
+    "candidate_figures": {
+      "cpu_s": 1.4490409639999982,
+      "wall_s": 1.4490872799942736
+    },
+    "input_integrity": {
+      "cpu_s": 0.06145749699999925,
+      "wall_s": 0.06147734899423085
+    }
+  },
+  "cpu_s": 35.553236141999996,
+  "wall_s": 35.554383004993724
+}

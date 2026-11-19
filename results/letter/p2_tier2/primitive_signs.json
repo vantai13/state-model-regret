@@ -1,0 +1,4950 @@
+{
+  "status": "POST_HOC_TRUE_PI_DIAGNOSTIC",
+  "ledger_ids": [
+    "M1",
+    "M2"
+  ],
+  "new_statistics": "m0, primitive signs and tau=3 long-run-action diagnostics",
+  "definition": "m0=E_piStayA[fluid gap_A(infinity)]+E_piStayB[fluid gap_B(infinity)]+c",
+  "gap_units": "packet seconds",
+  "s_units": "packets (stationary mean backlog difference)",
+  "cap_cpu_s": 3600,
+  "cpu_s": 31.870505184000002,
+  "method": "saved N and amplitude; existing CTMC generator and fluid routines; direct sparse stationary solve only; no Chain, Poisson bias, V, true-cost rollout or new actual cost",
+  "raw_arrays_available": false,
+  "finite_support_caveat": "infinity is saturated fluid cost on the saved truncated CTMC support; no uniform finite drain bound on unbounded states",
+  "caveat": "uses true Stay stationary law pi0; exposed diagnostic, not out-of-sample prediction; compare m0 with stored s, do not recompute s",
+  "stale_share_selection": "nearest h approximately 30 Tint at each requested age; additionally report exact h->infinity fluid-decision shares from saved asymptotic",
+  "tables": [
+    {
+      "group": "ALL",
+      "n": 93,
+      "sign_agree": 64,
+      "sign_disagree": 29,
+      "m0": {
+        "n": 93,
+        "median": -11.16402805714393,
+        "q25": -245.8261912551333,
+        "q75": -0.1987220121231701,
+        "q90": 34.25199093963614,
+        "mean": -472.6294962850364,
+        "minimum": -7897.459597098178,
+        "maximum": 1200.5068788961644
+      },
+      "stale_tau1": {
+        "n": 93,
+        "median": 0.9990283481603285,
+        "q25": 0.7206683751432259,
+        "q75": 0.9999997870767824,
+        "q90": 0.9999999998103073,
+        "mean": 0.748090992082728,
+        "minimum": 2.220446049250313e-16,
+        "maximum": 1.0
+      },
+      "stale_tau3": {
+        "n": 93,
+        "median": 0.9999999862585078,
+        "q25": 0.006311057353684424,
+        "q75": 0.9999999999999989,
+        "q90": 0.9999999999999999,
+        "mean": 0.702948749836118,
+        "minimum": 0.0,
+        "maximum": 1.0
+      },
+      "limiting_tau1": {
+        "n": 93,
+        "median": 0.9990283481603285,
+        "q25": 0.7206683751432259,
+        "q75": 0.9999997870767824,
+        "q90": 0.9999999998103073,
+        "mean": 0.748090992082728,
+        "minimum": 0.0,
+        "maximum": 1.0
+      },
+      "limiting_tau3": {
+        "n": 93,
+        "median": 0.9999999862585078,
+        "q25": 0.006311057353684424,
+        "q75": 0.9999999999999989,
+        "q90": 0.9999999999999999,
+        "mean": 0.7029487498361501,
+        "minimum": 0.0,
+        "maximum": 1.0
+      }
+    },
+    {
+      "group": "Switch-optimal (s<0)",
+      "n": 42,
+      "sign_agree": 42,
+      "sign_disagree": 0,
+      "m0": {
+        "n": 42,
+        "median": -163.30839048865977,
+        "q25": -749.2892498468336,
+        "q75": -13.756698279519085,
+        "q90": -3.982716147170825,
+        "mean": -864.0030678564684,
+        "minimum": -7897.459597098178,
+        "maximum": -2.639055489351168
+      },
+      "stale_tau1": {
+        "n": 42,
+        "median": 0.9999999068661022,
+        "q25": 0.99994437894716,
+        "q75": 0.9999999997480334,
+        "q90": 0.9999999999999991,
+        "mean": 0.999812282593286,
+        "minimum": 0.9983057324435506,
+        "maximum": 1.0
+      },
+      "stale_tau3": {
+        "n": 42,
+        "median": 0.9999999999999987,
+        "q25": 0.9999999999604943,
+        "q75": 0.9999999999999993,
+        "q90": 0.9999999999999999,
+        "mean": 0.9999999918258217,
+        "minimum": 0.9999998798113816,
+        "maximum": 1.0
+      },
+      "limiting_tau1": {
+        "n": 42,
+        "median": 0.9999999068661022,
+        "q25": 0.99994437894716,
+        "q75": 0.9999999997480334,
+        "q90": 0.9999999999999991,
+        "mean": 0.999812282593286,
+        "minimum": 0.9983057324435506,
+        "maximum": 1.0
+      },
+      "limiting_tau3": {
+        "n": 42,
+        "median": 0.9999999999999987,
+        "q25": 0.9999999999604943,
+        "q75": 0.9999999999999993,
+        "q90": 0.9999999999999999,
+        "mean": 0.9999999918258217,
+        "minimum": 0.9999998798113816,
+        "maximum": 1.0
+      }
+    },
+    {
+      "group": "Stay-optimal (s>0)",
+      "n": 51,
+      "sign_agree": 22,
+      "sign_disagree": 29,
+      "m0": {
+        "n": 51,
+        "median": -0.2529743926250738,
+        "q25": -20.381339723679613,
+        "q75": 19.31063911947245,
+        "q90": 107.3254932364531,
+        "mean": -150.32184910856293,
+        "minimum": -5067.841187296808,
+        "maximum": 1200.5068788961644
+      },
+      "stale_tau1": {
+        "n": 51,
+        "median": 0.7483074704599728,
+        "q25": 0.0007175718566334588,
+        "q75": 0.964669473546391,
+        "q90": 0.9999110357119323,
+        "mean": 0.5407911057799162,
+        "minimum": 2.220446049250313e-16,
+        "maximum": 0.9999333658895919
+      },
+      "stale_tau3": {
+        "n": 51,
+        "median": 0.015023328249849421,
+        "q25": 1.2016432293648904e-10,
+        "q75": 0.9999868231788143,
+        "q90": 0.9999999999999999,
+        "mean": 0.458318315256362,
+        "minimum": 0.0,
+        "maximum": 1.0
+      },
+      "limiting_tau1": {
+        "n": 51,
+        "median": 0.7483074704599728,
+        "q25": 0.0007175718566334588,
+        "q75": 0.964669473546391,
+        "q90": 0.9999110357119323,
+        "mean": 0.5407911057799162,
+        "minimum": 0.0,
+        "maximum": 0.9999333658895919
+      },
+      "limiting_tau3": {
+        "n": 51,
+        "median": 0.015023328249849421,
+        "q25": 1.2016432293648904e-10,
+        "q75": 0.9999868231802955,
+        "q90": 0.9999999999999999,
+        "mean": 0.4583183152564205,
+        "minimum": 0.0,
+        "maximum": 1.0
+      }
+    }
+  ],
+  "confusion": [
+    {
+      "sign_s": -1,
+      "sign_m0": -1,
+      "n": 42
+    },
+    {
+      "sign_s": 1,
+      "sign_m0": -1,
+      "n": 29
+    },
+    {
+      "sign_s": 1,
+      "sign_m0": 1,
+      "n": 22
+    }
+  ],
+  "observations": [
+    {
+      "regime": "A_u1-2_lA9_x-1_k1-2",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 1362,
+        "B": 680
+      },
+      "s": -12.667009122650803,
+      "m0": -1329.6253341091856,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -1376.0358644505957,
+        "B": 46.410530341410194
+      },
+      "pi_sha256": {
+        "A": "0357152e782ef41e3138c6d976fbdba9aef9133415b5981497b53f5160ca7933",
+        "B": "d42046b42010f1ba7d16b5aa786decb67ceed8eccdf840762284e03eadc0fd84"
+      },
+      "stationary_residual": {
+        "A": 8.326672684688674e-17,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 2727.0,
+      "cpu_s": 0.33142802599999976,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999994649321,
+          "fresh_long_run_action_share": 0.8214350070126304,
+          "h_actual_Tint": 30.023172176137493,
+          "limiting_fluid_gap_share": 0.9999999994649321,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.8214350070126304,
+          "h_actual_Tint": 30.023172176137493,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x-1_k1-20",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 768,
+        "B": 377
+      },
+      "s": -7.2666670005683685,
+      "m0": -430.1626623247704,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -444.45958908571686,
+        "B": 14.29692676094649
+      },
+      "pi_sha256": {
+        "A": "ba7d395fbf077267ab444815b944ec0f9a0575b67e49322151b7c13580a5a85f",
+        "B": "9c4174473e1612f6b4259af6d6c01afbad3f3be5637ed28919a894dbbcc23f7f"
+      },
+      "stationary_residual": {
+        "A": 2.498001805406602e-16,
+        "B": 5.551115123125783e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1536.3,
+      "cpu_s": 0.331980996,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999997689512,
+          "fresh_long_run_action_share": 0.8343250871939791,
+          "h_actual_Tint": 29.981198023547183,
+          "limiting_fluid_gap_share": 0.9999999997689512,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999999,
+          "fresh_long_run_action_share": 0.8343250871939791,
+          "h_actual_Tint": 29.981198023547183,
+          "limiting_fluid_gap_share": 0.9999999999999999,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x-1_k2",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 3298,
+        "B": 1635
+      },
+      "s": -30.67116731438462,
+      "m0": -7704.540419176497,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -7967.45152581126,
+        "B": 262.9111066347627
+      },
+      "pi_sha256": {
+        "A": "92466fe29e54db302e418277862b62838cd0ef7230c32d041318d582888c9ef6",
+        "B": "f2da831fd01b5c092276be13b659201c5c765db0dc9e7a874e1b67060d6b4eda"
+      },
+      "stationary_residual": {
+        "A": 6.938893903907228e-17,
+        "B": 1.1102230246251565e-16
+      },
+      "maximum_drain_time_on_truncated_support": 6608.0,
+      "cpu_s": 0.48801041199999995,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999995767748,
+          "fresh_long_run_action_share": 0.8124218352700142,
+          "h_actual_Tint": 30.115374488864656,
+          "limiting_fluid_gap_share": 0.9999999995767748,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999962,
+          "fresh_long_run_action_share": 0.8124218352700142,
+          "h_actual_Tint": 30.115374488864656,
+          "limiting_fluid_gap_share": 0.9999999999999964,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x-2_k1-2",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "8",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 1362,
+        "B": 450
+      },
+      "s": -15.834023174657116,
+      "m0": -1363.5606285485685,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -1376.0358644505957,
+        "B": 12.475235902027283
+      },
+      "pi_sha256": {
+        "A": "0357152e782ef41e3138c6d976fbdba9aef9133415b5981497b53f5160ca7933",
+        "B": "b900226e0c2cf9760959c89cca1bf4c0de42bca9e0a8058b87a85391732f7603"
+      },
+      "stationary_residual": {
+        "A": 8.326672684688674e-17,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 2727.0,
+      "cpu_s": 0.3279692790000004,
+      "stale": {
+        "1": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.8815781903624975,
+          "h_actual_Tint": 30.023172176137493,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.8815781903624975,
+          "h_actual_Tint": 30.023172176137493,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x-2_k1-20",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "8",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 768,
+        "B": 246
+      },
+      "s": -9.083334005665918,
+      "m0": -440.72677587790895,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -444.45958908571686,
+        "B": 3.732813207807907
+      },
+      "pi_sha256": {
+        "A": "ba7d395fbf077267ab444815b944ec0f9a0575b67e49322151b7c13580a5a85f",
+        "B": "fa865b3a1d6a030067d9f10d1394292b55576adf8aa5a60af63e7333e3b17c74"
+      },
+      "stationary_residual": {
+        "A": 2.498001805406602e-16,
+        "B": 6.661338147750939e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1536.3,
+      "cpu_s": 0.3200026870000001,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999999999991,
+          "fresh_long_run_action_share": 0.896310874462413,
+          "h_actual_Tint": 29.981198023547183,
+          "limiting_fluid_gap_share": 0.9999999999999991,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999991,
+          "fresh_long_run_action_share": 0.896310874462413,
+          "h_actual_Tint": 29.981198023547183,
+          "limiting_fluid_gap_share": 0.9999999999999991,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x-2_k2",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "8",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 3298,
+        "B": 1073
+      },
+      "s": -38.3429389721159,
+      "m0": -7897.459597098178,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -7967.45152581126,
+        "B": 69.99192871308134
+      },
+      "pi_sha256": {
+        "A": "92466fe29e54db302e418277862b62838cd0ef7230c32d041318d582888c9ef6",
+        "B": "75af47dcf1f7b505bd837202a23838ac620eee437a7d4c695015f9aa4c8de159"
+      },
+      "stationary_residual": {
+        "A": 6.938893903907228e-17,
+        "B": 8.326672684688674e-17
+      },
+      "maximum_drain_time_on_truncated_support": 6608.0,
+      "cpu_s": 0.43999146399999933,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999999999994,
+          "fresh_long_run_action_share": 0.8695450568066556,
+          "h_actual_Tint": 30.115374488864656,
+          "limiting_fluid_gap_share": 0.9999999999999994,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999994,
+          "fresh_long_run_action_share": 0.8695450568066556,
+          "h_actual_Tint": 30.115374488864656,
+          "limiting_fluid_gap_share": 0.9999999999999994,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x1-2_k1-2",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 1362,
+        "B": 2728
+      },
+      "s": 31.666835406162058,
+      "m0": 216.51950048087815,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -1376.0358644505957,
+        "B": 1592.5553649314738
+      },
+      "pi_sha256": {
+        "A": "0357152e782ef41e3138c6d976fbdba9aef9133415b5981497b53f5160ca7933",
+        "B": "ca049cd918971a3405cf2c8f51ce3e79f6eb9aade8710046324c926190fa6c9c"
+      },
+      "stationary_residual": {
+        "A": 8.326672684688674e-17,
+        "B": 1.3877787807814457e-16
+      },
+      "maximum_drain_time_on_truncated_support": 10918.0,
+      "cpu_s": 0.4279922030000005,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9656318883019089,
+          "fresh_long_run_action_share": 0.5095540722829399,
+          "h_actual_Tint": 30.024334361338564,
+          "limiting_fluid_gap_share": 0.9656318883019089,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999869252356047,
+          "fresh_long_run_action_share": 0.5095540722829399,
+          "h_actual_Tint": 30.024334361338564,
+          "limiting_fluid_gap_share": 0.9999869252385672,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x1-2_k1-20",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 768,
+        "B": 1552
+      },
+      "s": 18.166666831928808,
+      "m0": 64.52950224591547,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -444.45958908571686,
+        "B": 508.9890913316323
+      },
+      "pi_sha256": {
+        "A": "ba7d395fbf077267ab444815b944ec0f9a0575b67e49322151b7c13580a5a85f",
+        "B": "00f567da59f3cb1e50c840e07d408b8a971b892c0f58e78ad5c3743719fb2b94"
+      },
+      "stationary_residual": {
+        "A": 2.498001805406602e-16,
+        "B": 3.3306690738754696e-16
+      },
+      "maximum_drain_time_on_truncated_support": 6208.6,
+      "cpu_s": 0.3519854630000001,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9635711400210156,
+          "fresh_long_run_action_share": 0.5112201010749763,
+          "h_actual_Tint": 30.131671805992973,
+          "limiting_fluid_gap_share": 0.9635711400210156,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999867211220237,
+          "fresh_long_run_action_share": 0.5112201010749763,
+          "h_actual_Tint": 30.131671805992973,
+          "limiting_fluid_gap_share": 0.9999867211220237,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1-2_lA9_x1-2_k2",
+      "family": "asym",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 3298,
+        "B": 6608
+      },
+      "s": 76.66870882811563,
+      "m0": 1200.5068788961644,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -7967.45152581126,
+        "B": 9167.958404707424
+      },
+      "pi_sha256": {
+        "A": "92466fe29e54db302e418277862b62838cd0ef7230c32d041318d582888c9ef6",
+        "B": "1ba336f78c2e74bb620f270c7aa0fd54e3537c0124c9399f9bb499ffd51d7ed9"
+      },
+      "stationary_residual": {
+        "A": 6.938893903907228e-17,
+        "B": 5.551115123125783e-17
+      },
+      "maximum_drain_time_on_truncated_support": 26456.0,
+      "cpu_s": 0.7599562569999998,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9632791592210526,
+          "fresh_long_run_action_share": 0.5070515467268855,
+          "h_actual_Tint": 30.02285176360972,
+          "limiting_fluid_gap_share": 0.9632791592210526,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999852256371393,
+          "fresh_long_run_action_share": 0.5070515467268855,
+          "h_actual_Tint": 30.02285176360972,
+          "limiting_fluid_gap_share": 0.9999852256371602,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x-1-2_k1-2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "13/2",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 335,
+        "B": 267
+      },
+      "s": -0.9959336578682478,
+      "m0": -10.02336818298076,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -12.474744767309492,
+        "B": 2.45137658432873
+      },
+      "pi_sha256": {
+        "A": "15f788969755dc77ebf692e90eb8f49c7c04b76a91353c811a0674cb9fc564d1",
+        "B": "c610c1dfc84f89f05b364567ac0fb50063c800f4e2b028f7c2db67d8f31a539f"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 1.1102230246251565e-16
+      },
+      "maximum_drain_time_on_truncated_support": 168.25,
+      "cpu_s": 0.32800467599999994,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9983057324435506,
+          "fresh_long_run_action_share": 0.6394608691752168,
+          "h_actual_Tint": 30.04598116371964,
+          "limiting_fluid_gap_share": 0.9983057324435506,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999998798113816,
+          "fresh_long_run_action_share": 0.6394608691752168,
+          "h_actual_Tint": 30.04598116371964,
+          "limiting_fluid_gap_share": 0.9999998798113816,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x-1-2_k1-20",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "13/2",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 182,
+        "B": 142
+      },
+      "s": -0.5709530806956034,
+      "m0": -3.0761800562630235,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -3.732789328322734,
+        "B": 0.6566092720597102
+      },
+      "pi_sha256": {
+        "A": "b35ab0acbecb4b6241932b895cf29f544314eaf5219ba036d3f02193f7602569",
+        "B": "83033e3a33e5e6cd203ad8f84507f5f56eec0c1c7ce0461373f41342629027ec"
+      },
+      "stationary_residual": {
+        "A": 6.661338147750939e-16,
+        "B": 1.2212453270876722e-15
+      },
+      "maximum_drain_time_on_truncated_support": 91.075,
+      "cpu_s": 0.23999546900000013,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9987862931850634,
+          "fresh_long_run_action_share": 0.678894292568431,
+          "h_actual_Tint": 29.913018753857163,
+          "limiting_fluid_gap_share": 0.9987862931850634,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999355069807,
+          "fresh_long_run_action_share": 0.678894292568431,
+          "h_actual_Tint": 29.913018753857163,
+          "limiting_fluid_gap_share": 0.9999999355069807,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x-1-2_k2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "13/2",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 788,
+        "B": 612
+      },
+      "s": -2.4230609222967985,
+      "m0": -56.57622037343519,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -69.98124810178878,
+        "B": 13.405027728353591
+      },
+      "pi_sha256": {
+        "A": "93900c8b68350be702a51e786a79ef0a64554e941a2cd3816a7fd6170a1ac1bb",
+        "B": "67cc9bc0954e9e10b41f63660b7db9946173d196cc18115bb836bd85bca20c6d"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 397.0,
+      "cpu_s": 0.2879765159999996,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9988571259042641,
+          "fresh_long_run_action_share": 0.6269065199818714,
+          "h_actual_Tint": 30.00799382019581,
+          "limiting_fluid_gap_share": 0.9988571259042641,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999751301658,
+          "fresh_long_run_action_share": 0.6269065199818714,
+          "h_actual_Tint": 30.00799382019581,
+          "limiting_fluid_gap_share": 0.9999999751301658,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x-1_k1-2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 335,
+        "B": 220
+      },
+      "s": -1.5847136510008362,
+      "m0": -11.16402805714393,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -12.474744767309492,
+        "B": 1.3107167101655608
+      },
+      "pi_sha256": {
+        "A": "15f788969755dc77ebf692e90eb8f49c7c04b76a91353c811a0674cb9fc564d1",
+        "B": "2656b6a4c7cc13491123f611b662705a1e7d85a6f0b823ed6352048bf72262df"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 168.25,
+      "cpu_s": 0.3039836340000006,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999158259848406,
+          "fresh_long_run_action_share": 0.6879024028955358,
+          "h_actual_Tint": 30.04598116371964,
+          "limiting_fluid_gap_share": 0.9999158259848406,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.999999999909712,
+          "fresh_long_run_action_share": 0.6879024028955358,
+          "h_actual_Tint": 30.04598116371964,
+          "limiting_fluid_gap_share": 0.999999999909712,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x-1_k1-20",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 182,
+        "B": 117
+      },
+      "s": -0.9083347420484218,
+      "m0": -3.396920629431604,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -3.732789328322734,
+        "B": 0.33586869889112997
+      },
+      "pi_sha256": {
+        "A": "b35ab0acbecb4b6241932b895cf29f544314eaf5219ba036d3f02193f7602569",
+        "B": "1a57c93d58d2c0468761d8f91c922e1a52de7d4b736dc58b1a6cc97129d30458"
+      },
+      "stationary_residual": {
+        "A": 6.661338147750939e-16,
+        "B": 4.440892098500626e-16
+      },
+      "maximum_drain_time_on_truncated_support": 91.075,
+      "cpu_s": 0.24400940399999982,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999529810413006,
+          "fresh_long_run_action_share": 0.7305434439115981,
+          "h_actual_Tint": 29.913018753857163,
+          "limiting_fluid_gap_share": 0.9999529810413006,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999706574,
+          "fresh_long_run_action_share": 0.7305434439115981,
+          "h_actual_Tint": 29.913018753857163,
+          "limiting_fluid_gap_share": 0.9999999999706574,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x-1_k2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 788,
+        "B": 492
+      },
+      "s": -3.8616522910746767,
+      "m0": -62.88841368227626,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -69.98124810178878,
+        "B": 7.092834419512521
+      },
+      "pi_sha256": {
+        "A": "93900c8b68350be702a51e786a79ef0a64554e941a2cd3816a7fd6170a1ac1bb",
+        "B": "42eebce904c62f478836a24f6057ff7373949d1cd9ce498453e651f3419f9654"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.942890293094024e-16
+      },
+      "maximum_drain_time_on_truncated_support": 397.0,
+      "cpu_s": 0.2959718200000001,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999679595615534,
+          "fresh_long_run_action_share": 0.6675432033536941,
+          "h_actual_Tint": 30.00799382019581,
+          "limiting_fluid_gap_share": 0.9999679595615534,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999964582,
+          "fresh_long_run_action_share": 0.6675432033536941,
+          "h_actual_Tint": 30.00799382019581,
+          "limiting_fluid_gap_share": 0.9999999999964582,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1-2_k1-2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "15/2",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 335,
+        "B": 450
+      },
+      "s": 1.900699473169631,
+      "m0": -0.2529743926250738,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -12.474744767309492,
+        "B": 12.221770374684418
+      },
+      "pi_sha256": {
+        "A": "15f788969755dc77ebf692e90eb8f49c7c04b76a91353c811a0674cb9fc564d1",
+        "B": "f9dc80279ac04eb3b5fcd31eae241498c6a05efdd65481e2480319fee43c83f6"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 4.440892098500626e-16
+      },
+      "maximum_drain_time_on_truncated_support": 301.0,
+      "cpu_s": 0.3159962140000001,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.7536392049256608,
+          "fresh_long_run_action_share": 0.5013185556572968,
+          "h_actual_Tint": 29.99531631508539,
+          "limiting_fluid_gap_share": 0.7536392049256608,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.028310222320665157,
+          "fresh_long_run_action_share": 0.5013185556572968,
+          "h_actual_Tint": 29.99531631508539,
+          "limiting_fluid_gap_share": 0.028310222320665157,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1-2_k1-20",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "15/2",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 182,
+        "B": 246
+      },
+      "s": 1.090000690556888,
+      "m0": -0.1944831687220443,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -3.732789328322734,
+        "B": 3.5383061596006895
+      },
+      "pi_sha256": {
+        "A": "b35ab0acbecb4b6241932b895cf29f544314eaf5219ba036d3f02193f7602569",
+        "B": "2f933a6aec36a7bb2c1fbbeb15a511559d2d00a919cabbc8bd8970cf7a27ef7d"
+      },
+      "stationary_residual": {
+        "A": 6.661338147750939e-16,
+        "B": 1.3322676295501878e-15
+      },
+      "maximum_drain_time_on_truncated_support": 164.1,
+      "cpu_s": 0.2920106950000001,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.6998336518058403,
+          "fresh_long_run_action_share": 0.49519757503878703,
+          "h_actual_Tint": 30.00016864903699,
+          "limiting_fluid_gap_share": 0.6998336518058403,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.004074767807615287,
+          "fresh_long_run_action_share": 0.49519757503878703,
+          "h_actual_Tint": 30.00016864903699,
+          "limiting_fluid_gap_share": 0.004074767807615287,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1-2_k2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "15/2",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 788,
+        "B": 1073
+      },
+      "s": 4.612195524456144,
+      "m0": -2.012121178913503,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -69.98124810178878,
+        "B": 67.96912692287528
+      },
+      "pi_sha256": {
+        "A": "93900c8b68350be702a51e786a79ef0a64554e941a2cd3816a7fd6170a1ac1bb",
+        "B": "9b7637783112f2354ec5fdedd11ae6cf859d2b802c76f6befb33e3f30ffbf8e0"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 719.3333333333333,
+      "cpu_s": 0.3079970949999993,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.7324280686187,
+          "fresh_long_run_action_share": 0.5087827124533375,
+          "h_actual_Tint": 30.07753720426366,
+          "limiting_fluid_gap_share": 0.7324280686187,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.013674169973081907,
+          "fresh_long_run_action_share": 0.5087827124533375,
+          "h_actual_Tint": 30.07753720426366,
+          "limiting_fluid_gap_share": 0.013674169973081907,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1-4_k1-2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "29/4",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 335,
+        "B": 386
+      },
+      "s": 0.7817349297728384,
+      "m0": -4.773672679563696,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -12.474744767309492,
+        "B": 7.701072087745795
+      },
+      "pi_sha256": {
+        "A": "15f788969755dc77ebf692e90eb8f49c7c04b76a91353c811a0674cb9fc564d1",
+        "B": "99b0caeb94909f5c817d223c8ad9dfb3c599054bd3cf9a99d5bc0d91b4d85218"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 221.42857142857142,
+      "cpu_s": 0.33597283499999975,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.05378423041839164,
+          "fresh_long_run_action_share": 0.46044462413724185,
+          "h_actual_Tint": 30.00688092883281,
+          "limiting_fluid_gap_share": 0.05378423041839164,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.00017403510522040477,
+          "fresh_long_run_action_share": 0.46044462413724185,
+          "h_actual_Tint": 30.00688092883281,
+          "limiting_fluid_gap_share": 0.00017403510522040477,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1-4_k1-20",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "29/4",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 182,
+        "B": 209
+      },
+      "s": 0.4482687446922613,
+      "m0": -1.5430069445293904,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -3.732789328322734,
+        "B": 2.1897823837933434
+      },
+      "pi_sha256": {
+        "A": "b35ab0acbecb4b6241932b895cf29f544314eaf5219ba036d3f02193f7602569",
+        "B": "50eb76017e11043b9040033865333f5e1a67da4bf214c9d13b5dff1d78ab4a59"
+      },
+      "stationary_residual": {
+        "A": 6.661338147750939e-16,
+        "B": 8.881784197001252e-16
+      },
+      "maximum_drain_time_on_truncated_support": 119.51428571428572,
+      "cpu_s": 0.24398287700000054,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.04273485875532279,
+          "fresh_long_run_action_share": 0.4522054831187706,
+          "h_actual_Tint": 30.073686371101427,
+          "limiting_fluid_gap_share": 0.04273485875532279,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.00010807714287042192,
+          "fresh_long_run_action_share": 0.4522054831187706,
+          "h_actual_Tint": 30.073686371101427,
+          "limiting_fluid_gap_share": 0.00010807714287042192,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1-4_k2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "29/4",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 788,
+        "B": 911
+      },
+      "s": 1.8980417298748726,
+      "m0": -27.330355520426338,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -69.98124810178878,
+        "B": 42.65089258136244
+      },
+      "pi_sha256": {
+        "A": "93900c8b68350be702a51e786a79ef0a64554e941a2cd3816a7fd6170a1ac1bb",
+        "B": "1df286a7bbb0bbede4c7a1ca91548aafa5579d5dfc00af77251b61a8273d4a50"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 524.0,
+      "cpu_s": 0.29999792999999997,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.05262474009809315,
+          "fresh_long_run_action_share": 0.46803750946116995,
+          "h_actual_Tint": 30.008959385362513,
+          "limiting_fluid_gap_share": 0.05262474009809315,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.0001093070676383423,
+          "fresh_long_run_action_share": 0.46803750946116995,
+          "h_actual_Tint": 30.008959385362513,
+          "limiting_fluid_gap_share": 0.0001093070676383423,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1_k1-2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 335,
+        "B": 680
+      },
+      "s": 6.334730091720697,
+      "m0": 24.950619933079093,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -12.474744767309492,
+        "B": 37.425364700388585
+      },
+      "pi_sha256": {
+        "A": "15f788969755dc77ebf692e90eb8f49c7c04b76a91353c811a0674cb9fc564d1",
+        "B": "2a713604c3f4a38d087680af2d652a26ee0f5dbc49a04530369c5df276fd42a2"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 681.5,
+      "cpu_s": 0.31199104799999944,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9989194857471942,
+          "fresh_long_run_action_share": 0.6099621930432851,
+          "h_actual_Tint": 29.95539061161996,
+          "limiting_fluid_gap_share": 0.9989194857471942,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.999999981047569,
+          "fresh_long_run_action_share": 0.6099621930432851,
+          "h_actual_Tint": 29.95539061161996,
+          "limiting_fluid_gap_share": 0.999999981047569,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1_k1-20",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 182,
+        "B": 377
+      },
+      "s": 3.6333347053086147,
+      "m0": 7.465668005520645,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -3.732789328322734,
+        "B": 11.198457333843379
+      },
+      "pi_sha256": {
+        "A": "b35ab0acbecb4b6241932b895cf29f544314eaf5219ba036d3f02193f7602569",
+        "B": "ca81b3ebfd015d406001d6fa4a6936a90752aed539f9194ae2c46aaf3ffe265a"
+      },
+      "stationary_residual": {
+        "A": 6.661338147750939e-16,
+        "B": 6.661338147750939e-16
+      },
+      "maximum_drain_time_on_truncated_support": 377.15,
+      "cpu_s": 0.2960138840000006,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9991057694320349,
+          "fresh_long_run_action_share": 0.6151794772666135,
+          "h_actual_Tint": 29.993201425430016,
+          "limiting_fluid_gap_share": 0.9991057694320349,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999888313817,
+          "fresh_long_run_action_share": 0.6151794772666135,
+          "h_actual_Tint": 29.993201425430016,
+          "limiting_fluid_gap_share": 0.9999999888313817,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u1_lA7_x1_k2",
+      "family": "asym",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 788,
+        "B": 1635
+      },
+      "s": 15.356392176887745,
+      "m0": 139.9872547279228,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -69.98124810178878,
+        "B": 209.96850282971155
+      },
+      "pi_sha256": {
+        "A": "93900c8b68350be702a51e786a79ef0a64554e941a2cd3816a7fd6170a1ac1bb",
+        "B": "ef9e0629276b929da56e7cef3893e0c2a259be9a1ecfd75fd8e8bec2c7dc4a1b"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 8.326672684688674e-17
+      },
+      "maximum_drain_time_on_truncated_support": 1641.0,
+      "cpu_s": 0.3359761300000006,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.998982484658945,
+          "fresh_long_run_action_share": 0.6078830163483435,
+          "h_actual_Tint": 29.992486565531944,
+          "limiting_fluid_gap_share": 0.998982484658945,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999870651145,
+          "fresh_long_run_action_share": 0.6078830163483435,
+          "h_actual_Tint": 29.992486565531944,
+          "limiting_fluid_gap_share": 0.9999999870651145,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x-1-4_k1-2",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "6",
+        "2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 450,
+        "B": 335
+      },
+      "s": -2.4894794663022264,
+      "m0": -49.10206280798997,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -53.04069635115879,
+        "B": 3.938633543168825
+      },
+      "pi_sha256": {
+        "A": "fea8f51c026089caa8cad775ebeeea9ef4e434acd0e6a6ba6b80a98cbcc0f886",
+        "B": "a4a33ddd2045c5f1597c5e0a51d7cf8dcddc389740c987c42a214c8a1aa601ee"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 301.0,
+      "cpu_s": 0.31199914799999995,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999997870767824,
+          "fresh_long_run_action_share": 0.7310158567580755,
+          "h_actual_Tint": 29.99531631508539,
+          "limiting_fluid_gap_share": 0.9999997870767824,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999998,
+          "fresh_long_run_action_share": 0.7310158567580755,
+          "h_actual_Tint": 29.99531631508539,
+          "limiting_fluid_gap_share": 0.9999999999999998,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x-1-4_k1-20",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "6",
+        "2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 246,
+        "B": 182
+      },
+      "s": -1.427382351909717,
+      "m0": -15.331599495015414,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -16.339298932268246,
+        "B": 1.0076994372528327
+      },
+      "pi_sha256": {
+        "A": "20af33b0ae1846e40f541f902d180cea51c9d57618935359285f3e2233754210",
+        "B": "5adfda7592e635c6447d2ec17d91411d412f32d96bac8661da2ea7ce122de856"
+      },
+      "stationary_residual": {
+        "A": 4.440892098500626e-16,
+        "B": 4.440892098500626e-16
+      },
+      "maximum_drain_time_on_truncated_support": 164.1,
+      "cpu_s": 0.2719825240000002,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999333292116,
+          "fresh_long_run_action_share": 0.7724260066017627,
+          "h_actual_Tint": 30.00016864903699,
+          "limiting_fluid_gap_share": 0.9999999333292116,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999993,
+          "fresh_long_run_action_share": 0.7724260066017627,
+          "h_actual_Tint": 30.00016864903699,
+          "limiting_fluid_gap_share": 0.9999999999999993,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x-1-4_k2",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "6",
+        "2",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 1073,
+        "B": 788
+      },
+      "s": -6.050786893234058,
+      "m0": -279.04881995399984,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -300.4726504761853,
+        "B": 21.42383052218546
+      },
+      "pi_sha256": {
+        "A": "2a22fa0ab4d2646e6594fdb23dc6d2af80129aecee1979f769898b17678f7d61",
+        "B": "b5eef70002ee48f03c5de414894b78e6c41a09aa8943d797ea283f35203f8571"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.942890293094024e-16
+      },
+      "maximum_drain_time_on_truncated_support": 719.3333333333333,
+      "cpu_s": 0.3120132819999988,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999658157102,
+          "fresh_long_run_action_share": 0.713832139635485,
+          "h_actual_Tint": 30.07753720426366,
+          "limiting_fluid_gap_share": 0.9999999658157102,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999984,
+          "fresh_long_run_action_share": 0.713832139635485,
+          "h_actual_Tint": 30.07753720426366,
+          "limiting_fluid_gap_share": 0.9999999999999984,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x1-2_k1-2",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "15/2",
+        "2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 450,
+        "B": 1362
+      },
+      "s": 23.164686924246155,
+      "m0": 20.288585506957,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -53.04069635115879,
+        "B": 73.32928185811579
+      },
+      "pi_sha256": {
+        "A": "fea8f51c026089caa8cad775ebeeea9ef4e434acd0e6a6ba6b80a98cbcc0f886",
+        "B": "50d18c4a8812b85ec34afd9907aea20de6f478c12c8ca6be5eaaaef3b43b338a"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 4.440892098500626e-16
+      },
+      "maximum_drain_time_on_truncated_support": 2727.0,
+      "cpu_s": 0.3159716939999999,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999322518828613,
+          "fresh_long_run_action_share": 0.5130424383925194,
+          "h_actual_Tint": 30.023172176137493,
+          "limiting_fluid_gap_share": 0.9999322518828613,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999999,
+          "fresh_long_run_action_share": 0.5130424383925194,
+          "h_actual_Tint": 30.023172176137493,
+          "limiting_fluid_gap_share": 0.9999999999999999,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x1-2_k1-20",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "15/2",
+        "2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 246,
+        "B": 768
+      },
+      "s": 13.287621791670187,
+      "m0": 4.89070448445225,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -16.339298932268246,
+        "B": 21.230003416720496
+      },
+      "pi_sha256": {
+        "A": "20af33b0ae1846e40f541f902d180cea51c9d57618935359285f3e2233754210",
+        "B": "3fe25f995d7c79571057da6e524ccd60bed798d1bc36117061f9f9949718ef17"
+      },
+      "stationary_residual": {
+        "A": 4.440892098500626e-16,
+        "B": 8.881784197001252e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1536.3,
+      "cpu_s": 0.30397512800000115,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999198688304481,
+          "fresh_long_run_action_share": 0.5072991433125991,
+          "h_actual_Tint": 29.981198023547183,
+          "limiting_fluid_gap_share": 0.9999198688304481,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.5072991433125991,
+          "h_actual_Tint": 29.981198023547183,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x1-2_k2",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "15/2",
+        "2",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 1073,
+        "B": 3298
+      },
+      "s": 56.12239207130068,
+      "m0": 107.3254932364531,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -300.4726504761853,
+        "B": 407.7981437126384
+      },
+      "pi_sha256": {
+        "A": "2a22fa0ab4d2646e6594fdb23dc6d2af80129aecee1979f769898b17678f7d61",
+        "B": "64a3f955455da40bb676363741a612b0cc689b0fd430de81aecf8e6966f97cbe"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.3877787807814457e-16
+      },
+      "maximum_drain_time_on_truncated_support": 6608.0,
+      "cpu_s": 0.4360046569999998,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999206005750851,
+          "fresh_long_run_action_share": 0.5189093926379758,
+          "h_actual_Tint": 30.115374488864656,
+          "limiting_fluid_gap_share": 0.9999206005750851,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.5189093926379758,
+          "h_actual_Tint": 30.115374488864656,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x1-4_k1-2",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "7",
+        "2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 450,
+        "B": 680
+      },
+      "s": 5.429964276419341,
+      "m0": -32.7188561525395,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -53.04069635115879,
+        "B": 20.321840198619295
+      },
+      "pi_sha256": {
+        "A": "fea8f51c026089caa8cad775ebeeea9ef4e434acd0e6a6ba6b80a98cbcc0f886",
+        "B": "96a22a056354fd05f08b7d50e05d326cef71493ebfb0e2d038645663d6b83ea7"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 4.440892098500626e-16
+      },
+      "maximum_drain_time_on_truncated_support": 681.5,
+      "cpu_s": 0.27997937299999975,
+      "stale": {
+        "1": {
+          "long_run_action_share": 3.0439477276544835e-06,
+          "fresh_long_run_action_share": 0.39762617920995247,
+          "h_actual_Tint": 29.95539061161996,
+          "limiting_fluid_gap_share": 3.0439477276544835e-06,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.1102230246251565e-15,
+          "fresh_long_run_action_share": 0.39762617920995247,
+          "h_actual_Tint": 29.95539061161996,
+          "limiting_fluid_gap_share": 1.1102230246251565e-15,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x1-4_k1-20",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "7",
+        "2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 246,
+        "B": 377
+      },
+      "s": 3.1142870954473345,
+      "m0": -10.67048785971927,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -16.339298932268246,
+        "B": 5.668811072548976
+      },
+      "pi_sha256": {
+        "A": "20af33b0ae1846e40f541f902d180cea51c9d57618935359285f3e2233754210",
+        "B": "658890e64969fa2ada8e9701ceed054e5e3852e2a16da990a5c9045b4f827b97"
+      },
+      "stationary_residual": {
+        "A": 4.440892098500626e-16,
+        "B": 6.661338147750939e-16
+      },
+      "maximum_drain_time_on_truncated_support": 377.15,
+      "cpu_s": 0.3240052309999992,
+      "stale": {
+        "1": {
+          "long_run_action_share": 9.294940939152951e-07,
+          "fresh_long_run_action_share": 0.3737795103594328,
+          "h_actual_Tint": 29.993201425430016,
+          "limiting_fluid_gap_share": 9.294940939152951e-07,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 2.220446049250313e-16,
+          "fresh_long_run_action_share": 0.3737795103594328,
+          "h_actual_Tint": 29.993201425430016,
+          "limiting_fluid_gap_share": 2.220446049250313e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "A_u2_lA13-2_x1-4_k2",
+      "family": "asym",
+      "parameters": [
+        "13/2",
+        "7",
+        "2",
+        "2",
+        "0"
+      ],
+      "amplitude": 6.0,
+      "N": {
+        "A": 1073,
+        "B": 1635
+      },
+      "s": 13.167257574728431,
+      "m0": -188.31299145107957,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -300.4726504761853,
+        "B": 112.15965902510575
+      },
+      "pi_sha256": {
+        "A": "2a22fa0ab4d2646e6594fdb23dc6d2af80129aecee1979f769898b17678f7d61",
+        "B": "eda66371354b17ddb0e3f774c4b92f340031b5b5e42f8956a85ad905c6c602f5"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1641.0,
+      "cpu_s": 0.35197721599999987,
+      "stale": {
+        "1": {
+          "long_run_action_share": 1.4843045264001375e-06,
+          "fresh_long_run_action_share": 0.40674193658305957,
+          "h_actual_Tint": 29.992486565531944,
+          "limiting_fluid_gap_share": 1.4843045264001375e-06,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 8.881784197001252e-16,
+          "fresh_long_run_action_share": 0.40674193658305957,
+          "h_actual_Tint": 29.992486565531944,
+          "limiting_fluid_gap_share": 8.881784197001252e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x-1_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 869,
+        "B": 429
+      },
+      "s": -8.166746503108559,
+      "m0": -544.7367376377262,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -563.0475635905195,
+        "B": 18.31082595279334
+      },
+      "pi_sha256": {
+        "A": "801626651b6301ad6aa3fbb250573113c1f6d54e4a7ad3d0fca6ba59e8352dac",
+        "B": "ea66d47d848850f8f23578ca7b8116d089b06dcd92bdfa404d2ff49589575994"
+      },
+      "stationary_residual": {
+        "A": 8.326672684688674e-17,
+        "B": 3.3306690738754696e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1739.5,
+      "cpu_s": 0.29198799799999975,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999996852802,
+          "fresh_long_run_action_share": 0.8285832250843144,
+          "h_actual_Tint": 30.046221074264086,
+          "limiting_fluid_gap_share": 0.9999999996852802,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999989,
+          "fresh_long_run_action_share": 0.8285832250843144,
+          "h_actual_Tint": 30.046221074264086,
+          "limiting_fluid_gap_share": 0.9999999999999989,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x-1_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 718,
+        "B": 351
+      },
+      "s": -6.816666753115793,
+      "m0": -376.09928597263263,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -388.3877146425965,
+        "B": 12.288428669963874
+      },
+      "pi_sha256": {
+        "A": "368f77ffc7a286eaa1f7bcf1add85fe747e70d78a9aabdff4053f2c1e1250eca",
+        "B": "569e40e1344f1c856398af3866a4878de2feabf22841861b75fcc2dcf74e28b4"
+      },
+      "stationary_residual": {
+        "A": 1.942890293094024e-16,
+        "B": 3.885780586188048e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1436.15,
+      "cpu_s": 0.3279784820000007,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999998206464,
+          "fresh_long_run_action_share": 0.8345946129598123,
+          "h_actual_Tint": 30.056179733689703,
+          "limiting_fluid_gap_share": 0.9999999998206464,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999986,
+          "fresh_long_run_action_share": 0.8345946129598123,
+          "h_actual_Tint": 30.056179733689703,
+          "limiting_fluid_gap_share": 0.9999999999999986,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x-1_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 1359,
+        "B": 671
+      },
+      "s": -12.670182353350306,
+      "m0": -1298.7061131541827,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -1342.4351201101902,
+        "B": 43.72900695600745
+      },
+      "pi_sha256": {
+        "A": "7e5353fdd9632368d86063b820f06cee298828433bd640f503a801422ac6076c",
+        "B": "6727ce6bd36ffa18d575b40a9f15edcc11f76c5cad25b6edc0cb5616b632391a"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.1102230246251565e-16
+      },
+      "maximum_drain_time_on_truncated_support": 2724.0,
+      "cpu_s": 0.3239986049999999,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999996417426,
+          "fresh_long_run_action_share": 0.8115800151088718,
+          "h_actual_Tint": 30.0326940581583,
+          "limiting_fluid_gap_share": 0.9999999996417426,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999991,
+          "fresh_long_run_action_share": 0.8115800151088718,
+          "h_actual_Tint": 30.0326940581583,
+          "limiting_fluid_gap_share": 0.9999999999999991,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x-2_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "8",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 869,
+        "B": 282
+      },
+      "s": -10.208485656023576,
+      "m0": -558.227061992505,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -563.0475635905195,
+        "B": 4.820501598014475
+      },
+      "pi_sha256": {
+        "A": "801626651b6301ad6aa3fbb250573113c1f6d54e4a7ad3d0fca6ba59e8352dac",
+        "B": "120dfb3cf9cfe88716fdbc03e6b95d1cc85df8fd622084d7caeef80421e50355"
+      },
+      "stationary_residual": {
+        "A": 8.326672684688674e-17,
+        "B": 3.3306690738754696e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1739.5,
+      "cpu_s": 0.3240038639999998,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999999999987,
+          "fresh_long_run_action_share": 0.8917427558775635,
+          "h_actual_Tint": 30.046221074264086,
+          "limiting_fluid_gap_share": 0.9999999999999987,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999989,
+          "fresh_long_run_action_share": 0.8917427558775635,
+          "h_actual_Tint": 30.046221074264086,
+          "limiting_fluid_gap_share": 0.9999999999999987,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x-2_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "8",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 718,
+        "B": 228
+      },
+      "s": -8.520833507371583,
+      "m0": -385.2106318721842,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -388.3877146425965,
+        "B": 3.1770827704123406
+      },
+      "pi_sha256": {
+        "A": "368f77ffc7a286eaa1f7bcf1add85fe747e70d78a9aabdff4053f2c1e1250eca",
+        "B": "4960082d213f00d654ce220197bc0fc4ece534fcd172a3335786e4951d4384e9"
+      },
+      "stationary_residual": {
+        "A": 1.942890293094024e-16,
+        "B": 5.551115123125783e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1436.15,
+      "cpu_s": 0.2919986330000004,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999999999998,
+          "fresh_long_run_action_share": 0.8999476503366278,
+          "h_actual_Tint": 30.056179733689703,
+          "limiting_fluid_gap_share": 0.9999999999999998,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999999,
+          "fresh_long_run_action_share": 0.8999476503366278,
+          "h_actual_Tint": 30.056179733689703,
+          "limiting_fluid_gap_share": 0.9999999999999998,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x-2_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "8",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 1359,
+        "B": 440
+      },
+      "s": -15.840056269439899,
+      "m0": -1330.802527635934,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -1342.4351201101902,
+        "B": 11.632592474256102
+      },
+      "pi_sha256": {
+        "A": "7e5353fdd9632368d86063b820f06cee298828433bd640f503a801422ac6076c",
+        "B": "503519779c5fa47661c34cb141f475250a73296800a3d8b9b3b2c1a9d82eafa9"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 2724.0,
+      "cpu_s": 0.3079669850000002,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999999999999,
+          "fresh_long_run_action_share": 0.8688066006716327,
+          "h_actual_Tint": 30.0326940581583,
+          "limiting_fluid_gap_share": 0.9999999999999999,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999999,
+          "fresh_long_run_action_share": 0.8688066006716327,
+          "h_actual_Tint": 30.0326940581583,
+          "limiting_fluid_gap_share": 0.9999999999999999,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x1-2_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 869,
+        "B": 1749
+      },
+      "s": 20.416709001946302,
+      "m0": 83.08610489512762,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -563.0475635905195,
+        "B": 646.1336684856471
+      },
+      "pi_sha256": {
+        "A": "801626651b6301ad6aa3fbb250573113c1f6d54e4a7ad3d0fca6ba59e8352dac",
+        "B": "51a6475dc95af0d3d4a184b146aa91fbd2e7d1f95f237680e8a1396b1242dc41"
+      },
+      "stationary_residual": {
+        "A": 8.326672684688674e-17,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 6999.0,
+      "cpu_s": 0.35198812800000034,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9637070587908732,
+          "fresh_long_run_action_share": 0.5098245508635314,
+          "h_actual_Tint": 30.085580148876637,
+          "limiting_fluid_gap_share": 0.9637070587908732,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999863791450287,
+          "fresh_long_run_action_share": 0.5098245508635314,
+          "h_actual_Tint": 30.085580148876637,
+          "limiting_fluid_gap_share": 0.9999863791450287,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x1-2_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 718,
+        "B": 1452
+      },
+      "s": 17.0416667094645,
+      "m0": 54.704596123494525,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -388.3877146425965,
+        "B": 443.09231076609103
+      },
+      "pi_sha256": {
+        "A": "368f77ffc7a286eaa1f7bcf1add85fe747e70d78a9aabdff4053f2c1e1250eca",
+        "B": "fdc355174f75339904a3839d6069046509852fc6edbedea5879246c51d57d9c7"
+      },
+      "stationary_residual": {
+        "A": 1.942890293094024e-16,
+        "B": 6.106226635438361e-16
+      },
+      "maximum_drain_time_on_truncated_support": 5808.3,
+      "cpu_s": 0.34000362099999926,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9628167647115496,
+          "fresh_long_run_action_share": 0.5110925304117013,
+          "h_actual_Tint": 30.003614119843,
+          "limiting_fluid_gap_share": 0.9628167647115496,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999858922662971,
+          "fresh_long_run_action_share": 0.5110925304117013,
+          "h_actual_Tint": 30.003614119843,
+          "limiting_fluid_gap_share": 0.9999858922662971,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x1-2_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 1359,
+        "B": 2726
+      },
+      "s": 31.668482122473478,
+      "m0": 194.72815046159008,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -1342.4351201101902,
+        "B": 1537.1632705717802
+      },
+      "pi_sha256": {
+        "A": "7e5353fdd9632368d86063b820f06cee298828433bd640f503a801422ac6076c",
+        "B": "7e023b4ccc10676d6506a8e62774cd964e691f0433d057c37ca9bebcd45b8908"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.1102230246251565e-16
+      },
+      "maximum_drain_time_on_truncated_support": 10916.0,
+      "cpu_s": 0.4319998680000019,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9624090140698015,
+          "fresh_long_run_action_share": 0.5052021900056574,
+          "h_actual_Tint": 29.99053693126546,
+          "limiting_fluid_gap_share": 0.9624090140698015,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999847745625592,
+          "fresh_long_run_action_share": 0.5052021900056574,
+          "h_actual_Tint": 29.99053693126546,
+          "limiting_fluid_gap_share": 0.9999847745625592,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x-1-2_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "13/2",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 208,
+        "B": 165
+      },
+      "s": -0.6417657614326497,
+      "m0": -3.9404676929610547,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -4.819715416734016,
+        "B": 0.8792477237729612
+      },
+      "pi_sha256": {
+        "A": "34766a65a23c82c32a666c2f2af82993ff907111b50476da9daec4a2aa8c622b",
+        "B": "d086b78022fa1c29bf33cc8a290c3e63e13a18d898ada323d527c6e897284efd"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 104.375,
+      "cpu_s": 0.24400041199999833,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9986912920025964,
+          "fresh_long_run_action_share": 0.6648374708301019,
+          "h_actual_Tint": 29.962929606500524,
+          "limiting_fluid_gap_share": 0.9986912920025964,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999226582402,
+          "fresh_long_run_action_share": 0.6648374708301019,
+          "h_actual_Tint": 29.962929606500524,
+          "limiting_fluid_gap_share": 0.9999999226582402,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x-1-2_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "13/2",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 167,
+        "B": 130
+      },
+      "s": -0.5355954190189962,
+      "m0": -2.639055489351168,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -3.1770671818076495,
+        "B": 0.5380116924564815
+      },
+      "pi_sha256": {
+        "A": "ce843e547e772492bc6f994709a64b153cddb1bb2e0039cb0eb8a105036c2928",
+        "B": "c34205c5e6990956e1460a28e935418d0e569541bc203ac95332c6206c638f80"
+      },
+      "stationary_residual": {
+        "A": 8.881784197001252e-16,
+        "B": 9.992007221626409e-16
+      },
+      "maximum_drain_time_on_truncated_support": 83.5375,
+      "cpu_s": 0.23998593099999965,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9990243367358432,
+          "fresh_long_run_action_share": 0.6933042199743328,
+          "h_actual_Tint": 30.01748592143083,
+          "limiting_fluid_gap_share": 0.9990243367358432,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999613917504,
+          "fresh_long_run_action_share": 0.6933042199743328,
+          "h_actual_Tint": 30.01748592143083,
+          "limiting_fluid_gap_share": 0.9999999613917504,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x-1-2_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "13/2",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 322,
+        "B": 250
+      },
+      "s": -0.9984334311334244,
+      "m0": -9.392991528947464,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -11.596043218634183,
+        "B": 2.203051689686719
+      },
+      "pi_sha256": {
+        "A": "c9c1eb0996f34d4f69f92301a2cb2082dc91d9a5e794fbf4d700324708c7df73",
+        "B": "5a6870ae9120a9544a14173710ff52fd1064adb65dfec31d44ab21590afe2cbc"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 162.5,
+      "cpu_s": 0.33593731799999915,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9990523964746221,
+          "fresh_long_run_action_share": 0.6471592642911665,
+          "h_actual_Tint": 30.031835398116094,
+          "limiting_fluid_gap_share": 0.9990523964746221,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999829320543,
+          "fresh_long_run_action_share": 0.6471592642911665,
+          "h_actual_Tint": 30.031835398116094,
+          "limiting_fluid_gap_share": 0.9999999829320543,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x-1_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 208,
+        "B": 135
+      },
+      "s": -1.021010217579466,
+      "m0": -4.362952235058748,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -4.819715416734016,
+        "B": 0.4567631816752674
+      },
+      "pi_sha256": {
+        "A": "34766a65a23c82c32a666c2f2af82993ff907111b50476da9daec4a2aa8c622b",
+        "B": "555d4f24eae0992173179c832580872d24ee09b05d7b8710b9bf57bb7d3c8bb3"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 104.375,
+      "cpu_s": 0.2279898770000024,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999415115824466,
+          "fresh_long_run_action_share": 0.7124001282798507,
+          "h_actual_Tint": 29.962929606500524,
+          "limiting_fluid_gap_share": 0.9999415115824466,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999571065,
+          "fresh_long_run_action_share": 0.7124001282798507,
+          "h_actual_Tint": 29.962929606500524,
+          "limiting_fluid_gap_share": 0.9999999999571065,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x-1_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 167,
+        "B": 106
+      },
+      "s": -0.8520836974924579,
+      "m0": -2.9063549816443977,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -3.1770671818076495,
+        "B": 0.2707122001632517
+      },
+      "pi_sha256": {
+        "A": "ce843e547e772492bc6f994709a64b153cddb1bb2e0039cb0eb8a105036c2928",
+        "B": "7959ea7184c83079ef38ce243eb16fff6566fb2d37b68ab6c1b500b9dbc13fa1"
+      },
+      "stationary_residual": {
+        "A": 8.881784197001252e-16,
+        "B": 6.661338147750939e-16
+      },
+      "maximum_drain_time_on_truncated_support": 83.5375,
+      "cpu_s": 0.24397174899999996,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999655609945411,
+          "fresh_long_run_action_share": 0.7390920531315279,
+          "h_actual_Tint": 30.01748592143083,
+          "limiting_fluid_gap_share": 0.9999655609945411,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999880769,
+          "fresh_long_run_action_share": 0.7390920531315279,
+          "h_actual_Tint": 30.01748592143083,
+          "limiting_fluid_gap_share": 0.9999999999880769,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x-1_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 322,
+        "B": 202
+      },
+      "s": -1.588003882621834,
+      "m0": -10.45196390625056,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -11.596043218634183,
+        "B": 1.144079312383622
+      },
+      "pi_sha256": {
+        "A": "c9c1eb0996f34d4f69f92301a2cb2082dc91d9a5e794fbf4d700324708c7df73",
+        "B": "f45a5d9893f36ca95ca778a7578bfd13ccfbc47b1e3163386f90aa8d5e3491d8"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 162.5,
+      "cpu_s": 0.29199020199999737,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999726692349684,
+          "fresh_long_run_action_share": 0.6897259851870308,
+          "h_actual_Tint": 30.031835398116094,
+          "limiting_fluid_gap_share": 0.9999726692349684,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.999999999997776,
+          "fresh_long_run_action_share": 0.6897259851870308,
+          "h_actual_Tint": 30.031835398116094,
+          "limiting_fluid_gap_share": 0.999999999997776,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1-2_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "15/2",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 208,
+        "B": 282
+      },
+      "s": 1.2251187678337025,
+      "m0": -0.20293137862168464,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -4.819715416734016,
+        "B": 4.616784038112331
+      },
+      "pi_sha256": {
+        "A": "34766a65a23c82c32a666c2f2af82993ff907111b50476da9daec4a2aa8c622b",
+        "B": "8a1e72cb33e53db7395eb19e1fb0d4e7d8ecd319d7f23d4f0024b400c0485411"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 188.5,
+      "cpu_s": 0.2879947559999998,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.7206683751432259,
+          "fresh_long_run_action_share": 0.5021777613421081,
+          "h_actual_Tint": 29.971877436239883,
+          "limiting_fluid_gap_share": 0.7206683751432259,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.006311057353684424,
+          "fresh_long_run_action_share": 0.5021777613421081,
+          "h_actual_Tint": 29.971877436239883,
+          "limiting_fluid_gap_share": 0.006311057353684424,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1-2_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "15/2",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 167,
+        "B": 228
+      },
+      "s": 1.022500178619346,
+      "m0": -0.1987220121231701,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -3.1770671818076495,
+        "B": 2.9783451696844794
+      },
+      "pi_sha256": {
+        "A": "ce843e547e772492bc6f994709a64b153cddb1bb2e0039cb0eb8a105036c2928",
+        "B": "c1d0608e9eae0bc2376a8353132572abd1192da6e360b7346f9d29c80daf7f2a"
+      },
+      "stationary_residual": {
+        "A": 8.881784197001252e-16,
+        "B": 8.881784197001252e-16
+      },
+      "maximum_drain_time_on_truncated_support": 152.04999999999998,
+      "cpu_s": 0.2720027220000034,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.6727070197504037,
+          "fresh_long_run_action_share": 0.5005845137630379,
+          "h_actual_Tint": 29.962912653461526,
+          "limiting_fluid_gap_share": 0.6727070197504037,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.0026047854832415007,
+          "fresh_long_run_action_share": 0.5005845137630379,
+          "h_actual_Tint": 29.962912653461526,
+          "limiting_fluid_gap_share": 0.0026047854832415007,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1-2_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "15/2",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 322,
+        "B": 440
+      },
+      "s": 1.9047129377745158,
+      "m0": -0.2763981036781047,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -11.596043218634183,
+        "B": 11.319645114956078
+      },
+      "pi_sha256": {
+        "A": "c9c1eb0996f34d4f69f92301a2cb2082dc91d9a5e794fbf4d700324708c7df73",
+        "B": "279fb1a47a1b164b98501ca4479c43fcedf381ddd2f40aab290439d073539fb6"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 295.3333333333333,
+      "cpu_s": 0.2959780979999991,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.7483074704599728,
+          "fresh_long_run_action_share": 0.5063129152384287,
+          "h_actual_Tint": 30.025087509646582,
+          "limiting_fluid_gap_share": 0.7483074704599728,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.015023328249849421,
+          "fresh_long_run_action_share": 0.5063129152384287,
+          "h_actual_Tint": 30.025087509646582,
+          "limiting_fluid_gap_share": 0.015023328249849421,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1-4_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "29/4",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 208,
+        "B": 240
+      },
+      "s": 0.5038449158509444,
+      "m0": -1.9457986749617255,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -4.819715416734016,
+        "B": 2.87391674177229
+      },
+      "pi_sha256": {
+        "A": "34766a65a23c82c32a666c2f2af82993ff907111b50476da9daec4a2aa8c622b",
+        "B": "2577658123318fbe6272d5800445a0804317392d89aa23185ca91119d18cea1b"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 3.3306690738754696e-16
+      },
+      "maximum_drain_time_on_truncated_support": 137.57142857142858,
+      "cpu_s": 0.27201384500000003,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.04611260246546589,
+          "fresh_long_run_action_share": 0.4530219004730849,
+          "h_actual_Tint": 30.02143352268097,
+          "limiting_fluid_gap_share": 0.04611260246546589,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.00012189307205501265,
+          "fresh_long_run_action_share": 0.4530219004730849,
+          "h_actual_Tint": 30.02143352268097,
+          "limiting_fluid_gap_share": 0.00012189307205501265,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1-4_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "29/4",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 167,
+        "B": 194
+      },
+      "s": 0.42050874760586954,
+      "m0": -1.3450184163722265,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -3.1770671818076495,
+        "B": 1.832048765435423
+      },
+      "pi_sha256": {
+        "A": "ce843e547e772492bc6f994709a64b153cddb1bb2e0039cb0eb8a105036c2928",
+        "B": "f77adf1ae3e6d45ad33803f60107de79ec9f060c417d97e188a839dff09e1787"
+      },
+      "stationary_residual": {
+        "A": 8.881784197001252e-16,
+        "B": 7.771561172376096e-16
+      },
+      "maximum_drain_time_on_truncated_support": 110.89999999999999,
+      "cpu_s": 0.23996147499999765,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.042051362498883416,
+          "fresh_long_run_action_share": 0.4553645698534834,
+          "h_actual_Tint": 30.037390477963733,
+          "limiting_fluid_gap_share": 0.042051362498883416,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 9.039595741711093e-05,
+          "fresh_long_run_action_share": 0.4553645698534834,
+          "h_actual_Tint": 30.037390477963733,
+          "limiting_fluid_gap_share": 9.039595741711093e-05,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1-4_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "29/4",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 322,
+        "B": 372
+      },
+      "s": 0.7835700081983195,
+      "m0": -4.4975438745458085,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -11.596043218634183,
+        "B": 7.098499344088374
+      },
+      "pi_sha256": {
+        "A": "c9c1eb0996f34d4f69f92301a2cb2082dc91d9a5e794fbf4d700324708c7df73",
+        "B": "39de934a6852f23f106bcec1b383cb668c35f051c112a1cfe0929acf069f3b53"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 214.28571428571428,
+      "cpu_s": 0.33600961200000157,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.04948656088737802,
+          "fresh_long_run_action_share": 0.46823409220889434,
+          "h_actual_Tint": 29.985676481619702,
+          "limiting_fluid_gap_share": 0.04948656088737802,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 8.43248334176927e-05,
+          "fresh_long_run_action_share": 0.46823409220889434,
+          "h_actual_Tint": 29.985676481619702,
+          "limiting_fluid_gap_share": 8.43248334176927e-05,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 208,
+        "B": 429
+      },
+      "s": 4.083588668267472,
+      "m0": 9.64272645979501,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -4.819715416734016,
+        "B": 14.462441876529027
+      },
+      "pi_sha256": {
+        "A": "34766a65a23c82c32a666c2f2af82993ff907111b50476da9daec4a2aa8c622b",
+        "B": "c369a612eed9c59edfc000c1da79304daa222a7fc6de3ba0a525d0eab4c1a6a7"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 3.3306690738754696e-16
+      },
+      "maximum_drain_time_on_truncated_support": 429.75,
+      "cpu_s": 0.2639699339999986,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9990283481603285,
+          "fresh_long_run_action_share": 0.6132355287146953,
+          "h_actual_Tint": 30.01121597462357,
+          "limiting_fluid_gap_share": 0.9990283481603285,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999862585078,
+          "fresh_long_run_action_share": 0.6132355287146953,
+          "h_actual_Tint": 30.01121597462357,
+          "limiting_fluid_gap_share": 0.9999999862585078,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 167,
+        "B": 351
+      },
+      "s": 3.408333688276379,
+      "m0": 6.35420608158047,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -3.1770671818076495,
+        "B": 9.531273263388119
+      },
+      "pi_sha256": {
+        "A": "ce843e547e772492bc6f994709a64b153cddb1bb2e0039cb0eb8a105036c2928",
+        "B": "8a5c5389d2b8d9b604d6734cb70355def385a050cb7525b3bc6e44919b5d764f"
+      },
+      "stationary_residual": {
+        "A": 8.881784197001252e-16,
+        "B": 8.881784197001252e-16
+      },
+      "maximum_drain_time_on_truncated_support": 351.075,
+      "cpu_s": 0.28800850300000036,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9990871411534551,
+          "fresh_long_run_action_share": 0.6110428937740915,
+          "h_actual_Tint": 29.98152645948236,
+          "limiting_fluid_gap_share": 0.9990871411534551,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999898378988,
+          "fresh_long_run_action_share": 0.6110428937740915,
+          "h_actual_Tint": 29.98152645948236,
+          "limiting_fluid_gap_share": 0.9999999898378988,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u1_lA7_x1_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 322,
+        "B": 671
+      },
+      "s": 6.343954945744777,
+      "m0": 23.333193701934785,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -11.596043218634183,
+        "B": 34.92923692056897
+      },
+      "pi_sha256": {
+        "A": "c9c1eb0996f34d4f69f92301a2cb2082dc91d9a5e794fbf4d700324708c7df73",
+        "B": "700a8cc2d43452e7f61cded13ff6a53f7e341093e0f3b42253658df424d5f360"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 2.7755575615628914e-16
+      },
+      "maximum_drain_time_on_truncated_support": 674.0,
+      "cpu_s": 0.36800267299999945,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.999098539195237,
+          "fresh_long_run_action_share": 0.6054965577511655,
+          "h_actual_Tint": 30.08059592574066,
+          "limiting_fluid_gap_share": 0.999098539195237,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999898275513,
+          "fresh_long_run_action_share": 0.6054965577511655,
+          "h_actual_Tint": 30.08059592574066,
+          "limiting_fluid_gap_share": 0.9999999898275513,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x-1-4_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "6",
+        "2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 282,
+        "B": 208
+      },
+      "s": -1.6043632239805223,
+      "m0": -19.552849106007002,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -20.925353305376063,
+        "B": 1.3725041993690608
+      },
+      "pi_sha256": {
+        "A": "d0c99f31e4c0bcef95cbe663a54ccff1e4d218c1a3fa425a343016c0ca088a34",
+        "B": "79eae91d890d35b967399ad121c14eabd54b334fb39994f067af7202deba27eb"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 188.5,
+      "cpu_s": 0.29197477800000016,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999998979547364,
+          "fresh_long_run_action_share": 0.7569047613166147,
+          "h_actual_Tint": 29.971877436239883,
+          "limiting_fluid_gap_share": 0.9999998979547364,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999991,
+          "fresh_long_run_action_share": 0.7569047613166147,
+          "h_actual_Tint": 29.971877436239883,
+          "limiting_fluid_gap_share": 0.9999999999999991,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x-1-4_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "6",
+        "2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 228,
+        "B": 167
+      },
+      "s": -1.3389884570928148,
+      "m0": -13.231731207686975,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -14.04388068429571,
+        "B": 0.8121494766087353
+      },
+      "pi_sha256": {
+        "A": "3f575060551f60a43315debde0f2422acefd726e28da0baf815a7b26c4f73a38",
+        "B": "ef27b36937fe734b74704f78927aca9415816c10c92c383dd7ccd14cccf415fc"
+      },
+      "stationary_residual": {
+        "A": 4.440892098500626e-16,
+        "B": 6.661338147750939e-16
+      },
+      "maximum_drain_time_on_truncated_support": 152.04999999999998,
+      "cpu_s": 0.26797427600000034,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999692490392,
+          "fresh_long_run_action_share": 0.7856254337271165,
+          "h_actual_Tint": 29.962912653461526,
+          "limiting_fluid_gap_share": 0.9999999692490392,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999998,
+          "fresh_long_run_action_share": 0.7856254337271165,
+          "h_actual_Tint": 29.962912653461526,
+          "limiting_fluid_gap_share": 0.9999999999999998,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x-1-4_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "6",
+        "2",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 440,
+        "B": 322
+      },
+      "s": -2.4942833892629395,
+      "m0": -46.382365065765725,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -49.91722034608348,
+        "B": 3.534855280317754
+      },
+      "pi_sha256": {
+        "A": "c71028a5c787bcc3a6c61f0e7daeca2464da88d286df58a59ba59c9e25bd3862",
+        "B": "8a45f16231a5a44d6b7f3421cb373bae802a925fc5813333ec5d3a710c1b2586"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 3.3306690738754696e-16
+      },
+      "maximum_drain_time_on_truncated_support": 295.3333333333333,
+      "cpu_s": 0.3000075760000023,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999730162905,
+          "fresh_long_run_action_share": 0.727641571075303,
+          "h_actual_Tint": 30.025087509646582,
+          "limiting_fluid_gap_share": 0.9999999730162905,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.727641571075303,
+          "h_actual_Tint": 30.025087509646582,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x1-2_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "15/2",
+        "2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 282,
+        "B": 869
+      },
+      "s": 14.933840085723768,
+      "m0": 6.784705914747562,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -20.925353305376063,
+        "B": 27.710059220123625
+      },
+      "pi_sha256": {
+        "A": "d0c99f31e4c0bcef95cbe663a54ccff1e4d218c1a3fa425a343016c0ca088a34",
+        "B": "2cfe25e0394e74599c48b754e7d251ac74f871aa05debd182ae90c08e0e7c534"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 3.3306690738754696e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1739.5,
+      "cpu_s": 0.3159819679999991,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.999923556932368,
+          "fresh_long_run_action_share": 0.5113429608399138,
+          "h_actual_Tint": 30.046221074264086,
+          "limiting_fluid_gap_share": 0.999923556932368,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.5113429608399138,
+          "h_actual_Tint": 30.046221074264086,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x1-2_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "15/2",
+        "2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 228,
+        "B": 718
+      },
+      "s": 12.464762614667007,
+      "m0": 3.8264212080632642,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -14.04388068429571,
+        "B": 17.870301892358974
+      },
+      "pi_sha256": {
+        "A": "3f575060551f60a43315debde0f2422acefd726e28da0baf815a7b26c4f73a38",
+        "B": "1196f52d4983eb63cb6cf6da1726cc889bff160c01c4dd9e96c4a6ea20ee0d20"
+      },
+      "stationary_residual": {
+        "A": 4.440892098500626e-16,
+        "B": 8.881784197001252e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1436.15,
+      "cpu_s": 0.2919591809999993,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999110357119323,
+          "fresh_long_run_action_share": 0.5116491987465157,
+          "h_actual_Tint": 30.056179733689703,
+          "limiting_fluid_gap_share": 0.9999110357119323,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.5116491987465157,
+          "h_actual_Tint": 30.056179733689703,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x1-2_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "15/2",
+        "2",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 440,
+        "B": 1359
+      },
+      "s": 23.182444646318206,
+      "m0": 18.332692731987905,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -49.91722034608348,
+        "B": 68.24991307807139
+      },
+      "pi_sha256": {
+        "A": "c71028a5c787bcc3a6c61f0e7daeca2464da88d286df58a59ba59c9e25bd3862",
+        "B": "9cc55b834e0d47e1c415a65c447d816343089a22508f36edc7961267a5008c09"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.1102230246251565e-16
+      },
+      "maximum_drain_time_on_truncated_support": 2724.0,
+      "cpu_s": 0.3120065959999998,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999333658895919,
+          "fresh_long_run_action_share": 0.5175799910056134,
+          "h_actual_Tint": 30.0326940581583,
+          "limiting_fluid_gap_share": 0.9999333658895919,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.0,
+          "fresh_long_run_action_share": 0.5175799910056134,
+          "h_actual_Tint": 30.0326940581583,
+          "limiting_fluid_gap_share": 1.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x1-4_k1-2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "7",
+        "2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 282,
+        "B": 429
+      },
+      "s": 3.500235661866439,
+      "m0": -13.432323926932888,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -20.925353305376063,
+        "B": 7.493029378443175
+      },
+      "pi_sha256": {
+        "A": "d0c99f31e4c0bcef95cbe663a54ccff1e4d218c1a3fa425a343016c0ca088a34",
+        "B": "2d1c5d2879b4d8d0e2b025d6239a4a0b00009cfe36be4d8a5098b62c5834c8e0"
+      },
+      "stationary_residual": {
+        "A": 2.220446049250313e-16,
+        "B": 4.440892098500626e-16
+      },
+      "maximum_drain_time_on_truncated_support": 429.75,
+      "cpu_s": 0.3039993350000003,
+      "stale": {
+        "1": {
+          "long_run_action_share": 1.4914295541901268e-06,
+          "fresh_long_run_action_share": 0.39038170490645485,
+          "h_actual_Tint": 30.01121597462357,
+          "limiting_fluid_gap_share": 1.4914295541901268e-06,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.0,
+          "fresh_long_run_action_share": 0.39038170490645485,
+          "h_actual_Tint": 30.01121597462357,
+          "limiting_fluid_gap_share": 0.0,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x1-4_k1-20",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "7",
+        "2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 228,
+        "B": 351
+      },
+      "s": 2.9214289286760415,
+      "m0": -9.331852610014398,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -14.04388068429571,
+        "B": 4.712028074281311
+      },
+      "pi_sha256": {
+        "A": "3f575060551f60a43315debde0f2422acefd726e28da0baf815a7b26c4f73a38",
+        "B": "8385a4936ad477ef99e6f6237c0499d82a31d21b8a17d589ed31d42b71b34996"
+      },
+      "stationary_residual": {
+        "A": 4.440892098500626e-16,
+        "B": 4.440892098500626e-16
+      },
+      "maximum_drain_time_on_truncated_support": 351.075,
+      "cpu_s": 0.3359778240000004,
+      "stale": {
+        "1": {
+          "long_run_action_share": 6.246338308812938e-07,
+          "fresh_long_run_action_share": 0.3767002534598761,
+          "h_actual_Tint": 29.98152645948236,
+          "limiting_fluid_gap_share": 6.246338308812938e-07,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.3322676295501878e-15,
+          "fresh_long_run_action_share": 0.3767002534598761,
+          "h_actual_Tint": 29.98152645948236,
+          "limiting_fluid_gap_share": 1.3322676295501878e-15,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x1-4_k2",
+      "family": "zf_a3_asym",
+      "parameters": [
+        "13/2",
+        "7",
+        "2",
+        "2",
+        "0"
+      ],
+      "amplitude": 3.0,
+      "N": {
+        "A": 440,
+        "B": 671
+      },
+      "s": 5.437675439103701,
+      "m0": -31.06110131767823,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -49.91722034608348,
+        "B": 18.856119028405253
+      },
+      "pi_sha256": {
+        "A": "c71028a5c787bcc3a6c61f0e7daeca2464da88d286df58a59ba59c9e25bd3862",
+        "B": "f2f212df474ab37b534d75357e1ae6ef82a0c974e152e0afafd10c3893163580"
+      },
+      "stationary_residual": {
+        "A": 1.1102230246251565e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 674.0,
+      "cpu_s": 0.2719769939999992,
+      "stale": {
+        "1": {
+          "long_run_action_share": 1.115295857223586e-06,
+          "fresh_long_run_action_share": 0.4077455979399678,
+          "h_actual_Tint": 30.08059592574066,
+          "limiting_fluid_gap_share": 1.115295857223586e-06,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 2.220446049250313e-16,
+          "fresh_long_run_action_share": 0.4077455979399678,
+          "h_actual_Tint": 30.08059592574066,
+          "limiting_fluid_gap_share": 2.220446049250313e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x-1_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "8",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 863,
+        "B": 574
+      },
+      "s": -4.010850623925769,
+      "m0": -156.8634695144257,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -177.29964659989017,
+        "B": 20.436177085464465
+      },
+      "pi_sha256": {
+        "A": "7d254af77fd31a742c6236e0c20dce703577d5e9cbfcc063ec7c87457893f58a",
+        "B": "fd4beafd665b016a52f82c2e8352032a9b6b16b0e72a0fe995318a55027c2457"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 2.7755575615628914e-16
+      },
+      "maximum_drain_time_on_truncated_support": 864.875,
+      "cpu_s": 0.2960122520000006,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9998780828686825,
+          "fresh_long_run_action_share": 0.7136999561222228,
+          "h_actual_Tint": 30.0170280093145,
+          "limiting_fluid_gap_share": 0.9998780828686825,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999997243332,
+          "fresh_long_run_action_share": 0.7136999561222228,
+          "h_actual_Tint": 30.0170280093145,
+          "limiting_fluid_gap_share": 0.9999999997243332,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x-1_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "8",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 398,
+        "B": 261
+      },
+      "s": -1.9010421818928158,
+      "m0": -34.02819111970129,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -38.20184290191769,
+        "B": 4.173651782216401
+      },
+      "pi_sha256": {
+        "A": "27968041a9945f542d76e4447b6ff2c1586f6cf91ce7613a312076c3dac86a50",
+        "B": "81ec5beaabec39e65351168d446efee5506c906d2e7802dc4f69bb163bcb32f5"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 6.661338147750939e-16
+      },
+      "maximum_drain_time_on_truncated_support": 398.1875,
+      "cpu_s": 0.3519928880000016,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999128267167596,
+          "fresh_long_run_action_share": 0.7298870724518052,
+          "h_actual_Tint": 30.000521654706354,
+          "limiting_fluid_gap_share": 0.9999128267167596,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999998711002,
+          "fresh_long_run_action_share": 0.7298870724518052,
+          "h_actual_Tint": 30.000521654706354,
+          "limiting_fluid_gap_share": 0.9999999998711002,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x-1_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "8",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 2358,
+        "B": 1553
+      },
+      "s": -11.04543072505129,
+      "m0": -1167.5084890783746,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -1315.9721930258254,
+        "B": 148.46370394745088
+      },
+      "pi_sha256": {
+        "A": "8ee9995a8e93f06f714074ce912f9d4887c4113d0cb0947bd79ddde91e0cb9a3",
+        "B": "0387ec768e25faf1391dec9637de1705bb2f230d6cfcaff8d5b227f48d72e377"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-17,
+        "B": 5.551115123125783e-17
+      },
+      "maximum_drain_time_on_truncated_support": 2365.5,
+      "cpu_s": 0.4119940719999988,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9998945472385312,
+          "fresh_long_run_action_share": 0.7069438796364456,
+          "h_actual_Tint": 30.016201302051492,
+          "limiting_fluid_gap_share": 0.9998945472385312,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999998387368,
+          "fresh_long_run_action_share": 0.7069438796364456,
+          "h_actual_Tint": 30.016201302051492,
+          "limiting_fluid_gap_share": 0.9999999998387368,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "15/2",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 863,
+        "B": 428
+      },
+      "s": -5.615466401878827,
+      "m0": -169.75331146289383,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -177.29964659989017,
+        "B": 7.546335136996342
+      },
+      "pi_sha256": {
+        "A": "7d254af77fd31a742c6236e0c20dce703577d5e9cbfcc063ec7c87457893f58a",
+        "B": "d0c73a95f4e592ae19a767bb1d46ed3409f6764b7e97a143f0ef2e311d7d88de"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 864.875,
+      "cpu_s": 0.28400036800000095,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.99999985496195,
+          "fresh_long_run_action_share": 0.782087223953635,
+          "h_actual_Tint": 30.0170280093145,
+          "limiting_fluid_gap_share": 0.99999985496195,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999993,
+          "fresh_long_run_action_share": 0.782087223953635,
+          "h_actual_Tint": 30.0170280093145,
+          "limiting_fluid_gap_share": 0.9999999999999993,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "15/2",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 398,
+        "B": 192
+      },
+      "s": -2.661459370860605,
+      "m0": -36.70834988105387,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -38.20184290191769,
+        "B": 1.4934930208638237
+      },
+      "pi_sha256": {
+        "A": "27968041a9945f542d76e4447b6ff2c1586f6cf91ce7613a312076c3dac86a50",
+        "B": "a9ae45e516416cf110492447c8050dc20da58c293465c65a2f6be35a0497c62f"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 5.551115123125783e-16
+      },
+      "maximum_drain_time_on_truncated_support": 398.1875,
+      "cpu_s": 0.3039906749999979,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999309671979,
+          "fresh_long_run_action_share": 0.8048059228848613,
+          "h_actual_Tint": 30.000521654706354,
+          "limiting_fluid_gap_share": 0.9999999309671979,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999989,
+          "fresh_long_run_action_share": 0.8048059228848613,
+          "h_actual_Tint": 30.000521654706354,
+          "limiting_fluid_gap_share": 0.9999999999999989,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x-2_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "15/2",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 2358,
+        "B": 1144
+      },
+      "s": -15.466409782157527,
+      "m0": -1261.7501056631054,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -1315.9721930258254,
+        "B": 54.22208736272012
+      },
+      "pi_sha256": {
+        "A": "8ee9995a8e93f06f714074ce912f9d4887c4113d0cb0947bd79ddde91e0cb9a3",
+        "B": "6586fc12387e17163c6c58984758bc8b8356b97b96f4be7c2a62190848083856"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-17,
+        "B": 8.326672684688674e-17
+      },
+      "maximum_drain_time_on_truncated_support": 2365.5,
+      "cpu_s": 0.39199245600000054,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999157774679,
+          "fresh_long_run_action_share": 0.7719288245878229,
+          "h_actual_Tint": 30.016201302051492,
+          "limiting_fluid_gap_share": 0.9999999157774679,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999976,
+          "fresh_long_run_action_share": 0.7719288245878229,
+          "h_actual_Tint": 30.016201302051492,
+          "limiting_fluid_gap_share": 0.9999999999999976,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x1-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "35/4",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 863,
+        "B": 1152
+      },
+      "s": 4.812710902874841,
+      "m0": 0.547299064865939,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -177.29964659989017,
+        "B": 177.8469456647561
+      },
+      "pi_sha256": {
+        "A": "7d254af77fd31a742c6236e0c20dce703577d5e9cbfcc063ec7c87457893f58a",
+        "B": "128cc4e705af3a1b7a0ac3f501c33db871402bb91ec5db40c57738c6b7c3713b"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 2.220446049250313e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1538.5,
+      "cpu_s": 0.32398741700000144,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.7795588401505433,
+          "fresh_long_run_action_share": 0.4981608990019025,
+          "h_actual_Tint": 30.020568196944346,
+          "limiting_fluid_gap_share": 0.7795588401505433,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.856255037507108,
+          "fresh_long_run_action_share": 0.4981608990019025,
+          "h_actual_Tint": 30.020568196944346,
+          "limiting_fluid_gap_share": 0.856255037507108,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x1-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "35/4",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 398,
+        "B": 533
+      },
+      "s": 2.2812502549752196,
+      "m0": -0.3489876915108212,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -38.20184290191769,
+        "B": 37.85285521040687
+      },
+      "pi_sha256": {
+        "A": "27968041a9945f542d76e4447b6ff2c1586f6cf91ce7613a312076c3dac86a50",
+        "B": "d5466281db86943662ff5882e199ac58bfdddd0f1a807350362e854a7e2d2f5e"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 2.7755575615628914e-16
+      },
+      "maximum_drain_time_on_truncated_support": 710.9166666666666,
+      "cpu_s": 0.3279802449999991,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.7659087194569442,
+          "fresh_long_run_action_share": 0.4967086269930725,
+          "h_actual_Tint": 29.93642254574884,
+          "limiting_fluid_gap_share": 0.7659087194569442,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.6403442283701829,
+          "fresh_long_run_action_share": 0.4967086269930725,
+          "h_actual_Tint": 29.93642254574884,
+          "limiting_fluid_gap_share": 0.6403442283701829,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x1-2_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "17/2",
+        "35/4",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 2358,
+        "B": 3159
+      },
+      "s": 13.251699555571605,
+      "m0": -2.9272796483951424,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -1315.9721930258254,
+        "B": 1313.0449133774302
+      },
+      "pi_sha256": {
+        "A": "8ee9995a8e93f06f714074ce912f9d4887c4113d0cb0947bd79ddde91e0cb9a3",
+        "B": "3b645f75461b584d05f658574f7bfcc505168b0439a45aeafb7849025b146652"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-17,
+        "B": 1.1102230246251565e-16
+      },
+      "maximum_drain_time_on_truncated_support": 4222.0,
+      "cpu_s": 0.4919920210000015,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.7713280383647347,
+          "fresh_long_run_action_share": 0.49806713590101215,
+          "h_actual_Tint": 30.0026787116422,
+          "limiting_fluid_gap_share": 0.7713280383647347,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.80709385028255,
+          "fresh_long_run_action_share": 0.49806713590101215,
+          "h_actual_Tint": 30.0026787116422,
+          "limiting_fluid_gap_share": 0.80709385028255,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x-1-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "15/2",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 863,
+        "B": 574
+      },
+      "s": -5.615466401878869,
+      "m0": -245.8261912551333,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -265.9497899460311,
+        "B": 20.123598690897808
+      },
+      "pi_sha256": {
+        "A": "7d254af77fd31a742c6236e0c20dce703577d5e9cbfcc063ec7c87457893f58a",
+        "B": "d9dade6a3f60fcf9a497b5c4ad9028cf7d42b44fbbfd7a2b9544d26d7a117b1e"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.3877787807814457e-16
+      },
+      "maximum_drain_time_on_truncated_support": 864.875,
+      "cpu_s": 0.29200402399999703,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999988418518758,
+          "fresh_long_run_action_share": 0.7473505038239754,
+          "h_actual_Tint": 30.0170280093145,
+          "limiting_fluid_gap_share": 0.9999988418518758,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999998,
+          "fresh_long_run_action_share": 0.7473505038239754,
+          "h_actual_Tint": 30.0170280093145,
+          "limiting_fluid_gap_share": 0.9999999999999998,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x-1-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "15/2",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 398,
+        "B": 261
+      },
+      "s": -2.661459370860614,
+      "m0": -53.3200977468411,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -57.30276144003216,
+        "B": 3.982663693191058
+      },
+      "pi_sha256": {
+        "A": "27968041a9945f542d76e4447b6ff2c1586f6cf91ce7613a312076c3dac86a50",
+        "B": "2f9a8ed0861ba1e97ce7a159628173d33c9b0d14c9f4a23a4d7adf84f9186fed"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 7.771561172376096e-16
+      },
+      "maximum_drain_time_on_truncated_support": 398.1875,
+      "cpu_s": 0.34399100200000277,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999994053240253,
+          "fresh_long_run_action_share": 0.7693975672846551,
+          "h_actual_Tint": 30.000521654706354,
+          "limiting_fluid_gap_share": 0.9999994053240253,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999989,
+          "fresh_long_run_action_share": 0.7693975672846551,
+          "h_actual_Tint": 30.000521654706354,
+          "limiting_fluid_gap_share": 0.9999999999999989,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x-1-2_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "15/2",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 2358,
+        "B": 1553
+      },
+      "s": -15.46640978215764,
+      "m0": -1829.375014383967,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -1973.9656575901695,
+        "B": 144.59064320620251
+      },
+      "pi_sha256": {
+        "A": "8ee9995a8e93f06f714074ce912f9d4887c4113d0cb0947bd79ddde91e0cb9a3",
+        "B": "8741ab687f0e0bdd70b5698d093bb25142619af8b0c8b650b67bbe6841aa5a25"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-17,
+        "B": 1.1102230246251565e-16
+      },
+      "maximum_drain_time_on_truncated_support": 2365.5,
+      "cpu_s": 0.41198672399999836,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999992538744644,
+          "fresh_long_run_action_share": 0.7390373283924985,
+          "h_actual_Tint": 30.016201302051492,
+          "limiting_fluid_gap_share": 0.9999992538744644,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999976,
+          "fresh_long_run_action_share": 0.7390373283924985,
+          "h_actual_Tint": 30.016201302051492,
+          "limiting_fluid_gap_share": 0.9999999999999976,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x1-2_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "17/2",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 863,
+        "B": 1730
+      },
+      "s": 20.052934891193274,
+      "m0": 36.57733369127544,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -265.9497899460311,
+        "B": 302.52712363730654
+      },
+      "pi_sha256": {
+        "A": "7d254af77fd31a742c6236e0c20dce703577d5e9cbfcc063ec7c87457893f58a",
+        "B": "74101d110c5b9197802b8e0c1a5c8091e9f6e7634127cc2eb47a0678cbc74aa4"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 3463.75,
+      "cpu_s": 0.35600111500000153,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9603750836600418,
+          "fresh_long_run_action_share": 0.5044186607401118,
+          "h_actual_Tint": 30.00734711430186,
+          "limiting_fluid_gap_share": 0.9603750836600418,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.999982460138067,
+          "fresh_long_run_action_share": 0.5044186607401118,
+          "h_actual_Tint": 30.00734711430186,
+          "limiting_fluid_gap_share": 0.999982460138067,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x1-2_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "17/2",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 398,
+        "B": 807
+      },
+      "s": 9.50520935675971,
+      "m0": 6.255549035473855,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -57.30276144003216,
+        "B": 63.55831047550601
+      },
+      "pi_sha256": {
+        "A": "27968041a9945f542d76e4447b6ff2c1586f6cf91ce7613a312076c3dac86a50",
+        "B": "0b2af516b67c9991fc234b13f3384252e9db65782e296c24917f074d899e22fa"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 1.1102230246251565e-15
+      },
+      "maximum_drain_time_on_truncated_support": 1614.375,
+      "cpu_s": 0.35199892899999696,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9549945152387566,
+          "fresh_long_run_action_share": 0.5049390314059323,
+          "h_actual_Tint": 30.046930716943287,
+          "limiting_fluid_gap_share": 0.9549945152387566,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999777242275737,
+          "fresh_long_run_action_share": 0.5049390314059323,
+          "h_actual_Tint": 30.046930716943287,
+          "limiting_fluid_gap_share": 0.9999777242275737,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x1-2_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "17/2",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 2358,
+        "B": 4751
+      },
+      "s": 55.21538626537031,
+      "m0": 247.66876966190102,
+      "sign_m0": 1,
+      "sign_s": 1,
+      "signs_agree": true,
+      "components": {
+        "A": -1973.9656575901695,
+        "B": 2221.6344272520705
+      },
+      "pi_sha256": {
+        "A": "8ee9995a8e93f06f714074ce912f9d4887c4113d0cb0947bd79ddde91e0cb9a3",
+        "B": "c9da30e4af234986d35265351e9482555e74aff3972c0bba169b585f83692259"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-17,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 9517.0,
+      "cpu_s": 0.5759872040000005,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9562950116889501,
+          "fresh_long_run_action_share": 0.5041194004228865,
+          "h_actual_Tint": 29.960090292819483,
+          "limiting_fluid_gap_share": 0.9562950116889501,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999785718785393,
+          "fresh_long_run_action_share": 0.5041194004228865,
+          "h_actual_Tint": 29.960090292819483,
+          "limiting_fluid_gap_share": 0.9999785718785393,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x1-4_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "33/4",
+        "1",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 863,
+        "B": 1152
+      },
+      "s": 6.30251319486981,
+      "m0": -141.47566694730546,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -265.9497899460311,
+        "B": 124.47412299872563
+      },
+      "pi_sha256": {
+        "A": "7d254af77fd31a742c6236e0c20dce703577d5e9cbfcc063ec7c87457893f58a",
+        "B": "41fb4d2b9cfa4c5fe02b3e22732f32859c9c44a136a6314db66c71ae3432fbed"
+      },
+      "stationary_residual": {
+        "A": 1.6653345369377348e-16,
+        "B": 1.942890293094024e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1538.5,
+      "cpu_s": 0.32399440400000046,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.0008867342662801647,
+          "fresh_long_run_action_share": 0.41167028375834114,
+          "h_actual_Tint": 30.020568196944346,
+          "limiting_fluid_gap_share": 0.0008867342662801647,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 2.2667445698232314e-10,
+          "fresh_long_run_action_share": 0.41167028375834114,
+          "h_actual_Tint": 30.020568196944346,
+          "limiting_fluid_gap_share": 2.2667445698232314e-10,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x1-4_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "33/4",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 398,
+        "B": 533
+      },
+      "s": 2.987351703945876,
+      "m0": -31.50914270925464,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -57.30276144003216,
+        "B": 25.793618730777517
+      },
+      "pi_sha256": {
+        "A": "27968041a9945f542d76e4447b6ff2c1586f6cf91ce7613a312076c3dac86a50",
+        "B": "588a47709660a6a0c9c9d7ef6588afd1b4acf983afaa459051b6c45d10df21f6"
+      },
+      "stationary_residual": {
+        "A": 3.3306690738754696e-16,
+        "B": 6.661338147750939e-16
+      },
+      "maximum_drain_time_on_truncated_support": 710.9166666666666,
+      "cpu_s": 0.33200280200000165,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.0006134590987432187,
+          "fresh_long_run_action_share": 0.4035454335047235,
+          "h_actual_Tint": 29.93642254574884,
+          "limiting_fluid_gap_share": 0.0006134590987432187,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 8.643130655627829e-11,
+          "fresh_long_run_action_share": 0.4035454335047235,
+          "h_actual_Tint": 29.93642254574884,
+          "limiting_fluid_gap_share": 8.643130655627829e-11,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x1-4_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "8",
+        "33/4",
+        "1",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 2358,
+        "B": 3159
+      },
+      "s": 17.35483586189534,
+      "m0": -1064.7913918304948,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -1973.9656575901695,
+        "B": 909.1742657596745
+      },
+      "pi_sha256": {
+        "A": "8ee9995a8e93f06f714074ce912f9d4887c4113d0cb0947bd79ddde91e0cb9a3",
+        "B": "29db5d965623675b04ad5cb41e1dda795855013f16a2a21acba0a6faac67ef97"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-17,
+        "B": 1.3877787807814457e-16
+      },
+      "maximum_drain_time_on_truncated_support": 4222.0,
+      "cpu_s": 0.4999703029999978,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.0008216846145236989,
+          "fresh_long_run_action_share": 0.4138704269940653,
+          "h_actual_Tint": 30.0026787116422,
+          "limiting_fluid_gap_share": 0.0008216846145236989,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.538973393166998e-10,
+          "fresh_long_run_action_share": 0.4138704269940653,
+          "h_actual_Tint": 30.0026787116422,
+          "limiting_fluid_gap_share": 1.538973393166998e-10,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x-1-6_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "15/2",
+        "3/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 1152,
+        "B": 863
+      },
+      "s": -6.952045106952092,
+      "m0": -812.9766457982765,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -858.2541159130955,
+        "B": 45.27747011481888
+      },
+      "pi_sha256": {
+        "A": "e40c4514541f22ab5f4dd76ff5b6d4d71179f64b3932da06033904503372ac2b",
+        "B": "052b82b340b34d3c462ed301d699f12c528d7e5f81766713aa38d0f239637a2f"
+      },
+      "stationary_residual": {
+        "A": 1.3877787807814457e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1538.5,
+      "cpu_s": 0.3280025870000003,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999998774234,
+          "fresh_long_run_action_share": 0.7846210928798647,
+          "h_actual_Tint": 30.020568196944346,
+          "limiting_fluid_gap_share": 0.9999999998774234,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999991,
+          "fresh_long_run_action_share": 0.7846210928798647,
+          "h_actual_Tint": 30.020568196944346,
+          "limiting_fluid_gap_share": 0.9999999999999991,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x-1-6_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "15/2",
+        "3/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 533,
+        "B": 398
+      },
+      "s": -3.29513966439648,
+      "m0": -178.10897068240854,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -187.06999029602616,
+        "B": 8.961019613617633
+      },
+      "pi_sha256": {
+        "A": "a76dfbdfcca7454e9424d37ee2ac760cac0b7a0ae4da2005817ae8b191b97f30",
+        "B": "f3de1d0b71406cc1d7e1b5e3f2fe74ef40b28bb380ffc82bf0426cb75cb4972b"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-16,
+        "B": 5.551115123125783e-16
+      },
+      "maximum_drain_time_on_truncated_support": 710.9166666666666,
+      "cpu_s": 0.3560023290000025,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.999999999967188,
+          "fresh_long_run_action_share": 0.8060923096821005,
+          "h_actual_Tint": 29.93642254574884,
+          "limiting_fluid_gap_share": 0.999999999967188,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999991,
+          "fresh_long_run_action_share": 0.8060923096821005,
+          "h_actual_Tint": 29.93642254574884,
+          "limiting_fluid_gap_share": 0.999999999999999,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x-1-6_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "15/2",
+        "3/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 3159,
+        "B": 2358
+      },
+      "s": -19.14476384893483,
+      "m0": -6078.5838935330075,
+      "sign_m0": -1,
+      "sign_s": -1,
+      "signs_agree": true,
+      "components": {
+        "A": -6403.896170989765,
+        "B": 325.31227745675744
+      },
+      "pi_sha256": {
+        "A": "43a0942bace32a35f428da6a23c7f6e2f7a8bda44a5f55bb0444bab63d56e2f8",
+        "B": "d99b8ec97a42fbba070526f85bf5ef6df01f4b0c1bee68bae6bd4a598048cdf4"
+      },
+      "stationary_residual": {
+        "A": 5.551115123125783e-17,
+        "B": 8.326672684688674e-17
+      },
+      "maximum_drain_time_on_truncated_support": 4222.0,
+      "cpu_s": 0.5159931059999998,
+      "stale": {
+        "1": {
+          "long_run_action_share": 0.9999999999467573,
+          "fresh_long_run_action_share": 0.7779570183239026,
+          "h_actual_Tint": 30.0026787116422,
+          "limiting_fluid_gap_share": 0.9999999999467573,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.9999999999999969,
+          "fresh_long_run_action_share": 0.7779570183239026,
+          "h_actual_Tint": 30.0026787116422,
+          "limiting_fluid_gap_share": 0.9999999999999969,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x1-3_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "33/4",
+        "3/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 1152,
+        "B": 3459
+      },
+      "s": 61.11238783104636,
+      "m0": -298.1278176336464,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -858.2541159130955,
+        "B": 560.1262982794491
+      },
+      "pi_sha256": {
+        "A": "e40c4514541f22ab5f4dd76ff5b6d4d71179f64b3932da06033904503372ac2b",
+        "B": "dc3cac33c0ea39b1ba75f6869109dc79750f0ca2122657d0ae526010cd49965b"
+      },
+      "stationary_residual": {
+        "A": 1.3877787807814457e-16,
+        "B": 1.6653345369377348e-16
+      },
+      "maximum_drain_time_on_truncated_support": 13843.5,
+      "cpu_s": 0.46398888899999946,
+      "stale": {
+        "1": {
+          "long_run_action_share": 8.881784197001252e-16,
+          "fresh_long_run_action_share": 0.4345217150926475,
+          "h_actual_Tint": 30.05334283177396,
+          "limiting_fluid_gap_share": 0.0,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 0.0,
+          "fresh_long_run_action_share": 0.4345217150926475,
+          "h_actual_Tint": 30.05334283177396,
+          "limiting_fluid_gap_share": 4.440892098500626e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x1-3_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "33/4",
+        "3/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 533,
+        "B": 1626
+      },
+      "s": 28.968255503428352,
+      "m0": -70.9986887869643,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -187.06999029602616,
+        "B": 116.07130150906187
+      },
+      "pi_sha256": {
+        "A": "a76dfbdfcca7454e9424d37ee2ac760cac0b7a0ae4da2005817ae8b191b97f30",
+        "B": "4e6d52631f53e24115bd39d711186217d69f32c3348cecf007222cd834902fa1"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-16,
+        "B": 6.106226635438361e-16
+      },
+      "maximum_drain_time_on_truncated_support": 6504.75,
+      "cpu_s": 0.33196469299999976,
+      "stale": {
+        "1": {
+          "long_run_action_share": 2.220446049250313e-16,
+          "fresh_long_run_action_share": 0.43077823129795734,
+          "h_actual_Tint": 29.873619561319487,
+          "limiting_fluid_gap_share": 2.220446049250313e-16,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 4.440892098500626e-16,
+          "fresh_long_run_action_share": 0.43077823129795734,
+          "h_actual_Tint": 29.873619561319487,
+          "limiting_fluid_gap_share": 2.220446049250313e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x1-3_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "33/4",
+        "3/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 3159,
+        "B": 9518
+      },
+      "s": 168.26459100561442,
+      "m0": -2312.7584820548577,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -6403.896170989765,
+        "B": 4091.137688934907
+      },
+      "pi_sha256": {
+        "A": "43a0942bace32a35f428da6a23c7f6e2f7a8bda44a5f55bb0444bab63d56e2f8",
+        "B": "d83a872ed2ed70908da362838beb6119dd78a82ab024475ba8fa1e842d1a76f0"
+      },
+      "stationary_residual": {
+        "A": 5.551115123125783e-17,
+        "B": 1.3877787807814457e-16
+      },
+      "maximum_drain_time_on_truncated_support": 38102.0,
+      "cpu_s": 0.8879738839999973,
+      "stale": {
+        "1": {
+          "long_run_action_share": 1.9984014443252818e-15,
+          "fresh_long_run_action_share": 0.4338754758221396,
+          "h_actual_Tint": 29.993503489796016,
+          "limiting_fluid_gap_share": 1.9984014443252818e-15,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 1.6653345369377348e-15,
+          "fresh_long_run_action_share": 0.4338754758221396,
+          "h_actual_Tint": 29.993503489796016,
+          "limiting_fluid_gap_share": 6.661338147750939e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x1-6_k1-2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "8",
+        "3/2",
+        "1/2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 1152,
+        "B": 1730
+      },
+      "s": 14.705505562194269,
+      "m0": -674.3339064969664,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -858.2541159130955,
+        "B": 183.920209416129
+      },
+      "pi_sha256": {
+        "A": "e40c4514541f22ab5f4dd76ff5b6d4d71179f64b3932da06033904503372ac2b",
+        "B": "ee327a34260dfcde91565f93cc006ef7ef647f18ac8d38c4c5abda3223c421db"
+      },
+      "stationary_residual": {
+        "A": 1.3877787807814457e-16,
+        "B": 2.7755575615628914e-16
+      },
+      "maximum_drain_time_on_truncated_support": 3463.75,
+      "cpu_s": 0.37199102600000344,
+      "stale": {
+        "1": {
+          "long_run_action_share": 9.711120796396244e-12,
+          "fresh_long_run_action_share": 0.3247935469572254,
+          "h_actual_Tint": 30.00734711430186,
+          "limiting_fluid_gap_share": 9.711120796396244e-12,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 8.881784197001252e-16,
+          "fresh_long_run_action_share": 0.3247935469572254,
+          "h_actual_Tint": 30.00734711430186,
+          "limiting_fluid_gap_share": 8.881784197001252e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x1-6_k1-20",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "8",
+        "3/2",
+        "1/20",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 533,
+        "B": 807
+      },
+      "s": 6.970486881331027,
+      "m0": -149.50707032663962,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -187.06999029602616,
+        "B": 37.562919969386556
+      },
+      "pi_sha256": {
+        "A": "a76dfbdfcca7454e9424d37ee2ac760cac0b7a0ae4da2005817ae8b191b97f30",
+        "B": "c69574b18a78fda689959d9ad036a15fad42f48a1fb6ed735847b06737ae4cfe"
+      },
+      "stationary_residual": {
+        "A": 2.7755575615628914e-16,
+        "B": 7.771561172376096e-16
+      },
+      "maximum_drain_time_on_truncated_support": 1614.375,
+      "cpu_s": 0.296003393999996,
+      "stale": {
+        "1": {
+          "long_run_action_share": 2.2666313270747196e-12,
+          "fresh_long_run_action_share": 0.31306066820000344,
+          "h_actual_Tint": 30.046930716943287,
+          "limiting_fluid_gap_share": 2.2666313270747196e-12,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 8.881784197001252e-16,
+          "fresh_long_run_action_share": 0.31306066820000344,
+          "h_actual_Tint": 30.046930716943287,
+          "limiting_fluid_gap_share": 8.881784197001252e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x1-6_k2",
+      "family": "zf_a7p5_asym",
+      "parameters": [
+        "31/4",
+        "8",
+        "3/2",
+        "2",
+        "0"
+      ],
+      "amplitude": 7.5,
+      "N": {
+        "A": 3159,
+        "B": 4751
+      },
+      "s": 40.491601473541834,
+      "m0": -5067.841187296808,
+      "sign_m0": -1,
+      "sign_s": 1,
+      "signs_agree": false,
+      "components": {
+        "A": -6403.896170989765,
+        "B": 1336.0549836929563
+      },
+      "pi_sha256": {
+        "A": "43a0942bace32a35f428da6a23c7f6e2f7a8bda44a5f55bb0444bab63d56e2f8",
+        "B": "4cbbf1bbb2acf9af23f9d19411e2dde59b424d49f72f06c2106053322eb3c915"
+      },
+      "stationary_residual": {
+        "A": 5.551115123125783e-17,
+        "B": 5.551115123125783e-17
+      },
+      "maximum_drain_time_on_truncated_support": 9517.0,
+      "cpu_s": 0.6239767130000047,
+      "stale": {
+        "1": {
+          "long_run_action_share": 5.618394638418067e-12,
+          "fresh_long_run_action_share": 0.3277216005675747,
+          "h_actual_Tint": 29.960090292819483,
+          "limiting_fluid_gap_share": 5.618394638418067e-12,
+          "observed_h_beyond_all_support_drain": true
+        },
+        "3": {
+          "long_run_action_share": 6.661338147750939e-16,
+          "fresh_long_run_action_share": 0.3277216005675747,
+          "h_actual_Tint": 29.960090292819483,
+          "limiting_fluid_gap_share": 6.661338147750939e-16,
+          "observed_h_beyond_all_support_drain": true
+        }
+      }
+    }
+  ]
+}

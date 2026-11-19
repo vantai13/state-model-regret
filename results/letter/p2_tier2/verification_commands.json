@@ -1,0 +1,45 @@
+{
+  "environment": [
+    "cd /home/vantai/state-model-regret",
+    "source .venv/bin/activate",
+    "source experiments/explore_ctmc/env.sh"
+  ],
+  "successful_commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m experiments.letter.p2_tier2 --self-test",
+      "checks": 11,
+      "status": "PASS",
+      "log": "results/letter/p2_tier2/self_test_final.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -m experiments.letter.p2_tier2",
+      "checks": 9576,
+      "status": "COMPLETE",
+      "cpu_s": 35.553236141999996,
+      "log": "results/letter/p2_tier2/run_03.log"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 results/letter/p2_tier2/verify_saved.py",
+      "checks": 8365,
+      "status": "PASS",
+      "cpu_s": 96.512036982,
+      "log": "results/letter/p2_tier2/independent_final.log"
+    }
+  ],
+  "retained_failed_checks": [
+    {
+      "log": "run_01.log",
+      "failure": "KeyError: 'decisions' (correct ledger key: unique_decisions)"
+    },
+    {
+      "log": "independent_01.log",
+      "failure": "408 prose factorization 136+136+136 instead of measured 120+132+156"
+    }
+  ],
+  "historical_snapshot": "results/letter/p2_tier2/run02_snapshot/",
+  "all_primitive_attempts_cpu_s": 101.74492530500001,
+  "primitive_cpu_cap_s": 3600,
+  "no_new_true_costs": true,
+  "CSV_created": false,
+  "configuration": "Selectors and fixed reading rules in experiments/letter/p2_tier2.py; actual environment/seeds in run_metadata.json and data JSONs. No new scientific card/lock/config."
+}

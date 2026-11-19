@@ -1,0 +1,767 @@
+{
+  "owner": "Doan Van Tai",
+  "created_utc": "2026-11-19T15:53:16.032421+00:00",
+  "kind": "EXPLORATION_NOT_PAPER_RESULT",
+  "predictions": {
+    "D1": "T1, T2: G_S=0 (|G_S|<=1e-9*C_ref), P_dis=0 for h>M_hat/|s_hat|.",
+    "D2": "T1, T2: |G_S|<=P_dis*max_x|V1-V0+c| at every grid h.",
+    "D3": "T3: same as D1, including plug-in and exp(Q0*3*tau).",
+    "D4": "T0: |G_S| grows approximately linearly; G_S/h -> s*DeltaF_inf.",
+    "D5": "T4: mixed-sign s_nc gives nonvanishing P_dis and G_S/h -> s*(F_old_inf-F_new_inf); constant sign as D1.",
+    "D6": "If a negative T4 slope is predicted, T4 harm grows with h there."
+  },
+  "proposed_grid": [
+    1,
+    3,
+    10,
+    30,
+    100,
+    300
+  ],
+  "selection": [
+    {
+      "sign": -1,
+      "available": 42,
+      "indices_zero_based": [
+        0,
+        8,
+        16,
+        25,
+        33,
+        41
+      ]
+    },
+    {
+      "sign": 1,
+      "available": 51,
+      "indices_zero_based": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50
+      ]
+    }
+  ],
+  "regimes": [
+    {
+      "regime": "A_u1-2_lA9_x-1_k1-2",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "a": "6",
+      "N_A": 1362,
+      "N_B": 680,
+      "T_int": 151.216532795572,
+      "tau": 151.216532795572,
+      "s": -12.667009122650803,
+      "s_mm1": -6.666666666666645,
+      "M_hat": 929566.125,
+      "h_bar": 2727.0,
+      "threshold_T1": 73384.81531033044,
+      "threshold_T2": 139434.91875000045,
+      "T0": {
+        "F_new_inf": 0.8214350070126304,
+        "F_old_inf": 0.9999999994649321,
+        "slope_predicted": -2.2618843883793778
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/A_u1-2_lA9_x-1_k1-2.json",
+      "saved_sha256": "0d399d0ff759722882fd77cc2303a000e58a6cd595dda6128f1971c095521dff",
+      "saved_h": [
+        "252/5",
+        "80",
+        "151",
+        "454",
+        "500",
+        "1510",
+        "4540"
+      ],
+      "saved_prepare_cpu": 93.004873926,
+      "saved_h_max": 4540.0,
+      "kernel_work": 1404214869.523617,
+      "truth_work": 33484481.72305469
+    },
+    {
+      "regime": "A_u1-2_lA9_x1-2_k1-2",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "a": "6",
+      "N_A": 1362,
+      "N_B": 2728,
+      "T_int": 606.174970641001,
+      "tau": 606.174970641001,
+      "s": 31.666835406162058,
+      "s_mm1": 16.666666666666643,
+      "M_hat": 9933560.333333334,
+      "h_bar": 10918.0,
+      "threshold_T1": 313689.70741548616,
+      "threshold_T2": 596013.6200000009,
+      "T0": {
+        "F_new_inf": 0.49044592771706014,
+        "F_old_inf": 0.034368111698091085,
+        "slope_predicted": -14.442541132274554
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/A_u1-2_lA9_x1-2_k1-2.json",
+      "saved_sha256": "c18dcbc8d27b0db3ad066553dffbd229f964f462c04c0456fd9884fb6e8538f5",
+      "saved_h": [
+        "80",
+        "202",
+        "500",
+        "606",
+        "1820",
+        "6060",
+        "18200"
+      ],
+      "saved_prepare_cpu": 478.267112752,
+      "saved_h_max": 18200.0,
+      "kernel_work": 22562341594.233395,
+      "truth_work": 272025261.2999437
+    },
+    {
+      "regime": "A_u1_lA7_x-1-2_k2",
+      "parameters": [
+        "7",
+        "13/2",
+        "1",
+        "2",
+        "0"
+      ],
+      "a": "6",
+      "N_A": 788,
+      "N_B": 612,
+      "T_int": 23.627037656973684,
+      "tau": 23.627037656973684,
+      "s": -2.4230609222967985,
+      "s_mm1": -0.5238095238095253,
+      "M_hat": 52536.33333333333,
+      "h_bar": 397.0,
+      "threshold_T1": 21681.80455138313,
+      "threshold_T2": 100296.63636363608,
+      "T0": {
+        "F_new_inf": 0.6269065199818714,
+        "F_old_inf": 0.9988571259042641,
+        "slope_predicted": -0.9012589782351659
+      },
+      "T4": {
+        "eligible": true,
+        "w_star": 0.125,
+        "W_over_kappa": 3.9986545337967545,
+        "rate_A": [
+          -0.9696969696969695,
+          -3.555555555555555
+        ],
+        "rate_B": [
+          0.7239819004524894,
+          2.0779220779220764
+        ],
+        "slope_by_modes": [
+          [
+            -0.24571506924448006,
+            1.108225108225107
+          ],
+          [
+            -2.8315736551030657,
+            -1.4776334776334785
+          ]
+        ],
+        "stale_rate_by_modes": [
+          [
+            -0.861674273405215,
+            -0.8616742733309972
+          ],
+          [
+            -0.8616742735469616,
+            -0.8616742734727438
+          ]
+        ],
+        "F_new_inf": 0.75,
+        "F_old_inf": 1.0,
+        "delta_F_inf": 0.25,
+        "P_dis_inf": 0.25,
+        "mixed_sign": true,
+        "zero_slope_modes": 0,
+        "max_nowcast_load": 8.75,
+        "slope_predicted": -0.6057652305741996
+      },
+      "saved_source": "results/letter/w1b/raw/A_u1_lA7_x-1-2_k2.json",
+      "saved_sha256": "2fea583987aaec7cdaade4bf7c275a0d18ec525e62a8bea4e046c45edf4979f9",
+      "saved_h": [
+        "197/25",
+        "118/5",
+        "709/10",
+        "236",
+        "320",
+        "709",
+        "2000"
+      ],
+      "saved_prepare_cpu": 34.048139410000005,
+      "saved_h_max": 2000.0,
+      "kernel_work": 94346541.69032104,
+      "truth_work": 3151043.5041599525
+    },
+    {
+      "regime": "A_u1_lA7_x1_k1-20",
+      "parameters": [
+        "7",
+        "8",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "a": "6",
+      "N_A": 182,
+      "N_B": 377,
+      "T_int": 20.90473741387247,
+      "tau": 20.90473741387247,
+      "s": 3.6333347053086147,
+      "s_mm1": 3.333333333333334,
+      "M_hat": 35560.53062500001,
+      "h_bar": 377.15,
+      "threshold_T1": 9787.298311119812,
+      "threshold_T2": 10668.1591875,
+      "T0": {
+        "F_new_inf": 0.3848205227333865,
+        "F_old_inf": 0.0008942305679650887,
+        "slope_predicted": -1.3949327216050804
+      },
+      "T4": {
+        "eligible": true,
+        "w_star": 0.0625,
+        "W_over_kappa": 7.99999909971698,
+        "rate_A": [
+          -1.2475633528265102,
+          -2.344322344322345
+        ],
+        "rate_B": [
+          3.062200956937802,
+          9.846153846153845
+        ],
+        "slope_by_modes": [
+          [
+            1.814637604111292,
+            8.598590493327334
+          ],
+          [
+            0.7178786126154573,
+            7.5018315018315
+          ]
+        ],
+        "stale_rate_by_modes": [
+          [
+            4.658234552971396,
+            4.658234552971396
+          ],
+          [
+            4.658234552971396,
+            4.658234552971396
+          ]
+        ],
+        "F_new_inf": 0.0,
+        "F_old_inf": 0.0,
+        "delta_F_inf": 0.0,
+        "P_dis_inf": 0.0,
+        "mixed_sign": false,
+        "zero_slope_modes": 0,
+        "max_nowcast_load": 9.375,
+        "slope_predicted": 0.0
+      },
+      "saved_source": "results/letter/w1b/raw/A_u1_lA7_x1_k1-20.json",
+      "saved_sha256": "10ccba4906ccb6e07599ebe03c3ec7078c4a1272a17099874e9ce3452838455c",
+      "saved_h": [
+        "697/100",
+        "8",
+        "209/10",
+        "50",
+        "627/10",
+        "209",
+        "627"
+      ],
+      "saved_prepare_cpu": 16.398608419,
+      "saved_h_max": 627.0,
+      "kernel_work": 14748125.007587718,
+      "truth_work": 2072203.0008875227
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x-1_k1-20",
+      "parameters": [
+        "9",
+        "17/2",
+        "1/2",
+        "1/20",
+        "0"
+      ],
+      "a": "3",
+      "N_A": 718,
+      "N_B": 351,
+      "T_int": 79.85046740021525,
+      "tau": 79.85046740021525,
+      "s": -6.816666753115793,
+      "s_mm1": -6.666666666666645,
+      "M_hat": 257815.85281249997,
+      "h_bar": 1436.15,
+      "threshold_T1": 37821.39602095941,
+      "threshold_T2": 38672.37792187512,
+      "T0": {
+        "F_new_inf": 0.8345946129598123,
+        "F_old_inf": 0.9999999998206464,
+        "slope_predicted": -1.1275134014005035
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/Za3_u1-2_lA9_x-1_k1-20.json",
+      "saved_sha256": "2afb3f294470d83bad494e127403c4e58366809db361e45ab002b58a69f7e70d",
+      "saved_h": [
+        "8",
+        "133/5",
+        "50",
+        "799/10",
+        "240",
+        "799",
+        "2400"
+      ],
+      "saved_prepare_cpu": 65.17173161700003,
+      "saved_h_max": 2400.0,
+      "kernel_work": 204693479.1617558,
+      "truth_work": 14396640.01992181
+    },
+    {
+      "regime": "Za3_u1-2_lA9_x1-2_k2",
+      "parameters": [
+        "9",
+        "37/4",
+        "1/2",
+        "2",
+        "0"
+      ],
+      "a": "3",
+      "N_A": 1359,
+      "N_B": 2726,
+      "T_int": 606.8580913276782,
+      "tau": 606.8580913276782,
+      "s": 31.668482122473478,
+      "s_mm1": 16.666666666666643,
+      "M_hat": 9929921.333333334,
+      "h_bar": 10916.0,
+      "threshold_T1": 313558.4867923488,
+      "threshold_T2": 595795.2800000008,
+      "T0": {
+        "F_new_inf": 0.4947978099943427,
+        "F_old_inf": 0.03759098593019847,
+        "slope_predicted": -14.479046134148229
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/Za3_u1-2_lA9_x1-2_k2.json",
+      "saved_sha256": "1549120b73566b0dd561e3ef8c3e62e2a08518bcd50cf334e933b12878634415",
+      "saved_h": [
+        "202",
+        "320",
+        "607",
+        "1820",
+        "2000",
+        "6070",
+        "18200"
+      ],
+      "saved_prepare_cpu": 420.115175506,
+      "saved_h_max": 18200.0,
+      "kernel_work": 22541450083.050404,
+      "truth_work": 227355742.76736665
+    },
+    {
+      "regime": "Za3_u1_lA7_x-1_k1-20",
+      "parameters": [
+        "7",
+        "6",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "a": "3",
+      "N_A": 167,
+      "N_B": 106,
+      "T_int": 4.630634303080048,
+      "tau": 4.630634303080048,
+      "s": -0.8520836974924579,
+      "s_mm1": -0.8333333333333346,
+      "M_hat": 2326.171302083332,
+      "h_bar": 83.5375,
+      "threshold_T1": 2729.9798234948885,
+      "threshold_T2": 2791.4055624999946,
+      "T0": {
+        "F_new_inf": 0.7390920531315279,
+        "F_old_inf": 0.9999655609945411,
+        "slope_predicted": -0.2222860631577441
+      },
+      "T4": {
+        "eligible": true,
+        "w_star": 0.25,
+        "W_over_kappa": 1.960345197436443,
+        "rate_A": [
+          -0.9696969696969695,
+          -3.555555555555555
+        ],
+        "rate_B": [
+          0.5614035087719298,
+          1.3675213675213675
+        ],
+        "slope_by_modes": [
+          [
+            -0.4082934609250397,
+            0.39782439782439805
+          ],
+          [
+            -2.994152046783625,
+            -2.1880341880341874
+          ]
+        ],
+        "stale_rate_by_modes": [
+          [
+            -1.2981638244796134,
+            -1.2981638244796134
+          ],
+          [
+            -1.2981638244796134,
+            -1.2981638244796134
+          ]
+        ],
+        "F_new_inf": 0.75,
+        "F_old_inf": 1.0,
+        "delta_F_inf": 0.25,
+        "P_dis_inf": 0.25,
+        "mixed_sign": true,
+        "zero_slope_modes": 0,
+        "max_nowcast_load": 8.75,
+        "slope_predicted": -0.21302092437311448
+      },
+      "saved_source": "results/letter/w1b/raw/Za3_u1_lA7_x-1_k1-20.json",
+      "saved_sha256": "13c2e66f89635f22421e513c52207540d8257dd45a62931b1acd48a88d4c7b71",
+      "saved_h": [
+        "77/50",
+        "463/100",
+        "8",
+        "139/10",
+        "463/10",
+        "50",
+        "139"
+      ],
+      "saved_prepare_cpu": 3.387183593999964,
+      "saved_h_max": 139.0,
+      "kernel_work": 734844.6188243789,
+      "truth_work": 204312.84672049788
+    },
+    {
+      "regime": "Za3_u2_lA13-2_x1-2_k1-2",
+      "parameters": [
+        "13/2",
+        "15/2",
+        "2",
+        "1/2",
+        "0"
+      ],
+      "a": "3",
+      "N_A": 282,
+      "N_B": 869,
+      "T_int": 96.51796120491099,
+      "tau": 96.51796120491099,
+      "s": 14.933840085723768,
+      "s_mm1": 12.190476190476174,
+      "M_hat": 605172.05,
+      "h_bar": 1739.5,
+      "threshold_T1": 40523.53892409251,
+      "threshold_T2": 49643.01972656257,
+      "T0": {
+        "F_new_inf": 0.48865703916008624,
+        "F_old_inf": 7.644306763197999e-05,
+        "slope_predicted": -7.296384491032306
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/Za3_u2_lA13-2_x1-2_k1-2.json",
+      "saved_sha256": "4030fa52c56b2599233153aa1862e0f22b8428a774c35534a9490e2373dbbc40",
+      "saved_h": [
+        "161/5",
+        "80",
+        "193/2",
+        "290",
+        "500",
+        "965",
+        "2900"
+      ],
+      "saved_prepare_cpu": 44.26789631400004,
+      "saved_h_max": 2900.0,
+      "kernel_work": 323137887.32374895,
+      "truth_work": 10351551.339226704
+    },
+    {
+      "regime": "Za7p5_u1-2_lA17-2_x-2_k1-2",
+      "parameters": [
+        "17/2",
+        "15/2",
+        "1/2",
+        "1/2",
+        "0"
+      ],
+      "a": "15/2",
+      "N_A": 863,
+      "N_B": 428,
+      "T_int": 47.97277064048971,
+      "tau": 47.97277064048971,
+      "s": -5.615466401878827,
+      "s_mm1": -2.333333333333334,
+      "M_hat": 124668.12760416666,
+      "h_bar": 864.875,
+      "threshold_T1": 22200.850059837434,
+      "threshold_T2": 53429.19754464284,
+      "T0": {
+        "F_new_inf": 0.782087223953635,
+        "F_old_inf": 0.99999985496195,
+        "slope_predicted": -1.2236810579722113
+      },
+      "T4": {
+        "eligible": true,
+        "w_star": 0.0625,
+        "W_over_kappa": 7.99999909971698,
+        "rate_A": [
+          -1.7291455589327942,
+          -9.126559714795018
+        ],
+        "rate_B": [
+          0.682211858760827,
+          1.6075353218210382
+        ],
+        "slope_by_modes": [
+          [
+            -1.0469337001719672,
+            -0.121610237111756
+          ],
+          [
+            -8.444347856034192,
+            -7.51902439297398
+          ]
+        ],
+        "stale_rate_by_modes": [
+          [
+            -4.282979046572974,
+            -4.282979046572974
+          ],
+          [
+            -4.282979046572974,
+            -4.282979046572974
+          ]
+        ],
+        "F_new_inf": 1.0,
+        "F_old_inf": 1.0,
+        "delta_F_inf": 0.0,
+        "P_dis_inf": 0.0,
+        "mixed_sign": false,
+        "zero_slope_modes": 0,
+        "max_nowcast_load": 9.46875,
+        "slope_predicted": -0.0
+      },
+      "saved_source": "results/letter/w1b/raw/Za7p5_u1-2_lA17-2_x-2_k1-2.json",
+      "saved_sha256": "fb06dfbc6a91a9dd24c1515e6a7445ca30b12e95497542e733df18b2d0fe5b55",
+      "saved_h": [
+        "16",
+        "48",
+        "80",
+        "144",
+        "480",
+        "500",
+        "1440"
+      ],
+      "saved_prepare_cpu": 28.424396255000033,
+      "saved_h_max": 1440.0,
+      "kernel_work": 178561752.2939575,
+      "truth_work": 6926932.271092231
+    },
+    {
+      "regime": "Za7p5_u1_lA8_x1-2_k1-20",
+      "parameters": [
+        "8",
+        "17/2",
+        "1",
+        "1/20",
+        "0"
+      ],
+      "a": "15/2",
+      "N_A": 398,
+      "N_B": 807,
+      "T_int": 89.52661505899253,
+      "tau": 89.52661505899253,
+      "s": 9.50520935675971,
+      "s_mm1": 8.333333333333314,
+      "M_hat": 434367.77343750006,
+      "h_bar": 1614.375,
+      "threshold_T1": 45697.864942721724,
+      "threshold_T2": 52124.132812500124,
+      "T0": {
+        "F_new_inf": 0.4950609685940676,
+        "F_old_inf": 0.04500548476124343,
+        "slope_predicted": -4.2778715959887785
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/Za7p5_u1_lA8_x1-2_k1-20.json",
+      "saved_sha256": "018a07e2fc34e6b39e76133a8f6102b8ea2c6267b1e648dfd6312e87cba549a7",
+      "saved_h": [
+        "8",
+        "149/5",
+        "50",
+        "179/2",
+        "269",
+        "895",
+        "2690"
+      ],
+      "saved_prepare_cpu": 77.40881358700005,
+      "saved_h_max": 2690.0,
+      "kernel_work": 290805722.6315231,
+      "truth_work": 20027461.895156864
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x-1-6_k2",
+      "parameters": [
+        "31/4",
+        "15/2",
+        "3/2",
+        "2",
+        "0"
+      ],
+      "a": "15/2",
+      "N_A": 3159,
+      "N_B": 2358,
+      "T_int": 236.3122329223492,
+      "tau": 236.3122329223492,
+      "s": -19.14476384893483,
+      "s_mm1": -2.8888888888888946,
+      "M_hat": 4456321.0,
+      "h_bar": 4222.0,
+      "threshold_T1": 232769.70325481135,
+      "threshold_T2": 1542572.6538461507,
+      "T0": {
+        "F_new_inf": 0.7779570183239026,
+        "F_old_inf": 0.9999999999467573,
+        "slope_predicted": -4.250960447482928
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/Za7p5_u3-2_lA31-4_x-1-6_k2.json",
+      "saved_sha256": "315d6615fbcc1ae9454f3237bf25c1c0b059946d52d6e456a9f7f4e55859ff6e",
+      "saved_h": [
+        "394/5",
+        "236",
+        "320",
+        "709",
+        "2000",
+        "2360",
+        "7090"
+      ],
+      "saved_prepare_cpu": 231.375800776,
+      "saved_h_max": 7090.0,
+      "kernel_work": 14699075552.506264,
+      "truth_work": 137688504.07337138
+    },
+    {
+      "regime": "Za7p5_u3-2_lA31-4_x1-6_k2",
+      "parameters": [
+        "31/4",
+        "8",
+        "3/2",
+        "2",
+        "0"
+      ],
+      "a": "15/2",
+      "N_A": 3159,
+      "N_B": 4751,
+      "T_int": 530.7060107162208,
+      "tau": 530.7060107162208,
+      "s": 40.491601473541834,
+      "s_mm1": 6.111111111111087,
+      "M_hat": 16982491.6875,
+      "h_bar": 9517.0,
+      "threshold_T1": 419407.75542297977,
+      "threshold_T2": 2778953.1852272837,
+      "T0": {
+        "F_new_inf": 0.6722783994324253,
+        "F_old_inf": 0.9999999999943816,
+        "slope_predicted": 13.269972444226
+      },
+      "T4": {
+        "eligible": false,
+        "w_star": null,
+        "reason": "no allowed w satisfies strict max load < 0.95*mu"
+      },
+      "saved_source": "results/letter/w1b/raw/Za7p5_u3-2_lA31-4_x1-6_k2.json",
+      "saved_sha256": "eb6a6d49c16c178f45a72bd69f12106ed8a7a111d18304302b4d9a1ebbe6c787",
+      "saved_h": [
+        "177",
+        "320",
+        "531",
+        "1590",
+        "2000",
+        "5310",
+        "15900"
+      ],
+      "saved_prepare_cpu": 558.8849800370001,
+      "saved_h_max": 15900.0,
+      "kernel_work": 69134231377.6811,
+      "truth_work": 447610186.38231784
+    }
+  ],
+  "pilot": "Za3_u1_lA7_x-1_k1-20",
+  "arithmetic_relative_tolerance": 1e-09,
+  "p_dis_tail_omission_per_path": 1e-10,
+  "p_dis_shortcut_max_interval_width": 1e-09,
+  "cpu_cap_seconds": 7200,
+  "finite_grid_reading": "D4-D6 have no supplied convergence tolerance: report errors and trends, do not invent PASS for a limit. D1/D3 with no eligible h are NOT_EVALUABLE.",
+  "reduction_rule": "After one-regime pilot remove largest h/T_int first until projected aggregate CPU <= 2h including pilot and reserve; stop if even {1} cannot fit. Pilot extra levels are kept separately, never selected by outcome.",
+  "P_scope_notes": [
+    "K must be a normalized nonnegative probability kernel.",
+    "Paper Prop.2 includes max(h_bar,M_hat/abs(s_hat)); both thresholds are recorded.",
+    "Here individual fluid action differences have fixed opposite signs and include zero at the empty low-mode state; the saturated max bounds all h.",
+    "No nonzero slope is inferred merely from a mixed-sign state-dependent rate; delta_F_inf is calculated before truth."
+  ],
+  "exposure": "All 93 W1b s/metadata already exist; selected raw schema and old readouts were inspected. T0 replay is reuse/reproduction. All new finite-h costs follow this file. No external literature search.",
+  "sources": {
+    "/home/vantai/state-model-regret/experiments/letter/r2_o1_check.py": "3614d94471b482689322074c9d8e4ab6699d74ed2b35d03ce45c1ad86ab86ad0",
+    "/home/vantai/state-model-regret/experiments/letter/e3_agediff.py": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+    "/home/vantai/state-model-regret/experiments/explore_ctmc/ctmc.py": "46bd482aaf42ac764428aca4a48a9791947e34578573cf59a795d3eba829a332",
+    "/home/vantai/state-model-regret/experiments/explore_ctmc/env.sh": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009",
+    "/home/vantai/state-model-regret-papers/letter_smr/briefs/R2_O1_CHECK_BRIEF.md": "ad2e2ecbba725ac7cb9fcc4e97ce951ea2d542360c10d82da3515a140040ab7b"
+  },
+  "prepare_cpu_seconds": 24.375981474
+}

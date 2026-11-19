@@ -1,0 +1,266 @@
+{
+  "status": "SAVED_AMENDED_ANALYSIS",
+  "ledger_ids": [
+    "V73_SETUP",
+    "V73_STRATA",
+    "V73_DENOM",
+    "V73_ATTRIB"
+  ],
+  "new_statistics": "factorized denominator and per-flow/per-horizon/per-day tables; headline counts already in ledger",
+  "days": 49,
+  "excluded_day": "2005-06-27",
+  "original_run": "INCOMPLETE; DEVIATION_V7_3_01 retained",
+  "by_flow": [
+    {
+      "regime": "DAY1",
+      "days": 49,
+      "S_days": 29,
+      "O_days": 20,
+      "S_cases": 232,
+      "S_evaluable": 46,
+      "O_cases": 160,
+      "O_evaluable": 120
+    },
+    {
+      "regime": "DAY2",
+      "days": 49,
+      "S_days": 29,
+      "O_days": 20,
+      "S_cases": 232,
+      "S_evaluable": 46,
+      "O_cases": 160,
+      "O_evaluable": 132
+    },
+    {
+      "regime": "DAY3",
+      "days": 49,
+      "S_days": 29,
+      "O_days": 20,
+      "S_cases": 232,
+      "S_evaluable": 58,
+      "O_cases": 160,
+      "O_evaluable": 156
+    }
+  ],
+  "horizons_hours": [
+    1,
+    2,
+    4,
+    6
+  ],
+  "primary_horizons_hours": [
+    2,
+    4,
+    6
+  ],
+  "ages_seconds": [
+    300,
+    900
+  ],
+  "instances_per_record": 32,
+  "numbers": {
+    "primary_stable_candidates": 348,
+    "primary_stable_evaluable": 76,
+    "overload_candidates": 480,
+    "overload_evaluable": 408,
+    "unique_fresh_record_horizons": 38,
+    "unique_fresh_decisions": 1216,
+    "stale_decisions": 2432,
+    "all_cases": 1176
+  },
+  "factorizations": {
+    "348": "29 S days * 2 flows (DAY1/DAY2) * 3 horizons (2,4,6h) * 2 ages",
+    "480": "20 O days * 3 flows * 4 horizons (1,2,4,6h) * 2 ages",
+    "408": "O cases surviving C_ref/h evaluability; per-flow 136+136+136, not a full fixed-day rectangle",
+    "76": "primary S cases surviving C_ref/h gate: 16 at 2h + 28 at 4h + 32 at 6h",
+    "1216": "38 unique flow-day-horizon tuples * 32 instances; fresh counted once across two ages"
+  },
+  "gate": {
+    "mean_backlog_Mbit": 12.544525,
+    "rule": "C_ref(h)/h >= 12.544525 Mbit (mean total backlog >= 1 ms of service at capacity_Mbps)"
+  },
+  "DAY3_role": "predeclared near-zero training-slope control; descriptive, outside H1-H3 population",
+  "h1_role": "predeclared descriptive sensitivity; outside H1-H3 horizons 2,4,6h",
+  "per_horizon": [
+    {
+      "h_hours": 1,
+      "primary_cases": 0,
+      "unique_record_horizons": 0,
+      "unique_fresh_decisions": 0,
+      "stale_decisions": 0
+    },
+    {
+      "h_hours": 2,
+      "primary_cases": 16,
+      "unique_record_horizons": 8,
+      "unique_fresh_decisions": 256,
+      "stale_decisions": 512
+    },
+    {
+      "h_hours": 4,
+      "primary_cases": 28,
+      "unique_record_horizons": 14,
+      "unique_fresh_decisions": 448,
+      "stale_decisions": 896
+    },
+    {
+      "h_hours": 6,
+      "primary_cases": 32,
+      "unique_record_horizons": 16,
+      "unique_fresh_decisions": 512,
+      "stale_decisions": 1024
+    }
+  ],
+  "primary_by_day": [
+    {
+      "regime": "DAY1",
+      "date": "2005-07-19",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY1",
+      "date": "2005-07-20",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY1",
+      "date": "2005-07-21",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY1",
+      "date": "2005-07-26",
+      "cases": 4,
+      "horizons_hours": [
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY1",
+      "date": "2005-07-29",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY1",
+      "date": "2005-08-10",
+      "cases": 4,
+      "horizons_hours": [
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY1",
+      "date": "2005-08-11",
+      "cases": 4,
+      "horizons_hours": [
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY1",
+      "date": "2005-08-26",
+      "cases": 2,
+      "horizons_hours": [
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-07-19",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-07-20",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-07-21",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-07-26",
+      "cases": 4,
+      "horizons_hours": [
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-07-29",
+      "cases": 6,
+      "horizons_hours": [
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-08-10",
+      "cases": 4,
+      "horizons_hours": [
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-08-11",
+      "cases": 4,
+      "horizons_hours": [
+        4,
+        6
+      ]
+    },
+    {
+      "regime": "DAY2",
+      "date": "2005-08-26",
+      "cases": 2,
+      "horizons_hours": [
+        6
+      ]
+    }
+  ]
+}

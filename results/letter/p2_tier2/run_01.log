@@ -1,0 +1,25 @@
+{"stage": "CTMC_saved_selection", "cpu_s": 0.932718553, "wall_s": 0.9327419379987987}
+{"stage": "2_Fig3_IQR", "cpu_s": 0.018624693000000025, "wall_s": 0.018626915996719617}
+{"stage": "GEANT_raw_replay", "cpu_s": 0.9820156790000001, "wall_s": 1.1359182570013218}
+{"stage": "1_Fig4_signed", "cpu_s": 0.00640979400000008, "wall_s": 0.006412238995835651}
+{"stage": "3_E6_replay", "cpu_s": 0.19065737300000007, "wall_s": 0.19066696200025035}
+{"stage": "4_paired_comparisons", "cpu_s": 0.02910942900000002, "wall_s": 0.029111241005011834}
+{"stage": "5_optimal_sign_splits", "cpu_s": 0.02167803800000012, "wall_s": 0.021679449993825983}
+{"stage": "6_primitive_signs", "cpu_s": 32.844020406, "wall_s": 32.847482425000635}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/letter/p2_tier2.py", line 946, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/letter/p2_tier2.py", line 919, in main
+    denom = stage("7_VC_denominators", lambda: denominators(inputs, ledger))
+  File "/home/vantai/state-model-regret/experiments/letter/p2_tier2.py", line 906, in stage
+    result = callback()
+  File "/home/vantai/state-model-regret/experiments/letter/p2_tier2.py", line 919, in <lambda>
+    denom = stage("7_VC_denominators", lambda: denominators(inputs, ledger))
+                                               ~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/vantai/state-model-regret/experiments/letter/p2_tier2.py", line 601, in denominators
+    ledger["V73_ATTRIB"]["recomputed"]["by_side"]["fresh"]["decisions"])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'decisions'

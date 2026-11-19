@@ -1274,3 +1274,37 @@ Payload HTTP/JSON/tool envelopes tạm ở `/tmp/p1_prior_session/` (ngoài repo
 **18/11:** đề xuất cuối gồm Chen 2009 và Allmeier–Gast 2022 (GBT 2019 dự phòng), chờ tác giả duyệt việc đưa vào bib. Không kết luận novelty. Dừng vì đã đủ đề xuất của đợt; Argon không chạy được.
 | 18/11 | read AI-T (Claude) | Letter v8 positioning: kiểm claim trước khi trích | Chen et al. CDC 2009 §II–IV tr.2–4 (Eqs. 3, 5, 6, 28; "cost function vanishes at the equilibrium"; h°=J*+x/2 "approximately solves the dynamic programming equation for the diffusion"); Gast–Bortolussi–Tribastone 2019 HAL v1 abstract, §1, Eqs. (1)–(2), Theorem 3; Allmeier–Gast 2022 arXiv v1 abstract, §5.2.2 tr.16 | pdftotext | 3 | 3 | Claim trong câu định vị của letter khớp các đoạn trên. Mức đọc AI-T; **tác giả chưa đọc** (cần trước khi nộp). |
 | 18/11 | library + lookup (OA) | Gom toàn bộ 18 tài liệu trích dẫn của letter v8 vào thư mục Windows (tác giả yêu cầu) | DOI các bài thiếu: Polverini TNSM 2026, Orlowski SNDlib 2010, Chen AOR 2010 | Unpaywall MCP (rỗng), OpenAlex API, curl | 3 | 0 tải thêm | 15/18 có file từ thư viện và intake v8_lit; đã kiểm tiêu đề trang 1. Polverini: OpenAlex ghi OA nhưng IEEE trả 418/202 cho bot, IRIS 403, nên chưa tải. SNDlib: không OA, OPUS có bot challenge. Puterman: sách, không có bản tự do. Chen AOR: chỉ có bản TR2006. Thư mục `C:\Users\VAN TAI\Downloads\SMR_letter_v8_references\` kèm `00_DANH_MUC.txt`. |
+
+## R2-PRAC — practical relevance của M0 (letter v8.3, 19/11/2026)
+
+Người phụ trách **Doan Van Tai**; Claude thực hiện theo yêu cầu tác giả ("sàng lọc tối đa 3 nguồn"; hướng A: letter về
+failure mode của fluid NDT mù dài hạn). Không đổi PC/contract.
+THẺ: Câu hỏi: có công trình mạng nào dự đoán chi phí cấu hình/quyết định bằng fluid queue rollout hoặc mô hình bỏ chi phí
+hàng đợi dừng, dùng trạng thái đo được? Câu chặn: nếu có → giữ scope "fluid NDT" với dẫn chứng trực tiếp; nếu chỉ có
+capacity/flow model → chỉ được viết là suy luận; nếu NDT hiện đại đều queue-aware → thu hẹp wording. GIỮ: networking,
+fluid/flow-level model dùng để đánh giá cấu hình hoặc quyết định. BỎ: fluid chỉ để chứng minh ổn định, giao thông đường bộ,
+cơ học chất lỏng, twin ngoài mạng. Ngân sách: 1 phiên, tối đa 3 đề xuất. Dừng: 2 query hợp lệ liên tiếp × 20 không giữ mới.
+
+| Ngày | Loại | Thẻ / Q | Query / seed | Tool, bộ lọc | Đã sàng | Giữ unique | Lý do / hạn chế |
+|---|---|---|---|---|---:|---:|---|
+| 19/11 | keyword | R2-PRAC | "fluid model network digital twin queue backlog what-if routing" | `paper-search.search_openalex`, max 20 | 0 | 0 | Công cụ trả rỗng; hạn chế công cụ, không phải bằng chứng không có bài |
+| 19/11 | keyword | R2-PRAC | "fluid-based network simulation performance evaluation routing configuration large-scale" | `search_openalex`, max 20 | 0 | 0 | Rỗng như trên |
+| 19/11 | keyword | R2-PRAC | "fluid queue model network digital twin what-if analysis" | `search_semantic`, max 20 | 0 | 0 | HTTP 429 |
+| 19/11 | keyword | R2-PRAC | "fluid model network simulation what-if traffic engineering queueing delay prediction" | `scholar-search.search_papers`, limit 20 | 20 | 0 | Toàn arXiv ngoài ngành (cơ học chất lỏng, giao thông đường bộ, queue lý thuyết) |
+| 19/11 | keyword | R2-PRAC | "flow-level simulation fluid approximation performance estimation data center network queueing machine learning" | `search_crossref`, from 2018, max 20 | 20 | 0 | Ngoài ngành (CFD, thủy văn, ML khác) |
+| 19/11 | keyword | R2-PRAC | "fluid models large-scale IP networks simulation" | `search_crossref`, max 20 | 20 | 1 | Liu–Lo Presti–Misra–Towsley–Gu, SIGMETRICS 2003 (10.1145/781027.781039; PER 31(1) 10.1145/885651.781039) + TOMACS 14(3):305–324, 2004 (10.1145/1010621.1010625), gộp một work; abstract Crossref (AI-A). Ajmone Marsan et al. chapter cùng dòng, không giữ (trùng lớp) |
+| 19/11 | lookup | R2-PRAC | "m3: Accurate Flow-Level Performance Estimation using Machine Learning" | `search_crossref` max 5; `scholar-search.get_paper_details` | 5 + 1 | 1 | SIGCOMM 2024 pp. 813–827, DOI 10.1145/3651890.3672243; abstract S2 (AI-A); OA CC BY (MIT DSpace) |
+| 19/11 | lookup | R2-PRAC | "Parsimon scalable tail latency estimation data center networks" | `search_crossref` max 5 | 5 | 0 | Không ra đúng bài; Parsimon chỉ thấy qua web (arXiv 2205.01234), không giữ |
+| 19/11 | keyword | R2-PRAC | network digital twin fluid model queue backlog prediction routing reconfiguration what-if | WebSearch | 9 | 0 mới | TwinNet lặp (đã là dự phòng 04/11); DMWM arXiv 2602.04566 v1 mở abstract (WebFetch): không nêu queue rollout fluid → bỏ |
+| 19/11 | lookup | R2-PRAC | ACM DL trang m3 | WebFetch | 0 | 0 | HTTP 403 |
+| 19/11 | keyword | R2-PRAC | flowSim flow-level fluid simulator max-min fairness ignores queueing delay m3 Parsimon | WebSearch | 9 | 0 mới | Tóm tắt snippet nói flowSim bỏ queueing (m3 §, m4 arXiv 2503.01770): **chưa xác nhận từ PDF**, chỉ dùng để sàng |
+| 19/11 | keyword | R2-PRAC | m3 / NDT fluid | `search_arxiv` ×2 | 0 | 0 | HTTP 429 cả 3 lần thử |
+| 19/11 | keyword | R2-PRAC | "model predictive control fluid queue model routing software-defined network backlog" | `search_crossref`, from 2012, max 20 | 20 | 0 | SDN routing/ML, không có fluid rollout |
+| 19/11 | keyword | R2-PRAC | "deterministic fluid queue approximation network digital twin transient queue length prediction" | `search_crossref`, from 2015, max 20 | 20 | 0 | Lý thuyết queue, ngoài ngành → **đạt luật dừng 2×20** cùng query trước |
+| 19/11 | lookup | R2-PRAC | TwinNet "Building a Digital Twin for network optimization using Graph Neural Networks" | `search_crossref` max 3 | 3 | 1 | Computer Networks 217:109329, 2022, DOI 10.1016/j.comnet.2022.109329; SSRN preprint 10.2139/ssrn.3995236 gộp; abstract SSRN (AI-A) |
+
+**19/11 R2-PRAC:** 3 đề xuất chờ tác giả duyệt (m3; Liu et al. fluid models; TwinNet). Chưa tải PDF, chưa viết note, không
+thêm catalog/Excel/bib. Thư viện sẵn có liên quan: P07 DOTE (TE theo MLU, epoch phút) và CMN12 (fluid routing tiết kiệm năng
+lượng), đã trích trong letter. Dừng vì đạt luật 2×20 và đủ 3 đề xuất. Không kết luận novelty; "không thấy NDT dùng fluid queue
+rollout cho quyết định giữ lâu" chỉ là **chưa xác nhận trong các nguồn đã sàng**, không phải "không có".
+| 19/11 | download + read AI-T | R2-PRAC (tác giả yêu cầu trực tiếp "tải thử 3–5 nguồn, kiểm tra thật kĩ") | TwinNet 10.1016/j.comnet.2022.109329; DEFO 10.1145/2785956.2787495; m3 10.1145/3651890.3672243; m4 arXiv 2503.01770; P05 (đã có); Liu 2003 | curl (m3 CSAIL, m4 arXiv); paper-pilot Unpaywall (TwinNet VoR UPCommons, DEFO VoR IMDEA); m3 VoR: DSpace HTML/429, ACM bị chặn; Liu: không có OA | 6 | 3 chọn (TWN22, DEFO15; M3_24 tùy chọn) | Note `notes/literature/papers/R2_PRAC_sources.md`. DEFO thêm qua backward từ TwinNet ref [14]. Không tải được: Liu 2003 (chỉ ResearchGate), m3 VoR. Chưa thêm catalog/Excel/bib: chờ tác giả chọn có trích không. Không kết luận novelty |
