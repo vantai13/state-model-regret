@@ -4583,3 +4583,14 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
   `C:\Papers\4_Ban_thao_cua_toi_SMR\`.
 - **Quota:** Codex hết quota tới 23/11; Claude làm nốt code, chấm và ledger.
 - **Không đổi:** MainRQ, contract, PC, Gate, G1, verdict đã khóa. Mọi phần AI làm theo ủy quyền, không phải tác giả tự làm. Nhánh `letter` không merge main.
+
+### DL-153 — V7-4: hold ngắn trên ma trận GÉANT thật, dừng ở NOT_ENOUGH_SIGNAL (20/11/2026)
+- **Đầu vào:** tác giả duyệt P1 (ý 4 của reviewer 6) với năm điều kiện và giao toàn quyền.
+  - Thẻ `28419eda3` viết trước mọi tính toán.
+  - Bước 0 chỉ tính quyết định, không outcome: Hybrid = Stationary ở 37120/37120 quyết định (DAY1/DAY2, 29 ngày ổn định,
+    5–30 phút); kể cả ŝ chỉ ngày ổn định.
+  - Theo luật thẻ: không chạy truth.
+- **Nguyên nhân:** gap fluid Switch − Stay không bao giờ dương ở cả hai phía, nên mọi ưu tiên chặt cùng dấu với ŝ; sai lầm của M0 trên trace chỉ từ tie.
+- **Sai sót kiểm khả thi của Claude:** bỏ dấu, nên báo 3,4% bất đồng tiềm năng; đã ghi lại. Dự báo F1 và F4 sai, F3 đứng.
+- **Paper (luật thẻ, nhánh NOT_ENOUGH_SIGNAL):** một câu V-C mới, ledger `V74_SIGNAL`; letter `letter_smr_argon` v8.5.
+- **Không đổi:** MainRQ, contract, PC, Gate, G1, các verdict đã khóa. Báo cáo: `results/letter/v7_4_short/RESULTS_V7_4.md`.
