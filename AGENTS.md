@@ -748,3 +748,7 @@ Gói `letter_smr/02_Code` phẳng theo repo mẫu (README theo Hình/Bảng/Mụ
 Chờ tác giả/thầy: license, nơi đăng code, venue. Điểm vào: `letter_smr/ROADMAP.md` và bộ nhớ `letter-current-state`.
 Letter R13/17-11: Part2 v6 6tr/100từ,322số/0unmatched,239/239checks,pkg54/54; clause TRUNC theo addendum, không rerun Part1/SSH/bậtVM. Closeout ở `letter_smr/notes/R13_closeout.md`; letter commit a418d49 (Claude commit sau khi kiểm lại: 0 unmatched, 239/0, 6tr, abstract 100 từ), không push letter. Còn: rút về 5 trang; Section V từ 21 lên ~150 số.
 V7-3/18-11 (DL-151): GÉANT TM thật, nghẽn ρ=.9, train 5–6/test 6–8/2005; run một lần INCOMPLETE (06-27 spike 19,6× train, tác giả duyệt DEVIATION 01 loại theo input, a32137acd trước khi đọc). H1 20/22, H2 76/76, H3 16/16 (2 ngày), F2/F3 sai: harm theo đợt. Report `results/letter/v7_3/REPORT_V7_3.md`. Từ 18/11: Argon viết prose (`letter_smr_argon`), Codex chỉ code.
+Letter v8.3/19-11: bản hiện hành ở `state-model-regret-papers/letter_smr_argon` (nhánh argon-v6, git local, không push): 5 trang, abstract 95, 16 refs,
+checker 55/0, numbers 330/0; PDF + zip code ở `C:\Papers\4_Ban_thao_cua_toi_SMR\` (`SMR_letter_v8.3_MOI_NHAT.pdf`, `SMR_letter_v8.3_code.zip`).
+v8.1 refs+tier-1, v8.2 Fig.1 Canva, v8.3 sửa theo review cũ (giữ framing của thầy, không đo u), chưa review lại. Argon hết quota tới ~25/11 nên
+Codex tạm viết prose. Chờ: gặp thầy 23/11, duyệt v8.3 làm bản chính, license/nơi đăng code, venue. **Đọc bộ nhớ `letter-current-state` trước khi làm.**
