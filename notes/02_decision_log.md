@@ -4700,3 +4700,38 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
 - **Quyết định trình bày:** Fig. 4 và Fig. 5(b) vẽ regret phía tươi kèm đường hybrid phía cũ. Hybrid phía cũ không cao hơn luật tĩnh ở regime nào trong
   0/92 ở mọi h vẽ; both-side sẽ che lợi ích ở horizon trung bình.
 - **Lưu ý cho tác giả:** GVHD yêu cầu Tài tự viết v9; bản này do agent soạn theo yêu cầu của tác giả, cần nói rõ với thầy.
+
+### DL-158 — Letter v10: v8.9 thành bản letter chính (20/11/2026 khuya)
+- **Chỉ đạo của tác giả** (GVHD đồng ý, cho linh hoạt):
+  - bản letter chính phát triển **từ v8.9**, không còn bản journal;
+  - giữ mọi điểm mạnh của v8.5–v8.9; khi bản sau cải thiện bản trước thì chỉ giữ dạng mạnh nhất;
+  - tài liệu tối đa khoảng 17, chọn nguồn làm bài mạnh hơn, không bắt buộc 14 nguồn của thầy;
+  - không bắt buộc theo khung thầy. Mọi quyết định chi tiết do AI làm theo ủy quyền.
+- **Quy trình:**
+  1. Ba agent độc lập (Claude, Codex, Neon) đề xuất giữ/bỏ: `letter_smr/briefs/v9_from_v89/`.
+  2. v10 (`letter_smr_v10`, nhánh `v10` từ `c6c07ad`): cấu trúc v9 cộng nội dung v8.5–v8.9 dạng nén. Neon viết nháp các slot; Claude viết lại cho đúng số và nghĩa.
+  3. Ba agent so sánh v10 với v9 và v8.9: `letter_smr/briefs/v10_review/SYNTHESIS.md`.
+- **Đánh giá v10 trước sửa:**
+  - ước lượng chủ quan trung bình accept/minor ≈33%, major ≈42%, reject ≈25%;
+  - so với v9 ≈22/42/37 và v8.9 7 trang ≈1/6/93;
+  - cả ba xếp mức Tốt, khuyến nghị major revision.
+- **Sửa sau review** (`584f0cf`):
+  - Câu stale sai, có cả trong v9: ở T_int, stale 0,97% gần luật tĩnh 1,02%, fresh 0,26%.
+  - Tỷ lệ hòa GÉANT đo ở h = 15 T_int, cũng sai trong v9.
+  - Diễn đạt và chú thích:
+    - MMPP fallback;
+    - ΔF̂, mẫu số 64/63/60, cổng 76/348 và 2/8 ngày;
+    - nhãn exploratory của X4b;
+    - phạm vi Markov cho rule ngưỡng;
+    - 19 h chỉ là quy đổi minh họa.
+  - Phục hồi C5 và "acts beyond ties" (40–50%).
+  - Fig. 2 dời nhãn (vẽ lại phía paper từ mảng đã lưu).
+  - Còn 16 refs (bỏ Perry); 5 trang; abstract 100; số liệu 0 unmatched; check_v9 10/10; pytest 173.
+- **Cắt để vừa 5 trang:**
+  - Đã cắt: C5 ở bản đầu (sau đó phục hồi), mệnh đề post hoc 34/36 của X2, −4,8%, phần GÉANT của câu ±50%, Janus, Polverini, Perry.
+  - Luật đưa vào paper của các thẻ X-CTMC, X1c, X2, X4, X4b, V7-4 vẫn được giữ ở dạng mệnh đề nén. Các con số phụ bỏ vì trang, không vì kết quả.
+- **Mở cho tác giả:**
+  - 16 refs so với G7 (≤15);
+  - phần ma trận thật dài hơn 3–4 câu;
+  - lỗi stale/15 T_int trong bản v9 đã gửi thầy;
+  - GVHD từng yêu cầu Tài tự viết v9.
