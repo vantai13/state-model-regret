@@ -4659,3 +4659,23 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
 - **Letter v8.8** (`cc903fe`): Sec. V-A/V-C/Intro theo luật đưa vào paper của các thẻ; 7 trang, numbers 0 unmatched, check_rewrite 54/1; 02_Code và zip
   v8.8.
 - **Không đổi:** MainRQ, contract, PC, Gate, G1, tiêu đề, Corollary 1, framing của thầy. Nhánh `letter` không merge main.
+
+### DL-156 — X4b hai link nghẽn trên GÉANT thật; chuyển sang letter v9 theo nhận xét GVHD (20/11/2026)
+- **Thẻ và chạy X4b:**
+  - Thẻ `results/letter/x4b/CARD_X4B.md`, khóa thẻ `89888a371`, truth một lần trên GCP `n2-highcpu-32`.
+  - 60/60 bản ghi COMPLETE, 1,814 CPU-h, 670 s wall.
+  - Raw `f449b8c71` commit trước khi chấm. Chấm bằng scorer đã khóa ở `69e947bc4`. VM đã đưa về `n2-custom-12-49152` và TERMINATED.
+- **Kết quả:**
+  - B1 (thăm dò): GAIN 6/9, LOSS 0, UNRESOLVED 3; mọi bất đồng ở NEWB3 ngày 19/07/2005, h 900–1200 s.
+  - B2: ĐỨNG 70/70. Có 64 ô trùng luật tĩnh, 6 ô thấp hơn; không đọc là "Hybrid tốt hơn ở mọi ô".
+  - B3(a): NOT_EVALUABLE (0/8 ô phân giải).
+  - B3(b): phần chặt chỉ chiếm 0,81% regret phía tươi của M0, tức tie vẫn chiếm gần hết dù có hai bottleneck.
+- **Dự báo của Claude:** F1 sai một phần (đa số ô GAIN, không UNRESOLVED); F2 đúng; F3 đúng; F4 sai (0,81% < 30%).
+- **Chấm lại độc lập:** Codex (`x4b_rescore_independent.py`, không import scorer) MATCH 1201/1201 trường (`281e892ed`).
+- **Luật đưa vào paper:** câu Sec. V-C của thẻ thuộc bản v8.x. Bản v9 theo GVHD (≤ 5 trang, phần ma trận thật 3–4 câu) **không** đưa X4b, X2, X-CTMC; các kết
+  quả này để dành cho bản journal. Đây là đổi phạm vi do GVHD yêu cầu sau thẻ, ghi rõ để không thành chọn lọc theo kết quả.
+- **Letter v9:**
+  - GVHD nhận xét v8.4 ngày 20/11 (G1–G7: tên mới, ≤ 5 trang, ≤ 15 tài liệu, abstract khoảng 100 từ, cấu trúc III/IV mới).
+  - Tác giả giao toàn bộ việc viết v9 cho agent, dù GVHD ghi "Bản v9 cần do Tài tự viết lại". Claude đã nêu điều này; tác giả quyết định.
+  - Phân công: Neon viết prose, Codex làm hình, bib và bộ kiểm, Claude kiểm.
+  - Spec và brief: `letter_smr/briefs/v9/`.
