@@ -1,0 +1,134 @@
+{
+  "sign": "G_S=L_stale-L_fresh; negative=fresh hurts",
+  "excluded_pilot_regimes": [
+    "XCTMC_028",
+    "XCTMC_044",
+    "XCTMC_047",
+    "XCTMC_053"
+  ],
+  "T1": {
+    "verdict": "STANDS",
+    "cells": 618,
+    "accuracy": 0.9029126213592233,
+    "threshold": 0.9,
+    "regimes": 38,
+    "majority_correct": 34,
+    "by_stratum": {
+      "agree": {
+        "cells": 361,
+        "accuracy": 0.8975069252077562
+      },
+      "disagree": {
+        "cells": 257,
+        "accuracy": 0.9105058365758755
+      }
+    }
+  },
+  "T2": {
+    "verdict": "STANDS",
+    "cells": 257,
+    "law_accuracy": 0.9105058365758755,
+    "null_accuracy": 0.45136186770428016,
+    "threshold_gap": 0.2
+  },
+  "T3": {
+    "verdict": "DOES_NOT_STAND",
+    "cells": 305,
+    "median_relative_error": 0.2675216655723372,
+    "threshold": 0.25
+  },
+  "T4": {
+    "verdict": "STANDS",
+    "cells": 146,
+    "accuracy": 0.9315068493150684,
+    "threshold": 0.9,
+    "regimes": 37,
+    "majority_correct": 34
+  },
+  "T5": {
+    "verdict": "STANDS",
+    "cells": 148,
+    "share": 0.9864864864864865,
+    "threshold": 0.9,
+    "wrong_sign_cells": 12,
+    "wrong_sign_median_both_side_regret_pct": 4.171531233009168
+  },
+  "T6": {
+    "verdict": "STANDS",
+    "cells": 146,
+    "accuracy": 1.0,
+    "threshold": 0.85
+  },
+  "T6b": {
+    "verdict": "STANDS",
+    "cells": 146,
+    "share": 1.0,
+    "threshold": 0.8
+  },
+  "D1_harm_at_30Tint_tau1": {
+    "Hybrid_hat": {
+      "regimes": 40,
+      "harm_regimes": 0,
+      "median_G_S_pct": 0.0
+    },
+    "Hybrid_true": {
+      "regimes": 60,
+      "harm_regimes": 0,
+      "median_G_S_pct": 1.0141621790690545e-14
+    },
+    "M0": {
+      "regimes": 60,
+      "harm_regimes": 42,
+      "median_G_S_pct": -3.9808486854753324
+    },
+    "MLU": {
+      "regimes": 60,
+      "harm_regimes": 31,
+      "median_G_S_pct": -1.4916297984526534
+    },
+    "Pool": {
+      "regimes": 60,
+      "harm_regimes": 0,
+      "median_G_S_pct": 0.0
+    },
+    "Stationary_hat": {
+      "regimes": 40,
+      "harm_regimes": 0,
+      "median_G_S_pct": 0.0
+    },
+    "TH_0.5": {
+      "regimes": 60,
+      "harm_regimes": 32,
+      "median_G_S_pct": -1.0975428217533039
+    },
+    "TH_0.65": {
+      "regimes": 60,
+      "harm_regimes": 30,
+      "median_G_S_pct": -0.7578785881156419
+    },
+    "TH_0.8": {
+      "regimes": 60,
+      "harm_regimes": 19,
+      "median_G_S_pct": 0.0
+    },
+    "TH_0.9": {
+      "regimes": 60,
+      "harm_regimes": 5,
+      "median_G_S_pct": 0.0
+    }
+  },
+  "D2_median_tie_share": {
+    "Hybrid_hat": 0.0,
+    "Hybrid_true": 0.0,
+    "M0": 0.1432180984575039,
+    "MLU": 0.0,
+    "Pool": 0.0,
+    "Stationary_hat": 0.0,
+    "TH_0.5": 0.0,
+    "TH_0.65": 0.0,
+    "TH_0.8": 0.0,
+    "TH_0.9": 0.0
+  },
+  "note": "Cells share regimes and are not independent trials.",
+  "receipt_status": "COMPLETED_RAW_UNSCORED"
+}
