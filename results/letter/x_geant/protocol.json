@@ -1,0 +1,101 @@
+{
+  "G_S": "L_stale - L_fresh, as letter Sec II/V7-3 and brief section 6; section 8 fresh-minus-stale is inconsistent",
+  "authority": "approved design implementation; AI work is not author self-writing or mentor review",
+  "brief_commit": "581e769",
+  "commit_policy": "no commit in this task; lock is a content hash, not a claim of committed preregistration",
+  "exposure": [
+    "old V7-3/V7-4 data and decision results known; new ODs do not make underlying days unseen",
+    "test input matrices/strata and decision states may be read by step0; no future evaluation",
+    "pilot outcomes use a separate seed and are exposure before truth"
+  ],
+  "owner": "Doan Van Tai",
+  "parameters": {
+    "K": 64,
+    "N": 32,
+    "R_dec": 64,
+    "R_eval": 128,
+    "beta": 0.3,
+    "c": 0.0,
+    "dt_s": 0.05,
+    "flip_rate_per_s": 1.0,
+    "h_seconds": [
+      3600,
+      7200,
+      14400,
+      21600
+    ],
+    "tau_seconds": [
+      300.0,
+      900.0
+    ],
+    "theta": [
+      0.5,
+      0.65,
+      0.8,
+      0.9
+    ]
+  },
+  "pilot": "one full N32/K64/Rdec64/Reval128 record; max input-only active-link/OD step-work proxy over test-S, earliest regime/date tie; seed pilot; selection before outcomes",
+  "prediction": {
+    "null": "sign((train-S mean max-util Switch minus Stay, equally weighted days/instances/unique sides) * deltaF); no queues",
+    "population": "train-S only; deltaF=Switch stale share minus fresh share",
+    "sign": "sign(pooled s_hat * deltaF), horizons 4h and 6h"
+  },
+  "schema": "x-geant-protocol-v1",
+  "screen": {
+    "O_test": "NOT_RUN before any decisions or evaluation",
+    "X2": "test-S: pool 3 regimes and both tau; one comparison per instance/tau, no horizon duplication; any TH >= 1% disagreement",
+    "X4": "test-S: pool 3 regimes and unique fresh/stale300/stale900 sides for each h; Hybrid/Stationary >=1% at h=1h or 2h",
+    "independence": "counts are denominators sharing days/instances, not independent trials",
+    "threshold": 0.01,
+    "train": "identical tables on all train days and separately train-S; training gates descriptive only"
+  },
+  "seeds": {
+    "collision_note": "7412001/7472001 were used by V7-4; explicit brief bases retained, actual streams are domain separated",
+    "namespace": "X-GEANT|regime|date",
+    "pilot": 7472001,
+    "test": 7412001,
+    "train": 7402001
+  },
+  "selection": {
+    "X2": "exclude DAY1/2/3 ODs; Stay crosses global busiest link, Yen-2 Switch avoids it; descending train mean OD, then OD id",
+    "X4": "exclude old and selected X2 ODs; Switch path max train mean utilization >= .75 * Stay path max; prefer distinct bottlenecks, then descending min(two path maxima), descending mean OD, OD id",
+    "utilization": "total load with managed OD exactly once on the action-specific path; 26 train weekday/window average"
+  },
+  "sha256": {
+    "brief:581e769": "f48112dc1b277bc1116648f337aa2cec432abf1c0737d3bab5afded4447e6e1b",
+    "experiments/explore_ctmc/env.sh": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009",
+    "experiments/ext_validity/__init__.py": "2f14d642d46871659fd69c024bbfc370b65b43522b3f023e7c2dd880e4fb78d8",
+    "experiments/ext_validity/ev_te.py": "4eb87842c1397ebdcb5fa1efc4ea3fe5711821d093cead435fe7f57693ec084f",
+    "experiments/ext_validity/packet.py": "26ee86f4f959276628e8891e684701de0725ab94628a531b4c1e56943e807193",
+    "experiments/ext_validity/trace_cox.py": "1075e2243af29113d49972e02d364204d749507e328e862daa7bd03ea3458108",
+    "experiments/letter/__init__.py": "5a5bdbbbdc14ae241e2edc3da668d309f9d93eb6464989e33c8726adc658e75a",
+    "experiments/letter/e4_geant.py": "53035c71881180a973518c33aea3f8386e5588f75869e1681c695e90b6852b21",
+    "experiments/letter/e4_rhat.py": "a2ffb05e092304ce43db31e7d09a36fbcbb6ba3a0f4034db180753d1375a5eb2",
+    "experiments/letter/v7_3_data.py": "5808dea5fd06786b5869a8a409334a0d62581f02e96c37ca542217b379730fbe",
+    "experiments/letter/v7_3_day.py": "7352d63b7d5b84ecf629b762dfcfae8af9814d0db6aeced3fb05fd423090c967",
+    "experiments/letter/v7_3_run.py": "eff938b88995afc438a5a660b90607c9247dd272a1fec8ed1349a4328e387837",
+    "experiments/letter/v7_3_sim.py": "0b2260492e648ba144a577a1c9094cebb353cff60972609bb9c6b928b15db7fe",
+    "experiments/letter/v7_3_test.py": "e56d02bc201e37d5a3702bf7fda2ea956f50f862a9356c38c6066cf24a94c3b1",
+    "experiments/letter/v7_3_test_common.py": "0278e7269c55267237141b4ad1487411499f49bbc0944adde58ba3dbd777fd04",
+    "experiments/letter/x_geant.py": "eb596325a2520b91583a240a9db473bb94ba1391b10a490df431b738d90a9e92",
+    "results/letter/v7_3/CARD_V7_3.md": "8f609ad7685f4e5f3cb59252710437cfac4a33cc58fa54dbd46c78edbccbb2c4",
+    "results/letter/v7_3/card_v7_3_params.json": "e821909812a480e82fccf365577aae69e0d875e14b46aa948d4279918418957b",
+    "results/letter/v7_3/data_manifest.json": "1563837f2df6e7700b80c7e1d3d2a50e542da968f84684ce7775ddbe507e7e48",
+    "results/letter/v7_3/day_train_congested/configuration.json": "481e0af9c074612b8e7560d9004e935f0db2c4d567c97a8086efc1124c27da86",
+    "results/letter/v7_3/day_train_congested/configuration.npz": "2384319caf0964491abe798f9edb62fa4d62392ea0e56cef002b888638f7917e",
+    "results/letter/v7_3/day_train_congested/protocol.json": "be2456b4f992069c36a36a2702e499f3c5e09a58ab764141325835f1c93108d7",
+    "sndlib:archive": "92d72a808d6de9d26be66844c098d3f32d5b9bb6c69af170e82b73118faef0df",
+    "sndlib:topology": "ff316c23220ff4485deafcb8701d49c353db0c80072152df3ed9023ed4b4f4ff",
+    "sndlib:train_cache": "1d4fbb95b21a09f4e9e4477128457ee687b4dda737afab4f124fb3386dc99de2",
+    "tests/test_x_geant.py": "8f6101735ba0e8dd93cb11bc914c352ee6df611b6788b10141464338b805b3bc"
+  },
+  "slope_training": "N32 independent initial states on each of 26 train weekdays; 6h action-paired rate rollout, pooled per-day mean Switch-minus-Stay, including S and O; not test outcomes",
+  "utilization": {
+    "fresh": "decision slot TM (first window slot) times observed OD modes; full routed load, no queues",
+    "long_age": "CTMC expected modes decay exp(-2*tau); analytic expectation equals slot mean at infinite age, empirical K still has sampling noise",
+    "stale": "same decision slot TM times empirical endpoint-mode expectation from the same K Stay posterior samples as M0",
+    "theta_ge_1": "no Switch when max-util Stay<=1; no universal guarantee with instantaneous overload, per literal section 4 formula",
+    "tie": "MLU: equal path maxima; TH: exact Stay-threshold equality or equal path maxima while threshold active; report both boundaries too"
+  }
+}
