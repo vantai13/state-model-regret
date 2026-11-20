@@ -1,0 +1,72 @@
+{
+  "namespace": "x-ctmc-v1",
+  "design_commit": "ad3db0d",
+  "source_sha256": "27108474964546fccc66e08879b177cef9a62d9829a0191808b36069506b4a0f",
+  "tests_sha256": "f6e9bbd2c6b11fcdbfb23132843dc122805f9b0a91da95648ecea9cdca9125d2",
+  "passed": 50,
+  "xfailed": 1,
+  "failed": 0,
+  "seconds": 13.61,
+  "command": "python3 -m pytest -q -rx -p no:cacheprovider tests/test_x_ctmc.py tests/test_pl_posterior.py --basetemp=results/letter/x_ctmc/pytest_after_certificate",
+  "final_existing_files_unchanged": [
+    {
+      "path": "experiments/explore_ctmc/ctmc.py",
+      "sha256": "46bd482aaf42ac764428aca4a48a9791947e34578573cf59a795d3eba829a332",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/mmpp.py",
+      "sha256": "73086bfabff253c955b43333eff0ec139815d3b8245b4cc88ba189147685b86d",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/shat.py",
+      "sha256": "541a81c79cd69252be97dfda1ffdb2911fd705bfb16c0d0dc943bdc4d23382bb",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/shat2.py",
+      "sha256": "d1e1924c25ab35faaa1af142fd7e15767f417d7154c069f71e992af6c5e4ca4a",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/pl_posterior.py",
+      "sha256": "b668adadcdbc765eddef734e0160e2d31e2bf059a32634f3835fec9490aef058",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/e3_agediff.py",
+      "sha256": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/r2_o1_check.py",
+      "sha256": "3614d94471b482689322074c9d8e4ab6699d74ed2b35d03ce45c1ad86ab86ad0",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/explore_ctmc/env.sh",
+      "sha256": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009",
+      "matches_HEAD": true
+    },
+    {
+      "path": "tests/test_pl_posterior.py",
+      "sha256": "2e92e69f58ef2529722f6c08e16616cad9072ce1fefd57b8624b7b56dd636a35",
+      "matches_HEAD": true
+    }
+  ],
+  "pilot_source_sha256": "19bf70335d6090a98d5356d2680df206c772cedab7694f4b90449689334ce09f",
+  "preserved_raw_hashes": {
+    "XCTMC_053": "200e0bba943db6462e46f255c3bd53c7e1da142ac5c32dea3f3937575338a94a",
+    "XCTMC_044": "04275448aa31219525d31a05ca608fa42650ae20697fc14f9ae95cfcb9f70243",
+    "XCTMC_047": "317a137d569c8373d2dc4840f4226e628681eefa74c86dd8cb866da3f5bc8d20",
+    "XCTMC_028": "074dc46e3d35732c142b1dad7bb557d34c64b08dd425204be9363fadee17fb6e"
+  },
+  "pilot_arithmetic_passed": true,
+  "full_predict_executed": false,
+  "lock_executed": false,
+  "truth_executed": false,
+  "score_executed": false,
+  "commit_created": false,
+  "theta_sanity": "XFAIL: theta>=1 never-Switch contradicts the explicit formula under allowed instantaneous overload; actual grid unchanged."
+}

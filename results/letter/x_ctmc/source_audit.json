@@ -1,0 +1,78 @@
+{
+  "existing_sources": [
+    {
+      "path": "experiments/explore_ctmc/ctmc.py",
+      "sha256": "46bd482aaf42ac764428aca4a48a9791947e34578573cf59a795d3eba829a332",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/mmpp.py",
+      "sha256": "73086bfabff253c955b43333eff0ec139815d3b8245b4cc88ba189147685b86d",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/shat.py",
+      "sha256": "541a81c79cd69252be97dfda1ffdb2911fd705bfb16c0d0dc943bdc4d23382bb",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/shat2.py",
+      "sha256": "d1e1924c25ab35faaa1af142fd7e15767f417d7154c069f71e992af6c5e4ca4a",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/pl_posterior.py",
+      "sha256": "b668adadcdbc765eddef734e0160e2d31e2bf059a32634f3835fec9490aef058",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/e3_agediff.py",
+      "sha256": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/letter/r2_o1_check.py",
+      "sha256": "3614d94471b482689322074c9d8e4ab6699d74ed2b35d03ce45c1ad86ab86ad0",
+      "matches_HEAD": true
+    },
+    {
+      "path": "experiments/explore_ctmc/env.sh",
+      "sha256": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009",
+      "matches_HEAD": true
+    },
+    {
+      "path": "tests/test_pl_posterior.py",
+      "sha256": "2e92e69f58ef2529722f6c08e16616cad9072ce1fefd57b8624b7b56dd636a35",
+      "matches_HEAD": true
+    }
+  ],
+  "all_match_HEAD": true,
+  "namespace": "x-ctmc-v1",
+  "source_sha256": "19bf70335d6090a98d5356d2680df206c772cedab7694f4b90449689334ce09f",
+  "guarded_truth_API_references": [],
+  "imports": [
+    "from __future__ import annotations",
+    "import argparse",
+    "from contextlib import contextmanager",
+    "from dataclasses import asdict, dataclass",
+    "from datetime import datetime, timezone",
+    "import hashlib",
+    "import json",
+    "import math",
+    "import multiprocessing",
+    "import os",
+    "from pathlib import Path",
+    "import resource",
+    "import signal",
+    "import subprocess",
+    "import time",
+    "import numpy as np",
+    "import scipy",
+    "from scipy.sparse.linalg import expm_multiply, splu",
+    "from experiments.explore_ctmc.ctmc import det_expm1, pair_sum",
+    "from experiments.letter import mmpp, pl_posterior, shat2",
+    "import tempfile"
+  ],
+  "truth_command_executed": false,
+  "score_command_executed": false
+}

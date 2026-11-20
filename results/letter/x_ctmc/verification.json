@@ -1,0 +1,48 @@
+{
+  "namespace": "x-ctmc-v1",
+  "authorized_design_commit": "ad3db0d",
+  "commands_executed": [
+    "python3 -m pytest -q -p no:cacheprovider tests/test_x_ctmc.py --basetemp=results/letter/x_ctmc/pytest_initial",
+    "python3 -m pytest -q -p no:cacheprovider tests/test_pl_posterior.py --basetemp=results/letter/x_ctmc/pytest_pl",
+    "python3 -m pytest -q -rx -p no:cacheprovider tests/test_x_ctmc.py tests/test_pl_posterior.py --basetemp=results/letter/x_ctmc/pytest_final",
+    "python3 -m experiments.letter.x_ctmc pilot",
+    "python3 -m experiments.letter.x_ctmc --help"
+  ],
+  "pytest_initial": {
+    "passed": 22,
+    "failed": 0,
+    "seconds": 4.64
+  },
+  "pytest_pl": {
+    "passed": 20,
+    "failed": 0,
+    "seconds": 14.52
+  },
+  "pytest_final": {
+    "passed": 44,
+    "xfailed": 1,
+    "failed": 0,
+    "seconds": 22.02
+  },
+  "xfail_reason": "DESIGN section 8 theta>=1 never-Switch contradicts section 4 in allowed instantaneous MMPP overload; section 4 retained, no clipping or threshold sentinel.",
+  "counterexample": {
+    "load_A": 3.0,
+    "alpha_A": 2.4,
+    "mu_A": 5.0,
+    "load_B": 2.0,
+    "alpha_B": 0.4,
+    "mu_B": 5.0,
+    "u": 0.3,
+    "mode_A": 1,
+    "mode_B": -1,
+    "U_A0": 1.14,
+    "U_B1": 0.38,
+    "theta": 1.0,
+    "Switch_by_literal_formula": true
+  },
+  "full_predict_executed": false,
+  "lock_executed": false,
+  "truth_executed": false,
+  "score_executed": false,
+  "commit_created": false
+}

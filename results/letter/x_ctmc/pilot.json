@@ -1,0 +1,585 @@
+{
+  "namespace": "x-ctmc-v1",
+  "owner": "Doan Van Tai",
+  "created_utc": "2026-11-20T05:48:50.424904+00:00",
+  "environment": {
+    "python": "3.14.5 (main, May 10 2026, 10:21:34) [GCC 12.3.0]",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "numeric_env": {
+      "NPY_DISABLE_CPU_FEATURES": "AVX512F AVX512CD AVX512VL AVX512BW AVX512DQ AVX512VNNI AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR",
+      "OPENBLAS_CORETYPE": "Haswell",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "design_sha256": "7f9464af9e6f96a04f56d7fe9c887e0507a80e8aa8a95eb735ae8e1790e4c8de",
+  "source_sha256": "19bf70335d6090a98d5356d2680df206c772cedab7694f4b90449689334ce09f",
+  "grid_sha256": "91a106b0ebf4dc22b0e3072abf01b5d3763c82efc35e1513f59925060c536f48",
+  "sampling": {
+    "seed": 2611201,
+    "draws": 431,
+    "accepted": {
+      "agree": 32,
+      "disagree": 32
+    },
+    "rejected": {
+      "heldout_collision": 0,
+      "ranking_tie": 0,
+      "full_stratum": 367
+    },
+    "sampling": "mu/kappa/alpha_ratio independent discrete uniform; base rho uniform [.2,.9); u uniform (0,min(.9*mu-ell)); first 32 per strict stratum"
+  },
+  "pilot_ids": [
+    "XCTMC_053",
+    "XCTMC_044",
+    "XCTMC_047",
+    "XCTMC_028"
+  ],
+  "pilot_h_T_int": [
+    1
+  ],
+  "pilot_tau_T_int": [
+    1,
+    3
+  ],
+  "pilot_cpu_seconds": 2157.0697015739997,
+  "pilot_wall_seconds": 2158.297985746998,
+  "measured": [
+    {
+      "id": "XCTMC_053",
+      "purpose": "pilot",
+      "seed": 2611204,
+      "status": "COMPLETED",
+      "timing": {
+        "values": 5.818634914,
+        "posterior": 103.388249646,
+        "pairs": 0.031994892000000164,
+        "training": 80.117070221
+      },
+      "cpu_seconds": 189.386036412,
+      "wall_seconds": 189.7572099019999
+    },
+    {
+      "id": "XCTMC_044",
+      "purpose": "pilot",
+      "seed": 2611204,
+      "status": "COMPLETED",
+      "timing": {
+        "values": 3.667944152000018,
+        "posterior": 74.33483366099998,
+        "pairs": 0.043996394000032524,
+        "training": 60.73189595299999
+      },
+      "cpu_seconds": 138.83867245500002,
+      "wall_seconds": 138.92372403800255
+    },
+    {
+      "id": "XCTMC_047",
+      "purpose": "pilot",
+      "seed": 2611204,
+      "status": "COMPLETED",
+      "timing": {
+        "values": 5.076447905000009,
+        "posterior": 113.46524880099997,
+        "pairs": 0.03600774500000625,
+        "training": 97.843607384
+      },
+      "cpu_seconds": 216.48531124599998,
+      "wall_seconds": 216.67612127200118
+    },
+    {
+      "id": "XCTMC_028",
+      "purpose": "pilot",
+      "seed": 2611204,
+      "status": "COMPLETED",
+      "timing": {
+        "values": 37.647737492999795,
+        "posterior": 806.9520029060002,
+        "pairs": 0.04731329800006279,
+        "training": 766.4868611240001
+      },
+      "cpu_seconds": 1611.289898638,
+      "wall_seconds": 1611.86822914
+    }
+  ],
+  "projection": {
+    "coefficients": {
+      "values": 3.7708883284650825e-08,
+      "posterior": 3.3501926171496697e-07,
+      "pairs": 2.1490070802070143e-07,
+      "training": 0.0002443196021311795
+    },
+    "scale_factors": {
+      "values": 100.0,
+      "posterior": 2.6,
+      "pairs": 5.0,
+      "training": 0.0
+    },
+    "rule": "worst completed pilot coefficient per component; cost only; cap 3600 CPU-s per regime",
+    "caveat": "Four timing samples at h=T_int. Full V scales to 100*T_int; batched posteriors scale by columns. Projection is not a guarantee/CI. No arbitrary state-product threshold is invented; its cost enters sparse workload and pilot ranking."
+  },
+  "planned": [
+    {
+      "id": "XCTMC_001",
+      "projected_truth_cpu_seconds": 1.0573682104062128,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 74892
+    },
+    {
+      "id": "XCTMC_002",
+      "projected_truth_cpu_seconds": 8.57840222781459,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 496320
+    },
+    {
+      "id": "XCTMC_003",
+      "projected_truth_cpu_seconds": 266.43724701406114,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 2295324
+    },
+    {
+      "id": "XCTMC_004",
+      "projected_truth_cpu_seconds": 1.72481754666933,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 103356
+    },
+    {
+      "id": "XCTMC_005",
+      "projected_truth_cpu_seconds": 0.13122252487231506,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 16632
+    },
+    {
+      "id": "XCTMC_006",
+      "projected_truth_cpu_seconds": 5.337924924927877,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 255420
+    },
+    {
+      "id": "XCTMC_007",
+      "projected_truth_cpu_seconds": 2.691449122715072,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 68544
+    },
+    {
+      "id": "XCTMC_008",
+      "projected_truth_cpu_seconds": 2.3010532663371297,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 177156
+    },
+    {
+      "id": "XCTMC_009",
+      "projected_truth_cpu_seconds": 0.1250091416856544,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 17548
+    },
+    {
+      "id": "XCTMC_010",
+      "projected_truth_cpu_seconds": 5.952104455846767,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 104196
+    },
+    {
+      "id": "XCTMC_011",
+      "projected_truth_cpu_seconds": 0.3774146643382326,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 59904
+    },
+    {
+      "id": "XCTMC_012",
+      "projected_truth_cpu_seconds": 0.4620151684542397,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 79704
+    },
+    {
+      "id": "XCTMC_013",
+      "projected_truth_cpu_seconds": 124.6107841105356,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 1221968
+    },
+    {
+      "id": "XCTMC_014",
+      "projected_truth_cpu_seconds": 0.6231858812347154,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 125928
+    },
+    {
+      "id": "XCTMC_015",
+      "projected_truth_cpu_seconds": 26.67557475476229,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 1000944
+    },
+    {
+      "id": "XCTMC_016",
+      "projected_truth_cpu_seconds": 1092.7504498076119,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 3169500
+    },
+    {
+      "id": "XCTMC_017",
+      "projected_truth_cpu_seconds": 75.45266971572629,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 753408
+    },
+    {
+      "id": "XCTMC_018",
+      "projected_truth_cpu_seconds": 5.447611701486079,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 686280
+    },
+    {
+      "id": "XCTMC_019",
+      "projected_truth_cpu_seconds": 0.02828708192652315,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 12036
+    },
+    {
+      "id": "XCTMC_020",
+      "projected_truth_cpu_seconds": 6.429415619038403,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 210924
+    },
+    {
+      "id": "XCTMC_021",
+      "projected_truth_cpu_seconds": 0.375555661844952,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 64976
+    },
+    {
+      "id": "XCTMC_022",
+      "projected_truth_cpu_seconds": 411.5482261462756,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 1323444
+    },
+    {
+      "id": "XCTMC_023",
+      "projected_truth_cpu_seconds": 0.29298486687274744,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 37600
+    },
+    {
+      "id": "XCTMC_024",
+      "projected_truth_cpu_seconds": 0.015415306216675657,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 7708
+    },
+    {
+      "id": "XCTMC_025",
+      "projected_truth_cpu_seconds": 1.1128431182395204,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 96820
+    },
+    {
+      "id": "XCTMC_026",
+      "projected_truth_cpu_seconds": 20.751542255483933,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 683724
+    },
+    {
+      "id": "XCTMC_027",
+      "projected_truth_cpu_seconds": 25.866087231746512,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 1083264
+    },
+    {
+      "id": "XCTMC_028",
+      "projected_truth_cpu_seconds": 9673.861361508114,
+      "status": "NOT_RUN",
+      "reason": "PROJECTED_CPU_CAP",
+      "state_pair": 18982224
+    },
+    {
+      "id": "XCTMC_029",
+      "projected_truth_cpu_seconds": 2.1507977469676094,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 65728
+    },
+    {
+      "id": "XCTMC_030",
+      "projected_truth_cpu_seconds": 31.61536500749499,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 1854136
+    },
+    {
+      "id": "XCTMC_031",
+      "projected_truth_cpu_seconds": 0.43478180725129756,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 53352
+    },
+    {
+      "id": "XCTMC_032",
+      "projected_truth_cpu_seconds": 5.306042012530398,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 197736
+    },
+    {
+      "id": "XCTMC_033",
+      "projected_truth_cpu_seconds": 36.6327342215134,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 1997684
+    },
+    {
+      "id": "XCTMC_034",
+      "projected_truth_cpu_seconds": 5.039116580223331,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 105644
+    },
+    {
+      "id": "XCTMC_035",
+      "projected_truth_cpu_seconds": 0.38763451361138057,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 62252
+    },
+    {
+      "id": "XCTMC_036",
+      "projected_truth_cpu_seconds": 0.1782464250596072,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 35568
+    },
+    {
+      "id": "XCTMC_037",
+      "projected_truth_cpu_seconds": 5.521725958112623,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 359560
+    },
+    {
+      "id": "XCTMC_038",
+      "projected_truth_cpu_seconds": 0.6826950370169745,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 93480
+    },
+    {
+      "id": "XCTMC_039",
+      "projected_truth_cpu_seconds": 2.4720585148406564,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 248640
+    },
+    {
+      "id": "XCTMC_040",
+      "projected_truth_cpu_seconds": 0.05842769911963397,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 14400
+    },
+    {
+      "id": "XCTMC_041",
+      "projected_truth_cpu_seconds": 77.67152650679944,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 410028
+    },
+    {
+      "id": "XCTMC_042",
+      "projected_truth_cpu_seconds": 2.0814693495502206,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 228864
+    },
+    {
+      "id": "XCTMC_043",
+      "projected_truth_cpu_seconds": 3.5041462142569904,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 133848
+    },
+    {
+      "id": "XCTMC_044",
+      "projected_truth_cpu_seconds": 691.3947023689916,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 45504804
+    },
+    {
+      "id": "XCTMC_045",
+      "projected_truth_cpu_seconds": 0.11981037760346398,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 16728
+    },
+    {
+      "id": "XCTMC_046",
+      "projected_truth_cpu_seconds": 0.26043526110091136,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 29548
+    },
+    {
+      "id": "XCTMC_047",
+      "projected_truth_cpu_seconds": 1068.0968503184229,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 31108896
+    },
+    {
+      "id": "XCTMC_048",
+      "projected_truth_cpu_seconds": 2.392743801410455,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 162408
+    },
+    {
+      "id": "XCTMC_049",
+      "projected_truth_cpu_seconds": 0.13642088110848768,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 31008
+    },
+    {
+      "id": "XCTMC_050",
+      "projected_truth_cpu_seconds": 0.2094064810308439,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 26216
+    },
+    {
+      "id": "XCTMC_051",
+      "projected_truth_cpu_seconds": 143.03296516254525,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 5246116
+    },
+    {
+      "id": "XCTMC_052",
+      "projected_truth_cpu_seconds": 0.07094516053268665,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 14300
+    },
+    {
+      "id": "XCTMC_053",
+      "projected_truth_cpu_seconds": 850.8649706424153,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 48919680
+    },
+    {
+      "id": "XCTMC_054",
+      "projected_truth_cpu_seconds": 0.6991001109271647,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 39904
+    },
+    {
+      "id": "XCTMC_055",
+      "projected_truth_cpu_seconds": 7.956084576844842,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 488552
+    },
+    {
+      "id": "XCTMC_056",
+      "projected_truth_cpu_seconds": 66.12465088227587,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 2751264
+    },
+    {
+      "id": "XCTMC_057",
+      "projected_truth_cpu_seconds": 0.31541270100029833,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 26240
+    },
+    {
+      "id": "XCTMC_058",
+      "projected_truth_cpu_seconds": 812.8524023447327,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 13717276
+    },
+    {
+      "id": "XCTMC_059",
+      "projected_truth_cpu_seconds": 2.3003111344678957,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 237796
+    },
+    {
+      "id": "XCTMC_060",
+      "projected_truth_cpu_seconds": 1.7764140786489406,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 162816
+    },
+    {
+      "id": "XCTMC_061",
+      "projected_truth_cpu_seconds": 2.0542273215105515,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 184756
+    },
+    {
+      "id": "XCTMC_062",
+      "projected_truth_cpu_seconds": 0.1464605682155224,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 24408
+    },
+    {
+      "id": "XCTMC_063",
+      "projected_truth_cpu_seconds": 9.617539686028191,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 838980
+    },
+    {
+      "id": "XCTMC_064",
+      "projected_truth_cpu_seconds": 81.12695611814031,
+      "status": "PLANNED",
+      "reason": null,
+      "state_pair": 1201356
+    }
+  ],
+  "expected_not_run": 1,
+  "projected_all64_truth_cpu_hours": 4.354528777946541,
+  "projected_eligible_truth_cpu_hours": 1.6673450664165093,
+  "projection_available": true,
+  "pilot_outputs": {
+    "XCTMC_053": "200e0bba943db6462e46f255c3bd53c7e1da142ac5c32dea3f3937575338a94a",
+    "XCTMC_044": "04275448aa31219525d31a05ca608fa42650ae20697fc14f9ae95cfcb9f70243",
+    "XCTMC_047": "317a137d569c8373d2dc4840f4226e628681eefa74c86dd8cb866da3f5bc8d20",
+    "XCTMC_028": "074dc46e3d35732c142b1dad7bb557d34c64b08dd425204be9363fadee17fb6e"
+  },
+  "truth_status": "NOT_RUN",
+  "score_status": "NOT_RUN"
+}
