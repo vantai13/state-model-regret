@@ -100,7 +100,16 @@ Phạm vi chung, trừ khi ghi khác:
     T_s/T_f = 100);
   - ctmc-v2 chỉ có 24 dòng harm.
 
-## C5 — Cơ chế "planner dừng ngầm" (giả thuyết, chưa đứng)
+## C5 — Cơ chế "planner dừng ngầm" (đứng có điều kiện, 20/11/2026; trước đó: giả thuyết, chưa đứng)
+
+**Cập nhật 20/11/2026 (DL-155; AI quyết theo ủy quyền toàn quyền của tác giả, tác giả có thể đổi lại).**
+- Trên hai lưới CTMC dị biệt mới, thẻ khóa trước truth, dự đoán C5 cho dấu G_S của M0 đúng:
+  - X-CTMC: 146/146;
+  - X1c: 183/185.
+- Dự đoán: harm khi gap fluid trung bình theo phân bố dừng chỉ về action dài hạn đúng.
+- Rule stale tập trung hơn rule fresh ở 146/146 và 179/185 ô.
+- **Phạm vi:** chỉ CTMC hai path; chưa kiểm trên GÉANT; chưa loại trừ mọi giải thích cạnh tranh.
+- Paper v8.8 chỉ viết "consistent with".
 
 > Với state cũ (posterior gần dừng), M0 đúng nhờ lấy trung bình. State tươi khiến nó phản ứng theo dao động, và mỗi lần
 > phản ứng sai trả khoảng h·|s|.

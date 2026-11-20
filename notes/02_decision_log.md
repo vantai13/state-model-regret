@@ -4628,3 +4628,34 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
   - **Chờ tác giả quyết**; chưa sửa paper cho issue 2.
 - **Không đổi:** MainRQ, contract, PC, Gate, G1, verdict đã khóa, tiêu đề, Corollary 1, framing của thầy. AI làm theo ủy quyền, không phải tác
   giả tự làm. Nhánh `letter` không merge main.
+
+### DL-155 — Thí nghiệm làm mạnh paper X-CTMC, X1c, X-GÉANT; letter v8.7–v8.8 (20/11/2026)
+- **Đầu vào:**
+  - Tác giả: "chạy và làm hết… mọi quyền quyết định đều có bạn"; có credit GCP.
+  - Luật: mọi trích dẫn phải tải PDF và được hai agent kiểm; nguồn quá cũ thì bỏ; Codex hết quota thì Claude làm thay; kết quả không tốt thì phân
+    tích và thử cải thiện.
+  - Mọi quyết định thiết kế, thẻ và chấm là **AI theo ủy quyền**, không mentor review, không dự báo của tác giả.
+- **Issue 2 (v8.7, `270bf1a`):**
+  - định vị bằng Iqbal & Rainforth 2026 (Prop. 2) và Shisher & Sun 2024;
+  - "horizon law" đổi thành characterization;
+  - hai agent kiểm, đã sửa Beraldi và phạm vi Prop. 2.
+- **X-CTMC** (63/64 regime dị biệt, namespace `x-ctmc-v1` trên `mmpp`, không bypass guard):
+  - lock `1c1d38065`, raw `544925fcc`;
+  - T1 558/618 ĐỨNG; T2 234/257 so với null 116/257 ĐỨNG; **T3 0,268 KHÔNG ĐỨNG**; T4 136/146; T5 146/148; T6 C5 146/146; T6b 146/146.
+- **Phân tích nguyên nhân và cải thiện:**
+  - Sai số độ dốc do độ lớn ŝ (bản ghi 100 T_int).
+  - Post-hoc: bản ghi 1000 T_int cho 0,117. M/M/1 theo tải trung bình chỉ đúng dấu 0,64 trên lưới dị biệt.
+  - **X1c** (thẻ mới, lưới mới seed 2611301, lock `b1f647ff1`, raw `74c017828`): cả 7 test ĐỨNG (dấu 633/635, độ dốc 0,121, M0 185/185, Hybrid
+    204/204, C5 183/185).
+- **X-GÉANT X2** (NEW1–3, GCP `n2-highcpu-32`, 87/87 bản ghi, raw `4f2d79af1`):
+  - G1 NOT_EVALUABLE (0/36 ô phân giải, dấu 24/36); G2 và G3 ĐỨNG (luật tĩnh 102/102).
+  - Post-hoc: share đổi theo mùa; cửa sổ trượt 5 ngày cho 34/36. Không có thêm dữ liệu để xác nhận.
+  - **X4:** NOT_ENOUGH_SIGNAL (0/8352). GÉANT ở capacity đồng nhất chỉ có một bottleneck. X4b (capacity theo link) giao Codex.
+- **Lệch protocol đã ghi:**
+  - X-GÉANT lock tạo trước thẻ; thẻ và scorer khóa bổ sung ở `lock_card.json`, trước truth.
+  - Sanity θ ≥ 1 XFAIL do lỗi viết design.
+- **Chấm lại độc lập:** Claude (`x_rescore_claude.py`, không import scorer) MATCH 17/17; Codex chấm lại sau khi có quota.
+- **C5:** nhãn nâng thành **"đứng có điều kiện"** (đứng trên CTMC dị biệt hai lưới; chưa kiểm trên GÉANT). AI quyết theo ủy quyền; tác giả có thể đổi.
+- **Letter v8.8** (`cc903fe`): Sec. V-A/V-C/Intro theo luật đưa vào paper của các thẻ; 7 trang, numbers 0 unmatched, check_rewrite 54/1; 02_Code và zip
+  v8.8.
+- **Không đổi:** MainRQ, contract, PC, Gate, G1, tiêu đề, Corollary 1, framing của thầy. Nhánh `letter` không merge main.
