@@ -27,7 +27,7 @@ def sgn(x):
     return (x > 0) - (x < 0)
 
 
-def ctmc():
+def ctmc(C=C):
     pred = json.loads((C / 'predictions.json').read_text())
     exposed = set(pred['pilot_exposed_regimes'])
     fc = {(r['regime']['id'], v['rule'], round(v['h_T_int']), round(v['tau_T_int'])): v
@@ -126,10 +126,12 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     result = dict(owner='Doan Van Tai', by='Claude (independent script, no scorer imports; Codex out of quota)',
                   x_ctmc=ctmc(), x_geant=geant())
-    result['all_match'] = all(d['match'] for part in ('x_ctmc', 'x_geant') for d in result[part].values())
+    if (ROOT / 'results/letter/x_ctmc_c/truth_receipt.json').exists():
+        result['x1c'] = ctmc(ROOT / 'results/letter/x_ctmc_c')
+    result['all_match'] = all(d['match'] for part in ('x_ctmc', 'x_geant', 'x1c') if part in result for d in result[part].values())
     (OUT / 'rescore_claude.json').write_text(json.dumps(result, indent=2, default=str) + '\n')
     print(json.dumps({'all_match': result['all_match'],
-                      **{f'{p}.{k}': d['match'] for p in ('x_ctmc', 'x_geant') for k, d in result[p].items()}}))
+                      **{f'{p}.{k}': d['match'] for p in ('x_ctmc', 'x_geant', 'x1c') if p in result for k, d in result[p].items()}}))
 
 
 if __name__ == '__main__':
