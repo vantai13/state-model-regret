@@ -1308,3 +1308,133 @@ thêm catalog/Excel/bib. Thư viện sẵn có liên quan: P07 DOTE (TE theo MLU
 lượng), đã trích trong letter. Dừng vì đạt luật 2×20 và đủ 3 đề xuất. Không kết luận novelty; "không thấy NDT dùng fluid queue
 rollout cho quyết định giữ lâu" chỉ là **chưa xác nhận trong các nguồn đã sàng**, không phải "không có".
 | 19/11 | download + read AI-T | R2-PRAC (tác giả yêu cầu trực tiếp "tải thử 3–5 nguồn, kiểm tra thật kĩ") | TwinNet 10.1016/j.comnet.2022.109329; DEFO 10.1145/2785956.2787495; m3 10.1145/3651890.3672243; m4 arXiv 2503.01770; P05 (đã có); Liu 2003 | curl (m3 CSAIL, m4 arXiv); paper-pilot Unpaywall (TwinNet VoR UPCommons, DEFO VoR IMDEA); m3 VoR: DSpace HTML/429, ACM bị chặn; Liu: không có OA | 6 | 3 chọn (TWN22, DEFO15; M3_24 tùy chọn) | Note `notes/literature/papers/R2_PRAC_sources.md`. DEFO thêm qua backward từ TwinNet ref [14]. Không tải được: Liu 2003 (chỉ ResearchGate), m3 VoR. Chưa thêm catalog/Excel/bib: chờ tác giả chọn có trích không. Không kết luận novelty |
+
+## ISSUE1-SEARCH — đợt 1: hệ thực có đủ cơ chế M0 (20/11/2026)
+
+Người phụ trách **Doan Van Tai**. Tác giả hỏi vì sao thu hẹp claim khi mới tìm 3 nguồn, và yêu cầu tìm kỹ trước khi thu hẹp. Claude thực hiện.
+THẺ:
+- **Câu hỏi (Q1c):** có controller hoặc NDT thật nào ra quyết định giữ (phút tới ngày) dựa trên trạng thái hoặc tải đo tức thời,
+  bằng mô hình bỏ qua chi phí hàng đợi dừng (hoặc ước lượng nó từ mẫu tức thời) không?
+- **Câu chặn:** tìm được thì significance mạnh lên và không cần thu hẹp; không tìm được qua mọi nhánh thì thu hẹp.
+- **GIỮ:** networking; quyết định giữ; mô hình load/fluid/flow-level; đầu vào đo.
+- **BỎ:** ngoài ngành; chỉ thiết kế offline với rate biết trước.
+
+Lượt R2-PRAC (19/11) chỉ tìm "fluid queue rollout NDT" nên quá hẹp. Lượt này mở theo lớp của Remark 2, gồm 6 nhánh:
+1. TE tiết kiệm năng lượng online;
+2. VNF/slice theo tải đo;
+3. SD-WAN;
+4. what-if hoặc kiểm tra thay đổi;
+5. MPC fluid;
+6. đầu vào NDT có tính hàng đợi.
+
+| Ngày | Loại | Thẻ | Query / seed | Tool | Đã sàng | Giữ | Lý do / hạn chế |
+|---|---|---|---|---|---:|---:|---|
+| 20/11 | keyword | ISSUE1 n1 | online energy-aware traffic engineering link sleeping current traffic matrix | `search_openalex`, max 20 | 20 | 0 | Kết quả là luận văn hoặc heuristic chung; JSON lớn, chỉ sàng tiêu đề |
+| 20/11 | keyword | ISSUE1 n2 | VNF placement migration queueing delay M/M/1 current utilization | `search_crossref`, từ 2016, max 20 | 20 | 0 | Chỉ có tiêu đề; đa số là thiết kế với rate biết trước; chưa rõ có dùng tải đo không. Nhánh 2 cần lượt riêng |
+| 20/11 | lookup | ISSUE1 n1 | ElasticTree (Heller et al., NSDI 2010) | `search_crossref` max 3 (0 đúng), WebSearch | 3 + 10 | 1 | NSDI 2010 (USENIX, PDF mở). Theo snippet: tối ưu tập link/switch theo **traffic matrix hiện tại** bằng mô hình luồng; tính lại khi traffic đổi; **safety margin** dự trữ capacity vì drop/latency khi quá tải. **Chưa đọc PDF** |
+| 20/11 | keyword + lookup | ISSUE1 n4 | Jingubang traffic load prediction network change verification Alibaba | WebSearch; WebFetch trang USENIX (abstract) | 9 + 1 | 1 (họ Jingubang/YU/Hoyan) | Jingubang NSDI 2024: mô phỏng **tải link** (flow-level, không hàng đợi) cho thay đổi mạng trong WAN production, kiểm ngưỡng utilization (ví dụ 80%), dùng hằng ngày hơn 1 năm. Abstract **không nói** dùng traffic hiện tại hay lịch sử. Snippet Hoyan2 (SIGCOMM 2025): sự cố liên quan tải khi thay đổi là "one of the major types", **chưa xác nhận từ PDF** |
+| 20/11 | lookup | ISSUE1 n6 | RouteNet-Fermi | `search_crossref` (0 đúng), WebSearch | 3 + 10 | 1 | ToN 31(6):3080–3095, 2023, DOI 10.1109/TNET.2023.3269983, arXiv 2212.12070. Đầu vào (TM, routing, scheduling) mới theo trí nhớ của công cụ tìm, **chưa xác nhận** |
+| 20/11 | lookup | ISSUE1 n1 | REsPoNse energy-critical paths | `search_crossref` max 3 | 3 | 0 | Không ra đúng bài (ngoài ngành); chưa tra lại |
+| 20/11 | lookup (từ kết quả web) | ISSUE1 n5/n6 | Boltres et al. "Learning Sub-Second Routing Optimization … requires Packet-Level Dynamics" | WebFetch arXiv abs 2410.10377 | 1 | 1 | TMLR 2024 (theo comments). Abstract: RL routing "usually" dùng fluid network models; policy học trong fluid khái quát kém sang packet-level; thang mili giây |
+| 20/11 | keyword | ISSUE1 n4 | network change verification traffic load simulation production WAN maintenance | `search_openalex`, từ 2018, max 20 | 0 | 0 | OpenAlex trả rỗng (lỗi công cụ, không phải bằng chứng) |
+
+**Đợt 1:**
+- Giữ 4 ứng viên: ElasticTree; Jingubang/YU/Hoyan2; RouteNet-Fermi; Boltres 2024.
+- Chưa tải PDF và chưa viết note. Chờ tác giả duyệt tối đa 3.
+- Chưa đạt luật dừng ở các nhánh 2, 3, 5. Tìm tiếp ở đợt 2.
+- Không kết luận novelty hay mức đại diện.
+
+## ISSUE1-SEARCH — đợt 2: chia 3 agent (20/11/2026)
+
+Tác giả yêu cầu chia việc tìm cho Codex và agent còn lại (Neon); paper nào không tải được thì báo để tác giả tải.
+- **Brief:** `state-model-regret-papers/letter_smr/briefs/issue1/search/BRIEF_SEARCH.md`, gồm 7 nhánh:
+  - Claude: B1 (TE tiết kiệm năng lượng), B5 (MPC/fluid), B7 (TE triển khai);
+  - Codex: B4 (what-if / kiểm thay đổi), B6 (đầu vào NDT có hàng đợi);
+  - Neon: B2 (VNF/slice), B3 (SD-WAN/egress).
+- **Ủy quyền tải:** tác giả cho tải PDF mở (≤ 8 mỗi agent), lưu tại `~/papers/state-model-regret/intake/issue1/<agent>/`, ngoài Git.
+  Note thư viện và catalog chưa tạo, chờ tác giả chọn.
+
+### Phần Claude (B1, B5, B7)
+Chi tiết, trích dẫn và sha256 ở `briefs/issue1/search/claude_search.md`.
+
+| Ngày | Loại | Nhánh | Query / seed | Tool | Bộ lọc | Đã sàng | Giữ | Ghi chú |
+|---|---|---|---|---|---|---:|---:|---|
+| 20/11 | lookup | B1 | ElasticTree (đọc sâu nguồn đợt 1) | USENIX PDF | — | 1 | (đã tính ở đợt 1) | AI-T §2, §4.3, §5.2–5.4; PARTIAL (rate snapshot) + PROTECTED |
+| 20/11 | keyword | B1 | energy-aware traffic engineering | dblp | — | 0 | 0 | dblp trả rỗng |
+| 20/11 | keyword | B1 | energy-aware traffic engineering link sleeping online backbone | OpenAlex | từ 2008 | 20 | 2 | Charalambides 2013 (AI-T, venue chưa xác nhận); Francois TNSM 2014 (AI-A) |
+| 20/11 | keyword + lookup | B1 | survey energy-aware design and operation of core networks | OpenAlex; WebSearch | từ 2010 | 20 + 10 | 0 (+1 metadata) | Idzikowski COMST 2016, DOI 10.1109/COMST.2015.2507789, paywall |
+| 20/11 | keyword | B1 | green traffic engineering SDN periodic reconfiguration measured link load switch off links | OpenAlex | từ 2015 | 20 | 0 | **dừng B1** (hai query × 20 liên tiếp, 0 mới) |
+| 20/11 | lookup | B1 | xác minh venue Charalambides/Francois | Crossref API | — | 5 | — | Francois: TNSM, DOI xác nhận; Charalambides: chưa xác nhận |
+| 20/11 | keyword | B5 | model predictive control routing SDN queue length fluid model | OpenAlex | từ 2010 | 20 | 1 | logistic queue model (Coltraro, Ruiz, Velasco; arXiv 2405.17528v1) |
+| 20/11 | lookup | B5 | CURSA-SQ / logistic queue | OpenAlex, WebSearch, arXiv PDF | — | 15 | (cùng họ) | AI-T §3, §8; JOCN 2018 DOI 10.1364/JOCN.10.000773 chưa mở |
+| 20/11 | keyword | B5 | "model predictive control" traffic engineering computer network routing | OpenAlex | từ 2005 | 20 | 0 | ngoài ngành (đường bộ) |
+| 20/11 | keyword | B5 | fluid model traffic engineering | dblp | — | 0 | 0 | dblp rỗng |
+| 20/11 | keyword | B5 | fluid approximation network controller rerouting … SDN | OpenAlex | field 17, từ 2012 | 1 | 0 | bộ lọc quá hẹp |
+| 20/11 | keyword | B5 | fluid flow queue model network digital twin what-if reconfiguration decision | OpenAlex | từ 2018 | 20 | 0 | ngoài ngành |
+| 20/11 | forward | B5 | citing W4399151251 | OpenAlex `cites:` | — | 4 | 0 | **dừng B5** |
+| 20/11 | lookup | B7 | EBB Meta (SIGCOMM'23, DOI 10.1145/3603269.3604860; NSDI'26; blog 2017) | WebSearch, WebFetch, USENIX PDF | — | 12 | 1 | NSDI'26 AI-T §4.1–4.3: snapshot demand + MCF + reserve headroom; PROTECTED |
+| 20/11 | lookup | B7 | B4 / B4 and After | WebSearch, PDF bản khóa học | — | 10 | 0 | câu "short-term historical usage" nằm trong định nghĩa availability, không phải đầu vào TE |
+
+**Phần Claude:**
+- Không có STRONG.
+- PARTIAL (biến thể rate snapshot): ElasticTree, Charalambides.
+- PARTIAL (Q1a + (c)): logistic queue / CURSA-SQ. Cảnh báo: tính mù dài hạn là suy luận của AI từ Eq. 3.
+- PROTECTED: EBB NSDI'26.
+- Không tải được hoặc chưa thử: Idzikowski COMST 2016, CURSA-SQ JOCN 2018, Francois TNSM 2014.
+- Phần Codex và Neon ghi bổ sung khi xong.
+
+### Phần Codex (B4, B6) — Claude kiểm lại một phần
+- **Nguồn:** `briefs/issue1/search/codex_search.md`.
+- **Số đếm:** 30 query (15 mỗi nhánh), 399 lượt hit đã sàng, 8 PDF mở.
+- **PDF tải về** (`intake/issue1/codex/`):
+  - Ahuja2021 SIGCOMM (Hose);
+  - Alipourfard2019 SOSP (Janus);
+  - FerriolGalmes2022 INFOCOM (RouteNet-Erlang);
+  - FerriolGalmes2023 ToN (RouteNet-Fermi, bản arXiv v3);
+  - Li2024 NSDI (Jingubang);
+  - Li2024 SIGCOMM (YU);
+  - Yang2022 SIGCOMM (DeepQueueNet);
+  - Zhao2023 NSDI (Parsimon).
+- **Nhãn:**
+  - Janus: PARTIAL, dạng rate snapshot.
+  - Jingubang, Hose, WAE: PROTECTED.
+  - RouteNet-Fermi/Erlang, DeepQueueNet, Parsimon: COUNTER với (c).
+  - STRONG: 0.
+- **Dừng:** do ngân sách 15 query mỗi nhánh. Không dùng luật "hai query × 20".
+- **Claude kiểm:**
+  - Janus: đủ 4 câu trích ("current TM", "one timeslot (5 minutes)", "flow-level Monte-Carlo", "10 previously observed TMs").
+  - Jingubang: "60 one-minute traffic snapshots every hour", "multiple traffic snapshots".
+  - RouteNet-Fermi: "infers delays indirectly from the mean queue occupancy".
+- **Lead còn lại:** QI (ToN 2026, DOI 10.1109/TON.2026.3733761, chưa có full text) và Zalat CNSM 2024 (DOI 10.23919/CNSM62983.2024.10814481, IEEE).
+
+### Phần Neon (B2, B3) — Claude kiểm lại một phần
+- **Nguồn:** `briefs/issue1/search/neon_ws/neon_search.md`.
+- **Số đếm:** Neon tự báo > 320 bản ghi (B2) và > 300 (B3). Cột số đếm trong bảng bị lệch định dạng nên **số đếm từng dòng chưa kiểm được**. 8 PDF.
+- **Kết quả:** 19 nguồn, STRONG ở hệ thực: 0.
+- **Claude kiểm** (`briefs/issue1/search/claude_verify_neon.md`):
+  - Carpio 2021: đúng, nhưng sửa nhãn thành PARTIAL dạng rate snapshot (mô phỏng, demand tổng hợp).
+  - Edge Fabric: §7.3, PDF p10, giữ override 24 h, 17% prefix tệ hơn ≥ 20 ms, nguyên nhân là suy đoán của tác giả. §5: cửa sổ 2 phút, tối ưu lại mỗi 30 s.
+  - Gao 2006: self-load.
+  - Agarwal 2019: VNF mô hình M/M/1, COUNTER.
+- **Nguồn paywall Neon báo:**
+  - Troìa TNSM 2022 và JSAC 2020;
+  - Guo INFOCOM 2004;
+  - Subramanya TNSM 2021;
+  - Herrera TNSM 2016;
+  - Liu TNSM 2017;
+  - Fei INFOCOM 2018;
+  - Zhang ToN 2021.
+
+### Claude bổ sung
+- **lookup:** NetPilot (Wu et al., SIGCOMM 2012). Bản MSR tải qua paper-pilot; curl lần đầu nhận HTML, đã xóa file hỏng.
+- sha256 `ef65e4bc1a1cfa09e5299eff9dd41af3040cab528ecd350610329455ee27562a`.
+- **Bằng chứng:**
+  - PDF p4: Impact Estimator "takes an action A and a traffic matrix TM"; ngưỡng max link utilization "90%".
+  - PDF p5: "we use the TMs in the most recent n days before a deactivation action to predict the impact in the future n days".
+- **Nhãn:** PROTECTED (cửa sổ nhiều ngày, mô hình utilization không có hàng đợi, ngưỡng).
+
+### Tổng đợt 2
+- **Số đếm:** khoảng 43+ query/lookup có ghi số; khoảng 600+ bản ghi đã đếm được (Claude ≈ 210, Codex 399), cộng phần Neon chưa kiểm.
+- **PDF:** 24 PDF mở (Claude 5, Codex 8, Neon 8, tác giả 3).
+- **STRONG:** 0 trong các nguồn đã kiểm. Không kết luận novelty.
+- **Lý do dừng:** mọi nhánh tới ngân sách hoặc luật dừng. Note thư viện và catalog chưa tạo, chờ tác giả chọn tối đa 3 nguồn.

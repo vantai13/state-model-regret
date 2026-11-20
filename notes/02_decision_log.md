@@ -4594,3 +4594,37 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
 - **Sai sót kiểm khả thi của Claude:** bỏ dấu, nên báo 3,4% bất đồng tiềm năng; đã ghi lại. Dự báo F1 và F4 sai, F3 đứng.
 - **Paper (luật thẻ, nhánh NOT_ENOUGH_SIGNAL):** một câu V-C mới, ledger `V74_SIGNAL`; letter `letter_smr_argon` v8.5.
 - **Không đổi:** MainRQ, contract, PC, Gate, G1, các verdict đã khóa. Báo cáo: `results/letter/v7_4_short/RESULTS_V7_4.md`.
+
+### DL-154 — Issue 1: tìm hệ thực cho lớp M0, motivation letter v8.6; issue 2 chờ tác giả (20/11/2026)
+- **Đầu vào:**
+  - Tác giả không đồng ý thu hẹp claim khi mới tra 3 nguồn, yêu cầu tìm kỹ.
+  - Yêu cầu chia việc cho Codex và Neon; bài nào không tải được thì báo.
+  - Sau đó tác giả duyệt khuyến nghị và 3 nguồn.
+  - Luật mới của tác giả: mọi trích dẫn phải tải PDF và được **hai agent kiểm**; nguồn quá cũ thì bỏ qua.
+- **Tìm tài liệu:**
+  - 7 nhánh, 3 agent; khoảng 43+ query/lookup; khoảng 600 bản ghi đếm được, cộng phần Neon tự báo chưa kiểm số; 24 PDF mở.
+  - STRONG = 0: không nguồn nào đủ ba điều kiện giữ lâu + backlog tức thời + bỏ chi phí hàng đợi dừng. Không kết luận novelty.
+  - Lớp gần M0 có thật và phổ biến: twin không hàng đợi, quyết định theo **tải đo** mới nhất, giữ 5–15 phút.
+  - Hệ production tự bảo vệ bằng headroom, cửa sổ dài hoặc tính lại nhanh.
+  - Có phản ví dụ: NDT có tính hàng đợi, VNF M/M/1, CURSA-SQ.
+  - Tổng hợp: `state-model-regret-papers/letter_smr/briefs/issue1/search/SYNTHESIS_SEARCH.md`; log ở `notes/literature/search_log.md`.
+- **Thư viện:**
+  - note IDZ16, EF17, JAN19 (AI-T, tác giả chưa L-self);
+  - catalog/Excel 26 → 29, 26 dòng cũ giữ nguyên;
+  - PDF ở `~/papers/state-model-regret/current/`.
+- **Letter v8.6** (`letter_smr_argon` `cc8f4a2`, không push):
+  - Introduction thêm 4 câu motivation và 1 câu phân biệt (hệ dùng traffic/latency đo liên quan nhưng không phải trường hợp của twin theo
+    backlog).
+  - Conclusion thêm vế "fresh" cho câu ties.
+  - Neon viết nháp; Claude sửa 4 chỗ (Janus chỉ bước kế tiếp; khôi phục câu TwinNet/m3; Edge Fabric là trial và "partly"; "traffic or
+    latency").
+  - Codex kiểm độc lập: 16 SUPPORTED, 3 OVERSTATED, 1 UNSUPPORTED → sửa (bỏ vế TM-change; chủ ngữ chỉ planner và controller; "fresh";
+    Italo không dấu) → kiểm lại 8/8 SUPPORTED.
+  - 6 trang, numbers 0 unmatched, check_rewrite 54/1 (abstract), pytest 102.
+- **Issue 2 (novelty):** ba bản độc lập và tổng hợp ở `letter_smr/briefs/issue2/`.
+  - Đồng thuận: hiện tượng đã biết ở mức nguyên lý (Iqbal & Rainforth 2026 Prop. 2 cho rule không Bayes; Cooper; herding; AoI). Phần mới là
+    characterization theo h, dấu theo thứ tự rate, và Remark 2.
+  - Giữ correction trung tâm; "horizon law" nên thành "characterization"; C5 không làm trụ.
+  - **Chờ tác giả quyết**; chưa sửa paper cho issue 2.
+- **Không đổi:** MainRQ, contract, PC, Gate, G1, verdict đã khóa, tiêu đề, Corollary 1, framing của thầy. AI làm theo ủy quyền, không phải tác
+  giả tự làm. Nhánh `letter` không merge main.
