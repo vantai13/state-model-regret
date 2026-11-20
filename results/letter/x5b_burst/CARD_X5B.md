@@ -39,3 +39,6 @@ Cổng qua (60%). Nếu qua: T1 ĐỨNG (45%), T2 ĐỨNG (75%), T3 ĐỨNG (60%
 - Câu "intermediate-horizon gains therefore rest mainly on CTMC and synthetic GÉANT results" giữ nếu T1 không ĐỨNG; nếu T1 ĐỨNG thì sửa thành
   "on real matrices they appear only at congestion alarms with the higher within-slot modulation".
 - Abstract chỉ đổi nếu T1 ĐỨNG (một mệnh đề có điều kiện η = 0,6). Không chọn theo kết quả.
+
+## Rút (21/11/2026 ~1h15)
+X5b bị rút trước mọi outcome (Codex dừng sau ~1 phút, chưa tạo file). Thay bằng `results/letter/x5c_alarm/CARD_X5C.md` vì cảnh báo phải đặt trên đường mà luật tĩnh chọn.
