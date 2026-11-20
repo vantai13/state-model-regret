@@ -4679,3 +4679,24 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
   - Tác giả giao toàn bộ việc viết v9 cho agent, dù GVHD ghi "Bản v9 cần do Tài tự viết lại". Claude đã nêu điều này; tác giả quyết định.
   - Phân công: Neon viết prose, Codex làm hình, bib và bộ kiểm, Claude kiểm.
   - Spec và brief: `letter_smr/briefs/v9/`.
+
+### DL-157 — Letter v8.9 và v9 gửi GVHD (20/11/2026 tối)
+- **Chỉ đạo của tác giả:**
+  - v9 gửi thầy phải **phát triển từ v8.4** (`75a761e`, bản thầy nhận xét), không phải v8.8.
+  - Dòng v8.x tiếp tục kế hoạch ban đầu, **không rút gọn**.
+  - **Không sửa file code** (`02_Code`, zip); tác giả cập nhật sau. Cái gì đã tạo thì giữ, không xóa.
+- **v8.9** (`letter_smr_argon` nhánh `argon-v6`, `c6c07ad`):
+  - v8.8 + X4b ở Sec. V-C theo luật đưa vào paper của CARD_X4B, ghi trước truth;
+  - ledger X4B do Codex làm; Claude hoàn tất sau khi Codex hết quota;
+  - 7 trang, số liệu 0 unmatched, pytest 130.
+- **v9** (`letter_smr_v9` nhánh `v9b`, `0326c4b`):
+  - Theo G1–G7 của GVHD. Neon viết prose; Claude kiểm từng câu và đưa về gốc v8.4.
+  - 14 tài liệu, 5 trang, abstract 98 từ, check_v9 10/10.
+- **Phép tính mô tả mới cho Fig. 4:** hybrid với ŝ MMPP/M/1 từ bản ghi 100 T_int.
+  - Phạm vi: 92 regime, τ = T_int; 5 regime INVALID dùng M/M/1 dự phòng.
+  - Đối chứng: ba level cũ khớp với sai khác 0 trên 5796 phép so.
+  - Regret trung bình phía tươi 0,25% ở T_int và 0,003% ở 30 T_int.
+  - Không phải phép kiểm định, không có thẻ.
+- **Quyết định trình bày:** Fig. 4 và Fig. 5(b) vẽ regret phía tươi kèm đường hybrid phía cũ. Hybrid phía cũ không cao hơn luật tĩnh ở regime nào trong
+  0/92 ở mọi h vẽ; both-side sẽ che lợi ích ở horizon trung bình.
+- **Lưu ý cho tác giả:** GVHD yêu cầu Tài tự viết v9; bản này do agent soạn theo yêu cầu của tác giả, cần nói rõ với thầy.
