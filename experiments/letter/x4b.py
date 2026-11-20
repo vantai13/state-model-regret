@@ -1,8 +1,8 @@
-"""Doan Van Tai — X4b preparation under DESIGN_X4B.md, dea74a3.
+"""Doan Van Tai — X4b under DESIGN_X4B.md and CARD_X4B.md.
 
 Train-only link capacities, decisions-only screening, predictions, one timing
-pilot, and an uncommitted content lock. Imports X-GEANT/V7-3 unchanged.
-There are deliberately no truth or score commands in this preparation module.
+pilot, one-shot truth, and descriptive scoring. Imports X-GEANT/V7-3 unchanged.
+Truth and score are explicit commands, never invoked by preparation or locking.
 """
 import argparse
 from concurrent.futures import ProcessPoolExecutor
@@ -11,7 +11,9 @@ import multiprocessing as mp
 from pathlib import Path
 import platform
 import resource
+import subprocess
 import time
+import traceback
 
 import numpy as np
 
@@ -23,6 +25,13 @@ OUT = ROOT / 'results/letter/x4b'
 BRIEF = Path('/home/vantai/state-model-regret-papers/letter_smr/briefs/strengthen/DESIGN_X4B.md')
 BRIEF_COMMIT = 'dea74a3'
 BRIEF_SHA256 = '78f82644983dc9d5f4b35bccaac9a684d33f12f926f91ac33902c6c9f78873f0'
+TRUTH_BRIEF = BRIEF.with_name('CODEX_X4B_TRUTH_BRIEF.md')
+TRUTH_BRIEF_SHA256 = '419108f6ff8e2f8724dad8af5afb4ea81eaced3de3b1953aad3dde91a8e5cbb4'
+LOCK_SCHEMA = 'x4b-lock-v2'
+# The card fixes the displayed uniform capacity, independent of c[e*].
+EVALUABILITY_CAPACITY_MBPS = 12544.525174
+MIN_MEAN_BACKLOG_MBIT = .001 * EVALUABILITY_CAPACITY_MBPS
+EXPECTED_TRUTH_RECORDS = 60
 N, K, R_DEC, R_EVAL = X.N, X.K, X.R_DEC, X.R_EVAL
 TEST_SEED, TRAIN_SEED, PILOT_SEED = X.TEST_SEED, X.TRAIN_SEED, X.PILOT_SEED
 H_SECONDS = np.array([300, 600, 900, 1200, 1800, 3600, 7200], dtype=int)
@@ -34,9 +43,12 @@ npz, read_npz, text_file, emit = X.npz, X.read_npz, X.text_file, X.emit
 def dependencies():
     paths = X.dependencies()
     paths.update({'experiments/letter/x4b.py': Path(__file__).resolve(),
-                  'tests/test_x4b.py': ROOT / 'tests/test_x4b.py',
+                  'experiments/letter/x4b_card.py': ROOT / 'experiments/letter/x4b_card.py',
+                  'experiments/letter/x4b_gcp.sh': ROOT / 'experiments/letter/x4b_gcp.sh',
                   'brief:dea74a3': BRIEF,
+                  'brief:3dbf9eb': TRUTH_BRIEF,
                   'x-geant:configuration': X.OUT / 'configuration.json'})
+    paths.update({str(p.relative_to(ROOT)): p for p in sorted((ROOT / 'tests').glob('test_x4b*.py'))})
     return paths
 
 
@@ -47,12 +59,21 @@ def fingerprints():
     hashes.update({k: C.sha256(p) for k, p in dependencies().items() if k not in hashes})
     if hashes['brief:dea74a3'] != BRIEF_SHA256:
         raise ValueError('brief differs from approved dea74a3')
+    if hashes['brief:3dbf9eb'] != TRUTH_BRIEF_SHA256:
+        raise ValueError('truth brief differs from approved 3dbf9eb')
     return hashes
 
 
 def check_sources(out):
     protocol = C.read_json(Path(out) / 'protocol.json')
-    if protocol['sha256'] != fingerprints():
+    current = fingerprints()
+    lock_path = Path(out) / 'lock.json'
+    locked = C.read_json(lock_path) if lock_path.exists() else {}
+    # protocol.json remains the byte-identical preparation record. The v2
+    # lock explicitly records the authorized implementation added afterwards.
+    expected = ({k: locked['sha256'].get(k) for k in current}
+                if locked.get('schema') == LOCK_SCHEMA else protocol['sha256'])
+    if expected != current:
         raise ValueError('X4b source/input drift; retain previous attempt')
     return protocol
 
@@ -317,13 +338,13 @@ def decision_record(data, arrays, config, record, s_hat, *, seed, n=N, k=K,
 _CONTEXT = None
 
 
-def _initialize(context, out, slopes):
+def _initialize(context, out, slopes, token=None):
     global _CONTEXT
-    _CONTEXT = context, Path(out), slopes
+    _CONTEXT = context, Path(out), slopes, token
 
 
 def train_record(record):
-    (datasets, arrays, config), out, _ = _CONTEXT
+    (datasets, arrays, config), out, _, _ = _CONTEXT
     data = datasets['train']
     cpu, wall = time.process_time(), time.perf_counter()
     j, _, inc, cap = record_inputs(data, arrays, config, record)
@@ -342,20 +363,20 @@ def train_record(record):
 
 
 def _decision_worker(record):
-    (datasets, arrays, config), out, slopes = _CONTEXT
+    (datasets, arrays, config), out, slopes, _ = _CONTEXT
     raw, meta = decision_record(datasets[record['split']], arrays, config, record,
         slopes[record['regime']], seed=TRAIN_SEED if record['split'] == 'train' else TEST_SEED)
     return X.publish(out, 'step0/'+record['split'], record, raw, meta)
 
 
-def run_jobs(fn, records, context, out, workers, slopes=None):
+def run_jobs(fn, records, context, out, workers, slopes=None, token=None):
     if workers < 1:
         raise ValueError('positive workers required')
     if workers == 1:
-        _initialize(context, out, slopes)
+        _initialize(context, out, slopes, token)
         return [fn(r) for r in records]
     with ProcessPoolExecutor(workers, mp_context=mp.get_context('spawn'), initializer=_initialize,
-                             initargs=(context, out, slopes)) as pool:
+                             initargs=(context, out, slopes, token)) as pool:
         return list(pool.map(fn, records, chunksize=1))
 
 
@@ -494,6 +515,16 @@ def pilot_work_proxy(data, arrays, config, record):
     return int(round(H_SECONDS[-1]/S.DT)*N*(R_DEC+R_EVAL)*(sparse+relevant.sum()+2*active.sum()))
 
 
+def evaluability(cref, horizons):
+    """Card gate: E_instance[C_ref]/h >= 0.001 * the fixed uniform c0."""
+    cref, hs = np.asarray(cref, dtype=float), np.asarray(horizons, dtype=float)
+    if cref.ndim != 2 or hs.ndim != 1 or cref.shape[1] != len(hs) or not len(cref):
+        raise ValueError('C_ref axes must be instance,h')
+    if not np.isfinite(cref).all() or not np.isfinite(hs).all() or (hs <= 0).any():
+        raise ValueError('finite C_ref and positive horizons required')
+    return cref.mean(axis=0)/hs >= MIN_MEAN_BACKLOG_MBIT
+
+
 def paired_metrics(raw, reference, evaluation):
     """Pure action gather; no homogeneous-capacity normalization is assumed."""
     values = evaluation.mean(axis=1)
@@ -505,17 +536,38 @@ def paired_metrics(raw, reference, evaluation):
         costs=costs, regret=regret, G_S=costs[:, :, 1:]-costs[:, :, :1],
         paired_evaluation=evaluation, reference_decision_rollouts=reference,
         mean_reference_backlog_Mbit=cref.mean(axis=0)/raw['h_seconds'],
+        evaluable=evaluability(cref, raw['h_seconds']),
         paired_Hybrid_minus_Stationary=regret[:, 1]-regret[:, 2])
 
 
-def pilot_record(context, record, slopes, *, n=N, k=K, r_dec=R_DEC, r_eval=R_EVAL,
-                 horizons=H_SECONDS, streams=None):
+def outcome_record(context, record, slopes, *, stage, verified=None, out=OUT,
+                   n=N, k=K, r_dec=R_DEC, r_eval=R_EVAL,
+                   horizons=H_SECONDS, streams=None):
+    if stage not in ('pilot', 'truth'):
+        raise ValueError('explicit pilot or truth stage required')
+    if record['split'] != 'test' or record['stratum'] != 'S':
+        raise ValueError('only test-S may enter pilot/truth; test O is NOT_RUN')
+    if stage == 'truth':
+        token = verify_lock(out)
+        if not isinstance(verified, C.VerifiedLock) or verified != token:
+            raise ValueError('verified X4b truth lock required')
+        from experiments.letter import x4b_card
+        x4b_card.verify(out)
+        if record not in planned_truth_records(out):
+            raise ValueError('record outside locked test-S plan')
+        if (n, k, r_dec, r_eval) != (N, K, R_DEC, R_EVAL) or streams is not None or not np.array_equal(horizons, H_SECONDS):
+            raise ValueError('truth cannot override locked counts, streams or horizons')
     datasets, arrays, config = context
-    if record['split'] != 'test':
-        raise ValueError('timing pilot requires a test-S input and a separate pilot seed')
+    seed = PILOT_SEED if stage == 'pilot' else TEST_SEED
     cpu, wall = time.process_time(), time.perf_counter()
     raw, meta = decision_record(datasets['test'], arrays, config, record, slopes[record['regime']],
-        seed=PILOT_SEED, n=n, k=k, horizons=horizons, streams=streams)
+        seed=seed, n=n, k=k, horizons=horizons, streams=streams)
+    if stage == 'truth':
+        old = read_npz(Path(out) / 'step0/test' / f"{record['regime']}_{record['date']}.npz")
+        for key in ('decisions', 'tie_flags', 'fresh_modes', 'fresh_queues',
+                    'M0_predicted_fresh', 'M0_predicted_stale'):
+            if not np.array_equal(old[key], raw[key]):
+                raise ValueError('truth differs from step0: '+key)
     j, _, inc, cap = record_inputs(datasets['test'], arrays, config, record)
     def rollout(count, purpose):
         m, q = (np.repeat(raw[key], count, axis=0) for key in ('fresh_modes', 'fresh_queues'))
@@ -525,12 +577,18 @@ def pilot_record(context, record, slopes, *, n=N, k=K, r_dec=R_DEC, r_eval=R_EVA
     reference = R.timer(meta['timings'], 'reference_decision', lambda: rollout(r_dec, 'reference-decision'))
     evaluation = R.timer(meta['timings'], 'paired_evaluation', lambda: rollout(r_eval, 'evaluation'))
     raw.update(paired_metrics(raw, reference, evaluation))
-    meta.update(stage='pilot', pilot=True, evaluation_called=True, C_ref_computed=True,
+    meta.update(stage=stage, pilot=stage == 'pilot', evaluation_called=True, C_ref_computed=True,
         R_dec=r_dec, R_eval=r_eval, CPU_s=time.process_time()-cpu, wall_s=time.perf_counter()-wall,
         peak_RSS_MiB=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024,
-        G_S='L_stale-L_fresh', service_time_evaluability='NOT_DECIDED: per-link service normalization is not specified by the vector-capacity brief.',
-        units=dict(cost='Mbit*s', backlog='Mbit', capacity='Mbit/s', time='s'))
+        G_S='L_stale-L_fresh', evaluability_capacity_Mbps=EVALUABILITY_CAPACITY_MBPS,
+        evaluability='mean(C_ref)/h >= 0.001*c0; fixed uniform c0 from CARD_X4B',
+        units=dict(cost='Mbit*s', backlog='Mbit', capacity='Mbit/s', time='s'),
+        axes=dict(decisions=['instance', 'rule', 'unique_side', 'h'], V=['instance', 'action', 'h']))
     return raw, meta
+
+
+def pilot_record(context, record, slopes, **kwargs):
+    return outcome_record(context, record, slopes, stage='pilot', **kwargs)
 
 
 def pilot(out=OUT):
@@ -573,8 +631,10 @@ def lock_paths(out):
         'train_utilizations.csv', 'candidate_ranking_inputs.csv', 'step0_started.json',
         'training_summary.json', 'inputs.json', 'signal.json', 'step0_disagreement.csv',
         'step0_ties.csv', 'step0_by_record.csv', 'predictions.json', 'predictions.csv',
-        'predictions_paired.csv', 'pilot/selection.json', 'pilot/summary.json'):
+        'predictions_paired.csv', 'pilot/selection.json', 'pilot/summary.json', 'CARD_X4B.md'):
         paths['output:'+name] = out / name
+    if (out / 'preparation_lock.json').exists():
+        paths['output:preparation_lock.json'] = out / 'preparation_lock.json'
     for folder in ('training_rates', 'step0/train', 'step0/test', 'pilot/records'):
         for p in sorted((out / folder).glob('*')):
             if p.suffix in ('.npz', '.json'):
@@ -584,8 +644,26 @@ def lock_paths(out):
 
 def create_lock(out=OUT):
     out = Path(out)
-    signal = require_signal(out)
-    T.new(out / 'lock.json')
+    T.new(out / 'truth', out / 'lock_card.json')
+    lock_path = out / 'lock.json'
+    previous = C.read_json(lock_path) if lock_path.exists() else None
+    if previous is not None:
+        if previous.get('schema') != 'x4b-lock-v1':
+            raise FileExistsError('truth lock already exists; never relock after v2')
+        T.new(out / 'preparation_lock.json')
+        paths = lock_paths(out)
+        # Only these two existing files were authorized to change. Every raw
+        # preparation input/output must still match the previous content lock.
+        allowed = {'experiments/letter/x4b.py', 'tests/test_x4b.py'}
+        for key, digest in previous['sha256'].items():
+            if key not in paths or (key not in allowed and C.sha256(paths[key]) != digest):
+                raise ValueError('preparation drift outside authorized source changes: '+key)
+        fingerprints()  # Also check all new dependencies and approved briefs.
+    else:
+        check_sources(out)
+    signal = C.read_json(out / 'signal.json')
+    if signal['gate']['verdict'] != 'SIGNAL_OK':
+        raise ValueError('NOT_ENOUGH_SIGNAL: no truth lock')
     records = C.read_json(out / 'inputs.json')['records']
     selected = [r for r in records if r['status'] != 'NOT_RUN']
     train_count = len(C.read_json(out / 'configuration.json')['regimes'])*26
@@ -599,10 +677,17 @@ def create_lock(out=OUT):
             found = {p.stem for p in (out / folder).glob('*'+ext)}
             if len(found) != expected or (folder != 'pilot/records' and found != expected_stems):
                 raise ValueError('incomplete or extra preparation records: '+folder)
-    result = dict(owner='Doan Van Tai', schema='x4b-lock-v1',
+    planned_truth_records(out)
+    if previous is not None:
+        lock_path.rename(out / 'preparation_lock.json')
+    result = dict(owner='Doan Van Tai', schema=LOCK_SCHEMA,
         sha256={k: C.sha256(p) for k, p in sorted(lock_paths(out).items())},
-        gate=signal['gate'], committed=False, card_status='PENDING_CLAUDE', truth_authorized=False,
-        note='Content lock only. No commit/ssh/truth/score in this task. A separately written Claude card and raw-before-score workflow are still required.')
+        gate=signal['gate'], committed=False, card_status='CARD_X4B_WRITTEN', truth_authorized=False,
+        seed_test=TEST_SEED, namespace='X4B|regime|date', test_S_records=EXPECTED_TRUTH_RECORDS,
+        evaluability_capacity_Mbps=EVALUABILITY_CAPACITY_MBPS,
+        evaluability_min_mean_backlog_Mbit=MIN_MEAN_BACKLOG_MBIT,
+        preparation_protocol_is_historical=True,
+        note='Authorized implementation relock before truth. Preparation protocol/raw and previous lock retained byte-for-byte. Claude commits/transfers before the one-shot truth; raw must be committed before scoring. No truth/score/commit/ssh performed by this lock.')
     C.write_json(out / 'lock.json', result)
     return result
 
@@ -611,26 +696,231 @@ def verify_lock(out=OUT):
     out = Path(out)
     locked = C.read_json(out / 'lock.json')
     now = {k: C.sha256(p) for k, p in sorted(lock_paths(out).items())}
-    if locked.get('schema') != 'x4b-lock-v1' or locked['sha256'] != now:
+    if locked.get('schema') != LOCK_SCHEMA or locked['sha256'] != now:
         raise ValueError('X4b lock mismatch')
     return C.VerifiedLock(str((out / 'lock.json').resolve()), C.sha256(out / 'lock.json'))
 
 
+def planned_truth_records(out):
+    records = [r for r in C.read_json(Path(out) / 'inputs.json')['records']
+               if r['split'] == 'test' and r['stratum'] == 'S']
+    keys = [(r['regime'], r['date']) for r in records]
+    if len(records) != EXPECTED_TRUTH_RECORDS or len(set(keys)) != len(keys) or any(r['status'] == 'NOT_RUN' for r in records):
+        raise ValueError('truth requires all 60 distinct, planned test-S records')
+    return records
+
+
+def _truth_worker(record):
+    context, out, slopes, token = _CONTEXT
+    raw, meta = outcome_record(context, record, slopes, stage='truth', verified=token, out=out)
+    return X.publish(out, 'truth/records', record, raw, meta)
+
+
+def truth(out=OUT, workers=30):
+    """One invocation only. An existing truth directory forbids retry/resume."""
+    if workers < 1:
+        raise ValueError('positive workers required')
+    out = Path(out)
+    token = verify_lock(out)
+    from experiments.letter import x4b_card
+    x4b_card.verify(out)
+    require_signal(out)
+    records = planned_truth_records(out)
+    # mkdir, rather than a check followed by a write, excludes a second caller.
+    (out / 'truth').mkdir(exist_ok=False)
+    start, cpu = time.perf_counter(), time.process_time()
+    children_cpu = resource.getrusage(resource.RUSAGE_CHILDREN)
+    C.write_json(out / 'truth/started.json', dict(owner='Doan Van Tai', seed=TEST_SEED,
+        namespace='X4B|regime|date', workers=workers, records=records,
+        lock_sha256=token.digest, card_lock_sha256=C.sha256(out / 'lock_card.json'),
+        one_shot=True, retry=False, resume=False))
+    result = dict(owner='Doan Van Tai', status='INCOMPLETE', records=[],
+        planned_records=len(records), lock_sha256=token.digest, scored=False,
+        CPU_s_records=None, wall_s=None, peak_RSS_MiB=None, measurements_finalized=False)
+    # A timeout/SIGKILL still leaves an explicit INCOMPLETE receipt. Only this
+    # status receipt is replaced on completion; raw records never overwrite.
+    C.write_json(out / 'truth/receipt.json', result)
+    try:
+        context = load_context(out, include_test=True)
+        slopes = C.read_json(out / 'training_summary.json')['s_hat_pooled_Mbit']
+        run_jobs(_truth_worker, records, context, out, workers, slopes, token)
+        metas = [C.read_json(p) for p in sorted((out / 'truth/records').glob('*.json'))]
+        if {(m['regime'], m['date']) for m in metas} != {(r['regime'], r['date']) for r in records}:
+            raise ValueError('incomplete/extra truth records')
+        verify_lock(out)
+        x4b_card.verify(out)
+        manifest = {str(p.relative_to(out)): C.sha256(p)
+                    for p in sorted((out / 'truth/records').glob('*')) if p.is_file()}
+        manifest['truth/started.json'] = C.sha256(out / 'truth/started.json')
+        C.write_json(out / 'truth/raw_manifest.json', dict(owner='Doan Van Tai', sha256=manifest))
+        result['status'] = 'COMPLETE'
+    except BaseException:
+        result['error'] = traceback.format_exc()
+        raise
+    finally:
+        receipts = [C.read_json(p) for p in sorted((out / 'truth/records').glob('*.json'))]
+        usage = resource.getrusage(resource.RUSAGE_CHILDREN)
+        result.update(records=receipts, wall_s=time.perf_counter()-start, measurements_finalized=True,
+            CPU_s_records=sum(r['CPU_s'] for r in receipts), CPU_s_parent=time.process_time()-cpu,
+            CPU_s_children=usage.ru_utime+usage.ru_stime-children_cpu.ru_utime-children_cpu.ru_stime,
+            peak_RSS_MiB=max([resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024,
+                usage.ru_maxrss/1024]+[r['peak_RSS_MiB'] for r in receipts]),
+            peak_RSS_scope='Largest process high-water mark; not simultaneous aggregate memory.')
+        C.write_json(out / 'truth/receipt_final.json', result)
+        (out / 'truth/receipt_final.json').replace(out / 'truth/receipt.json')
+    return result
+
+
+def paired_stats(values):
+    values = np.asarray(values, dtype=float)
+    if values.ndim != 1 or len(values) < 2 or not np.isfinite(values).all():
+        raise ValueError('paired statistics require at least two finite instances')
+    return dict(mean=float(values.mean()), se=float(values.std(ddof=1)/np.sqrt(len(values))))
+
+
+def tie_strict_regret(regret, tie_flags):
+    """Additive contributions over ALL instances, not conditional subgroup means.
+
+    Keep signed finite-MC estimates, including negative contributions. No clip.
+    """
+    regret, ties = np.asarray(regret, dtype=float), np.asarray(tie_flags, dtype=bool)
+    if regret.ndim != 1 or regret.shape != ties.shape or not len(regret) or not np.isfinite(regret).all():
+        raise ValueError('aligned finite instance regret and tie flags required')
+    total = float(regret.sum())
+    tie, strict = float(regret[ties].sum()), float(regret[~ties].sum())
+    return dict(instances=len(regret), tie_instances=int(ties.sum()), strict_instances=int((~ties).sum()),
+        regret_Mbit_s=total/len(regret), tie_regret_Mbit_s=tie/len(regret), strict_regret_Mbit_s=strict/len(regret),
+        regret_sum_Mbit_s=total, tie_regret_sum_Mbit_s=tie, strict_regret_sum_Mbit_s=strict,
+        strict_regret_share=None if total == 0 else strict/total)
+
+
+def descriptive_rows(raw, meta):
+    """Pure synthetic-testable summaries; never load data or call a simulator."""
+    rows, pairs, ties = [], [], []
+    base = {k: meta[k] for k in ('regime', 'set', 'date')}
+    evaluable = evaluability(raw['C_ref'], raw['h_seconds'])
+    for ih, h in enumerate(raw['h_seconds']):
+        cref = float(raw['C_ref'][:, ih].mean())
+        eligible = bool(evaluable[ih])
+        pct = lambda v: None if cref <= 0 else 100*v/cref
+        for s, side in enumerate(SIDES):
+            stats = paired_stats(raw['paired_Hybrid_minus_Stationary'][:, s, ih])
+            different = raw['decisions'][:, 1, s, ih] != raw['decisions'][:, 2, s, ih]
+            pairs.append(dict(base, side=side, h_s=int(h), evaluable=eligible, C_ref_Mbit_s=cref,
+                paired_Hybrid_minus_Stationary_Mbit_s=stats['mean'],
+                paired_Hybrid_minus_Stationary_SE_Mbit_s=stats['se'],
+                paired_Hybrid_minus_Stationary_pct=pct(stats['mean']),
+                disagreement_numerator=int(different.sum()), instances=len(different),
+                disagreement_share=float(different.mean())))
+        ties.append(dict(base, side='fresh', h_s=int(h), evaluable=eligible, C_ref_Mbit_s=cref,
+            **tie_strict_regret(raw['regret'][:, 0, 0, ih], raw['tie_flags'][:, 0, 0, ih])))
+        for p, name in enumerate(PIPES):
+            for t, tau in enumerate(raw['tau_seconds']):
+                lf, ls = (float(raw['costs'][:, p, s, ih].mean()) for s in (0, t+1))
+                rf, rs = lf-cref, ls-cref
+                gs = paired_stats(raw['G_S'][:, p, t, ih])
+                pair_f, pair_s = (paired_stats(raw['paired_Hybrid_minus_Stationary'][:, s, ih]) for s in (0, t+1))
+                rows.append(dict(base, rule=name, tau_s=int(tau), h_s=int(h), C_ref_Mbit_s=cref,
+                    L_fresh_Mbit_s=lf, L_stale_Mbit_s=ls,
+                    regret_fresh_Mbit_s=rf, regret_stale_Mbit_s=rs,
+                    regret_fresh_pct=pct(rf), regret_stale_pct=pct(rs), both_side_regret_pct=pct(max(rf, rs)),
+                    G_S_Mbit_s=gs['mean'], G_S_SE_Mbit_s=gs['se'], G_S_pct=pct(gs['mean']),
+                    G_S_over_h_Mbit=gs['mean']/h,
+                    G_S_service_ms=1000*gs['mean']/h/EVALUABILITY_CAPACITY_MBPS,
+                    regret_fresh_service_ms=1000*rf/h/EVALUABILITY_CAPACITY_MBPS,
+                    regret_stale_service_ms=1000*rs/h/EVALUABILITY_CAPACITY_MBPS,
+                    evaluable=eligible, tie_share_fresh=float(raw['tie_flags'][:, p, 0, ih].mean()),
+                    tie_share_stale=float(raw['tie_flags'][:, p, t+1, ih].mean()),
+                    Hybrid_minus_Stationary_fresh_Mbit_s=pair_f['mean'],
+                    Hybrid_minus_Stationary_fresh_SE_Mbit_s=pair_f['se'],
+                    Hybrid_minus_Stationary_stale_Mbit_s=pair_s['mean'],
+                    Hybrid_minus_Stationary_stale_SE_Mbit_s=pair_s['se']))
+    return rows, pairs, ties
+
+
+def require_raw_committed(paths):
+    """Read-only git check: every raw byte must already be in local HEAD."""
+    head = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip()
+    for path in paths:
+        path = Path(path)
+        rel = path.resolve().relative_to(ROOT).as_posix()
+        try:
+            expected = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD:'+rel],
+                                               text=True, stderr=subprocess.PIPE).strip()
+        except subprocess.CalledProcessError as exc:
+            raise ValueError('raw must be committed before score: '+rel) from exc
+        actual = subprocess.check_output(['git', '-C', str(ROOT), 'hash-object', str(path)], text=True).strip()
+        if expected != actual:
+            raise ValueError('raw differs from committed HEAD: '+rel)
+    return head
+
+
+def score(out=OUT):
+    """Descriptive rows only. Card verdicts are a separate, locked command."""
+    out = Path(out)
+    token = verify_lock(out)
+    from experiments.letter import x4b_card
+    x4b_card.verify(out)
+    T.new(out / 'score.json', out / 'score.csv', out / 'score_paired.csv', out / 'score_tie_strict.csv')
+    receipt = C.read_json(out / 'truth/receipt.json')
+    if receipt['status'] != 'COMPLETE' or receipt['lock_sha256'] != token.digest:
+        raise ValueError('cannot score INCOMPLETE truth or a different lock')
+    records = planned_truth_records(out)
+    metas = receipt['records']
+    if len(metas) != len(records) or {(r['regime'], r['date']) for r in metas} != {(r['regime'], r['date']) for r in records}:
+        raise ValueError('receipt does not contain all planned test-S records')
+    manifest = C.read_json(out / 'truth/raw_manifest.json')['sha256']
+    expected_files = {'truth/started.json'} | {f'truth/records/{r["regime"]}_{r["date"]}{ext}'
+        for r in records for ext in ('.json', '.npz')}
+    if set(manifest) != expected_files:
+        raise ValueError('incomplete/extra raw manifest')
+    for name, digest in manifest.items():
+        if C.sha256(out / name) != digest:
+            raise ValueError('raw checksum mismatch: '+name)
+    actual_files = {str(p.relative_to(out)) for p in (out / 'truth/records').iterdir()}
+    if actual_files != expected_files-{'truth/started.json'}:
+        raise ValueError('incomplete/extra raw directory')
+    head = require_raw_committed([out / n for n in sorted(expected_files)] +
+        [out / 'truth/receipt.json', out / 'truth/raw_manifest.json'])
+    rows, pairs, ties = [], [], []
+    for meta in metas:
+        stem = out / 'truth/records' / f"{meta['regime']}_{meta['date']}"
+        if meta != C.read_json(stem.with_suffix('.json')) or meta['split'] != 'test' or meta['stratum'] != 'S' or meta['seed_base'] != TEST_SEED or meta['stage'] != 'truth':
+            raise ValueError('invalid truth metadata')
+        if C.sha256(stem.with_suffix('.npz')) != meta['npz_sha256']:
+            raise ValueError('raw NPZ checksum mismatch')
+        r, p, t = descriptive_rows(read_npz(stem.with_suffix('.npz')), meta)
+        rows.extend(r)
+        pairs.extend(p)
+        ties.extend(t)
+    T.write_csv(out / 'score.csv', rows)
+    T.write_csv(out / 'score_paired.csv', pairs)
+    T.write_csv(out / 'score_tie_strict.csv', ties)
+    C.write_json(out / 'score.json', dict(owner='Doan Van Tai', rows=rows, paired_rows=pairs,
+        tie_strict_rows=ties, lock_sha256=token.digest, raw_commit=head,
+        sign='G_S=L_stale-L_fresh; negative=fresh hurts', independent_rescore='PENDING',
+        service_ms_capacity_Mbps=EVALUABILITY_CAPACITY_MBPS,
+        counts_are_not_independent_trials=True,
+        both_side='max(mean regret fresh, mean regret stale_tau); one case per record,tau,h',
+        tie_strict='Signed additive contributions over all instances; fresh counted once, not twice by tau.'))
+    return dict(rows=len(rows), paired_rows=len(pairs), tie_strict_rows=len(ties))
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('configure', 'step0', 'predict', 'pilot', 'lock', 'verify-lock'))
+    parser.add_argument('command', choices=('configure', 'step0', 'predict', 'pilot', 'lock', 'verify-lock', 'truth', 'score'))
     parser.add_argument('--out', type=Path, default=OUT)
     parser.add_argument('--workers', type=int, default=1)
     args = parser.parse_args(argv)
-    if args.command == 'step0':
-        result = step0(args.out, args.workers)
+    if args.command in ('step0', 'truth'):
+        result = dict(step0=step0, truth=truth)[args.command](args.out, args.workers)
     else:
         result = dict(configure=configure, predict=predict, pilot=pilot,
-            lock=create_lock, **{'verify-lock': verify_lock})[args.command](args.out)
+            lock=create_lock, score=score, **{'verify-lock': verify_lock})[args.command](args.out)
     if isinstance(result, C.VerifiedLock):
         emit(dict(verified=True, path=result.path, digest=result.digest))
     else:
-        emit({k: result[k] for k in ('gate', 'decisions_record_count', 'projected_CPU_hours') if k in result})
+        emit({k: result[k] for k in ('gate', 'decisions_record_count', 'projected_CPU_hours', 'status', 'rows', 'paired_rows', 'tie_strict_rows') if k in result})
 
 
 if __name__ == '__main__':

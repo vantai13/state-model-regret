@@ -1,4 +1,4 @@
-"""Doan Van Tai — X4b vector capacities and preparation-only invariants."""
+"""Doan Van Tai — X4b vector capacities and preparation invariants."""
 import json
 
 import numpy as np
@@ -204,11 +204,12 @@ def test_no_signal_stops_downstream_before_any_data_or_engine(monkeypatch, tmp_p
 
 
 @pytest.mark.parametrize('command', ['truth', 'score'])
-def test_cli_refuses_truth_and_score(monkeypatch, command):
+def test_cli_dispatches_only_to_stub_without_running_truth_or_score(monkeypatch, command, tmp_path):
+    calls = []
     monkeypatch.setattr(B.X, command, forbidden)
-    with pytest.raises(SystemExit) as e:
-        B.main([command])
-    assert e.value.code == 2
+    monkeypatch.setattr(B, command, lambda *args: calls.append(args) or {})
+    B.main([command, '--out', str(tmp_path), '--workers', '3'])
+    assert calls == [(tmp_path, 3) if command == 'truth' else (tmp_path,)]
 
 
 def test_lock_drift_and_extra_record_detection(monkeypatch, tmp_path):
@@ -216,7 +217,7 @@ def test_lock_drift_and_extra_record_detection(monkeypatch, tmp_path):
     code.write_text('original')
     paths = dict(code=code)
     monkeypatch.setattr(B, 'lock_paths', lambda out: paths)
-    (tmp_path / 'lock.json').write_text(json.dumps(dict(schema='x4b-lock-v1', sha256=dict(code=B.C.sha256(code)))))
+    (tmp_path / 'lock.json').write_text(json.dumps(dict(schema=B.LOCK_SCHEMA, sha256=dict(code=B.C.sha256(code)))))
     assert isinstance(B.verify_lock(tmp_path), B.C.VerifiedLock)
     code.write_text('changed')
     with pytest.raises(ValueError, match='lock mismatch'):

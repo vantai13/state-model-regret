@@ -1,6 +1,8 @@
 {
-  "card_status": "PENDING_CLAUDE",
+  "card_status": "CARD_X4B_WRITTEN",
   "committed": false,
+  "evaluability_capacity_Mbps": 12544.525174,
+  "evaluability_min_mean_backlog_Mbit": 12.544525174,
   "gate": {
     "counts": [
       {
@@ -57,10 +59,14 @@
     "threshold": 0.01,
     "verdict": "SIGNAL_OK"
   },
-  "note": "Content lock only. No commit/ssh/truth/score in this task. A separately written Claude card and raw-before-score workflow are still required.",
+  "namespace": "X4B|regime|date",
+  "note": "Authorized implementation relock before truth. Preparation protocol/raw and previous lock retained byte-for-byte. Claude commits/transfers before the one-shot truth; raw must be committed before scoring. No truth/score/commit/ssh performed by this lock.",
   "owner": "Doan Van Tai",
-  "schema": "x4b-lock-v1",
+  "preparation_protocol_is_historical": true,
+  "schema": "x4b-lock-v2",
+  "seed_test": 7412001,
   "sha256": {
+    "brief:3dbf9eb": "419108f6ff8e2f8724dad8af5afb4ea81eaced3de3b1953aad3dde91a8e5cbb4",
     "brief:581e769": "f48112dc1b277bc1116648f337aa2cec432abf1c0737d3bab5afded4447e6e1b",
     "brief:dea74a3": "78f82644983dc9d5f4b35bccaac9a684d33f12f926f91ac33902c6c9f78873f0",
     "experiments/explore_ctmc/env.sh": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009",
@@ -77,8 +83,11 @@
     "experiments/letter/v7_3_sim.py": "0b2260492e648ba144a577a1c9094cebb353cff60972609bb9c6b928b15db7fe",
     "experiments/letter/v7_3_test.py": "e56d02bc201e37d5a3702bf7fda2ea956f50f862a9356c38c6066cf24a94c3b1",
     "experiments/letter/v7_3_test_common.py": "0278e7269c55267237141b4ad1487411499f49bbc0944adde58ba3dbd777fd04",
-    "experiments/letter/x4b.py": "f5fa0e8884624655ee586b2c4d439ba4fa8b814ad8307f241dcc6c33e36282bd",
+    "experiments/letter/x4b.py": "86328ae55b9ef328843fcdbab415a810ec455210f43241190602d32d4b4d40cc",
+    "experiments/letter/x4b_card.py": "44f7d6dd369bb08912e4213183d7daf5b1d041dc23b27c739b6a122a1db50f60",
+    "experiments/letter/x4b_gcp.sh": "f2d9816c160b8dcf136e3571b1289cf3d0a537db0a6f137c1a0255d222c64cff",
     "experiments/letter/x_geant.py": "eb596325a2520b91583a240a9db473bb94ba1391b10a490df431b738d90a9e92",
+    "output:CARD_X4B.md": "b7d1e02338f97890a67afb6423b16d7f3098400d8952eee4f672a82e198a2f14",
     "output:candidate_ranking_inputs.csv": "1247489ec97cce937de02a455a17f89c9f5a45fd488113ccf8d33809b7cb4aa5",
     "output:configuration.json": "4588829744cb48b32ccdae2628ee0cc0588ade0a5798d5a35124ecf71f5d1c1b",
     "output:configuration.npz": "4c22fc2080f260b354e1d1b8f37909218ba3c2a8eb4e526f36ebc36aea53f4f4",
@@ -90,6 +99,7 @@
     "output:predictions.csv": "68291b9ed0583ac228172c98731dff53ed15b6951f07b691be9006c8f197a978",
     "output:predictions.json": "1ce96c0fa8a5fec6e7f0dbbd47abdb39b642aec9fdbc48a2fbfc5844c814b63d",
     "output:predictions_paired.csv": "1491c9849bc537ec7e4692d334558d8d4a989cf3dcab5fd5bd2167b0df3bf9f3",
+    "output:preparation_lock.json": "dd79511b5d923517fe8acfc7ec27f165691bcaada648f0da2855e4195d6fa8d8",
     "output:protocol.json": "6c09588fd174c4cf5531cb5b7e77c502cdcdf8960a7c2422b5e8301e8cdd5e1d",
     "output:regimes.md": "66175734edc1c7b7a5d0034c55af4a2c8a74f5a3b5040e15663038249365a3fa",
     "output:signal.json": "4b1a525921f5f39f2ff1a6d02e6f100b496101b93e4ff1805624ae1ef1405472",
@@ -540,9 +550,12 @@
     "sndlib:archive": "92d72a808d6de9d26be66844c098d3f32d5b9bb6c69af170e82b73118faef0df",
     "sndlib:topology": "ff316c23220ff4485deafcb8701d49c353db0c80072152df3ed9023ed4b4f4ff",
     "sndlib:train_cache": "1d4fbb95b21a09f4e9e4477128457ee687b4dda737afab4f124fb3386dc99de2",
-    "tests/test_x4b.py": "542fbd05305876ab2a2b9a1e109069e7f4edff2ccb5bd8c1a612f2bc3d56606d",
+    "tests/test_x4b.py": "e3603a62c9c8f81f27aab2b793de2ea7c6ce1521053d07ff4a06976a7725d11b",
+    "tests/test_x4b_card.py": "25bceb62721f5f70771c966e713ebdb84feaa0125b9946b1a740d998484b072f",
+    "tests/test_x4b_truth.py": "481e2c755f0daa4a76df6b528e855f0d698d5cfc0d4581201aeb5e294cf56b99",
     "tests/test_x_geant.py": "8f6101735ba0e8dd93cb11bc914c352ee6df611b6788b10141464338b805b3bc",
     "x-geant:configuration": "a50e458314ee3265509715e7f5b10d2bc37355a01246243692819f88f0518421"
   },
+  "test_S_records": 60,
   "truth_authorized": false
 }
