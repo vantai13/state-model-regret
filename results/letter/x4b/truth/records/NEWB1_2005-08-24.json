@@ -1,0 +1,92 @@
+{
+  "CPU_s": 12.251125189,
+  "C_ref_computed": true,
+  "G_S": "L_stale-L_fresh",
+  "K": 64,
+  "N": 32,
+  "R_dec": 64,
+  "R_eval": 128,
+  "axes": {
+    "V": [
+      "instance",
+      "action",
+      "h"
+    ],
+    "decisions": [
+      "instance",
+      "rule",
+      "unique_side",
+      "h"
+    ]
+  },
+  "date": "2005-08-24",
+  "evaluability": "mean(C_ref)/h >= 0.001*c0; fixed uniform c0 from CARD_X4B",
+  "evaluability_capacity_Mbps": 12544.525174,
+  "evaluation_called": true,
+  "max_utilization_by_action": [
+    0.6775852803181319,
+    0.7524678367199595
+  ],
+  "npz_sha256": "9e542d86b8306162e211751ea99ae9345aeb4362884f0cbd43142f4ecb221fcd",
+  "owner": "Doan Van Tai",
+  "peak_RSS_MiB": 135.16796875,
+  "pilot": false,
+  "regime": "NEWB1",
+  "seed_base": 7412001,
+  "set": "X4b",
+  "split": "test",
+  "stage": "truth",
+  "status": "PLANNED",
+  "stratum": "S",
+  "streams": {
+    "base": 7412001,
+    "evaluation": 7250434956751160356,
+    "posterior-300.0": 1871415791489601834,
+    "posterior-900.0": 11403900376974734589,
+    "rate": 3848184010087796134,
+    "record": 16562160800856322405,
+    "reference-decision": 16493136610728988779,
+    "warm": 16944993148237275850
+  },
+  "timings": {
+    "M0_fresh": {
+      "CPU_s": 0.089104338,
+      "wall_s": 0.08911843799999986
+    },
+    "M0_stale_300": {
+      "CPU_s": 5.571814626,
+      "wall_s": 5.572009795999996
+    },
+    "M0_stale_900": {
+      "CPU_s": 6.332157885000001,
+      "wall_s": 6.332376578000002
+    },
+    "paired_evaluation": {
+      "CPU_s": 0.08976861700000072,
+      "wall_s": 0.0897715070000018
+    },
+    "posterior_300": {
+      "CPU_s": 0.04204407099999996,
+      "wall_s": 0.04204455300000376
+    },
+    "posterior_900": {
+      "CPU_s": 0.056254607999999706,
+      "wall_s": 0.0562550439999967
+    },
+    "reference_decision": {
+      "CPU_s": 0.04841002699999919,
+      "wall_s": 0.04841162400000343
+    },
+    "warmup": {
+      "CPU_s": 0.005995976000000014,
+      "wall_s": 0.0059958320000035314
+    }
+  },
+  "units": {
+    "backlog": "Mbit",
+    "capacity": "Mbit/s",
+    "cost": "Mbit*s",
+    "time": "s"
+  },
+  "wall_s": 12.251550363999996
+}
