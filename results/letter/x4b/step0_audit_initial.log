@@ -1,0 +1,5 @@
+Initial read-only audit exited 1 before writing audit results.
+Traceback (most recent call last):
+  File "<stdin>", line 20, in <module>
+TypeError: only 0-dimensional arrays can be converted to Python scalars
+Cause: legacy NPZ writer stores scalar s_hat_Mbit as a one-element array. Audit corrected to .item(); no scientific source or raw data changed.
