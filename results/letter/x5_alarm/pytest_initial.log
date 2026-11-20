@@ -1,0 +1,133 @@
+...FF................................................................... [ 86%]
+...........                                                              [100%]
+=================================== FAILURES ===================================
+_______ test_selection_preserves_order_and_stale_trajectory_alignment[8] _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x787e0d567ad0>
+alarms = 8
+
+    @pytest.mark.parametrize('alarms', [0, 7, 8, 10])
+    def test_selection_preserves_order_and_stale_trajectory_alignment(monkeypatch, alarms):
+        data, arrays, config, record = toy()
+        m, n, k = 12, 8, 2
+        marked = np.array([0, 2, 3, 4, 5, 6, 7, 9, 10, 11])[:alarms]
+        modes = np.arange(m, dtype=float)[:, None]
+        queues = np.zeros((m, 2)); queues[marked, 1] = 1.
+        stale = {tau: (modes+tau, queues+tau) for tau in A.S.TAU_SECONDS}
+        def warm(inc, demands, cap, count, seed):
+            assert count == m
+            return (modes, queues), stale
+        calls = []
+        def posterior(inc, demand, cap, state, tau, count, seed):
+            calls.append((tau, tuple(v.copy() for v in state)))
+            return tuple(np.repeat(v, count, axis=0) for v in state)
+        monkeypatch.setattr(A.S, 'warm_instances', warm)
+        monkeypatch.setattr(A.S, 'forward_posterior', posterior if alarms >= 8 else forbidden)
+        monkeypatch.setattr(B, 'mean_forecast',
+            (lambda inc, profile, cap, mo, qu, hs: np.zeros((len(mo), 2, len(hs)))) if alarms >= 8 else forbidden)
+        monkeypatch.setattr(B, 'paired_metrics', forbidden)
+>       raw, meta = A.decision_record_x5(data, arrays, config, record, -1., seed=A.TEST_SEED, m=m, n=n, k=k)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_x5_alarm.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/letter/x5_alarm.py:158: in decision_record_x5
+    util = [X.path_utilizations(inc, data['days'][j, 0], fresh[0], cap, info['managed_index'])]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/letter/x_geant.py:351: in path_utilizations
+    load = expected_loads(slot, modes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+slot = array([1.])
+modes = array([[0.],
+       [2.],
+       [3.],
+       [4.],
+       [5.],
+       [6.],
+       [7.],
+       [9.]])
+observed_modes = None, tau = None, beta = 0.3
+
+    def expected_loads(slot, modes=None, *, observed_modes=None, tau=None, beta=S.BETA):
+        """Linear OD expectation. Infinite-age law is exact; finite K is empirical."""
+        slot = np.asarray(slot, dtype=float)
+        if modes is not None:
+            mean = np.asarray(modes, dtype=float)
+        elif observed_modes is not None and tau is not None and tau >= 0:
+            mean = np.asarray(observed_modes, dtype=float)*np.exp(-2*tau)
+        else:
+            raise ValueError('endpoint posterior mean or nonnegative telemetry age required')
+        if not np.isfinite(slot).all() or (slot < 0).any() or not np.isfinite(mean).all() or (np.abs(mean) > 1).any():
+>           raise ValueError('invalid load/mode expectation')
+E           ValueError: invalid load/mode expectation
+
+experiments/letter/x_geant.py:346: ValueError
+______ test_selection_preserves_order_and_stale_trajectory_alignment[10] _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x787e0cb40490>
+alarms = 10
+
+    @pytest.mark.parametrize('alarms', [0, 7, 8, 10])
+    def test_selection_preserves_order_and_stale_trajectory_alignment(monkeypatch, alarms):
+        data, arrays, config, record = toy()
+        m, n, k = 12, 8, 2
+        marked = np.array([0, 2, 3, 4, 5, 6, 7, 9, 10, 11])[:alarms]
+        modes = np.arange(m, dtype=float)[:, None]
+        queues = np.zeros((m, 2)); queues[marked, 1] = 1.
+        stale = {tau: (modes+tau, queues+tau) for tau in A.S.TAU_SECONDS}
+        def warm(inc, demands, cap, count, seed):
+            assert count == m
+            return (modes, queues), stale
+        calls = []
+        def posterior(inc, demand, cap, state, tau, count, seed):
+            calls.append((tau, tuple(v.copy() for v in state)))
+            return tuple(np.repeat(v, count, axis=0) for v in state)
+        monkeypatch.setattr(A.S, 'warm_instances', warm)
+        monkeypatch.setattr(A.S, 'forward_posterior', posterior if alarms >= 8 else forbidden)
+        monkeypatch.setattr(B, 'mean_forecast',
+            (lambda inc, profile, cap, mo, qu, hs: np.zeros((len(mo), 2, len(hs)))) if alarms >= 8 else forbidden)
+        monkeypatch.setattr(B, 'paired_metrics', forbidden)
+>       raw, meta = A.decision_record_x5(data, arrays, config, record, -1., seed=A.TEST_SEED, m=m, n=n, k=k)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_x5_alarm.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+experiments/letter/x5_alarm.py:158: in decision_record_x5
+    util = [X.path_utilizations(inc, data['days'][j, 0], fresh[0], cap, info['managed_index'])]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+experiments/letter/x_geant.py:351: in path_utilizations
+    load = expected_loads(slot, modes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+slot = array([1.])
+modes = array([[0.],
+       [2.],
+       [3.],
+       [4.],
+       [5.],
+       [6.],
+       [7.],
+       [9.]])
+observed_modes = None, tau = None, beta = 0.3
+
+    def expected_loads(slot, modes=None, *, observed_modes=None, tau=None, beta=S.BETA):
+        """Linear OD expectation. Infinite-age law is exact; finite K is empirical."""
+        slot = np.asarray(slot, dtype=float)
+        if modes is not None:
+            mean = np.asarray(modes, dtype=float)
+        elif observed_modes is not None and tau is not None and tau >= 0:
+            mean = np.asarray(observed_modes, dtype=float)*np.exp(-2*tau)
+        else:
+            raise ValueError('endpoint posterior mean or nonnegative telemetry age required')
+        if not np.isfinite(slot).all() or (slot < 0).any() or not np.isfinite(mean).all() or (np.abs(mean) > 1).any():
+>           raise ValueError('invalid load/mode expectation')
+E           ValueError: invalid load/mode expectation
+
+experiments/letter/x_geant.py:346: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_x5_alarm.py::test_selection_preserves_order_and_stale_trajectory_alignment[8]
+FAILED tests/test_x5_alarm.py::test_selection_preserves_order_and_stale_trajectory_alignment[10]
+2 failed, 81 passed in 6.91s
