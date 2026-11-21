@@ -1,0 +1,95 @@
+{
+  "namespace": "s1a-ctmc-exploratory-v1",
+  "kind": "EXPLORATORY",
+  "created_utc": "2026-11-21T03:06:17.708552+00:00",
+  "sample_sha256": "132797ef90636e196e41a40a653458de99cb26535ba78b4d6d5d305dbc61f830",
+  "source_sha256": "961e5231dd08831a89f0677f2a4a9561d5d74927c01a274f3b28feb8529a89ea",
+  "input_sha256": {
+    "experiments/letter/x_ctmc.py": "27108474964546fccc66e08879b177cef9a62d9829a0191808b36069506b4a0f",
+    "experiments/letter/mmpp.py": "73086bfabff253c955b43333eff0ec139815d3b8245b4cc88ba189147685b86d",
+    "experiments/letter/shat2.py": "d1e1924c25ab35faaa1af142fd7e15767f417d7154c069f71e992af6c5e4ca4a",
+    "experiments/letter/w2_eval.py": "df537b790c01b542a616631614c40f975a7f0c6c64168fe59849ae2b21cdb56c",
+    "experiments/letter/pl_posterior.py": "b668adadcdbc765eddef734e0160e2d31e2bf059a32634f3835fec9490aef058",
+    "experiments/letter/e3_agediff.py": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+    "experiments/letter/shat.py": "541a81c79cd69252be97dfda1ffdb2911fd705bfb16c0d0dc943bdc4d23382bb",
+    "experiments/letter/r2_o1_check.py": "3614d94471b482689322074c9d8e4ab6699d74ed2b35d03ce45c1ad86ab86ad0",
+    "experiments/explore_ctmc/ctmc.py": "46bd482aaf42ac764428aca4a48a9791947e34578573cf59a795d3eba829a332",
+    "experiments/explore_ctmc/env.sh": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009"
+  },
+  "h_T_int": [
+    0.1,
+    1.0
+  ],
+  "tau_T_int": [
+    0.3
+  ],
+  "full_h_T_int": [
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.7,
+    1.0,
+    1.5,
+    2.0,
+    3.0,
+    5.0,
+    7.0,
+    10.0,
+    20.0,
+    30.0
+  ],
+  "full_tau_T_int": [
+    0.3,
+    1.0,
+    3.0
+  ],
+  "selections": [
+    {
+      "id": "S1A_0855",
+      "selection": "heaviest_proxy"
+    },
+    {
+      "id": "S1A_0642",
+      "selection": "heaviest_proxy"
+    },
+    {
+      "id": "S1A_0343",
+      "selection": "heaviest_proxy"
+    },
+    {
+      "id": "S1A_0021",
+      "selection": "heaviest_proxy"
+    },
+    {
+      "id": "S1A_0378",
+      "selection": "heaviest_proxy"
+    },
+    {
+      "id": "S1A_0082",
+      "selection": "random"
+    },
+    {
+      "id": "S1A_0099",
+      "selection": "random"
+    },
+    {
+      "id": "S1A_0815",
+      "selection": "random"
+    },
+    {
+      "id": "S1A_0840",
+      "selection": "random"
+    },
+    {
+      "id": "S1A_0533",
+      "selection": "random"
+    }
+  ],
+  "workers": 2,
+  "seed_record": 8100003,
+  "selection": "five largest initial cost proxies + five random without replacement",
+  "projection_safety_factor": 1.5,
+  "projection_model": "nonnegative affine slope; intercept envelopes every pilot; component/grid scaling",
+  "pilot_scope": "timing subset, chosen after parameter-only sample cost screen; not full-map outcomes"
+}

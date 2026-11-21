@@ -1,0 +1,85 @@
+{
+  "namespace": "s1a-ctmc-exploratory-v1",
+  "owner": "Doan Van Tai",
+  "kind": "EXPLORATORY",
+  "seed": 8100001,
+  "candidate_count": 1024,
+  "c": 0.0,
+  "h_T_int": [
+    0.1,
+    0.2,
+    0.3,
+    0.5,
+    0.7,
+    1.0,
+    1.5,
+    2.0,
+    3.0,
+    5.0,
+    7.0,
+    10.0,
+    20.0,
+    30.0
+  ],
+  "tau_T_int": [
+    0.3,
+    1.0,
+    3.0
+  ],
+  "rules": [
+    "M0",
+    "Stationary_true",
+    "Stationary_hat",
+    "Hybrid_true",
+    "Hybrid_hat",
+    "MLU",
+    "TH_0.8",
+    "Oracle"
+  ],
+  "record_T_int": 300.0,
+  "cpu_cap_seconds": 3600.0,
+  "max_N": 4096,
+  "max_pair_states": 16000000,
+  "max_count_bins": 10000000,
+  "axes": {
+    "mu": "log [5,20] per path",
+    "base_rho": "[.3,.92] per path",
+    "alpha_over_base_load": "[0,.9] per path",
+    "kappa_seconds": "log [.02,5] per path",
+    "managed_rate": "[.05,.95]*min(.97*mu-base_load)"
+  },
+  "initial_coefficients": {
+    "values": 4e-08,
+    "posterior": 4e-07,
+    "pairs": 2e-06,
+    "telemetry": 5e-07,
+    "prepare": 5e-06
+  },
+  "selection": "parameter/truncation/resource cost only; no replacement",
+  "source_sha256": "961e5231dd08831a89f0677f2a4a9561d5d74927c01a274f3b28feb8529a89ea",
+  "input_sha256": {
+    "experiments/letter/x_ctmc.py": "27108474964546fccc66e08879b177cef9a62d9829a0191808b36069506b4a0f",
+    "experiments/letter/mmpp.py": "73086bfabff253c955b43333eff0ec139815d3b8245b4cc88ba189147685b86d",
+    "experiments/letter/shat2.py": "d1e1924c25ab35faaa1af142fd7e15767f417d7154c069f71e992af6c5e4ca4a",
+    "experiments/letter/w2_eval.py": "df537b790c01b542a616631614c40f975a7f0c6c64168fe59849ae2b21cdb56c",
+    "experiments/letter/pl_posterior.py": "b668adadcdbc765eddef734e0160e2d31e2bf059a32634f3835fec9490aef058",
+    "experiments/letter/e3_agediff.py": "30ad0d1b716f848593774ca146ddbdf03f4c252fa8adecee6087697e0d6ec3cb",
+    "experiments/letter/shat.py": "541a81c79cd69252be97dfda1ffdb2911fd705bfb16c0d0dc943bdc4d23382bb",
+    "experiments/letter/r2_o1_check.py": "3614d94471b482689322074c9d8e4ab6699d74ed2b35d03ce45c1ad86ab86ad0",
+    "experiments/explore_ctmc/ctmc.py": "46bd482aaf42ac764428aca4a48a9791947e34578573cf59a795d3eba829a332",
+    "experiments/explore_ctmc/env.sh": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009"
+  },
+  "created_utc": "2026-11-21T03:06:06.620991+00:00",
+  "environment": {
+    "python": "3.14.5 (main, May 10 2026, 10:21:34) [GCC 12.3.0]",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "numeric_env": {
+      "NPY_DISABLE_CPU_FEATURES": "AVX512F AVX512CD AVX512VL AVX512BW AVX512DQ AVX512VNNI AVX512_SKX AVX512_CLX AVX512_CNL AVX512_ICL AVX512_SPR",
+      "OPENBLAS_CORETYPE": "Haswell",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  }
+}
