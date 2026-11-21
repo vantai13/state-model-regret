@@ -1,0 +1,86 @@
+{
+  "case": {
+    "id": "ditl_20230412_s100_c1",
+    "trace": "ditl_20230412",
+    "scale": 1.0,
+    "lam": [
+      6.5,
+      6.8
+    ],
+    "mu": [
+      9.5,
+      10.5
+    ],
+    "u": 1.0
+  },
+  "stage": "full",
+  "status": "COMPLETE",
+  "training": {
+    "s_hat": -25.776353160382314,
+    "mean_stay": 68.65368334718849,
+    "mean_switch": 42.87733018680618,
+    "T_int": 315.8149090990153,
+    "T_int_censored": false,
+    "train_seed": 311121,
+    "burn_s": 720.003,
+    "train_s": 7200.03,
+    "sample_dt_s": 0.2,
+    "train_means": [
+      95.72799280003,
+      158.05991641701493
+    ],
+    "static_action": 1,
+    "alarm_threshold_packets": 13.0,
+    "alarm_definition": "stale backlog on static-selected path >= max(1, train q90)",
+    "CPU_s": 0.106787894
+  },
+  "candidate_points": 128,
+  "rows": 5348,
+  "test_seed": 1311121,
+  "support": [
+    {
+      "h_mult": 0.3,
+      "h_s": 94.7444727297046,
+      "n_candidates": 128,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 0.5,
+      "h_s": 157.90745454950766,
+      "n_candidates": 126,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 1.0,
+      "h_s": 315.8149090990153,
+      "n_candidates": 123,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 2.0,
+      "h_s": 631.6298181980306,
+      "n_candidates": 116,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 3.0,
+      "h_s": 947.444727297046,
+      "n_candidates": 110,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 5.0,
+      "h_s": 1579.0745454950766,
+      "n_candidates": 97,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 10.0,
+      "h_s": 3158.149090990153,
+      "n_candidates": 64,
+      "status": "AVAILABLE"
+    }
+  ],
+  "CPU_s": 1.2714160659999998,
+  "wall_s": 1.2729250699994736
+}

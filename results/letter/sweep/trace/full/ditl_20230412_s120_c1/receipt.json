@@ -1,0 +1,87 @@
+{
+  "case": {
+    "id": "ditl_20230412_s120_c1",
+    "trace": "ditl_20230412",
+    "scale": 1.2,
+    "lam": [
+      7.8,
+      8.16
+    ],
+    "mu": [
+      9.5,
+      10.5
+    ],
+    "u": 1.0
+  },
+  "stage": "full",
+  "status": "NOT_EVALUABLE",
+  "training": {
+    "s_hat": -387.94378374588695,
+    "mean_stay": 731.4674755106878,
+    "mean_switch": 343.52369176480084,
+    "T_int": 1010.3971208771538,
+    "T_int_censored": true,
+    "train_seed": 311121,
+    "burn_s": 720.003,
+    "train_s": 7200.03,
+    "sample_dt_s": 0.2,
+    "train_means": [
+      95.72799280003,
+      158.05991641701493
+    ],
+    "static_action": 1,
+    "alarm_threshold_packets": 289.0,
+    "alarm_definition": "stale backlog on static-selected path >= max(1, train q90)",
+    "CPU_s": 0.07918779199999992
+  },
+  "candidate_points": 128,
+  "rows": 0,
+  "test_seed": 1311121,
+  "support": [
+    {
+      "h_mult": 0.3,
+      "h_s": null,
+      "n_candidates": 0,
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "h_mult": 0.5,
+      "h_s": null,
+      "n_candidates": 0,
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "h_mult": 1.0,
+      "h_s": null,
+      "n_candidates": 0,
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "h_mult": 2.0,
+      "h_s": null,
+      "n_candidates": 0,
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "h_mult": 3.0,
+      "h_s": null,
+      "n_candidates": 0,
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "h_mult": 5.0,
+      "h_s": null,
+      "n_candidates": 0,
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "h_mult": 10.0,
+      "h_s": null,
+      "n_candidates": 0,
+      "status": "NOT_EVALUABLE"
+    }
+  ],
+  "reason": "train T_int unresolved or censored; no fallback timescale",
+  "CPU_s": 0.1292851220000002,
+  "wall_s": 0.1292901079996227
+}

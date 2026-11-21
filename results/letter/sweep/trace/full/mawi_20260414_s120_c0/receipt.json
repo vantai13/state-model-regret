@@ -1,0 +1,86 @@
+{
+  "case": {
+    "id": "mawi_20260414_s120_c0",
+    "trace": "mawi_20260414",
+    "scale": 1.2,
+    "lam": [
+      7.8,
+      8.16
+    ],
+    "mu": [
+      10.0,
+      10.0
+    ],
+    "u": 1.0
+  },
+  "stage": "full",
+  "status": "COMPLETE",
+  "training": {
+    "s_hat": 53.12386988184062,
+    "mean_stay": 302.42369775384515,
+    "mean_switch": 355.54756763568577,
+    "T_int": 42.96579971699797,
+    "T_int_censored": false,
+    "train_seed": 311321,
+    "burn_s": 45.001000000000005,
+    "train_s": 450.01,
+    "sample_dt_s": 0.2,
+    "train_means": [
+      2.995044554565454,
+      8.164463011933067
+    ],
+    "static_action": 0,
+    "alarm_threshold_packets": 393.0,
+    "alarm_definition": "stale backlog on static-selected path >= max(1, train q90)",
+    "CPU_s": 0.002978058000000061
+  },
+  "candidate_points": 128,
+  "rows": 2009,
+  "test_seed": 1311321,
+  "support": [
+    {
+      "h_mult": 0.3,
+      "h_s": 12.88973991509939,
+      "n_candidates": 128,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 0.5,
+      "h_s": 21.482899858498985,
+      "n_candidates": 106,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 1.0,
+      "h_s": 42.96579971699797,
+      "n_candidates": 53,
+      "status": "AVAILABLE"
+    },
+    {
+      "h_mult": 2.0,
+      "h_s": 85.93159943399594,
+      "n_candidates": 0,
+      "status": "INSUFFICIENT_TEST_DURATION"
+    },
+    {
+      "h_mult": 3.0,
+      "h_s": 128.89739915099392,
+      "n_candidates": 0,
+      "status": "INSUFFICIENT_TEST_DURATION"
+    },
+    {
+      "h_mult": 5.0,
+      "h_s": 214.82899858498985,
+      "n_candidates": 0,
+      "status": "INSUFFICIENT_TEST_DURATION"
+    },
+    {
+      "h_mult": 10.0,
+      "h_s": 429.6579971699797,
+      "n_candidates": 0,
+      "status": "INSUFFICIENT_TEST_DURATION"
+    }
+  ],
+  "CPU_s": 0.21564445300000035,
+  "wall_s": 0.21565896200081625
+}
