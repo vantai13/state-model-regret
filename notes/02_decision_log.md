@@ -4780,3 +4780,16 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
   - Lý do: giới hạn trang và yêu cầu GVHD, không vì kết quả. Số đầy đủ vẫn ở ledger (V74_SIGNAL, X_GEANT, X4B, X5, X5C_A, X5C_B) và repo.
 - **Kiểm:** 5 trang, số liệu 0 unmatched, check_v9 10/10 (≤ 15 refs), pytest 173, style 0 ERROR. Trang 5 còn trống khoảng 0,6 cột.
 - **Song song:** S0 (phân tích dữ liệu cũ), S1-A (quét CTMC) và S1-C (trace thật) của plan quét regime (`letter_smr/briefs/sweep/`) đang chạy.
+
+## DL-161 — Quét regime S0–S3 và letter v10.4 (21/11/2026; AI theo ủy quyền thử nghiệm của tác giả, không phải tác giả tự dự đoán)
+- **S1-A** (CTMC 1000 regime Sobol, GCP, raw c34c9ed32) + **S2** post hoc (Codex): fresh ŝ, h = T_int, Δ trung bình 0,49 điểm; vùng H-C
+  D_ŝ ≥ 0,28 chọn trên ID lẻ, trên ID chẵn 99/501, 2,43% → 0,32% C_ref. "Tệ hơn đáng kể" của cổng S2 định lượng sau khi xem S2 (ghi trong thẻ S3).
+- **S3** xác nhận (thẻ results/letter/sweep/s3/CARD_S3.md, commit trước code; lock 781da0b2 trong b9abdb011 trước truth; raw 902200f37 trước chấm;
+  score 3d4e771ed): 600 regime mới, **PASS** T1 116/600 = 19,3%; T2 Δ trong vùng 1,564 điểm [0,881; 2,248], 1,91% → 0,34%; T3 ngoài vùng
+  0,149 [0,093; 0,206]; 0 regime Δ ≤ −0,05. Rescore độc lập 2155 checks PASS. Dự báo AI (phủ 15–25%, Δ 1,2–2,5, ngoài 0,02–0,15) đúng.
+  CI của lợi tuyệt đối (packet·s) trong vùng cắt 0 do đuôi nặng; trung vị Δ trong vùng 0,35 điểm.
+- **S1-C** trace thật (DITL/MAWI, raw ae067ba95) + rolling ŝ post hoc (71e760047): dấu ŝ train lật ở 18/26 case do mức tải trôi; ước lượng lại
+  trên toàn lịch sử đã qua đưa FLIP 39,6% → 0,47%; mọi case test cùng dấu nên chưa phân biệt được; chưa đưa vào paper.
+- **Letter v10.4** (letter_smr_v10 5da0caf) theo nhận xét thầy 21/11, tác giả duyệt: Algorithm 1 cuối Sec. III, Results rút (số ở ledger),
+  caption Table I thêm SNDlib/DOTE/Govindan/Mitzenmacher (Claude + Codex kiểm PDF; Orlowski mức metadata).
+- Luật thẻ S3: PASS ⇒ một câu vào IV-B4, đưa tác giả xem trước khi sửa.
