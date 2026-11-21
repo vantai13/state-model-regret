@@ -4735,3 +4735,31 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
   - phần ma trận thật dài hơn 3–4 câu;
   - lỗi stale/15 T_int trong bản v9 đã gửi thầy;
   - GVHD từng yêu cầu Tài tự viết v9.
+
+### DL-159 — Phần (a), X5/X5c cảnh báo nghẽn, letter v10.1 (20–21/11/2026)
+- **Chỉ đạo của tác giả:** "tự thiết kế, tự chạy" cho điểm yếu (c) (bằng chứng ma trận thật chỉ đến từ tie) và (d) (lợi ích hybrid so với luật tĩnh chỉ
+  có trên dữ liệu tổng hợp); sửa (a) (M0 bị coi là mô hình rơm); xong thì tắt máy. Mọi quyết định là của AI theo ủy quyền.
+- **(a), chỉ sửa chữ, không thí nghiệm** (v10.1 `8f7c8e6`):
+  - Mục III-A: phép rút gọn của Prop. 1 chỉ cần hai luật bỏ qua h, nên áp dụng cho mọi luật horizon-blind (ngưỡng utilization, min-MLU); M0 thuộc lớp này
+    theo Lemma 1.
+  - Introduction định nghĩa horizon-blind ngay cạnh horizon-aware.
+- **X5** (thẻ `b76632c43` trước outcome; code `03872fdc2`): cảnh báo khi backlog link nghẽn trên đường Switch (e*) ≥ 1 ms phục vụ.
+  - Kết quả: NOT_ENOUGH_SIGNAL. Cảnh báo 517/30720, cả 517 trong một ngày; bất đồng Hybrid–Stationary 0/224; không chạy truth.
+- **Phân tích nguyên nhân** (từ step 0):
+  1. Điều biến trong slot bị chặn ở (1+η) lần mức trung bình, nên link dưới khoảng 77% utilization không nghẽn khi η = 0,3.
+  2. Thẻ X5 viết sai trong ngoặc: ŝ train dương ở NEWB1/NEWB3, nên luật tĩnh chọn Stay, và cảnh báo trên đường Switch không thể tạo bất đồng.
+- **X5b** (thẻ `1dd92d683`) bị rút trước mọi outcome. **X5c** (thẻ `4bc51d972` trước outcome; code `330df111d`):
+  - Cảnh báo đặt trên đường mà luật tĩnh chọn; hai nhánh η = 0,3 và 0,6. Cả hai NOT_ENOUGH_SIGNAL, không chạy truth.
+  - Nhánh A: 730/30720 cảnh báo; nhánh B: 1513/30720. Mỗi regime có tối đa 3–4 ngày đủ cảnh báo, cần ≥ 5.
+  - NEWB3: hybrid tách khỏi luật tĩnh tới 31/96 quyết định ở 900 s; tie M0 tươi 0/896 ở nhánh A.
+- **Đọc kết quả:** trên ma trận GÉANT thật với mô hình trong slot hiện tại, trạng thái nghẽn tức thời trên đường mà luật tĩnh chọn hiếm. Vì vậy telemetry hiếm khi
+  mang thông tin vượt luật tĩnh. Khi có, hybrid đổi quyết định đúng hướng lý thuyết (Cor. 1), nhưng quá ít ngày để đo regret.
+  - Hệ quả: (c) và (d) **không được khắc phục bằng dữ liệu**. Paper báo trung thực theo luật thẻ; câu "intermediate-horizon gains … rest mainly on CTMC and
+    synthetic GÉANT" giữ nguyên; abstract không đổi.
+  - Muốn khắc phục cần dữ liệu có burst thật ở mức giây (trace gói) hoặc nhiều ngày nghẽn hơn; đây là bước sau, cần thẻ mới.
+- **v10.1** (`aaa277c`):
+  - Câu X5/X5c ở IV-B4; ledger X5, X5C_A, X5C_B đếm lại phía paper; Fig. 2–4 vẽ lại gọn từ mảng đã lưu.
+  - Kiểm: 5 trang, abstract 100, 16 refs, số liệu 0 unmatched, check_v9 10/10, pytest 173.
+- **Vận hành:**
+  - VM tăng lên n2-highcpu-32 nhưng không dùng (không có truth); đã trả về n2-custom-12-49152, TERMINATED.
+  - Phiên Claude bị ngắt sau khi Codex xong X5c (00:44), nên các bước còn lại và việc tắt máy làm sáng 21/11.
