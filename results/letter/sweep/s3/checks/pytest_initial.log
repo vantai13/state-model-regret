@@ -1,0 +1,30 @@
+F................................{"test": "S1A_even_raw_regression", "N": 501, "region": 99, "delta_pp": 2.110655080085614, "checks": 2155, "output": "/home/vantai/state-model-regret/results/letter/sweep/s3/checks/pytest_initial/s1a_regression0/regression.json"}
+...........................................{"event": "regime_start", "purpose": "pilot", "regime": "S1A_0001"}
+{"event": "regime_complete", "purpose": "pilot", "regime": "S1A_0001", "status": "ERROR", "cpu_seconds": 0.00015913300000036656, "wall_seconds": 0.0001857940005720593}
+.{"event": "summary_complete", "source": "pilot", "measured_regimes": 1, "rows": 16, "feature_rows": 8, "coverage": "PILOT_ONLY"}
+.
+=================================== FAILURES ===================================
+_____________ test_known_T1_T2_T3_and_independent_complete_report ______________
+
+    def test_known_T1_T2_T3_and_independent_complete_report():
+        data = panel()
+        summary, age, collapsed = scorer.score_records(data, 20, h_grid=(1., .7, 1.5))
+        p = summary["primary"]
+        assert (p["T1"], p["T2"], p["T3"], p["S3"]) == ("PASS",)*4
+        assert p["n_region"] == 6 and p["n_outside"] == 14 and p["coverage"] == .3
+        assert p["region"]["delta_pp_mean"] == pytest.approx(.2)
+        assert p["region"]["baseline_pp_mean"] == 2.
+        assert p["region"]["hybrid_pp_mean"] == pytest.approx(1.8)
+        assert p["region"]["delta_abs_mean"] == pytest.approx(.2)
+        assert len(age) == 20*3*3*2*2 and len(collapsed) == 20*3*2*2
+>       assert independent.compare(summary, independent.independent_score(data, 20, horizons=(1., .7, 1.5))) > 1000
+E       AssertionError: assert 790 > 1000
+E        +  where 790 = <function compare at 0x7a02b4600bf0>({'owner': 'Doan Van Tai', 'namespace': 's3-ctmc-confirmation-v1', 'N': 20, 'measured_regimes': 20, ...}, {'N': 20, 'measured_regimes': 20, 'missing_raw_regimes': 0, 'statuses': {'COMPLETED': 20}, ...})
+E        +    where <function compare at 0x7a02b4600bf0> = independent.compare
+E        +    and   {'N': 20, 'measured_regimes': 20, 'missing_raw_regimes': 0, 'statuses': {'COMPLETED': 20}, ...} = <function independent_score at 0x7a02b4600b40>([{'id': 'FAKE_0001', 'status': 'COMPLETED', 'rows': [{'regime': 'FAKE_0001', 'h_T_int': 1.0, 'tau_T_int': 0.3, 'C_ref'... 'C_ref': 100.0, ...}, {'regime': 'FAKE_0006', 'h_T_int': 1.0, 'tau_T_int': 1.0, 'C_ref': 100.0, ...}, ...], ...}, ...], 20, horizons=(1.0, 0.7, 1.5))
+E        +      where <function independent_score at 0x7a02b4600b40> = independent.independent_score
+
+experiments/letter/s3_ctmc/test_s3_ctmc.py:60: AssertionError
+=========================== short test summary info ============================
+FAILED experiments/letter/s3_ctmc/test_s3_ctmc.py::test_known_T1_T2_T3_and_independent_complete_report
+1 failed, 77 passed in 25.37s

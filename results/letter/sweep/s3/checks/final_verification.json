@@ -1,0 +1,85 @@
+{
+  "owner": "Doan Van Tai",
+  "status": "PREPARATION_PASS_TRUTH_NOT_RUN",
+  "lock": {
+    "status": "PASS",
+    "lock_sha256": "781da0b28d63d1abae8bdcf546c42e5f8a6d428d35427961ffc300214c7d5dc0",
+    "files": 39
+  },
+  "sample": {
+    "N": 600,
+    "screened": 612,
+    "rejected": {
+      "TRUNCATION_RESOURCE_CAP": 7,
+      "PROJECTED_CPU_CAP": 3,
+      "TELEMETRY_RESOURCE_CAP": 2
+    },
+    "seeds": {
+      "sample": 630951401,
+      "run_record": 630951402,
+      "pilot_sample": 630951403,
+      "pilot_record": 630951404
+    }
+  },
+  "checks": {
+    "pytest": {
+      "status": "PASS",
+      "passed": 81,
+      "new_S3_tests": 38,
+      "old_S1A_tests": 43,
+      "seconds": 25.13,
+      "command": "python3 -B -m pytest -q -s -p no:cacheprovider --basetemp results/letter/sweep/s3/checks/pytest_final experiments/letter/s3_ctmc/test_s3_ctmc.py tests/test_sweep_ctmc.py"
+    },
+    "bash_syntax": "PASS",
+    "S1A_even_regression": "PASS",
+    "independent_regression_fields": 2155,
+    "unchanged_preexisting_files": 1683,
+    "changed_preexisting_files": 0
+  },
+  "pilot": {
+    "statuses": {
+      "COMPLETED": 3
+    },
+    "cpu_seconds": 22.817372326999994,
+    "wall_seconds": 22.83796443599931,
+    "ids": [
+      "S3P_0061",
+      "S3P_0024",
+      "S3P_0012"
+    ],
+    "outside_main_sample": true,
+    "not_scored": true
+  },
+  "CPU_projection": {
+    "s1a_pilot_envelope_cpu_seconds": {
+      "cpu_hours": 17.566761107963575,
+      "ideal_wall_hours_30_workers": 0.5855587035987858,
+      "ideal_shard_makespan_hours": 0.5972453878302577,
+      "shard_makespan_hours_at_90pct": 0.6636059864780641,
+      "shard_cpu_hours": [
+        8.60808029050971,
+        8.958680817453866
+      ]
+    },
+    "s1a_gcp_receipt_fit_cpu_seconds": {
+      "cpu_hours": 8.50081140940095,
+      "ideal_wall_hours_30_workers": 0.28336038031336497,
+      "ideal_shard_makespan_hours": 0.2903007621699002,
+      "shard_makespan_hours_at_90pct": 0.32255640241100025,
+      "shard_cpu_hours": [
+        4.146299976852447,
+        4.354511432548503
+      ]
+    }
+  },
+  "S3_truth": "NOT_RUN",
+  "S3_score": "NOT_RUN",
+  "commit_performed": false,
+  "ssh_performed": false,
+  "limitations": [
+    "CPU/wall are extrapolations, not a guarantee or CI",
+    "D_hat is the S2 two-tail bound averaged across ages, distinct from policy disagreement",
+    "INVALID retained in fixed N, no imputation; affected mean tests NOT_EVALUABLE",
+    "one-shot GCP truth and production score still belong to Claude after raw checksum/commit"
+  ]
+}
