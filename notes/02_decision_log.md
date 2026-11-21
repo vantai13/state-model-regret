@@ -4793,3 +4793,7 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
 - **Letter v10.4** (letter_smr_v10 5da0caf) theo nhận xét thầy 21/11, tác giả duyệt: Algorithm 1 cuối Sec. III, Results rút (số ở ledger),
   caption Table I thêm SNDlib/DOTE/Govindan/Mitzenmacher (Claude + Codex kiểm PDF; Orlowski mức metadata).
 - Luật thẻ S3: PASS ⇒ một câu vào IV-B4, đưa tác giả xem trước khi sửa.
+- **Addendum 21/11 tối:** Algorithm 1 thêm ŝ ≠ 0 và đánh dấu shortcut là optional (3dbc599); v10.6 (letter_smr_v10) theo hai review ngoài, tác giả
+  duyệt: câu tải trôi sau lời khuyên 300 T_int, Conclusion "stationary demand records", caption Table I bỏ vế Mitzenmacher. **Erratum:** tiêu chí S3 là
+  D(h) của Corollary 1 (trung bình theo tuổi), không phải tỉ lệ bất đồng; mô tả sai ở thẻ S3, câu v10.5 và báo cáo cho tác giả; sửa ở v10.6, verdict
+  không đổi (results/letter/sweep/s3/ERRATUM_D_DESCRIPTION.md).
