@@ -1,0 +1,271 @@
+"""Doan Van Tai — S1-C post-hoc variant: rolling stationary-rate estimate (Claude, 21/11/2026).
+
+POST HOC, exploratory. The brief reported that in 17/25 evaluable cases the
+train-half s_hat had the opposite sign of the test-half realized rate difference (level drift
+between halves), and the stationary rule/hybrid lost there. This script asks whether re-estimating
+s_hat from a trailing window of PAST data (only up to t - tau) repairs it. Variants fixed before any
+variant outcome was computed: W in {60 s, 300 s, whole test history}, estimator in {sim, mm1}.
+- sim: the train estimator on the window, i.e. time-average total backlog of the action-1 history
+  minus the action-0 history, both replayed on the recorded test arrivals from test start.
+- mm1: M/M/1 mean number in system from window arrival rates (lam_j + u on the path carrying u).
+Decision costs, C_ref, fluid gap and populations come unchanged from the committed decisions.csv;
+only s_hat changes. The test tape is regenerated with the runner's own seed and checked against qA/qB.
+No runner/source file is modified. Outputs go to this folder only.
+Pre-run review (AI-assisted): local committed full/ actually contains 26 decision
+cases (9 OK/17 FLIP), plus one NOT_EVALUABLE. All available cases are retained.
+Flagged both-unstable mm1 values use a sign-only proxy, as documented below.
+"""
+import csv
+import hashlib
+import json
+import math
+import sys
+import time
+from collections import defaultdict
+from concurrent.futures import ProcessPoolExecutor
+from pathlib import Path
+
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[5]
+sys.path.insert(0, str(ROOT))
+from experiments.letter import sweep_trace as S  # noqa: E402
+from experiments.ext_validity import packet as P  # noqa: E402
+
+HERE = Path(__file__).resolve().parent
+FULL = ROOT / 'results/letter/sweep/trace/full'
+WINDOWS = (60., 300., None)
+ESTIMATORS = ('sim', 'mm1')
+PLAN = ROOT / 'results/letter/sweep/trace/design_ready/plan.json'
+TAGS = tuple(f"{est}_{'all' if W is None else int(W)}" for W in WINDOWS for est in ESTIMATORS)
+METHODS = ('M0', 'static', 'hybrid') + tuple(f'{kind}_{tag}' for tag in TAGS for kind in ('static', 'hybrid'))
+
+
+def write_csv(path, rows):
+    with Path(path).open('x', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def write_json(path, obj):
+    with Path(path).open('x') as f:
+        json.dump(obj, f, indent=2, allow_nan=False)
+        f.write('\n')
+
+
+def window_bounds(e, W):
+    if not math.isfinite(e) or e <= 0 or (W is not None and (not math.isfinite(W) or W <= 0)):
+        raise ValueError('window must have positive finite exposure ending at e')
+    return (0. if W is None else max(0., e - W)), e
+
+
+def mm1_cost(lam, mu):
+    if not math.isfinite(lam) or not math.isfinite(mu) or lam < 0 or mu <= 0:
+        raise ValueError('invalid M/M/1 rate/capacity')
+    rho = lam / mu
+    return rho / (1 - rho) if rho < 1 else np.inf
+
+
+def mm1_slope(rates, case):
+    """Mean total number, switch minus stay, where both actions are stable.
+
+    An unstable action has infinite cost. If BOTH are unstable there is no
+    stationary M/M/1 slope: preserve the draft's total-overload SIGN heuristic,
+    encoded as signed infinity (zero on an overload tie), and flag it. The
+    draft's finite packets/s overload difference was dimensionally wrong as
+    a backlog slope in fluid_gap + h*s_hat. Flagged outputs are policy proxies,
+    never finite stationary estimates. This correction is before variant runs.
+    """
+    u, mu = case['u'], case['mu']
+    stay = mm1_cost(rates[0] + u, mu[0]) + mm1_cost(rates[1], mu[1])
+    switch = mm1_cost(rates[0], mu[0]) + mm1_cost(rates[1] + u, mu[1])
+    if np.isinf(stay) and np.isinf(switch):
+        # Sign-only fallback, not a finite M/M/1 stationary estimate.
+        over = lambda a, b: max(0., a - mu[0]) + max(0., b - mu[1])
+        drift = over(rates[0], rates[1] + u) - over(rates[0] + u, rates[1])
+        return (math.copysign(math.inf, drift) if drift else 0.), True
+    return switch - stay, bool(np.isinf(stay) or np.isinf(switch))
+
+
+def estimate_window(tape, runs, case, start, e):
+    if not 0 <= start < e <= tape.duration:
+        raise ValueError('window outside past test tape')
+    span = e - start
+    # occupation clips ALL packets to [start, e]. In FCFS, adding later
+    # arrivals cannot change earlier departures; min(departure, e) also
+    # removes all dependence on the completion time beyond e.
+    sim = (sum(S.occupation(x, start, e) for x in runs[1]) -
+           sum(S.occupation(x, start, e) for x in runs[0])) / span
+    counts = [int(np.searchsorted(a, e, side='right') -
+                  np.searchsorted(a, start, side='right')) for a in tape.bg]
+    rates = [n / span for n in counts]
+    mm1, flag = mm1_slope(rates, case)
+    u, mu = case['u'], case['mu']
+    stay_bad = rates[0] + u >= mu[0] or rates[1] >= mu[1]
+    switch_bad = rates[0] >= mu[0] or rates[1] + u >= mu[1]
+    reason = 'BOTH_UNSTABLE_SIGN_PROXY' if stay_bad and switch_bad else (
+        'ONE_UNSTABLE' if flag else 'STABLE')
+    return dict(sim=sim, mm1=mm1, flag_mm1=flag, mm1_status=reason,
+                start_s=start, end_s=e, span_s=span, bg0_count=counts[0], bg1_count=counts[1],
+                rate0=rates[0], rate1=rates[1])
+
+
+def case_group(rows, training):
+    """Diagnostic only: group by the largest AVAILABLE h, uniform, tau=0."""
+    hm = max(float(r['h_mult']) for r in rows)
+    ref = [r for r in rows if float(r['h_mult']) == hm and float(r['tau_s']) == 0.]
+    s_test = float(np.mean([(float(r['cost_switch']) - float(r['cost_stay'])) /
+                            float(r['h_s']) for r in ref]))
+    train = float(training['s_hat'])
+    return dict(group='OK' if np.sign(train) == np.sign(s_test) else 'FLIP',
+                s_train=train, s_test_case=s_test, group_h_mult=hm,
+                group_h_s=float(ref[0]['h_s']), group_n=len(ref))
+
+
+def run_case(case_id):
+    cpu, wall = time.process_time(), time.perf_counter()
+    plan = json.loads(PLAN.read_text())
+    case = next(c for c in plan['cases'] if c['id'] == case_id)
+    path = FULL / case_id / 'decisions.csv'
+    if not path.exists():
+        return dict(case_id=case_id, rows=[], windows=[], group=dict(case_id=case_id,
+                    trace=case['trace'], group='NOT_EVALUABLE', s_train=None,
+                    s_test_case=None, group_h_mult=None, group_h_s=None, group_n=0),
+                    audit=dict(case_id=case_id, status='NO_DECISIONS', checked_rows=0,
+                               mismatches=0, CPU_s=time.process_time()-cpu, wall_s=time.perf_counter()-wall))
+    trace = S.load_trace(ROOT / S.TRACES[case['trace']], plan['train_fraction'])
+    seed = plan['full_seed'] + list(S.TRACES).index(case['trace']) * 100
+    tape = S.make_tape(trace, case, False, seed + 1000000)
+    runs = [S.history(tape, case, a) for a in (0, 1)]
+    with path.open(newline='') as f:
+        rows = list(csv.DictReader(f))
+    group = case_group(rows, json.loads((path.parent / 'training.json').read_text()))
+    # Sanity: regenerated action-0 history reproduces the saved observed backlogs.
+    ends = np.array([float(r['t_test_s']) - float(r['tau_s']) for r in rows])
+    observed = np.column_stack([P.backlog(run, ends) for run in runs[0]])
+    saved = np.array([[int(r['qA']), int(r['qB'])] for r in rows])
+    mism = int(np.any(observed != saved, axis=1).sum())
+    if mism:
+        raise RuntimeError(f'{case_id}: regenerated tape does not match saved backlog ({mism})')
+    cache = {}
+    windows = {}
+    out = []
+    for r in rows:
+        e = float(r['t_test_s']) - float(r['tau_s'])
+        h, gap = float(r['h_s']), float(r['fluid_gap'])
+        costs = (float(r['cost_stay']), float(r['cost_switch']))
+        cref = float(r['C_ref'])
+        rec = dict(case_id=case_id, trace=r['trace'], point=int(r['point']),
+                   t_test_s=float(r['t_test_s']), e_s=e, h_s=h, fluid_gap=gap,
+                   cost_stay=costs[0], cost_switch=costs[1],
+                   action_M0=int(r['action_M0']), action_static=int(r['action_static']),
+                   action_hybrid=int(r['action_hybrid']), dis_original=r['disagreement'] == 'True',
+                   **group, h_mult=float(r['h_mult']), tau_s=float(r['tau_s']),
+                   alarm=r['alarm'] == 'True', block=int(r['block']), C_ref=cref,
+                   regret_M0=float(r['regret_M0']), regret_static=float(r['regret_static']),
+                   regret_hybrid=float(r['regret_hybrid']), s_test_local=(costs[1] - costs[0]) / h)
+        for W in WINDOWS:
+            start, _ = window_bounds(e, W)
+            key = (start, e)
+            if key not in cache:
+                cache[key] = estimate_window(tape, runs, case, start, e)
+            label = 'all' if W is None else str(int(W))
+            windows[(label, e)] = dict(case_id=case_id, trace=case['trace'], window=label, **cache[key])
+            for est in ESTIMATORS:
+                s_w = cache[key][est]
+                flag = cache[key]['flag_mm1'] if est == 'mm1' else False
+                tag = f"{est}_{'all' if W is None else int(W)}"
+                a_st = int(s_w < 0)
+                a_hy = int(gap + h * s_w < 0)
+                rec[f'shat_{tag}'] = s_w
+                rec[f'flag_{tag}'] = flag
+                rec[f'regret_static_{tag}'] = costs[a_st] - cref
+                rec[f'regret_hybrid_{tag}'] = costs[a_hy] - cref
+                rec[f'dis_{tag}'] = a_st != a_hy
+        out.append(rec)
+    return dict(case_id=case_id, rows=out, windows=list(windows.values()),
+                group=dict(case_id=case_id, trace=case['trace'], **group),
+                audit=dict(case_id=case_id, status='PASS', checked_rows=len(rows),
+                           unique_cutoffs=len(set(ends)), mismatches=mism, test_seed=seed+1000000,
+                           CPU_s=time.process_time()-cpu, wall_s=time.perf_counter()-wall))
+
+
+def main():
+    wall, cpu = time.perf_counter(), time.process_time()
+    outputs = ['run_started.json', 'rows_rolling.csv', 'windows_rolling.csv', 'case_groups.csv',
+               'summary_rolling.csv', 'run.json']
+    for name in outputs:
+        if (HERE / name).exists():
+            raise FileExistsError(HERE / name)
+    plan = S.verify_plan(PLAN)
+    write_json(HERE / 'run_started.json', dict(owner='Doan Van Tai', stage='POST_HOC_EXPLORATORY',
+        variants=list(TAGS), workers=6, source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        plan_sha256=hashlib.sha256(PLAN.read_bytes()).hexdigest(),
+        group_rule='sign(s_train) == sign(mean((switch-stay)/h)) at largest available h, uniform, tau=0',
+        mm1_unstable_rule='one unstable: +/-inf; both: sign(total overload difference)*inf; overload tie: 0; flag all',
+        sign_metric='exact sign against case s_test; local sign/action agreement also saved separately',
+        extra_variants=0))
+    ids = [c['id'] for c in plan['cases']]
+    with ProcessPoolExecutor(max_workers=6) as pool:
+        results = list(pool.map(run_case, ids))
+    rows = [r for result in results for r in result['rows']]
+    if not rows:
+        raise ValueError('no decision rows')
+    write_csv(HERE / 'rows_rolling.csv', rows)
+    write_csv(HERE / 'windows_rolling.csv', [r for result in results for r in result['windows']])
+    write_csv(HERE / 'case_groups.csv', [r['group'] for r in results])
+    # Per case x h x tau x population: ratio of means in % C_ref, as in S1-C summary.csv.
+    cells = defaultdict(list)
+    for r in rows:
+        cells[(r['case_id'], r['trace'], r['h_mult'], r['tau_s'], 'uniform')].append(r)
+        if r['alarm']:
+            cells[(r['case_id'], r['trace'], r['h_mult'], r['tau_s'], 'alarm')].append(r)
+    summary = []
+    for (cid, tr, hm, tau, pop), R in sorted(cells.items()):
+        cref = np.mean([r['C_ref'] for r in R])
+        rec = dict(case_id=cid, trace=tr, group=R[0]['group'], h_mult=hm, h_s=R[0]['h_s'],
+                   tau_s=tau, population=pop, status='AVAILABLE' if cref > 0 else 'ZERO_CREF',
+                   n=len(R), mean_Cref=cref, dis_original=float(np.mean([r['dis_original'] for r in R])),
+                   sign_ok_original=float(np.mean([np.sign(r['s_train']) == np.sign(r['s_test_case']) for r in R])),
+                   sign_local_ok_original=float(np.mean([np.sign(r['s_train']) == np.sign(r['s_test_local']) for r in R])))
+        for k in ('M0', 'static', 'hybrid'):
+            rec[f'pct_{k}'] = 100 * np.mean([r[f'regret_{k}'] for r in R]) / cref if cref > 0 else None
+        for t in TAGS:
+            for k in ('static', 'hybrid'):
+                rec[f'pct_{k}_{t}'] = 100 * np.mean([r[f'regret_{k}_{t}'] for r in R]) / cref if cref > 0 else None
+            rec[f'dis_{t}'] = float(np.mean([r[f'dis_{t}'] for r in R]))
+            rec[f'sign_ok_{t}'] = float(np.mean([np.sign(r[f'shat_{t}']) == np.sign(r['s_test_case']) for r in R]))
+            rec[f'sign_local_ok_{t}'] = float(np.mean([np.sign(r[f'shat_{t}']) == np.sign(r['s_test_local']) for r in R]))
+            rec[f'flag_{t}'] = int(sum(r[f'flag_{t}'] for r in R))
+        summary.append(rec)
+    # Save missing support explicitly, never replace missing outcomes by zero.
+    available = {(r['case_id'], r['h_mult'], r['tau_s'], r['population']) for r in summary}
+    for result in results:
+        for hm in plan['h_mult']:
+            for tau in plan['taus_s']:
+                for pop in ('uniform', 'alarm'):
+                    key = (result['case_id'], hm, tau, pop)
+                    if key in available:
+                        continue
+                    missing = {k: None for k in summary[0]}
+                    missing.update(case_id=key[0], trace=result['group']['trace'], group=result['group']['group'],
+                                   h_mult=hm, tau_s=tau, population=pop, n=0,
+                                   status='NO_ALARMS' if (key[0], hm, tau, 'uniform') in available else 'NOT_EVALUABLE')
+                    summary.append(missing)
+    summary.sort(key=lambda r: (r['case_id'], r['h_mult'], r['tau_s'], r['population']))
+    write_csv(HERE / 'summary_rolling.csv', summary)
+    parent_cpu = time.process_time()-cpu
+    write_json(HERE / 'run.json', dict(owner='Doan Van Tai', stage='POST_HOC_EXPLORATORY',
+        cases_with_rows=sum(bool(r['rows']) for r in results), rows=len(rows), cells=len(summary),
+        available_cells=len(available), tags=list(TAGS), workers=6,
+        tape_check='PASS (every decision row, both qA/qB)',
+        checked_rows=sum(r['audit']['checked_rows'] for r in results),
+        window_units=sum(len(r['windows']) for r in results),
+        CPU_s=parent_cpu + sum(r['audit']['CPU_s'] for r in results), parent_CPU_s=parent_cpu,
+        wall_s=time.perf_counter()-wall, case_audits=[r['audit'] for r in results]))
+    print('rows', len(rows), 'cells', len(summary))
+
+
+if __name__ == '__main__':
+    main()

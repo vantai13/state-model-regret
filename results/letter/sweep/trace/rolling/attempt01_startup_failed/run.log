@@ -1,0 +1,45 @@
+Traceback (most recent call last):
+  File "/home/vantai/state-model-regret/results/letter/sweep/trace/rolling/analyze_rolling.py", line 271, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/results/letter/sweep/trace/rolling/analyze_rolling.py", line 211, in main
+    results = list(pool.map(run_case, ids))
+                   ~~~~~~~~^^^^^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/process.py", line 850, in map
+    results = super().map(partial(_process_chunk, fn),
+                          itertools.batched(zip(*iterables), chunksize),
+                          timeout=timeout,
+                          buffersize=buffersize)
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/_base.py", line 618, in map
+    fs = [self.submit(fn, *args) for args in zipped_iterables]
+          ~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/process.py", line 816, in submit
+    self._adjust_process_count()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/process.py", line 775, in _adjust_process_count
+    self._spawn_process()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/concurrent/futures/process.py", line 793, in _spawn_process
+    p.start()
+    ~~~~~~~^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+                  ~~~~~~~~~~~^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/multiprocessing/context.py", line 306, in _Popen
+    return Popen(process_obj)
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/multiprocessing/popen_forkserver.py", line 35, in __init__
+    super().__init__(process_obj)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/multiprocessing/popen_fork.py", line 20, in __init__
+    self._launch(process_obj)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/multiprocessing/popen_forkserver.py", line 51, in _launch
+    self.sentinel, w = forkserver.connect_to_new_process(self._fds)
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/multiprocessing/forkserver.py", line 89, in connect_to_new_process
+    self.ensure_running()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/multiprocessing/forkserver.py", line 167, in ensure_running
+    listener.bind(address)
+    ~~~~~~~~~~~~~^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted

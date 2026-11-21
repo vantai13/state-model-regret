@@ -1,0 +1,145 @@
+"""Doan Van Tai — S1-C post-hoc variant: rolling stationary-rate estimate (Claude, 21/11/2026).
+
+POST HOC, exploratory. Written after reading the S1-C full summary: in 17/25 evaluable cases the
+train-half s_hat had the opposite sign of the test-half realized rate difference (level drift
+between halves), and the stationary rule/hybrid lost there. This script asks whether re-estimating
+s_hat from a trailing window of PAST data (only up to t - tau) repairs it. Variants fixed before any
+variant outcome was computed: W in {60 s, 300 s, whole test history}, estimator in {sim, mm1}.
+- sim: the train estimator on the window, i.e. time-average total backlog of the action-1 history
+  minus the action-0 history, both replayed on the recorded test arrivals from test start.
+- mm1: M/M/1 mean number in system from window arrival rates (lam_j + u on the path carrying u).
+Decision costs, C_ref, fluid gap and populations come unchanged from the committed decisions.csv;
+only s_hat changes. The test tape is regenerated with the runner's own seed and checked against qA/qB.
+No runner/source file is modified. Outputs go to this folder only.
+"""
+import csv
+import json
+import sys
+from collections import defaultdict
+from concurrent.futures import ProcessPoolExecutor
+from pathlib import Path
+
+import numpy as np
+
+ROOT = Path(__file__).resolve().parents[5]
+sys.path.insert(0, str(ROOT))
+from experiments.letter import sweep_trace as S  # noqa: E402
+from experiments.ext_validity import packet as P  # noqa: E402
+
+HERE = Path(__file__).resolve().parent
+FULL = ROOT / 'results/letter/sweep/trace/full'
+WINDOWS = (60., 300., None)
+ESTIMATORS = ('sim', 'mm1')
+
+
+def mm1_cost(lam, mu):
+    rho = lam / mu
+    return rho / (1 - rho) if rho < 1 else np.inf
+
+
+def mm1_slope(rates, case):
+    u, mu = case['u'], case['mu']
+    stay = mm1_cost(rates[0] + u, mu[0]) + mm1_cost(rates[1], mu[1])
+    switch = mm1_cost(rates[0], mu[0]) + mm1_cost(rates[1] + u, mu[1])
+    if np.isinf(stay) and np.isinf(switch):
+        # Both overloaded: compare total overload (packets/s accumulating); flagged in output.
+        over = lambda a, b: max(0., a - mu[0]) + max(0., b - mu[1])
+        return over(rates[0], rates[1] + u) - over(rates[0] + u, rates[1]), True
+    return switch - stay, bool(np.isinf(stay) or np.isinf(switch))
+
+
+def run_case(case_id):
+    plan = json.loads((ROOT / 'results/letter/sweep/trace/design_ready/plan.json').read_text())
+    case = next(c for c in plan['cases'] if c['id'] == case_id)
+    path = FULL / case_id / 'decisions.csv'
+    if not path.exists():
+        return case_id, None, None
+    trace = S.load_trace(ROOT / S.TRACES[case['trace']], plan['train_fraction'])
+    seed = plan['full_seed'] + list(S.TRACES).index(case['trace']) * 100
+    tape = S.make_tape(trace, case, False, seed + 1000000)
+    runs = [S.history(tape, case, a) for a in (0, 1)]
+    rows = list(csv.DictReader(path.open()))
+    # Sanity: regenerated action-0 history reproduces the saved observed backlogs.
+    mism = 0
+    for r in rows[::37]:
+        e = float(r['t_test_s']) - float(r['tau_s'])
+        q = [int(P.backlog(run, e).item()) for run in runs[0]]
+        mism += q != [int(r['qA']), int(r['qB'])]
+    if mism:
+        raise RuntimeError(f'{case_id}: regenerated tape does not match saved backlog ({mism})')
+    cache = {}
+    out = []
+    for r in rows:
+        e = float(r['t_test_s']) - float(r['tau_s'])
+        h, gap = float(r['h_s']), float(r['fluid_gap'])
+        costs = (float(r['cost_stay']), float(r['cost_switch']))
+        cref = float(r['C_ref'])
+        rec = dict(case_id=case_id, trace=r['trace'], h_mult=float(r['h_mult']), tau_s=float(r['tau_s']),
+                   alarm=r['alarm'] == 'True', block=int(r['block']), C_ref=cref,
+                   regret_M0=float(r['regret_M0']), regret_static=float(r['regret_static']),
+                   regret_hybrid=float(r['regret_hybrid']), s_test=(costs[1] - costs[0]) / h)
+        for W in WINDOWS:
+            start = 0. if W is None else max(0., e - W)
+            key = (start, e)
+            if key not in cache:
+                span = e - start
+                sim = (sum(S.occupation(x, start, e) for x in runs[1]) -
+                       sum(S.occupation(x, start, e) for x in runs[0])) / span
+                rates = [float(((tape.bg[j] > start) & (tape.bg[j] <= e)).sum()) / span for j in (0, 1)]
+                cache[key] = dict(sim=(sim, False), mm1=mm1_slope(rates, case))
+            for est in ESTIMATORS:
+                s_w, flag = cache[key][est]
+                tag = f"{est}_{'all' if W is None else int(W)}"
+                a_st = int(s_w < 0)
+                a_hy = int(gap + h * s_w < 0)
+                rec[f'shat_{tag}'] = s_w
+                rec[f'flag_{tag}'] = flag
+                rec[f'regret_static_{tag}'] = costs[a_st] - cref
+                rec[f'regret_hybrid_{tag}'] = costs[a_hy] - cref
+                rec[f'dis_{tag}'] = a_st != a_hy
+        out.append(rec)
+    return case_id, out, mism
+
+
+def main():
+    plan = json.loads((ROOT / 'results/letter/sweep/trace/design_ready/plan.json').read_text())
+    ids = [c['id'] for c in plan['cases']]
+    with ProcessPoolExecutor(max_workers=6) as pool:
+        results = list(pool.map(run_case, ids))
+    rows = [x for _, out, _ in results if out for x in out]
+    tags = [f"{e}_{'all' if W is None else int(W)}" for W in WINDOWS for e in ESTIMATORS]
+    with (HERE / 'rows_rolling.csv').open('x', newline='') as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0]))
+        w.writeheader()
+        w.writerows(rows)
+    # Per case x h x tau x population: ratio of means in % C_ref, as in S1-C summary.csv.
+    cells = defaultdict(list)
+    for r in rows:
+        cells[(r['case_id'], r['trace'], r['h_mult'], r['tau_s'], 'uniform')].append(r)
+        if r['alarm']:
+            cells[(r['case_id'], r['trace'], r['h_mult'], r['tau_s'], 'alarm')].append(r)
+    summary = []
+    for (cid, tr, hm, tau, pop), R in sorted(cells.items()):
+        cref = np.mean([r['C_ref'] for r in R])
+        rec = dict(case_id=cid, trace=tr, h_mult=hm, tau_s=tau, population=pop, n=len(R), mean_Cref=cref)
+        for k in ('M0', 'static', 'hybrid'):
+            rec[f'pct_{k}'] = 100 * np.mean([r[f'regret_{k}'] for r in R]) / cref
+        for t in tags:
+            for k in ('static', 'hybrid'):
+                rec[f'pct_{k}_{t}'] = 100 * np.mean([r[f'regret_{k}_{t}'] for r in R]) / cref
+            rec[f'dis_{t}'] = float(np.mean([r[f'dis_{t}'] for r in R]))
+            rec[f'sign_ok_{t}'] = float(np.mean([(r[f'shat_{t}'] < 0) == (r['s_test'] < 0) for r in R]))
+            rec[f'flag_{t}'] = int(sum(r[f'flag_{t}'] for r in R))
+        summary.append(rec)
+    with (HERE / 'summary_rolling.csv').open('x', newline='') as f:
+        w = csv.DictWriter(f, fieldnames=list(summary[0]))
+        w.writeheader()
+        w.writerows(summary)
+    json.dump(dict(cases_with_rows=sum(1 for _, o, _ in results if o), rows=len(rows), tags=tags,
+                   tape_check='PASS (sampled every 37th row per case)'),
+              (HERE / 'run.json').open('x'), indent=1)
+    print('rows', len(rows), 'cells', len(summary))
+
+
+if __name__ == '__main__':
+    main()

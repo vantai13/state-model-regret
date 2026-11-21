@@ -1,0 +1,19 @@
+{
+  "owner": "Doan Van Tai",
+  "stage": "POST_HOC_EXPLORATORY",
+  "variants": [
+    "sim_60",
+    "mm1_60",
+    "sim_300",
+    "mm1_300",
+    "sim_all",
+    "mm1_all"
+  ],
+  "workers": 6,
+  "source_sha256": "fb4953f7fe8a4b9b3d35a5a624fe63188e91260902807fbc2f4545a076df98de",
+  "plan_sha256": "0ed8d93763283bb4052838af3d124b71b37a50e102fa023465fac9439a8e3151",
+  "group_rule": "sign(s_train) == sign(mean((switch-stay)/h)) at largest available h, uniform, tau=0",
+  "mm1_unstable_rule": "one unstable: +/-inf; both: sign(total overload difference)*inf; overload tie: 0; flag all",
+  "sign_metric": "exact sign against case s_test; local sign/action agreement also saved separately",
+  "extra_variants": 0
+}
