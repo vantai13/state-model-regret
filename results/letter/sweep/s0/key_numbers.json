@@ -1,0 +1,93 @@
+{
+ "note": "post hoc, exploratory; cells of one regime/day are not independent",
+ "w1b": {
+  "regimes": 93,
+  "mm1_sign_correct_all": true,
+  "mm1_worse_rows": 33,
+  "mm1_worse_shat_ratio_max": 0.41556620309755765,
+  "mm1_min_delta_when_shat_ratio_ge_0_5": -0.009826767001841463,
+  "true_s_min_delta": -2.6396445990799823e-11
+ },
+ "xctmc": {
+  "regimes": 91,
+  "sign_wrong_regimes": 3,
+  "min_delta_tau1": -0.02120314366034111
+ },
+ "geant": {
+  "regimes_with_any_disagreement": 8,
+  "static_action_of_those": [
+   0
+  ],
+  "m0_tie_at_disagreement": 0,
+  "all_tau_cells": 816,
+  "all_tau_disagreements": 4422,
+  "all_tau_disagreements_at_m0_tie": 0,
+  "fresh": {
+   "dis": 1822,
+   "right": 1820,
+   "wrong": 2,
+   "m1_agrees": 1815,
+   "ratio_gt_1_5": 1250,
+   "V_static_over_mean_median": 2.6158399893057034
+  },
+  "stale_tau1": {
+   "dis": 792,
+   "right": 479,
+   "wrong": 313,
+   "gain_sum": 2415415.672694274,
+   "loss_sum": 264724.2508624446,
+   "ratio_gt_1_5": 385
+  },
+  "top5_share_median": {
+   "fresh": 0.2653435394156409,
+   "stale": 0.6661776488752392
+  }
+ },
+ "x4b": {
+  "records": 60,
+  "disagreement_cells": 9,
+  "days": [
+   "NEWB3 2005-07-19"
+  ],
+  "instances": 161,
+  "right": 161,
+  "m0_tie": 0,
+  "ref_agrees": 161,
+  "ratio_min": 1.01283267484375,
+  "ratio_median": 1.045613283271635,
+  "ratio_max": 1.3978919175091542,
+  "backlog_static_bottleneck_median_Mbit": 1861089.3984998963,
+  "delta_by_h": {
+   "900": {
+    "delta": 1.9795453145911186,
+    "delta_se": 0.08965527573319793
+   },
+   "1200": {
+    "delta": 1.4514902858821082,
+    "delta_se": 0.19387377905520567
+   },
+   "1800": {
+    "delta": 0.18746362120749863,
+    "delta_se": 0.13048996487574646
+   }
+  }
+ },
+ "x5c": {
+  "disagreement_records": [
+   "arm_A NEWB3 2005-07-19",
+   "arm_B NEWB3 2005-07-19"
+  ],
+  "totals": {
+   "arm_A": {
+    "N": 2688,
+    "n_disagree": 139,
+    "m0_tie_at_disagree": 0
+   },
+   "arm_B": {
+    "N": 5271,
+    "n_disagree": 122,
+    "m0_tie_at_disagree": 0
+   }
+  }
+ }
+}
