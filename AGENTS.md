@@ -763,4 +763,4 @@ Letter v10.2/21-11: sửa theo kiểm 3 agent review ngoài của v10.1 (letter_
 Letter v10.3/21-11 (DL-160): theo nhận xét mới của thầy, abstract 98 từ, 15 refs, IV-B3 luật utilization + Bảng II (min-MLU 13,71% vs hybrid 0,51% ở 30 T_int), đoạn ma trận thật 3 câu (deviation có ghi). `letter_smr_v10` 5155d2e, PDF `SMR_letter_v10.3_MOI_NHAT.pdf`. Plan quét regime (S0/S1-A/S1-C) đang chạy song song.
 Sweep+v10.4/21-11 (DL-161): S1-A CTMC 1000 regime + S2 post hoc → thẻ S3 khóa trước, 600 regime mới **PASS** (vùng D_ŝ≥0,28 phủ 19,3%, fresh h=T_int 1,91%→0,34% C_ref,
 Δ 1,56 [0,88; 2,25], ngoài vùng không hại; rescore MATCH). S1-C trace thật: lật dấu ŝ do tải trôi, rolling ŝ sửa post hoc, chưa vào paper. Letter v10.4 `5da0caf` (Algorithm 1,
-Results rút, citation Table I). Câu S3 cho IV-B4 chờ tác giả duyệt. `results/letter/sweep/s3/`.
+Results rút, citation Table I). Câu S3 vào IV-B4 ở v10.5 `717339c` (tác giả duyệt, ledger S3). `results/letter/sweep/s3/`.
