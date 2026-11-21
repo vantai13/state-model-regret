@@ -4763,3 +4763,20 @@ Không rerun engine, không đổi card/ngưỡng; letter báo cả sensitivity 
 - **Vận hành:**
   - VM tăng lên n2-highcpu-32 nhưng không dùng (không có truth); đã trả về n2-custom-12-49152, TERMINATED.
   - Phiên Claude bị ngắt sau khi Codex xong X5c (00:44), nên các bước còn lại và việc tắt máy làm sáng 21/11.
+
+### DL-160 — Letter v10.3 theo nhận xét mới của GVHD (21/11/2026)
+- GVHD nhận xét v10.2: abstract 106 từ (đếm tách gạch nối), 17 refs → ≤ 15, luật utilization cần tiểu mục và hình/bảng riêng, thiếu regret
+  hybrid–min-MLU, đoạn ma trận thật dài và nhiều số đếm, đóng góp 3 quá mức, IV-B dày tỷ số. Tác giả duyệt đề xuất
+  (`letter_smr/briefs/v10_2_advisor/PROPOSAL.md`).
+- **v10.3** (`letter_smr_v10` `5155d2e`):
+  - Abstract 98 từ theo cách đếm của thầy.
+  - Bỏ Chiaraviglio và Hyytiä (còn 15 refs).
+  - IV-B3 mới với Bảng II (ledger TAB2): đếm lại post hoc từ raw X-CTMC, mô tả, thẻ X-CTMC không đăng ký trước so sánh với min-MLU.
+    Regret ở 30 T_int: min-MLU 13,71% so với hybrid 0,51%; hybrid thấp hơn ở 33/40 regime, cao hơn ở 3. Lưới hai: 16,33% so với 0,005%.
+  - Đóng góp 3 ghi "semi-synthetic check"; mỗi tiểu mục giữ 2–3 số chính.
+- **Deviation có ghi:** phần ma trận GÉANT thật rút còn 3 câu theo yêu cầu GVHD.
+  - Các thẻ V7-4, X4, X4b, X2, X5, X5c cam kết một mệnh đề kèm số đếm. Bản rút vẫn nêu kết cục của tất cả (hầu như không tách khỏi luật tĩnh;
+    rule ngưỡng không phân giải) nhưng bỏ số đếm.
+  - Lý do: giới hạn trang và yêu cầu GVHD, không vì kết quả. Số đầy đủ vẫn ở ledger (V74_SIGNAL, X_GEANT, X4B, X5, X5C_A, X5C_B) và repo.
+- **Kiểm:** 5 trang, số liệu 0 unmatched, check_v9 10/10 (≤ 15 refs), pytest 173, style 0 ERROR. Trang 5 còn trống khoảng 0,6 cột.
+- **Song song:** S0 (phân tích dữ liệu cũ), S1-A (quét CTMC) và S1-C (trace thật) của plan quét regime (`letter_smr/briefs/sweep/`) đang chạy.
