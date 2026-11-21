@@ -1,0 +1,38 @@
+COMMAND: python3 -B results/letter/sweep/ctmc/s2/verify_final.py
+{
+  "owner": "Doan Van Tai",
+  "kind": "EXPLORATORY_POST_HOC_FINAL_VERIFICATION",
+  "status": "PASS",
+  "checks": {
+    "protected_SHA256": 1019,
+    "analysis_source_matches_run": 1,
+    "age_pair_uniqueness_and_coverage": 1,
+    "age_feature_regions_recomputed": 12703,
+    "age_numeric_bin_coverage": 11695,
+    "age_categorical_bin_coverage": 1008,
+    "harm_age_summary": 1,
+    "successful_command_receipts": 5,
+    "PNG_valid": 3
+  },
+  "gate_overall": "NOT_DECIDED_UNQUANTIFIED_HARM",
+  "numerical_gate_PASS": 47,
+  "numerical_gate_FAIL": 9,
+  "age_specific_negative_mean_regions": 3,
+  "age_specific_negative_mean_regions_ci_cross_zero": 3,
+  "local_CPU_seconds": 168.202336723,
+  "local_command_wall_seconds_sum": 168.87836338300258,
+  "timing_scope": "measured commands only; excludes uninstrumented inspections, coding, interaction and the first final-check dtype failure (not timed); no double counting internal analyzer/report timings",
+  "retained_first_final_check_failure": {
+    "log": "final_verification.log",
+    "reason": "CSV tau=3 subset inferred int64 versus full table float64; exact numeric values agree",
+    "cpu_seconds": null,
+    "wall_seconds": null
+  },
+  "raw_S1_worker_CPU_seconds": 48613.505190357995,
+  "raw_S1_max_parallel_shard_wall_seconds": 1788.2905727309999,
+  "head_observed": "c34c9ed32363f5314bb0fa1d6137a7430eea83a3",
+  "task_commits": 0,
+  "task_ssh_calls": 0,
+  "new_sweep_truth_evaluations": 0,
+  "legacy_control_regimes_recomputed": 2
+}

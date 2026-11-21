@@ -1,0 +1,148 @@
+{
+  "allowed_features": [
+    "abs_s_over_r_min",
+    "kappa_min_over_T_int",
+    "kappa_max_over_T_int",
+    "A_kappa_over_T_int",
+    "B_kappa_over_T_int",
+    "load_imbalance",
+    "load_balance_other_minus_chosen",
+    "load_level",
+    "D",
+    "D_side",
+    "disagreement",
+    "abs_shat_over_abs_s",
+    "static_switch",
+    "same_rate_sign",
+    "static_action",
+    "rate_sign",
+    "estimator_method"
+  ],
+  "provenance": "parameters, stationary model, finite arrival record, policy decision disagreement; no regret/cost outcomes as predictors",
+  "D": "D_fresh + D_stale of Corollary 1, mean over the 3 ages for regime/h summaries; range [0,2]",
+  "D_side": "the corresponding one-side D tail; not the actual hybrid/static disagreement",
+  "load_imbalance": "abs(A_base_rho - B_base_rho)",
+  "load_balance_other_minus_chosen": "rho of other path minus chosen path under the stationary chosen action",
+  "load_level": "max(A_base_rho, B_base_rho)",
+  "abs_shat_over_abs_s": "diagnostic using model true s; unavailable without a model or validation reference; undefined when s=0",
+  "model_only": "true s, true r_min, true T_int and true-side D require the generative model; outcome-free does not imply measured on a production network",
+  "excluded_outcome_features": [
+    "C_ref",
+    "baseline_abs",
+    "hybrid_abs",
+    "baseline_pp",
+    "hybrid_pp",
+    "delta_abs",
+    "delta_pp"
+  ],
+  "bins": {
+    "abs_s_over_r_min": [
+      "0",
+      "0.03",
+      "0.1",
+      "0.3",
+      "1",
+      "inf"
+    ],
+    "kappa_min_over_T_int": [
+      "0",
+      "0.01",
+      "0.03",
+      "0.1",
+      "0.3",
+      "1",
+      "inf"
+    ],
+    "kappa_max_over_T_int": [
+      "0",
+      "0.01",
+      "0.03",
+      "0.1",
+      "0.3",
+      "1",
+      "inf"
+    ],
+    "A_kappa_over_T_int": [
+      "0",
+      "0.01",
+      "0.03",
+      "0.1",
+      "0.3",
+      "1",
+      "inf"
+    ],
+    "B_kappa_over_T_int": [
+      "0",
+      "0.01",
+      "0.03",
+      "0.1",
+      "0.3",
+      "1",
+      "inf"
+    ],
+    "load_imbalance": [
+      "0",
+      "0.05",
+      "0.15",
+      "0.3",
+      "inf"
+    ],
+    "load_balance_other_minus_chosen": [
+      "-inf",
+      "-0.15",
+      "-0.05",
+      "0.05",
+      "0.15",
+      "inf"
+    ],
+    "load_level": [
+      "0",
+      "0.5",
+      "0.7",
+      "0.85",
+      "inf"
+    ],
+    "D": [
+      "0",
+      "0.01",
+      "0.05",
+      "0.1",
+      "0.3",
+      "0.5",
+      "1",
+      "1.5",
+      "inf"
+    ],
+    "D_side": [
+      "0",
+      "0.01",
+      "0.05",
+      "0.1",
+      "0.3",
+      "0.5",
+      "1",
+      "inf"
+    ],
+    "disagreement": [
+      "0",
+      "0.001",
+      "0.01",
+      "0.05",
+      "0.1",
+      "0.3",
+      "1",
+      "inf"
+    ],
+    "abs_shat_over_abs_s": [
+      "0",
+      "0.25",
+      "0.5",
+      "0.75",
+      "1",
+      "1.25",
+      "2",
+      "4",
+      "inf"
+    ]
+  }
+}
