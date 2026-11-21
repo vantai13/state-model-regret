@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/vantai/state-model-regret/experiments/letter/x5c_alarm.py", line 677, in <module>
+    main()
+    ~~~~^^
+  File "/home/vantai/state-model-regret/experiments/letter/x5c_alarm.py", line 666, in main
+    result = fn(args.arm, workers=default if args.workers is None else args.workers)
+  File "/home/vantai/state-model-regret/experiments/letter/x5c_alarm.py", line 209, in configure
+    training = _training(config, arrays, out, workers)
+  File "/home/vantai/state-model-regret/experiments/letter/x5c_alarm.py", line 170, in _training
+    (out / 'train').mkdir(exist_ok=False)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/opt/python@3.14/lib/python3.14/pathlib/__init__.py", line 1011, in mkdir
+    os.mkdir(self, mode)
+    ~~~~~~~~^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/vantai/state-model-regret/results/letter/x5c_alarm/arm_B/train'

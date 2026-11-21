@@ -1,0 +1,1118 @@
+{
+  "arm": "B",
+  "base_capacity_Mbps": 12544.525173885328,
+  "brief_sha256": "1b8084883437d9bcc6691232bb8b2b83a029a15918d32ba0a423718a065fb14a",
+  "brief_source": "/home/vantai/state-model-regret-papers/letter_smr/briefs/strengthen2/DESIGN_X5C_ALARM.md",
+  "busiest_Stay_link": "at1.at_de1.de:at1.at>de1.de",
+  "capacity_axes": [
+    "regime",
+    "native_directed_link"
+  ],
+  "card_sha256": "331911f911d26b92df0665821760ed4912250ff9cdb926f07de8f093ec64ee32",
+  "choices": {
+    "beta": "Process-local S.BETA and the captured keyword defaults in S.variable and X.expected_loads.",
+    "local_runtime": "Reuse highest input-work first record for train/step0; project before remaining work.",
+    "lock": "Content lock, uncommitted as requested; portable brief snapshot is byte-identical to original.",
+    "pilot": "Two highest input-work non-RARE step0 records, screen pilot seed before rollouts.",
+    "pilot_runtime": "Input-work-scaled X4b pilot estimate, then first X5c pilot before second; stop above 40min.",
+    "scorer": "Unchanged X5 T1--T4 and X5 reporting choices; evaluate each arm separately.",
+    "tie_pool": "Fresh M0 once per instance,h across seven holds, no stale duplication.",
+    "zero_slope": "Stay when s_hat >= 0, including exact zero."
+  },
+  "exposure": "Same 60 X4b test-S regime/day records, already exposed; new X5c seeds and alarm selection.",
+  "owner": "Doan Van Tai",
+  "parameters": {
+    "ALARM_SERVICE_S": 0.001,
+    "K": 64,
+    "M": 512,
+    "MIN_ALARMS": 8,
+    "N": 32,
+    "R_dec": 64,
+    "R_eval": 128,
+    "arm": "B",
+    "beta": 0.6,
+    "dt_s": 0.05,
+    "evaluability_capacity_Mbps": 12544.525174,
+    "h_seconds": [
+      300,
+      600,
+      900,
+      1200,
+      1800,
+      3600,
+      7200
+    ],
+    "namespace": "X5C-B|regime|date",
+    "pilot_seed": 7200003,
+    "pipelines": [
+      "M0",
+      "Hybrid",
+      "Stationary"
+    ],
+    "sides": [
+      "fresh",
+      "stale_300",
+      "stale_900"
+    ],
+    "tau_seconds": [
+      300.0,
+      900.0
+    ],
+    "test_seed": 7200001,
+    "train_seed": 7200005
+  },
+  "protocol_sha256": "6c09588fd174c4cf5531cb5b7e77c502cdcdf8960a7c2422b5e8301e8cdd5e1d",
+  "regimes": [
+    {
+      "X2_eligible": true,
+      "X2_rank": 4,
+      "X4_eligible": false,
+      "alarm_action": "Stay",
+      "alarm_link": "at1.at_de1.de:at1.at>de1.de",
+      "alarm_link_index": 1,
+      "alarm_threshold_Mbit": 12.544525173885328,
+      "distinct_path_bottlenecks": true,
+      "e_star_capacity_Mbps": 2107.079186150075,
+      "e_star_index": 27,
+      "e_star_link": "de1.de_fr1.fr:fr1.fr>de1.de",
+      "e_star_train_load_Switch_Mbps": 1791.017308227564,
+      "e_star_utilization_after": 0.85,
+      "e_star_utilization_before": 0.1427728258663811,
+      "id": "NEWB1",
+      "managed_OD": "ch1.ch_de1.de",
+      "managed_index": 45,
+      "path_bottleneck_indices_after": [
+        1,
+        27
+      ],
+      "path_max_mean_utilization": [
+        0.8999999999999996,
+        0.1427728258663811
+      ],
+      "path_max_mean_utilization_after": [
+        0.8999999999999996,
+        0.85
+      ],
+      "path_max_mean_utilization_before": [
+        0.8999999999999996,
+        0.1427728258663811
+      ],
+      "s_hat_Mbit": 62812.710843280525,
+      "set": "X4b",
+      "source": "ch1.ch",
+      "stay": [
+        "ch1.ch",
+        "at1.at",
+        "de1.de"
+      ],
+      "stay_edges": [
+        1,
+        8
+      ],
+      "stay_uses_busiest_link": true,
+      "switch": [
+        "ch1.ch",
+        "fr1.fr",
+        "de1.de"
+      ],
+      "switch_avoids_busiest_link": true,
+      "switch_edges": [
+        9,
+        27
+      ],
+      "switch_to_stay_path_utilization_ratio": 0.15863647318486795,
+      "target": "de1.de",
+      "train_window_mean_volume_Mbps": 201.30841165064106
+    },
+    {
+      "X2_eligible": true,
+      "X2_rank": 5,
+      "X4_eligible": false,
+      "alarm_action": "Switch",
+      "alarm_link": "de1.de_se1.se:de1.de>se1.se",
+      "alarm_link_index": 21,
+      "alarm_threshold_Mbit": 9.126508697965683,
+      "distinct_path_bottlenecks": true,
+      "e_star_capacity_Mbps": 9126.508697965683,
+      "e_star_index": 21,
+      "e_star_link": "de1.de_se1.se:de1.de>se1.se",
+      "e_star_train_load_Switch_Mbps": 7757.532393270831,
+      "e_star_utilization_after": 0.8500000000000001,
+      "e_star_utilization_before": 0.618399842619802,
+      "id": "NEWB2",
+      "managed_OD": "ch1.ch_se1.se",
+      "managed_index": 59,
+      "path_bottleneck_indices_after": [
+        1,
+        21
+      ],
+      "path_max_mean_utilization": [
+        0.8999999999999996,
+        0.618399842619802
+      ],
+      "path_max_mean_utilization_after": [
+        0.8999999999999996,
+        0.8500000000000001
+      ],
+      "path_max_mean_utilization_before": [
+        0.8999999999999996,
+        0.618399842619802
+      ],
+      "s_hat_Mbit": -78887.14794205013,
+      "set": "X4b",
+      "source": "ch1.ch",
+      "stay": [
+        "ch1.ch",
+        "at1.at",
+        "de1.de",
+        "se1.se"
+      ],
+      "stay_edges": [
+        1,
+        8,
+        21
+      ],
+      "stay_uses_busiest_link": true,
+      "switch": [
+        "ch1.ch",
+        "fr1.fr",
+        "de1.de",
+        "se1.se"
+      ],
+      "switch_avoids_busiest_link": true,
+      "switch_edges": [
+        9,
+        27,
+        21
+      ],
+      "switch_to_stay_path_utilization_ratio": 0.6871109362442247,
+      "target": "se1.se",
+      "train_window_mean_volume_Mbps": 182.6921337836537
+    },
+    {
+      "X2_eligible": true,
+      "X2_rank": 6,
+      "X4_eligible": false,
+      "alarm_action": "Stay",
+      "alarm_link": "at1.at_de1.de:at1.at>de1.de",
+      "alarm_link_index": 1,
+      "alarm_threshold_Mbit": 12.544525173885328,
+      "distinct_path_bottlenecks": true,
+      "e_star_capacity_Mbps": 1953.8802060727753,
+      "e_star_index": 27,
+      "e_star_link": "de1.de_fr1.fr:fr1.fr>de1.de",
+      "e_star_train_load_Switch_Mbps": 1660.798175161859,
+      "e_star_utilization_after": 0.85,
+      "e_star_utilization_before": 0.13239227090230882,
+      "id": "NEWB3",
+      "managed_OD": "at1.at_de1.de",
+      "managed_index": 3,
+      "path_bottleneck_indices_after": [
+        1,
+        27
+      ],
+      "path_max_mean_utilization": [
+        0.8999999999999996,
+        0.13239227090230882
+      ],
+      "path_max_mean_utilization_after": [
+        0.8999999999999996,
+        0.85
+      ],
+      "path_max_mean_utilization_before": [
+        0.8999999999999996,
+        0.13239227090230882
+      ],
+      "s_hat_Mbit": 28352.98596824788,
+      "set": "X4b",
+      "source": "at1.at",
+      "stay": [
+        "at1.at",
+        "de1.de"
+      ],
+      "stay_edges": [
+        1
+      ],
+      "stay_uses_busiest_link": true,
+      "switch": [
+        "at1.at",
+        "ch1.ch",
+        "fr1.fr",
+        "de1.de"
+      ],
+      "switch_avoids_busiest_link": true,
+      "switch_edges": [
+        0,
+        9,
+        27
+      ],
+      "switch_to_stay_path_utilization_ratio": 0.14710252322478765,
+      "target": "de1.de",
+      "train_window_mean_volume_Mbps": 71.08927858493587
+    }
+  ],
+  "s_hat_pooled_Mbit": {
+    "NEWB1": 62812.710843280525,
+    "NEWB2": -78887.14794205013,
+    "NEWB3": 28352.98596824788
+  },
+  "schema": "x5c-alarm-configuration-v1",
+  "sources": {
+    "repo:experiments/explore_ctmc/env.sh": {
+      "path": "/home/vantai/state-model-regret/experiments/explore_ctmc/env.sh",
+      "sha256": "68f010e847853452166873322c843de10f501a277e89bc6c308804efbadfc009"
+    },
+    "repo:experiments/ext_validity/__init__.py": {
+      "path": "/home/vantai/state-model-regret/experiments/ext_validity/__init__.py",
+      "sha256": "2f14d642d46871659fd69c024bbfc370b65b43522b3f023e7c2dd880e4fb78d8"
+    },
+    "repo:experiments/ext_validity/ev_te.py": {
+      "path": "/home/vantai/state-model-regret/experiments/ext_validity/ev_te.py",
+      "sha256": "4eb87842c1397ebdcb5fa1efc4ea3fe5711821d093cead435fe7f57693ec084f"
+    },
+    "repo:experiments/ext_validity/packet.py": {
+      "path": "/home/vantai/state-model-regret/experiments/ext_validity/packet.py",
+      "sha256": "26ee86f4f959276628e8891e684701de0725ab94628a531b4c1e56943e807193"
+    },
+    "repo:experiments/ext_validity/trace_cox.py": {
+      "path": "/home/vantai/state-model-regret/experiments/ext_validity/trace_cox.py",
+      "sha256": "1075e2243af29113d49972e02d364204d749507e328e862daa7bd03ea3458108"
+    },
+    "repo:experiments/letter/__init__.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/__init__.py",
+      "sha256": "5a5bdbbbdc14ae241e2edc3da668d309f9d93eb6464989e33c8726adc658e75a"
+    },
+    "repo:experiments/letter/e4_geant.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/e4_geant.py",
+      "sha256": "53035c71881180a973518c33aea3f8386e5588f75869e1681c695e90b6852b21"
+    },
+    "repo:experiments/letter/e4_rhat.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/e4_rhat.py",
+      "sha256": "a2ffb05e092304ce43db31e7d09a36fbcbb6ba3a0f4034db180753d1375a5eb2"
+    },
+    "repo:experiments/letter/v7_3_data.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/v7_3_data.py",
+      "sha256": "5808dea5fd06786b5869a8a409334a0d62581f02e96c37ca542217b379730fbe"
+    },
+    "repo:experiments/letter/v7_3_day.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/v7_3_day.py",
+      "sha256": "7352d63b7d5b84ecf629b762dfcfae8af9814d0db6aeced3fb05fd423090c967"
+    },
+    "repo:experiments/letter/v7_3_run.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/v7_3_run.py",
+      "sha256": "eff938b88995afc438a5a660b90607c9247dd272a1fec8ed1349a4328e387837"
+    },
+    "repo:experiments/letter/v7_3_sim.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/v7_3_sim.py",
+      "sha256": "0b2260492e648ba144a577a1c9094cebb353cff60972609bb9c6b928b15db7fe"
+    },
+    "repo:experiments/letter/v7_3_test.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/v7_3_test.py",
+      "sha256": "e56d02bc201e37d5a3702bf7fda2ea956f50f862a9356c38c6066cf24a94c3b1"
+    },
+    "repo:experiments/letter/v7_3_test_common.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/v7_3_test_common.py",
+      "sha256": "0278e7269c55267237141b4ad1487411499f49bbc0944adde58ba3dbd777fd04"
+    },
+    "repo:experiments/letter/x4b.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/x4b.py",
+      "sha256": "86328ae55b9ef328843fcdbab415a810ec455210f43241190602d32d4b4d40cc"
+    },
+    "repo:experiments/letter/x5_alarm.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/x5_alarm.py",
+      "sha256": "1a65692f231064405064e9938fea51a5a3887632d7c7ae67ea1b90f4c652d724"
+    },
+    "repo:experiments/letter/x5_alarm_card.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/x5_alarm_card.py",
+      "sha256": "159fb0ac81eaf9c7efdade0ad5fe49c0cfb0ff06c5f38d4cbe9a309b9512e701"
+    },
+    "repo:experiments/letter/x_geant.py": {
+      "path": "/home/vantai/state-model-regret/experiments/letter/x_geant.py",
+      "sha256": "eb596325a2520b91583a240a9db473bb94ba1391b10a490df431b738d90a9e92"
+    },
+    "repo:results/letter/v7_3/data_manifest.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/v7_3/data_manifest.json",
+      "sha256": "1563837f2df6e7700b80c7e1d3d2a50e542da968f84684ce7775ddbe507e7e48"
+    },
+    "repo:results/letter/x4b/configuration.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/x4b/configuration.json",
+      "sha256": "4588829744cb48b32ccdae2628ee0cc0588ade0a5798d5a35124ecf71f5d1c1b"
+    },
+    "repo:results/letter/x4b/configuration.npz": {
+      "path": "/home/vantai/state-model-regret/results/letter/x4b/configuration.npz",
+      "sha256": "4c22fc2080f260b354e1d1b8f37909218ba3c2a8eb4e526f36ebc36aea53f4f4"
+    },
+    "repo:results/letter/x4b/inputs.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/x4b/inputs.json",
+      "sha256": "e8fbd592da3718fd78b80e4f8b556f778089c9ffdb38c4a1c315832156397d3c"
+    },
+    "repo:results/letter/x4b/training_summary.json": {
+      "path": "/home/vantai/state-model-regret/results/letter/x4b/training_summary.json",
+      "sha256": "ddfd83c4ac971bd3e2385449036bf0ccce5fe413a0e2b639fc1cc1a2622dbc33"
+    },
+    "sndlib:archive": {
+      "path": "/home/vantai/papers/data/sndlib/directed-geant-uhlig-15min-over-4months-ALL-native.tgz",
+      "sha256": "92d72a808d6de9d26be66844c098d3f32d5b9bb6c69af170e82b73118faef0df"
+    },
+    "sndlib:topology": {
+      "path": "/home/vantai/papers/data/sndlib/sndlib-networks-native/geant.txt",
+      "sha256": "ff316c23220ff4485deafcb8701d49c353db0c80072152df3ed9023ed4b4f4ff"
+    }
+  },
+  "start_slot": 41,
+  "test_records": [
+    {
+      "date": "2005-06-17",
+      "max_utilization_by_action": [
+        0.846928161786247,
+        0.8379159408027576
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-20",
+      "max_utilization_by_action": [
+        0.8337698286555386,
+        0.9641530424454131
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-17",
+      "max_utilization_by_action": [
+        0.5807556332212961,
+        0.6522924881201437
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-18",
+      "max_utilization_by_action": [
+        0.6590939999447588,
+        0.7118007599611761
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-19",
+      "max_utilization_by_action": [
+        0.522947150844059,
+        0.6246942728360513
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-24",
+      "max_utilization_by_action": [
+        0.6775852803181319,
+        0.7524678367199595
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-25",
+      "max_utilization_by_action": [
+        0.7916038951137409,
+        0.8309225583491191
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-30",
+      "max_utilization_by_action": [
+        0.6345587938927931,
+        0.702552064360131
+      ],
+      "regime": "NEWB1",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-16",
+      "max_utilization_by_action": [
+        0.7982594412458343,
+        0.7982594412458343
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-17",
+      "max_utilization_by_action": [
+        0.846928161786247,
+        0.8331987186536731
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-20",
+      "max_utilization_by_action": [
+        0.8172420294824717,
+        0.7975767692529692
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-22",
+      "max_utilization_by_action": [
+        0.9450151000277603,
+        0.929942236816196
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-19",
+      "max_utilization_by_action": [
+        0.8759476199127156,
+        0.853930956533941
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-20",
+      "max_utilization_by_action": [
+        0.9237341638982891,
+        0.9169831037484556
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-21",
+      "max_utilization_by_action": [
+        0.9121625683226999,
+        0.9085984331816521
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-26",
+      "max_utilization_by_action": [
+        0.9442592596218005,
+        0.8167777373774086
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-29",
+      "max_utilization_by_action": [
+        0.8905749460535244,
+        0.7095866234563127
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-01",
+      "max_utilization_by_action": [
+        0.42627395544089663,
+        0.42627395544089663
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-02",
+      "max_utilization_by_action": [
+        0.6020004638932882,
+        0.5844050678188717
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-03",
+      "max_utilization_by_action": [
+        0.6082585617416969,
+        0.5918957326864124
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-05",
+      "max_utilization_by_action": [
+        0.9407935943691013,
+        0.9407935943691013
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-08",
+      "max_utilization_by_action": [
+        0.8527114785714076,
+        0.7098544462510694
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-10",
+      "max_utilization_by_action": [
+        0.9817729056527922,
+        0.9409813418480887
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-11",
+      "max_utilization_by_action": [
+        0.9547326121942447,
+        0.7308366123801608
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-12",
+      "max_utilization_by_action": [
+        0.5378210576710405,
+        0.5226929247708757
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-15",
+      "max_utilization_by_action": [
+        0.42295229412471197,
+        0.42295229412471197
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-16",
+      "max_utilization_by_action": [
+        0.5434488125698043,
+        0.523080628086273
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-17",
+      "max_utilization_by_action": [
+        0.46506087899962223,
+        0.46506087899962223
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-18",
+      "max_utilization_by_action": [
+        0.459476263956094,
+        0.459476263956094
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-19",
+      "max_utilization_by_action": [
+        0.4649874907296608,
+        0.4649874907296608
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-22",
+      "max_utilization_by_action": [
+        0.6399639277469384,
+        0.6238475394263288
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-23",
+      "max_utilization_by_action": [
+        0.6556714105148151,
+        0.6385498317365984
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-24",
+      "max_utilization_by_action": [
+        0.5530851770654213,
+        0.5530851770654213
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-25",
+      "max_utilization_by_action": [
+        0.7916038951137409,
+        0.790664224711522
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-26",
+      "max_utilization_by_action": [
+        0.8906952481756915,
+        0.865076429245101
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-29",
+      "max_utilization_by_action": [
+        0.5790972580980576,
+        0.5790972580980576
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-30",
+      "max_utilization_by_action": [
+        0.5745170002597761,
+        0.5745170002597761
+      ],
+      "regime": "NEWB2",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-17",
+      "max_utilization_by_action": [
+        0.846928161786247,
+        0.8421481437968192
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-20",
+      "max_utilization_by_action": [
+        0.8991436867724554,
+        0.9527644377654657
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-06-22",
+      "max_utilization_by_action": [
+        0.9450151000277603,
+        0.9401648721270134
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-19",
+      "max_utilization_by_action": [
+        0.8759476199127156,
+        0.8679573989509324
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-26",
+      "max_utilization_by_action": [
+        0.9442592596218005,
+        0.9442592596218005
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-07-29",
+      "max_utilization_by_action": [
+        0.8905749460535244,
+        0.8905749460535244
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-03",
+      "max_utilization_by_action": [
+        0.721695992731439,
+        0.7404873668831828
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-05",
+      "max_utilization_by_action": [
+        0.8679567016079565,
+        0.9097389801459473
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-08",
+      "max_utilization_by_action": [
+        0.8527114785714076,
+        0.8467124442550937
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-10",
+      "max_utilization_by_action": [
+        0.9817729056527922,
+        0.9699592843362589
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-11",
+      "max_utilization_by_action": [
+        0.9547326121942447,
+        0.9537705612730093
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-12",
+      "max_utilization_by_action": [
+        0.9563823095152432,
+        0.9720555063186194
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-16",
+      "max_utilization_by_action": [
+        0.6286311920160018,
+        0.6898818207024682
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-17",
+      "max_utilization_by_action": [
+        0.6262912655528594,
+        0.6499168971839732
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-18",
+      "max_utilization_by_action": [
+        0.7107719524890225,
+        0.7313726801461717
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-19",
+      "max_utilization_by_action": [
+        0.5639501611077576,
+        0.5802662867847134
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-22",
+      "max_utilization_by_action": [
+        0.6399639277469384,
+        0.6592597140789206
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-23",
+      "max_utilization_by_action": [
+        0.6941272539558573,
+        0.713109837373573
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-24",
+      "max_utilization_by_action": [
+        0.7307130890433013,
+        0.7522909021911918
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-25",
+      "max_utilization_by_action": [
+        0.8138980184442117,
+        0.844701518992985
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-26",
+      "max_utilization_by_action": [
+        0.8906952481756915,
+        0.8906952481756915
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-29",
+      "max_utilization_by_action": [
+        0.8526182387345146,
+        0.8771888085426269
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    },
+    {
+      "date": "2005-08-30",
+      "max_utilization_by_action": [
+        0.684313000789056,
+        0.7159078451444734
+      ],
+      "regime": "NEWB3",
+      "set": "X4b",
+      "split": "test",
+      "status": "PLANNED",
+      "stratum": "S"
+    }
+  ],
+  "train_dates": [
+    "2005-05-05",
+    "2005-05-06",
+    "2005-05-09",
+    "2005-05-10",
+    "2005-05-11",
+    "2005-05-12",
+    "2005-05-13",
+    "2005-05-16",
+    "2005-05-17",
+    "2005-05-18",
+    "2005-05-20",
+    "2005-05-23",
+    "2005-05-24",
+    "2005-05-25",
+    "2005-05-26",
+    "2005-05-30",
+    "2005-06-01",
+    "2005-06-02",
+    "2005-06-03",
+    "2005-06-06",
+    "2005-06-07",
+    "2005-06-08",
+    "2005-06-09",
+    "2005-06-10",
+    "2005-06-13",
+    "2005-06-14"
+  ],
+  "train_summary_sha256": "53c88c86fc48a4c0c23ff8c746a38637f50ad9e790753400569952a7dc4eb35c",
+  "training_only_selection": true,
+  "window_end": "16:15",
+  "window_start": "10:15",
+  "x5_card_sha256": "b32b040ef9df9dfafab6d3f7f7a3682df38f0841285fe559e6237a4e8a44fb42"
+}
